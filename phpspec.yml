@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Palencia
+        psr4_prefix: Palencia
+        src_path: app
