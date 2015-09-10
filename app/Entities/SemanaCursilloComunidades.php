@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SemanaCursilloComunidad extends Model {
+class SemanaCursilloComunidades extends Model {
 
 	//
 

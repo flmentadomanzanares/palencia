@@ -17,11 +17,31 @@ class ProvinciasTableSeeder extends BaseSeeder {
 
         return [
 
-            'title'  => $faker->sentence(),
-            'status' => $faker->randomElement(['open', 'open', 'closed']),
-            /*'user_id' => $this->createFrom('UserTableSeeder')->id*/
-            'user_id' => $this->getRandom('User')->id
+
         ];
+
+    }
+
+
+    public function run()
+    {
+
+        // datos personalizados
+        $this->createProvincia();
+
+        // datos generales
+        $this->createMultiple(0);
+
+    }
+
+    private function createProvincia()
+    {
+
+        Provincias::create([
+            'provincia' => 'Las Palmas',
+            'pais_id'  => 1
+
+        ]);
 
     }
 

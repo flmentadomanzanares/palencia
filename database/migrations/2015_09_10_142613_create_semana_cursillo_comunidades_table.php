@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSemanaCursilloComunidadTable extends Migration {
+class CreateSemanaCursilloComunidadesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateSemanaCursilloComunidadTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('semana_cursillo_comunidad', function(Blueprint $table)
+		Schema::create('semana_cursillo_comunidades', function(Blueprint $table)
 		{
             $table->bigIncrements('id');
 
@@ -28,8 +28,7 @@ class CreateSemanaCursilloComunidadTable extends Migration {
             $table->timestamp('created_at')->default(date("Y-m-d H:i:s"));
 
             $table->timestamp('updated_at')->default(date("Y-m-d H:i:s"));
-
-        });
+		});
 	}
 
 	/**
@@ -39,7 +38,7 @@ class CreateSemanaCursilloComunidadTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('semana_cursillo_comunidad');
+		Schema::drop('semana_cursillo_comunidades');
 	}
 
 }

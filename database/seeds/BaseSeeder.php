@@ -188,5 +188,4 @@ abstract class BaseSeeder extends Seeder {
         return isset (static::$pool[$collection]);
 
     }
-
 }

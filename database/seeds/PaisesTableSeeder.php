@@ -14,13 +14,35 @@ class PaisesTableSeeder extends BaseSeeder {
     public function getDummyData(Generator $faker, array $customValues = array())
     {
 
+        // configuracion Faker para tabla users
         return [
 
-            'pais'  => $faker->sentence(),
-            'activo' => $faker->randomElement(['open', 'open', 'closed']),
-            /*'user_id' => $this->createFrom('UserTableSeeder')->id*/
-            'user_id' => $this->getRandom('User')->id
+
+
         ];
+
+    }
+
+
+    public function run()
+    {
+
+        // datos personalizados
+        $this->createPais();
+
+        // datos generales
+        $this->createMultiple(0);
+
+    }
+
+    private function createPais()
+    {
+
+        Paises::create([
+
+            'pais'  => 'España'
+
+        ]);
 
     }
 

@@ -1,17 +1,42 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Palencia\Entities\User;
-use Faker\Factory as Faker;
+use Faker\Generator;
 
-class UserTableSeeder extends Seeder {
+class UserTableSeeder extends BaseSeeder {
+
+    public function getModel()
+    {
+
+        //devolvemos nueva instancia de la clase User(modelo)
+        return new User();
+
+    }
+
+    public function getDummyData(Generator $faker, array $customValues = array())
+    {
+
+        // configuracion Faker para tabla users
+        return [
+
+            'nombre'  => $faker->firstName($gender = null|'male'|'female'),
+            'apellidos' => $faker->lastName,
+            'email' => $faker->email,
+            'password' => bcrypt('user'),
+            'rol' => 'registrado'
+
+        ];
+
+    }
 
     public function run()
     {
 
+        // datos personalizados
         $this->createAdmin();
 
-        $this->createUsers(50);
+        // datos generales
+        $this->createMultiple(50);
 
     }
 
@@ -20,6 +45,7 @@ class UserTableSeeder extends Seeder {
 
         User::create([
 
+
             'nombre'  => 'Antonio',
             'apellidos' => 'Becerra Aleman',
             'email' => 'antonio@gmail.com',
@@ -27,28 +53,6 @@ class UserTableSeeder extends Seeder {
             'rol' => 'administrador'
 
         ]);
-
-    }
-
-
-    private function createUsers($total)
-    {
-
-        $faker = Faker::create();
-
-        for ($i = 1; $i <= $total; $i++)
-        {
-
-            User::create([
-
-            'nombre'  => $faker->firstName($gender = null|'male'|'female'),
-            'apellidos' => $faker->lastName,
-            'email' => $faker->email,
-            'password' => bcrypt('user'),
-            'rol' => 'registrado'
-
-            ]);
-        }
 
     }
 

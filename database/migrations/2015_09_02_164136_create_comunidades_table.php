@@ -48,7 +48,7 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('telefono2',13)->nullable();
 
-            $table->enum('comunicación_preferida', ['Email', 'Carta'])->default('Email');
+            $table->enum('comunicacion_preferida', ['Email', 'Carta'])->default('Email');
 
             $table->text('observaciones');
 
@@ -58,6 +58,7 @@ class CreateComunidadesTable extends Migration {
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 
+            $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
 		});
 	}
 

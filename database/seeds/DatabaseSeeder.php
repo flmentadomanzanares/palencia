@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
@@ -29,20 +30,21 @@ class DatabaseSeeder extends Seeder {
             'solicitudes_enviadas',
             'solicitudes_recibidas',
             'calendario',
-            'semana_cursillo_comunidad'
+            'semana_cursillo_comunidades'
 
         ));
 
-        $this->call('UserTableSeeder');
-        $this->call('PaisesTableSeeder');
-        /*$this->call('ProvinciasTableSeeder');
-        $this->call('LocalidadesTableSeeder');
-        $this->call('ComunidadesTableSeeder');
-        $this->call('CursillosTableSeeder');
-        $this->call('SolicitudesEnviadasTableSeeder');
-        $this->call('SolicitudesRecibidasTableSeeder');
-        $this->call('CalendarioTableSeeder');
-        $this->call('SemanaCursilloComunidadTableSeeder');*/
+       $this->call('UserTableSeeder');
+       $this->call('PaisesTableSeeder');
+       $this->call('ProvinciasTableSeeder');
+       $this->call('LocalidadesTableSeeder');
+       $this->call('ComunidadesTableSeeder');
+       $this->call('CursillosTableSeeder');
+       $this->call('SolicitudesEnviadasTableSeeder');
+       $this->call('SolicitudesRecibidasTableSeeder');
+       $this->call('CalendarioTableSeeder');
+       $this->call('SemanaCursilloComunidadesTableSeeder');
+
 
     }
 
