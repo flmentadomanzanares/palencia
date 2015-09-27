@@ -1,0 +1,571 @@
+//Thumbnail
+//***********************************************
+.thumbnail {
+  display: inline-block;
+  width: $thumbnail-width;
+  padding: $thumbnail-padding;
+  margin: $margin-app-small;
+  line-height: $line-height-base;
+  background-color: $thumbnail-bg;
+  border: 1px solid $app-color-base;
+  border-radius: $thumbnail-border-radius;
+
+  img, a > img {
+    transition: transform 1s linear;
+    width: 100%;
+
+  }
+  a {
+    overflow: hidden;
+  }
+  img:hover {
+    transform: scale(1.1);
+  }
+  // Image captions
+  .caption {
+    font-size: $font-size-app-base-header;
+    line-height: $font-size-app-base-header;
+    padding: $thumbnail-caption-padding;
+    color: $app-color-white;
+    background-color: $app-color-base;
+    vertical-align: middle;
+    margin-top: $thumbnail-padding;
+    //transition: background-color 1s linear;
+    &:hover {
+      background-color: $app-color-hover;
+    }
+  }
+}
+
+//NavBar
+
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a {
+  background-color: $app-color-hover;
+  color: $app-color-white;
+}
+
+//Tables
+//*********************************************************************
+.table-viaoptima {
+  //para hacerlo tipo instagram
+  //float:right;
+  //display:inline-block;
+  // margin:3px;
+  display: table;
+  min-width: 100%;
+  margin-bottom: $form-group-margin-bottom;
+  padding: $padding-app-small;
+  border: 1px solid $app-color-base;
+  border-collapse: separate;
+  border-spacing: 2px;
+  caption {
+    text-align: left;
+    color: $app-color-base;
+    font-size: (2 * $font-size-app-base-register);
+    background-color: transparent;
+    padding: 0;
+    line-height: $tabla-invitados-alto-fila;
+    vertical-align: middle;
+    margin-top: $margin-app-base;
+    img {
+      float: left;
+      width: 42px;
+      height: 42px;
+      margin-right: $margin-app-base;
+    }
+  }
+  thead {
+    tr {
+
+      th {
+        color: $app-color-white;
+        font-size: (2 * $font-size-app-base-header);
+        //padding: $padding-app-small !important;
+        padding: $padding-app-base $padding-large-horizontal;
+        background-color: $app-color-hover;
+        img {
+          float: left;
+          width: 48px;
+          height: 48px;
+        }
+        form {
+          float: right;
+        }
+        button, a {
+          min-width: 60px;
+          margin: 2px;
+          display: inline-block;
+          padding: $padding-app-base;
+          border: none;
+          font-size: $font-size-app-base-header;
+          background-color: $app-color-hover;
+          font-weight: normal;
+          color: $app-color-white;
+          &:hover {
+            color: $app-color-base;
+          }
+        }
+        a {
+          text-align: center;
+        }
+      }
+    }
+  }
+  tbody {
+    font-size: $font-size-app-base-content;
+    tr {
+      td {
+        padding: $padding-app-base $padding-large-horizontal;
+      }
+    }
+  }
+}
+
+.table-size-optima {
+  width: percentage($tabla-invitados-ancho/$screen-lg);
+  margin-left: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/2;
+}
+
+.tabla-ancho-columna-1 {
+  width: percentage($tabla-invitados-columna-1/$tabla-invitados-ancho);
+}
+
+.tabla-ancho-columna-2 {
+  width: percentage($tabla-invitados-columna-2/$tabla-invitados-ancho);
+}
+
+.tabla-ancho-columna-3 {
+  width: percentage($tabla-invitados-columna-3/$tabla-invitados-ancho);
+}
+
+.tabla-ancho-columna-4 {
+  width: percentage($tabla-invitados-columna-4/$tabla-invitados-ancho);
+}
+
+.tabla-vermas-ancho-columna-1 {
+  width: percentage($tabla-invitados-vermas-ancho-columna-1 / $tabla-invitados-vermas-ancho);
+}
+
+.tabla-vermas-ancho-columna-2 {
+  width: percentage($tabla-invitados-vermas-ancho-columna-2 / $tabla-invitados-vermas-ancho);
+}
+
+.table-vermas-ancho {
+  width: $tabla-invitados-vermas-ancho;
+}
+
+.table-autenticado-columna-1 {
+  width: $tabla-autenticado-columna-1;
+  max-width: $tabla-autenticado-columna-1;
+}
+
+.table-break-word {
+  :nth-child(1) {
+    vertical-align: top;
+  }
+  :nth-child(2) {
+    word-break: break-all;
+  }
+
+}
+
+//TEXTAREA
+//**************************************************
+textarea {
+  resize: none;
+}
+
+//FOOTER
+//***************************************************
+footer {
+  margin-top: $footer-margin-top;
+  background-color: $app-color-base;
+  font-size: $font-size-app-base-footer;
+  padding: $padding-app-base;
+  color: $app-color-white;
+  line-height: $footer-line-height;
+  span {
+    padding-right: $padding-base-horizontal;
+  }
+  a {
+    color: $app-color-white;
+    padding: 0 $padding-app-base;
+    :hover {
+
+    }
+  }
+  img {
+    padding: 0 $padding-app-small;
+    width: 28px;
+    height: 24px;
+  }
+
+}
+
+//BODY
+//**************************************************
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none
+}
+
+//Spinner
+//*****************************************************
+.spinner {
+  background-image: url("../../../../../public/img/spinner/spinner.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  float: none;
+  height: 100px;
+  margin: auto;
+  width: 100px;
+}
+
+//BOTONES
+//****************************************************
+// Botón de registros
+.btn-register {
+  font-size: $font-size-app-base-register;
+  font-family: $font-family-century-gothic-bold;
+  background-color: $app-color-hover;
+  text-align: center;
+  color: $app-color-white;
+  &:hover {
+    color: $app-color-base !important;
+  }
+}
+
+.btn-ver-mas{
+  background: transparent;
+  border: none;
+  color: $app-color-hover;
+}
+
+.btn-register-tab-height {
+  height: $tab-invitados-alto-enlace-registrate;
+  font-size: $font-size-app-base-content;
+  line-height: 30px;
+}
+
+.btn-action {
+  a, button {
+    @include btn-viaoptima-button-action();
+  }
+}
+
+.btn {
+  outline: none;
+}
+
+//SELECT de los index
+//********************************************
+.select-control {
+  min-width: 160px;
+  background-color: $app-color-white;
+  color: $app-color-base;
+  padding: $padding-base-vertical 0;
+  margin-right: $margin-app-small;
+  margin-bottom: $margin-app-small;
+  border: 1px solid $app-color-base;
+}
+
+//BADGE
+//*****************************************************
+
+//PANELS
+//*****************************************************
+// Panel contents
+.panel-viaoptima-search {
+  margin-bottom: $margin-app-small;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  @include clearfix;
+  a {
+    @include btn-viaoptima-button-action();
+  }
+
+}
+
+.panel .table caption {
+  padding: 0;
+  line-height: 18px;
+}
+
+//LABELS
+//******************************************************
+.label-viaoptima {
+  @include label-variant(rgba(0, 0, 0, 0), $app-color-base);
+  color: $app-color-base;
+  min-width: $label-min-width;
+}
+
+.label-viaoptima-success {
+  @include label-variant(rgba(0, 0, 0, 0), $app-color-success);
+  color: $app-color-success;
+  min-width: $label-min-width;
+}
+
+.label-viaoptima-fail {
+  @include label-variant(rgba(0, 0, 0, 0), $app-color-fail);
+  color: $app-color-fail;
+  min-width: $label-min-width;
+}
+
+.label-viaoptima-ok {
+  @include label-variant(rgba(0, 0, 0, 0), $app-color-ok);
+  color: $app-color-ok;
+  min-width: $label-min-width;
+}
+
+//GENERIC
+//******************************************************
+//Ocultar con overflow
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.column-margin-top {
+  margin-top: $tab-invitados-margen-top-columna-texto;
+}
+
+// Ancho total
+.full-Width {
+  width: 100%;
+}
+
+.inline-block {
+  display: inline-block;
+  input[type='text'] {
+    padding: $padding-base-vertical $padding-app-base;
+  }
+  form {
+    display: inline-block;
+    margin-bottom: $margin-app-small;
+  }
+  button {
+    padding: $padding-app-base;
+    border: 2px solid $app-color-hover;
+    > span {
+      width: 24px;
+    }
+  }
+  @media screen and (max-width: $screen-sm-min) {
+    display: block;
+    width: 100%;
+    form {
+      display: block;
+    }
+    select {
+      width: 100%;
+    }
+    button {
+      width: 100%;
+      padding: $padding-base-vertical 0;
+    }
+    input[type='text'] {
+      width: 100%;
+    }
+  }
+}
+
+.margin-left-via-optima {
+  margin-left: $tabla-invitados-padding;
+}
+
+// Color para textos
+.green {
+  color: $app-color-hover;
+}
+
+.red {
+  color: $app-color-fail;
+}
+
+//Pading para todas las páginas insertada en platillas
+.padding-page {
+  padding: 0 $padding-base-horizontal;
+}
+
+//titulo de las páginas
+.titulo {
+  color: $app-color-base;
+  margin-bottom: 2 * $margin-app-base;
+}
+
+//Heading en los crud
+.heading-caption {
+  text-align: center;
+  display: block;
+  background-color: $app-color-hover;
+  color: $app-color-white;
+  font-size: 2* $font-size-app-base-header;
+  padding: $padding-app-large $padding-app-base;
+  margin-bottom: $margin-app-base;
+}
+
+/**********************************************************
+*       Subida logo/foto
+***********************************************************/
+div.logo {
+  height: $logo-height-base;
+  float: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+div.logo > div {
+  box-sizing: border-box;
+  display: block;
+  float: none;
+  margin: 0 auto;
+  width: $logo-img-width;
+  height: $logo-img-height;
+  border: 1px solid rgba(0, 0, 0, .6);
+  border-radius: 5px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+div.logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+input[type=file] {
+  position: absolute;
+  width: $logo-file-width;
+  height: $logo-file-height;
+  opacity: 0;
+  margin-top: (-1 * ($logo-file-width - $logo-file-margin-top));
+  margin-left: (-1 * $logo-file-margin-left);
+}
+
+input[type=file]:hover {
+  cursor: pointer;
+}
+
+//AboutUs
+.about-us {
+  padding: $padding-app-base;
+  font-family: $font-family-century-gothic;
+  font-size: $font-size-app-base-content;
+  width: 100%;
+  float: left;
+  iframe {
+    background-color: rgba(0, 0, 0, .1);
+  }
+  div:first-child {
+    width: 40%;
+    padding: $padding-app-base;
+    float: left;
+    @media screen and (max-width: $screen-sm-min) {
+      width: 100%;
+    }
+  }
+  div:last-child {
+    width: 60%;
+    padding: $padding-app-base;
+    float: left;
+    p {
+      text-align: justify;
+    }
+    @media screen and (max-width: $screen-sm-min) {
+      width: 100%;
+    }
+  }
+}
+
+//Formulario Registro
+//*************************************************************************
+#formularioModal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-right: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  .ventanaModal {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    max-height: 60%;
+    top: 5%;
+    left: 100%;
+    z-index: 1;
+    .headerFormularioModal {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      top: 0;
+      left: 0;
+      text-align: center;
+      background-color: $app-color-base;
+      color: $app-color-white;
+      z-index: 2;
+      &:before {
+        font-size: 2 * $font-size-app-base-content;
+        color: white;
+        content: "REGISTRO";
+      }
+    }
+    .cuerpoFormularioModal {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 0;
+      left: 0;
+      padding-top: 40px;
+      z-index: 1;
+      color: $app-color-base;
+      background-color: $app-color-white;
+    }
+    .closeFormModal {
+      position: absolute;
+      width: 24px;
+      top: 6px;
+      right: 3px;
+      font-size: $font-size-app-base-content;
+      font-weight: bold;
+      color: $app-color-white;
+      text-decoration: none;
+      line-height: 21px;
+      border: 1px solid $app-color-white;
+      background-color: $app-color-fail;
+      border-radius: 50%;
+      &:hover {
+        background-color: darken($app-color-fail, 10%);
+        cursor: pointer;
+      }
+    }
+    .scroll {
+      box-sizing: border-box;
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 95%;
+      left: 0;
+      right: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: $padding-app-base;
+    }
+    @media screen and (min-width: 400px) {
+        max-width: 330px;
+    }
+  }
+}
