@@ -5,29 +5,7 @@
 @section ("contenido")
 
     <div class="row">
-        <h1>Area Publica</h1>
-        @if(Session::has('mensaje'))
-            <div class="alert alert-info alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
-            </div>
-        @endif
-        @if($errors->has())
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <strong>Errores</strong>
-                <ol>
-                    @foreach ($errors->all('<p>:message</p>') as $message)
-                        <li>{!! $message !!}</li>
-                    @endforeach
-                </ol>
-            </div>
-        @endif
-
-
-
+        <h1 style="text-align: center">Area Publica</h1>
 
         </div>
     </div>
