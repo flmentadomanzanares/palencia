@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="{!!asset('img/index/logo_viaioptima_250.png')!!}" type="image/png"/>
     <!-- Bootstrap CSS -->
     {!! HTML::style('css/bootstrap.min.css') !!}
-    {!! HTML::style('css/principal.css') !!}
+    {!! HTML::style('css/palencia.css') !!}
 
     @yield("css")
 </head>

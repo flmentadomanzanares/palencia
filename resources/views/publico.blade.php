@@ -1,7 +1,6 @@
 @extends ("plantillas.admin")
 @section ("css")
-    {!! HTML::style('css/publico/registro.css') !!}
-@endsection
+ @endsection
 @section ("contenido")
 
     <div class="row">

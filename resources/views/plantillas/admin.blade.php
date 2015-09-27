@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     {!! HTML::style('css/bootstrap.min.css') !!}
-    {!! HTML::style('css/principal.css') !!}
+    {!! HTML::style('css/palencia.css') !!}
 
     @yield("css")
 
