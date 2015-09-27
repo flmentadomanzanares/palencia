@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // Borramos todos los registros de las tablas antes de cargarlos de nuevo
         $this->truncateTables(array(
 
+            'roles',
             'users',
             'password_resets',
             'paises',
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
 
         ));
 
+       $this->call('RolesTableSeeder');
        $this->call('UserTableSeeder');
        $this->call('PaisesTableSeeder');
        $this->call('ProvinciasTableSeeder');

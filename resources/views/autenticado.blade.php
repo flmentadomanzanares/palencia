@@ -1,4 +1,4 @@
-@extends('app')
+@extends ("plantillas.admin")
 
 @section('content')
 <div class="container">
@@ -8,7 +8,7 @@
 				<div class="panel-heading">Home</div>
 
 				<div class="panel-body">
-					You are logged in!
+					¡Estas autenticado!
 				</div>
 			</div>
 		</div>

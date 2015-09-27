@@ -19,11 +19,11 @@ class UserTableSeeder extends BaseSeeder {
         // configuracion Faker para tabla users
         return [
 
-            'nombre'  => $faker->firstName($gender = null|'male'|'female'),
-            'apellidos' => $faker->lastName,
+            'fullname'  => $faker->name($gender = null|'male'|'female'),
+            'name' => $faker->firstName,
             'email' => $faker->email,
             'password' => bcrypt('user'),
-            'rol' => 'registrado'
+            'rol_id' => 2
 
         ];
 
@@ -46,11 +46,11 @@ class UserTableSeeder extends BaseSeeder {
         User::create([
 
 
-            'nombre'  => 'Antonio',
-            'apellidos' => 'Becerra Aleman',
+            'fullname'  => 'Antonio Becerra Aleman',
+            'name' => 'Antonio',
             'email' => 'antonio@gmail.com',
             'password' => bcrypt('admin'),
-            'rol' => 'administrador'
+            'rol_id' => 4
 
         ]);
 

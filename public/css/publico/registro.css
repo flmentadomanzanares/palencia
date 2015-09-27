@@ -1,0 +1,117 @@
+#formularioModal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#formularioModal .ventanaModal {
+    display: block;
+    position: absolute;
+    width: 98%;
+    height: 88%;
+    top: 5%;
+    left: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    background: rgba(245, 255, 245, 0.9);
+    z-index: 1;
+}
+
+#formularioModal .ventanaModal .headerFormularioModal {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    top: 0;
+    left: 0;
+    text-align: center;
+    border-top-left-radius: 20px;
+    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#5bcf80), to(#4d7809));
+
+    background-image: -moz-linear-gradient(top, #51238a 0%, #400090 100%);
+    background-image: linear-gradient(to bottom, #51238a 0%, #400090 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5BCF80', endColorstr='#FF4D7809', GradientType=0);
+    z-index: 2;
+}
+
+#formularioModal .ventanaModal .headerFormularioModal:before {
+    font-size: 28px;
+    color: white;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    line-height: 40px;
+    content: "REGISTRATE";
+}
+
+#formularioModal .ventanaModal .cuerpoFormularioModal {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    z-index: 1;
+}
+
+#formularioModal .ventanaModal .closeFormModal {
+    position: absolute;
+    width: 24px;
+    top: 6px;
+    right: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    line-height: 21px;
+    border-radius: 5px;
+    border: 2px solid white;
+    -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    background-color:  #848785;
+    -webkit-transition: all 1s linear .2s;
+    -moz-transition: all 1s linear .2s;
+    -ms-transition: all 1s linear .2s;
+    -o-transition: all 1s linear .2s;
+    transition: all 1s linear .2s;
+}
+
+#formularioModal a.closeFormModal:hover {
+    background-color: #b9bcba;
+    cursor: pointer;
+}
+
+#formularioModal .ventanaModal .scroll {
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 95%;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px 15px;
+}
+
+@media screen and (min-width: 600px) {
+    #formularioModal .ventanaModal {
+        max-width: 500px;
+    }
+}
+
+/*# sourceMappingURL=registro.css.map */

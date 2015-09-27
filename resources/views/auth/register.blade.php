@@ -1,4 +1,4 @@
-@extends('app')
+@extends('plantillas.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -22,11 +22,17 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">Nombre</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="name" value="{{ old('nombre') }}">
 							</div>
 						</div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Apellidos</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="name" value="{{ old('apellidos') }}">
+                            </div>
+                        </div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
@@ -36,14 +42,14 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
+							<label class="col-md-4 control-label">Contraseña</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
+							<label class="col-md-4 control-label">Confirme Contraseña</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>
@@ -52,7 +58,7 @@
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
-									Register
+									Registrese
 								</button>
 							</div>
 						</div>

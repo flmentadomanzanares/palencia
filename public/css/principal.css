@@ -1,0 +1,260 @@
+/* Hoja de estilos para plantilla Base */
+
+/*********************************************************
+ *          Tipografia
+ *********************************************************/
+@font-face {
+    font-family: "Century Gothic";
+    src: url('../fonts/centuryGothic/GOTHIC.TTF');
+}
+
+@font-face {
+    font-family: "Century Gothic";
+    font-weight: bold;
+    src: url('../fonts/centuryGothic/GOTHICB.TTF');
+}
+
+@font-face {
+    font-family: "Century Gothic";
+    font-style: italic;
+    src: url('../fonts/centuryGothic/GOTHICI.TTF');
+}
+
+@font-face {
+    font-family: "Century Gothic";
+    font-weight: bold;
+    font-style: italic;
+    src: url('../fonts/centuryGothic/GOTHICBI.TTF');
+}
+
+/*****************************************************************
+ *               Estructura de la página
+ *****************************************************************/
+html,body {
+    padding:0;
+    margin:0
+}
+
+body{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -o-user-select:none;
+    user-select:none
+}
+
+body{
+
+    font-family: "Century Gothic", Verdana, Arial, sans-serif;
+    color:#474545;
+}
+
+/*********************************************************
+*       Footer
+**********************************************************/
+footer {
+
+    /*background-image: url('../img/black.png');*/
+    background-color:#474545;
+    color: #eee;
+    font-size: 11px;
+    width:100%;
+    padding-top:11px;
+    padding-bottom:1px;
+    padding-left:3%;
+
+
+    text:center;
+
+}
+
+footer p a:link {
+    text-decoration:none;
+    color:#FFFFFF;
+}
+
+footer p a:active {
+    text-decoration:none;
+    color:#ffffff;
+}
+
+footer p a:visited {
+    text-decoration:none;
+    color:#ffffff;
+}
+
+footer p a:hover {
+    text-decoration:underline;
+    color:#95bf1f;
+}
+
+footer .glyphicon {
+
+    font-size: 1.5rem;
+    margin-right:10px;
+}
+
+/* Iconos redes sociales del footer */
+
+.redes {
+
+    width:10%;
+    height:10%;
+    margin-left:8px;
+}
+
+.logo {
+
+    text-align:center;
+}
+
+/*******************************************************************************************/
+
+/***********************************************************************
+*           Barra de navegación
+************************************************************************/
+
+.navbar-inverse {
+
+    background-color:#474545;
+    color: #FFFFFF;
+
+
+}
+
+.navbar-nav>li>a:hover,
+.navbar-brand> .active > a:focus {
+
+    color:#95bf1f;
+
+}
+
+.navbar-inverse .navbar-nav>li>a {
+
+    color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-nav > a:hover,
+.navbar-inverse .navbar-nav > a:focus {
+
+    color: #400090;
+    font-weight:bold;
+
+}
+/***********************************************************************
+*           Plantilla base
+************************************************************************/
+.btn-success {
+
+    background-color:#400090;
+    border-color:#400090;
+}
+
+
+/************************************************************
+*           Datepicker
+*************************************************************/
+#cabecera {
+
+    padding-top: 3%;
+    padding-bottom: 3%;
+
+}
+
+/*****************************************************************/
+
+
+/*****************************************************************/
+
+/*******************************************************************************************************
+*           Formularios
+********************************************************************************************************/
+
+
+
+
+/**********************************************************
+*       Subida logo/foto
+***********************************************************/
+div.contenedor {
+    height: 88px;
+    margin-top:20px;
+    margin-left:20px;
+
+}
+
+div.contenedor > div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, .6);
+    padding: 2px;
+    /*border-radius: 5px;*/
+    overflow: hidden;
+}
+
+div.contenedor img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+img.media-object {
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, .6);
+    background-color: white;
+    padding: 2px;
+    /*border-radius: 5px;*/
+    width: 56px;
+    height: 56px;
+
+}
+
+input[type=file] {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    top: 0;
+
+}
+
+input[type=file]:hover {
+    cursor: pointer;
+}
+
+/*********************************************************/
+
+/**********************************************************
+*       Tooltips
+***********************************************************/
+.tooltip {
+
+    font-weight:bold;
+}
+
+.tooltip-inner {
+
+    background-color:#c2d3d1;
+    color:#474545;
+    max-width: 300px;
+}
+/**********************************************************/
+
+
+
+/******************************************************************************
+*           Media Queries
+*******************************************************************************/
+
+@media screen and (max-width: 480px) {
+
+}
+
+@media (max-width: 767px) {
+
+
+}
