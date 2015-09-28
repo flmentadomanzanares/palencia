@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'InvitadoController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'InicioController@index');
 
 Route::controllers([
 

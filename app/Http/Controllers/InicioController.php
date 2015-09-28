@@ -1,6 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
-class HomeController extends Controller {
+class InicioController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
