@@ -8,9 +8,9 @@ $bootstrap-sass-asset-helper: false !default;
 //
 
 $app-color-base:         #474545 !default;
-$app-color-hover:        #95bf1f !default;
+$app-color-hover:        #43009d !default;
 $app-color-white:        #ffffff !default;
-$app-color-success:      #95bf1f !default;
+$app-color-success:      #43009d !default;
 $app-color-fail:         #d9534f !default;
 $app-color-ok:           #337ab7 !default;
 
@@ -460,7 +460,7 @@ $navbar-default-toggle-border-color:       #ddd !default;
 //=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-bg:                         #222 !default;
+$navbar-inverse-bg:                         #474545 !default;
 $navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
 
 // Inverted navbar links

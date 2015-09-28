@@ -11,6 +11,8 @@
 |
 */
 
+Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
@@ -21,3 +23,28 @@ Route::controllers([
     'password'  => 'Auth\PasswordController'
 
 ]);
+
+
+//Rutas Controladores RestFull
+Route::resource('calendario','CalendarioController');
+Route::resource('comunidades','ComunidadesController');
+Route::resource('cursillos','CursillosController');
+Route::resource('localidades','LocalidadesController');
+Route::resource('paises','PaisesController');
+Route::resource('provincias','ProvinciasController');
+Route::resource('roles','RolesController');
+Route::resource('calendarioCursos','CalendarioCursosController');
+Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
+Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
+Route::resource('usuarios','UsersController');
+
+
+
+Route::get('aboutus', 'ComunController@mostrarAboutUs');
+Route::get('contacto', 'ComunController@mostrarContacto');
+Route::post('enviar', 'ComunController@enviarCorreo');
+
+
+//Ruta para cambio de Provincias y localidades vía ajax.
+Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
+Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
