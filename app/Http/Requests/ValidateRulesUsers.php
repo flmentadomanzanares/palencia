@@ -1,6 +1,6 @@
 <?php namespace Palencia\Http\Requests;
 
-
+use Palencia\Http\Requests\Request;
 
 class ValidateRulesUsers extends Request {
 
