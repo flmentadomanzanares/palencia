@@ -20,7 +20,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/viaoptima/public/cambiarProvincias',
+                url: '/palencia/public/cambiarProvincias',
                 success: function (data) {
                     $('#select_provincia').empty();
                     $.each(data, function (key, element) {
@@ -44,7 +44,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/viaoptima/public/cambiarLocalidades',
+                url: '/palencia/public/cambiarLocalidades',
                 success: function (data) {
                     $('#select_localidad').empty();
                     $.each(data, function (key, element) {

@@ -6,7 +6,6 @@
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
     {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/palencia.css') !!}
 
@@ -45,16 +44,17 @@
                                         <strong class="caret"></strong></a>
 
                                     <ul role="menu" class="dropdown-menu">
-                                        <li>{!!link_to('Calendario', 'calendario')!!}</li>
-                                        <li>{!!link_to('Comunidades', 'comunidades')!!}</li>
-                                        <li>{!!link_to('Cursillos', 'cursillos')!!}</li>
-                                        <li>{!!link_to('Localidades', 'localidades')!!}</li>
-                                        <li>{!!link_to('Paises', 'paises')!!}</li>
-                                        <li>{!!link_to('Provincias', 'provincias')!!}</li>
-                                        <li>{!!link_to('Planificacion', 'semanaCursilloComunidades')!!}</li>
-                                        <li>{!!link_to('Solicitudes enviadas', 'solicitudesEnviadas')!!}</li>
-                                        <li>{!!link_to('Solicitudes recibidas', 'solicitudesRecibidas')!!}</li>
-                                        <li>{!!link_to('Usuarios', 'usuarios')!!}</li>
+                                        <li>{!!link_to('calendario', 'Calendario')!!}</li>
+                                        <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
+                                        <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
+                                        <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                                        <li>{!!link_to('paises', 'Paises')!!}</li>
+                                        <li>{!!link_to('provincias', 'Provincias')!!}</li>
+                                        <li>{!!link_to('calendarioCursos', 'Planificacion')!!}</li>
+                                        <li>{!!link_to('roles','Roles')!!}</li>
+                                        <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
+                                        <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
+                                        <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                     </ul>
 
                                 </li>
