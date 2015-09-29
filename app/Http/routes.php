@@ -13,9 +13,9 @@
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'InvitadoController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('inicio', 'AutenticadoController@index');
 
 Route::controllers([
 

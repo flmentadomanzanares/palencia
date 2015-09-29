@@ -1,6 +1,7 @@
 <?php namespace Palencia\Services;
 
-use Palencia\User;
+
+use Palencia\Entities\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
@@ -15,8 +16,8 @@ class Registrar implements RegistrarContract {
 	public function validator(array $data)
 	{
 		return Validator::make($data, [
-			'nombre' => 'required|max:255',
-            'apellidos' => 'required|max:255',
+			'fullname' => 'required|max:255',
+            'name' => 'required|max:255',
 			'email' => 'required|email|max:255|unique:users',
 			'password' => 'required|confirmed|min:6',
 		]);
@@ -31,8 +32,8 @@ class Registrar implements RegistrarContract {
 	public function create(array $data)
 	{
 		return User::create([
-			'nombre' => $data['nombre'],
-            'apellidos' => $data['apellidos'],
+			'fullname' => $data['fullname'],
+            'name' => $data['name'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
 		]);

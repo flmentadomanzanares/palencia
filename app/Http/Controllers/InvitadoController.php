@@ -30,7 +30,7 @@ class InvitadoController extends Controller {
 	 */
 	public function index()
 	{
-		return view('publico');
+		return view('invitado');
 	}
 
 }

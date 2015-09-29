@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string("foto",100)->default('default.png');
-            $table->bigInteger('rol_id')->unsigned();
+            $table->bigInteger('rol_id')->unsigned()->default(2);
             $table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade');
             $table->boolean('activo')->default(true);
             $table->rememberToken();
