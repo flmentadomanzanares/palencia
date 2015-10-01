@@ -8,7 +8,7 @@
 
     {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/palencia.css') !!}
-    {!! HTML::style('css/vendos/fullcalendar/fullcalendar.css') !!}
+    {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
 
     @yield("css")
 
