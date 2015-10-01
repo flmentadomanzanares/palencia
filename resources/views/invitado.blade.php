@@ -3,7 +3,12 @@
  @endsection
 @section ("contenido")
     <div class="row">
-        <div id="calendar"></div>
+        <div class="slides table-size-optima pull-left hidden-xs">
+            <ul> <!-- slides -->
+                <li><img src="{!! asset('img/slider/slider_1.jpg') !!}" alt="Oracion_1" class="img-responsive"></li>
+                <li><img src="{!! asset('img/slider/slider_2.jpg') !!}" alt="Oracion_2" class="img-responsive"></li>
+            </ul>
+        </div>
     </div>
     {{-- Formulario Registrarse --}}
     <div id="formularioModal">

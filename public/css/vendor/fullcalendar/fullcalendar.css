@@ -856,6 +856,9 @@ a.fc-more:hover {
 	text-align: left;
 }
 
+.fc-axis.fc-center {
+    text-align: center;
+}
 .ui-widget td.fc-axis {
 	font-weight: normal; /* overcome jqui theme making it bold */
 }
