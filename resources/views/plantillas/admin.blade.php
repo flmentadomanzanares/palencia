@@ -194,6 +194,7 @@
 {!! HTML::script("js/comun/spinner.js")!!}
 {!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
 {!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
+{!! HTML::script("js/vendor/fullcalendar/lang/es.js")!!}
 {!! HTML::script("js/comun/calendar.js")!!}
 @yield("js")
 </body>
