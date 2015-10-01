@@ -23,51 +23,47 @@
     <!-- end Cabecera -->
     <nav role="navigation" id="barra" class="navbar navbar-inverse block-center">
         <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <a class="navbar-brand" href="#"></a>
             </div>
-            <!-- Next nav links in the Navbar -->
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
 
-                    @if (Auth::check())
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                @if (Auth::check())
 
-                        @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Administración
-                                        <strong class="caret"></strong></a>
-
-                                    <ul role="menu" class="dropdown-menu">
-                                        <li>{!!link_to('calendario', 'Calendario')!!}</li>
-                                        <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
-                                        <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
-                                        <li>{!!link_to('localidades', 'Localidades')!!}</li>
-                                        <li>{!!link_to('paises', 'Paises')!!}</li>
-                                        <li>{!!link_to('provincias', 'Provincias')!!}</li>
-                                        <li>{!!link_to('calendarioCursos', 'Planificacion')!!}</li>
-                                        <li>{!!link_to('roles','Roles')!!}</li>
-                                        <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
-                                        <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
-                                        <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
-                                    </ul>
-
-                                </li>
-                            </ul>
-                        @endif
-
-                        <ul class="nav navbar-nav navbar-right">
+                    @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url('home') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <span class="sr-only">(current)</span></a></li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Listados
-                                    <strong class="caret"></strong></a>
-
-                                <ul role="menu" class="dropdown-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Administrador<span
+                                            class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>{!!link_to('calendario', 'Calendario')!!}</li>
+                                    <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
+                                    <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
+                                    <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                                    <li>{!!link_to('paises', 'Paises')!!}</li>
+                                    <li>{!!link_to('provincias', 'Provincias')!!}</li>
+                                    <li>{!!link_to('calendarioCursos', 'Planificacion')!!}</li>
+                                    <li>{!!link_to('roles','Roles')!!}</li>
+                                    <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
+                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
+                                    <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
                                     <li>{!!link_to('Cursillos en el mundo', 'calendario')!!}</li>
                                     <li>{!!link_to('Intendencia para clausura', 'comunidades')!!}</li>
                                     <li>{!!link_to('Secretariado', 'cursillos')!!}</li>
@@ -75,13 +71,11 @@
                                     <li>{!!link_to('Solicitudes enviadas', 'paises')!!}</li>
                                     <li>{!!link_to('Solicitudes recibidas', 'provincias')!!}</li>
                                 </ul>
-
                             </li>
                         </ul>
-
                     @endif
-                </ul>
 
+                @endif
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         <li class="dropdown">
@@ -124,8 +118,11 @@
                 </ul>
 
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container-fluid -->
     </nav>
+
 </div>
 
 <div class="row margen-mensajes">

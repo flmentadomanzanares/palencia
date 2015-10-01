@@ -20,7 +20,7 @@ class RolesController extends Controller {
      */
     public function index(Request $request)
     {
-        //Vamos al indice y creamos una paginación de 8 elementos y con ruta roles
+        //Vamos al indice y creamos una paginación de 3 elementos y con ruta roles
         $roles = Roles::rol($request->get('rol'))->orderBy('rol', 'ASC')->paginate(3)->setPath('roles');
         return view("roles.index", compact('roles'))->with('titulo', 'Listado de Roles');
     }
