@@ -41,7 +41,7 @@
 
                     @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ url('home') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <span class="sr-only">(current)</span></a></li>
+                            <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span> <span class="sr-only">(current)</span></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">Administrador<span
@@ -153,6 +153,9 @@
         @yield("contenido")
     </div>
 </div>
+
+</div>
+
 <footer>
     <div class="row">
 
@@ -179,6 +182,8 @@
                 <a href="#" target="_blank"><img
                             src="{!!asset('img/footer/icono-googleplus.png')!!}" alt="Google+" class="redes"/></a></p>
         </div>
+
+
     </div>
     <!-- end row -->
 </footer>

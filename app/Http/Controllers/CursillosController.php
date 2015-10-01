@@ -23,7 +23,7 @@ class CursillosController extends Controller {
     public function index(Request $request)
 	{
         //Obtenemos los cursillos
-        $cursillos = Cursillos::Select('cursillos.*')->orderBy('cursillo', 'ASC')->paginate(3)->setPath('roles');
+        $cursillos = Cursillos::Select('cursillos.*')->orderBy('cursillo', 'ASC')->paginate(3)->setPath('cursillos');
 
         return view("cursillos.index", compact('cursillos'))->with('titulo', 'Listado de Cursillos');
 	}

@@ -9,7 +9,7 @@
             lang: '',
             buttonIcons: false,
 			defaultDate: '2015-10-12',
-			editable: true,
+			editable: false,
             weekNumbers: true,
 			eventLimit: true, // allow "more" link when too many events
 			events: [

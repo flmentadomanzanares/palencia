@@ -2,12 +2,9 @@
 @section ("css")
  @endsection
 @section ("contenido")
-
     <div class="row">
-        <h1 style="text-align: center">Area Publica</h1>
         <div id="calendar"></div>
     </div>
-
     {{-- Formulario Registrarse --}}
     <div id="formularioModal">
         <div class="ventanaModal">

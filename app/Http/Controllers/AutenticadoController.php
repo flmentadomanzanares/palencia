@@ -30,7 +30,7 @@ class AutenticadoController extends Controller {
 	 */
 	public function index()
 	{
-		return view('autenticado');
+        return view('autenticado');
 	}
 
 }

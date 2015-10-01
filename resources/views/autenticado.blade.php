@@ -1,15 +1,10 @@
 @extends ("plantillas.admin")
-
-@section('content')
+@section('contenido')
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
-
-				<div class="panel-body">
-					¡Estas autenticado!
-				</div>
+				<div id="calendar"></div>
 			</div>
 		</div>
 	</div>
