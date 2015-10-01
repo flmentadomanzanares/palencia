@@ -5,8 +5,7 @@
 
     <div class="row">
         <h1 style="text-align: center">Area Publica</h1>
-
-        </div>
+        <div id="calendar"></div>
     </div>
 
     {{-- Formulario Registrarse --}}

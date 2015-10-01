@@ -8,6 +8,7 @@
 
     {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/palencia.css') !!}
+    {!! HTML::style('css/vendos/fullcalendar/fullcalendar.css') !!}
 
     @yield("css")
 
@@ -155,9 +156,6 @@
         @yield("contenido")
     </div>
 </div>
-
-</div>
-
 <footer>
     <div class="row">
 
@@ -184,8 +182,6 @@
                 <a href="#" target="_blank"><img
                             src="{!!asset('img/footer/icono-googleplus.png')!!}" alt="Google+" class="redes"/></a></p>
         </div>
-
-
     </div>
     <!-- end row -->
 </footer>
@@ -196,6 +192,9 @@
 {!! HTML::script('js/bootstrap.min.js') !!}
 <!--User JavaScript -->
 {!! HTML::script("js/comun/spinner.js")!!}
+{!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
+{!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
+{!! HTML::script("js/comun/calendar.js")!!}
 @yield("js")
 </body>
 </html>
