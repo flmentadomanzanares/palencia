@@ -19,7 +19,7 @@
     {!!FORM::model(Request::only(['pais','provincia','localidad']),['route'=>'localidades.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('pais',$paises ,null,array('id'=>'select_pais',"class"=>"select-control pull-left"))!!}
-    {!! FORM::select('provincias',$provincias ,null,array('id'=>'select_provincia',"class"=>"select-control pull-left"))!!}
+    {!! FORM::select('provincia',$provincias ,null,array('id'=>'select_provincia',"class"=>"select-control pull-left"))!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
 </div>

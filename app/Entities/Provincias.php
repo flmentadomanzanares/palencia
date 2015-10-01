@@ -40,7 +40,7 @@ class Provincias extends Model {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function empresas(){
+    public function comunidades(){
         return $this->hasMany("Palencia\Entities\Comunidades");
     }
 

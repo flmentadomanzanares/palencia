@@ -16,6 +16,13 @@ class Paises extends Model {
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comunidades(){
+        return $this->hasMany("Palencia\Entities\Comunidades");
+    }
+
+    /**
      * @param $query
      * @param $pais
      */

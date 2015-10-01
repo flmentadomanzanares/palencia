@@ -25,6 +25,8 @@ class CreateSemanaCursilloComunidadesTable extends Migration {
             $table->bigInteger('calendario_id')->unsigned();
             $table->foreign('calendario_id')->references('id')->on('calendario')->onDelete('cascade');
 
+            $table->boolean('activo')->default(true);
+
             $table->timestamp('created_at')->default(date("Y-m-d H:i:s"));
 
             $table->timestamp('updated_at')->default(date("Y-m-d H:i:s"));
