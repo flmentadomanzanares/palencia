@@ -8,9 +8,9 @@ $bootstrap-sass-asset-helper: false !default;
 //
 
 $app-color-base:         #474545 !default;
-$app-color-hover:        #43009d !default;
+$app-color-hover:        #400090 !default;
 $app-color-white:        #ffffff !default;
-$app-color-success:      #43009d !default;
+$app-color-success:      #400090 !default;
 $app-color-fail:         #d9534f !default;
 $app-color-ok:           #337ab7 !default;
 
@@ -66,7 +66,7 @@ $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !def
 $font-family-base:        $font-family-sans-serif !default;
 
 //Tamaño de fuentes para vía óptima
-$font-size-app-base-footer :      9px !default;
+$font-size-app-base-footer :      13px !default;
 $font-size-app-base-header :      13px !default;
 $font-size-app-base-register :    14px !default;
 $font-size-app-base-content :     15px !default;
@@ -460,7 +460,7 @@ $navbar-default-toggle-border-color:       #ddd !default;
 //=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-bg:                         #474545 !default;
+$navbar-inverse-bg:                         #400090 !default;
 $navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
 
 // Inverted navbar links
@@ -782,7 +782,7 @@ $panel-border-radius:         $border-radius-base !default;
 
 //** Border color for elements within panels
 $panel-inner-border:          #ddd !default;
-$panel-footer-bg:             #f5f5f5 !default;
+$panel-footer-bg:             #400090 !default;
 
 $panel-default-text:          $gray-dark !default;
 $panel-default-border:        #ddd !default;
@@ -942,7 +942,7 @@ $dl-horizontal-offset:        $component-offset-horizontal !default;
 $hr-border:                   $gray-lighter !default;
 //** Footer line-height
 $footer-line-height:          38px !default;
-$footer-height:               48px !default;
+$footer-height:               35px !default;
 $footer-margin-top:           50px !default;
 
 //Column

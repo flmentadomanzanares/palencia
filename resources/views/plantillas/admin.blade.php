@@ -159,30 +159,9 @@
 <footer>
     <div class="row">
 
-        <div class="col-xs-12 col-sm-3">
-            <p class="centrar">&copy; Palencia | desarrollado por KOALNET - 2015</p>
+        <div class="col-xs-12 col-sm-12">
+            <p class="text-center">&copy; Palencia | desarrollado por KOALNET - 2015</p>
         </div>
-        <!-- end col-sm-4 -->
-
-        <div class="col-sm-offset-1 col-xs-12 col-sm-2 text-center">
-            <p><a href="{!!asset('aboutus')!!}">quienes somos</a></p>
-        </div>
-        <!-- end col-sm-2 -->
-
-        <div class="col-xs-12 col-sm-1 text-center">
-            <p><a href="{!!asset('contacto')!!}">contactanos</a></p>
-        </div>
-        <!-- end col-sm-2 -->
-        <div class=" col-sm-offset-3 col-xs-12 col-sm-2 ">
-            <p class="text-center"><a href="#"
-                                      target="_blank"><img src="{!!asset('img/footer/icono-fb.png')!!}" alt="Facebook"
-                                                           class="redes"/></a>
-                <a href="#" target="_blank"><img src="{!!asset('img/footer/icono-twitter.png')!!}"
-                                                 alt="Twitter" class="redes"/></a>
-                <a href="#" target="_blank"><img
-                            src="{!!asset('img/footer/icono-googleplus.png')!!}" alt="Google+" class="redes"/></a></p>
-        </div>
-
 
     </div>
     <!-- end row -->
