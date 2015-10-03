@@ -1,49 +1,252 @@
 <?php
-use Palencia\Entities\Paises;
-use Faker\Generator;
 
-class PaisesTableSeeder extends BaseSeeder {
-
-    public function getModel()
-    {
-
-        return new Paises();
-
-    }
-
-    public function getDummyData(Generator $faker, array $customValues = array())
-    {
-
-        // configuracion Faker para tabla users
-        return [
+use Illuminate\Database\Seeder;
 
 
-
-        ];
-
-    }
-
-
+class PaisesTableSeeder extends Seeder
+{
     public function run()
     {
-
-        // datos personalizados
-        $this->createPais();
-
-        // datos generales
-        $this->createMultiple(0);
-
+        DB::table("paises")->delete();
+        DB::table('paises')->insert(Array('pais' => 'Afganistán'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Gland'));
+        DB::table('paises')->insert(Array('pais' => 'Albania'));
+        DB::table('paises')->insert(Array('pais' => 'Alemania'));
+        DB::table('paises')->insert(Array('pais' => 'Andorra'));
+        DB::table('paises')->insert(Array('pais' => 'Angola'));
+        DB::table('paises')->insert(Array('pais' => 'Anguilla'));
+        DB::table('paises')->insert(Array('pais' => 'Antártida'));
+        DB::table('paises')->insert(Array('pais' => 'Antigua y Barbuda'));
+        DB::table('paises')->insert(Array('pais' => 'Antillas Holandesas'));
+        DB::table('paises')->insert(Array('pais' => 'Arabia Saudí'));
+        DB::table('paises')->insert(Array('pais' => 'Argelia'));
+        DB::table('paises')->insert(Array('pais' => 'Argentina'));
+        DB::table('paises')->insert(Array('pais' => 'Armenia'));
+        DB::table('paises')->insert(Array('pais' => 'Aruba'));
+        DB::table('paises')->insert(Array('pais' => 'Australia'));
+        DB::table('paises')->insert(Array('pais' => 'Austria'));
+        DB::table('paises')->insert(Array('pais' => 'Azerbaiyán'));
+        DB::table('paises')->insert(Array('pais' => 'Bahamas'));
+        DB::table('paises')->insert(Array('pais' => 'Bahréin'));
+        DB::table('paises')->insert(Array('pais' => 'Bangladesh'));
+        DB::table('paises')->insert(Array('pais' => 'Barbados'));
+        DB::table('paises')->insert(Array('pais' => 'Bielorrusia'));
+        DB::table('paises')->insert(Array('pais' => 'Bélgica'));
+        DB::table('paises')->insert(Array('pais' => 'Belice'));
+        DB::table('paises')->insert(Array('pais' => 'Benin'));
+        DB::table('paises')->insert(Array('pais' => 'Bermudas'));
+        DB::table('paises')->insert(Array('pais' => 'Bhután'));
+        DB::table('paises')->insert(Array('pais' => 'Bolivia'));
+        DB::table('paises')->insert(Array('pais' => 'Bosnia y Herzegovina'));
+        DB::table('paises')->insert(Array('pais' => 'Botsuana'));
+        DB::table('paises')->insert(Array('pais' => 'Isla Bouvet'));
+        DB::table('paises')->insert(Array('pais' => 'Brasil'));
+        DB::table('paises')->insert(Array('pais' => 'Brunéi'));
+        DB::table('paises')->insert(Array('pais' => 'Bulgaria'));
+        DB::table('paises')->insert(Array('pais' => 'Burkina Faso'));
+        DB::table('paises')->insert(Array('pais' => 'Burundi'));
+        DB::table('paises')->insert(Array('pais' => 'Cabo Verde'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Caimán'));
+        DB::table('paises')->insert(Array('pais' => 'Camboya'));
+        DB::table('paises')->insert(Array('pais' => 'Camerún'));
+        DB::table('paises')->insert(Array('pais' => 'Canadá'));
+        DB::table('paises')->insert(Array('pais' => 'República Centroafricana'));
+        DB::table('paises')->insert(Array('pais' => 'Chad'));
+        DB::table('paises')->insert(Array('pais' => 'República Checa'));
+        DB::table('paises')->insert(Array('pais' => 'Chile'));
+        DB::table('paises')->insert(Array('pais' => 'China'));
+        DB::table('paises')->insert(Array('pais' => 'Chipre'));
+        DB::table('paises')->insert(Array('pais' => 'Isla de Navidad'));
+        DB::table('paises')->insert(Array('pais' => 'Ciudad del Vaticano'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Cocos'));
+        DB::table('paises')->insert(Array('pais' => 'Colombia'));
+        DB::table('paises')->insert(Array('pais' => 'Comoras'));
+        DB::table('paises')->insert(Array('pais' => 'República Democrática del Congo'));
+        DB::table('paises')->insert(Array('pais' => 'Congo'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Cook'));
+        DB::table('paises')->insert(Array('pais' => 'Corea del Norte'));
+        DB::table('paises')->insert(Array('pais' => 'Corea del Sur'));
+        DB::table('paises')->insert(Array('pais' => 'Costa de Marfil'));
+        DB::table('paises')->insert(Array('pais' => 'Costa Rica'));
+        DB::table('paises')->insert(Array('pais' => 'Croacia'));
+        DB::table('paises')->insert(Array('pais' => 'Cuba'));
+        DB::table('paises')->insert(Array('pais' => 'Dinamarca'));
+        DB::table('paises')->insert(Array('pais' => 'Dominica'));
+        DB::table('paises')->insert(Array('pais' => 'República Dominicana'));
+        DB::table('paises')->insert(Array('pais' => 'Ecuador'));
+        DB::table('paises')->insert(Array('pais' => 'Egipto'));
+        DB::table('paises')->insert(Array('pais' => 'El Salvador'));
+        DB::table('paises')->insert(Array('pais' => 'Emiratos Árabes Unidos'));
+        DB::table('paises')->insert(Array('pais' => 'Eritrea'));
+        DB::table('paises')->insert(Array('pais' => 'Eslovaquia'));
+        DB::table('paises')->insert(Array('pais' => 'Eslovenia'));
+        DB::table('paises')->insert(Array('pais' => 'España'));
+        DB::table('paises')->insert(Array('pais' => 'Islas ultramarinas de Estados Unidos'));
+        DB::table('paises')->insert(Array('pais' => 'Estados Unidos'));
+        DB::table('paises')->insert(Array('pais' => 'Estonia'));
+        DB::table('paises')->insert(Array('pais' => 'Etiopía'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Feroe'));
+        DB::table('paises')->insert(Array('pais' => 'Filipinas'));
+        DB::table('paises')->insert(Array('pais' => 'Finlandia'));
+        DB::table('paises')->insert(Array('pais' => 'Fiyi'));
+        DB::table('paises')->insert(Array('pais' => 'Francia'));
+        DB::table('paises')->insert(Array('pais' => 'Gabón'));
+        DB::table('paises')->insert(Array('pais' => 'Gambia'));
+        DB::table('paises')->insert(Array('pais' => 'Georgia'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Georgias del Sur y Sandwich del Sur'));
+        DB::table('paises')->insert(Array('pais' => 'Ghana'));
+        DB::table('paises')->insert(Array('pais' => 'Gibraltar'));
+        DB::table('paises')->insert(Array('pais' => 'Granada'));
+        DB::table('paises')->insert(Array('pais' => 'Grecia'));
+        DB::table('paises')->insert(Array('pais' => 'Groenlandia'));
+        DB::table('paises')->insert(Array('pais' => 'Guadalupe'));
+        DB::table('paises')->insert(Array('pais' => 'Guam'));
+        DB::table('paises')->insert(Array('pais' => 'Guatemala'));
+        DB::table('paises')->insert(Array('pais' => 'Guayana Francesa'));
+        DB::table('paises')->insert(Array('pais' => 'Guinea'));
+        DB::table('paises')->insert(Array('pais' => 'Guinea Ecuatorial'));
+        DB::table('paises')->insert(Array('pais' => 'Guinea-Bissau'));
+        DB::table('paises')->insert(Array('pais' => 'Guyana'));
+        DB::table('paises')->insert(Array('pais' => 'Haití'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Heard y McDonald'));
+        DB::table('paises')->insert(Array('pais' => 'Honduras'));
+        DB::table('paises')->insert(Array('pais' => 'Hong Kong'));
+        DB::table('paises')->insert(Array('pais' => 'Hungría'));
+        DB::table('paises')->insert(Array('pais' => 'India'));
+        DB::table('paises')->insert(Array('pais' => 'Indonesia'));
+        DB::table('paises')->insert(Array('pais' => 'Irán'));
+        DB::table('paises')->insert(Array('pais' => 'Iraq'));
+        DB::table('paises')->insert(Array('pais' => 'Irlanda'));
+        DB::table('paises')->insert(Array('pais' => 'Islandia'));
+        DB::table('paises')->insert(Array('pais' => 'Israel'));
+        DB::table('paises')->insert(Array('pais' => 'Italia'));
+        DB::table('paises')->insert(Array('pais' => 'Jamaica'));
+        DB::table('paises')->insert(Array('pais' => 'Japón'));
+        DB::table('paises')->insert(Array('pais' => 'Jordania'));
+        DB::table('paises')->insert(Array('pais' => 'Kazajstán'));
+        DB::table('paises')->insert(Array('pais' => 'Kenia'));
+        DB::table('paises')->insert(Array('pais' => 'Kirguistán'));
+        DB::table('paises')->insert(Array('pais' => 'Kiribati'));
+        DB::table('paises')->insert(Array('pais' => 'Kuwait'));
+        DB::table('paises')->insert(Array('pais' => 'Laos'));
+        DB::table('paises')->insert(Array('pais' => 'Lesotho'));
+        DB::table('paises')->insert(Array('pais' => 'Letonia'));
+        DB::table('paises')->insert(Array('pais' => 'Líbano'));
+        DB::table('paises')->insert(Array('pais' => 'Liberia'));
+        DB::table('paises')->insert(Array('pais' => 'Libia'));
+        DB::table('paises')->insert(Array('pais' => 'Liechtenstein'));
+        DB::table('paises')->insert(Array('pais' => 'Lituania'));
+        DB::table('paises')->insert(Array('pais' => 'Luxemburgo'));
+        DB::table('paises')->insert(Array('pais' => 'Macao'));
+        DB::table('paises')->insert(Array('pais' => 'ARY Macedonia'));
+        DB::table('paises')->insert(Array('pais' => 'Madagascar'));
+        DB::table('paises')->insert(Array('pais' => 'Malasia'));
+        DB::table('paises')->insert(Array('pais' => 'Malawi'));
+        DB::table('paises')->insert(Array('pais' => 'Maldivas'));
+        DB::table('paises')->insert(Array('pais' => 'Malí'));
+        DB::table('paises')->insert(Array('pais' => 'Malta'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Malvinas'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Marianas del Norte'));
+        DB::table('paises')->insert(Array('pais' => 'Marruecos'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Marshall'));
+        DB::table('paises')->insert(Array('pais' => 'Martinica'));
+        DB::table('paises')->insert(Array('pais' => 'Mauricio'));
+        DB::table('paises')->insert(Array('pais' => 'Mauritania'));
+        DB::table('paises')->insert(Array('pais' => 'Mayotte'));
+        DB::table('paises')->insert(Array('pais' => 'México'));
+        DB::table('paises')->insert(Array('pais' => 'Micronesia'));
+        DB::table('paises')->insert(Array('pais' => 'Moldavia'));
+        DB::table('paises')->insert(Array('pais' => 'Mónaco'));
+        DB::table('paises')->insert(Array('pais' => 'Mongolia'));
+        DB::table('paises')->insert(Array('pais' => 'Montserrat'));
+        DB::table('paises')->insert(Array('pais' => 'Mozambique'));
+        DB::table('paises')->insert(Array('pais' => 'Myanmar'));
+        DB::table('paises')->insert(Array('pais' => 'Namibia'));
+        DB::table('paises')->insert(Array('pais' => 'Nauru'));
+        DB::table('paises')->insert(Array('pais' => 'Nepal'));
+        DB::table('paises')->insert(Array('pais' => 'Nicaragua'));
+        DB::table('paises')->insert(Array('pais' => 'Níger'));
+        DB::table('paises')->insert(Array('pais' => 'Nigeria'));
+        DB::table('paises')->insert(Array('pais' => 'Niue'));
+        DB::table('paises')->insert(Array('pais' => 'Isla Norfolk'));
+        DB::table('paises')->insert(Array('pais' => 'Noruega'));
+        DB::table('paises')->insert(Array('pais' => 'Nueva Caledonia'));
+        DB::table('paises')->insert(Array('pais' => 'Nueva Zelanda'));
+        DB::table('paises')->insert(Array('pais' => 'Omán'));
+        DB::table('paises')->insert(Array('pais' => 'Países Bajos'));
+        DB::table('paises')->insert(Array('pais' => 'Pakistán'));
+        DB::table('paises')->insert(Array('pais' => 'Palau'));
+        DB::table('paises')->insert(Array('pais' => 'Palestina'));
+        DB::table('paises')->insert(Array('pais' => 'Panamá'));
+        DB::table('paises')->insert(Array('pais' => 'Papúa Nueva Guinea'));
+        DB::table('paises')->insert(Array('pais' => 'Paraguay'));
+        DB::table('paises')->insert(Array('pais' => 'Perú'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Pitcairn'));
+        DB::table('paises')->insert(Array('pais' => 'Polinesia Francesa'));
+        DB::table('paises')->insert(Array('pais' => 'Polonia'));
+        DB::table('paises')->insert(Array('pais' => 'Portugal'));
+        DB::table('paises')->insert(Array('pais' => 'Puerto Rico'));
+        DB::table('paises')->insert(Array('pais' => 'Qatar'));
+        DB::table('paises')->insert(Array('pais' => 'Reino Unido'));
+        DB::table('paises')->insert(Array('pais' => 'Reunión'));
+        DB::table('paises')->insert(Array('pais' => 'Ruanda'));
+        DB::table('paises')->insert(Array('pais' => 'Rumania'));
+        DB::table('paises')->insert(Array('pais' => 'Rusia'));
+        DB::table('paises')->insert(Array('pais' => 'Sahara Occidental'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Salomón'));
+        DB::table('paises')->insert(Array('pais' => 'Samoa'));
+        DB::table('paises')->insert(Array('pais' => 'Samoa Americana'));
+        DB::table('paises')->insert(Array('pais' => 'San Cristóbal y Nevis'));
+        DB::table('paises')->insert(Array('pais' => 'San Marino'));
+        DB::table('paises')->insert(Array('pais' => 'San Pedro y Miquelón'));
+        DB::table('paises')->insert(Array('pais' => 'San Vicente y las Granadinas'));
+        DB::table('paises')->insert(Array('pais' => 'Santa Helena'));
+        DB::table('paises')->insert(Array('pais' => 'Santa Lucía'));
+        DB::table('paises')->insert(Array('pais' => 'Santo Tomé y Príncipe'));
+        DB::table('paises')->insert(Array('pais' => 'Senegal'));
+        DB::table('paises')->insert(Array('pais' => 'Serbia y Montenegro'));
+        DB::table('paises')->insert(Array('pais' => 'Seychelles'));
+        DB::table('paises')->insert(Array('pais' => 'Sierra Leona'));
+        DB::table('paises')->insert(Array('pais' => 'Singapur'));
+        DB::table('paises')->insert(Array('pais' => 'Siria'));
+        DB::table('paises')->insert(Array('pais' => 'Somalia'));
+        DB::table('paises')->insert(Array('pais' => 'Sri Lanka'));
+        DB::table('paises')->insert(Array('pais' => 'Suazilandia'));
+        DB::table('paises')->insert(Array('pais' => 'Sudáfrica'));
+        DB::table('paises')->insert(Array('pais' => 'Sudán'));
+        DB::table('paises')->insert(Array('pais' => 'Suecia'));
+        DB::table('paises')->insert(Array('pais' => 'Suiza'));
+        DB::table('paises')->insert(Array('pais' => 'Surinam'));
+        DB::table('paises')->insert(Array('pais' => 'Svalbard y Jan Mayen'));
+        DB::table('paises')->insert(Array('pais' => 'Tailandia'));
+        DB::table('paises')->insert(Array('pais' => 'Taiwán'));
+        DB::table('paises')->insert(Array('pais' => 'Tanzania'));
+        DB::table('paises')->insert(Array('pais' => 'Tayikistán'));
+        DB::table('paises')->insert(Array('pais' => 'Territorio Británico del Océano Índico'));
+        DB::table('paises')->insert(Array('pais' => 'Territorios Australes Franceses'));
+        DB::table('paises')->insert(Array('pais' => 'Timor Oriental'));
+        DB::table('paises')->insert(Array('pais' => 'Togo'));
+        DB::table('paises')->insert(Array('pais' => 'Tokelau'));
+        DB::table('paises')->insert(Array('pais' => 'Tonga'));
+        DB::table('paises')->insert(Array('pais' => 'Trinidad y Tobago'));
+        DB::table('paises')->insert(Array('pais' => 'Túnez'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Turcas y Caicos'));
+        DB::table('paises')->insert(Array('pais' => 'Turkmenistán'));
+        DB::table('paises')->insert(Array('pais' => 'Turquía'));
+        DB::table('paises')->insert(Array('pais' => 'Tuvalu'));
+        DB::table('paises')->insert(Array('pais' => 'Ucrania'));
+        DB::table('paises')->insert(Array('pais' => 'Uganda'));
+        DB::table('paises')->insert(Array('pais' => 'Uruguay'));
+        DB::table('paises')->insert(Array('pais' => 'Uzbekistán'));
+        DB::table('paises')->insert(Array('pais' => 'Vanuatu'));
+        DB::table('paises')->insert(Array('pais' => 'Venezuela'));
+        DB::table('paises')->insert(Array('pais' => 'Vietnam'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Vírgenes Británicas'));
+        DB::table('paises')->insert(Array('pais' => 'Islas Vírgenes de los Estados Unidos'));
+        DB::table('paises')->insert(Array('pais' => 'Wallis y Futuna'));
+        DB::table('paises')->insert(Array('pais' => 'Yemen'));
+        DB::table('paises')->insert(Array('pais' => 'Yibuti'));
+        DB::table('paises')->insert(Array('pais' => 'Zambia'));
+        DB::table('paises')->insert(Array('pais' => 'Zimbabue'));
     }
-
-    private function createPais()
-    {
-
-        Paises::create([
-
-            'pais'  => 'España'
-
-        ]);
-
-    }
-
 }

@@ -18,8 +18,10 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('comunidad',50);
 
-            $table->enum('tipo_secretariado', ['Secretariado Diocesano', 'Secretariado Arquidiocesano',
-                'GED – Grupo Ejecutivo Diocesano', 'Otros'])->default('Secretariado Diocesano');
+            $table->string('num_comunidad',10);
+
+            $table->bigInteger('tipo_comunidad')->unsigned();
+            $table->foreign('tipo_comunidad')->references('id')->on('tipos_comunidades')->onDelete('cascade');
 
             $table->string('responsable',100);
 
@@ -51,8 +53,6 @@ class CreateComunidadesTable extends Migration {
             $table->enum('comunicacion_preferida', ['Email', 'Carta'])->default('Email');
 
             $table->text('observaciones');
-
-            $table->boolean('registrada')->default(false);
 
             $table->boolean('activo')->default(true);
 

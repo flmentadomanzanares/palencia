@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             'paises',
             'provincias',
             'localidades',
+            'generos',
+            'tipos_comunidades',
             'comunidades',
+            'tipos_cursillos',
             'cursillos',
             'solicitudes_enviadas',
             'solicitudes_recibidas',
@@ -35,17 +38,20 @@ class DatabaseSeeder extends Seeder
 
         ));
 
-       $this->call('RolesTableSeeder');
-       $this->call('UserTableSeeder');
-       $this->call('PaisesTableSeeder');
-       $this->call('ProvinciasTableSeeder');
-       $this->call('LocalidadesTableSeeder');
-       $this->call('ComunidadesTableSeeder');
-       $this->call('CursillosTableSeeder');
-       $this->call('SolicitudesEnviadasTableSeeder');
-       $this->call('SolicitudesRecibidasTableSeeder');
-       $this->call('CalendarioTableSeeder');
-       $this->call('SemanaCursilloComunidadesTableSeeder');
+        $this->call('RolesTableSeeder');
+        $this->call('UserTableSeeder');
+        $this->call('PaisesTableSeeder');
+        $this->call('ProvinciasTableSeeder');
+        $this->call('LocalidadesTableSeeder');
+        $this->call('TiposCursillosTableSeeder');
+        $this->call('GenerosTableSeeder');
+        $this->call('TiposComunidadesTableSeeder');
+        $this->call('ComunidadesTableSeeder');
+        $this->call('CursillosTableSeeder');
+        $this->call('SolicitudesEnviadasTableSeeder');
+        $this->call('SolicitudesRecibidasTableSeeder');
+        $this->call('CalendarioTableSeeder');
+        $this->call('SemanaCursilloComunidadesTableSeeder');
 
 
     }
@@ -73,10 +79,9 @@ class DatabaseSeeder extends Seeder
     private function checkForeignKeys($check)
     {
 
-        $check = $check ? '1': '0';
+        $check = $check ? '1' : '0';
 
         DB::statement("SET FOREIGN_KEY_CHECKS = $check");
-
 
 
     }

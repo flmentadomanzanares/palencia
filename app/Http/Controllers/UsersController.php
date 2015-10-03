@@ -123,7 +123,7 @@ class UsersController extends Controller {
             }
         }
         //imagen upload
-        if (\Request::hasFile('foto')) {
+         if (\Request::hasFile('foto')) {
             $image = \Image::make(\Request::file('foto'));
             $filename = md5($image->filename . date("Y-m-d H:i:s")) . '.png';
             $path = 'uploads' . '/' . 'usuarios' . '/';

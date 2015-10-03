@@ -22,8 +22,8 @@ class CursillosTableSeeder  extends BaseSeeder {
             'fecha_final' => $faker->randomElement(['2015-09-16', '2015-09-21', '2015-10-01']),
             'descripcion'  => $faker->text($maxNbChars = 200),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
-            'tipo_alumnos'  => $faker->randomElement(['Hombres', 'Mujeres', 'Mixto', 'Mixto', 'Mixto']),
-            'tipo_cursillo'  => $faker->randomElement(['Interno', 'Interno', 'Externo']),
+            'genero_id'  => rand(1,3),
+            'tipo_cursillo_id'  => rand(1,2)
         ];
 
     }
