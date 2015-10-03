@@ -12,7 +12,7 @@
   padding: 4px;
   margin-top: 1px;
   border-radius: 4px;
-  background-color: #95bf1f;
+  background-color: rgba(173, 87, 194, 1);
   max-width: 220px;
 }
 .datepicker:before {
@@ -68,18 +68,18 @@
   color: gray;
 }
 .datepicker td.day > day:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: green;
+  background-color: rgba(64, 0, 144, .9);
+  color: white;
 }
 .datepicker td.old, .datepicker td.new {
   color: red;
 }
 .datepicker td.active > day {
-  background: rgba(0, 100, 0, 0.9);
+  background: rgba(64, 0, 144, .9);
   color: white;
 }
 .datepicker td.active > day:hover {
-  background: rgba(0, 255, 0, 0.8);
+  background: rgba(230, 198, 238, .9);
   color: black;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -87,11 +87,11 @@
   background-color: rgba(255, 255, 255, 0.7);
 }
 .datepicker td span.active > year, .datepicker td span.active > month {
-  background: rgba(0, 100, 0, 0.9);
+  background: rgba(64, 0, 144, .9);
   color: white;
 }
 .datepicker td span.active > year:hover, .datepicker td span.active > month:hover {
-  background: rgba(0, 255, 0, 0.8);
+  background: rgba(230, 198, 238, .9);
   color: black;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -105,8 +105,8 @@
   border-radius: 50%;
 }
 .datepicker td span > month:hover, .datepicker td span > year:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: green;
+  background-color: rgba(64, 0, 144, .9);
+  color: white;
 }
 .datepicker td span.old {
   color: gray;
@@ -121,7 +121,7 @@
   cursor: pointer;
 }
 .datepicker thead tr:first-child th:hover {
-  color: rgba(0, 255, 0, 0.9);
+  color: rgba(230, 198, 238, .9);
 }
 
 .input-append.date .add-on i,

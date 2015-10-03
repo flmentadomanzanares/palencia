@@ -5,10 +5,10 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
-        {!! FORM::open(['route' => 'proyectos.store']) !!}
-        @include('proyectos.Parciales.nuevoYmodificar')
+        {!! FORM::open(['route' => 'cursillos.store']) !!}
+        @include('cursillos.Parciales.nuevoYmodificar')
         <div class="btn-action">
-            <a title="Volver" href="{{route('proyectos.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('cursillos.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>
