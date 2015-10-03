@@ -180,11 +180,15 @@ textarea {
 //***************************************************
 footer {
   margin-top: $footer-margin-top;
-  background-color: $app-color-base;
+ /* background-color: $app-color-base;*/
+  background-image: url('../img/black.png');
   font-size: $font-size-app-base-footer;
-  padding: $padding-app-base;
+  padding-top: $padding-app-large;
   color: $app-color-white;
   line-height: $footer-line-height;
+  min-height: $footer-height;
+  vertical-align: middle;
+
   span {
     padding-right: $padding-base-horizontal;
   }
