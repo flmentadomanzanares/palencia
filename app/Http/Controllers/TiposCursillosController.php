@@ -5,9 +5,9 @@ use Illuminate\Http\Request;
 use Palencia\Entities\tiposCursillos;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulestiposCursillos;
+use Palencia\Http\Requests\ValidateRulesTiposCursillos;
 
-class tiposCursillosController extends Controller
+class TiposCursillosController extends Controller
 {
 
     /**
@@ -45,7 +45,7 @@ class tiposCursillosController extends Controller
      */
 
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
-    public function store(ValidateRulestiposCursillos $request)
+    public function store(ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = new tiposCursillos(); //Creamos instancia al modelo
         $tipos_cursillos->cursillo = \Request::input('cursillo'); //Asignamos el valor al campo.
@@ -88,7 +88,7 @@ class tiposCursillosController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update($id, ValidateRulestiposCursillos $request)
+    public function update($id, ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = tiposCursillos::find($id);
         $tipos_cursillos->cursillo = \Request::input('cursillo');

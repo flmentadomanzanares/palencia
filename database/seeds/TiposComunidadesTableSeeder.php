@@ -11,6 +11,5 @@ class TiposComunidadesTableSeeder extends Seeder
         DB::table('tipos_comunidades')->insert(Array('comunidad' => 'Secretariado Diocesano'));
         DB::table('tipos_comunidades')->insert(Array('comunidad' => 'Secretariado Arquidiocesano'));
         DB::table('tipos_comunidades')->insert(Array('comunidad' => 'Grupo Ejecutivo Diocesano'));
-        DB::table('tipos_comunidades')->insert(Array('comunidad' => 'Otros'));
     }
 }

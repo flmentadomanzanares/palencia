@@ -57,8 +57,9 @@
                                     <li>{!!link_to('roles','Roles')!!}</li>
                                     <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
                                     <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
-                                    <li>{!!link_to('tiposCursillos', 'Tipo Cursillos')!!}</li>
-                                    <li>{!!link_to('tiposParticipantes', 'Tipo Participantes')!!}</li>
+                                    <li>{!!link_to('tiposComunidades', 'Tipos Comunidades')!!}</li>
+                                    <li>{!!link_to('tiposCursillos', 'Tipos Cursillos')!!}</li>
+                                    <li>{!!link_to('tiposParticipantes', 'Tipos Participantes')!!}</li>
                                     <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 </ul>
                             </li>
