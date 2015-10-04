@@ -7,33 +7,33 @@
     <div class="hidden table-size-optima">
         @if (Auth::check())
             <div class="row ">
-                @include('paises.parciales.buscar')
+                @include('tiposParticipantes.parciales.buscar')
             </div>
-            @if(!$paises->isEmpty())
+            @if(!$tipos_participantes->isEmpty())
 
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
                         <tr>
                             <th colspan="2">
-                                Pa&iacute;ses
+                                Tipos de participantes
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($paises as $pais)
+                        @foreach ($tipos_participantes as $tipo_participante)
                             <tr>
-                                <td>{{ $pais->pais }}</td>
+                                <td>{{ $tipo_participante->participante }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
-                                        <a title="Editar" href="{{route('paises.edit', $pais->id)}}"
+                                        <a title="Editar" href="{{route('tiposParticipantes.edit', $tipo_participante->id)}}"
                                            class="pull-left">
                                             <i class="glyphicon glyphicon-edit">
                                                 <div>Editar</div>
                                             </i>
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                            {!! FORM::open(array('route' => array('paises.destroy', $pais->id),
+                                            {!! FORM::open(array('route' => array('tiposParticipantes.destroy', $tipo_participante->id),
                                             'method' => 'DELETE','title'=>'Borrar')) !!}
                                             <button type="submit" class="pull-right">
                                                 <i class='glyphicon glyphicon-trash full-Width'>
@@ -56,7 +56,7 @@
                         </div>
                     @endif
                     <div class="row text-center">
-                        {!! $paises->appends(Request::only(['pais']))->render()
+                        {!! $tipos_participantes->appends(Request::only(['tipo_participante']))->render()
                         !!}{{-- Poner el paginador --}}
                     </div>
                     @else

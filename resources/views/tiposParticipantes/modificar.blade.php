@@ -5,10 +5,10 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
-        {!! FORM::model($paises, ['route' => ['paises.update', $paises->id], 'method' => 'patch']) !!}
-        @include('paises.parciales.nuevoYmodificar')
+        {!! FORM::model($tipos_participantes, ['route' => ['tiposParticipantes.update', $tipos_participantes->id], 'method' => 'patch']) !!}
+        @include('tiposParticipantes.parciales.nuevoYmodificar')
         <div class="btn-action">
-            <a title="Volver" href="{{route('paises.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('tiposParticipantes.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>

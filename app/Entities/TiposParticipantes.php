@@ -11,17 +11,17 @@ class TiposParticipantes extends Model {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comunidades(){
-        return $this->hasMany("Palencia\Entities\Comunidades");
+    public function cursillos(){
+        return $this->hasMany("Palencia\Entities\Cursillos");
     }
 
     /**
      * @param $query
      * @param $pais
      */
-    public function scopeTiposParticipantes($query,$tipoParticipante){
+    public function scopeTipoParticipante($query,$tipoParticipante){
         if (trim($tipoParticipante)!='')
-            $query->where('tipo_participantes','LIKE',"$tipoParticipante".'%');
+            $query->where('participante','LIKE',"$tipoParticipante".'%');
     }
 
 }

@@ -7,7 +7,8 @@ use Palencia\Entities\TiposParticipantes;
 //Validación
 use Palencia\Http\Requests\ValidateRulesTiposParticipantes;
 
-class TiposParticipantesController extends Controller {
+class TiposParticipantesController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -16,13 +17,13 @@ class TiposParticipantesController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo="Listado de tipos de participantes";
-        $tipoParticipantes= TiposParticipantes::tipoParticipante($request->get('tipoParticipante'))
-            ->orderBy('tipo_participante', 'ASC')
+        $titulo = "Listado de tipos de participantes";
+        $tipos_participantes = TiposParticipantes::tipoParticipante($request->get('participante'))
+            ->orderBy('participante', 'ASC')
             ->paginate()
-            ->setPath('participantes');
+            ->setPath('tiposParticipantes');
 
-        return view("tipoParticipantes.index",compact('tipoParticipantes','titulo'));
+        return view("tiposParticipantes.index", compact('tipos_participantes', 'titulo'));
     }
 
     /**
@@ -32,8 +33,9 @@ class TiposParticipantesController extends Controller {
      */
     public function create()
     {
-        $paises = new Paises;
-        return view('paises.nuevo')->with('paises', $paises)->with('titulo','Nuevo País');
+        $titulo = "Nuevo tipo de participante";
+        $tipos_participantes = new TiposParticipantes();
+        return view('tiposParticipantes.nuevo', compact('tipos_participantes', 'titulo'));
     }
 
     /**
@@ -43,70 +45,68 @@ class TiposParticipantesController extends Controller {
      */
 
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
-    public function store(ValidateRulesPaises $request)
+    public function store(ValidateRulesTiposParticipantes $request)
     {
-        $paises = new Paises; //Creamos instancia al modelo
-
-        $paises->pais = \Request::input('pais'); //Asignamos el valor al campo.
+        $tipos_participantes = new TiposParticipantes(); //Creamos instancia al modelo
+        $tipos_participantes->participante = \Request::input('participante'); //Asignamos el valor al campo.
         try {
-            $paises->save();
+            $tipos_participantes->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('paises.create')->with('mensaje', 'El país ' . \Request::input('pais') . ' está ya dado de alta.');
+                    return redirect()->route('tiposParticipantes.create')
+                        ->with('mensaje', 'El tipo de participante ' . \Request::input('participante') . ' está ya dado de alta . ');
                     break;
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Nuevo país error ' . $e->getCode());
+                    return redirect()
+                        ->route('tiposParticipantes.index')
+                        ->with('mensaje', 'Nuevo país error ' . $e->getCode());
             }
         }
-        return redirect('paises')->with('mensaje', 'El país ' . $paises->pais . ' creado satisfactoriamente.');
+        return redirect('tiposParticipantes')
+            ->with('mensaje', 'El tipo de participante ' . $tipos_participantes->participante . ' creado satisfactoriamente . ');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
     {
-        return view('paises.modificar')->with('paises', Paises::find($id))->with('titulo','Modificar País');
-    }
+        $titulo = "Modificar tipo de participante";
+        $tipos_participantes = TiposParticipantes::find($id);
+        return view('tiposParticipantes.modificar', compact('tipos_participantes','titulo'));
+     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
-    public function update($id, ValidateRulesPaises $request)
+    public function update($id, ValidateRulesTiposParticipantes $request)
     {
-        $paises = Paises::find($id);
-        $paises->pais = \Request::input('pais');
-        if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-            $paises->activo = \Request::input('activo');
+        $tipos_participantes = TiposParticipantes::find($id);
+        $tipos_participantes->participante = \Request::input('participante');
+        if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
+            $tipos_participantes->activo = \Request::input('activo');
         }
         try {
-            $paises->save();
+            $tipos_participantes->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Modificar país error ' . $e->getCode());
+                    return redirect()
+                        ->route('tiposParticipantes.index')
+                        ->with('mensaje', 'Modificar tipo participante error ' . $e->getCode());
             }
         }
-        return redirect()->route('paises.index')->with('mensaje', 'País  modificado satisfactoriamente.');
+        return redirect()->route('tiposParticipantes.index')
+            ->with('mensaje', 'El tipo de participante se ha modificado satisfactoriamente . ');
     }
 
     /**
@@ -117,21 +117,22 @@ class TiposParticipantesController extends Controller {
      */
     public function destroy($id)
     {
-        $paises = Paises::find($id);
-        $paisNombre = $paises->pais;
+        $tipos_participantes = TiposParticipantes::find($id);
+        $participante =$tipos_participantes->participante;
         try {
-            $paises->delete();
+            $tipos_participantes->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('paises.index')->with('mensaje', 'El país ' . $paisNombre . ' no se puede eliminar al tener registros asociados.');
+                    return redirect()->route('tiposParticipantes.index')
+                        ->with('mensaje', 'El tipo de participante '.$participante.' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Eliminar país error ' . $e->getCode());
+                    return redirect()->route('tiposParticipantes.index')
+                        ->with('mensaje', 'Eliminar ptipo participante error ' . $e->getCode());
             }
-
         }
-
-        return redirect()->route('paises.index')->with('mensaje', 'El país ' . $paisNombre . ' eliminado correctamente.');
+        return redirect()->route('tiposParticipantes.index')
+            ->with('mensaje', 'El tipo de participante eliminado correctamente.');
     }
 }

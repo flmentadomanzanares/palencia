@@ -15,7 +15,7 @@ Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 
 Route::get('/', 'InvitadoController@index');
 
-Route::get('inicio', 'AutenticadoController@index');
+Route::get('inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
 
 Route::controllers([
 
@@ -37,7 +37,7 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
-Route::resource('tipoParticipates','TiposParticipantesController');
+Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tipoComunidades','TiposComunidadesController');
 Route::resource('tipoCursillos','TiposCursillosController');
 Route::resource('tipoComunicacionesPreferidas','TiposComunicacionesPreferidasController');

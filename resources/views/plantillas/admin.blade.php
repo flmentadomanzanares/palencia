@@ -52,7 +52,7 @@
                                     <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
                                     <li>{!!link_to('localidades', 'Localidades')!!}</li>
                                     <li>{!!link_to('paises', 'Paises')!!}</li>
-                                    <li>{!!link_to('generos', 'Participantes')!!}</li>
+                                    <li>{!!link_to('tiposParticipantes', 'Participantes')!!}</li>
                                     <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                     <li>{!!link_to('calendarioCursos', 'Planificacion')!!}</li>
                                     <li>{!!link_to('roles','Roles')!!}</li>

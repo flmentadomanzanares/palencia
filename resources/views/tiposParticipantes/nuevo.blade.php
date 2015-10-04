@@ -6,12 +6,10 @@
     <div class="spinner"></div>
     <div class="hidden">
         <div class="row table-size-optima">
-            {!! FORM::open(['route' => 'paises.store']) !!}
-
-            @include('paises.parciales.nuevoYmodificar')
-
+            {!! FORM::open(['route' => 'tiposParticipantes.store']) !!}
+            @include('tiposParticipantes.parciales.nuevoYmodificar')
             <div class="btn-action">
-                <a title="Volver" href="{{route('paises.index')}}" class="pull-left">
+                <a title="Volver" href="{{route('tiposParticipantes.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>
                     </i>
