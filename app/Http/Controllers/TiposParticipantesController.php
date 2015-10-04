@@ -60,7 +60,7 @@ class TiposParticipantesController extends Controller
                 default:
                     return redirect()
                         ->route('tiposParticipantes.index')
-                        ->with('mensaje', 'Nuevo país error ' . $e->getCode());
+                        ->with('mensaje', 'Nuevo tipo de participante error ' . $e->getCode());
             }
         }
         return redirect('tiposParticipantes')

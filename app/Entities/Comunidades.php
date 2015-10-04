@@ -10,7 +10,7 @@ class Comunidades extends Model {
 
     /*****************************************************************************************************************
      *
-     * Relacion many to one: paises --> comunidades
+     * Relacion many to one: tipo_comunidad --> comunidades
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      *
@@ -19,7 +19,17 @@ class Comunidades extends Model {
     {
         return $this->belongsTo('App\TiposComunidades', 'tipo_comunidad_id');
     }
-
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: tipo_comunidad --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function tipo_comunicacion_preferida()
+    {
+        return $this->belongsTo('App\TiposComunidades', 'tipo_comunicacion_preferida_id');
+    }
     /*****************************************************************************************************************
      *
      * Relacion many to one: paises --> comunidades

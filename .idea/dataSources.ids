@@ -14,8 +14,8 @@
       <column name="fecha_final" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
       <column name="semana_no" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDMn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDMn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDkn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDkn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="semana_cursillo_comunidades_calendario_id_foreign" table="semana_cursillo_comunidades" schema="" catalog="palencia" columns="calendario_id"/>
     </table>
@@ -36,15 +36,16 @@
       <column name="facebook" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="telefono1" sqlType="VARCHAR" precision="13" scale="0" nullable="false" jdbcType="12"/>
       <column name="telefono2" sqlType="VARCHAR" precision="13" scale="0" nullable="true" jdbcType="12"/>
-      <column name="comunicacion_preferida" sqlType="ENUM" precision="6" scale="0" nullable="false" jdbcType="1" def="J0VtYWlsJw=="/>
+      <column name="tipo_comunicacion_preferida_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="comunidades_localidad_id_foreign" columns="localidad_id" ref-table="localidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="comunidades_pais_id_foreign" columns="pais_id" ref-table="paises" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="comunidades_provincia_id_foreign" columns="provincia_id" ref-table="provincias" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="comunidades_tipo_comunicacion_preferida_id_foreign" columns="tipo_comunicacion_preferida_id" ref-table="tipos_comunicaciones_preferidas" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="comunidades_tipo_comunidad_id_foreign" columns="tipo_comunidad_id" ref-table="tipos_comunidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <exported-key name="cursillos_comunidad_id_foreign" table="cursillos" schema="" catalog="palencia" columns="comunidad_id"/>
       <exported-key name="semana_cursillo_comunidades_comunidad_id_foreign" table="semana_cursillo_comunidades" schema="" catalog="palencia" columns="comunidad_id"/>
@@ -53,6 +54,7 @@
       <index name="comunidades_localidad_id_foreign" unique="false" columns="localidad_id"/>
       <index name="comunidades_pais_id_foreign" unique="false" columns="pais_id"/>
       <index name="comunidades_provincia_id_foreign" unique="false" columns="provincia_id"/>
+      <index name="comunidades_tipo_comunicacion_preferida_id_foreign" unique="false" columns="tipo_comunicacion_preferida_id"/>
       <index name="comunidades_tipo_comunidad_id_foreign" unique="false" columns="tipo_comunidad_id"/>
     </table>
     <table name="cursillos" schema="" catalog="palencia" type="TABLE">
@@ -65,8 +67,8 @@
       <column name="tipo_participante_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="tipo_cursillo_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTQn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTQn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mzkn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mzkn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="cursillos_comunidad_id_foreign" columns="comunidad_id" ref-table="comunidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="cursillos_tipo_cursillo_id_foreign" columns="tipo_cursillo_id" ref-table="tipos_cursillos" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -83,8 +85,8 @@
       <column name="localidad" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="provincia_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDUn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDUn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjkn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjkn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="localidades_provincia_id_foreign" columns="provincia_id" ref-table="provincias" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
       <exported-key name="comunidades_localidad_id_foreign" table="comunidades" schema="" catalog="palencia" columns="localidad_id"/>
@@ -99,8 +101,8 @@
       <column name="id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="pais" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDMn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDMn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjcn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjcn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="comunidades_pais_id_foreign" table="comunidades" schema="" catalog="palencia" columns="pais_id"/>
       <exported-key name="provincias_pais_id_foreign" table="provincias" schema="" catalog="palencia" columns="pais_id"/>
@@ -117,8 +119,8 @@
       <column name="provincia" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="pais_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDQn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDQn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjcn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6Mjcn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="provincias_pais_id_foreign" columns="pais_id" ref-table="paises" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <exported-key name="comunidades_provincia_id_foreign" table="comunidades" schema="" catalog="palencia" columns="provincia_id"/>
@@ -131,8 +133,8 @@
       <column name="rol" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="peso" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDYn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDYn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzAn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="users_rol_id_foreign" table="users" schema="" catalog="palencia" columns="rol_id"/>
     </table>
@@ -142,8 +144,8 @@
       <column name="comunidad_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="calendario_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDMn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDMn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDkn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDkn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="semana_cursillo_comunidades_calendario_id_foreign" columns="calendario_id" ref-table="calendario" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="semana_cursillo_comunidades_comunidad_id_foreign" columns="comunidad_id" ref-table="comunidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -164,8 +166,8 @@
       <column name="aceptada" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
       <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTgn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTgn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDIn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDIn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="solicitudes_enviadas_comunidad_id_foreign" columns="comunidad_id" ref-table="comunidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="solicitudes_enviadas_cursillo_id_foreign" columns="cursillo_id" ref-table="cursillos" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -184,8 +186,8 @@
       <column name="aceptada" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
       <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDAn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDE6MDAn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDQn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6NDQn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="solicitudes_recibidas_comunidad_id_foreign" columns="comunidad_id" ref-table="comunidades" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="solicitudes_recibidas_cursillo_id_foreign" columns="cursillo_id" ref-table="cursillos" ref-schema="" ref-catalog="palencia" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
@@ -196,16 +198,17 @@
       <column name="id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="comunicacion_preferida" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDgn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDgn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzIn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzIn"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="comunidades_tipo_comunicacion_preferida_id_foreign" table="comunidades" schema="" catalog="palencia" columns="tipo_comunicacion_preferida_id"/>
     </table>
     <table name="tipos_comunidades" schema="" catalog="palencia" type="TABLE">
       <column name="id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="comunidad" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="comunidades_tipo_comunidad_id_foreign" table="comunidades" schema="" catalog="palencia" columns="tipo_comunidad_id"/>
     </table>
@@ -213,8 +216,8 @@
       <column name="id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="cursillo" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NTAn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzMn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="cursillos_tipo_cursillo_id_foreign" table="cursillos" schema="" catalog="palencia" columns="tipo_cursillo_id"/>
     </table>
@@ -222,8 +225,8 @@
       <column name="id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="participante" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="activo" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
-      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDkn"/>
-      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMDA6MDA6NDkn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzIn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzIwMTUtMTAtMDQgMTE6NTY6MzIn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="cursillos_tipo_participante_id_foreign" table="cursillos" schema="" catalog="palencia" columns="tipo_participante_id"/>
     </table>

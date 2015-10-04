@@ -59,7 +59,7 @@ class TiposComunidadesController extends Controller
                 default:
                     return redirect()
                         ->route('tiposComunidades.index')
-                        ->with('mensaje', 'Nuevo país error ' . $e->getCode());
+                        ->with('mensaje', 'Nuevo tipo de comunidad error ' . $e->getCode());
             }
         }
         return redirect('tiposComunidades')

@@ -50,7 +50,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('telefono2',13)->nullable();
 
-            $table->enum('comunicacion_preferida', ['Email', 'Carta'])->default('Email');
+            $table->bigInteger('tipo_comunicacion_preferida_id')->unsigned();
+            $table->foreign('tipo_comunicacion_preferida_id')->references('id')->on('tipos_comunicaciones_preferidas')->onDelete('cascade');
 
             $table->text('observaciones');
 

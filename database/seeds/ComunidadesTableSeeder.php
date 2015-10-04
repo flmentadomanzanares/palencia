@@ -30,7 +30,7 @@ class ComunidadesTableSeeder extends BaseSeeder {
             'facebook' => $faker->url,
             'telefono1' => $faker->randomElement(['615324789', '928276589', '627456896', '615856912']),
             'telefono2' => $faker->randomElement(['', '', '928278956', '928564285']),
-            'comunicacion_preferida' => $faker->randomElement(['Email', 'Email', 'Carta']),
+            'tipo_comunicacion_preferida_id' =>rand(1,2),
             'observaciones'  => $faker->text($maxNbChars = 200),
             ];
     }

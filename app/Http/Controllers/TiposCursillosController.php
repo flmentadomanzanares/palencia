@@ -60,7 +60,7 @@ class TiposCursillosController extends Controller
                 default:
                     return redirect()
                         ->route('tiposCursillos.index')
-                        ->with('mensaje', 'Nuevo país error ' . $e->getCode());
+                        ->with('mensaje', 'Nuevo tipo de cursillo error ' . $e->getCode());
             }
         }
         return redirect('tiposCursillos')
