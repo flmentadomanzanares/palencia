@@ -22,22 +22,24 @@ class ValidateRulesComunidades extends Request {
     public function rules()
     {
         return [
-            "comunidad"    =>    "required|min:2|max:50",
-            "responsable"    =>    "required|min:2|max:100",
-            "direccion"    =>    "required|min:2|max:100",
-            "cp"    =>    "required|size:5",
-            "pais_id"    =>    "required",
-            "provincia_id"    =>    "required",
-            "localidad_id"    =>    "required",
-            "email1"    =>    "email|max:50",
-            "email2"    =>    "email|max:50",
-            "web" => "min:6|max:50",
-            "facebook" => "min:6|max:50",
-            "telefono1"    =>    "min:6|max:13",
-            "telefono2"    =>    "min:6|max:13",
-            "observaciones" => "required|min:20",
-            "registrada"    =>    "boolean",
-            "activo"    =>    "boolean"
+            "comunidad"    =>                   "required|min:2|max:50",
+            "num_comunidad" =>                  "numeric",
+            "tipo_comunidad_id" =>              "required|numeric",
+            "responsable"    =>                 "required|min:2|max:100",
+            "direccion"    =>                   "required|min:2|max:100",
+            "cp"    =>                          "required|size:5",
+            "pais_id"    =>                     "required|numeric",
+            "provincia_id"    =>                "required|numeric",
+            "localidad_id"    =>                "required|numeric",
+            "email1"    =>                      "email|max:50",
+            "email2"    =>                      "email|max:50",
+            "web" =>                            "max:50",
+            "facebook" =>                       "max:50",
+            "telefono1"    =>                   "max:13",
+            "telefono2"    =>                   "max:13",
+            "tipo_comunicacion_preferida_id" => "required|numeric",
+            "observaciones" =>                  "required|min:5",
+            "activo"    =>                      "boolean"
 
         ];
     }
@@ -52,6 +54,7 @@ class ValidateRulesComunidades extends Request {
             'responsable.max' => 'Longitud máxima del responsable :max caracteres.',
             'cp.required' => 'El codigo postal es obligatorio.',
             'cp.size' => 'El codigo postal debe tener :size caracteres.',
+            'tipo_comunidad_id.required' => 'El tipo de comunicdad es obligatorio.',
             'pais_id.required' => 'El pais es obligatorio.',
             'provincia_id.required' => 'La provincia es obligatoria.',
             'localidad_id.required' => 'La localidad es obligatoria.',
@@ -68,9 +71,8 @@ class ValidateRulesComunidades extends Request {
             'telefono2.min' => 'Longitud mínima del teléfono2 :min caracteres.',
             'telefono2.max' => 'Longitud máxima del teléfono2 :max caracteres.',
             'observaciones.required' => 'La comunidad es obligatoria.',
+            'tipo_comunicacion_preferida_id.required' => 'La comunicación preferida es obligatoria.',
             'observaciones.min' => 'Longitud mínima de la comunidad :min caracteres.',
-            'registrada.required' => 'El campo tutor es obligatorio!',
-            'registrada.boolean' => 'El valor del campo tutor debe ser No o Si',
             'activo.required' => 'El campo tutor es obligatorio!',
             'activo.boolean' => 'El valor del campo tutor debe ser No o Si'
         ];

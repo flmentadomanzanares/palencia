@@ -18,10 +18,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('comunidad',50);
 
-            $table->string('num_comunidad',10);
-
-            $table->bigInteger('tipo_comunidad_id')->unsigned();
-            $table->foreign('tipo_comunidad_id')->references('id')->on('tipos_comunidades')->onDelete('cascade');
+            $table->bigInteger('tipo_secretariado_id')->unsigned();
+            $table->foreign('tipo_secretariado_id')->references('id')->on('tipos_secretariados')->onDelete('cascade');
 
             $table->string('responsable',100);
 
@@ -55,7 +53,7 @@ class CreateComunidadesTable extends Migration {
 
             $table->text('observaciones');
 
-            $table->boolean('activo')->default(true);
+            $table->boolean('activa')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 

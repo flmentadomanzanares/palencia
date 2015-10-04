@@ -1,6 +1,6 @@
 <?php namespace Palencia\Http\Requests;
 
-class ValidateRulesTiposComunidades extends Request {
+class ValidateRulesTiposSecretariados extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -20,15 +20,15 @@ class ValidateRulesTiposComunidades extends Request {
     public function rules()
     {
         return [
-            "comunidad"    =>    "required|min:2|max:50",
+            "secretariado"    =>    "required|min:2|max:50",
         ];
     }
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'comunidad.required' => 'El tipo de comunidad es obligatorio!',
-            'comunidad.min' => 'Longitud mínima del tipo de comunidad :min caracteres.',
-            'comunidad.max' => 'Longitud máxima del tipo de comunidad :max caracteres.'
+            'secretariado.required' => 'El tipo de secretariado es obligatorio!',
+            'secretariado.min' => 'Longitud mínima del tipo de secretariado :min caracteres.',
+            'secretariado.max' => 'Longitud máxima del tipo de secretariado :max caracteres.'
         ];
     }
 

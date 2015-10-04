@@ -18,6 +18,8 @@ class CreateCursillosTable extends Migration {
 
             $table->string('cursillo',50);
 
+            $table->string('num_cursillo',10);
+
             $table->date('fecha_inicio');
 
             $table->date('fecha_final');

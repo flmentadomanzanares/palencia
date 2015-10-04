@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'localidades',
             'tipos_comunicaciones_preferidas',
             'tipos_participantes',
-            'tipos_comunidades',
+            'tipos_secretariados',
             'comunidades',
             'tipos_cursillos',
             'cursillos',
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposComunicacionesPreferidasTableSeeder');
         $this->call('TiposCursillosTableSeeder');
         $this->call('TiposParticipantesTableSeeder');
-        $this->call('TiposComunidadesTableSeeder');
+        $this->call('TiposSecretariadosTableSeeder');
         $this->call('ComunidadesTableSeeder');
         $this->call('CursillosTableSeeder');
         $this->call('SolicitudesEnviadasTableSeeder');

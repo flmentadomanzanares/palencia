@@ -37,7 +37,7 @@ Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
 Route::resource('tiposParticipantes','TiposParticipantesController');
-Route::resource('tiposComunidades','TiposComunidadesController');
+Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 

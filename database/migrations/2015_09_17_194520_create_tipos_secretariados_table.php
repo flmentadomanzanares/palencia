@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiposComunidadesTable extends Migration {
+class CreateTiposSecretariadosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateTiposComunidadesTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('tipos_comunidades', function(Blueprint $table)
+        Schema::create('tipos_secretariados', function(Blueprint $table)
         {
             $table->bigIncrements('id');
 
-            $table->string('comunidad',50);
+            $table->string('secretariado',50);
 
             $table->boolean('activo')->default(true);
 
@@ -33,7 +33,7 @@ class CreateTiposComunidadesTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('tipos_comunidades');
+        Schema::drop('tipos_secretariados');
 	}
 
 }
