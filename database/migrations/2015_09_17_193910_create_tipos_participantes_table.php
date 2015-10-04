@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenerosTable extends Migration {
+class CreateTiposParticipantesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateGenerosTable extends Migration {
 	 */
     public function up()
     {
-        Schema::create('generos', function(Blueprint $table)
+        Schema::create('tipos_participantes', function(Blueprint $table)
         {
             $table->bigIncrements('id');
 
-            $table->string('genero',50);
+            $table->string('participante',50);
 
             $table->boolean('activo')->default(true);
 
@@ -33,7 +33,7 @@ class CreateGenerosTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('generos');
+        Schema::drop('tipos_participantes');
     }
 
 

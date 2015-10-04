@@ -27,8 +27,8 @@ class CreateCursillosTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
 
-            $table->bigInteger('genero_id')->unsigned();
-            $table->foreign('genero_id')->references('id')->on('generos')->onDelete('cascade');
+            $table->bigInteger('tipo_participante_id')->unsigned();
+            $table->foreign('tipo_participante_id')->references('id')->on('tipos_participantes')->onDelete('cascade');
 
             $table->bigInteger('tipo_cursillo_id')->unsigned();
             $table->foreign('tipo_cursillo_id')->references('id')->on('tipos_cursillos')->onDelete('cascade');

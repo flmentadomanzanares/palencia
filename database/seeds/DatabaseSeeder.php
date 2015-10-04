@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'paises',
             'provincias',
             'localidades',
-            'generos',
+            'tipos_participantes',
             'tipos_comunidades',
             'comunidades',
             'tipos_cursillos',
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ProvinciasTableSeeder');
         $this->call('LocalidadesTableSeeder');
         $this->call('TiposCursillosTableSeeder');
-        $this->call('GenerosTableSeeder');
+        $this->call('TiposParticipantesTableSeeder');
         $this->call('TiposComunidadesTableSeeder');
         $this->call('ComunidadesTableSeeder');
         $this->call('CursillosTableSeeder');

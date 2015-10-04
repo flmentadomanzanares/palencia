@@ -37,12 +37,9 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
+Route::resource('genero','GenerosController');
 
 
-
-Route::get('aboutus', 'ComunController@mostrarAboutUs');
-Route::get('contacto', 'ComunController@mostrarContacto');
-Route::post('enviar', 'ComunController@enviarCorreo');
 
 
 //Ruta para cambio de Provincias y localidades vía ajax.

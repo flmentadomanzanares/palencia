@@ -15,6 +15,18 @@ class Comunidades extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      *
      *****************************************************************************************************************/
+    public function tipo_comunidad()
+    {
+        return $this->belongsTo('App\TiposComunidades', 'tipo_comunidad_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: paises --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
     public function paises()
     {
         return $this->belongsTo('App\Paises', 'pais_id');
@@ -43,6 +55,8 @@ class Comunidades extends Model {
     {
         return $this->belongsTo('App\Localidades', 'localidad_id');
     }
+
+
 
 }
 

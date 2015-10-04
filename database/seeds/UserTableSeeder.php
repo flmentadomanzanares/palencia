@@ -50,6 +50,13 @@ class UserTableSeeder extends BaseSeeder {
             'password' => bcrypt('admin'),
             'rol_id' => 4
         ]);
+        User::create([
+            'fullname'  => 'Francisico Luis Mentado Manzanares',
+            'name' => 'Fmentado',
+            'email' => 'a@a.es',
+            'password' => bcrypt('fmentado'),
+            'rol_id' => 4
+        ]);
 
     }
 

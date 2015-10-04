@@ -20,8 +20,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('num_comunidad',10);
 
-            $table->bigInteger('tipo_comunidad')->unsigned();
-            $table->foreign('tipo_comunidad')->references('id')->on('tipos_comunidades')->onDelete('cascade');
+            $table->bigInteger('tipo_comunidad_id')->unsigned();
+            $table->foreign('tipo_comunidad_id')->references('id')->on('tipos_comunidades')->onDelete('cascade');
 
             $table->string('responsable',100);
 
