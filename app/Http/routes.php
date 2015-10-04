@@ -24,7 +24,6 @@ Route::controllers([
 
 ]);
 
-
 //Rutas Controladores RestFull
 Route::resource('calendario','CalendarioController');
 Route::resource('comunidades','ComunidadesController');
@@ -39,7 +38,7 @@ Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
 Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tipoComunidades','TiposComunidadesController');
-Route::resource('tipoCursillos','TiposCursillosController');
+Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('tipoComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
 

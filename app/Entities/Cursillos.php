@@ -13,49 +13,19 @@ class Cursillos extends Model {
     {
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
+    public function cursillos()
+    {
+        return $this->belongsTo('Palencia\Entities\TiposCursillos', 'tipo_cursillo_id');
+    }
+    public function participantes()
+    {
+        return $this->belongsTo('Palencia\Entities\TiposParticipante', 'tipo_participante_id');
+    }
 
     public function scopeCursillo($query, $cursillo)
     {
         if (trim($cursillo) != '')
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
     }
-
-    /*****************************************************************************************************************
-     *
-     * Obtenemos la lista de valores permitidos del campo enum
-     * @return array Lista con los campos
-     *
-     *****************************************************************************************************************/
-    public static function getCursilloEnumValues($field)
-    {
-        $type = DB::select(DB::raw("SHOW COLUMNS FROM cursillos WHERE Field = '".$field."'"))[0]->Type;
-        preg_match('/^enum\((.*)\)$/', $type, $matches);
-        $enum = array();
-        foreach (explode(',', $matches[1]) as $value) {
-            $v = trim($value, "'");
-            $enum = array_add($enum, $v, $v);
-        }
-        return $enum;
-    }
-
-
-
-/*****************************************************************************************************************
- *
- * Obtenemos la lista de valores permitidos del campo enum tipo_cursillo
- * @return array Lista con los campos
- *
- *****************************************************************************************************************/
-/*public static function getCursilloEnumCursillosValues()
-{
-    $type = DB::select(DB::raw("SHOW COLUMNS FROM cursillos WHERE Field = 'tipoCursillo'"))[0]->Type;
-    preg_match('/^enum\((.*)\)$/', $type, $matches);
-    $enumCursillos = array();
-    foreach (explode(',', $matches[1]) as $value) {
-        $v = trim($value, "'");
-        $enumCursillos = array_add($enumCursillos, $v, $v);
-    }
-    return $enumCursillos;
-}*/
 
 }

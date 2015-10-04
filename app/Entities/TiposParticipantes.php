@@ -11,7 +11,7 @@ class TiposParticipantes extends Model {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function cursillos(){
+    public function cursillosTipoParticipantes(){
         return $this->hasMany("Palencia\Entities\Cursillos");
     }
 

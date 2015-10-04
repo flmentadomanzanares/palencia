@@ -129,10 +129,10 @@ class TiposParticipantesController extends Controller
                     break;
                 default:
                     return redirect()->route('tiposParticipantes.index')
-                        ->with('mensaje', 'Eliminar ptipo participante error ' . $e->getCode());
+                        ->with('mensaje', 'Eliminar tipo participante error ' . $e->getCode());
             }
         }
         return redirect()->route('tiposParticipantes.index')
-            ->with('mensaje', 'El tipo de participante eliminado correctamente.');
+            ->with('mensaje', 'El tipo de participante se ha eliminado correctamente.');
     }
 }
