@@ -2,7 +2,7 @@
 
     <a title="nuevo" href="{{route('comunidades.create')}}" class="pull-left">
         <i class="glyphicon glyphicon-plus">
-            <div>Nuevo</div>
+            <div>Nueva</div>
         </i>
     </a>
     <a title="Listar" href="{{route('comunidades.index')}}" class="pull-left">
@@ -12,9 +12,12 @@
     </a>
 </div>
 <div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['comunidad']),['route'=>'comunidades.index','method'=>'GET','class'=>'navbar-form
+    {!!FORM::model(Request::only(['comunidad','secretariado','pais']),['route'=>'comunidades.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
-    {!! FORM::text('comunidad',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
+    {!! FORM::select('pais', $paises, null,array("class"=>"select-control pull-left"))!!}
+   {{-- {!! FORM::select('provincia', $provincias, null,array("class"=>"select-control pull-left"))!!} --}}
+    {!! FORM::select('secretariado', $secretariados, null,array("class"=>"select-control pull-left"))!!}
+    {!! FORM::text('comunidad',null,['class'=>'select-control pull-left','placeholder'=>'Comunidad....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
 </div>

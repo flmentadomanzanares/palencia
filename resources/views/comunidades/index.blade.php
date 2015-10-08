@@ -6,10 +6,11 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         @if (Auth::check())
-            <div class="row ">
-                @include('comunidades.parciales.buscar')
-            </div>
-            @if(!$comunidades->isEmpty())
+           @if(!$comunidades->isEmpty())
+                <div class="row ">
+                    @include('comunidades.parciales.buscar')
+                </div>
+            @include('comunidades.parciales.modalBorrar')
                 @foreach ($comunidades as $comunidad)
                     <div>
                         <table class="table-viaoptima table-striped">
@@ -17,16 +18,16 @@
                                 {!! $comunidad->comunidad !!}
                             </caption>
                             <thead>
-                            <tr>
+                            <tr  style=" @if($comunidad->activo==0)background: red !important; @endif ">
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
-                                       href="{{route('comunidades.show',array('id'=>$comunidad->id))}}">
+                                       href="{{route('comunidades.show',$comunidad->id)}}">
                                         <i class="glyphicon glyphicon-eye-open">
                                             <div>Detalles</div>
                                         </i>
                                     </a>
                                     <a title="Editar"
-                                       href="{{route('comunidades.edit',array('id'=>$comunidad->id))}}">
+                                       href="{{route('comunidades.edit',$comunidad->id)}}">
                                         <i class="glyphicon glyphicon-edit">
                                             <div>Editar</div>
                                         </i>
@@ -82,8 +83,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Activa:</td>
-                                <td> @if ($comunidad->activa ) Si @else No @endif </td>
+                                <td>Activo:</td>
+                                <td> @if ($comunidad->activo) Si @else No @endif </td>
                             </tr>
 
                             </tbody>
@@ -93,16 +94,16 @@
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
-                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun cursillo que listar.</p>
+                        <p><strong>¡Aviso!</strong> No se ha encontrado ninguna comunidad que listar.</p>
                     </div>
                 </div>
             @endif
             <div class="row text-center">
-                {!! $comunidades->appends(Request::only(['comunidad']))->render()
+                {!! $comunidades->appends(Request::only(['comunidad','secretariado','pais']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else
-            @include('comun.guestGoHome')
+            @include('invitado')
         @endif
     </div>
 @endsection

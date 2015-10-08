@@ -77,13 +77,13 @@
   }
   thead {
     tr {
-
+        background-color: $app-color-base;
       th {
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
         //padding: $padding-app-small !important;
         padding: $padding-app-base $padding-large-horizontal;
-        background-color: $app-color-hover;
+        background-color: transparent;
         img {
           float: left;
           width: 48px;
@@ -99,11 +99,11 @@
           padding: $padding-app-base;
           border: none;
           font-size: $font-size-app-base-header;
-          background-color: $app-color-hover;
+          background-color: transparent;
           font-weight: normal;
           color: $app-color-white;
           &:hover {
-            color: $app-color-base;
+            color: $app-color-hover;
           }
         }
         a {
@@ -236,24 +236,13 @@ body {
 .btn-register {
   font-size: $font-size-app-base-register;
   font-family: $font-family-century-gothic-bold;
-  background-color: $app-color-hover;
+  background-color: $app-color-base;
+  border-color:$app-color-base !important;
   text-align: center;
   color: $app-color-white;
   &:hover {
-    color: $app-color-base !important;
+    color: $app-color-hover !important;
   }
-}
-
-.btn-ver-mas{
-  background: transparent;
-  border: none;
-  color: $app-color-hover;
-}
-
-.btn-register-tab-height {
-  height: $tab-invitados-alto-enlace-registrate;
-  font-size: $font-size-app-base-content;
-  line-height: 30px;
 }
 
 .btn-action {
@@ -388,7 +377,7 @@ body {
 }
 
 .red {
-  color: $app-color-fail;
+  color: $app-color-fail !important;
 }
 
 //Pading para todas las páginas insertada en platillas
@@ -406,7 +395,7 @@ body {
 .heading-caption {
   text-align: center;
   display: block;
-  background-color: $app-color-hover;
+  background-color: $app-color-base;
   color: $app-color-white;
   font-size: 2* $font-size-app-base-header;
   padding: $padding-app-large $padding-app-base;
