@@ -14,7 +14,13 @@ class TiposParticipantes extends Model {
     public function cursillosTipoParticipantes(){
         return $this->hasMany("Palencia\Entities\Cursillos");
     }
-
+    static public function getTiposParticipantesList()
+    {
+        return ['0' => 'Asistentes...'] + TiposParticipantes::Select('id', 'tipo_participante')
+            ->where('activo', true)
+            ->orderBy('tipo_participante', 'ASC')
+            ->Lists('tipo_participante', 'id');
+    }
     /**
      * @param $query
      * @param $pais

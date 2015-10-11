@@ -15,7 +15,6 @@
     {!!FORM::model(Request::only(['comunidad','secretariado','pais']),['route'=>'comunidades.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('pais', $paises, null,array("class"=>"select-control pull-left"))!!}
-   {{-- {!! FORM::select('provincia', $provincias, null,array("class"=>"select-control pull-left"))!!} --}}
     {!! FORM::select('secretariado', $secretariados, null,array("class"=>"select-control pull-left"))!!}
     {!! FORM::text('comunidad',null,['class'=>'select-control pull-left','placeholder'=>'Comunidad....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>

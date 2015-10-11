@@ -5,7 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
-        {!! FORM::model($comunidades, ['route' => ['comunidades.update', $comunidades->id], 'method' => 'patch']) !!}
+        {!! FORM::model($comunidad, ['route' => ['comunidades.update', $comunidad->id], 'method' => 'patch']) !!}
         @include('comunidades.Parciales.nuevoYmodificar')
         <div class="btn-action">
             <a title="Volver" href="{{route('comunidades.index')}}" class="pull-left">

@@ -8,6 +8,13 @@ class Localidades extends Model {
     protected $fillable=['localidad']; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
+    public static function getLocalidadesList()
+    {
+        return ['0' => 'Localidad...'] + Localidades::Select('id', 'localidad')
+            ->where('activo', true)
+            ->orderBy('localidad', 'ASC')
+            ->Lists('localidad', 'id');
+    }
     /**
      * @param $query
      * @param $pais

@@ -18,12 +18,15 @@ class CursillosTableSeeder  extends BaseSeeder {
         return [
 
             'cursillo'  => $faker->catchPhrase,
-            'fecha_inicio' => '2015-09-09',
-            'fecha_final' => $faker->randomElement(['2015-09-16', '2015-09-21', '2015-10-01']),
+            'fecha_inicio' =>date("Y-m-d H:i:s"),
+            'fecha_final' => date("Y-m-d H:i:s"),
+            'semana'=>date("W", strtotime('now')),
+            'anyo'=>date("o", strtotime('now')),
             'descripcion'  => $faker->text($maxNbChars = 200),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
             'tipo_participante_id'  => rand(1,3),
-            'tipo_cursillo_id'  => rand(1,2)
+            'tipo_cursillo_id'  => rand(1,2),
+            'num_cursillo'=> rand(1111,9999)
         ];
 
     }

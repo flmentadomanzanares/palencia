@@ -6,11 +6,10 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         @if (Auth::check())
-           @if(!$comunidades->isEmpty())
-                <div class="row ">
-                    @include('comunidades.parciales.buscar')
-                </div>
-            @include('comunidades.parciales.modalBorrar')
+            <div class="row ">
+                @include('comunidades.parciales.buscar')
+            </div>
+            @if(!$comunidades->isEmpty())
                 @foreach ($comunidades as $comunidad)
                     <div>
                         <table class="table-viaoptima table-striped">
@@ -18,7 +17,7 @@
                                 {!! $comunidad->comunidad !!}
                             </caption>
                             <thead>
-                            <tr  style=" @if($comunidad->activo==0)background: red !important; @endif ">
+                            <tr style="@if($comunidad->activo==0)background: red !important; @endif">
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('comunidades.show',$comunidad->id)}}">
@@ -49,7 +48,7 @@
                             <tr>
                                 <td class="table-autenticado-columna-1">Secretariado:</td>
                                 <td>
-                                    {!! $comunidad->secretariado !!}
+                                    {!! $comunidad->tipo_secretariado !!}
                                 </td>
                             </tr>
                             <tr>
@@ -86,13 +85,12 @@
                                 <td>Activo:</td>
                                 <td> @if ($comunidad->activo) Si @else No @endif </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
                 @endforeach
             @else
-                <div class="clearfix">
+                <div class="">
                     <div class="alert alert-info" role="alert">
                         <p><strong>¡Aviso!</strong> No se ha encontrado ninguna comunidad que listar.</p>
                     </div>

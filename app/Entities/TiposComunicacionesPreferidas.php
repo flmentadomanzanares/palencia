@@ -14,7 +14,13 @@ class TiposComunicacionesPreferidas extends Model {
     public function cursillosTipoComunicacionesPreferidas(){
         return $this->hasMany("Palencia\Entities\Comunidades");
     }
-
+    public static function getTipoComunicacionesPreferidasList()
+    {
+        return ['0' => 'Comunicación...'] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
+            ->where('activo', true)
+            ->orderBy('comunicacion_preferida', 'ASC')
+            ->Lists('comunicacion_preferida', 'id');
+    }
     /**
      * @param $query
      * @param $pais

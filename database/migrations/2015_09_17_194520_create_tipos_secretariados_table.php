@@ -16,7 +16,7 @@ class CreateTiposSecretariadosTable extends Migration {
         {
             $table->bigIncrements('id');
 
-            $table->string('secretariado',50);
+            $table->string('tipo_secretariado',50);
 
             $table->boolean('activo')->default(true);
 

@@ -1,5 +1,10 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\Localidades;
+use Palencia\Entities\Paises;
+use Palencia\Entities\Provincias;
+use Palencia\Entities\TiposComunicacionesPreferidas;
+use Palencia\Entities\TiposSecretariados;
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
@@ -16,11 +21,13 @@ class ComunidadesController extends Controller
      */
     public function index(Request $request)
     {
+        if(!auth()->check())
+            return View("comun.invitado");
         $titulo = "Listado de comunidades";
         $comunidades = Comunidades::getComunidades($request);
-        $secretariados = Comunidades::getSecretariadosList();
-        $paises = Comunidades::getPaisesList();
-        $provincias = Comunidades::getProvinciasList();
+        $secretariados = TiposSecretariados::getTiposSecretariadosList();
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
         return view("comunidades.index",
             compact('comunidades',
                 'secretariados',
@@ -38,15 +45,15 @@ class ComunidadesController extends Controller
     {
         //Título Vista
         $titulo = "Nueva Comunidad";
-        $comunidades = new Comunidades();
-        $secretariados = Comunidades::getSecretariadosList();
-        $paises = Comunidades::getPaisesList();
-        $provincias = Comunidades::getProvinciasList();
-        $localidades = Comunidades::getLocalidadesList();
-        $comunicaciones_preferidas = Comunidades::getComunicacionesPreferidasList();
+        $comunidad = new Comunidades();
+        $secretariados = TiposSecretariados::getTiposSecretariadosList();
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        $localidades = Localidades::getLocalidadesList();
+        $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         return view('comunidades.nuevo',
             compact(
-                'comunidades',
+                'comunidad',
                 'secretariados',
                 'paises',
                 'provincias',
@@ -64,34 +71,34 @@ class ComunidadesController extends Controller
     public function store(ValidateRulesComunidades $request)
     {
         //Creamos una nueva instancia al modelo.
-        $comunidades = new Comunidades();
-        $comunidades->comunidad = \Request::input('comunidad');
-        $comunidades->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
-        $comunidades->responsable = \Request::input('responsable');
-        $comunidades->direccion = \Request::input('direccion');
-        $comunidades->cp = \Request::input('cp');
-        $comunidades->pais_id = \Request::input('pais_id');
-        $comunidades->provincia_id = \Request::input('provincia_id');
-        $comunidades->localidad_id = \Request::input('localidad_id');
-        $comunidades->email1 = \Request::input('email1');
-        $comunidades->email2 = \Request::input('email2');
-        $comunidades->web = \Request::input('web');
-        $comunidades->facebook = \Request::input('facebook');
-        $comunidades->telefono1 = \Request::input('telefono1');
-        $comunidades->telefono2 = \Request::input('telefono2');
-        $comunidades->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
-        $comunidades->observaciones = \Request::input('observaciones');
-        $comunidades->activo = \Request::input('activo');
+        $comunidad = new Comunidades();
+        $comunidad->comunidad = \Request::input('comunidad');
+        $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
+        $comunidad->responsable = \Request::input('responsable');
+        $comunidad->direccion = \Request::input('direccion');
+        $comunidad->cp = \Request::input('cp');
+        $comunidad->pais_id = \Request::input('pais_id');
+        $comunidad->provincia_id = \Request::input('provincia_id');
+        $comunidad->localidad_id = \Request::input('localidad_id');
+        $comunidad->email1 = \Request::input('email1');
+        $comunidad->email2 = \Request::input('email2');
+        $comunidad->web = \Request::input('web');
+        $comunidad->facebook = \Request::input('facebook');
+        $comunidad->telefono1 = \Request::input('telefono1');
+        $comunidad->telefono2 = \Request::input('telefono2');
+        $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
+        $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {
             //Guardamos Los valores
-            $comunidades->save();
+            $comunidad->save();
 
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 230000:
                     return redirect()->
-                    route('comunidades.create')->
+                    route('comunidades.index')->
                     with('mensaje', 'la comunidad está ya dada de alta.');
                     break;
                 default:
@@ -114,10 +121,8 @@ class ComunidadesController extends Controller
     public function show($id)
     {
         //Título Vista
-        $titulo = "Modificar Comunidad";
+        $titulo = "Detalles Comunidad";
         $comunidad = Comunidades::getComunidad($id);
-        if (count($comunidad) == 0)
-            return redirect()->back()->with('mensaje', 'No existen detalles.');
         return view('comunidades.ver',
             compact(
                 'comunidad',
@@ -136,15 +141,15 @@ class ComunidadesController extends Controller
     {
         //Título Vista
         $titulo = "Modificar Comunidad";
-        $comunidades = Comunidades::find($id);
-        $secretariados = Comunidades::getSecretariadosList();
-        $paises = Comunidades::getPaisesList();
-        $provincias = Comunidades::getProvinciasList();
-        $localidades = Comunidades::getLocalidadesList();
-        $comunicaciones_preferidas = Comunidades::getComunicacionesPreferidasList();
+        $comunidad = Comunidades::find($id);
+        $secretariados = TiposSecretariados::getTiposSecretariadosList();
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        $localidades = Localidades::getLocalidadesList();
+        $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         return view('comunidades.modificar',
             compact(
-                'comunidades',
+                'comunidad',
                 'secretariados',
                 'paises',
                 'provincias',
@@ -163,34 +168,33 @@ class ComunidadesController extends Controller
     public function update($id, ValidateRulesComunidades $request)
     {
         //Creamos una nueva instancia al modelo.
-        $comunidades = Comunidades::find($id);
-        $comunidades->comunidad = \Request::input('comunidad');
-        $comunidades->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
-        $comunidades->responsable = \Request::input('responsable');
-        $comunidades->direccion = \Request::input('direccion');
-        $comunidades->cp = \Request::input('cp');
-        $comunidades->pais_id = \Request::input('pais_id');
-        $comunidades->provincia_id = \Request::input('provincia_id');
-        $comunidades->localidad_id = \Request::input('localidad_id');
-        $comunidades->email1 = \Request::input('email1');
-        $comunidades->email2 = \Request::input('email2');
-        $comunidades->web = \Request::input('web');
-        $comunidades->facebook = \Request::input('facebook');
-        $comunidades->telefono1 = \Request::input('telefono1');
-        $comunidades->telefono2 = \Request::input('telefono2');
-        $comunidades->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
-        $comunidades->observaciones = \Request::input('observaciones');
-        $comunidades->activo = \Request::input('activo');
+        $comunidad = Comunidades::find($id);
+        $comunidad->comunidad = \Request::input('comunidad');
+        $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
+        $comunidad->responsable = \Request::input('responsable');
+        $comunidad->direccion = \Request::input('direccion');
+        $comunidad->cp = \Request::input('cp');
+        $comunidad->pais_id = \Request::input('pais_id');
+        $comunidad->provincia_id = \Request::input('provincia_id');
+        $comunidad->localidad_id = \Request::input('localidad_id');
+        $comunidad->email1 = \Request::input('email1');
+        $comunidad->email2 = \Request::input('email2');
+        $comunidad->web = \Request::input('web');
+        $comunidad->facebook = \Request::input('facebook');
+        $comunidad->telefono1 = \Request::input('telefono1');
+        $comunidad->telefono2 = \Request::input('telefono2');
+        $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
+        $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {
             //Guardamos Los valores
-            $comunidades->save();
-
+            $comunidad->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->
-                    route('comunidades.create')->
+                    route('comunidades.index')->
                     with('mensaje', 'la comunidad está ya dada de alta.');
                     break;
                 default:
@@ -224,8 +228,7 @@ class ComunidadesController extends Controller
                     return redirect()->route('comunidades.index')->with('mensaje', 'Eliminar comunidad error ' . $e->getCode());
             }
         }
-        return redirect()->route('comunidades.index')->with('mensaje', 'La comunidad ha sido eliminada correctamente.');
+        return redirect()->route('comunidades.index')
+            ->with('mensaje', 'La comunidad ha sido eliminada correctamente.');
     }
-
-
 }

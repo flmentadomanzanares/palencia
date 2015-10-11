@@ -41,9 +41,6 @@ Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
-
-
-
-//Ruta para cambio de Provincias y localidades vía ajax.
+//Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));

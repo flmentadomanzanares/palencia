@@ -16,7 +16,7 @@ class CreateTiposParticipantesTable extends Migration {
         {
             $table->bigIncrements('id');
 
-            $table->string('participante',50);
+            $table->string('tipo_participante',50);
 
             $table->boolean('activo')->default(true);
 

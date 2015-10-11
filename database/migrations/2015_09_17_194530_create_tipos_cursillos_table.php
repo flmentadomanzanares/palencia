@@ -16,7 +16,7 @@ class CreateTiposCursillosTable extends Migration {
         {
             $table->bigIncrements('id');
 
-            $table->string('cursillo',50);
+            $table->string('tipo_cursillo',50);
 
             $table->boolean('activo')->default(true);
 

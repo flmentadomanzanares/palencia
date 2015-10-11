@@ -5,13 +5,9 @@
     <meta charset="UTF-8">
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
-
-    {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/palencia.css') !!}
     {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
-
     @yield("css")
-
 </head>
 <body>
 

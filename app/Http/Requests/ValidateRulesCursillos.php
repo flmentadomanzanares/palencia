@@ -23,10 +23,13 @@ class ValidateRulesCursillos extends Request {
     {
         return [
             "cursillo"    =>    "required|min:2|max:50",
+            "num_cursillo"    =>    "numeric",
             "fecha_inicio"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
             "fecha_final"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
-            "descripcion" => "required|min:20",
-            "comunidad_id"    =>    "required",
+            "descripcion" => "min:20",
+            "comunidad_id"    =>    "required|numeric|min:1",
+            "tipo_participante_id"    =>    "required|numeric|min:1",
+            "tipo_cursillo_id"    =>    "required|numeric|min:1",
             "activo"    =>    "boolean"
         ];
     }
@@ -36,14 +39,19 @@ class ValidateRulesCursillos extends Request {
             'cursillo.required' => 'El cursillo es obligatorio.',
             'cursillo.min' => 'Longitud mínima del cursillo :min caracteres.',
             'cursillo.max' => 'Longitud máxima del cursillo :max caracteres.',
+            'num_cursillo.numeric'=>'El número del cursillo debe de ser numérico.',
             'fecha_inicio.required' => 'La fecha de inicio es obligatoria!',
             'fecha_inicio.date_format' => 'La fecha de inicio debe ser una fecha del tipo día/mes/año',
             'fecha_final.required' => 'La fecha final es obligatoria!',
             'fecha_final.date_format' => 'La fecha final debe ser una fecha del tipo día/mes/año',
-            'descripcion.required' => 'La descripción es obligatoria.',
             'descripcion.min' => 'Longitud mínima de la descripción :min caracteres.',
-            'comunidad_id.required' => "Debes de elegir una comunidad.",
-            'activo.boolean' => 'El valor del campo activo debe ser No o Si'
+            'comunidad_id.required' => "La comunidad es obligatoria.",
+            'comunidad_id.min' => "Debes de elegir una comunidad.",
+            'tipo_participante_id.required' => "El tipo de asistente es obligatorio.",
+            'tipo_participante_id.min' => "Debes de elegir un tipo de asistente.",
+            'tipo_cursillo_id.required' => "El tipo de cursillo es obligatorio.",
+            'tipo_cursillo_id.min' => "Debes de elegir un tipo de cursillo.",
+            'activo.boolean' => 'El valor del campo activo debe ser No o Si.'
         ];
     }
 

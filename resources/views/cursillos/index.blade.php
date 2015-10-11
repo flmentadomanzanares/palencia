@@ -17,7 +17,7 @@
                                 {!! $cursillo->cursillo !!}
                             </caption>
                             <thead>
-                            <tr>
+                            <tr style="@if($cursillo->activo==0)background: red !important; @endif">
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('cursillos.show',array('id'=>$cursillo->id))}}">
@@ -48,32 +48,24 @@
                             <tr>
                                 <td class="table-autenticado-columna-1">Comunidad:</td>
                                 <td>
-                                    {!! $cursillo->comunidades->comunidad !!}
+                                    {!! $cursillo->comunidad !!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Descripción:</td>
-                                <td>
-                                    {!! $cursillo->descripcion !!}
-                                </td>
+                                <td>Número:</td>
+                                <td>{!!$cursillo->num_cursillo!!}</td>
                             </tr>
                             <tr>
-                                <td>Fecha Inicio:</td>
-                                <td>{!! Date("d/m/Y" , strtotime($cursillo->fecha_inicio) )!!}</td>
+                                <td>Año:</td>
+                                <td>{!! Date("Y" , strtotime($cursillo->fecha_inicio) )!!}</td>
+                            </tr>
+                             <tr>
+                                <td>Semana:</td>
+                                <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
                             </tr>
                             <tr>
-                                <td>Fecha Final:</td>
-                                <td>{!! Date("d/m/Y" , strtotime($cursillo->fecha_final) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Descripción:</td>
-                                <td>
-                                    {!! $cursillo->descripcion !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fecha Creación:</td>
-                                <td>{!! Date("d/m/Y - H:i:s" , strtotime($cursillo->created_at) )!!}</td>
+                                <td>Asistentes:</td>
+                                <td>{!!$cursillo->tipo_participante!!}</td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>
@@ -92,7 +84,7 @@
                 </div>
             @endif
             <div class="row text-center">
-                {!! $cursillos->appends(Request::only(['cursillo']))->render()
+                {!! $cursillos->appends(Request::only(['cursillo','semanas','anyos']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else
@@ -101,4 +93,5 @@
     </div>
 @endsection
 @section('js')
+    {!! HTML::script('js/comun/semanas.js') !!}
 @endsection

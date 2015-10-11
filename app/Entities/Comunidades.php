@@ -1,10 +1,9 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use PhpSpec\Exception\Exception;
+
 
 class Comunidades extends Model
 {
@@ -76,98 +75,55 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.activo', 'tipos_secretariados.secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
+            'comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
-            ->Comunidades($request->get('comunidad'))
-            ->where('tipos_secretariados.activo', true)
+            ->TipoSecretariado($request->get('secretariado'))
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
             ->Paises($request->get('pais'))
-            ->where('paises.activo', true)
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
-            ->Provincias($request->get('provincia'))
-            ->where('provincias.activo', true)
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
-            ->where('localidades.activo', true)
+            ->Comunidades($request->get('comunidad'))
             ->orderBy('comunidad', 'ASC')
             ->paginate(5)
             ->setPath('comunidades');
     }
 
-    static public function getComunidad($id)
+    static public function getComunidad($id = null)
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.secretariado',
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.responsable', 'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad',
             'comunidades.cp', 'comunidades.email1', 'comunidades.email2', 'comunidades.web', 'comunidades.facebook',
             'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'comunidades.observaciones', 'comunidades.activo')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
-            ->where('tipos_secretariados.activo', true)
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
                 '=', 'tipos_comunicaciones_preferidas.id')
-            ->where('tipos_comunicaciones_preferidas.activo', true)
-            ->where('comunidades.id', $id)
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
-            ->where('paises.activo', true)
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
-            ->where('provincias.activo', true)
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
-            ->where('localidades.activo', true)
-            ->orderBy('comunidad', 'ASC')
-            ->where('comunidades.activo', true)
+            ->where('comunidades.id', $id)
             ->first();
     }
 
-    public static function getSecretariadosList()
+    public static function getComunidadesList()
     {
-        return ['0' => 'Secretariado...'] + TiposSecretariados::Select('id', 'secretariado')
+        return ['0' => 'Comunidad...'] + Comunidades::Select('id', 'comunidad')
             ->where('activo', true)
-            ->orderBy('secretariado', 'ASC')
-            ->Lists('secretariado', 'id');
-    }
-
-    public static function getPaisesList()
-    {
-        return ['0' => 'País...'] + Paises::Select('id', 'pais')
-            ->where('activo', true)
-            ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
-    }
-
-    public static function getProvinciasList()
-    {
-        return ['0' => 'Elige...'] + Provincias::Select('id', 'provincia')
-            ->where('activo', true)
-            ->orderBy('provincia', 'ASC')
-            ->Lists('provincia', 'id');
-    }
-
-    public static function getLocalidadesList()
-    {
-        return ['0' => 'Elige...'] + Localidades::Select('id', 'localidad')
-            ->where('activo', true)
-            ->orderBy('localidad', 'ASC')
-            ->Lists('localidad', 'id');
-    }
-
-    public static function getComunicacionesPreferidasList()
-    {
-        return ['0' => 'Elige...'] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
-            ->where('activo', true)
-            ->orderBy('comunicacion_preferida', 'ASC')
-            ->Lists('comunicacion_preferida', 'id');
+            ->orderBy('comunidad', 'ASC')
+            ->Lists('comunidad', 'id');
     }
 
     public function scopeComunidades($query, $comunidad = null)
     {
         if ($comunidad != null && trim($comunidad) != '') {
-            $query->where('comunidades.comunidad', 'LIKE', "$comunidad" . '%');
+            $query->where('comunidad', 'LIKE', "$comunidad" . '%');
         }
         return $query;
     }
 
-    public function scopeSecretariados($query, $secretariado = null)
+    public function scopeTipoSecretariado($query, $secretariado = 0)
     {
         if (is_numeric($secretariado) && $secretariado > 0) {
             $query->where('tipos_secretariados.id', '=', $secretariado);
@@ -175,18 +131,10 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopePaises($query, $pais = null)
+    public function scopePaises($query, $pais = 0)
     {
         if (is_numeric($pais) && $pais > 0) {
             $query->where('paises.id', '=', $pais);
-        }
-        return $query;
-    }
-
-    public function scopeProvincias($query, $provincia = null)
-    {
-        if (is_numeric($provincia) && $provincia > 0) {
-            $query->where('provincias.id', '=', $provincia);
         }
         return $query;
     }

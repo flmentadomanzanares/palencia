@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         <table class="table-viaoptima table-striped">
             <thead>
-            <tr>
+            <tr style="@if($comunidad->activo==0)background: red !important; @endif">
                 <th colspan="2" class="text-center">
                     {!! $comunidad->comunidad !!}
                 </th>
@@ -16,7 +16,7 @@
             <tbody>
             <tr>
                 <td class="table-autenticado-columna-1">Secretariado</td>
-                <td>{{ $comunidad->secretariado }}</td>
+                <td>{{ $comunidad->tipo_secretariado }}</td>
             </tr>
             <tr>
                 <td>Responsable</td>

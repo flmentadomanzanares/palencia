@@ -15,6 +15,14 @@ class TiposSecretariados extends Model {
         return $this->hasMany("Palencia\Entities\Cursillos");
     }
 
+    public static function getTiposSecretariadosList()
+    {
+        return ['0' => 'Secretariado...'] + TiposSecretariados::Select('id', 'tipo_secretariado')
+            ->where('activo', true)
+            ->orderBy('tipo_secretariado', 'ASC')
+            ->Lists('tipo_secretariado', 'id');
+    }
+
     /**
      * @param $query
      * @param $pais

@@ -7318,7 +7318,7 @@ body {
 }
 
 .spinner {
-  background-image: url("../../../../../public/img/spinner/spinner.gif");
+  background-image: url("../img/spinner/spinner.gif");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -7486,7 +7486,7 @@ body {
 }
 
 .inline-block input[type='text'] {
-  padding: 6px 5px;
+  padding: 6px 5px 5px;
 }
 
 .inline-block form {

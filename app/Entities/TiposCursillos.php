@@ -8,6 +8,13 @@ class TiposCursillos extends Model {
     protected $fillable=['cursillo']; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
+    static public function getTiposCursillosList()
+    {
+        return ['0' => 'Cursillos...'] + TiposCursillos::Select('id', 'tipo_cursillo')
+            ->where('activo', true)
+            ->orderBy('tipo_cursillo', 'ASC')
+            ->Lists('tipo_cursillo', 'id');
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
