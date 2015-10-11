@@ -217,6 +217,5 @@ class CursillosController extends Controller
             $semanas = Cursillos::getSemanasCursillos($anyo);
             return $semanas;
         }
-        return 55;
     }
 }
