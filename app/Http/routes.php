@@ -44,3 +44,4 @@ Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasCo
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
+Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));

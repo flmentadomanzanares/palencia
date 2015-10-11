@@ -36,8 +36,7 @@ class Cursillos extends Model
     public function scopeSemanasCursillos($query, $semana = 0)
     {
         if (is_numeric($semana) && $semana > 0) {
-            $semana = $semana<10?"0".$semana:$semana;
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")') , $semana);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")') ,'like', $semana);
         }
         return $query;
     }
@@ -86,5 +85,12 @@ class Cursillos extends Model
                 ->orderBy('Anyos')
                 ->Lists('Anyos', 'Anyos');
     }
-
+    static public function getSemanasCursillos($anyo=0)
+    {
+         return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas'))
+            ->groupBy('semanas')
+             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+            ->orderBy('semanas')
+            ->get();
+    }
 }

@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Semana:</td>
-                <td>{!! Date("W" , strtotime($cursillo->fecha_final) )!!}</td>
+                <td>{!! Date("W" , strtotime($cursillo->fecha_inicial) )!!}</td>
             </tr>
             <tr>
                 <td>Fecha Inicio:</td>

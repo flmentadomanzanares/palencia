@@ -24,10 +24,6 @@ class CreateCursillosTable extends Migration {
 
             $table->date('fecha_final');
 
-            $table->Integer('semana');
-
-            $table->Integer('anyo');
-
             $table->text('descripcion');
 
             $table->bigInteger('comunidad_id')->unsigned();

@@ -20,8 +20,6 @@ class CursillosTableSeeder  extends BaseSeeder {
             'cursillo'  => $faker->catchPhrase,
             'fecha_inicio' =>date("Y-m-d H:i:s"),
             'fecha_final' => date("Y-m-d H:i:s"),
-            'semana'=>date("W", strtotime('now')),
-            'anyo'=>date("o", strtotime('now')),
             'descripcion'  => $faker->text($maxNbChars = 200),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
             'tipo_participante_id'  => rand(1,3),

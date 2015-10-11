@@ -9,35 +9,36 @@ use Palencia\Entities\Cursillos;
 use Palencia\Entities\Comunidades;
 use Palencia\Http\Requests\ValidateRulesCursillos;
 
-class CursillosController extends Controller {
+class CursillosController extends Controller
+{
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index(Request $request)
-	{
-        $titulo="Listado de cursillos";
+    {
+        $titulo = "Listado de cursillos";
         $cursillos = Cursillos::getCursillos($request);
-        $anyos=Cursillos::getAnyoCursillos();
-        $semanas=array();
-        return view("cursillos.index", compact('cursillos','titulo','anyos','semanas'));
-	}
+        $anyos = Cursillos::getAnyoCursillos();
+        $semanas = array();
+        return view("cursillos.index", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
         //Título Vista
-        $titulo ="Nuevo Cursillo";
+        $titulo = "Nuevo Cursillo";
         $cursillo = new Cursillos();
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
         $tipos_cursillos = TiposCursillos::getTiposCursillosList();
-        $comunidades =Comunidades::getComunidadesList();
+        $comunidades = Comunidades::getComunidadesList();
         //Vista
         return view('cursillos.nuevo',
             compact(
@@ -47,15 +48,15 @@ class CursillosController extends Controller {
                 'tipos_cursillos',
                 'titulo'
             ));
-	}
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(ValidateRulesCursillos $request)
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(ValidateRulesCursillos $request)
+    {
         //Creamos una nueva instancia al modelo.
         $cursillos = new Cursillos();
         //Asignamos valores traidos del formulario.
@@ -92,14 +93,14 @@ class CursillosController extends Controller {
         with('mensaje', 'El Cursillo creado satisfactoriamente.');
     }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
         //Título de la vista.
         $titulo = "Detalles del cursillo";
         $cursillo = Cursillos::getCursillo($id);
@@ -108,22 +109,22 @@ class CursillosController extends Controller {
                 'cursillo',
                 'titulo'
             ));
-	}
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
         //Título Vista
-        $titulo ="Modificar Cursillo";
+        $titulo = "Modificar Cursillo";
         $cursillo = Cursillos::find($id);
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
         $tipos_cursillos = TiposCursillos::getTiposCursillosList();
-        $comunidades =Comunidades::getComunidadesList();
+        $comunidades = Comunidades::getComunidadesList();
         //Vista
         return view('cursillos.modificar',
             compact(
@@ -133,18 +134,18 @@ class CursillosController extends Controller {
                 'tipos_cursillos',
                 'titulo'
             ));
-	}
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id,ValidateRulesCursillos $request)
-	{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id, ValidateRulesCursillos $request)
+    {
         //Creamos una nueva instancia al modelo.
-        $cursillo =Cursillos::find($id);
+        $cursillo = Cursillos::find($id);
         $cursillo->cursillo = \Request::input('cursillo');
         $cursillo->num_cursillo = \Request::input('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
@@ -154,7 +155,7 @@ class CursillosController extends Controller {
         $cursillo->tipo_participante_id = \Request::input('tipo_participante_id');
         $cursillo->tipo_cursillo_id = \Request::input('tipo_cursillo_id');
         $cursillo->activo = \Request::input('activo');
-dd($cursillo);
+        dd($cursillo);
         //Intercepción de errores
         try {
             //Guardamos Los valores
@@ -176,16 +177,16 @@ dd($cursillo);
         //Redireccionamos a Cursillos (index)
         return redirect('cursillos')->
         with('mensaje', 'El Cursillo ha sido modificado satisfactoriamente.');
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
         $cursillo = Cursillos::find($id);
         try {
             $cursillo->delete();
@@ -200,11 +201,22 @@ dd($cursillo);
         }
         return redirect()->route('cursillos.index')
             ->with('mensaje', 'El cursillo ha sido eliminado correctamente.');
-	}
+    }
+
     private function ponerFecha($date)
     {
         $partesFecha = date_parse_from_format('d/m/Y', $date);
         $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
         return date('Y-m-d H:i:s', $fecha);
+    }
+
+    public function semanasTotales(Request $request)
+    {
+       if (\Request::ajax()) {
+            $anyo = (int)\Request::input('anyo');
+            $semanas = Cursillos::getSemanasCursillos($anyo);
+            return $semanas;
+        }
+        return 55;
     }
 }
