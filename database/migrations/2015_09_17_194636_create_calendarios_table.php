@@ -12,7 +12,7 @@ class CreateCalendariosTable extends Migration {
      */
     public function up()
     {
-        Schema::create('calendario', function(Blueprint $table)
+        Schema::create('calendarios', function(Blueprint $table)
         {
             $table->bigIncrements('id');
 
@@ -39,7 +39,7 @@ class CreateCalendariosTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('calendario');
+        Schema::drop('calendarios');
     }
 
 }

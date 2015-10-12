@@ -1,5 +1,9 @@
 <div class="panel-viaoptima-search">
-
+    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
+        <i class="glyphicon glyphicon-home">
+            <div>Inicio</div>
+        </i>
+    </a>
     <a title="nuevo" href="{{route('comunidades.create')}}" class="pull-left">
         <i class="glyphicon glyphicon-plus">
             <div>Nueva</div>

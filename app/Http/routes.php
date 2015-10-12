@@ -25,7 +25,6 @@ Route::controllers([
 ]);
 
 //Rutas Controladores RestFull
-Route::resource('calendario','CalendarioController');
 Route::resource('comunidades','ComunidadesController');
 Route::resource('cursillos','CursillosController');
 Route::resource('localidades','LocalidadesController');

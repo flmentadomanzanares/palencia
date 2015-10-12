@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'cursillos',
             'solicitudes_enviadas',
             'solicitudes_recibidas',
-            'calendario',
+            'calendarios',
             'semana_cursillo_comunidades'
 
         ));

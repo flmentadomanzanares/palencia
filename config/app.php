@@ -137,6 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
         'Collective\Html\HtmlServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'MaddHatter\LaravelFullcalendar\ServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -197,6 +198,7 @@ return [
         'FORM' => 'Collective\Html\FormFacade',
         'HTML' => 'Collective\Html\HtmlFacade',
         'Image' => 'Intervention\Image\Facades\Image',
+        'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
 
 	],
 

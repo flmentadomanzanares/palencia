@@ -3,8 +3,14 @@
     <div class="container">
         <div class="row">
             <div class="table-size-optima">
-                <div id="calendar"></div>
-            </div>
+                {!! $calendar->calendar() !!}
+                {!! $calendar->script() !!}
+             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    {!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
+    {!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
+    {!! HTML::script("js/vendor/fullcalendar/lang/es.js")!!}
 @endsection

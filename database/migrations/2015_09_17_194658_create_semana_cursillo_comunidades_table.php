@@ -23,7 +23,7 @@ class CreateSemanaCursilloComunidadesTable extends Migration {
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
 
             $table->bigInteger('calendario_id')->unsigned();
-            $table->foreign('calendario_id')->references('id')->on('calendario')->onDelete('cascade');
+            $table->foreign('calendario_id')->references('id')->on('calendarios')->onDelete('cascade');
 
             $table->boolean('activo')->default(true);
 

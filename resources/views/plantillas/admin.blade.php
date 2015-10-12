@@ -7,6 +7,7 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     {!! HTML::style('css/palencia.css') !!}
     {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
+    {!! HTML::script('js/jquery-2.1.1.js') !!}
     @yield("css")
 </head>
 <body>
@@ -167,15 +168,8 @@
     <!-- end row -->
 </footer>
 
-<!-- jQuery -->
-{!! HTML::script('js/jquery-2.1.1.js') !!}
-<!-- Bootstrap JavaScript -->
 {!! HTML::script('js/bootstrap.min.js') !!}
-<!--User JavaScript -->
 {!! HTML::script("js/comun/spinner.js")!!}
-{!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
-{!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
-{!! HTML::script("js/vendor/fullcalendar/lang/es.js")!!}
 {!! HTML::script("js/comun/calendar.js")!!}
 @yield("js")
 </body>

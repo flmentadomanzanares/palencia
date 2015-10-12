@@ -46,7 +46,18 @@ class Cursillos extends Model
         if (trim($cursillo) != '')
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
     }
-
+    static public function getCalendarCursillos(Request $request)
+    {
+        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
+            'cursillos.fecha_final','comunidades.comunidad')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+            ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+            ->AnyosCursillos($request->get('anyos'))
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('cursillos.cursillo', 'ASC')
+            ->get();
+    }
     static public function getCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
