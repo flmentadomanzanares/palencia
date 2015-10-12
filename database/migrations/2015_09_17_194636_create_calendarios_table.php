@@ -16,13 +16,12 @@ class CreateCalendariosTable extends Migration {
         {
             $table->bigIncrements('id');
 
-            $table->smallInteger('year')->length(4)->unsigned();
+            $table->string('titulo',30);
 
-            $table->date('fecha_inicio');
+            $table->string('color')->default('white');
 
-            $table->date('fecha_final');
-
-            $table->smallInteger('semana_no')->length(2)->unsigned();
+            $table->bigInteger('cursillo_id')->unsigned();
+            $table->foreign('cursillo_id')->references('id')->on('cursillos')->onDelete('cascade');
 
             $table->boolean('activo')->default(true);
 

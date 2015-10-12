@@ -3,12 +3,12 @@
 		$('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                center: 'title'
+
             },
             lang: '',
-            buttonIcons: false,
-			defaultDate: '2015-10-12',
+            buttonIcons: true,
+			defaultDate: new Date(),
 			editable: false,
             weekNumbers: true,
 			eventLimit: true, // allow "more" link when too many events
@@ -34,13 +34,13 @@
 				},
 				{
 					title: 'Curso número 4',
-					start: '2015-10-11',
-					end: '2015-10-13'
+					start: '2015-10-11T16:00:00',
+					end: '2015-10-13T11:30:00'
 				},
 				{
 					title: 'Curso número 5',
 					start: '2015-10-12T10:30:00',
-					end: '2015-10-12T12:30:00'
+					end: '2015-10-15T12:30:00'
 				},
 				{
 					title: 'Curso número 6',

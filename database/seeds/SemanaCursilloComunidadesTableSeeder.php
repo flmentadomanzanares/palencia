@@ -18,7 +18,7 @@ class SemanaCursilloComunidadesTableSeeder extends BaseSeeder {
 
             'cursillo_id' => $this->getRandom('Cursillos')->id,
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
-            'calendario_id'  => $faker->biasedNumberBetween($min = 1, $max = 53, $function = 'sqrt')
+            'calendario_id'  => $faker->biasedNumberBetween($min = 1, $max = 5, $function = 'sqrt')
 
         ];
 
