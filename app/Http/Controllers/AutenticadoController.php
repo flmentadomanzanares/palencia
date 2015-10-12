@@ -47,7 +47,9 @@ class AutenticadoController extends Controller
                 $cursillo->id //optional event ID
             );
         }
-        $calendar = \Calendar::addEvents($event)//add an array with addEvents
+        $calendar = \Calendar::addEvents($event, [ //set custom color fo this event
+            'color' => 'brown'
+        ])//add an array with addEvents
         ->setOptions([ //set fullcalendar options
             'lang' => '',
             'buttonIcons' => true,
