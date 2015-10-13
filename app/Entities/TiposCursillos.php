@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class TiposCursillos extends Model {
 
     protected $tabla="tipos_cursillos";
-    protected $fillable=['cursillo']; //Campos a usar
+    protected $fillable=['tipo_cursillo']; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
     static public function getTiposCursillosList()
@@ -28,7 +28,7 @@ class TiposCursillos extends Model {
      */
     public function scopeTipoCursillo($query,$tipoCursillo){
         if (trim($tipoCursillo)!='')
-            $query->where('cursillo','LIKE',"$tipoCursillo".'%');
+            $query->where('tipo_cursillo','LIKE',"$tipoCursillo".'%');
     }
 
 }

@@ -23,7 +23,7 @@
                         <tbody>
                         @foreach ($tipos_cursillos as $tipo_cursillo)
                             <tr>
-                                <td>{{ $tipo_cursillo->cursillo }}</td>
+                                <td>{{ $tipo_cursillo->tipo_cursillo }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('tiposCursillos.edit', $tipo_cursillo->id)}}"
@@ -56,7 +56,7 @@
                         </div>
                     @endif
                     <div class="row text-center">
-                        {!! $tipos_cursillos->appends(Request::only(['cursillo']))->render()
+                        {!! $tipos_cursillos->appends(Request::only(['tipo_cursillo']))->render()
                         !!}{{-- Poner el paginador --}}
                     </div>
                     @else

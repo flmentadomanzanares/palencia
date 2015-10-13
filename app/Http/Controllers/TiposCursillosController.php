@@ -18,8 +18,8 @@ class TiposCursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de cursillos";
-        $tipos_cursillos = tiposCursillos::tipoCursillo($request->get('cursillo'))
-            ->orderBy('cursillo', 'ASC')
+        $tipos_cursillos = tiposCursillos::tipoCursillo($request->get('tipo_cursillo'))
+            ->orderBy('tipo_cursillo', 'ASC')
             ->paginate()
             ->setPath('tiposCursillos');
 
