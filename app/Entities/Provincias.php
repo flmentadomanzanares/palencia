@@ -21,6 +21,14 @@ class Provincias extends Model {
                 $query->where('pais_id', '>', $pais);
         }
     }
+
+    public static function getProvinciasList()
+    {
+        return ['0' => 'Provincia...'] + Provincias::Select('id', 'provincia')
+            ->where('activo', true)
+            ->orderBy('provincia', 'ASC')
+            ->Lists('provincia', 'id');
+    }
     /**
      * @param $query
      * @param $provincia

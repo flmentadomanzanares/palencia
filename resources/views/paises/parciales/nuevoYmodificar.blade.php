@@ -6,8 +6,8 @@
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
             <div class="heading-caption">Zona Administrador</div>
-            {!! FORM::label ('estado', 'Activa') !!} <br/>
-            {!! FORM::select('activo',array('0'=>'No','1'=>'Si'), $paises->activo,array('class'=>'form-control')) !!}
+            {!! FORM::label ('estado', 'Activo') !!} <br/>
+            {!! FORM::select('activo',array('1'=>'Si','0'=>'No'), $paises->activo,array('class'=>'form-control')) !!}
         @endif
     @endif
 </div>

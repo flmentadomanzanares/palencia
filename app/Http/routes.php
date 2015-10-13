@@ -15,7 +15,7 @@ Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 
 Route::get('/', 'InvitadoController@index');
 
-Route::get('inicio', 'AutenticadoController@index');
+Route::get('inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
 
 Route::controllers([
 
@@ -24,9 +24,7 @@ Route::controllers([
 
 ]);
 
-
 //Rutas Controladores RestFull
-Route::resource('calendario','CalendarioController');
 Route::resource('comunidades','ComunidadesController');
 Route::resource('cursillos','CursillosController');
 Route::resource('localidades','LocalidadesController');
@@ -37,14 +35,12 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
+Route::resource('tiposParticipantes','TiposParticipantesController');
+Route::resource('tiposSecretariados','TiposSecretariadosController');
+Route::resource('tiposCursillos','TiposCursillosController');
+Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
-
-
-Route::get('aboutus', 'ComunController@mostrarAboutUs');
-Route::get('contacto', 'ComunController@mostrarContacto');
-Route::post('enviar', 'ComunController@enviarCorreo');
-
-
-//Ruta para cambio de Provincias y localidades vía ajax.
+//Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
+Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));

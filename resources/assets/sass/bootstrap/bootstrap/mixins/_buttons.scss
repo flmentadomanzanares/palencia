@@ -78,10 +78,10 @@
     border-radius: 50%;
     text-align: center;
     font-size: $font-size-app-base-header;
-    color: $app-color-hover;
+    color: $app-color-base;
     margin: $padding-app-small;
     &:hover {
-      color: $app-color-base;
+      color: $app-color-hover;
     }
     > i {
       display: inline-block;

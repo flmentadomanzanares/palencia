@@ -18,6 +18,8 @@ class CreateCursillosTable extends Migration {
 
             $table->string('cursillo',50);
 
+            $table->string('num_cursillo',10);
+
             $table->date('fecha_inicio');
 
             $table->date('fecha_final');
@@ -27,9 +29,11 @@ class CreateCursillosTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
 
-            $table->enum('tipo_alumnos', ['Hombres', 'Mujeres', 'Mixto'])->default('Mixto');
+            $table->bigInteger('tipo_participante_id')->unsigned();
+            $table->foreign('tipo_participante_id')->references('id')->on('tipos_participantes')->onDelete('cascade');
 
-            $table->enum('tipo_cursillo', ['Interno', 'Externo'])->default('Interno');
+            $table->bigInteger('tipo_cursillo_id')->unsigned();
+            $table->foreign('tipo_cursillo_id')->references('id')->on('tipos_cursillos')->onDelete('cascade');
 
             $table->boolean('activo')->default(true);
 

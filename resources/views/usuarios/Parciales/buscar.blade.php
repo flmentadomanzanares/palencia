@@ -1,9 +1,9 @@
 <div class="panel-viaoptima-search">
-    {{--<a title="inicio" href="{{route('inicio')}}" class="pull-left">
+    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
         <i class="glyphicon glyphicon-home">
             <div>Inicio</div>
         </i>
-    </a>--}}
+    </a>
     <a title="Listar" href="{{route('usuarios.index')}}" class="pull-left">
         <i class="glyphicon glyphicon-list">
             <div>Listar</div>

@@ -25,7 +25,7 @@
             {!! FORM::select('rol_id',$roles, $usuario->rol_id,array("class"=>"form-control")) !!} <br/>
 
             {!! FORM::label ('estado', 'Activo') !!} <br/>
-            {!! FORM::select('activo',array('0'=>'No','1'=>'Si'), $usuario->activo,array("class"=>"form-control")) !!}
+            {!! FORM::select('activo',array('1'=>'Si','0'=>'No'), $usuario->activo,array("class"=>"form-control")) !!}
             <br/>
         @endif
     @endif

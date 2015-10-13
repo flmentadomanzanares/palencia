@@ -2,7 +2,7 @@
 
 use Palencia\Entities\Cursillos;
 use Faker\Generator;
-
+use Carbon\Carbon;
 class CursillosTableSeeder  extends BaseSeeder {
 
     public function getModel()
@@ -14,16 +14,17 @@ class CursillosTableSeeder  extends BaseSeeder {
 
     public function getDummyData(Generator $faker, array $customValues = array())
     {
-
+        $fecha_inicio = Carbon::createFromDate(2015,1,1)->addMonth(rand(0,11))->addDay(rand(0,31));
+        $fecha_final= Carbon::createFromDate($fecha_inicio->year,$fecha_inicio->month,$fecha_inicio->day)->addDay(rand(0,3));
         return [
-
             'cursillo'  => $faker->catchPhrase,
-            'fecha_inicio' => '2015-09-09',
-            'fecha_final' => $faker->randomElement(['2015-09-16', '2015-09-21', '2015-10-01']),
+            'fecha_inicio' =>$fecha_inicio,
+            'fecha_final' => $fecha_final,
             'descripcion'  => $faker->text($maxNbChars = 200),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
-            'tipo_alumnos'  => $faker->randomElement(['Hombres', 'Mujeres', 'Mixto', 'Mixto', 'Mixto']),
-            'tipo_cursillo'  => $faker->randomElement(['Interno', 'Interno', 'Externo']),
+            'tipo_participante_id'  => rand(1,3),
+            'tipo_cursillo_id'  => rand(1,2),
+            'num_cursillo'=> rand(1111,9999)
         ];
 
     }

@@ -21,7 +21,13 @@ class Paises extends Model {
     public function comunidades(){
         return $this->hasMany("Palencia\Entities\Comunidades");
     }
-
+    public static function getPaisesList()
+    {
+        return ['0' => 'País...'] + Paises::Select('id', 'pais')
+            ->where('activo', true)
+            ->orderBy('pais', 'ASC')
+            ->Lists('pais', 'id');
+    }
     /**
      * @param $query
      * @param $pais

@@ -5962,11 +5962,11 @@ var TimeGrid = Grid.extend({
 			isLabeled = isInt(divideDurationByDuration(slotTime, this.labelInterval));
 
 			axisHtml =
-				'<td class="fc-axis fc-time ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
+				'<td class="fc-axis fc-time fc-center ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
 					(isLabeled ?
 						'<span>' + // for matchCellWidths
 							htmlEscape(slotDate.format(this.labelFormat)) +
-						'</span>' :
+						':00</span>' :
 						''
 						) +
 				'</td>';

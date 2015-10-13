@@ -1,12 +1,16 @@
 @extends ("plantillas.admin")
 @section('contenido')
-<div class="container">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div id="calendar"></div>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="table-size-optima">
+                {!! $calendar->calendar() !!}
+                {!! $calendar->script() !!}
+             </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    {!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
+    {!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
+    {!! HTML::script("js/vendor/fullcalendar/lang/es.js")!!}
 @endsection

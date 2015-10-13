@@ -6,6 +6,7 @@
 @section ("contenido")
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
+
         {!! FORM::model($usuario, ['route' => ['usuarios.update', $usuario->id], 'method' => 'PUT', 'files'=>'true'])
         !!}
         @include('usuarios.Parciales.nuevoYmodificar')

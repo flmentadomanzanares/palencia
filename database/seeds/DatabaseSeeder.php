@@ -26,26 +26,34 @@ class DatabaseSeeder extends Seeder
             'paises',
             'provincias',
             'localidades',
+            'tipos_comunicaciones_preferidas',
+            'tipos_participantes',
+            'tipos_secretariados',
             'comunidades',
+            'tipos_cursillos',
             'cursillos',
             'solicitudes_enviadas',
             'solicitudes_recibidas',
-            'calendario',
+            'calendarios',
             'semana_cursillo_comunidades'
 
         ));
 
-       $this->call('RolesTableSeeder');
-       $this->call('UserTableSeeder');
-       $this->call('PaisesTableSeeder');
-       $this->call('ProvinciasTableSeeder');
-       $this->call('LocalidadesTableSeeder');
-       $this->call('ComunidadesTableSeeder');
-       $this->call('CursillosTableSeeder');
-       $this->call('SolicitudesEnviadasTableSeeder');
-       $this->call('SolicitudesRecibidasTableSeeder');
-       $this->call('CalendarioTableSeeder');
-       $this->call('SemanaCursilloComunidadesTableSeeder');
+        $this->call('RolesTableSeeder');
+        $this->call('UserTableSeeder');
+        $this->call('PaisesTableSeeder');
+        $this->call('ProvinciasTableSeeder');
+        $this->call('LocalidadesTableSeeder');
+        $this->call('TiposComunicacionesPreferidasTableSeeder');
+        $this->call('TiposCursillosTableSeeder');
+        $this->call('TiposParticipantesTableSeeder');
+        $this->call('TiposSecretariadosTableSeeder');
+        $this->call('ComunidadesTableSeeder');
+        $this->call('CursillosTableSeeder');
+        $this->call('SolicitudesEnviadasTableSeeder');
+        $this->call('SolicitudesRecibidasTableSeeder');
+        $this->call('CalendarioTableSeeder');
+        $this->call('SemanaCursilloComunidadesTableSeeder');
 
 
     }
@@ -73,10 +81,9 @@ class DatabaseSeeder extends Seeder
     private function checkForeignKeys($check)
     {
 
-        $check = $check ? '1': '0';
+        $check = $check ? '1' : '0';
 
         DB::statement("SET FOREIGN_KEY_CHECKS = $check");
-
 
 
     }

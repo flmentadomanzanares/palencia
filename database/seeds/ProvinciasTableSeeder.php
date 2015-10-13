@@ -39,7 +39,7 @@ class ProvinciasTableSeeder extends BaseSeeder {
 
         Provincias::create([
             'provincia' => 'Las Palmas',
-            'pais_id'  => 1
+            'pais_id'  => 73
 
         ]);
 

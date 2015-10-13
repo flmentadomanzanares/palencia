@@ -16,13 +16,12 @@ class ComunidadesTableSeeder extends BaseSeeder {
     {
 
         return [
-
             'comunidad'  => $faker->company,
-            'tipo_secretariado' => $faker->randomElement(['Secretariado Diocesano', 'Secretariado Diocesano', 'Otros']),
+            'tipo_secretariado_id' => rand(1,3),
             'responsable' => $faker->name($gender = null|'male'|'female'),
             'direccion'  => $faker->randomElement(['Numancia, 22', 'Escaleritas, 128', 'Carvajal, 32']),
             'cp'  => $faker->randomElement(['35012', '35016', '35018', '35010', '32012']),
-            'pais_id' => 1,
+            'pais_id' => 73,
             'provincia_id' => 1,
             'localidad_id' => $faker->biasedNumberBetween($min = 1, $max = 34, $function = 'sqrt'),
             'email1' => $faker->email,
@@ -31,12 +30,9 @@ class ComunidadesTableSeeder extends BaseSeeder {
             'facebook' => $faker->url,
             'telefono1' => $faker->randomElement(['615324789', '928276589', '627456896', '615856912']),
             'telefono2' => $faker->randomElement(['', '', '928278956', '928564285']),
-            'comunicacion_preferida' => $faker->randomElement(['Email', 'Email', 'Carta']),
+            'tipo_comunicacion_preferida_id' =>rand(1,2),
             'observaciones'  => $faker->text($maxNbChars = 200),
-            'registrada' => $faker->randomElement(['1', '1', '0'])
-
-        ];
-
+            ];
     }
 
 }
