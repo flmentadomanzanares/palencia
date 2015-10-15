@@ -55,7 +55,7 @@ class AutenticadoController extends Controller
                 'lang' => '',
                 'buttonIcons' => true,
                 'defaultDate' => date('Y-m-d', strtotime('now')),
-                'editable' => true,
+                'editable' => false,
                 'weekNumbers' => true,
                 'eventLimit' => true, // allow "more" link when too many events
                 'header' => array('left' => 'prev,next today', 'center' => 'title')
