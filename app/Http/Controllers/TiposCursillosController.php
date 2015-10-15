@@ -35,7 +35,8 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Nuevo tipo de cursillo";
         $tipos_cursillos = new tiposCursillos();
-        return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'titulo'));
+        $colors = ['#660000', '#006600', '#000066', '#666600', '#660066', '#006666', '#666666'];
+        return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 
     /**
@@ -79,8 +80,9 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Modificar tipo de cursillo";
         $tipos_cursillos = tiposCursillos::find($id);
-        return view('tiposCursillos.modificar', compact('tipos_cursillos','titulo'));
-     }
+        $colors = ['#660000', '#006600', '#000066', '#666600', '#660066', '#006666', '#666666'];
+        return view('tiposCursillos.modificar', compact('tipos_cursillos', 'colors', 'titulo'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -118,14 +120,14 @@ class TiposCursillosController extends Controller
     public function destroy($id)
     {
         $tipos_cursillos = tiposCursillos::find($id);
-        $cursillo =$tipos_cursillos->cursillo;
+        $cursillo = $tipos_cursillos->cursillo;
         try {
             $tipos_cursillos->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposCursillos.index')
-                        ->with('mensaje', 'El tipo de cursillo '.$cursillo.' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de cursillo ' . $cursillo . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
                     return redirect()->route('tiposCursillos.index')

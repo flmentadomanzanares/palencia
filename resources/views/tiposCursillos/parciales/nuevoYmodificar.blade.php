@@ -3,6 +3,13 @@
     {!! FORM::label('tipoParticipante', 'Tipo cursillo') !!} <br/>
     {!! FORM::text('cursillo', $tipos_cursillos->tipo_cursillo, ["class" => "form-control", "title"=>"Tipo de cursillo"]) !!}
     <br/>
+    {!! FORM::label ('color', 'Color') !!}
+    <select id="select-color" class="form-control">
+        @foreach ($colors as $color)
+            <option @if($color == $tipos_cursillos->color)selected @endif ><span style="background-color: {{$color}}">{{$color}}</span></option>
+        @endforeach
+    </select>
+    <br/>
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
             <div class="heading-caption">Zona Administrador</div>

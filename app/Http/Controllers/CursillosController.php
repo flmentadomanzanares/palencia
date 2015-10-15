@@ -155,7 +155,6 @@ class CursillosController extends Controller
         $cursillo->tipo_participante_id = \Request::input('tipo_participante_id');
         $cursillo->tipo_cursillo_id = \Request::input('tipo_cursillo_id');
         $cursillo->activo = \Request::input('activo');
-        dd($cursillo);
         //Intercepción de errores
         try {
             //Guardamos Los valores
