@@ -1,10 +1,10 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
     {!! FORM::label('tipoParticipante', 'Tipo cursillo') !!} <br/>
-    {!! FORM::text('cursillo', $tipos_cursillos->tipo_cursillo, ["class" => "form-control", "title"=>"Tipo de cursillo"]) !!}
+    {!! FORM::text('tipo_cursillo', $tipos_cursillos->tipo_cursillo, ["class" => "form-control", "title"=>"Tipo de cursillo"]) !!}
     <br/>
     {!! FORM::label ('color', 'Color') !!}
-    <select id="select-color" class="form-control">
+    <select id="select-color" class="form-control" name="color">
         @foreach ($colors as $color)
             <option @if($color == $tipos_cursillos->color)selected @endif ><span style="background-color: {{$color}}">{{$color}}</span></option>
         @endforeach

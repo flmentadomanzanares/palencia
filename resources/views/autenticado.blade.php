@@ -2,7 +2,7 @@
 @section('contenido')
     <div class="container">
         <div class="row">
-            <div class="table-size-optima">
+            <div>
                 {!! $calendar->calendar() !!}
                 {!! $calendar->script() !!}
              </div>

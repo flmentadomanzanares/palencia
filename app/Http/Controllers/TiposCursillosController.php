@@ -49,7 +49,8 @@ class TiposCursillosController extends Controller
     public function store(ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = new tiposCursillos(); //Creamos instancia al modelo
-        $tipos_cursillos->cursillo = \Request::input('cursillo'); //Asignamos el valor al campo.
+        $tipos_cursillos->tipo_cursillo = \Request::input('tipo_cursillo'); //Asignamos el valor al campo.
+        $tipos_cursillos->color = \Request::input('color');
         try {
             $tipos_cursillos->save();
         } catch (\Exception $e) {
@@ -93,7 +94,8 @@ class TiposCursillosController extends Controller
     public function update($id, ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = tiposCursillos::find($id);
-        $tipos_cursillos->cursillo = \Request::input('cursillo');
+        $tipos_cursillos->tipo_cursillo = \Request::input('tipo_cursillo');
+        $tipos_cursillos->color = \Request::input('color');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_cursillos->activo = \Request::input('activo');
         }
@@ -104,7 +106,7 @@ class TiposCursillosController extends Controller
                 default:
                     return redirect()
                         ->route('tiposCursillos.index')
-                        ->with('mensaje', 'Modificar tipo cursillo error ' . $e->getCode());
+                        ->with('mensaje', 'Modificar tipo cursillo error ' . $e->getMessage());
             }
         }
         return redirect()->route('tiposCursillos.index')
