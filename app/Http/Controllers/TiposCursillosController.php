@@ -35,7 +35,7 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Nuevo tipo de cursillo";
         $tipos_cursillos = new tiposCursillos();
-        $colors = ['#660000', '#006600', '#000066', '#666600', '#660066', '#006666', '#666666'];
+        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
         return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 
@@ -81,7 +81,7 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Modificar tipo de cursillo";
         $tipos_cursillos = tiposCursillos::find($id);
-        $colors = ['#660000', '#006600', '#000066', '#666600', '#660066', '#006666', '#666666'];
+        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
         return view('tiposCursillos.modificar', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 

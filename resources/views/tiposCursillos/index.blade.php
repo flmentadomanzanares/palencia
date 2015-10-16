@@ -23,7 +23,9 @@
                         <tbody>
                         @foreach ($tipos_cursillos as $tipo_cursillo)
                             <tr>
-                                <td>{{ $tipo_cursillo->tipo_cursillo }}</td>
+                                <td><span class="colorCursillo" style="background-color:{{$tipo_cursillo->color}}"></span>
+                                    {{ $tipo_cursillo->tipo_cursillo }}
+                                </td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('tiposCursillos.edit', $tipo_cursillo->id)}}"
