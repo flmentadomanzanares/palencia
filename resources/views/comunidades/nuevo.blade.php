@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         {!! FORM::open(['route' => 'comunidades.store']) !!}
         @include('comunidades.Parciales.nuevoYmodificar')
         <div class="btn-action  margin-bottom">

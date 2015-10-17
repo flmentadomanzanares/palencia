@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($tipos_cursillos, ['route' => ['tiposCursillos.update', $tipos_cursillos->id], 'method' => 'patch']) !!}
         @include('tiposCursillos.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">

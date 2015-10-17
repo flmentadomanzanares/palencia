@@ -16,9 +16,9 @@
     </a>
 </div>
 <div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['participante']),['route'=>'tiposParticipantes.index','method'=>'GET','class'=>'navbar-form
+    {!!FORM::model(Request::only(['tipo_participante']),['route'=>'tiposParticipantes.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
-    {!! FORM::text('participante',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
+    {!! FORM::text('tipo_participante',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
 </div>

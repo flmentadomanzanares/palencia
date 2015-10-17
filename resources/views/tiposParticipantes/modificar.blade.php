@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($tipos_participantes, ['route' => ['tiposParticipantes.update', $tipos_participantes->id], 'method' => 'patch']) !!}
         @include('tiposParticipantes.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">

@@ -16,9 +16,9 @@
     </a>
 </div>
 <div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['secretariado']),['route'=>'tiposSecretariados.index','method'=>'GET','class'=>'navbar-form
+    {!!FORM::model(Request::only(['tipo_secretariado']),['route'=>'tiposSecretariados.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
-    {!! FORM::text('secretariado',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
+    {!! FORM::text('tipo_secretariado',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
 </div>

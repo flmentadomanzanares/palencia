@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         {!! FORM::open(['route' => 'cursillos.store']) !!}
         @include('cursillos.Parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">

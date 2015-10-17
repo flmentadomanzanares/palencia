@@ -18,10 +18,8 @@ class TiposComunicacionesPreferidasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de comunicaciones preferidas";
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::tipoComunicacionesPreferidas($request->get('comunicacion_preferida'))
-            ->orderBy('comunicacion_preferida', 'ASC')
-            ->paginate()
-            ->setPath('tiposComunicacionesPreferidas');
+        $tipos_comunicaciones_preferidas =
+            TiposComunicacionesPreferidas::getTiposComunicacionesPreferidas($request);
 
         return view("tiposComunicacionesPreferidas.index", compact('tipos_comunicaciones_preferidas', 'titulo'));
     }
@@ -79,8 +77,8 @@ class TiposComunicacionesPreferidasController extends Controller
     {
         $titulo = "Modificar tipo de comunicacion preferida";
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
-        return view('tiposComunicacionesPreferidas.modificar', compact('tipos_comunicaciones_preferidas','titulo'));
-     }
+        return view('tiposComunicacionesPreferidas.modificar', compact('tipos_comunicaciones_preferidas', 'titulo'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -118,14 +116,14 @@ class TiposComunicacionesPreferidasController extends Controller
     public function destroy($id)
     {
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
-        $comunicacion_preferida =$tipos_comunicaciones_preferidas->comunicacion_preferida;
+        $comunicacion_preferida = $tipos_comunicaciones_preferidas->comunicacion_preferida;
         try {
             $tipos_comunicaciones_preferidas->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposComunicacionesPreferidas.index')
-                        ->with('mensaje', 'El tipo de comunicacion preferida '.$comunicacion_preferida.' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de comunicacion preferida ' . $comunicacion_preferida . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
                     return redirect()->route('tiposComunicacionesPreferidas.index')

@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <div class="row">
 
             {!! FORM::model($roles, ['route' => ['roles.update', $roles->id], 'method' => 'patch']) !!}

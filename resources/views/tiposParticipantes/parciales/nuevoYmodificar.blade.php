@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
     {!! FORM::label('tipoParticipante', 'Tipo Participantes') !!} <br/>
-    {!! FORM::text('participante', $tipos_participantes->participante, ["class" => "form-control", "title"=>"Tipo de participante"]) !!}
+    {!! FORM::text('tipo_participante', $tipos_participantes->participante, ["class" => "form-control", "title"=>"Tipo de participante"]) !!}
     <br/>
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))

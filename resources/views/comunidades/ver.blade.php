@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <table class="table-viaoptima table-striped">
             <thead>
             <tr style="@if($comunidad->activo==0)background: red !important; @endif">
