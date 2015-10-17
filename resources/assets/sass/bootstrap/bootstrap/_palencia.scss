@@ -179,11 +179,11 @@ textarea {
 //FOOTER
 //***************************************************
 footer {
-  margin-top: $footer-margin-top;
- /* background-color: $app-color-base;*/
-  background-image: url('../img/black.png');
+  display:block;
+  clear: both;
+  text-align: center;
+  background-color: $app-color-base;
   font-size: $font-size-app-base-footer;
-  padding-top: $padding-app-large;
   color: $app-color-white;
   line-height: $footer-line-height;
   min-height: $footer-height;
@@ -225,9 +225,9 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   float: none;
-  height: 100px;
+  height: 200px;
   margin: auto;
-  width: 100px;
+  width: 200px;
 }
 
 //BOTONES
@@ -248,6 +248,7 @@ body {
 .btn-action {
   a, button {
     @include btn-viaoptima-button-action();
+    margin-bottom: $margin-app-large;
   }
 }
 

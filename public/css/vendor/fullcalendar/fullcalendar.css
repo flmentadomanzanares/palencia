@@ -732,11 +732,14 @@ a.fc-more:hover {
 .fc-toolbar button:focus {
 	z-index: 5;
 }
-
-
 /* View Structure
 --------------------------------------------------------------------------------------------------*/
-
+/* Añadido para poder tener un pie de página */
+.fc-view-container{
+    display: block;
+    float: left;
+    margin-bottom: 35px;
+}
 /* undo twitter bootstrap's box-sizing rules. normalizes positioning techniques */
 /* don't do this for the toolbar because we'll want bootstrap to style those buttons as some pt */
 .fc-view-container *,

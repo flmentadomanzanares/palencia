@@ -22,7 +22,7 @@ class CursillosController extends Controller
         $titulo = "Listado de cursillos";
         $cursillos = Cursillos::getCursillos($request);
         $anyos = Cursillos::getAnyoCursillos();
-        $semanas = array();
+        $semanas =Array();
         return view("cursillos.index", compact('cursillos', 'titulo', 'anyos', 'semanas'));
     }
 

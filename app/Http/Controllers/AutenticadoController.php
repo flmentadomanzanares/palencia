@@ -38,8 +38,10 @@ class AutenticadoController extends Controller
 
     public function index(Request $request)
     {
+        $titulo = "Calendario";
+        $anyos = Cursillos::getAnyoCursillos();
+        $semanas = array(array());
         $cursillos = Cursillos::getCalendarCursillos($request);
-
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(
                 $cursillo->cursillo, //event title
@@ -54,16 +56,15 @@ class AutenticadoController extends Controller
             ->setOptions([ //set fullcalendar options
                 'lang' => '',
                 'buttonIcons' => true,
-                'defaultDate' => date('Y-m-d', strtotime('now')),
                 'editable' => false,
                 'weekNumbers' => true,
                 'eventLimit' => true, // allow "more" link when too many events
-                'header' => array('left' => 'prev,next today', 'center' => 'title')
+                'header' => array('left' => 'prev,next', 'center' => 'title', 'right' => 'next,prev')
             ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                 'eventClick' => 'function(calEvent, jsEvent, view) {
                     $(this).attr("href","cursillos/"+calEvent.id);
 				}'
             ]);
-        return view('autenticado', compact('calendar'));
+        return view('autenticado', compact('calendar', 'anyos', 'semanas', 'titulo'));
     }
 }

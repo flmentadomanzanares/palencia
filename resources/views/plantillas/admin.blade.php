@@ -116,39 +116,30 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-<div class="row margen-mensajes">
-    <div class="col-md-12">
-        @if(Session::has('mensaje'))
-            <div class="alert alert-info alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
-                            aria-hidden="true">&times;</span></button>
-                <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
-            </div>
-        @endif
-        @if($errors->has())
-            <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <strong>Errores</strong>
-                <ol>
-                    @foreach ($errors->all('<p>:message</p>') as $message)
-                        <li>{!! $message !!}</li>
-                    @endforeach
-                </ol>
-            </div>
-        @endif
-        <h1 class="text-center margen-titulo">@yield ('titulo')</h1>
-        @yield("contenido")
-    </div>
-</div>
-<footer>
-    <div class="row">
 
-        <div class="col-xs-12 col-sm-12">
-            <p class="text-center">&copy; Palencia | desarrollado por KOALNET - 2015</p>
+    @if(Session::has('mensaje'))
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+                        aria-hidden="true">&times;</span></button>
+            <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
         </div>
-    </div>
-    <!-- end row -->
+    @endif
+    @if($errors->has())
+        <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            <strong>Errores</strong>
+            <ol>
+                @foreach ($errors->all('<p>:message</p>') as $message)
+                    <li>{!! $message !!}</li>
+                @endforeach
+            </ol>
+        </div>
+    @endif
+    <h1 class="text-center">@yield ('titulo')</h1>
+    @yield("contenido")
+<footer>
+        <span>&copy; Palencia | desarrollado por KOALNET - 2015</span>
 </footer>
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}

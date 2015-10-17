@@ -54,6 +54,7 @@ class Cursillos extends Model
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
             ->AnyosCursillos($request->get('anyos'))
+            ->SemanasCursillos($request->get('semanas'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
