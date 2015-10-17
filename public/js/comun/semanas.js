@@ -4,7 +4,7 @@ $(document).ready(function () {
         $.ajax({
             data: {
                 'anyo': year,
-                _token: $('input[name="_token"]').val()
+                '_token': $('meta[name="csrf-token"]').attr('content')
             },
             dataType: "json",
             type: 'post',

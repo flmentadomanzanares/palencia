@@ -39,9 +39,10 @@ class AutenticadoController extends Controller
     public function index(Request $request)
     {
         $titulo = "Calendario";
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas = array(array());
         $cursillos = Cursillos::getCalendarCursillos($request);
+        $anyos = Cursillos::getAnyoCursillos();
+        $semanas =Array();
+
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(
                 $cursillo->cursillo, //event title
