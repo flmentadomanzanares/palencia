@@ -7355,7 +7355,6 @@ body {
   font-size: 13px;
   color: #400090;
   margin: 2px;
-  margin-bottom: 15px;
 }
 
 .btn-action a:hover, .btn-action button:hover {
@@ -7364,6 +7363,10 @@ body {
 
 .btn-action a > i, .btn-action button > i {
   display: inline-block;
+}
+
+.margin-bottom a, .margin-bottom button {
+  margin-bottom: 15px;
 }
 
 .btn {

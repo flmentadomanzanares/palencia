@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         {!! FORM::model($tipos_participantes, ['route' => ['tiposParticipantes.update', $tipos_participantes->id], 'method' => 'patch']) !!}
         @include('tiposParticipantes.parciales.nuevoYmodificar')
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('tiposParticipantes.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

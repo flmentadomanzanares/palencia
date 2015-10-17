@@ -10,7 +10,7 @@
         {!! FORM::model($usuario, ['route' => ['usuarios.update', $usuario->id], 'method' => 'PUT', 'files'=>'true'])
         !!}
         @include('usuarios.Parciales.nuevoYmodificar')
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('usuarios.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

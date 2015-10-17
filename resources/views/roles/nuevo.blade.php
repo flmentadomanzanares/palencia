@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
             {!! FORM::open(['route' => 'roles.store']) !!}
             @include('roles.parciales.nuevoYmodificar')
-            <div class="btn-action">
+            <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('roles.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>

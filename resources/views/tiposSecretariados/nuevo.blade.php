@@ -8,7 +8,7 @@
         <div class="row table-size-optima">
             {!! FORM::open(['route' => 'tiposSecretariados.store']) !!}
             @include('tiposSecretariados.parciales.nuevoYmodificar')
-            <div class="btn-action">
+            <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('tiposSecretariados.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>

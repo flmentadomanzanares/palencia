@@ -36,6 +36,8 @@ class CursillosController extends Controller
         //Título Vista
         $titulo = "Nuevo Cursillo";
         $cursillo = new Cursillos();
+        $cursillo->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
+        $cursillo->fecha_final = $this->ponerFecha(date("d-m-Y"));
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
         $tipos_cursillos = TiposCursillos::getTiposCursillosList();
         $comunidades = Comunidades::getComunidadesList();

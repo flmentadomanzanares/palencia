@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         {!! FORM::model($localidades, ['route' => ['localidades.update', $localidades->id], 'method' => 'patch']) !!}
         @include('localidades.parciales.nuevoYmodificar')
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('localidades.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

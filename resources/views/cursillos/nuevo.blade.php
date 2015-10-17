@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         {!! FORM::open(['route' => 'cursillos.store']) !!}
         @include('cursillos.Parciales.nuevoYmodificar')
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('cursillos.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

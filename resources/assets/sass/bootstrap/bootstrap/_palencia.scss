@@ -248,6 +248,11 @@ body {
 .btn-action {
   a, button {
     @include btn-viaoptima-button-action();
+   }
+}
+
+.margin-bottom {
+  a, button {
     margin-bottom: $margin-app-large;
   }
 }

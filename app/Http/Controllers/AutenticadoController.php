@@ -42,10 +42,13 @@ class AutenticadoController extends Controller
         $year = $request->input('anyo');
         $week = $request->input('semana');
         //A partir del número de semana obtenemos el mes
-        $month = new \DateTime();
-        $month->setISODate($year, $week);
-        $mes = $month->format('m');
-        $year = $month->format('Y');
+        if($year >0 && $week>0) {
+            $month = new \DateTime();
+            $month->setISODate($year, $week);
+            $mes = $month->format('m');
+            $year = $month->format('Y');
+        }
+        $date=$year>0? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d');
         //Cargamos los cursillos
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(
@@ -60,7 +63,7 @@ class AutenticadoController extends Controller
         $calendar = \Calendar::addEvents($event)
             ->setOptions([ //set fullcalendar options
                 'lang' => '',
-                'defaultDate' => $year != null ? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d', strtotime('now')),
+                'defaultDate' => $date,
                 'buttonIcons' => true,
                 'editable' => false,
                 'weekNumbers' => true,

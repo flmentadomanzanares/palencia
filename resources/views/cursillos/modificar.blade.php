@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         {!! FORM::model($cursillo, ['route' => ['cursillos.update', $cursillo->id], 'method' => 'patch']) !!}
         @include('cursillos.Parciales.nuevoYmodificar')
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('cursillos.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
