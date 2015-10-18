@@ -47,6 +47,9 @@
         self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
         self.$colorList = self.$picker;
 
+        //Reajustamos la posicion del ColorPicker en los resize
+        window.onresize= $.proxy(self.resizePicker, self);
+
         // Hide picker when clicking outside
         $(document).on('mousedown.' + self.type, $.proxy(self.hidePicker, self));
         self.$picker.on('mousedown.' + self.type, $.proxy(self.mousedown, self));
@@ -124,15 +127,17 @@
     },
 
     showPicker: function() {
-      var pos = this.$icon.offset();
-        console.log(this.$picker.outerWidth());
-      this.$picker.css({
-        // posicionamos a la derecha del selectable
-        left: pos.left + this.$icon.outerWidth()-this.$picker.outerWidth(),
-        top: pos.top + this.$icon.outerHeight()
-      });
-
+      this.resizePicker();
       this.$picker.show(this.options.pickerDelay);
+    },
+
+    resizePicker:function(){
+        var pos = this.$icon.offset();
+        this.$picker.css({
+            // posicionamos a la derecha del selectable
+            left: pos.left + this.$icon.outerWidth()-this.$picker.outerWidth(),
+            top: pos.top + this.$icon.outerHeight()
+        });
     },
 
     hidePicker: function() {
