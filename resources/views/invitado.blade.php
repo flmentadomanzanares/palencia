@@ -3,7 +3,8 @@
  @endsection
 @section ("contenido")
     <div class="row">
-        {{--<div id="calendar"></div>--}}
+        <img src="../public/img/portada.jpg" alt="Portada" class="img-responsive ">
+{{--
         <div > <!-- row carrousel -->
             <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
                 <!-- Indicators -->
@@ -43,7 +44,7 @@
                 </a>
             </div>
 
-        </div>  <!-- end row carrousel -->
+        </div>  <!-- end row carrousel -->--}}
     </div>
     {{-- Formulario Registrarse --}}
     <div id="formularioModal">

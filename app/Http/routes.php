@@ -33,7 +33,7 @@ Route::resource('provincias','ProvinciasController');
 Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
-Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
+Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
 Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
