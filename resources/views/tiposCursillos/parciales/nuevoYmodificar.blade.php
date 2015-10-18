@@ -6,7 +6,7 @@
     {!! FORM::label ('color', 'Color') !!}
     <select id="select-color" class="form-control" name="color">
         @foreach ($colors as $color)
-            <option   style="padding:5px 0px;color:white;background-color:{{$color}}" @if($color == $tipos_cursillos->color)selected @endif >{{$color}}</option>
+            <option  value="{{$color}}"@if($color==$tipos_cursillos->color) selected="selected" @endif>{{$color}}</option>
         @endforeach
     </select>
     <br/>

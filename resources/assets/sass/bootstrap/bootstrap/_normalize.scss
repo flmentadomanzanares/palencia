@@ -13,22 +13,8 @@
 }
 
 @font-face {
-  font-family: "Century Gothic regular bold";
-  font-weight: bold;
-  src: url('../fonts/centuryGothic/GOTHICB.TTF');
-}
-
-@font-face {
-  font-family: "Century Gothic regular italic";
-  font-style: italic;
-  src: url('../fonts/centuryGothic/GOTHICI.TTF');
-}
-
-@font-face {
-  font-family: "Century Gothic regular italic bold";
-  font-weight: bold;
-  font-style: italic;
-  src: url('../fonts/centuryGothic/GOTHICBI.TTF');
+  font-family: "Glyphicons Halflings";
+  src: url('../fonts/glyphicons-halflings-regular.ttf');
 }
 
 html {

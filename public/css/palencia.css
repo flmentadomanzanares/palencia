@@ -10,22 +10,8 @@
 }
 
 @font-face {
-  font-family: "Century Gothic regular bold";
-  font-weight: bold;
-  src: url("../fonts/centuryGothic/GOTHICB.TTF");
-}
-
-@font-face {
-  font-family: "Century Gothic regular italic";
-  font-style: italic;
-  src: url("../fonts/centuryGothic/GOTHICI.TTF");
-}
-
-@font-face {
-  font-family: "Century Gothic regular italic bold";
-  font-weight: bold;
-  font-style: italic;
-  src: url("../fonts/centuryGothic/GOTHICBI.TTF");
+  font-family: "Glyphicons Halflings";
+  src: url("../fonts/glyphicons-halflings-regular.ttf");
 }
 
 html {
@@ -3623,7 +3609,7 @@ fieldset[disabled] a.btn {
 
 .btn-register {
   font-size: 14px;
-  font-family: "Century Gothic regular bold", Verdana, Arial, sans-serif;
+  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
   background-color: #00ff00;
   text-align: center;
   color: #ffffff;
@@ -4823,7 +4809,7 @@ tbody.collapse.in {
 }
 
 .nav-pills {
-  font-family: "Century Gothic regular bold", Verdana, Arial, sans-serif;
+  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
   font-size: 18px;
 }
 
@@ -7332,7 +7318,7 @@ body {
 
 .btn-register {
   font-size: 14px;
-  font-family: "Century Gothic regular bold", Verdana, Arial, sans-serif;
+  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
   background-color: #400090;
   border-color: #400090 !important;
   text-align: center;

@@ -31,8 +31,9 @@ class DatabaseSeeder extends Seeder
             'comunidades',
             'tipos_cursillos',
             'cursillos',
-            'solicitudes_enviadas',
-            'solicitudes_recibidas'
+            'estados_solicitudes',
+            'solicitudes',
+
         ));
 
         $this->call('RolesTableSeeder');
@@ -44,10 +45,11 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposCursillosTableSeeder');
         $this->call('TiposParticipantesTableSeeder');
         $this->call('TiposSecretariadosTableSeeder');
+        $this->call('EstadosSolicitudesTableSeeder');
         $this->call('ComunidadesTableSeeder');
         $this->call('CursillosTableSeeder');
-        $this->call('SolicitudesEnviadasTableSeeder');
-        $this->call('SolicitudesRecibidasTableSeeder');
+        $this->call('SolicitudesTableSeeder');
+
     }
 
     private function truncateTables(array $tables)
