@@ -23,8 +23,15 @@
             {!! FORM::close() !!}
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#select-color').simplecolorpicker({picker: true, theme: 'glyphicons'});
+        });
+    </script>
 @endsection
 @section("css")
+    {!! HTML::style("css/vendor/ColorPicker/jquery.simplecolorpicker.css")!!}
 @stop
 @section('js')
+    {!! HTML::script("js/vendor/ColorPicker/jquery.simplecolorpicker.js")!!}
 @endsection

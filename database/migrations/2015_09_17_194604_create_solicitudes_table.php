@@ -16,6 +16,9 @@ class CreateSolicitudesTable extends Migration {
         {
             $table->bigIncrements('id');
 
+            $table->bigInteger('color_id')->unsigned();
+            $table->foreign('color_id')->references('id')->on('colores')->onDelete('cascade');
+
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
 

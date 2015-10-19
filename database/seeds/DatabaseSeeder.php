@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'solicitudes',
 
         ));
-
+        $this->call('ColoresTableSeeder');
         $this->call('RolesTableSeeder');
         $this->call('UserTableSeeder');
         $this->call('PaisesTableSeeder');

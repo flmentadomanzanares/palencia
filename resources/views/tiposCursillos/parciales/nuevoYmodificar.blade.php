@@ -3,10 +3,10 @@
     {!! FORM::label('tipoParticipante', 'Tipo cursillo') !!} <br/>
     {!! FORM::text('tipo_cursillo', $tipos_cursillos->tipo_cursillo, ["class" => "form-control", "title"=>"Tipo de cursillo"]) !!}
     <br/>
-    {!! FORM::label ('color', 'Color') !!}
+    {!! FORM::label ('color', 'Color de fondo') !!}
     <select id="select-color" class="form-control" name="color">
         @foreach ($colors as $color)
-            <option  value="{{$color}}"@if($color==$tipos_cursillos->color) selected="selected" @endif>{{$color}}</option>
+            <option  value="{{$color->codigo_color}}"@if($color->codigo_color==$tipos_cursillos->color) selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
     </select>
     <br/>
