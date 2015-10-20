@@ -27,12 +27,11 @@ Route::resource('paises','PaisesController');
 Route::resource('provincias','ProvinciasController');
 Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
-Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
-Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
 Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
+Route::resource('estadosSolicitudes','EstadosSolicitudesController');
 Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
 //Cambio de Provincias y localidades vía ajax.
