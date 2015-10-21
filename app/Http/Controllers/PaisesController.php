@@ -19,10 +19,13 @@ class PaisesController extends Controller {
      */
     public function index(Request $request)
     {
+        $titulo = "Listado de Países";
+
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta categorias
-        $paises= Paises::pais($request->get('pais'))->orderBy('pais', 'ASC')->paginate()->setPath('paises');
-        return view("paises.index",compact('paises'))->with('titulo','Listado de Países');
+        $paises= Paises::getPaises($request);
+        return view("paises.index",compact("paises", "titulo"));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -31,8 +34,10 @@ class PaisesController extends Controller {
      */
     public function create()
     {
+        $titulo = "Nuevo País";
         $paises = new Paises;
-        return view('paises.nuevo')->with('paises', $paises)->with('titulo','Nuevo País');
+        return view("paises.nuevo", compact("paises", "titulo"));
+
     }
 
     /**
@@ -46,19 +51,22 @@ class PaisesController extends Controller {
     {
         $paises = new Paises; //Creamos instancia al modelo
 
-        $paises->pais = \Request::input('pais'); //Asignamos el valor al campo.
+        $paises->pais = \Request::input("pais"); //Asignamos el valor al campo.
         try {
             $paises->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('paises.create')->with('mensaje', 'El país ' . \Request::input('pais') . ' está ya dado de alta.');
+                    return redirect()->route("paises.create")
+                        ->with("mensaje", "El país " . \Request::input("pais") . " está ya dado de alta.");
                     break;
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Nuevo país error ' . $e->getCode());
+                    return redirect()->route("paises.index")
+                        ->with("mensaje", "Nuevo país error " . $e->getCode());
             }
         }
-        return redirect('paises')->with('mensaje', 'El país ' . $paises->pais . ' creado satisfactoriamente.');
+        return redirect("paises")
+            ->with("mensaje", "El país " . $paises->pais . " creado satisfactoriamente.");
 
     }
 
@@ -81,7 +89,9 @@ class PaisesController extends Controller {
      */
     public function edit($id)
     {
-        return view('paises.modificar')->with('paises', Paises::find($id))->with('titulo','Modificar País');
+        $titulo = "Modificar País";
+        $paises = Paises::find($id);
+        return view('paises.modificar', compact('paises', 'titulo'));
     }
 
     /**
@@ -93,19 +103,21 @@ class PaisesController extends Controller {
     public function update($id, ValidateRulesPaises $request)
     {
         $paises = Paises::find($id);
-        $paises->pais = \Request::input('pais');
-        if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-            $paises->activo = \Request::input('activo');
+        $paises->pais = \Request::input("pais");
+        if (\Auth::user()->roles->peso >= config("opciones.roles.administrador")) {
+            $paises->activo = \Request::input("activo");
         }
         try {
             $paises->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Modificar país error ' . $e->getCode());
+                    return redirect()->route("paises.index")
+                        ->with("mensaje", "Modificar país error " . $e->getCode());
             }
         }
-        return redirect()->route('paises.index')->with('mensaje', 'País  modificado satisfactoriamente.');
+        return redirect()->route("paises.index")
+            ->with("mensaje", "País  modificado satisfactoriamente.");
     }
 
     /**
@@ -118,19 +130,23 @@ class PaisesController extends Controller {
     {
         $paises = Paises::find($id);
         $paisNombre = $paises->pais;
+
         try {
             $paises->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('paises.index')->with('mensaje', 'El país ' . $paisNombre . ' no se puede eliminar al tener registros asociados.');
+                    return redirect()->route("paises.index")
+                        ->with("mensaje", "El país " . $paisNombre . " no se puede eliminar al tener registros asociados.");
                     break;
                 default:
-                    return redirect()->route('paises.index')->with('mensaje', 'Eliminar país error ' . $e->getCode());
+                    return redirect()->route("paises.index")
+                        ->with("mensaje", "Eliminar país error " . $e->getCode());
             }
 
         }
 
-        return redirect()->route('paises.index')->with('mensaje', 'El país ' . $paisNombre . ' eliminado correctamente.');
+        return redirect()->route("paises.index")
+            ->with("mensaje", "El país " . $paisNombre . " eliminado correctamente.");
     }
 }

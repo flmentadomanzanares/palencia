@@ -1,6 +1,7 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Paises extends Model {
 
@@ -37,4 +38,11 @@ class Paises extends Model {
             $query->where('pais','LIKE',"$pais".'%');
     }
 
+    public static function getPaises(Request $request){
+
+        return Paises::pais($request->get('pais'))
+            ->orderBy('pais', 'ASC')
+            ->paginate()
+            ->setPath('paises');
+    }
 }
