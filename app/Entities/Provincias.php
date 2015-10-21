@@ -1,6 +1,8 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
 
 class Provincias extends Model {
 
@@ -60,4 +62,11 @@ class Provincias extends Model {
         return $this->belongsTo('Palencia\Entities\Paises', 'pais_id');
     }
 
+    public static function getProvincias(Request $request){
+
+        return Provincias::pais($request->get('pais'))
+            ->provincia($request->get('provincia'))
+            ->orderBy('provincia', 'ASC')->paginate()
+            ->setPath('provincias');
+    }
 }
