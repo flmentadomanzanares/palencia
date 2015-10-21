@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Http\Request;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -87,5 +88,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     }
 
+    public static function getUser(Request $request){
 
+        return User::where('id', '=', \Auth::user()->id)
+            ->get();                                    //Obtiene un único registro
+    }
+
+    public static function getUsers(Request $request){
+
+        return $request->get('campo') != null || $request->get('rol') != null ?
+            User::fields($request->get('campo'), $request->get('value'))
+                ->roles($request->get('rol'), $request->get('campo'))->paginate(5)->setPath('usuarios')
+            :
+            User::orderBy('fullname', 'ASC')
+                ->paginate(5)
+                ->setPath('usuarios');
+    }
 }

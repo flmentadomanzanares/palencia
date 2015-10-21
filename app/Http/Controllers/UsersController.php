@@ -26,19 +26,18 @@ class UsersController extends Controller {
         if (\Auth::check()) {
             if (\Auth::user()->roles->peso < config('opciones.roles.administrador')) {
                 $titulo = "Mi perfil";
-                $users = User::where('id', '=', \Auth::user()->id)->get(); //Obtiene un único registro
+                $users = User::getUser($request);
             } else {
                 $titulo = "Listado de Usuarios";
 
-                $users = $request->get('campo') != null || $request->get('rol') != null ?
-                    User::fields($request->get('campo'), $request->get('value'))->roles($request->get('rol'), $request->get('campo'))->paginate(5)->setPath('usuarios')
-                    :
-                    User::orderBy('fullname', 'ASC')->paginate(5)->setPath('usuarios');
+                $users = User::getUsers($request);
             }
         } else {
-            $users = User::where('id', -1)->get();
+            $users = User::where('id', -1)
+                ->get();
         }
-        $roles =['0'=>'Elige Rol']+ Roles::where('peso', '>', 0)->orderBy('rol', 'ASC')->lists('rol', 'id');
+        $roles =['0'=>'Elige Rol']+ Roles::where('peso', '>', 0)
+                ->orderBy('rol', 'ASC')->lists('rol', 'id');
 
         return view("usuarios.index", compact('users','titulo','roles'));
     }
@@ -100,8 +99,11 @@ class UsersController extends Controller {
      */
     public function edit($id)
     {
-        $roles = Roles::orderBy('rol', 'ASC')->lists('rol','id');
-        return view('usuarios.modificar')->with('usuario', User::find($id))->with('roles', $roles)->with('titulo', 'Modificar Perfíl');
+        $titulo = "Modificar Usuario";
+        $usuario = User::find($id);
+        $roles = Roles::orderBy('rol', 'ASC')
+            ->lists('rol','id');
+        return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
     }
 
     /**
@@ -139,10 +141,12 @@ class UsersController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
-                    return redirect()->route('usuarios.index')->with('mensaje', 'Modificar Perfil error ' . $e->getMessage());
+                    return redirect()->route('usuarios.index')
+                        ->with('mensaje', 'Modificar Perfil error ' . $e->getMessage());
             }
         }
-        return redirect()->route('usuarios.index')->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
+        return redirect()->route('usuarios.index')
+            ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
     }
 
     /**
@@ -160,15 +164,18 @@ class UsersController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('usuarios.index')->with('mensaje', 'El usuario ' . $userNombre . ' no se puede eliminar al tener registros asociados.');
+                    return redirect()->route('usuarios.index')
+                        ->with('mensaje', 'El usuario ' . $userNombre . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
-                    return redirect()->route('usuarios.index')->with('mensaje', 'Eliminar usuario error ' . $e->getCode());
+                    return redirect()
+                        ->route('usuarios.index')->with('mensaje', 'Eliminar usuario error ' . $e->getCode());
             }
 
         }
 
-        return redirect()->route('usuarios.index')->with('mensaje', 'El usuario ' . $userNombre . ' eliminado correctamente.');
+        return redirect()->route('usuarios.index')
+            ->with('mensaje', 'El usuario ' . $userNombre . ' eliminado correctamente.');
     }
 
 }
