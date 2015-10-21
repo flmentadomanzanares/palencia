@@ -1,6 +1,6 @@
 @extends ("plantillas.admin")
 @section ("css")
- @endsection
+@endsection
 @section ("contenido")
     <div class="row">
         <img src="../public/img/portada.jpg" alt="Portada" class="img-responsive ">
@@ -13,6 +13,8 @@
                     <li data-target="#myCarousel" data-slide-to="1"></li>
                     <li data-target="#myCarousel" data-slide-to="2"></li>
                 </ol>
+    <div class="altoMaximo">
+        <div class="row">
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
@@ -44,7 +46,7 @@
                 </a>
             </div>
 
-        </div>  <!-- end row carrousel -->--}}
+        </div>  <!-- end row carrousel -->
     </div>
     {{-- Formulario Registrarse --}}
     <div id="formularioModal">

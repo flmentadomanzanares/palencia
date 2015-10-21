@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
                 @include('tiposSecretariados.parciales.buscar')
@@ -23,7 +23,7 @@
                         <tbody>
                         @foreach ($tipos_secretariados as $tipo_secretariado)
                             <tr>
-                                <td>{{ $tipo_secretariado->secretariado }}</td>
+                                <td>{{ $tipo_secretariado->tipo_secretariado }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('tiposSecretariados.edit', $tipo_secretariado->id)}}"
@@ -56,7 +56,7 @@
                         </div>
                     @endif
                     <div class="row text-center">
-                        {!! $tipos_secretariados->appends(Request::only(['secretariado']))->render()
+                        {!! $tipos_secretariados->appends(Request::only(['tipo_secretariado']))->render()
                         !!}{{-- Poner el paginador --}}
                     </div>
                     @else

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
 
         // Borramos todos los registros de las tablas antes de cargarlos de nuevo
         $this->truncateTables(array(
-
             'roles',
             'users',
             'password_resets',
@@ -32,10 +31,8 @@ class DatabaseSeeder extends Seeder
             'comunidades',
             'tipos_cursillos',
             'cursillos',
-            'solicitudes_enviadas',
-            'solicitudes_recibidas',
-            'calendarios',
-            'semana_cursillo_comunidades'
+            'estados_solicitudes',
+            'solicitudes',
 
         ));
 
@@ -48,13 +45,10 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposCursillosTableSeeder');
         $this->call('TiposParticipantesTableSeeder');
         $this->call('TiposSecretariadosTableSeeder');
+        $this->call('EstadosSolicitudesTableSeeder');
         $this->call('ComunidadesTableSeeder');
         $this->call('CursillosTableSeeder');
-        $this->call('SolicitudesEnviadasTableSeeder');
-        $this->call('SolicitudesRecibidasTableSeeder');
-        $this->call('CalendarioTableSeeder');
-        $this->call('SemanaCursilloComunidadesTableSeeder');
-
+        $this->call('SolicitudesTableSeeder');
 
     }
 

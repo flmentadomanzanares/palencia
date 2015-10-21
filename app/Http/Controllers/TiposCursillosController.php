@@ -18,11 +18,7 @@ class TiposCursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de cursillos";
-        $tipos_cursillos = tiposCursillos::tipoCursillo($request->get('tipo_cursillo'))
-            ->orderBy('tipo_cursillo', 'ASC')
-            ->paginate()
-            ->setPath('tiposCursillos');
-
+        $tipos_cursillos = TiposCursillos::getTiposCursillos($request);
         return view("tiposCursillos.index", compact('tipos_cursillos', 'titulo'));
     }
 
@@ -35,7 +31,8 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Nuevo tipo de cursillo";
         $tipos_cursillos = new tiposCursillos();
-        return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'titulo'));
+        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
+        return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 
     /**
@@ -48,7 +45,8 @@ class TiposCursillosController extends Controller
     public function store(ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = new tiposCursillos(); //Creamos instancia al modelo
-        $tipos_cursillos->cursillo = \Request::input('cursillo'); //Asignamos el valor al campo.
+        $tipos_cursillos->tipo_cursillo = \Request::input('tipo_cursillo'); //Asignamos el valor al campo.
+        $tipos_cursillos->color = \Request::input('color');
         try {
             $tipos_cursillos->save();
         } catch (\Exception $e) {
@@ -79,8 +77,9 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Modificar tipo de cursillo";
         $tipos_cursillos = tiposCursillos::find($id);
-        return view('tiposCursillos.modificar', compact('tipos_cursillos','titulo'));
-     }
+        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
+        return view('tiposCursillos.modificar', compact('tipos_cursillos', 'colors', 'titulo'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -91,7 +90,8 @@ class TiposCursillosController extends Controller
     public function update($id, ValidateRulesTiposCursillos $request)
     {
         $tipos_cursillos = tiposCursillos::find($id);
-        $tipos_cursillos->cursillo = \Request::input('cursillo');
+        $tipos_cursillos->tipo_cursillo = \Request::input('tipo_cursillo');
+        $tipos_cursillos->color = \Request::input('color');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_cursillos->activo = \Request::input('activo');
         }
@@ -102,7 +102,7 @@ class TiposCursillosController extends Controller
                 default:
                     return redirect()
                         ->route('tiposCursillos.index')
-                        ->with('mensaje', 'Modificar tipo cursillo error ' . $e->getCode());
+                        ->with('mensaje', 'Modificar tipo cursillo error ' . $e->getMessage());
             }
         }
         return redirect()->route('tiposCursillos.index')
@@ -118,14 +118,14 @@ class TiposCursillosController extends Controller
     public function destroy($id)
     {
         $tipos_cursillos = tiposCursillos::find($id);
-        $cursillo =$tipos_cursillos->cursillo;
+        $cursillo = $tipos_cursillos->cursillo;
         try {
             $tipos_cursillos->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposCursillos.index')
-                        ->with('mensaje', 'El tipo de cursillo '.$cursillo.' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de cursillo ' . $cursillo . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
                     return redirect()->route('tiposCursillos.index')

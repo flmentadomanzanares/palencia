@@ -20,15 +20,15 @@ class ValidateRulesTiposParticipantes extends Request {
     public function rules()
     {
         return [
-            "participante"    =>    "required|min:2|max:50",
+            "tipo_participante"    =>    "required|min:2|max:50",
         ];
     }
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'participante.required' => 'El tipo de participante es obligatorio!',
-            'participante.min' => 'Longitud mínima del tipo de participante :min caracteres.',
-            'participante.max' => 'Longitud máxima del tipo de participante :max caracteres.'
+            'tipo_participante.required' => 'El tipo de participante es obligatorio!',
+            'tipo_participante.min' => 'Longitud mínima del tipo de participante :min caracteres.',
+            'tipo_participante.max' => 'Longitud máxima del tipo de participante :max caracteres.'
         ];
     }
 

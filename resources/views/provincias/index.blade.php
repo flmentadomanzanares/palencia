@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
                 @include('provincias.parciales.buscar')

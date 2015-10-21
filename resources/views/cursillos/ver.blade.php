@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <table class="table-viaoptima table-striped">
             <thead>
             <tr style="@if($cursillo->activo==0)background: red !important; @endif">
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Semana:</td>
-                <td>{!! Date("W" , strtotime($cursillo->fecha_inicial) )!!}</td>
+                <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
             </tr>
             <tr>
                 <td>Fecha Inicio:</td>
@@ -57,7 +57,7 @@
 
             </tbody>
         </table>
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{URL::previous()}}" class="pull-right">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

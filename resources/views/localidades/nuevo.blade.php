@@ -4,13 +4,13 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <div>
             {!! FORM::open(['route' => 'localidades.store']) !!}
 
             @include('localidades.parciales.nuevoYmodificar')
 
-            <div class="btn-action">
+            <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('localidades.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>

@@ -1,5 +1,4 @@
 <?php namespace Palencia\Http\Controllers;
-
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\TiposParticipantes;
@@ -18,11 +17,7 @@ class TiposParticipantesController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de participantes";
-        $tipos_participantes = TiposParticipantes::tipoParticipante($request->get('participante'))
-            ->orderBy('participante', 'ASC')
-            ->paginate()
-            ->setPath('tiposParticipantes');
-
+        $tipos_participantes = TiposParticipantes::getTiposParticipantes($request);
         return view("tiposParticipantes.index", compact('tipos_participantes', 'titulo'));
     }
 
@@ -48,14 +43,14 @@ class TiposParticipantesController extends Controller
     public function store(ValidateRulesTiposParticipantes $request)
     {
         $tipos_participantes = new TiposParticipantes(); //Creamos instancia al modelo
-        $tipos_participantes->participante = \Request::input('participante'); //Asignamos el valor al campo.
+        $tipos_participantes->tipo_participante = \Request::input('tipo_participante'); //Asignamos el valor al campo.
         try {
             $tipos_participantes->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposParticipantes.create')
-                        ->with('mensaje', 'El tipo de participante ' . \Request::input('participante') . ' está ya dado de alta . ');
+                        ->with('mensaje', 'El tipo de participante ' . \Request::input('tipo_participante') . ' está ya dado de alta . ');
                     break;
                 default:
                     return redirect()
@@ -64,7 +59,7 @@ class TiposParticipantesController extends Controller
             }
         }
         return redirect('tiposParticipantes')
-            ->with('mensaje', 'El tipo de participante ' . $tipos_participantes->participante . ' creado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de participante se ha creado satisfactoriamente . ');
 
     }
 
@@ -91,7 +86,7 @@ class TiposParticipantesController extends Controller
     public function update($id, ValidateRulesTiposParticipantes $request)
     {
         $tipos_participantes = TiposParticipantes::find($id);
-        $tipos_participantes->participante = \Request::input('participante');
+        $tipos_participantes->tipo_participante = \Request::input('tipo_participante');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_participantes->activo = \Request::input('activo');
         }
@@ -102,7 +97,7 @@ class TiposParticipantesController extends Controller
                 default:
                     return redirect()
                         ->route('tiposParticipantes.index')
-                        ->with('mensaje', 'Modificar tipo participante error ' . $e->getCode());
+                        ->with('mensaje', 'Modificar tipo participante error ' . $e->getMessage());
             }
         }
         return redirect()->route('tiposParticipantes.index')
@@ -118,7 +113,7 @@ class TiposParticipantesController extends Controller
     public function destroy($id)
     {
         $tipos_participantes = TiposParticipantes::find($id);
-        $participante =$tipos_participantes->participante;
+        $participante =$tipos_participantes->tipo_participante;
         try {
             $tipos_participantes->delete();
         } catch (\Exception $e) {

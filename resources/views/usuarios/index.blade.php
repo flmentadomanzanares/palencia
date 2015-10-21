@@ -5,8 +5,7 @@
 @stop
 @section ("contenido")
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
-
+    <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                 <div class="row">

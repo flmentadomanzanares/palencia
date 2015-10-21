@@ -8,7 +8,7 @@
         <div class="row table-size-optima">
             {!! FORM::open(['route' => 'tiposComunicacionesPreferidas.store']) !!}
             @include('tiposComunicacionesPreferidas.parciales.nuevoYmodificar')
-            <div class="btn-action">
+            <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('tiposComunicacionesPreferidas.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>

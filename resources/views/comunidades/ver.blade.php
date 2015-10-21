@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <table class="table-viaoptima table-striped">
             <thead>
             <tr style="@if($comunidad->activo==0)background: red !important; @endif">
@@ -80,7 +80,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="btn-action">
+        <div class="btn-action margin-bottom">
             <a title="Volver" href="{{URL::previous()}}" class="pull-right">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>

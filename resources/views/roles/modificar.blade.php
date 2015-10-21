@@ -4,14 +4,14 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima">
+    <div class="hidden table-size-optima altoMaximo">
         <div class="row">
 
             {!! FORM::model($roles, ['route' => ['roles.update', $roles->id], 'method' => 'patch']) !!}
 
             @include('roles.parciales.nuevoYmodificar')
 
-            <div class="btn-action">
+            <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('roles.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>

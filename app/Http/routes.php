@@ -17,12 +17,7 @@ Route::get('/', 'InvitadoController@index');
 
 Route::get('inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
 
-Route::controllers([
-
-    'auth'      => 'Auth\AuthController',
-    'password'  => 'Auth\PasswordController'
-
-]);
+Route::controllers(['auth'=> 'Auth\AuthController','password'=> 'Auth\PasswordController']);
 
 //Rutas Controladores RestFull
 Route::resource('comunidades','ComunidadesController');

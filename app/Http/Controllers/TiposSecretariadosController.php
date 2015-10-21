@@ -18,10 +18,7 @@ class TiposSecretariadosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de secretariados";
-        $tipos_secretariados = tiposSecretariados::tipoSecretariado($request->get('secretariado'))
-            ->orderBy('secretariado', 'ASC')
-            ->paginate()
-            ->setPath('tiposSecretariados');
+        $tipos_secretariados = TiposSecretariados::getTipoSecretariados($request);
         return view("tiposSecretariados.index", compact('tipos_secretariados', 'titulo'));
     }
 
@@ -47,7 +44,7 @@ class TiposSecretariadosController extends Controller
     public function store(ValidateRulesTiposSecretariados $request)
     {
         $tipos_secretariados = new tiposSecretariados(); //Creamos instancia al modelo
-        $tipos_secretariados->secretariado = \Request::input('secretariado'); //Asignamos el valor al campo.
+        $tipos_secretariados->tipo_secretariado = \Request::input('tipo_secretariado'); //Asignamos el valor al campo.
         try {
             $tipos_secretariados->save();
         } catch (\Exception $e) {
@@ -63,7 +60,7 @@ class TiposSecretariadosController extends Controller
             }
         }
         return redirect('tiposSecretariados')
-            ->with('mensaje', 'El tipo de secretariado ' . $tipos_secretariados->secretariado . ' creado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de secretariado ha sido creado satisfactoriamente . ');
 
     }
 
@@ -90,7 +87,7 @@ class TiposSecretariadosController extends Controller
     public function update($id, ValidateRulesTiposSecretariados $request)
     {
         $tipos_secretariados = tiposSecretariados::find($id);
-        $tipos_secretariados->secretariado = \Request::input('secretariado');
+        $tipos_secretariados->tipo_secretariado = \Request::input('tipo_secretariado');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_secretariados->activo = \Request::input('activo');
         }

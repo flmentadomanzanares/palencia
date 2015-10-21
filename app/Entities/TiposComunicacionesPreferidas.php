@@ -1,11 +1,12 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class TiposComunicacionesPreferidas extends Model {
 
     protected $tabla="tipos_comunicaciones_preferidas";
-    protected $fillable=['comunicaciones_preferidas']; //Campos a usar
+    protected $fillable=[]; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
     /**
@@ -20,6 +21,13 @@ class TiposComunicacionesPreferidas extends Model {
             ->where('activo', true)
             ->orderBy('comunicacion_preferida', 'ASC')
             ->Lists('comunicacion_preferida', 'id');
+    }
+    static public function getTiposComunicacionesPreferidas(Request $request){
+        return TiposComunicacionesPreferidas::Select('id','comunicacion_preferida')
+            ->tipoComunicacionesPreferidas($request->get('comunicacion_preferida'))
+            ->orderBy('comunicacion_preferida', 'ASC')
+            ->paginate()
+            ->setPath('tiposComunicacionesPreferidas');
     }
     /**
      * @param $query

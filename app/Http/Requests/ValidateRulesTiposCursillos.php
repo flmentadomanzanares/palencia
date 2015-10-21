@@ -20,15 +20,15 @@ class ValidateRulesTiposCursillos extends Request {
     public function rules()
     {
         return [
-            "cursillo"    =>    "required|min:2|max:50",
+            "tipo_cursillo"    =>    "required|min:2|max:50",
         ];
     }
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'cursillo.required' => 'El tipo de cursillo es obligatorio!',
-            'cursillo.min' => 'Longitud mínima del tipo de cursillo :min caracteres.',
-            'cursillo.max' => 'Longitud máxima del tipo de cursillo :max caracteres.'
+            'tipo_cursillo.required' => 'El tipo de cursillo es obligatorio!',
+            'tipo_cursillo.min' => 'Longitud mínima del tipo de cursillo :min caracteres.',
+            'tipo_cursillo.max' => 'Longitud máxima del tipo de cursillo :max caracteres.'
         ];
     }
 
