@@ -17,9 +17,11 @@ class RolesController extends Controller {
      */
     public function index(Request $request)
     {
-        //Vamos al indice y creamos una paginación de 3 elementos y con ruta roles
-        $roles = Roles::rol($request->get('rol'))->orderBy('rol', 'ASC')->paginate(3)->setPath('roles');
-        return view("roles.index", compact('roles'))->with('titulo', 'Listado de Roles');
+        $titulo = "Listado de Roles";
+
+        //Vamos al indice y creamos una paginación de 3 elementos y con ruta categorias
+        $roles= Roles::getRoles($request);
+        return view("roles.index",compact("roles", "titulo"));
     }
 
     /**
@@ -29,8 +31,9 @@ class RolesController extends Controller {
      */
     public function create()
     {
+        $titulo = "Nuevo Rol";
         $roles = new Roles;
-        return view('roles.nuevo')->with('roles', $roles)->with('titulo', 'Nuevo Rol');
+        return view("roles.nuevo", compact("roles", "titulo"));
     }
 
     /**
@@ -52,13 +55,16 @@ class RolesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('roles.create')->with('mensaje', 'El rol ' . \Request::input('rol') . ' está ya dado de alta.');
+                    return redirect()->route('roles.create')
+                        ->with('mensaje', 'El rol ' . \Request::input('rol') . ' está ya dado de alta.');
                     break;
                 default:
-                    return redirect()->route('roles.index')->with('mensaje', 'Nuevo rol error ' . $e->getCode());
+                    return redirect()->route('roles.index')
+                        ->with('mensaje', 'Nuevo rol error ' . $e->getCode());
             }
         }
-        return redirect('roles')->with('mensaje', 'El rol ' . $roles->rol . ' creado satisfactoriamente.');
+        return redirect('roles')
+            ->with('mensaje', 'El rol ' . $roles->rol . ' creado satisfactoriamente.');
 
     }
 
@@ -81,7 +87,9 @@ class RolesController extends Controller {
      */
     public function edit($id)
     {
-        return view('roles.modificar')->with('roles', Roles::find($id))->with('titulo', 'Modificar Rol');
+        $titulo = "Modificar Rol";
+        $roles = Roles::find($id);
+        return view('roles.modificar', compact('roles', 'titulo'));
     }
 
     /**
@@ -104,10 +112,12 @@ class RolesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
-                    return redirect()->route('roles.index')->with('mensaje', 'Modificar rol error ' . $e->getCode());
+                    return redirect()->route('roles.index')
+                        ->with('mensaje', 'Modificar rol error ' . $e->getCode());
             }
         }
-        return redirect()->route('roles.index')->with('mensaje', 'roles ' . $nombreRol . ' ha sido modificado correctamente ');
+        return redirect()->route('roles.index')
+            ->with('mensaje', 'roles ' . $nombreRol . ' ha sido modificado correctamente ');
     }
 
     /**
@@ -125,10 +135,12 @@ class RolesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('roles.index')->with('mensaje', 'El rol ' . $rolNombre . ' no se puede eliminar al tener registros asociados.');
+                    return redirect()->route('roles.index')
+                        ->with('mensaje', 'El rol ' . $rolNombre . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
-                    return redirect()->route('roles.index')->with('mensaje', 'Eliminar rol error ' . $e->getCode());
+                    return redirect()->route('roles.index')
+                        ->with('mensaje', 'Eliminar rol error ' . $e->getCode());
             }
 
         }

@@ -1,6 +1,7 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Roles extends Model {
 
@@ -22,5 +23,12 @@ class Roles extends Model {
         return $this->hasMany("Palencia\Entities\User");
     }
 
+    public static function getRoles(Request $request)
+    {
 
+        return Roles::rol($request->get('rol'))
+            ->orderBy('rol', 'ASC')
+            ->paginate(3)
+            ->setPath('roles');
+    }
 }
