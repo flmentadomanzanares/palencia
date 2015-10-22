@@ -39,3 +39,6 @@ Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasCo
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
+
+//Listados PDF
+Route::get('pdf', 'PdfController@invoice');

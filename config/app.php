@@ -138,6 +138,7 @@ return [
         'Collective\Html\HtmlServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'MaddHatter\LaravelFullcalendar\ServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -199,6 +200,7 @@ return [
         'HTML' => 'Collective\Html\HtmlFacade',
         'Image' => 'Intervention\Image\Facades\Image',
         'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
+        'PDF' => 'Barryvdh\DomPDF\Facade',
 
 	],
 

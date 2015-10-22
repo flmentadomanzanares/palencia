@@ -1,6 +1,7 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Localidades extends Model {
 
@@ -63,6 +64,21 @@ class Localidades extends Model {
     public function provincias()
     {
         return $this->belongsTo('Palencia\Entities\Provincias', 'provincia_id');
+    }
+
+    public static function getLocalidades(Request $request){
+
+        return Localidades::select('paises.pais','provincias.provincia','localidades.localidad','localidades.id')->
+        leftJoin('provincias','provincias.id','=','localidades.provincia_id')->
+        leftJoin('paises','paises.id','=','provincias.pais_id')->
+        pais($request->get('pais'))->
+        provincia($request->get('provincia'))->
+        localidad($request->get('localidad'))->
+        orderBy('pais', 'ASC')->
+        orderBy('provincia', 'ASC')->
+        orderBy('localidad', 'ASC')->
+        paginate(4)->
+        setPath('localidades');
     }
 
 }

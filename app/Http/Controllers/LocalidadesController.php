@@ -22,22 +22,17 @@ class LocalidadesController extends Controller {
      */
     public function index(Request $request)
     {
-        //Vamos al indice y creamos una paginación de 8 elementos y con ruta localidades
-        $paises=[''=>'Elige País...']+Paises::OrderBy('pais','ASC')->lists('pais','id');
-        $provincias=[''=>'Elige Provincia...']+Provincias::OrderBy('provincia','ASC')->lists('provincia','id');
-        $localidades= Localidades::select('paises.pais','provincias.provincia','localidades.localidad','localidades.id')->
-        leftJoin('provincias','provincias.id','=','localidades.provincia_id')->
-        leftJoin('paises','paises.id','=','provincias.pais_id')->
-        pais($request->get('pais'))->
-        provincia($request->get('provincia'))->
-        localidad($request->get('localidad'))->
-        orderBy('pais', 'ASC')->
-        orderBy('provincia', 'ASC')->
-        orderBy('localidad', 'ASC')->
-        paginate()->
-        setPath('localidades');
+        $titulo = "Listado de Localidades";
+        //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        $localidades= Localidades::getLocalidades($request);;
 
-        return view("localidades.index",compact('localidades','paises','provincias'))->with('titulo','Listado de Localidades');
+        return view("localidades.index",
+            compact('localidades',
+                'paises',
+                'provincias',
+                'titulo'));
     }
 
     /**
@@ -47,10 +42,18 @@ class LocalidadesController extends Controller {
      */
     public function create()
     {
+        $titulo = "Nueva localidad";
+
         $localidades = new Localidades();
-        $paises=[''=>'Elige País']+Paises::OrderBy('pais','ASC')->lists('pais','id');
-        $provincias=Array();
-        return view('localidades.nuevo',compact('localidades','provincias','paises'))->with('titulo','Nueva Localidad');
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        return view('localidades.nuevo',
+            compact(
+                'paises',
+                'provincias',
+                'localidades',
+                'titulo'
+            ));
     }
 
     /**
@@ -74,13 +77,17 @@ class LocalidadesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('localidades.create')->with('mensaje', 'La localidad ' . \Request::input('localidad') . ' está ya dada de alta.');
+                    return redirect()->route('localidades.create')
+                        ->with('mensaje', 'La localidad ' . \Request::input('localidad') . ' está ya dada de alta.');
                     break;
                 default:
-                    return redirect()->route('localidades.index')->with('mensaje', 'Nueva localidad error ' . $e->getCode());
+                    return redirect()
+                        ->route('localidades.index')
+                        ->with('mensaje', 'Nueva localidad error ' . $e->getCode());
             }
         }
-        return redirect('localidades')->with('mensaje', 'La localidad ' . $localidades->localidad . ' creada satisfactoriamente.');
+        return redirect('localidades')
+            ->with('mensaje', 'La localidad ' . $localidades->localidad . ' creada satisfactoriamente.');
 
     }
 
@@ -103,12 +110,19 @@ class LocalidadesController extends Controller {
      */
     public function edit($id)
     {
+        //Título Vista
+        $titulo = "Modificar Localidad";
         $localidades=Localidades::find($id);
-        //$profesionales = User::with('profesionales')->join('profesionales','users.id','=','profesionales.usuario_id')->distinct()->where('users.id',\Auth::user()->id)->orderBy('fullname', 'ASC')->select('fullname','users.id')->lists('fullname','id');
-
-        $paises=Paises::with('provincias')->join('provincias','pais_id','=','paises.id')->select('paises.pais','paises.id')->where('provincias.id',$localidades->provincia_id)->lists('pais','id');
-        $provincias=Provincias::where('id',$localidades->provincia_id)->lists('provincia','id');
-        return view('localidades.modificar',compact('localidades','paises','provincias'))->with('titulo','Modificar Localidad');
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        return view('localidades.modificar',
+            compact(
+                'pais',
+                'paises',
+                'provincias',
+                'localidades',
+                'titulo'
+            ));
     }
 
     /**
@@ -130,10 +144,13 @@ class LocalidadesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
-                    return redirect()->route('localidades.index')->with('mensaje', 'Modificar localidad error ' . $e->getCode());
+                    return redirect()
+                        ->route('localidades.index')->with('mensaje', 'Modificar localidad error ' . $e->getCode());
             }
         }
-        return redirect()->route('localidades.index')->with('mensaje', 'La localidad ha sido modificada satisfactoriamente.');
+        return redirect()
+            ->route('localidades.index')
+            ->with('mensaje', 'La localidad ha sido modificada satisfactoriamente.');
     }
 
     /**
@@ -151,15 +168,21 @@ class LocalidadesController extends Controller {
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('localidades.index')->with('mensaje', 'La localidad ' . $localidadNombre . ' no se puede eliminar al tener registros asociados.');
+                    return redirect()
+                        ->route('localidades.index')
+                        ->with('mensaje', 'La localidad ' . $localidadNombre . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
-                    return redirect()->route('localidades.index')->with('mensaje', 'Eliminar localidad error ' . $e->getCode());
+                    return redirect()
+                        ->route('localidades.index')
+                        ->with('mensaje', 'Eliminar localidad error ' . $e->getCode());
             }
 
         }
 
-        return redirect()->route('localidades.index')->with('mensaje', 'La localidad ' . $localidadNombre . ' eliminada correctamente.');
+        return redirect()
+            ->route('localidades.index')
+            ->with('mensaje', 'La localidad ' . $localidadNombre . ' eliminada correctamente.');
     }
 
 
@@ -172,7 +195,10 @@ class LocalidadesController extends Controller {
         if (\Request::ajax()) {
             dd((int)\Request::input('provincia_id'));
             $provincia_id = (int)\Request::input('provincia_id');
-            $localidades = Localidades::where('provincia_id', $provincia_id)->orderBy('localidad','ASC')->select('localidad', 'id')->get();
+            $localidades = Localidades::where('provincia_id', $provincia_id)
+                ->orderBy('localidad','ASC')
+                ->select('localidad', 'id')
+                ->get();
             return $localidades;
         }
     }

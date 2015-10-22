@@ -34,12 +34,12 @@ class ProvinciasController extends Controller {
     {
         //Título Vista
         $titulo = "Nueva Provincia";
-        $provincia = new Provincias;
+        $provincias = new Provincias;
         $paises = Paises::getPaisesList();
         return view('provincias.nuevo',
             compact(
                 'paises',
-                'provincia',
+                'provincias',
                 'titulo'
             ));
     }

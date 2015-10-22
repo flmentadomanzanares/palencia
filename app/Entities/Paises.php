@@ -42,7 +42,7 @@ class Paises extends Model {
 
         return Paises::pais($request->get('pais'))
             ->orderBy('pais', 'ASC')
-            ->paginate()
+            ->paginate(4)
             ->setPath('paises');
     }
 }
