@@ -28,6 +28,8 @@ class Paises extends Model {
             ->orderBy('pais', 'ASC')
             ->Lists('pais', 'id');
     }
+    
+
     /**
      * @param $query
      * @param $pais

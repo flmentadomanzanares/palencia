@@ -13,7 +13,7 @@ class SolicitudesTableSeeder extends BaseSeeder {
     public function getDummyData(Generator $faker, array $customValues = array())
     {
         return [
-            'color_id'=>rand(1,27),
+            'estado_solicitud_id'=>rand(1,2),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
             'cursillo_id' => $this->getRandom('Cursillos')->id,
             'fecha_envio' => $faker->randomElement(['2015-09-16', '2015-09-21', '2015-10-01']),

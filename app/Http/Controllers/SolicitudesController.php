@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\Solicitudes;
 use Palencia\Http\Requests;
 use Palencia\Http\Controllers\Controller;
 
@@ -12,9 +13,9 @@ class SolicitudesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+		$solicitudes=Solicitudes::getSolicitudes($request);
 	}
 
 	/**

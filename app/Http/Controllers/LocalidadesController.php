@@ -13,7 +13,8 @@ use Palencia\Entities\Provincias;
 use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 
-class LocalidadesController extends Controller {
+class LocalidadesController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -23,21 +24,11 @@ class LocalidadesController extends Controller {
     public function index(Request $request)
     {
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta localidades
-        $paises=[''=>'Elige País...']+Paises::OrderBy('pais','ASC')->lists('pais','id');
-        $provincias=[''=>'Elige Provincia...']+Provincias::OrderBy('provincia','ASC')->lists('provincia','id');
-        $localidades= Localidades::select('paises.pais','provincias.provincia','localidades.localidad','localidades.id')->
-        leftJoin('provincias','provincias.id','=','localidades.provincia_id')->
-        leftJoin('paises','paises.id','=','provincias.pais_id')->
-        pais($request->get('pais'))->
-        provincia($request->get('provincia'))->
-        localidad($request->get('localidad'))->
-        orderBy('pais', 'ASC')->
-        orderBy('provincia', 'ASC')->
-        orderBy('localidad', 'ASC')->
-        paginate()->
-        setPath('localidades');
+        $paises = Paises::getPaisesList();
+        $provincias = Provincias::getProvinciasList();
+        $localidades = Localidades::getLocalidades($request);
 
-        return view("localidades.index",compact('localidades','paises','provincias'))->with('titulo','Listado de Localidades');
+        return view("localidades.index", compact('localidades', 'paises', 'provincias'))->with('titulo', 'Listado de Localidades');
     }
 
     /**
@@ -48,9 +39,9 @@ class LocalidadesController extends Controller {
     public function create()
     {
         $localidades = new Localidades();
-        $paises=[''=>'Elige País']+Paises::OrderBy('pais','ASC')->lists('pais','id');
-        $provincias=Array();
-        return view('localidades.nuevo',compact('localidades','provincias','paises'))->with('titulo','Nueva Localidad');
+        $paises = Paises::getPaisesList();
+        $provincias = Array();
+        return view('localidades.nuevo', compact('localidades', 'provincias', 'paises'))->with('titulo', 'Nueva Localidad');
     }
 
     /**
@@ -67,7 +58,7 @@ class LocalidadesController extends Controller {
     public function store(ValidateRulesLocalidades $request)
     {
         $localidades = new Localidades; //Creamos instancia al modelo
-        $localidades->provincia_id=\Request::input('provincia');
+        $localidades->provincia_id = \Request::input('provincia');
         $localidades->localidad = \Request::input('localidad'); //Asignamos el valor al campo.
         try {
             $localidades->save();
@@ -87,7 +78,7 @@ class LocalidadesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -98,23 +89,22 @@ class LocalidadesController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
     {
-        $localidades=Localidades::find($id);
-        //$profesionales = User::with('profesionales')->join('profesionales','users.id','=','profesionales.usuario_id')->distinct()->where('users.id',\Auth::user()->id)->orderBy('fullname', 'ASC')->select('fullname','users.id')->lists('fullname','id');
+        $localidades = Localidades::find($id);
+        $provincias = Provincias::getProvinciaDesdeLocalidad($localidades->provincia_id);
+        $paises = Provincias::getPaisDesdeProvincia(array_keys($provincias)[0]);
 
-        $paises=Paises::with('provincias')->join('provincias','pais_id','=','paises.id')->select('paises.pais','paises.id')->where('provincias.id',$localidades->provincia_id)->lists('pais','id');
-        $provincias=Provincias::where('id',$localidades->provincia_id)->lists('provincia','id');
-        return view('localidades.modificar',compact('localidades','paises','provincias'))->with('titulo','Modificar Localidad');
+        return view('localidades.modificar', compact('localidades', 'paises', 'provincias'))->with('titulo', 'Modificar Localidad');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id, ValidateRulesLocalidades $request)
@@ -172,7 +162,7 @@ class LocalidadesController extends Controller {
         if (\Request::ajax()) {
             dd((int)\Request::input('provincia_id'));
             $provincia_id = (int)\Request::input('provincia_id');
-            $localidades = Localidades::where('provincia_id', $provincia_id)->orderBy('localidad','ASC')->select('localidad', 'id')->get();
+            $localidades = Localidades::where('provincia_id', $provincia_id)->orderBy('localidad', 'ASC')->select('localidad', 'id')->get();
             return $localidades;
         }
     }

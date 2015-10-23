@@ -32,6 +32,7 @@ Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('estadosSolicitudes','EstadosSolicitudesController');
+Route::resource('solicitudes','SolicitudesController');
 Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
 //Cambio de Provincias y localidades vía ajax.
