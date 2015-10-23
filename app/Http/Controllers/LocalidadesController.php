@@ -112,7 +112,7 @@ class LocalidadesController extends Controller {
     {
         //Título Vista
         $titulo = "Modificar Localidad";
-        $localidades=Localidades::find($id);
+       /* $localidades=Localidades::getLocalidad($id);
         $paises = Paises::getPaisesList();
         $provincias = Provincias::getProvinciasList();
         return view('localidades.modificar',
@@ -122,7 +122,16 @@ class LocalidadesController extends Controller {
                 'provincias',
                 'localidades',
                 'titulo'
-            ));
+            ));*/
+        $localidades=Localidades::find($id);
+        $provincias=Provincias::getProvinciasAll($localidades->provincia_id);
+        $paises=Paises::getPaisesAll($localidades->provincia_id);
+        return view('localidades.modificar',
+            compact(
+                'localidades',
+                'paises',
+                'provincias',
+                'titulo'));
     }
 
     /**

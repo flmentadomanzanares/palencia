@@ -62,6 +62,14 @@ class Provincias extends Model {
         return $this->belongsTo('Palencia\Entities\Paises', 'pais_id');
     }
 
+    public static function getProvinciasAll($id)
+    {
+
+        return Provincias::where('id',$id)->
+        lists('provincia','id');
+
+    }
+
     public static function getProvincias(Request $request){
 
         return Provincias::pais($request->get('pais'))

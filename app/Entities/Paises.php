@@ -29,6 +29,15 @@ class Paises extends Model {
             ->orderBy('pais', 'ASC')
             ->Lists('pais', 'id');
     }
+
+    public static function getPaisesAll($id)
+    {
+        return Paises::with('provincias')->
+        join('provincias','pais_id','=','paises.id')->
+        select('paises.pais','paises.id')->
+        where('provincias.id',$id)->
+        lists('pais','id');
+    }
     /**
      * @param $query
      * @param $pais

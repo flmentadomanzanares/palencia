@@ -64,12 +64,12 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>{!!link_to('Cursillos en el mundo', 'calendario')!!}</li>
-                                    <li>{!!link_to('Intendencia para clausura', 'comunidades')!!}</li>
-                                    <li>{!!link_to('Secretariado', 'cursillos')!!}</li>
-                                    <li>{!!link_to('Secretariados por pais', 'localidades')!!}</li>
-                                    <li>{!!link_to('Solicitudes enviadas', 'paises')!!}</li>
-                                    <li>{!!link_to('Solicitudes recibidas', 'provincias')!!}</li>
+                                    <li>{!!link_to('pdf', 'Cursillos en el mundo')!!}</li>
+                                    <li>{!!link_to('#', 'Intendencia para clausura')!!}</li>
+                                    <li>{!!link_to('#', 'Secretariado')!!}</li>
+                                    <li>{!!link_to('#', 'Secretariados por pais')!!}</li>
+                                    <li>{!!link_to('#', 'Solicitudes enviadas')!!}</li>
+                                    <li>{!!link_to('#', 'Solicitudes recibidas')!!}</li>
                                 </ul>
                             </li>
                         </ul>

@@ -81,5 +81,15 @@ class Localidades extends Model {
         setPath('localidades');
     }
 
+    public static function getLocalidad($id){
+
+        return Localidades::select('localidades.*', 'provincias.provincia', 'paises.pais')->
+        leftjoin('provincias','provincias.id', '=', 'localidades.provincia_id')->
+        leftjoin('paises','paises.id', '=', 'provincias.pais_id')->
+        where('localidades.id', $id)->
+        first();
+
+    }
+
 }
 

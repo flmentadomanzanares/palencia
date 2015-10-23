@@ -1,11 +1,9 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
-    {!! FORM::label ('pais_id', 'Pais:') !!} <br/>
-    {!! FORM::select('pais_id',$paises, $localidades->pais,["class" => "form-control",'id'=>'select_pais'])
-    !!} <br/>
-    {!! FORM::label ('provincia_id', 'Provincia:') !!} <br/>
-    {!! FORM::select('provincia_id',$provincias, $localidades->provincia_id, ["class" =>
-    "form-control",'id'=>'select_provincia']) !!} <br/>
+    {!! FORM::label('pais', 'Nombre País') !!} <br/>
+    {!! FORM::select('pais', $paises, null,["class" => "form-control",'id'=>'select_pais']) !!}
+    {!! FORM::label('provincia', 'Nombre Provincia') !!} <br/>
+    {!! FORM::select('provincia',$provincias, null, ["class" => "form-control",'id'=>'select_provincia']) !!}
     {!! FORM::label('localidad', 'Nombre Localidad') !!} <br/>
     {!! FORM::text('localidad', null, ["class" => "form-control"]) !!}
     <br/>
