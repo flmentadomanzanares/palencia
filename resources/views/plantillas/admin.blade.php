@@ -44,13 +44,13 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
                                     <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
+                                    <li>{!!link_to('estadosSolicitudes', 'Estados solicitudes')!!}</li>
                                     <li>{!!link_to('localidades', 'Localidades')!!}</li>
                                     <li>{!!link_to('paises', 'Paises')!!}</li>
                                     <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                     <li>{!!link_to('calendarioCursos', 'Planificacion')!!}</li>
                                     <li>{!!link_to('roles','Roles')!!}</li>
-                                    <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
-                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
+                                    <li>{!!link_to('solicitudes', 'Solicitudes')!!}</li>
                                     <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos Comunicaciones
                                         Preferidas')!!}
                                     </li>

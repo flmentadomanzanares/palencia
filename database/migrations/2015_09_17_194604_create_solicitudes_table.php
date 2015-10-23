@@ -16,11 +16,13 @@ class CreateSolicitudesTable extends Migration {
         {
             $table->bigIncrements('id');
 
+            $table->bigInteger('estado_solicitud_id')->unsigned();
+            $table->foreign('estado_solicitud_id')->references('id')->on('estados_solicitudes')->onDelete('cascade');
+
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
 
             $table->bigInteger('cursillo_id')->unsigned();
-            $table->foreign('cursillo_id')->references('id')->on('cursillos')->onDelete('cascade');
 
             $table->date('fecha_envio');
 
@@ -42,9 +44,6 @@ class CreateSolicitudesTable extends Migration {
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
-
-
-
 
         });
     }

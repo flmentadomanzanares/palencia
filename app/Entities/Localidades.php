@@ -3,11 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Localidades extends Model {
-
-    protected $tabla="localidades";
-    protected $fillable=['localidad']; //Campos a usar
-    protected $guarded =['id']; //Campos no se usan
+class Localidades extends Model
+{
+    protected $tabla = "localidades";
+    protected $fillable = ['localidad']; //Campos a usar
+    protected $guarded = ['id']; //Campos no se usan
 
     public static function getLocalidadesList()
     {
@@ -16,6 +16,22 @@ class Localidades extends Model {
             ->orderBy('localidad', 'ASC')
             ->Lists('localidad', 'id');
     }
+
+    public static function getLocalidades(Request $request)
+    {
+        return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id')->
+        leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
+        leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')->
+        pais($request->get('pais'))->
+        provincia($request->get('provincia'))->
+        localidad($request->get('localidad'))->
+        orderBy('pais', 'ASC')->
+        orderBy('provincia', 'ASC')->
+        orderBy('localidad', 'ASC')->
+        paginate()->
+        setPath('localidades');
+    }
+
     /**
      * @param $query
      * @param $pais
@@ -43,21 +59,25 @@ class Localidades extends Model {
                 $query->where('provincia_id', '>', $provincia);
         }
     }
+
     /**
      * @param $query
      * @param $localidad
      */
-    public function scopeLocalidad($query,$localidad){
-        if (trim($localidad)!='')
-            $query->where('localidad','LIKE',"$localidad".'%');
+    public function scopeLocalidad($query, $localidad)
+    {
+        if (trim($localidad) != '')
+            $query->where('localidad', 'LIKE', "$localidad" . '%');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comunidades(){
+    public function comunidades()
+    {
         return $this->hasMany("Palencia\Entities\Comunidades");
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

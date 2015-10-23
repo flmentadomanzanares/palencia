@@ -13,7 +13,8 @@ use Palencia\Entities\Provincias;
 use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 
-class LocalidadesController extends Controller {
+class LocalidadesController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -28,11 +29,7 @@ class LocalidadesController extends Controller {
         $provincias = Provincias::getProvinciasList();
         $localidades= Localidades::getLocalidades($request);;
 
-        return view("localidades.index",
-            compact('localidades',
-                'paises',
-                'provincias',
-                'titulo'));
+        return view("localidades.index", compact('localidades', 'paises', 'provincias'))->with('titulo', 'Listado de Localidades');
     }
 
     /**
@@ -46,14 +43,8 @@ class LocalidadesController extends Controller {
 
         $localidades = new Localidades();
         $paises = Paises::getPaisesList();
-        $provincias = Provincias::getProvinciasList();
-        return view('localidades.nuevo',
-            compact(
-                'paises',
-                'provincias',
-                'localidades',
-                'titulo'
-            ));
+        $provincias = Array();
+        return view('localidades.nuevo', compact('localidades', 'provincias', 'paises'))->with('titulo', 'Nueva Localidad');
     }
 
     /**
@@ -70,7 +61,7 @@ class LocalidadesController extends Controller {
     public function store(ValidateRulesLocalidades $request)
     {
         $localidades = new Localidades; //Creamos instancia al modelo
-        $localidades->provincia_id=\Request::input('provincia');
+        $localidades->provincia_id = \Request::input('provincia');
         $localidades->localidad = \Request::input('localidad'); //Asignamos el valor al campo.
         try {
             $localidades->save();
@@ -94,7 +85,7 @@ class LocalidadesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -105,7 +96,7 @@ class LocalidadesController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -137,7 +128,7 @@ class LocalidadesController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id, ValidateRulesLocalidades $request)

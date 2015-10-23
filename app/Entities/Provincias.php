@@ -23,7 +23,23 @@ class Provincias extends Model {
                 $query->where('pais_id', '>', $pais);
         }
     }
-
+    public static function getProvinciaDesdeLocalidad($provinciaId=0){
+        if (is_numeric($provinciaId)&& $provinciaId>0){
+            return Provincias::Select('id','provincia')
+                ->where('id',$provinciaId)
+                ->Lists('provincia','id');
+        }
+        return array();
+    }
+    public static function getPaisDesdeProvincia($provinciaId = 0){
+        if (is_numeric($provinciaId) && $provinciaId > 0){
+            return Provincias::Select('paises.id','paises.pais')
+                ->Where('provincias.id',$provinciaId)
+                ->leftJoin('paises','paises.id','=','provincias.pais_id')
+                ->Lists('paises.pais','paises.id');
+        }
+        return array();
+    }
     public static function getProvinciasList()
     {
         return ['0' => 'Provincia...'] + Provincias::Select('id', 'provincia')

@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\Colores;
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\tiposCursillos;
@@ -31,7 +32,7 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Nuevo tipo de cursillo";
         $tipos_cursillos = new tiposCursillos();
-        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
+        $colors = Colores::getColores();
         return view('tiposCursillos.nuevo', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 
@@ -77,7 +78,7 @@ class TiposCursillosController extends Controller
     {
         $titulo = "Modificar tipo de cursillo";
         $tipos_cursillos = tiposCursillos::find($id);
-        $colors = ['#000000','#990000', '#009900', '#000099', '#999900', '#990099', '#009999', '#999999'];
+        $colors =  $colors = Colores::getColores();
         return view('tiposCursillos.modificar', compact('tipos_cursillos', 'colors', 'titulo'));
     }
 

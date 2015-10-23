@@ -6,10 +6,10 @@
     <div class="spinner"></div>
     <div class="hidden">
         <div class="row table-size-optima">
-            {!! FORM::open(['route' => 'tiposCursillos.store']) !!}
-            @include('tiposCursillos.parciales.nuevoYmodificar')
+            {!! FORM::open(['route' => 'estadosSolicitudes.store']) !!}
+            @include('estadosSolicitudes.parciales.nuevoYmodificar')
             <div class="btn-action margin-bottom">
-                <a title="Volver" href="{{route('tiposCursillos.index')}}" class="pull-left">
+                <a title="Volver" href="{{route('estadosSolicitudes.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>
                     </i>
