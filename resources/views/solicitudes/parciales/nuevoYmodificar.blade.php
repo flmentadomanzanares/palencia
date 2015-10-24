@@ -1,5 +1,9 @@
 <div class="form-group">
-    <div class="heading-caption">Comunidad</div>
+    <div class="heading-caption">Solicitud</div>
+
+    {!! FORM::label ('comunidad', 'Comunidad') !!}
+    {!! FORM::select('comunidad_id', $comunidades, $cursillo->comunidad_id, array('class'=>'form-control')) !!}
+    <br/>
     {!! FORM::label ('comunidad', 'Comunidad') !!}
     {!! FORM::select('comunidad_id', $comunidades, $cursillo->comunidad_id, array('class'=>'form-control')) !!}
     <br/>

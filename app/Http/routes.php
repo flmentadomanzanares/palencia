@@ -30,12 +30,12 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
-Route::resource('tiposParticipantes','TiposParticipantesController');
+//Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('estadosSolicitudes','EstadosSolicitudesController');
 Route::resource('solicitudes','SolicitudesController');
-Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+//Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
