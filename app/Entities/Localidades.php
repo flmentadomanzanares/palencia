@@ -93,7 +93,6 @@ class Localidades extends Model
         leftjoin('paises','paises.id', '=', 'provincias.pais_id')->
         where('localidades.id', $id)->
         first();
-
     }
 
 }

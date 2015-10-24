@@ -7,20 +7,17 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     {!! HTML::style('css/palencia.css') !!}
     {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
-    {!! HTML::script('js/jquery-2.1.1.js') !!}
+
     @yield("css")
 </head>
 <body>
 
 <div class="container-fluid">
-    <div class="row"> <!-- Cabecera -->
+    <div class="row">
         <img src={!!asset('img/cabecera.png')!!} alt="Responsive image" class="img-responsive block-center">
     </div>
-    <!-- end Cabecera -->
     <nav role="navigation" id="barra" class="navbar navbar-inverse block-center">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -28,9 +25,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 @if (Auth::check())
                     @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
@@ -72,9 +66,9 @@
                 @endif
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
-                        <li class="dropdown">
+                        <li class="">
                             <a data-toggle="dropdown" class="dropdown-toggle" href=""><img
-                                        style="width:32px;height:32px"
+                                        style="width:24px;height:24px"
                                         src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
                                 <strong>{!!Auth::user()->name!!}</strong>
                                 <b class="caret"></b></a>
@@ -102,7 +96,6 @@
                                 {!! FORM::close() !!}
                             </div>
                         </li>
-                        <li><a href="#">&nbsp;</a></li>
                     @endif
                 </ul>
             </div>
@@ -111,31 +104,31 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-
-    @if(Session::has('mensaje'))
-        <div class="alert alert-info alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
-                        aria-hidden="true">&times;</span></button>
-            <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
-        </div>
-    @endif
-    @if($errors->has())
-        <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-            <strong>Errores</strong>
-            <ol>
-                @foreach ($errors->all('<p>:message</p>') as $message)
-                    <li>{!! $message !!}</li>
-                @endforeach
-            </ol>
-        </div>
-    @endif
-    <h1 class="text-center">@yield ('titulo')</h1>
-    @yield("contenido")
+@if(Session::has('mensaje'))
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
+                    aria-hidden="true">&times;</span></button>
+        <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
+    </div>
+@endif
+@if($errors->has())
+    <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+        <strong>Errores</strong>
+        <ol>
+            @foreach ($errors->all('<p>:message</p>') as $message)
+                <li>{!! $message !!}</li>
+            @endforeach
+        </ol>
+    </div>
+@endif
+<h1 class="text-center">@yield ('titulo')</h1>
+@yield("contenido")
 <footer>
-        <span>&copy; Palencia | desarrollado por KOALNET - 2015</span>
+    <span>&copy; Palencia | KOALNET - 2015</span>
 </footer>
+{!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}
 @yield("js")

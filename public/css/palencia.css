@@ -4931,10 +4931,6 @@ tbody.collapse.in {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 24px;
-  padding-top: 23px;
-  padding-left: 23px;
-  padding-right: 23px;
   border: 0;
 }
 
@@ -5104,7 +5100,8 @@ tbody.collapse.in {
   float: right;
   margin-right: 0;
   padding: 8px;
-  margin-top: 60px;
+  margin-top: 22px;
+  margin-bottom: 22px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -5138,12 +5135,6 @@ tbody.collapse.in {
   margin: 7.5px 0;
 }
 
-.navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  line-height: 20px;
-}
-
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
@@ -5156,7 +5147,7 @@ tbody.collapse.in {
   }
   .navbar-nav .open .dropdown-menu > li > a,
   .navbar-nav .open .dropdown-menu .dropdown-header {
-    padding: 5px 15px 5px 25px;
+    padding: 5px 15px 5px 15px;
   }
   .navbar-nav .open .dropdown-menu > li > a {
     line-height: 20px;
@@ -5565,10 +5556,6 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 
 .nav-absolute-bottom-right {
   right: 0;
-}
-
-.navbar-collapse.in {
-  width: 100%;
 }
 
 .navbar-collapse.in ul.navbar-nav {
