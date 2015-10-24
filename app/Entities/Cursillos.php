@@ -105,4 +105,19 @@ class Cursillos extends Model
             ->orderBy('semanas')
             ->get();
     }
+
+    // Listado cursillos en el mundo
+    static public function getCursillosPorPaises()
+    {
+
+       return Cursillos::Select('cursillos.*', 'comunidades.id', 'comunidades.pais_id', 'tipos_cursillos.id', 'tipos_cursillos.tipo_cursillo')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+            ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
+            ->orderBy('comunidades.pais_id', 'ASC')
+           ->orderBy('cursillos.fecha_inicio', 'ASC')
+           ->get();
+
+    }
+
 }

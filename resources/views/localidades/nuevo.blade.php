@@ -27,7 +27,7 @@
     </div>
 @endsection
 @section("css")
-    {!! HTML::style("css/vendor/chosen/chosen.min.css") !!}
+
 @stop
 @section('js')
     {!! HTML::script("js/comun/direccion.js")!!}
