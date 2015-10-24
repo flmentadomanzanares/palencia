@@ -27,8 +27,6 @@ Route::resource('paises','PaisesController');
 Route::resource('provincias','ProvinciasController');
 Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
-Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
-Route::resource('solicitidesRecibidas','SolicitudesRecibidasController');
 Route::resource('usuarios','UsersController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
@@ -40,6 +38,8 @@ Route::resource('solicitudes','SolicitudesController');
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
+
+//Cálculo del totqal de semanas por año vía Ajax
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
 
 //Listados PDF
