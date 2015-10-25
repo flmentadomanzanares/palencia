@@ -52,6 +52,10 @@
     {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas, $comunidad->tipo_comunicacion_preferida_id, ["class" =>
     "form-control"]) !!} <br/>
+    <div class="heading-caption">Participativa</div>
+    {!! FORM::label ('esColaborador', 'Colabora:') !!} <br/>
+    {!! FORM::select('esColaborador',array('1'=>'Si','0'=>'No'), $comunidad->esColaborador ,array('class'=>'form-control')) !!}
+    <br>
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control', "title"=>"Observaciones" ) )!!}

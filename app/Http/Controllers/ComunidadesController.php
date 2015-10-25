@@ -88,6 +88,7 @@ class ComunidadesController extends Controller
         $comunidad->telefono2 = \Request::input('telefono2');
         $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->esColaborador = \Request::input('esColaborador');
         $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {
@@ -185,6 +186,7 @@ class ComunidadesController extends Controller
         $comunidad->telefono2 = \Request::input('telefono2');
         $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->esColaborador = \Request::input('esColaborador');
         $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {

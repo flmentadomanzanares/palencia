@@ -82,6 +82,10 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Colabora:</td>
+                                <td> @if ($comunidad->esColaborador==1) Si @else No @endif </td>
+                            </tr>
+                            <tr>
                                 <td>Activo:</td>
                                 <td> @if ($comunidad->activo) Si @else No @endif </td>
                             </tr>

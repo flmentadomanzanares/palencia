@@ -53,6 +53,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->text('observaciones');
 
+            $table->boolean('esColaborador')->default(true);
+
             $table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));

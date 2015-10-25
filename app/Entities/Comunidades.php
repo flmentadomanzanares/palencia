@@ -75,7 +75,8 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
+            'comunidades.esColaborador','comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais',
+            'provincias.provincia', 'localidades.localidad')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->TipoSecretariado($request->get('secretariado'))
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
@@ -96,7 +97,7 @@ class Comunidades extends Model
             'comunidades.responsable', 'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad',
             'comunidades.cp', 'comunidades.email1', 'comunidades.email2', 'comunidades.web', 'comunidades.facebook',
             'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
-            'comunidades.observaciones', 'comunidades.activo')
+            'comunidades.observaciones', 'comunidades.esColaborador','comunidades.activo')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
                 '=', 'tipos_comunicaciones_preferidas.id')
@@ -119,6 +120,14 @@ class Comunidades extends Model
     {
         if ($comunidad != null && trim($comunidad) != '') {
             $query->where('comunidad', 'LIKE', "$comunidad" . '%');
+        }
+        return $query;
+    }
+
+    public function scopeColaborador($query, $esColaborador = null)
+    {
+        if (is_bool($esColaborador)) {
+            $query->where('esColaborador', $esColaborador);
         }
         return $query;
     }
