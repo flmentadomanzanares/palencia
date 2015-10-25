@@ -39,7 +39,6 @@ class CursillosController extends Controller
         $cursillo->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillo->fecha_final = $this->ponerFecha(date("d-m-Y"));
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
-        $tipos_cursillos = TiposCursillos::getTiposCursillosList();
         $comunidades = Comunidades::getComunidadesList();
         //Vista
         return view('cursillos.nuevo',
@@ -47,7 +46,6 @@ class CursillosController extends Controller
                 'cursillo',
                 'comunidades',
                 'tipos_participantes',
-                'tipos_cursillos',
                 'titulo'
             ));
     }
@@ -69,7 +67,6 @@ class CursillosController extends Controller
         $cursillos->descripcion = \Request::input('descripcion');
         $cursillos->comunidad_id = \Request::input('comunidad_id');
         $cursillos->tipo_participante_id = \Request::input('tipo_participante_id');
-        $cursillos->tipo_cursillo_id = \Request::input('tipo_cursillo_id');
         $cursillos->activo = \Request::input('activo');
 
         //Intercepción de errores
@@ -125,7 +122,6 @@ class CursillosController extends Controller
         $titulo = "Modificar Cursillo";
         $cursillo = Cursillos::find($id);
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
-        $tipos_cursillos = TiposCursillos::getTiposCursillosList();
         $comunidades = Comunidades::getComunidadesList();
         //Vista
         return view('cursillos.modificar',
@@ -133,7 +129,6 @@ class CursillosController extends Controller
                 'cursillo',
                 'comunidades',
                 'tipos_participantes',
-                'tipos_cursillos',
                 'titulo'
             ));
     }
@@ -155,7 +150,6 @@ class CursillosController extends Controller
         $cursillo->descripcion = \Request::input('descripcion');
         $cursillo->comunidad_id = \Request::input('comunidad_id');
         $cursillo->tipo_participante_id = \Request::input('tipo_participante_id');
-        $cursillo->tipo_cursillo_id = \Request::input('tipo_cursillo_id');
         $cursillo->activo = \Request::input('activo');
         //Intercepción de errores
         try {

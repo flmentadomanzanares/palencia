@@ -32,9 +32,6 @@ class CreateCursillosTable extends Migration {
             $table->bigInteger('tipo_participante_id')->unsigned();
             $table->foreign('tipo_participante_id')->references('id')->on('tipos_participantes')->onDelete('cascade');
 
-            $table->bigInteger('tipo_cursillo_id')->unsigned();
-            $table->foreign('tipo_cursillo_id')->references('id')->on('tipos_cursillos')->onDelete('cascade');
-
             $table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));

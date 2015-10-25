@@ -29,7 +29,6 @@ class ValidateRulesCursillos extends Request {
             "descripcion" => "min:20",
             "comunidad_id"    =>    "required|numeric|min:1",
             "tipo_participante_id"    =>    "required|numeric|min:1",
-            "tipo_cursillo_id"    =>    "required|numeric|min:1",
             "activo"    =>    "boolean"
         ];
     }
@@ -49,8 +48,6 @@ class ValidateRulesCursillos extends Request {
             'comunidad_id.min' => "Debes de elegir una comunidad.",
             'tipo_participante_id.required' => "El tipo de asistente es obligatorio.",
             'tipo_participante_id.min' => "Debes de elegir un tipo de asistente.",
-            'tipo_cursillo_id.required' => "El tipo de cursillo es obligatorio.",
-            'tipo_cursillo_id.min' => "Debes de elegir un tipo de cursillo.",
             'activo.boolean' => 'El valor del campo activo debe ser No o Si.'
         ];
     }

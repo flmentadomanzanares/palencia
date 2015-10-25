@@ -75,7 +75,7 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador','comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais',
+            'comunidades.esColaborador','comunidades.esPropia','comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais',
             'provincias.provincia', 'localidades.localidad')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->TipoSecretariado($request->get('secretariado'))
@@ -93,7 +93,7 @@ class Comunidades extends Model
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad','comunidades.esPropia','tipos_secretariados.tipo_secretariado',
             'comunidades.responsable', 'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad',
             'comunidades.cp', 'comunidades.email1', 'comunidades.email2', 'comunidades.web', 'comunidades.facebook',
             'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
@@ -124,14 +124,20 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopeColaborador($query, $esColaborador = null)
+    public function scopeEsColaborador($query, $esColaborador = null)
     {
         if (is_bool($esColaborador)) {
             $query->where('esColaborador', $esColaborador);
         }
         return $query;
     }
-
+    public function scopeEsPropia($query, $esPropia = null)
+    {
+        if (is_bool($esPropia)) {
+            $query->where('esPropia', $esPropia);
+        }
+        return $query;
+    }
     public function scopeTipoSecretariado($query, $secretariado = 0)
     {
         if (is_numeric($secretariado) && $secretariado > 0) {

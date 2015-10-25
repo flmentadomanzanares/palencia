@@ -52,6 +52,10 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Es Propia:</td>
+                                <td> @if ($comunidad->esPropia) Si @else No @endif </td>
+                            </tr>
+                            <tr>
                                 <td>País:</td>
                                 <td>
                                     {!! $comunidad->pais !!}
@@ -83,7 +87,7 @@
                             </tr>
                             <tr>
                                 <td>Colabora:</td>
-                                <td> @if ($comunidad->esColaborador==1) Si @else No @endif </td>
+                                <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>

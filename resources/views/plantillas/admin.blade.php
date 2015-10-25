@@ -44,7 +44,6 @@
                                     <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                     <li>{!!link_to('roles','Roles')!!}</li>
                                     <li>{!!link_to('solicitudes', 'Solicitudes')!!}</li>
-                                    <li>{!!link_to('tiposCursillos', 'Tipos Cursillos')!!}</li>
                                     <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
                                     <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 </ul>

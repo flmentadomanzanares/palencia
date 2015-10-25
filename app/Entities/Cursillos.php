@@ -16,11 +16,6 @@ class Cursillos extends Model
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
 
-    public function cursillos()
-    {
-        return $this->belongsTo('Palencia\Entities\TiposCursillos', 'tipo_cursillo_id');
-    }
-
     public function participantes()
     {
         return $this->belongsTo('Palencia\Entities\TiposParticipante', 'tipo_participante_id');
@@ -49,10 +44,9 @@ class Cursillos extends Model
     static public function getCalendarCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
-            'cursillos.fecha_final','comunidades.comunidad','tipos_cursillos.color')
+            'cursillos.fecha_final','comunidades.comunidad','comunidades.color')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -62,11 +56,9 @@ class Cursillos extends Model
     static public function getCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
-            'cursillos.activo', 'comunidades.comunidad', 'tipos_cursillos.tipo_cursillo',
-            'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            'cursillos.activo', 'comunidades.comunidad', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -81,11 +73,10 @@ class Cursillos extends Model
             return null;
         //Obtenemos el cursillo
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'cursillos.fecha_final',
-            'cursillos.descripcion', 'cursillos.activo', 'comunidades.comunidad', 'tipos_cursillos.tipo_cursillo',
-            'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            'cursillos.descripcion', 'cursillos.activo', 'comunidades.comunidad', 'cursillos.num_cursillo',
+            'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
             ->where('cursillos.id', $id)
             ->first();
     }
