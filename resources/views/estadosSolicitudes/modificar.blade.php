@@ -5,7 +5,8 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
-        {!! FORM::model($estados_solicitudes, ['route' => ['estadosSolicitudes.update', $estados_solicitudes->id], 'method' => 'patch']) !!}
+        {!! FORM::model($estados_solicitudes, ['route' => ['estadosSolicitudes.update', $estados_solicitudes->id],
+        'method' => 'patch']) !!}
         @include('estadosSolicitudes.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('tiposCursillos.index')}}" class="pull-left">
@@ -21,15 +22,11 @@
         </div>
         {!! FORM::close() !!}
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#select-color').simplecolorpicker({picker: true, theme: 'glyphicons'});
-        });
-    </script>
 @endsection
 @section("css")
     {!! HTML::style("css/vendor/ColorPicker/jquery.simplecolorpicker.css")!!}
 @stop
 @section('js')
     {!! HTML::script("js/vendor/ColorPicker/jquery.simplecolorpicker.js")!!}
+    {!! HTML::script("js/comun/color.js")!!}
 @endsection
