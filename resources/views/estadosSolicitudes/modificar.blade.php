@@ -9,7 +9,7 @@
         'method' => 'patch']) !!}
         @include('estadosSolicitudes.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('tiposCursillos.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('estadosSolicitudes.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>
