@@ -75,8 +75,9 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador','comunidades.esPropia','comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais',
-            'provincias.provincia', 'localidades.localidad')
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo',
+            'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
+            ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->TipoSecretariado($request->get('secretariado'))
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
@@ -93,11 +94,12 @@ class Comunidades extends Model
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad','comunidades.esPropia','tipos_secretariados.tipo_secretariado',
-            'comunidades.responsable', 'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad',
-            'comunidades.cp', 'comunidades.email1', 'comunidades.email2', 'comunidades.web', 'comunidades.facebook',
-            'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
-            'comunidades.observaciones', 'comunidades.esColaborador','comunidades.activo')
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.color',
+            'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion', 'paises.pais',
+            'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email1', 'comunidades.email2',
+            'comunidades.web', 'comunidades.facebook', 'comunidades.telefono1', 'comunidades.telefono2',
+            'tipos_comunicaciones_preferidas.comunicacion_preferida', 'comunidades.observaciones',
+            'comunidades.esColaborador', 'comunidades.activo')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
                 '=', 'tipos_comunicaciones_preferidas.id')
@@ -108,12 +110,15 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList()
+    public static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...")
     {
-        return ['0' => 'Comunidad...'] + Comunidades::Select('id', 'comunidad')
+        $placeHolder = ['0' => $placeHolder];
+        $sql = Comunidades::Select('id', 'comunidad')
             ->where('activo', true)
+            ->EsPropia($propia)
             ->orderBy('comunidad', 'ASC')
             ->Lists('comunidad', 'id');
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
     public function scopeComunidades($query, $comunidad = null)
@@ -131,6 +136,7 @@ class Comunidades extends Model
         }
         return $query;
     }
+
     public function scopeEsPropia($query, $esPropia = null)
     {
         if (is_bool($esPropia)) {
@@ -138,6 +144,7 @@ class Comunidades extends Model
         }
         return $query;
     }
+
     public function scopeTipoSecretariado($query, $secretariado = 0)
     {
         if (is_numeric($secretariado) && $secretariado > 0) {

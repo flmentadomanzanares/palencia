@@ -21,7 +21,7 @@ class CursillosController extends Controller
     {
         $titulo = "Listado de cursillos";
         $cursillos = Cursillos::getCursillos($request);
-        $anyos = Cursillos::getAnyoCursillos();
+        $anyos = Cursillos::getAnyoCursillosList();
         $semanas =Array();
         return view("cursillos.index", compact('cursillos', 'titulo', 'anyos', 'semanas'));
     }
@@ -209,7 +209,8 @@ class CursillosController extends Controller
     {
        if (\Request::ajax()) {
             $anyo = (int)\Request::input('anyo');
-            $semanas = Cursillos::getSemanasCursillos($anyo);
+            $comunidad = (int)\Request::input('comunidad');
+            $semanas = Cursillos::getSemanasCursillos($anyo,$comunidad);
             return $semanas;
         }
     }

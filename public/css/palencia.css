@@ -7399,6 +7399,11 @@ body {
   line-height: 18px;
 }
 
+.btn {
+  position: relative;
+  top: -1px;
+}
+
 .label-viaoptima {
   border: 1px solid #400090;
   background-color: transparent;
@@ -7710,13 +7715,18 @@ input[type=file]:hover {
   }
 }
 
-.colorCursillo {
-  min-width: 24px;
-  min-height: 24px;
-  color: white;
+.ponerCirculoColor {
+  display: inline-block;
+  min-width: 1.2em;
+  min-height: 1.2em;
   border-radius: 50%;
-  padding: 2px 12px;
   margin-right: 5px;
+}
+
+.user-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 .altoMaximo {

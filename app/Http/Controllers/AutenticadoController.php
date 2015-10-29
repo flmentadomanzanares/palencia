@@ -36,11 +36,12 @@ class AutenticadoController extends Controller
     {
         $titulo = "Calendario";
         $cursillos = Cursillos::getCalendarCursillos($request);
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas = Array();
+        $anyos = Cursillos::getAnyoCursillosList();
+
         //Obtenemos los parámetros de la respuesta
         $year = $request->input('anyo');
-        $week = $request->input('semana');
+        $week = $request->input('semana')>0?$request->input('semana'):1;
+        $semanas = Array();
         //A partir del número de semana obtenemos el mes
         if($year >0 && $week>0) {
             $month = new \DateTime();
@@ -48,7 +49,7 @@ class AutenticadoController extends Controller
             $mes = $month->format('m');
             $year = $month->format('Y');
         }
-        $date=$year>0? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d');
+        $date=$year>0 ? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d');
         //Cargamos los cursillos
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(

@@ -77,7 +77,7 @@
   }
   thead {
     tr {
-        background-color: $app-color-base;
+      background-color: $app-color-base;
       th {
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
@@ -179,7 +179,7 @@ textarea {
 //FOOTER
 //***************************************************
 footer {
-  display:block;
+  display: block;
   clear: both;
   text-align: center;
   background-color: $app-color-base;
@@ -237,7 +237,7 @@ body {
   font-size: $font-size-app-base-register;
   font-family: $font-family-century-gothic;
   background-color: $app-color-base;
-  border-color:$app-color-base !important;
+  border-color: $app-color-base !important;
   text-align: center;
   color: $app-color-white;
   &:hover {
@@ -248,7 +248,7 @@ body {
 .btn-action {
   a, button {
     @include btn-viaoptima-button-action();
-   }
+  }
 }
 
 .margin-bottom {
@@ -296,6 +296,12 @@ body {
   line-height: 18px;
 }
 
+// Quick fix for badges in buttons
+.btn & {
+  position: relative;
+  top: -1px;
+}
+
 //LABELS
 //******************************************************
 .label-viaoptima {
@@ -341,7 +347,7 @@ body {
 .inline-block {
   display: inline-block;
   input[type='text'] {
-    padding: $padding-base-vertical $padding-app-base  $padding-app-base;
+    padding: $padding-base-vertical $padding-app-base $padding-app-base;
   }
   form {
     display: inline-block;
@@ -564,21 +570,26 @@ input[type=file]:hover {
       padding: $padding-app-base;
     }
     @media screen and (min-width: 400px) {
-        max-width: 330px;
+      max-width: 330px;
     }
   }
 }
-//COLOR CURSILLOS
-.colorCursillo{
-  min-width: 24px;
-  min-height: 24px;
-  color:white;
-  border-radius: 50%;
-  padding: 2px 12px;
-  margin-right:5px;
-}
 
+//COLOR CURSILLOS
+.ponerCirculoColor {
+  display:inline-block;
+  min-width: 1.2em;
+  min-height: 1.2em;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+//IMAGEN USER AUTHENTICATE
+.user-image{
+  width:$imagen-user-width;
+  height:$imagen-user-height;
+  border-radius:50%;
+}
 //ALTO 100%
-.altoMaximo{
+.altoMaximo {
   min-height: 100%;
 }

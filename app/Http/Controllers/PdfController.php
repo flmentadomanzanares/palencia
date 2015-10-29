@@ -30,7 +30,7 @@ class PdfController extends Controller {
         return $data;
     }
 
-    public function cursillos()
+    public function cursillos(Request $request)
     {
         $date = date('d-m-Y');
         $semana = date('W-Y');

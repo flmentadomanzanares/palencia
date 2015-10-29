@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('cursillos.parciales.buscar')
+                @include('nuestrasRespuestas.parciales.buscar')
             </div>
             @if(!$cursillos->isEmpty())
                 @foreach ($cursillos as $cursillo)
