@@ -40,7 +40,7 @@ class Cursillos extends Model
     public function scopeComunidadCursillos($query, $comunidadId = 0)
     {
         if (is_numeric($comunidadId) && $comunidadId > 0) {
-            $query->where('cursillos.comunidad_id',$comunidadId);
+            $query->where('cursillos.comunidad_id', $comunidadId);
         }
         return $query;
     }
@@ -79,15 +79,17 @@ class Cursillos extends Model
             ->setPath('cursillos');
     }
 
-    static public function getTodosMisCursillos($comunidad, $anyo, $semana = 0)
+    static public function getTodosMisCursillos($comunidad = 0, $anyo = 0, $semana = 0)
     {
-        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
-            'cursillos.activo', 'comunidades.comunidad', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
-            ->leftJoin('comunidades', 'comunidades.id', '=', $comunidad)
+        return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio',DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
+            'comunidades.comunidad','comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->ComunidadCursillos($comunidad)
             ->AnyosCursillos($anyo)
             ->SemanasCursillos($semana)
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->orderBy('semana', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
     }
@@ -116,7 +118,7 @@ class Cursillos extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    static public function getSemanasCursillos($anyo = 0,$cursillos=0)
+    static public function getSemanasCursillos($anyo = 0, $cursillos = 0)
     {
 
         return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas'))

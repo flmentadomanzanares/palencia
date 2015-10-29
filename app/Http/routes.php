@@ -32,6 +32,8 @@ Route::resource('usuarios','UsersController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
+
 
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
@@ -41,7 +43,7 @@ Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'cs
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
 
 //Obtener relación de cursos vía Ajax
-Route::post('listadoCursos', array('as'=>'listadoCursos','before'=>'csrf','uses'=>'CursillosController@listadoCursos'));
+Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
 
 //Listados PDF
 Route::get('pdf', 'PdfController@invoice');

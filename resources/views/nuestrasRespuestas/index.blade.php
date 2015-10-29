@@ -3,89 +3,39 @@
     {!! $titulo !!}
 @endsection
 @section('contenido')
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('nuestrasRespuestas.parciales.buscar')
-            </div>
-            @if(!$cursillos->isEmpty())
-                @foreach ($cursillos as $cursillo)
-                    <div>
-                        <table class="table-viaoptima table-striped">
-                            <caption>
-                                {!! $cursillo->cursillo !!}
-                            </caption>
-                            <thead>
-                            <tr style="@if($cursillo->activo==0)background: red !important; @endif">
-                                <th colspan="2" class="text-right">
-                                    <a title="Mostrar"
-                                       href="{{route('cursillos.show',array('id'=>$cursillo->id))}}">
-                                        <i class="glyphicon glyphicon-eye-open">
-                                            <div>Detalles</div>
-                                        </i>
-                                    </a>
-                                    <a title="Editar"
-                                       href="{{route('cursillos.edit',array('id'=>$cursillo->id))}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
-                                    </a>
-                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    {!! FORM::open(array('route' => array('cursillos.destroy',
-                                    $cursillo->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                    <button type="submit">
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
-                                    </button>
-                                    {!! FORM::close() !!}
-                                    @endif
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="table-autenticado-columna-1">Comunidad:</td>
-                                <td>
-                                    {!! $cursillo->comunidad !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Número:</td>
-                                <td>{!!$cursillo->num_cursillo!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Año:</td>
-                                <td>{!! Date("Y" , strtotime($cursillo->fecha_inicio) )!!}</td>
-                            </tr>
-                             <tr>
-                                <td>Semana:</td>
-                                <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Asistentes:</td>
-                                <td>{!!$cursillo->tipo_participante!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Activo:</td>
-                                <td> @if ($cursillo->activo ) Si @else No @endif </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                @endforeach
-            @else
-                <div class="clearfix">
-                    <div class="alert alert-info" role="alert">
-                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun cursillo que listar.</p>
-                    </div>
+                {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades','cursillo','semanas','anyos']),['route'=>'enviarNuestrasRespuestas','method'=>'POST']) !!}
+                <div class="heading-caption">Remitente</div>
+                {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control"))!!}
+                <br/>
+                <div class="heading-caption">Destinatario/s</div>
+                {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}
+                <br/>
+                <div class="heading-caption">Fecha Cursillos</div>
+                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
+                <br/>
+                {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
+                <br/>
+                <div class="heading-caption">Cursillos</div>
+                <div id="listado_cursillos" class="" style="max-height:250px;overflow-y: auto "></div>
+                <br/>
+                <div class="btn-action margin-bottom">
+                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
+                        <i class="glyphicon glyphicon-home">
+                            <div>Inicio</div>
+                        </i>
+                    </a>
+                    <button type="submit" title="Enviar" class="pull-right">
+                        <i class='glyphicon glyphicon-envelope full-Width'>
+                            <div>Enviar</div>
+                        </i>
+                    </button>
                 </div>
-            @endif
-            <div class="row text-center">
-                {!! $cursillos->appends(Request::only(['cursillo','semanas','anyos']))->render()
-                !!}{{-- Poner el paginador --}}
+                {!! FORM::close() !!}
             </div>
         @else
             @include('comun.guestGoHome')

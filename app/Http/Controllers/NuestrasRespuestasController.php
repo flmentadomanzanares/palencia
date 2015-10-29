@@ -97,4 +97,7 @@ class NuestrasRespuestasController extends Controller
         //
     }
 
+    public function enviar(Request $request){
+        dd($request);
+    }
 }

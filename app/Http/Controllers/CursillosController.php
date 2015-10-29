@@ -208,10 +208,20 @@ class CursillosController extends Controller
     public function semanasTotales(Request $request)
     {
        if (\Request::ajax()) {
-            $anyo = (int)\Request::input('anyo');
-            $comunidad = (int)\Request::input('comunidad');
+            $anyo = $request->get('anyo');
+            $comunidad = $request->get('comunidad');
             $semanas = Cursillos::getSemanasCursillos($anyo,$comunidad);
             return $semanas;
+        }
+    }
+
+    public function listadoCursillos(Request $request)
+    {
+        if (\Request::ajax()) {
+            $anyo = $request->get('anyo');
+            $comunidad = $request->get('comunidad');
+            $semana = $request->get('semana');
+            return Cursillos::getTodosMisCursillos($comunidad,$anyo,$semana);
         }
     }
 }
