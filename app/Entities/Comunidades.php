@@ -94,7 +94,7 @@ class Comunidades extends Model
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
-            'comunidades.email1', 'comunidades.email2', 'tipos_comunicaciones_preferidas.comunicacion_preferida', 'cursillosTotales')
+            'comunidades.email1', 'comunidades.email2', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
                 '=', 'tipos_comunicaciones_preferidas.id')
@@ -153,17 +153,6 @@ class Comunidades extends Model
                 ->orderBy('comunidades.comunidad', 'ASC')
                 ->Lists('comunidades.comunidad', 'comunidades.id');
         }
-        return $conPlaceHolder ? $placeHolder + $sql : $sql;
-    }
-
-    public static function getComunidadesListPDF($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...")
-    {
-        $placeHolder = ['0' => $placeHolder];
-        $sql = Comunidades::Select('id', 'comunidad')
-            ->where('activo', true)
-            ->EsPropia($propia)
-            ->orderBy('comunidad', 'ASC')
-            ->Lists('comunidad', 'id');
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
