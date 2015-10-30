@@ -12,11 +12,9 @@ class PdfController extends Controller {
         $data = $this->getData();
         $date = date('d-m-Y');
         $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice'))->render();
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        //return $pdf->stream('invoice'); /* muestra en pantalla*/
-        return $pdf->download('invoice'); /* crea pdf en directorio descargas */
+         $pdf->loadView('cursillos.index',compact('data','date','invoice'),[],'UTF-8')->save('pruebaok.pdf');
+        return null;
     }
 
     public function getData()

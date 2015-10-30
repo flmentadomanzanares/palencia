@@ -45,6 +45,14 @@ class Cursillos extends Model
         return $query;
     }
 
+    public function scopeCursilloId($query, $cursilloId = 0)
+    {
+        if (is_numeric($cursilloId) && $cursilloId > 0) {
+            $query->where('cursillos.id', $cursilloId);
+        }
+        return $query;
+    }
+
     public function scopeCursillo($query, $cursillo)
     {
         if (trim($cursillo) != '')
@@ -79,10 +87,22 @@ class Cursillos extends Model
             ->setPath('cursillos');
     }
 
+    static public function getCursillosPDF($comunidad=0,$anyo=0,$semana=0)
+    {
+        return Cursillos::select('cursillos.comunidad_id','cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.fecha_inicio',
+            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'))
+            ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')
+            ->ComunidadCursillos($comunidad)
+            ->AnyosCursillos($anyo)
+            ->SemanasCursillos($semana)
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->get();
+    }
+
     static public function getTodosMisCursillos($comunidad = 0, $anyo = 0, $semana = 0)
     {
-        return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio',DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
-            'comunidades.comunidad','comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+        return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
+            'comunidades.comunidad', 'comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->ComunidadCursillos($comunidad)

@@ -112,4 +112,8 @@
   array (
     'normal' => 'D:\\xampp\\htdocs\\palencia\\storage/fonts/e599f4bf239adbce8e1fc3a5e00daf14',
   ),
+  'glyphicons halflings' => 
+  array (
+    'normal' => 'F:\\xampp\\htdocs\\palencia\\storage/fonts/b86f1312fd943395189532397b898cbe',
+  ),
 ) ?>

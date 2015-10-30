@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-
 
 class Comunidades extends Model
 {
@@ -90,6 +90,27 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
+    static public function getComunidadPDF($comunidad = 0)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
+            'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
+            'comunidades.email1', 'comunidades.email2', 'tipos_comunicaciones_preferidas.comunicacion_preferida', 'cursillosTotales')
+            ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
+            ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
+                '=', 'tipos_comunicaciones_preferidas.id')
+            ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
+            ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
+            ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
+            ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
+                        FROM cursillos, comunidades
+                        WHERE comunidades.id = cursillos.comunidad_id
+                        GROUP BY cursillos.comunidad_id
+            ) cursillos"), "comunidades.id", "=", 'cursilloId')
+            ->Where('cursillosTotales', '>', 0)
+            ->ComunidadesId($comunidad)
+            ->get();
+    }
+
     static public function getComunidad($id = null)
     {
         if (!is_numeric($id))
@@ -110,7 +131,32 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...")
+    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
+    {
+        $placeHolder = ['0' => $placeHolder];
+        if (!$excluirSinCursillos) {
+            $sql = Comunidades::Select('id', 'comunidad')
+                ->where('activo', true)
+                ->EsPropia($propia)
+                ->orderBy('comunidad', 'ASC')
+                ->Lists('comunidad', 'id');
+        } else {
+            $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+                ->where('comunidades.activo', true)
+                ->EsPropia($propia)
+                ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
+                        FROM cursillos, comunidades
+                        WHERE comunidades.id = cursillos.comunidad_id
+                        GROUP BY cursillos.comunidad_id
+            ) cursillos"), "comunidades.id", "=", 'cursilloId')
+                ->Where('cursillosTotales', '>', 0)
+                ->orderBy('comunidades.comunidad', 'ASC')
+                ->Lists('comunidades.comunidad', 'comunidades.id');
+        }
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
+    public static function getComunidadesListPDF($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...")
     {
         $placeHolder = ['0' => $placeHolder];
         $sql = Comunidades::Select('id', 'comunidad')
@@ -124,7 +170,15 @@ class Comunidades extends Model
     public function scopeComunidades($query, $comunidad = null)
     {
         if ($comunidad != null && trim($comunidad) != '') {
-            $query->where('comunidad', 'LIKE', "$comunidad" . '%');
+            $query->where('comuninades.comunidad', 'LIKE', "$comunidad" . '%');
+        }
+        return $query;
+    }
+
+    public function scopeComunidadesId($query, $comunidadId = 0)
+    {
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+            $query->where('comunidades.id', $comunidadId);
         }
         return $query;
     }
@@ -132,7 +186,7 @@ class Comunidades extends Model
     public function scopeEsColaborador($query, $esColaborador = null)
     {
         if (is_bool($esColaborador)) {
-            $query->where('esColaborador', $esColaborador);
+            $query->where('comunidades.esColaborador', $esColaborador);
         }
         return $query;
     }
@@ -140,7 +194,7 @@ class Comunidades extends Model
     public function scopeEsPropia($query, $esPropia = null)
     {
         if (is_bool($esPropia)) {
-            $query->where('esPropia', $esPropia);
+            $query->where('comunidades.esPropia', $esPropia);
         }
         return $query;
     }
