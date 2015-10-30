@@ -53,8 +53,8 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>{!!link_to('pdf', 'Cursillos en el mundo')!!}</li>
-                                    <li>{!!link_to('#', 'Intendencia para clausura')!!}</li>
+                                    <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
+                                    <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
                                     <li>{!!link_to('#', 'Secretariado')!!}</li>
                                     <li>{!!link_to('#', 'Secretariados por pais')!!}</li>
                                     <li>{!!link_to('#', 'Solicitudes enviadas')!!}</li>

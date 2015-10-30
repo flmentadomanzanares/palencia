@@ -33,6 +33,8 @@ Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('tiposCursillos','TiposCursillosController');
 Route::resource('estadosSolicitudes','EstadosSolicitudesController');
 Route::resource('solicitudes','SolicitudesController');
+
+
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
 //Cambio de Provincias y localidades vía ajax.
@@ -43,4 +45,11 @@ Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'cs
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
 
 //Listados PDF
-Route::get('pdf', 'PdfController@invoice');
+
+Route::get('cursillosPaises', 'PdfController@getCursillos');
+Route::get('intendenciaClausura', 'PdfController@getComunidades');
+Route::get('getCursillos', array('as'=>'getCursillos','before'=>'csrf','uses'=>'PdfController@getCursillos'));
+Route::get('imprimirCursillos', array('as'=>'imprimirCursillos','before'=>'csrf','uses'=>'PdfController@imprimirCursillos'));
+Route::get('getComunidades', array('as'=>'getComunidades','before'=>'csrf','uses'=>'PdfController@getComunidades'));
+
+

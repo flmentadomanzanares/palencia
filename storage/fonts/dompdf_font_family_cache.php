@@ -112,4 +112,8 @@
   array (
     'normal' => 'D:\\xampp\\htdocs\\palencia\\storage/fonts/e599f4bf239adbce8e1fc3a5e00daf14',
   ),
+  'century gothic bold' => 
+  array (
+    'normal' => 'D:\\xampp\\htdocs\\palencia\\storage/fonts/65846694cca1ee4ede7798249674614e',
+  ),
 ) ?>

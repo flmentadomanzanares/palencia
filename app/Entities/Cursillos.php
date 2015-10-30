@@ -107,16 +107,87 @@ class Cursillos extends Model
     }
 
     // Listado cursillos en el mundo
-    static public function getCursillosPorPaises()
+    static public function getCursillosPorPaises(Request $request)
     {
-
-       return Cursillos::Select('cursillos.*', 'comunidades.id', 'comunidades.pais_id', 'tipos_cursillos.id', 'tipos_cursillos.tipo_cursillo')
+        return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
+            ->where('cursillos.activo', true)
+            ->AnyosCursillos($request->get('anyos'))
+            ->SemanasCursillos($request->get('semanas'))
             ->orderBy('comunidades.pais_id', 'ASC')
-           ->orderBy('cursillos.fecha_inicio', 'ASC')
-           ->get();
+            ->orderBy('comunidades.comunidad')
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->paginate(5)
+            ->setPath('cursillosPaises');
+
+    }
+
+    // Listado cursillos en el mundo
+    static public function listarCursillosPorPaises($anyo,  $week)
+    {
+        if (is_null($anyo)) {
+
+            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
+                ->where('cursillos.activo', true)
+                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('comunidades.comunidad')
+                ->orderBy('cursillos.fecha_inicio', 'ASC')
+                ->get();
+
+        } elseif (is_null($week)) {
+
+            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
+                ->where('cursillos.activo', true)
+                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('comunidades.comunidad')
+                ->orderBy('cursillos.fecha_inicio', 'ASC')
+                ->get();
+
+        } else {
+            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
+                ->where('cursillos.activo', true)
+                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $week)
+                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('comunidades.comunidad')
+                ->orderBy('cursillos.fecha_inicio', 'ASC')
+                ->get();
+        }
+
+    }
+
+    // Listado intendencia para clausura
+    static public function getIntendenciaClausura(Request $request)
+    {
+        return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->where('tipos_cursillos.tipo_cursillo', '=', 'Interno')
+            ->where('cursillos.activo', true)
+            ->AnyosCursillos($request->get('anyos'))
+            ->SemanasCursillos($request->get('semanas'))
+            ->orderBy('comunidades.pais_id', 'ASC')
+            ->orderBy('comunidades.comunidad')
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->paginate(5)
+            ->setPath('intendenciaClausura');
 
     }
 
