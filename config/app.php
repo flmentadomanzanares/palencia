@@ -201,7 +201,6 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
         'PDF' => 'Barryvdh\DomPDF\Facade',
-
 	],
 
 ];

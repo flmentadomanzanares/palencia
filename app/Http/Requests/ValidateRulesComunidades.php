@@ -34,6 +34,8 @@ class ValidateRulesComunidades extends Request
             "telefono1" => "max:13",
             "telefono2" => "max:13",
             "tipo_comunicacion_preferida_id" => "required|numeric|min:1",
+            "esPropia"=>"boolean",
+            "esColaborador"=>"boolean",
             "activo" => "boolean"
 
         ];
@@ -72,8 +74,10 @@ class ValidateRulesComunidades extends Request
             'observaciones.min' => 'Longitud mínima de la comunidad :min caracteres.',
             'tipo_comunicacion_preferida_id.required' => 'La comunicación preferida es obligatoria.',
             'tipo_comunicacion_preferida_id.min' => 'Elige una comunicación preferida.',
-            'activo.required' => 'El campo tutor es obligatorio!',
-            'activo.boolean' => 'El valor del campo tutor debe ser No o Si'
+            'activo.required' => 'El campo activo es obligatorio!',
+            'activo.boolean' => 'El valor del campo activo debe ser No o Si',
+            'esPropia.boolean' => 'El valor del campo es Propia debe ser No o Si',
+            'esColaborador.boolean' => 'El valor del campo es Colaborador debe ser No o Si'
         ];
     }
 

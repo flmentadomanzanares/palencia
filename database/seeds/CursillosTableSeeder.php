@@ -23,7 +23,6 @@ class CursillosTableSeeder  extends BaseSeeder {
             'descripcion'  => $faker->text($maxNbChars = 200),
             'comunidad_id'  => $this->getRandom('Comunidades')->id,
             'tipo_participante_id'  => rand(1,3),
-            'tipo_cursillo_id'  => rand(1,2),
             'num_cursillo'=> rand(1111,9999)
         ];
 

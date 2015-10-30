@@ -18,6 +18,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('comunidad',50);
 
+            $table->boolean('esPropia')->default(false);
+
             $table->bigInteger('tipo_secretariado_id')->unsigned();
             $table->foreign('tipo_secretariado_id')->references('id')->on('tipos_secretariados')->onDelete('cascade');
 
@@ -52,6 +54,10 @@ class CreateComunidadesTable extends Migration {
             $table->foreign('tipo_comunicacion_preferida_id')->references('id')->on('tipos_comunicaciones_preferidas')->onDelete('cascade');
 
             $table->text('observaciones');
+
+            $table->boolean('esColaborador')->default(true);
+
+            $table->string('color',4)->default('#000');
 
             $table->boolean('activo')->default(true);
 

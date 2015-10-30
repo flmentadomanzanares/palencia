@@ -25,10 +25,6 @@
                 <td>{!!$cursillo->num_cursillo!!}</td>
             </tr>
             <tr>
-                <td>Status:</td>
-                <td>{!! $cursillo->tipo_cursillo!!}</td>
-            </tr>
-            <tr>
                 <td>Semana:</td>
                 <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
             </tr>

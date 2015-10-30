@@ -52,6 +52,10 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Es Propia:</td>
+                                <td> @if ($comunidad->esPropia) Si @else No @endif </td>
+                            </tr>
+                            <tr>
                                 <td>País:</td>
                                 <td>
                                     {!! $comunidad->pais !!}
@@ -80,6 +84,14 @@
                                 <td>
                                     {!! $comunidad->direccion !!}
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>Colabora:</td>
+                                <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
+                            </tr>
+                            <tr>
+                                <td>Color Cursos:</td>
+                                <td> <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div></td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>

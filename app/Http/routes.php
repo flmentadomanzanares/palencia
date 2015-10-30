@@ -30,19 +30,20 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('usuarios','UsersController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
-Route::resource('tiposCursillos','TiposCursillosController');
-Route::resource('estadosSolicitudes','EstadosSolicitudesController');
-Route::resource('solicitudes','SolicitudesController');
-
-
+Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
+
 
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
 Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
 
-//Cálculo del totqal de semanas por año vía Ajax
+//Cálculo del total de semanas por año vía Ajax
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
+
+//Obtener relación de cursos vía Ajax
+Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
 
 //Listados PDF
 

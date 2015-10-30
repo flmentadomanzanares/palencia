@@ -1,9 +1,14 @@
 <div class="form-group">
+
     <div class="heading-caption">Datos Generales</div>
+
     {!! FORM::label('comunidad', 'Nombre Comunidad:') !!} <br/>
     {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control", "title"=>"Nombre de la Comunidad",
     "maxlength"=>"50"]) !!}
     <br/>
+    {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>
+    {!! FORM::select('esPropia',array('0'=>'No','1'=>'Si'), $comunidad->esPropia ,array('class'=>'form-control')) !!}
+    <br>
     {!! FORM::label ('secretariado', 'Secretariado:') !!} <br/>
     {!! FORM::select('tipo_secretariado_id',$secretariados, $comunidad->tipo_secretariado_id, ["class" =>
     "form-control"])
@@ -52,6 +57,18 @@
     {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas, $comunidad->tipo_comunicacion_preferida_id, ["class" =>
     "form-control"]) !!} <br/>
+    <div class="heading-caption">Participativa</div>
+    {!! FORM::label ('esColaborador', 'Colabora:') !!} <br/>
+    {!! FORM::select('esColaborador',array('1'=>'Si','0'=>'No'), $comunidad->esColaborador ,array('class'=>'form-control')) !!}
+    <br>
+    <div class="heading-caption">Color Mis Cursos</div>
+    {!! FORM::label ('color', 'Color Cursos') !!}
+    <select id="select-color" class="form-control" name="color">
+        @foreach ($colors as $color)
+            <option  value="{{$color->codigo_color}}"@if($color->codigo_color==$comunidad->color) selected="selected" @endif>{{$color->nombre_color}}</option>
+        @endforeach
+    </select>
+    <br/>
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control', "title"=>"Observaciones" ) )!!}

@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-
 
 class Comunidades extends Model
 {
@@ -75,7 +75,9 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.activo', 'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo',
+            'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
+            ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->TipoSecretariado($request->get('secretariado'))
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
@@ -88,15 +90,37 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
+    static public function getComunidadPDF($comunidad = 0)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
+            'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
+            'comunidades.email1', 'comunidades.email2', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
+            ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
+            ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
+                '=', 'tipos_comunicaciones_preferidas.id')
+            ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
+            ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
+            ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
+            ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
+                        FROM cursillos, comunidades
+                        WHERE comunidades.id = cursillos.comunidad_id
+                        GROUP BY cursillos.comunidad_id
+            ) cursillos"), "comunidades.id", "=", 'cursilloId')
+            ->Where('cursillosTotales', '>', 0)
+            ->ComunidadesId($comunidad)
+            ->get();
+    }
+
     static public function getComunidad($id = null)
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
-            'comunidades.responsable', 'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad',
-            'comunidades.cp', 'comunidades.email1', 'comunidades.email2', 'comunidades.web', 'comunidades.facebook',
-            'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
-            'comunidades.observaciones', 'comunidades.activo')
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.color',
+            'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion', 'paises.pais',
+            'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email1', 'comunidades.email2',
+            'comunidades.web', 'comunidades.facebook', 'comunidades.telefono1', 'comunidades.telefono2',
+            'tipos_comunicaciones_preferidas.comunicacion_preferida', 'comunidades.observaciones',
+            'comunidades.esColaborador', 'comunidades.activo')
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
                 '=', 'tipos_comunicaciones_preferidas.id')
@@ -107,18 +131,59 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList()
+    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
-        return ['0' => 'Comunidad...'] + Comunidades::Select('id', 'comunidad')
-            ->where('activo', true)
-            ->orderBy('comunidad', 'ASC')
-            ->Lists('comunidad', 'id');
+        $placeHolder = ['0' => $placeHolder];
+        if (!$excluirSinCursillos) {
+            $sql = Comunidades::Select('id', 'comunidad')
+                ->where('activo', true)
+                ->EsPropia($propia)
+                ->orderBy('comunidad', 'ASC')
+                ->Lists('comunidad', 'id');
+        } else {
+            $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+                ->where('comunidades.activo', true)
+                ->EsPropia($propia)
+                ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
+                        FROM cursillos, comunidades
+                        WHERE comunidades.id = cursillos.comunidad_id
+                        GROUP BY cursillos.comunidad_id
+            ) cursillos"), "comunidades.id", "=", 'cursilloId')
+                ->Where('cursillosTotales', '>', 0)
+                ->orderBy('comunidades.comunidad', 'ASC')
+                ->Lists('comunidades.comunidad', 'comunidades.id');
+        }
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
     public function scopeComunidades($query, $comunidad = null)
     {
         if ($comunidad != null && trim($comunidad) != '') {
-            $query->where('comunidad', 'LIKE', "$comunidad" . '%');
+            $query->where('comuninades.comunidad', 'LIKE', "$comunidad" . '%');
+        }
+        return $query;
+    }
+
+    public function scopeComunidadesId($query, $comunidadId = 0)
+    {
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+            $query->where('comunidades.id', $comunidadId);
+        }
+        return $query;
+    }
+
+    public function scopeEsColaborador($query, $esColaborador = null)
+    {
+        if (is_bool($esColaborador)) {
+            $query->where('comunidades.esColaborador', $esColaborador);
+        }
+        return $query;
+    }
+
+    public function scopeEsPropia($query, $esPropia = null)
+    {
+        if (is_bool($esPropia)) {
+            $query->where('comunidades.esPropia', $esPropia);
         }
         return $query;
     }

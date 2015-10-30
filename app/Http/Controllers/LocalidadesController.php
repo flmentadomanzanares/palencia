@@ -1,10 +1,7 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
@@ -27,9 +24,8 @@ class LocalidadesController extends Controller
         //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
         $paises = Paises::getPaisesList();
         $provincias = Provincias::getProvinciasList();
-        $localidades= Localidades::getLocalidades($request);;
-
-        return view("localidades.index", compact('localidades', 'paises', 'provincias'))->with('titulo', 'Listado de Localidades');
+        $localidades = Localidades::getLocalidades($request);;
+        return view("localidades.index", compact('localidades', 'paises', 'provincias', 'titulo'));
     }
 
     /**
@@ -40,11 +36,10 @@ class LocalidadesController extends Controller
     public function create()
     {
         $titulo = "Nueva localidad";
-
         $localidades = new Localidades();
         $paises = Paises::getPaisesList();
         $provincias = Array();
-        return view('localidades.nuevo', compact('localidades', 'provincias', 'paises'))->with('titulo', 'Nueva Localidad');
+        return view('localidades.nuevo', compact('localidades', 'provincias', 'paises', 'titulo'));
     }
 
     /**
@@ -103,10 +98,9 @@ class LocalidadesController extends Controller
     {
         //Título Vista
         $titulo = "Modificar Localidad";
-
-        $localidades=Localidades::find($id);
-        $provincias=Provincias::getProvinciasAll($localidades->provincia_id);
-        $paises=Paises::getPaisesAll($localidades->provincia_id);
+        $localidades = Localidades::find($id);
+        $provincias = Provincias::getProvinciasAll($localidades->provincia_id);
+        $paises = Paises::getPaisesAll($localidades->provincia_id);
         return view('localidades.modificar',
             compact(
                 'localidades',
@@ -175,7 +169,6 @@ class LocalidadesController extends Controller
             ->with('mensaje', 'La localidad ' . $localidadNombre . ' eliminada correctamente.');
     }
 
-
     /**
      * Método de actualizar Localidades por Ajax
      * @return mixed
@@ -183,13 +176,13 @@ class LocalidadesController extends Controller
     public function cambiarLocalidades()
     {
         if (\Request::ajax()) {
-            dd((int)\Request::input('provincia_id'));
-            $provincia_id = (int)\Request::input('provincia_id');
+            $provincia_id = \Request::input('provincia_id');
             $localidades = Localidades::where('provincia_id', $provincia_id)
-                ->orderBy('localidad','ASC')
+                ->orderBy('localidad', 'ASC')
                 ->select('localidad', 'id')
                 ->get();
             return $localidades;
         }
+        return null;
     }
 }

@@ -19,6 +19,10 @@
                 <td>{{ $comunidad->tipo_secretariado }}</td>
             </tr>
             <tr>
+                <td>Es Popia:</td>
+                <td> @if ($comunidad->esPropia) Si @else No @endif </td>
+            </tr>
+            <tr>
                 <td>Responsable</td>
                 <td> {!! $comunidad->responsable !!}</td>
             </tr>
@@ -73,6 +77,14 @@
             <tr>
                 <td>Observaciones</td>
                 <td>{{ $comunidad->observaciones }}</td>
+            </tr>
+            <tr>
+                <td>Colabora:</td>
+                <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
+            </tr>
+            <tr>
+                <td>Color Cursos:</td>
+                <td> <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div></td>
             </tr>
             <tr>
                 <td>Activo</td>

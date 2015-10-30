@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\Colores;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
@@ -21,7 +22,7 @@ class ComunidadesController extends Controller
      */
     public function index(Request $request)
     {
-        if(!auth()->check())
+        if (!auth()->check())
             return View("comun.invitado");
         $titulo = "Listado de comunidades";
         $comunidades = Comunidades::getComunidades($request);
@@ -51,6 +52,7 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
+        $colors = Colores::getColores();
         return view('comunidades.nuevo',
             compact(
                 'comunidad',
@@ -59,6 +61,7 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
+                'colors',
                 'titulo'
             ));
     }
@@ -73,6 +76,7 @@ class ComunidadesController extends Controller
         //Creamos una nueva instancia al modelo.
         $comunidad = new Comunidades();
         $comunidad->comunidad = \Request::input('comunidad');
+        $comunidad->esPropia = \Request::input('esPropia');
         $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
         $comunidad->responsable = \Request::input('responsable');
         $comunidad->direccion = \Request::input('direccion');
@@ -88,6 +92,8 @@ class ComunidadesController extends Controller
         $comunidad->telefono2 = \Request::input('telefono2');
         $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->esColaborador = \Request::input('esColaborador');
+        $comunidad->color = \Request::input('color');
         $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {
@@ -147,6 +153,7 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
+        $colors = Colores::getColores();
         return view('comunidades.modificar',
             compact(
                 'comunidad',
@@ -155,6 +162,7 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
+                'colors',
                 'titulo'
             ));
     }
@@ -170,6 +178,7 @@ class ComunidadesController extends Controller
         //Creamos una nueva instancia al modelo.
         $comunidad = Comunidades::find($id);
         $comunidad->comunidad = \Request::input('comunidad');
+        $comunidad->esPropia = \Request::input('esPropia');
         $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
         $comunidad->responsable = \Request::input('responsable');
         $comunidad->direccion = \Request::input('direccion');
@@ -185,6 +194,8 @@ class ComunidadesController extends Controller
         $comunidad->telefono2 = \Request::input('telefono2');
         $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = \Request::input('observaciones');
+        $comunidad->esColaborador = \Request::input('esColaborador');
+        $comunidad->color = \Request::input('color');
         $comunidad->activo = \Request::input('activo');
         //Intercepción de errores
         try {

@@ -10,10 +10,6 @@
     {!! FORM::label('numCursillo', 'Número del Cursillo') !!} <br/>
     {!! FORM::text('num_cursillo', $cursillo->num_cursillo, ["class" => "form-control", "title"=>"Número de Cursillo"]) !!}
     <br/>
-    {!! FORM::label ('tipoCursillo', 'Tipo de Cursillo') !!}
-    {!! FORM::select('tipo_cursillo_id',$tipos_cursillos,
-    $cursillo->tipo_cursillo_id,array('class'=>'form-control')) !!}
-    <br/>
     {!! FORM::label('fecha_inicio', 'Fecha Inicio') !!} <br/>
     {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillo->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control', 'readonly'=>''])!!} <br/>
     <br/>

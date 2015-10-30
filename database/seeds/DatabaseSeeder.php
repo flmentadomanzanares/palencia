@@ -29,11 +29,7 @@ class DatabaseSeeder extends Seeder
             'tipos_participantes',
             'tipos_secretariados',
             'comunidades',
-            'tipos_cursillos',
             'cursillos',
-            'estados_solicitudes',
-            'solicitudes',
-
         ));
         $this->call('ColoresTableSeeder');
         $this->call('RolesTableSeeder');
@@ -42,13 +38,10 @@ class DatabaseSeeder extends Seeder
         $this->call('ProvinciasTableSeeder');
         $this->call('LocalidadesTableSeeder');
         $this->call('TiposComunicacionesPreferidasTableSeeder');
-        $this->call('TiposCursillosTableSeeder');
         $this->call('TiposParticipantesTableSeeder');
         $this->call('TiposSecretariadosTableSeeder');
-        $this->call('EstadosSolicitudesTableSeeder');
         $this->call('ComunidadesTableSeeder');
         $this->call('CursillosTableSeeder');
-        $this->call('SolicitudesTableSeeder');
 
     }
 
