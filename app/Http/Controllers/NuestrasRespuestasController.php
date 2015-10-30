@@ -19,7 +19,7 @@ class NuestrasRespuestasController extends Controller
     {
         $titulo = "Nuestras Respuestas";
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false);
-        $restoComunidades = Comunidades::getComunidadesList(false,true, "Resto Comunidades.....",true);
+        $restoComunidades = Comunidades::getComunidadesList(false, true, "Resto Comunidades.....", true);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
         $cursillos = Cursillos::getCursillos($request);
@@ -115,11 +115,18 @@ class NuestrasRespuestasController extends Controller
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidadPDF($request->get('nuestrasComunidades'));
-        $destinatirios = Comunidades::getComunidadPDF($request->get('restoComunidades'),false);
+        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), false);
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
-
-        dd($destinatirios);
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursillos'), [], 'UTF-8')->save('pruebaok.pdf');
+        foreach ($destinatarios as $idx => $destinatario) {
+            $nombreArchivo = "NR-".date("d_m_Y",strtotime('now')).'-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . $request->get('anyo') . '.pdf';
+            $cur = [];
+            foreach ($cursillos as $idx => $cursillo) {
+                if ($cursillo->comunidad_id == $destinatario->id) {
+                    $cur[] = "Nº " . $cursillo->num_cursillo . "-" . $cursillo->cursillo . ' de fecha ' . $cursillo->fecha_inicio . ' [Sem:' . $cursillo->semana . ']';
+                }
+            }
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cur'), [], 'UTF-8')->save('respuestasCursillos\\'.$nombreArchivo);
+        }
     }
 }
