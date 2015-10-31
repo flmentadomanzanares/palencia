@@ -27,6 +27,8 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('direccion',100);
 
+            $table->string('direccion_postal',100);
+
             $table->string('cp',5);
 
             $table->bigInteger('pais_id')->unsigned();
@@ -38,9 +40,9 @@ class CreateComunidadesTable extends Migration {
             $table->bigInteger('localidad_id')->unsigned();
             $table->foreign('localidad_id')->references('id')->on('localidades')->onDelete('cascade');
 
-            $table->string('email1',50);
+            $table->string('email_solicitud',50);
 
-            $table->string('email2',50);
+            $table->string('email_envio',50);
 
             $table->string('web',50)->nullable();
 

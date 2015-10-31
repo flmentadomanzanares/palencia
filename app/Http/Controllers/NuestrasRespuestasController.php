@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Carbon\Carbon;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Http\Requests;
@@ -93,40 +94,32 @@ class NuestrasRespuestasController extends Controller
      * @return Response
      */
     public function destroy($id)
-    {/*
-        $proyectos = Proyectos::select('proyectos.id', 'proyectos.titulo', 'proyectos.empresa_id', 'proyectos.activo',
-            'proyectos.fecha_inicio', 'proyectos.fecha_final', 'proyectos.created_at',
-            'proyectos.estadoProyecto','postulacionesTotales')->
-        proyecto($miCategoria)->
-        estadoProyecto($miEstado)->
-        where('proyectos.fecha_inicio', "<=", $fechaActual)->
-        where('proyectos.fecha_final', ">=", $fechaActual)->
-        orderBy('proyectos.created_at', 'ASC')->
-        orderBy('proyectos.titulo', 'ASC')->
-        leftJoin(DB::raw("(SELECT DISTINCT  proyectos.id, COUNT(postulaciones_proyectos.proyecto_id) as postulacionesTotales ,postulaciones_proyectos.proyecto_id as postulacion
-                        FROM postulaciones_proyectos, proyectos
-                        WHERE proyectos.id = postulaciones_proyectos.proyecto_id
-                        GROUP BY postulaciones_proyectos.proyecto_id
-            ) postulaciones_proyectos") ,"proyectos.id", "=", 'postulacion')->
-        paginate(3)->
-        setPath('proyectosDemandados');*/
+    {
     }
 
     public function enviar(Request $request)
     {
-        $remitente = Comunidades::getComunidadPDF($request->get('nuestrasComunidades'));
+        $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), false);
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
+        if (count($remitente)==0 || count($destinatarios)==0 || count($cursillos)==0  ){
+            return redirect()->
+            route('nuestrasRespuestas.index')->
+            with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s.');
+        }
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $fecha_emision=date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
         foreach ($destinatarios as $idx => $destinatario) {
-            $nombreArchivo = "NR-".date("d_m_Y",strtotime('now')).'-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . $request->get('anyo') . '.pdf';
+            $nombreArchivo = "NR-".date("d_m_Y",strtotime('now')).'-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo')>0?$request->get('anyo'):'All') . '.pdf';
             $cur = [];
             foreach ($cursillos as $idx => $cursillo) {
                 if ($cursillo->comunidad_id == $destinatario->id) {
-                    $cur[] = "Nº " . $cursillo->num_cursillo . "-" . $cursillo->cursillo . ' de fecha ' . $cursillo->fecha_inicio . ' [Sem:' . $cursillo->semana . ']';
+                    $fecha_curso=date('d',strtotime($cursillo->fecha_inicio))." de ".$meses[date('n',strtotime($cursillo->fecha_inicio))-1]. " del ".date('Y',strtotime($cursillo->fecha_inicio)) ;
+                    $cur[] = "Nº " . $cursillo->num_cursillo . "-" . $cursillo->cursillo . ' a celebrar a partir del ' . $fecha_curso . ' [Sem:' . $cursillo->semana . ']';
                 }
             }
             $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cur'), [], 'UTF-8')->save('respuestasCursillos\\'.$nombreArchivo);
+            $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cur','remitente','destinatario','fecha_emision'), [], 'UTF-8')->save('respuestasCursillos\\'.$nombreArchivo);
         }
     }
 }

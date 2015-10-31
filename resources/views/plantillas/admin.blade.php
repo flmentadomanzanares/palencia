@@ -14,17 +14,17 @@
 
 <div class="container-fluid">
     <div class="row">
-        <img src={!!asset('img/cabecera.png')!!} alt="Responsive image" class="img-responsive block-center">
+        <img src={!!asset('img/header/cabecera.png')!!} alt="" class="img-responsive block-center">
     </div>
     <nav role="navigation" id="barra" class="navbar navbar-inverse block-center">
         <div class="container-fluid">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 @if (Auth::check())
                     @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
@@ -66,7 +66,7 @@
                     @if (Auth::check())
                         <li class="">
                             <a data-toggle="dropdown" class="dropdown-toggle" href=""><img
-                                       class="user-image"
+                                        class="user-image"
                                         src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
                                 <strong>{!!Auth::user()->name!!}</strong>
                                 <b class="caret"></b></a>
@@ -78,7 +78,6 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle login" href="login" data-toggle="dropdown">login/sign in <strong
                                         class="caret"></strong></a>
-
                             <div class="dropdown-menu" style="padding: 20px;width:240px">
                                 {!! FORM::open(array('url' => 'auth/login')) !!}
                                 {!! FORM::label('email', 'email') !!} <br/>
@@ -97,9 +96,7 @@
                     @endif
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
 </div>
 @if(Session::has('mensaje'))
