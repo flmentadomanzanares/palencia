@@ -24,3 +24,4 @@ return ['campoUser' => [
                         'administrador'=> '300',
     ],
 ];
+?>

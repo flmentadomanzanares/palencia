@@ -15,7 +15,6 @@ $(document).ready(function () {
                 $('#listado_cursillos').empty();
                 $.each(data, function (key, element) {
                     var fecha = new Date(element.fecha_inicio);
-                    console.log(fecha.getDay()+'/'+fecha.getMonth()+'/'+fecha.getFullYear());
                     var html = "<table class='table-viaoptima table-striped'><thead>" +
                         "<tr style='Background: " + element.color + ";'>" +
                         "<th colspan='2' class='text-center'>" + element.comunidad + "</th>" +

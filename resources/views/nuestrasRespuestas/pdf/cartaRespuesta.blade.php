@@ -71,74 +71,77 @@
         }
 
         .naranja {
-            color: rgba(255, 170, 1, 1);
+            color: rgb(255, 170, 1);
         }
 
         .verde {
-            color: rgba(101, 199, 88, 1);
+            color: rgb(101, 199, 88);
         }
 
         .rojo {
-            color: rgba(252, 59, 0, 1);
+            color: rgb(252, 59, 0);
         }
 
         .celeste {
-            color: rgba(5, 232, 251, 1);
+            color: rgb(5, 232, 251);
         }
 
         .rosa-palo {
-            color: rgba(226, 165, 173, 1);
+            color: rgb(226, 165, 173);
         }
 
         .amarillo {
-            color: rgba(252, 241, 3, 1);
+            color: rgb(252, 241, 3);
         }
 
         .lila {
-            color: rgba(177, 156, 251, 1);
+            color: rgb(177, 156, 251);
         }
 
         .turquesa {
-            color: rgba(0, 173, 189, 1);
+            color: rgb(0, 173, 189);
         }
 
         .violeta {
-            color: rgba(249, 17, 253, 1);
+            color: rgb(249, 17, 253);
         }
     </style>
 </head>
 <body>
-
-<img class="logo" src={!!asset('img/logo/logo.png')!!} alt=""/>
-
+<div style="width:100%;text-align: right">
+    <img class="logo" src={!!asset('img/logo/logo.png')!!} alt=""/>
+</div>
 <div class="remitente">
     CURSILLOS DE CRISTIANIDAD - DIÓCESIS DE CANARIAS<br/>
     {{$remitente->direccion_postal}}<br/>
     {{$remitente->direccion}}<br/>
     {{$remitente->cp}} {{$remitente->localidad}}-{{$remitente->pais}}
 </div>
-<div class="fecha_emision">
-    {{$remitente->localidad}},{{$fecha_emision}}
-</div>
-<div class="destinatario">
-    {{$destinatario->comunidad}}<br/>
-    {{$destinatario->direccion}}<br/>
-    {{$destinatario->cp}}-{{$destinatario->localidad}}<br/>
-    {{$destinatario->provincia}}-{{$destinatario->pais}}
-</div>
+@if ($esCarta)
+    <div class="fecha_emision">
+        {{$remitente->localidad}},{{$fecha_emision}}
+    </div>
+    <div class="destinatario">
+        {{$destinatario->comunidad}}<br/>
+        {{$destinatario->direccion}}<br/>
+        {{$destinatario->cp}}-{{$destinatario->localidad}}<br/>
+        {{$destinatario->provincia}}-{{$destinatario->pais}}
+    </div>
+@endif
 <div class="mensaje">
+    @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
-    <span class="tab">Recibimos vuestra petición de apoyo espiritual para @if(count($cur)>1)vuestros Cursillos @else
+    <span class="tab">Recibimos vuestra petición de apoyo espiritual para @if(count($cursos)>1)vuestros Cursillos @else
             vuestro Cursillo @endif de Cristiandad</span>
     <br/>
     <ul>
-        @foreach($cur as $curso)
+        @foreach($cursos as $curso)
             <li class="tab">{{ $curso }}</li>
         @endforeach
     </ul>
     <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
-        personales por el éxito espiritual y apostólico @if(count($cur)>1)de los Cursillos anteriormente
+        personales por el éxito espiritual y apostólico @if(count($cursos)>1)de los Cursillos anteriormente
         mencionados. @else del Cursillo anteriormente mencionado. @endif</span>
     <br/>
     <br/>
