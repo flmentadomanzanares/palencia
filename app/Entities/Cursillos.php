@@ -21,6 +21,20 @@ class Cursillos extends Model
         return $this->belongsTo('Palencia\Entities\TiposParticipante', 'tipo_participante_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_enviadas(){
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_recibidas(){
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+    }
+
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {

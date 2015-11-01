@@ -72,6 +72,21 @@ class Comunidades extends Model
         return $this->belongsTo('App\Localidades', 'localidad_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_enviadas(){
+
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_recibidas(){
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+    }
+
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',

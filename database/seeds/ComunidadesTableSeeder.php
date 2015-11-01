@@ -24,15 +24,15 @@ class ComunidadesTableSeeder extends BaseSeeder {
             'pais_id' => 73,
             'provincia_id' => 1,
             'localidad_id' => $faker->biasedNumberBetween($min = 1, $max = 34, $function = 'sqrt'),
-            'email1' => $faker->email,
-            'email2' => $faker->email,
+            'email_solicitud' => $faker->email,
+            'email_envio' => $faker->email,
             'web' => $faker->url,
             'facebook' => $faker->url,
             'telefono1' => $faker->randomElement(['615324789', '928276589', '627456896', '615856912']),
             'telefono2' => $faker->randomElement(['', '', '928278956', '928564285']),
             'tipo_comunicacion_preferida_id' =>rand(1,2),
             'observaciones'  => $faker->text($maxNbChars = 200)
-            ];
+        ];
     }
 
 }
