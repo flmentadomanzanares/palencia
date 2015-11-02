@@ -18,18 +18,15 @@ class PdfController extends Controller {
      *  Función para recabar la informacion necesaria para el listado
      *
      *******************************************************************/
-    public function getCursillos(Request $request)
+    public function getCursillos()
     {
         $titulo = "Cursillos en el Mundo";
 
-        $cursillos = SolicitudesRecibidas::getCursillosPorPaises($request);
-        //dd($cursillos);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
 
         return view("pdf.listarCursillos",
-            compact('cursillos',
-                'titulo',
+            compact('titulo',
                 'anyos',
                 'semanas'));
 

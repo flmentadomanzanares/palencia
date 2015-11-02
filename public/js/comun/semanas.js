@@ -73,4 +73,5 @@ $(document).ready(function () {
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
     });
     totalSemanas($('#select_anyos').val(), $('#select_comunidad').val());
+
 });

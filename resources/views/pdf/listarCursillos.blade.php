@@ -8,15 +8,15 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                {!!FORM::model(Request::only(['solicitudesRecibidas','semanas','anyos']),['route'=>'imprimirCursillos','method'=>'POST']) !!}
-                <div class="heading-caption">Fecha Cursillos</div>
+                {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
+                <div class="heading-caption">Seleccione año y semana de los cursillos a imprimir ...</div>
+                {!! FORM::label('anyo', 'Año') !!} <br/>
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
+                {!! FORM::label('semana', 'Semana') !!} <br/>
                 {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
                 <br/>
-                <div class="heading-caption">Cursillos Seleccionados</div>
-                <div id="listado_cursillos" class="" style="max-height:250px;overflow-y: auto "></div>
-                <br/>
+
                 <div class="btn-action margin-bottom">
                     <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
                         <i class="glyphicon glyphicon-home">
@@ -24,8 +24,8 @@
                         </i>
                     </a>
                     <button type="submit" title="Enviar" class="pull-right">
-                        <i class='glyphicon glyphicon-envelope full-Width'>
-                            <div>Enviar</div>
+                        <i class='glyphicon glyphicon-print full-Width'>
+                            <div>Imprimir</div>
                         </i>
                     </button>
                 </div>
