@@ -33,6 +33,8 @@ Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
+Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
+Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 
 
 //Cambio de Provincias y localidades vía ajax.

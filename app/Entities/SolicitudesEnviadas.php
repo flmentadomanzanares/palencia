@@ -1,6 +1,7 @@
 <?php namespace Palencia\Entities;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudesEnviadas extends Model {
 
@@ -31,4 +32,47 @@ class SolicitudesEnviadas extends Model {
     {
         return $this->belongsTo('Palencia\Entities\Comunidades', 'cursillo_id');
     }
+
+    public function scopeAnyosCursillos($query, $anyo = 0)
+    {
+        if (is_numeric($anyo) && $anyo > 0) {
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
+        }
+        return $query;
+    }
+
+    public function scopeSemanasCursillos($query, $semana = 0)
+    {
+        if (is_numeric($semana) && $semana > 0) {
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
+        }
+        return $query;
+    }
+
+    static public function getAnyoCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
+    {
+        $placeHolder = ['0' => $placeHolder];
+        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
+            ->groupBy('Anyos')
+            ->orderBy('Anyos')
+            ->Lists('Anyos', 'Anyos');
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
+    static public function getSolicitudesEnviadas(Request $request)
+    {
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','cursillos.cursillo',
+            'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->AnyosCursillos($request->get('anyos'))
+            ->SemanasCursillos($request->get('semanas'))
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->orderBy('cursillos.cursillo', 'ASC')
+            ->paginate(5)
+            ->setPath('solicitudesEnviadas');
+
+    }
+
 }

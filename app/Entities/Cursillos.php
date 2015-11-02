@@ -86,6 +86,14 @@ class Cursillos extends Model
             ->get();
     }
 
+    public static function getCursillosList()
+    {
+        return ['0' => 'Cursillo...'] + Cursillos::Select('id', 'cursillo')
+            ->where('activo', true)
+            ->orderBy('cursillo', 'ASC')
+            ->Lists('cursillo', 'id');
+    }
+
     static public function getCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',

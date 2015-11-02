@@ -39,10 +39,12 @@
                                     <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
                                     <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
                                     <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                                    <li>{!!link_to('nuestrasRespuestas', 'Nuestras Respuestas')!!}</li>
                                     <li>{!!link_to('paises', 'Paises')!!}</li>
                                     <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                     <li>{!!link_to('roles','Roles')!!}</li>
-                                    <li>{!!link_to('nuestrasRespuestas', 'Nuestras Respuestas')!!}</li>
+                                    <li>{!!link_to('solicitudesEnviadas', 'Solicitudes Enviadas')!!}</li>
+                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes Recibidas')!!}</li>
                                     <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
                                     <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 </ul>
