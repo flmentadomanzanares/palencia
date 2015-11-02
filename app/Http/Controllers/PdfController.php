@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
 use Palencia\Http\Controllers\Controller;
 use Palencia\Entities\Cursillos;
@@ -10,48 +11,63 @@ use Illuminate\Http\Request;
 
 class PdfController extends Controller {
 
+    /*******************************************************************
+     *
+     *  Listado "Cursillos en el Mundo"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
     public function getCursillos(Request $request)
     {
         $titulo = "Cursillos en el Mundo";
 
-        $cursillos = Cursillos::getCursillosPorPaises($request);
+        $cursillos = SolicitudesRecibidas::getCursillosPorPaises($request);
         //dd($cursillos);
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas =Array();
+        $anyos = Cursillos::getAnyoCursillosList();
+        $semanas = Array();
 
-        return view("pdf.listarCursillos", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("pdf.listarCursillos",
+            compact('cursillos',
+                'titulo',
+                'anyos',
+                'semanas'));
 
     }
 
-    // Listado 'Cursillos en el Mundo'
-    public function imprimirCursillos()
+    /*******************************************************************
+     *
+     *  Listado "Cursillos en el Mundo"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirCursillos(Request $request)
     {
 
-        $year = null;
-        $week = null;
-
-        //Sesion para llevar los parámetros de year y week
-        if (Session::has('imprimirCursillos')) {
-
-            $year = Session::get('imprimirCursillos.year');
-            $week = Session::get('imprimirCursillos.week');
-
-        } else {
-
-        }
-
         $titulo = "Cursillos en el Mundo";
-        //$year ='2015';
-        //$week ='34';
-        $date = date('d-m-Y');
-        $cursillos = Cursillos::listarCursillosPorPaises($year, $week);
 
-       $view =  \View::make('pdf.imprimirCursillos', compact('cursillos', 'week', 'year','date', 'titulo'))->render();
+        $anyo = $request->get('anyo');
+        $semana = $request->get('semana');
+        $date = date('d-m-Y');
+        $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
+
+        $view =  \View::make('pdf.imprimirCursillos',
+            compact('cursillos',
+                    'anyo',
+                    'semana',
+                    'date',
+                    'titulo'))
+            ->render();
+
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('imprimirCursillos'); /* muestra en pantalla*/
-        //return $pdf->download('invoice'); /* crea pdf en directorio descargas */
+        return $pdf->stream('imprimirCursillos');
+
+
     }
+
 
     public function getComunidades(Request $request)
     {

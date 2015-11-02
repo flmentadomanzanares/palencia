@@ -10,12 +10,12 @@
 <div class="text-center">
     <h1>{{ $titulo }}</h1><br/>
 
-    @if (is_null($year))
+    @if ($anyo == 0)
         </br>
-    @elseif(is_null($week))
-        <h2>Año: {{ $year }}</h2>
+    @elseif($semana == 0)
+        <h2>Año: {{ $anyo }}</h2>
     @else
-        <h2>Semana: {{ $week }} - {{ $year }}</h2>
+        <h2>Semana: {{ $semana }} - {{ $anyo }}</h2>
     @endif
 </div>
 

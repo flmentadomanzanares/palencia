@@ -50,8 +50,8 @@ Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf',
 //Listados PDF
 
 Route::get('cursillosPaises', 'PdfController@getCursillos');
-Route::get('intendenciaClausura', 'PdfController@getComunidades');
-Route::get('getCursillos', array('as'=>'getCursillos','before'=>'csrf','uses'=>'PdfController@getCursillos'));
+//Route::get('intendenciaClausura', 'PdfController@getComunidades');
+//Route::get('getCursillos', array('as'=>'getCursillos','before'=>'csrf','uses'=>'PdfController@getCursillos'));
 Route::get('imprimirCursillos', array('as'=>'imprimirCursillos','before'=>'csrf','uses'=>'PdfController@imprimirCursillos'));
 Route::get('getComunidades', array('as'=>'getComunidades','before'=>'csrf','uses'=>'PdfController@getComunidades'));
 
