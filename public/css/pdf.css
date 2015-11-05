@@ -1,6 +1,5 @@
 @font-face {
     font-family: "Century Gothic regular";
-    /*src: url(../fonts/SourceSansPro-Regular.ttf);*/
     src: url(../fonts/centuryGothic/GOTHIC.TTF);
 }
 
@@ -46,6 +45,21 @@ header {
 
 .cabecera1 {
 
+    font-family: "Century Gothic bold";
+    font-size: 25px;
+    margin-bottom:20px;
+
+}
+
+.cabecera2 {
+
+    font-family: "Century Gothic bold";
+    font-size: 18px;
+    margin-bottom:20px;
+
+}
+.cabecera3 {
+
     background-color: #400090;
     color: #FFFFFF;
     font-family: "Century Gothic bold";
@@ -53,7 +67,8 @@ header {
 
 }
 
-.cabecera2 {
+
+.cabecera4 {
 
     background-color: #FF7A00;
     color: #FFFFFF;
@@ -62,7 +77,20 @@ header {
 
 }
 
-h1 {
+.cabecera5 {
+
+    background-color: #400090;
+    color: #FFFFFF;
+    font-family: "Century Gothic bold";
+    font-size: 20px;
+    padding-top:20px;
+    padding-bottom:16px;
+
+}
+
+
+
+/*h1 {
 
     font-family: "Century Gothic bold";
 
@@ -72,7 +100,7 @@ h2 {
 
     font-family: "Century Gothic bold";
 
-}
+}*/
 
 #logo {
     float: left;

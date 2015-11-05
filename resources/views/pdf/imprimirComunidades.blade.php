@@ -8,12 +8,18 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <div class="text-center">
-    <h1>{{ $titulo }}</h1><br/>
-    <h2>Cursillo: {!! $cursillo->cursillo !!}</h2>
-    <h2>Año: {{ $anyo }}</h2>
+    <div class="cabecera1 text-center">
+        {{ $titulo }}
+    </div>
+    <div class="cabecera2">
+        Cursillo: {!! $cursillo->cursillo !!}<br/>
+        Año: {{ $anyo }}
+    </div>
 </div>
 
-<h2>Fecha: {{ $date }} </h2><br/>
+<div class="cabecera2">
+    Fecha: {{ $date }}
+</div>
 
 @if(!$comunidades->isEmpty())
 
@@ -30,7 +36,7 @@
 
             @if($comunidad->pais != $pais)
                 <tr>
-                    <th class="cabecera1 text-center">
+                    <th class="cabecera3 text-center">
                         País: {!! $comunidad->pais !!}
 
                     </th>
@@ -50,7 +56,7 @@
 </table>
 @else
     <div>
-        <div class="cabecera2 text-center">
+        <div class="cabecera4 text-center">
             <p>¡Aviso! - No se ha encontrado ninguna comunidad que listar para el cursillo solicitado.</p>
         </div>
     </div>

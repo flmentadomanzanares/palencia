@@ -2,14 +2,10 @@
 
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\SolicitudesEnviadas;
-
-use Illuminate\Support\Facades\Session;
-
-
-use Illuminate\Http\Request;
+use Palencia\Entities\Comunidades;
+use Palencia\Entities\Paises;
 
 class PdfController extends Controller {
 
@@ -119,6 +115,68 @@ class PdfController extends Controller {
                 compact('comunidades',
                     'cursillo',
                     'anyo',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirCursillos');
+
+        }
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariadosPais()
+    {
+        $titulo = "Secretariados por Pais";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesList();
+
+
+        return view("pdf.listarSecretariadosPais", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariadosPais()
+    {
+
+        $titulo = "Secretariados de ";
+
+        $comunidades = new Comunidades();
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+        $date = date('d-m-Y');
+        $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
+
+        if ($idPais == 0) {
+
+            return redirect('secretariadosPais')->
+            with('mensaje', 'Debe seleccionar un país.');
+
+        } else {
+
+
+            $view = \View::make('pdf.imprimirSecretariadosPais',
+                compact('comunidades',
+                    'pais',
                     'date',
                     'titulo'))
                 ->render();

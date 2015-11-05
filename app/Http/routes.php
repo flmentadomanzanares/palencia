@@ -57,4 +57,10 @@ Route::post('imprimirCursillos', array('as'=>'imprimirCursillos','before'=>'csrf
 Route::get('intendenciaClausura', 'PdfController@getComunidades');
 Route::post('imprimirComunidades', array('as'=>'imprimirComunidades','before'=>'csrf','uses'=>'PdfController@imprimirComunidades'));
 
+// Listado Secretariado
+Route::get('secretariado', 'PdfController@getSecretariado');
+Route::post('imprimirSecretariado', array('as'=>'imprimirSecretariado','before'=>'csrf','uses'=>'PdfController@imprimirSecretariado'));
 
+// Listado Secretariados por Pais
+Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
+Route::post('imprimirSecretariadosPais', array('as'=>'imprimirSecretariadosPais','before'=>'csrf','uses'=>'PdfController@imprimirSecretariadosPais'));

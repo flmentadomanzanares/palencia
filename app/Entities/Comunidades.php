@@ -231,6 +231,18 @@ class Comunidades extends Model
         }
         return $query;
     }
+
+    static public function imprimirSecretariadosPais($pais=0)
+    {
+
+        return Comunidades::Select('comunidades.comunidad')
+            ->where('comunidades.pais_id', '=', $pais)
+            ->where('comunidades.esColaborador', true)
+            ->where('comunidades.activo', true)
+            ->orderBy('comunidades.comunidad')
+            ->get();
+
+    }
 }
 
 

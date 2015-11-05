@@ -55,10 +55,8 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
                                     <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
-                                    <li>{!!link_to('#', 'Secretariado')!!}</li>
-                                    <li>{!!link_to('#', 'Secretariados por pais')!!}</li>
-                                    <li>{!!link_to('#', 'Solicitudes enviadas')!!}</li>
-                                    <li>{!!link_to('#', 'Solicitudes recibidas')!!}</li>
+                                    <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
+                                    <li>{!!link_to('secretariadosPais', 'Secretariados por pais')!!}</li>
                                 </ul>
                             </li>
                         </ul>

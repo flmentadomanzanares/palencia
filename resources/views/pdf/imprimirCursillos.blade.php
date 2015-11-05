@@ -8,18 +8,24 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <div class="text-center">
-    <h1>{{ $titulo }}</h1><br/>
+    <div class="cabecera1">
+        {{ $titulo }}
+    </div>
 
+    <div class="cabecera2">
     @if ($anyo == 0)
         </br>
     @elseif($semana == 0)
-        <h2>Año: {{ $anyo }}</h2>
+        Año: {{ $anyo }}
     @else
-        <h2>Semana: {{ $semana }} - {{ $anyo }}</h2>
+        Semana: {{ $semana }} - {{ $anyo }}
     @endif
+    </div>
 </div>
 
-<h2>Fecha: {{ $date }} </h2><br/>
+<div class="cabecera2">
+    Fecha: {{ $date }}
+</div>
 
 @if(!$cursillos->isEmpty())
 
@@ -36,7 +42,7 @@
 
             @if($cursillo->pais != $pais)
                 <tr>
-                    <th class="cabecera1 text-center" colspan="2">
+                    <th class="cabecera3 text-center" colspan="2">
                         País: {!! $cursillo->pais !!}
 
                     </th>
@@ -47,7 +53,7 @@
 
             @if($cursillo->comunidad != $comunidad)
                 <tr>
-                    <th class="cabecera2 text-center" colspan="2">
+                    <th class="cabecera4 text-center" colspan="2">
                         Comunidad: {!! $cursillo->comunidad !!}
                     </th>
                 </tr>
