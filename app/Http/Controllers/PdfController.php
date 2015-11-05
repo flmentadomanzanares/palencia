@@ -121,7 +121,7 @@ class PdfController extends Controller {
 
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($view);
-            return $pdf->stream('imprimirCursillos');
+            return $pdf->stream('imprimirComunidades');
 
         }
 
@@ -129,7 +129,72 @@ class PdfController extends Controller {
 
     /*******************************************************************
      *
-     *  Listado "Intendencia para Clausura"
+     *  Listado "Secretariado"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariado()
+    {
+        $titulo = "Secretariado";
+        $comunidad = new Comunidades();
+        $comunidades = Comunidades::getComunidadesAll();
+
+
+        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariado"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariado()
+    {
+
+        $titulo = "Secretariado ";
+
+        $comunidad = new Comunidades();
+
+        $idComunidad = \Request::input('comunidad');
+
+        $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
+        $date = date('d-m-Y');
+        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
+        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
+
+
+        if ($idComunidad == 0) {
+
+            return redirect('secretariado')->
+            with('mensaje', 'Debe seleccionar un secretariado.');
+
+        } else {
+
+
+            $view = \View::make('pdf.imprimirSecretariado',
+                compact('secretariado',
+                    'solicitudesEnviadas',
+                    'solicitudesRecibidas',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirSecretariado');
+
+        }
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados por Paises"
      *
      *  Función para recabar la informacion necesaria para el listado
      *
@@ -147,7 +212,7 @@ class PdfController extends Controller {
 
     /*******************************************************************
      *
-     *  Listado "Intendencia para Clausura"
+     *  Listado "Secretariados por Paises"
      *
      *  Función para imprimir el listado con los parametros
      *  seleccionados
@@ -183,7 +248,7 @@ class PdfController extends Controller {
 
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($view);
-            return $pdf->stream('imprimirCursillos');
+            return $pdf->stream('imprimirSecretariadosPais');
 
         }
 

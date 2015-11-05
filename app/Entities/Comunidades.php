@@ -243,6 +243,24 @@ class Comunidades extends Model
             ->get();
 
     }
+
+    public static function getComunidadesAll()
+    {
+        return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')
+            ->where('activo', true)
+            ->orderBy('comunidad', 'ASC')
+            ->Lists('comunidad', 'id');
+    }
+
+    static public function getNombreComunidad($id = null)
+    {
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos la comunidad
+        return Comunidades::Select('comunidades.comunidad')
+            ->where('comunidades.id', $id)
+            ->first();
+    }
 }
 
 

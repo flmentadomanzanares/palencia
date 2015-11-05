@@ -92,4 +92,18 @@ class SolicitudesEnviadas extends Model {
 
     }
 
+    static public function getSolicitudesComunidad($comunidadId=0)
+    {
+
+        return SolicitudesEnviadas::Select('comunidades.comunidad', 'cursillos.cursillo')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->where('solicitudes_enviadas.activo', true)
+            ->where('comunidades.id', '=', $comunidadId)
+            ->orderBy('comunidades.comunidad')
+            ->orderBy('cursillos.cursillo')
+            ->get();
+
+    }
 }
