@@ -31,9 +31,10 @@ Route::resource('usuarios','UsersController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
+Route::resource('nuestrasSolicitudes','NuestrasSolicitudesController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
-
+Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
 
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));

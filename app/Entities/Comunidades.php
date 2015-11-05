@@ -91,7 +91,7 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
-    static public function getComunidadPDF($comunidad = 0)
+    static public function getComunidadPDF($comunidad = 0, $esPropia=false)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -109,6 +109,8 @@ class Comunidades extends Model
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
             ->Where('cursillosTotales', '>', 0)
             ->ComunidadesId($comunidad)
+            ->esPropia($esPropia)
+            ->orderBy("comunidades.comunidad")
             ->get();
     }
 
@@ -132,9 +134,10 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
+    public static function getComunidadesList($todas = true, $propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
         $placeHolder = ['0' => $placeHolder];
+        $propia = $todas ? $propia :null;
         if (!$excluirSinCursillos) {
             $sql = Comunidades::Select('id', 'comunidad')
                 ->where('activo', true)

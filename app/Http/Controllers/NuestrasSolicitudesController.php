@@ -6,7 +6,7 @@ use Palencia\Entities\Cursillos;
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 
-class NuestrasRespuestasController extends Controller
+class NuestrasSolicitudesController extends Controller
 {
 
     /**
@@ -16,13 +16,13 @@ class NuestrasRespuestasController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Nuestras Respuestas";
+        $titulo = "Nuestras Solicitudes";
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false);
         $restoComunidades = Comunidades::getComunidadesList(false, true, "Resto Comunidades.....", true);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
-        $cursillos = Array();
-        return view('nuestrasRespuestas.index',
+        $cursillos = array();
+        return view('nuestrasSolicitudes.index',
             compact(
                 'nuestrasComunidades',
                 'restoComunidades',
@@ -136,10 +136,6 @@ class NuestrasRespuestasController extends Controller
                     "Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_solicitud) > 0 ? $destinatario->email_solicitud : "(Sin determinar)");
             }
         }
-        $titulo="Operaciones Realizadas";
-        return view('nuestrasRespuestas.listadoLog',
-            compact('titulo','logEnvios'));
+        dd($logEnvios);
     }
-
-
 }
