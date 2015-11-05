@@ -86,7 +86,7 @@ class SolicitudesRecibidas extends Model {
                 ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
                 ->where('solicitudes_recibidas.aceptada', true)
                 ->where('cursillos.activo', true)
-                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('paises.pais', 'ASC')
                 ->orderBy('comunidades.comunidad')
                 ->orderBy('cursillos.fecha_inicio', 'ASC')
                 ->get();
@@ -99,7 +99,7 @@ class SolicitudesRecibidas extends Model {
                 ->where('solicitudes_recibidas.aceptada', true)
                 ->where('cursillos.activo', true)
                 ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
-                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('paises.pais', 'ASC')
                 ->orderBy('comunidades.comunidad')
                 ->orderBy('cursillos.fecha_inicio', 'ASC')
                 ->get();
@@ -112,7 +112,7 @@ class SolicitudesRecibidas extends Model {
                 ->where('cursillos.activo', true)
                 ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
                 ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $semana)
-                ->orderBy('comunidades.pais_id', 'ASC')
+                ->orderBy('paises.pais', 'ASC')
                 ->orderBy('comunidades.comunidad')
                 ->orderBy('cursillos.fecha_inicio', 'ASC')
                 ->get();

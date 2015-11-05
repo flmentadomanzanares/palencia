@@ -60,7 +60,7 @@ class SolicitudesRecibidasController extends Controller {
         //Asignamos valores traidos del formulario.
         $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
         $solicitudRecibida->cursillo_id = \Request::input('cursillo_id');
-
+        $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
 
         //Intercepción de errores
@@ -130,9 +130,10 @@ class SolicitudesRecibidasController extends Controller {
     public function update($id, ValidateRulesSolicitudesRecibidas $request)
     {
         //Creamos una nueva instancia al modelo.
-        $solicitudRecibida = SolicitudesEnviadas::find($id);
+        $solicitudRecibida = SolicitudesRecibidas::find($id);
         $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
         $solicitudRecibida->cursillo_id = \Request::input('cursillo_id');
+        $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
         //Intercepción de errores
         try {

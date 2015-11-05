@@ -4,6 +4,8 @@ use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
 use Palencia\Http\Controllers\Controller;
 use Palencia\Entities\Cursillos;
+use Palencia\Entities\SolicitudesEnviadas;
+
 use Illuminate\Support\Facades\Session;
 
 
@@ -40,13 +42,13 @@ class PdfController extends Controller {
      *  seleccionados
      *
      *******************************************************************/
-    public function imprimirCursillos(Request $request)
+    public function imprimirCursillos()
     {
 
         $titulo = "Cursillos en el Mundo";
 
-        $anyo = $request->get('anyo');
-        $semana = $request->get('semana');
+        $anyo = \Request::input('anyo');
+        $semana = \Request::input('semana');
         $date = date('d-m-Y');
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
@@ -65,18 +67,67 @@ class PdfController extends Controller {
 
     }
 
-
-    public function getComunidades(Request $request)
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getComunidades()
     {
         $titulo = "Intendencia para Clausura";
+        $solicitudEnviada = new SolicitudesEnviadas();
+        $anyos = Cursillos::getAnyoCursillosList();
+        $cursillos = Cursillos::getCursillosList();
 
-        $cursillos = Cursillos::getIntendenciaClausura($request);
-        //dd($cursillos);
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas =Array();
-
-        return view("pdf.listarComunidades", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));
 
     }
 
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirComunidades()
+    {
+
+        $titulo = "Intendencia para clausura";
+
+        $solicitudEnviada = new SolicitudesEnviadas();
+
+        $anyo = \Request::input('anyo');
+        $idCursillo = \Request::input('cursillo_id');
+
+        $cursillo = Cursillos::getNombreCursillo((int)$idCursillo);
+        $date = date('d-m-Y');
+        $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($anyo, $idCursillo);
+
+        if ($anyo == 0 || $idCursillo == 0) {
+
+            return redirect('intendenciaClausura')->
+            with('mensaje', 'Debe seleccionar un año y un cursillo.');
+
+        } else {
+
+
+            $view = \View::make('pdf.imprimirComunidades',
+                compact('comunidades',
+                    'cursillo',
+                    'anyo',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirCursillos');
+
+        }
+
+    }
 }

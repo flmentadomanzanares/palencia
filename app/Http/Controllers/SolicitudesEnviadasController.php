@@ -20,7 +20,6 @@ class SolicitudesEnviadasController extends Controller {
     {
         $titulo = "Listado de Solicitudes Enviadas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
-        //dd($solicitudesEnviadas);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas =Array();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'anyos', 'semanas'));
@@ -61,7 +60,7 @@ class SolicitudesEnviadasController extends Controller {
         //Asignamos valores traidos del formulario.
         $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
         $solicitudEnviada->cursillo_id = \Request::input('cursillo_id');
-
+        $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 
         //Intercepción de errores
@@ -134,6 +133,7 @@ class SolicitudesEnviadasController extends Controller {
         $solicitudEnviada = SolicitudesEnviadas::find($id);
         $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
         $solicitudEnviada->cursillo_id = \Request::input('cursillo_id');
+        $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
         //Intercepción de errores
         try {

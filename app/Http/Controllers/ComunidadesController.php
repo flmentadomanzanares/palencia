@@ -84,8 +84,8 @@ class ComunidadesController extends Controller
         $comunidad->pais_id = \Request::input('pais_id');
         $comunidad->provincia_id = \Request::input('provincia_id');
         $comunidad->localidad_id = \Request::input('localidad_id');
-        $comunidad->email1 = \Request::input('email1');
-        $comunidad->email2 = \Request::input('email2');
+        $comunidad->email_solicitud = \Request::input('email1');
+        $comunidad->email_envio = \Request::input('email2');
         $comunidad->web = \Request::input('web');
         $comunidad->facebook = \Request::input('facebook');
         $comunidad->telefono1 = \Request::input('telefono1');
@@ -186,8 +186,8 @@ class ComunidadesController extends Controller
         $comunidad->pais_id = \Request::input('pais_id');
         $comunidad->provincia_id = \Request::input('provincia_id');
         $comunidad->localidad_id = \Request::input('localidad_id');
-        $comunidad->email1 = \Request::input('email1');
-        $comunidad->email2 = \Request::input('email2');
+        $comunidad->email_solicitud = \Request::input('email1');
+        $comunidad->email_envio = \Request::input('email2');
         $comunidad->web = \Request::input('web');
         $comunidad->facebook = \Request::input('facebook');
         $comunidad->telefono1 = \Request::input('telefono1');

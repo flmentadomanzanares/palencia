@@ -4,60 +4,32 @@
 @endsection
 @section('contenido')
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('pdf.parciales.buscarComunidades')
-            </div>
-            @if(!$cursillos->isEmpty())
-
-                <?php $pais = null; ?>
-
-                <div>
-                    <table class="table-viaoptima">
-                        <thead>
-
-                        </thead>
-                        <tbody>
-
-                        @foreach ($cursillos as $cursillo)
-
-                            @if($cursillo->pais != $pais)
-                                <tr>
-                                    <th  class="bg-primary text-center">
-                                        País: {!! $cursillo->pais !!}
-
-                                    </th>
-                                    <th><hr></th>
-                                </tr>
-
-                                <?php $pais = $cursillo->pais; ?>
-                            @endif
-
-
-                                <tr>
-                                    <th class="text-center">
-                                        Comunidad: {!! $cursillo->comunidad !!}
-                                    </th>
-                                </tr>
-
-                        @endforeach
-
-                        </tbody>
-                    </table>
+                {!! FORM::open(['route'=>'imprimirComunidades','method'=>'POST']) !!}
+                <div class="heading-caption">Seleccione año y cursillo de las comunidades a imprimir ...</div>
+                {!! FORM::label('anyo', 'Año') !!} <br/>
+                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
+                <br/>
+                {!! FORM::label ('cursillo', 'Cursillo') !!}
+                {!! FORM::select('cursillo_id', $cursillos, $solicitudEnviada->cursillo_id, array('class'=>'form-control')) !!}
+                <br/>
+                <br/>
+                <div class="btn-action margin-bottom">
+                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
+                        <i class="glyphicon glyphicon-home">
+                            <div>Inicio</div>
+                        </i>
+                    </a>
+                    <button type="submit" title="Enviar" class="pull-right">
+                        <i class='glyphicon glyphicon-print full-Width'>
+                            <div>Imprimir</div>
+                        </i>
+                    </button>
                 </div>
-            @else
-                <div class="clearfix">
-                    <div class="alert alert-info" role="alert">
-                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun cursillo que listar.</p>
-                    </div>
-                </div>
-            @endif
-            <div class="row text-center">
-                {!! $cursillos->appends(Request::only(['cursillosPaises','semanas','anyos']))->render()
-                !!}{{-- Poner el paginador --}}
+                {!! FORM::close() !!}
             </div>
         @else
             @include('comun.guestGoHome')
@@ -67,3 +39,4 @@
 @section('js')
     {!! HTML::script('js/comun/semanas.js') !!}
 @endsection
+

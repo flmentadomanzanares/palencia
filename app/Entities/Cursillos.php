@@ -171,22 +171,13 @@ class Cursillos extends Model
             ->get();
     }
 
-    // Listado intendencia para clausura
-    static public function getIntendenciaClausura(Request $request)
+    static public function getNombreCursillo($id = null)
     {
-        return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-            ->where('cursillos.activo', true)
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
-            ->orderBy('comunidades.pais_id', 'ASC')
-            ->orderBy('comunidades.comunidad')
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
-            ->paginate(5)
-            ->setPath('intendenciaClausura');
-
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos el cursillo
+        return Cursillos::Select('cursillos.cursillo')
+            ->where('cursillos.id', $id)
+            ->first();
     }
-
 }
