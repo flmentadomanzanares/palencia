@@ -134,10 +134,10 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList($todas = true, $propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
+    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
         $placeHolder = ['0' => $placeHolder];
-        $propia = $todas ? $propia :null;
+
         if (!$excluirSinCursillos) {
             $sql = Comunidades::Select('id', 'comunidad')
                 ->where('activo', true)
