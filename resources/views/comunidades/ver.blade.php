@@ -43,16 +43,20 @@
                 <td>{{ $comunidad->cp }}</td>
             </tr>
             <tr>
+                <td>Dirección Postal</td>
+                <td>{{ $comunidad->direccion_postal }}</td>
+            </tr>
+            <tr>
                 <td>Dirección</td>
                 <td>{{ $comunidad->direccion }}</td>
             </tr>
             <tr>
-                <td>Email 1</td>
-                <td>{{ $comunidad->email1 }}</td>
+                <td>Email Solicitud</td>
+                <td>{{ $comunidad->email_solicitud }}</td>
             </tr>
             <tr>
-                <td>Email 2</td>
-                <td>{{ $comunidad->email2 }}</td>
+                <td>Email Envío</td>
+                <td>{{ $comunidad->email_envio }}</td>
             </tr>
             <tr>
                 <td>WEB</td>

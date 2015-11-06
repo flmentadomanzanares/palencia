@@ -86,6 +86,10 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Comunicación preferida:</td>
+                                <td>{{$comunidad->comunicacion_preferida}}</td>
+                            </tr>
+                            <tr>
                                 <td>Colabora:</td>
                                 <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
                             </tr>

@@ -31,16 +31,19 @@
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"5"]) !!}
     <br/>
+    {!! FORM::label('direccion_postal', 'Dirección Postal:') !!} <br/>
+    {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    <br/>
     {!! FORM::label('direccion', 'Dirección:') !!} <br/>
     {!! FORM::textarea ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
     "maxlength"=>"100") )!!}
     <br/>
     <div class="heading-caption">Comunicación</div>
-    {!! FORM::label('email1', 'Email 1:') !!} <br/>
-    {!! FORM::text('email1',$comunidad->email1, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::label('email_solicitud', 'Email Solicitud:') !!} <br/>
+    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('email2', 'Email 2:') !!} <br/>
-    {!! FORM::text('email2',$comunidad->email2, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::label('email_envio', 'Email Envío:') !!} <br/>
+    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
     {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Dirección WEB", "maxlength"=>"50"]) !!}

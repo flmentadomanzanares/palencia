@@ -132,7 +132,7 @@
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
-    <span class="tab">Recibimos vuestra petición de apoyo espiritual para @if(count($cursos)>1)vuestros Cursillos @else
+    <span class="tab">Solicitamos vuestra petición de apoyo espiritual para @if(count($cursos)>1)vuestros Cursillos @else
             vuestro Cursillo @endif de Cristiandad</span>
     <br/>
     <ul>

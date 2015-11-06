@@ -150,7 +150,7 @@ class Cursillos extends Model
             ->first();
     }
 
-    static public function getAnyoCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
+    static public function getAnyoCursillosList($comunidad=0,$conPlaceHolder = true, $placeHolder = "Año...")
     {
         $placeHolder = ['0' => $placeHolder];
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
