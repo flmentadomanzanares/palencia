@@ -80,4 +80,3 @@ class CreateComunidadesTable extends Migration {
     }
 
 }
-

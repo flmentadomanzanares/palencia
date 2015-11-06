@@ -1,69 +1,256 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
 use Palencia\Entities\Cursillos;
-use Illuminate\Support\Facades\Session;
-
-
-use Illuminate\Http\Request;
+use Palencia\Entities\SolicitudesEnviadas;
+use Palencia\Entities\Comunidades;
+use Palencia\Entities\Paises;
 
 class PdfController extends Controller {
 
-    public function getCursillos(Request $request)
+    /*******************************************************************
+     *
+     *  Listado "Cursillos en el Mundo"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getCursillos()
     {
         $titulo = "Cursillos en el Mundo";
 
-        $cursillos = Cursillos::getCursillosPorPaises($request);
-        //dd($cursillos);
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas =Array();
+        $anyos = Cursillos::getAnyoCursillosList();
+        $semanas = Array();
 
-        return view("pdf.listarCursillos", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("pdf.listarCursillos",
+            compact('titulo',
+                'anyos',
+                'semanas'));
 
     }
 
-    // Listado 'Cursillos en el Mundo'
+    /*******************************************************************
+     *
+     *  Listado "Cursillos en el Mundo"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
     public function imprimirCursillos()
     {
 
-        $year = null;
-        $week = null;
+        $titulo = "Cursillos en el Mundo";
 
-        //Sesion para llevar los parámetros de year y week
-        if (Session::has('imprimirCursillos')) {
+        $anyo = \Request::input('anyo');
+        $semana = \Request::input('semana');
+        $date = date('d-m-Y');
+        $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
-            $year = Session::get('imprimirCursillos.year');
-            $week = Session::get('imprimirCursillos.week');
+        $view =  \View::make('pdf.imprimirCursillos',
+            compact('cursillos',
+                    'anyo',
+                    'semana',
+                    'date',
+                    'titulo'))
+            ->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('imprimirCursillos');
+
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getComunidades()
+    {
+        $titulo = "Intendencia para Clausura";
+        $solicitudEnviada = new SolicitudesEnviadas();
+        $anyos = Cursillos::getAnyoCursillosList();
+        $cursillos = Cursillos::getCursillosList();
+
+        return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Intendencia para Clausura"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirComunidades()
+    {
+
+        $titulo = "Intendencia para clausura";
+
+        $solicitudEnviada = new SolicitudesEnviadas();
+
+        $anyo = \Request::input('anyo');
+        $idCursillo = \Request::input('cursillo_id');
+
+        $cursillo = Cursillos::getNombreCursillo((int)$idCursillo);
+        $date = date('d-m-Y');
+        $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($anyo, $idCursillo);
+
+        if ($anyo == 0 || $idCursillo == 0) {
+
+            return redirect('intendenciaClausura')->
+            with('mensaje', 'Debe seleccionar un año y un cursillo.');
 
         } else {
 
+
+            $view = \View::make('pdf.imprimirComunidades',
+                compact('comunidades',
+                    'cursillo',
+                    'anyo',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirComunidades');
+
         }
 
-        $titulo = "Cursillos en el Mundo";
-        //$year ='2015';
-        //$week ='34';
-        $date = date('d-m-Y');
-        $cursillos = Cursillos::listarCursillosPorPaises($year, $week);
-
-       $view =  \View::make('pdf.imprimirCursillos', compact('cursillos', 'week', 'year','date', 'titulo'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('imprimirCursillos'); /* muestra en pantalla*/
-        //return $pdf->download('invoice'); /* crea pdf en directorio descargas */
     }
 
-    public function getComunidades(Request $request)
+    /*******************************************************************
+     *
+     *  Listado "Secretariado"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariado()
     {
-        $titulo = "Intendencia para Clausura";
+        $titulo = "Secretariado";
+        $comunidad = new Comunidades();
+        $comunidades = Comunidades::getComunidadesAll();
 
-        $cursillos = Cursillos::getIntendenciaClausura($request);
-        //dd($cursillos);
-        $anyos = Cursillos::getAnyoCursillos();
-        $semanas =Array();
 
-        return view("pdf.listarComunidades", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo'));
 
     }
 
+    /*******************************************************************
+     *
+     *  Listado "Secretariado"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariado()
+    {
+
+        $titulo = "Secretariado ";
+
+        $comunidad = new Comunidades();
+
+        $idComunidad = \Request::input('comunidad');
+
+        $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
+        $date = date('d-m-Y');
+        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
+        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
+
+
+        if ($idComunidad == 0) {
+
+            return redirect('secretariado')->
+            with('mensaje', 'Debe seleccionar un secretariado.');
+
+        } else {
+
+
+            $view = \View::make('pdf.imprimirSecretariado',
+                compact('secretariado',
+                    'solicitudesEnviadas',
+                    'solicitudesRecibidas',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirSecretariado');
+
+        }
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados por Paises"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariadosPais()
+    {
+        $titulo = "Secretariados por Pais";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesList();
+
+
+        return view("pdf.listarSecretariadosPais", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados por Paises"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariadosPais()
+    {
+
+        $titulo = "Secretariados de ";
+
+        $comunidades = new Comunidades();
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+        $date = date('d-m-Y');
+        $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
+
+        if ($idPais == 0) {
+
+            return redirect('secretariadosPais')->
+            with('mensaje', 'Debe seleccionar un país.');
+
+        } else {
+
+
+            $view = \View::make('pdf.imprimirSecretariadosPais',
+                compact('comunidades',
+                    'pais',
+                    'date',
+                    'titulo'))
+                ->render();
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirSecretariadosPais');
+
+        }
+
+    }
 }

@@ -8,13 +8,10 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione año y semana de los cursillos a imprimir ...</div>
-                {!! FORM::label('anyo', 'Año') !!} <br/>
-                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
-                <br/>
-                {!! FORM::label('semana', 'Semana') !!} <br/>
-                {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
+                {!! FORM::open(['route'=>'imprimirSecretariadosPais','method'=>'POST']) !!}
+                <div class="heading-caption">Seleccione el país de los secretariados a imprimir ...</div>
+                {!! FORM::label('pais', 'País') !!} <br/>
+                {!! FORM::select('pais', $paises, null,array("class"=>"form-control",'id'=>'select_paises'))!!}
                 <br/>
 
                 <div class="btn-action margin-bottom">

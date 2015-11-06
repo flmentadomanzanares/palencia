@@ -114,6 +114,6 @@
   ),
   'century gothic bold' => 
   array (
-    'normal' => 'D:\\xampp\\htdocs\\palencia\\storage/fonts/65846694cca1ee4ede7798249674614e',
+    'normal' => 'D:\\xampp\\htdocs\\palencia\\storage/fonts/7d8d27b6114c8b17fbe6b2584a891127',
   ),
 ) ?>

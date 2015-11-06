@@ -54,4 +54,14 @@ class Paises extends Model {
             ->paginate(4)
             ->setPath('paises');
     }
+
+    static public function getNombrePais($id = null)
+    {
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos el pais
+        return Paises::Select('paises.pais')
+            ->where('paises.id', $id)
+            ->first();
+    }
 }

@@ -32,7 +32,7 @@ class ComunidadesTableSeeder extends BaseSeeder {
             'telefono2' => $faker->randomElement(['', '', '928278956', '928564285']),
             'tipo_comunicacion_preferida_id' =>rand(1,2),
             'observaciones'  => $faker->text($maxNbChars = 200)
-            ];
+        ];
     }
 
 }

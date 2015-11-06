@@ -21,6 +21,20 @@ class Cursillos extends Model
         return $this->belongsTo('Palencia\Entities\TiposParticipante', 'tipo_participante_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_enviadas(){
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_recibidas(){
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+    }
+
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {
@@ -70,6 +84,14 @@ class Cursillos extends Model
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
+    }
+
+    public static function getCursillosList()
+    {
+        return ['0' => 'Cursillo...'] + Cursillos::Select('id', 'cursillo')
+            ->where('activo', true)
+            ->orderBy('cursillo', 'ASC')
+            ->Lists('cursillo', 'id');
     }
 
     static public function getCursillos(Request $request)
@@ -149,89 +171,13 @@ class Cursillos extends Model
             ->get();
     }
 
-    // Listado cursillos en el mundo
-    static public function getCursillosPorPaises(Request $request)
+    static public function getNombreCursillo($id = null)
     {
-        return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-            ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
-            ->where('cursillos.activo', true)
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
-            ->orderBy('comunidades.pais_id', 'ASC')
-            ->orderBy('comunidades.comunidad')
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
-            ->paginate(5)
-            ->setPath('cursillosPaises');
-
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos el cursillo
+        return Cursillos::Select('cursillos.cursillo')
+            ->where('cursillos.id', $id)
+            ->first();
     }
-
-    // Listado cursillos en el mundo
-    static public function listarCursillosPorPaises($anyo,  $week)
-    {
-        if (is_null($anyo)) {
-
-            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
-                ->where('cursillos.activo', true)
-                ->orderBy('comunidades.pais_id', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
-
-        } elseif (is_null($week)) {
-
-            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
-                ->where('cursillos.activo', true)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
-                ->orderBy('comunidades.pais_id', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
-
-        } else {
-            return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-                ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('tipos_cursillos.tipo_cursillo', '!=', 'Interno')
-                ->where('cursillos.activo', true)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $week)
-                ->orderBy('comunidades.pais_id', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
-        }
-
-    }
-
-    // Listado intendencia para clausura
-    static public function getIntendenciaClausura(Request $request)
-    {
-        return Cursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-            ->leftJoin('tipos_cursillos', 'tipos_cursillos.id', '=', 'cursillos.tipo_cursillo_id')
-            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-            ->where('tipos_cursillos.tipo_cursillo', '=', 'Interno')
-            ->where('cursillos.activo', true)
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
-            ->orderBy('comunidades.pais_id', 'ASC')
-            ->orderBy('comunidades.comunidad')
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
-            ->paginate(5)
-            ->setPath('intendenciaClausura');
-
-    }
-
 }
