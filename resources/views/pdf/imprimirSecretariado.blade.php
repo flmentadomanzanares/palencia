@@ -19,47 +19,55 @@
 
     <div class="cabecera5 text-center">Solicitudes Enviadas</div><br/>
 
-<table border="0" cellspacing="0" cellpadding="0">
+    <table border="0" cellspacing="0" cellpadding="0">
 
         <thead>
+            <tr>
+                <th>Comunidad</th>
+                <th>Cursillo</th>
 
+            </tr>
         </thead>
         <tbody>
-        <br />
 
         @foreach ($solicitudesEnviadas as $solicitudEnviada)
 
             <tr>
-                <th >
+                <td>
                     {!! $solicitudEnviada->comunidad !!}
-                </th>
-                <th >
+                </td>
+                <td>
                     {!! $solicitudEnviada->cursillo !!}
-                </th>
+                </td>
             </tr>
         @endforeach
 
         </tbody>
-</table>
+        <br/>
+    </table>
 
     <div class="cabecera5 text-center">Solicitudes Recibidas</div><br/>
 
     <table border="0" cellspacing="0" cellpadding="0">
 
         <thead>
+        <tr>
+            <th>Comunidad</th>
+            <th>Cursillo</th>
 
+        </tr>
         </thead>
         <tbody>
 
         @foreach ($solicitudesRecibidas as $solicitudRecibida)
 
             <tr>
-                <th >
+                <td>
                     {!! $solicitudRecibida->comunidad !!}
-                </th>
-                <th >
+                </td>
+                <td>
                     {!! $solicitudRecibida->cursillo !!}
-                </th>
+                </td>
             </tr>
         @endforeach
 

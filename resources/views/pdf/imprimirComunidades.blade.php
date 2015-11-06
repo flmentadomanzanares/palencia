@@ -36,19 +36,19 @@
 
             @if($comunidad->pais != $pais)
                 <tr>
-                    <th class="cabecera3 text-center">
+                    <td class="cabecera3 text-center">
                         País: {!! $comunidad->pais !!}
 
-                    </th>
+                    </td>
                 </tr>
 
                 <?php $pais = $comunidad->pais; ?>
             @endif
 
                 <tr>
-                    <th >
+                    <td class="text-center">
                         {!! $comunidad->comunidad !!}
-                    </th>
+                    </td>
                 </tr>
         @endforeach
 

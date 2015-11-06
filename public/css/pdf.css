@@ -84,11 +84,18 @@ header {
     font-family: "Century Gothic bold";
     font-size: 20px;
     padding-top:20px;
-    padding-bottom:16px;
+    padding-bottom:20px;
 
 }
 
-
+table thead, table th {
+    background-color: #9d9d9d;
+    color:#000000;
+    font-family: "Century Gothic bold";
+    text-align: center;
+    padding-top:20px;
+    padding-bottom:20px;
+}
 
 /*h1 {
 
@@ -114,7 +121,7 @@ table {
     margin-left:3px;
 }
 
-table th,
+
 table td {
     padding: 20px;
     background: #FFFFFF;
