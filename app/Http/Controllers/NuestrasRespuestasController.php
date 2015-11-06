@@ -119,9 +119,13 @@ class NuestrasRespuestasController extends Controller
                 }
             }
             $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save('respuestasCursillos\\' . $nombreArchivo);
-            $logEnvios[] = "Creada carta de respuesta para " . $destinatario->comunidad;
-            if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
+            try {
+                $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save('respuestasCursillos\\' . $nombreArchivo);
+                $logEnvios[] = "Creada carta de respuesta para " . $destinatario->comunidad;
+            }catch (\Exception $e) {
+                $logEnvios[] = "Error al crear la carta de respuesta para " . $destinatario->comunidad;
+            }
+                if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 $esCarta = false;
                 try {
                     $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($nombreArchivo, $destinatario) {
