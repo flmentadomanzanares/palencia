@@ -9,7 +9,7 @@
         @if (Auth::check())
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione año y semana de los cursillos a imprimir ...</div>
+                <div class="heading-caption">Seleccione año y semana para imprimir los cursillos ...</div>
                 {!! FORM::label('anyo', 'Año') !!} <br/>
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>

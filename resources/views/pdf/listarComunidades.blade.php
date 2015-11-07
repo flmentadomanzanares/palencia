@@ -9,7 +9,7 @@
         @if (Auth::check())
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirComunidades','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione año y cursillo de las comunidades a imprimir ...</div>
+                <div class="heading-caption">Seleccione año y cursillo para imprimir las comunidades ...</div>
                 {!! FORM::label('anyo', 'Año') !!} <br/>
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
