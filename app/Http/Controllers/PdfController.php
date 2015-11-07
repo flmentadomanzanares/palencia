@@ -48,17 +48,24 @@ class PdfController extends Controller {
         $date = date('d-m-Y');
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
-        $view =  \View::make('pdf.imprimirCursillos',
-            compact('cursillos',
+        if ($anyo == 0 || $semana == 0) {
+
+            return redirect('intendenciaClausura')->
+            with('mensaje', 'Debe seleccionar un año y una semana.');
+
+        } else {
+            $view = \View::make('pdf.imprimirCursillos',
+                compact('cursillos',
                     'anyo',
                     'semana',
                     'date',
                     'titulo'))
-            ->render();
+                ->render();
 
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('imprimirCursillos');
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('imprimirCursillos');
+        }
 
 
     }

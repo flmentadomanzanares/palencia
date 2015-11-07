@@ -4,7 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SolicitudesRecibidas extends Model {
+class SolicitudesRecibidas extends Model
+{
 
     protected $tabla = "solicitudes_recibidas";
     protected $fillable = []; //Campos a usar
@@ -34,7 +35,7 @@ class SolicitudesRecibidas extends Model {
         return $this->belongsTo('Palencia\Entities\Comunidades', 'cursillo_id');
     }
 
-   public function scopeAnyosCursillos($query, $anyo = 0)
+    public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {
             $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
@@ -42,7 +43,7 @@ class SolicitudesRecibidas extends Model {
         return $query;
     }
 
-   public function scopeSemanasCursillos($query, $semana = 0)
+    public function scopeSemanasCursillos($query, $semana = 0)
     {
         if (is_numeric($semana) && $semana > 0) {
             $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
@@ -62,7 +63,7 @@ class SolicitudesRecibidas extends Model {
 
     static public function getSolicitudesRecibidas(Request $request)
     {
-        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad','cursillos.cursillo',
+        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'cursillos.cursillo',
             'cursillos.fecha_inicio', 'solicitudes_recibidas.activo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
@@ -76,50 +77,24 @@ class SolicitudesRecibidas extends Model {
 
     }
 
-    static public function imprimirCursillosPorPaises($anyo=0,$semana=0)
+    static public function imprimirCursillosPorPaises($anyo = 0, $semana = 0)
     {
-        if ($anyo == 0) {
 
-            return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-                ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
-                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('solicitudes_recibidas.aceptada', true)
-                ->where('cursillos.activo', true)
-                ->orderBy('paises.pais', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
+        return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->where('solicitudes_recibidas.aceptada', true)
+            ->where('cursillos.activo', true)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $semana)
+            ->orderBy('paises.pais', 'ASC')
+            ->orderBy('comunidades.comunidad')
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->get();
 
-        } elseif ($semana == 0) {
-
-            return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-                ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('solicitudes_recibidas.aceptada', true)
-                ->where('cursillos.activo', true)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
-                ->orderBy('paises.pais', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
-
-        } else {
-            return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-                ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->where('solicitudes_recibidas.aceptada', true)
-                ->where('cursillos.activo', true)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
-                ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $semana)
-                ->orderBy('paises.pais', 'ASC')
-                ->orderBy('comunidades.comunidad')
-                ->orderBy('cursillos.fecha_inicio', 'ASC')
-                ->get();
-        }
     }
 
-    static public function getSolicitudesComunidad($comunidadId=0)
+    static public function getSolicitudesComunidad($comunidadId = 0)
     {
 
         return SolicitudesRecibidas::Select('comunidades.comunidad', 'cursillos.cursillo')
