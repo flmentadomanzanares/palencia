@@ -31,7 +31,7 @@
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"5"]) !!}
     <br/>
-    {!! FORM::label('direccion_postal', 'Dirección Postal:') !!} <br/>
+    {!! FORM::label('direccion_postal', 'Apartado de Correos:') !!} <br/>
     {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('direccion', 'Dirección:') !!} <br/>
@@ -39,10 +39,10 @@
     "maxlength"=>"100") )!!}
     <br/>
     <div class="heading-caption">Comunicación</div>
-    {!! FORM::label('email_solicitud', 'Email Solicitud:') !!} <br/>
+    {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
     {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('email_envio', 'Email Envío:') !!} <br/>
+    {!! FORM::label('email_envio', 'Email para enviar nuestras respuestas:') !!} <br/>
     {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
