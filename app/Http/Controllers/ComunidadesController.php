@@ -13,8 +13,6 @@ use Palencia\Http\Requests\ValidateRulesComunidades;
 
 class ComunidadesController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *

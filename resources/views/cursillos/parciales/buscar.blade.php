@@ -17,8 +17,9 @@
     </a>
 </div>
 <div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['cursillo','semanas','anyos']),['route'=>'cursillos.index','method'=>'GET','class'=>'navbar-form
+    {!!FORM::model(Request::only(['cursillo','semanas','anyos','comunidad']),['route'=>'cursillos.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
+    {!! FORM::select('comunidad', $comunidades, null,array("class"=>"select-control pull-left"))!!}
     {!! FORM::select('anyos', $anyos, null,array("class"=>"select-control pull-left",'id'=>'select_anyos'))!!}
     {!! FORM::select('semanas', $semanas, null,array("class"=>"select-control pull-left",'id'=>'select_semanas'))!!}
     {!! FORM::text('cursillo',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}

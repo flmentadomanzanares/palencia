@@ -31,11 +31,11 @@
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"5"]) !!}
     <br/>
-    {!! FORM::label('direccion_postal', 'Dirección Postal:') !!} <br/>
+    {!! FORM::label('apartadoCorreos', 'Apartado de Correos:') !!} <br/>
     {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('direccion', 'Dirección:') !!} <br/>
-    {!! FORM::textarea ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
+    {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
     "maxlength"=>"100") )!!}
     <br/>
     <div class="heading-caption">Comunicación</div>

@@ -113,7 +113,7 @@
                 </div>
             @endif
             <div class="row text-center">
-                {!! $comunidades->appends(Request::only(['comunidad','secretariado','pais']))->render()
+                {!! $comunidades->appends(Request::only(['comunidad','esPropia','secretariado','pais']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

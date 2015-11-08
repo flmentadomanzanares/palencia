@@ -17,8 +17,8 @@ class NuestrasRespuestasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Nuestras Respuestas";
-        $nuestrasComunidades = Comunidades::getComunidadesList(true, false);
-        $restoComunidades = Comunidades::getComunidadesList(false, true, "Resto Comunidades.....", true);
+        $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
+        $restoComunidades = Comunidades::getComunidadesList(0, false, '', true);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
         $cursillos = Array();
@@ -122,10 +122,10 @@ class NuestrasRespuestasController extends Controller
             try {
                 $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save('respuestasCursillos\\' . $nombreArchivo);
                 $logEnvios[] = "Creada carta de respuesta para " . $destinatario->comunidad;
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $logEnvios[] = "Error al crear la carta de respuesta para " . $destinatario->comunidad;
             }
-                if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
+            if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 $esCarta = false;
                 try {
                     $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuesta', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($nombreArchivo, $destinatario) {
@@ -140,9 +140,9 @@ class NuestrasRespuestasController extends Controller
                     "Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_solicitud) > 0 ? $destinatario->email_solicitud : "(Sin determinar)");
             }
         }
-        $titulo="Operaciones Realizadas";
+        $titulo = "Operaciones Realizadas";
         return view('nuestrasRespuestas.listadoLog',
-            compact('titulo','logEnvios'));
+            compact('titulo', 'logEnvios'));
     }
 
 

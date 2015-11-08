@@ -100,6 +100,7 @@ class Cursillos extends Model
             'cursillos.activo', 'comunidades.comunidad', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->ComunidadCursillos($request->get('comunidad'))
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->Cursillo($request->get('cursillo'))

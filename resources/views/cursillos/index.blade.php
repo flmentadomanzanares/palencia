@@ -84,7 +84,7 @@
                 </div>
             @endif
             <div class="row text-center">
-                {!! $cursillos->appends(Request::only(['cursillo','semanas','anyos']))->render()
+                {!! $cursillos->appends(Request::only(['comunidad','cursillo','semanas','anyos']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

@@ -149,7 +149,7 @@ class Comunidades extends Model
             ->first();
     }
 
-    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
+    public static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
         $placeHolder = ['0' => $placeHolder];
 
@@ -201,8 +201,8 @@ class Comunidades extends Model
 
     public function scopeEsPropia($query, $esPropia = null)
     {
-        if (is_bool($esPropia)) {
-            $query->where('comunidades.esPropia', $esPropia);
+        if (is_numeric($esPropia)) {
+            $query->where('comunidades.esPropia', $esPropia==1?true:false);
         }
         return $query;
     }

@@ -20,10 +20,11 @@ class CursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de cursillos";
+        $comunidades =Comunidades::getComunidadesList(null,true,"Comunidad...",true);
         $cursillos = Cursillos::getCursillos($request);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas =Array();
-        return view("cursillos.index", compact('cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("cursillos.index", compact('comunidades','cursillos', 'titulo', 'anyos', 'semanas'));
     }
 
     /**
@@ -201,7 +202,7 @@ class CursillosController extends Controller
     private function ponerFecha($date)
     {
         $partesFecha = date_parse_from_format('d/m/Y', $date);
-        $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
+        $fecha = mktime(12, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
         return date('Y-m-d H:i:s', $fecha);
     }
 

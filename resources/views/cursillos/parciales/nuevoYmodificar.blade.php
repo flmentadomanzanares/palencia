@@ -20,7 +20,7 @@
     {!! FORM::textarea('descripcion',$cursillo->descripcion,array('class'=>'form-control', 'title'=> 'Descripción')) !!}
     <br/>
     <div class="heading-caption">Asistentes</div>
-    {!! FORM::label ('tipoAlumnos', 'Tipo de Alumnos') !!}
+    {!! FORM::label ('tipoAlumnos', 'Asistentes al Curso') !!}
     {!! FORM::select('tipo_participante_id', $tipos_participantes,
     $cursillo->tipo_participante,array('class'=>'form-control')) !!}
     <br/>
