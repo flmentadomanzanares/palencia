@@ -184,11 +184,11 @@ class ProvinciasController extends Controller {
     {
         if (\Request::ajax()) {
             $pais_id = (int)\Request::input('pais_id');
-            $provincias = Provincias::where('pais_id', $pais_id)
+            return Provincias::where('pais_id', $pais_id)
+                ->where('activo', true)
                 ->orderBy('provincia','ASC')
                 ->select('provincia', 'id')
                 ->get();
-            return $provincias;
         }
     }
 }

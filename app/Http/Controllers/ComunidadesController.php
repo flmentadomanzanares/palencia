@@ -148,8 +148,8 @@ class ComunidadesController extends Controller
         $titulo = "Modificar Comunidad";
         $comunidad = Comunidades::find($id);
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
-        $paises = Paises::getPaisesList();
-        $provincias = Provincias::getProvinciasList();
+        $paises = Paises::getPaisToList($comunidad->provincia_id);
+        $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         $colors = Colores::getColores();

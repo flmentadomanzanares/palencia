@@ -99,8 +99,8 @@ class LocalidadesController extends Controller
         //Título Vista
         $titulo = "Modificar Localidad";
         $localidades = Localidades::find($id);
-        $provincias = Provincias::getProvinciasAll($localidades->provincia_id);
-        $paises = Paises::getPaisesAll($localidades->provincia_id);
+        $provincias = Provincias::getProvinciaToList($localidades->provincia_id);
+        $paises = Paises::getPaisToList($localidades->provincia_id);
         return view('localidades.modificar',
             compact(
                 'localidades',
@@ -178,6 +178,7 @@ class LocalidadesController extends Controller
         if (\Request::ajax()) {
             $provincia_id = \Request::input('provincia_id');
             $localidades = Localidades::where('provincia_id', $provincia_id)
+                ->where('activo', true)
                 ->orderBy('localidad', 'ASC')
                 ->select('localidad', 'id')
                 ->get();

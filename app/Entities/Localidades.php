@@ -16,6 +16,11 @@ class Localidades extends Model
             ->orderBy('localidad', 'ASC')
             ->Lists('localidad', 'id');
     }
+    public static function getLocalidadToList($id)
+    {
+        return Localidades::where('id',$id)->
+        lists('localidad','id');
+    }
 
     public static function getLocalidades(Request $request)
     {

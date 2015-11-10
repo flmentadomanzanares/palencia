@@ -30,7 +30,7 @@ class Paises extends Model {
             ->Lists('pais', 'id');
     }
 
-    public static function getPaisesAll($id)
+    public static function getPaisToList($id)
     {
         return Paises::with('provincias')->
         join('provincias','pais_id','=','paises.id')->
