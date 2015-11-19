@@ -42,6 +42,8 @@
                                     <li>{!!link_to('paises', 'Paises')!!}</li>
                                     <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                     <li>{!!link_to('roles','Roles')!!}</li>
+                                    {{--<li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
+                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>--}}
                                     <li>{!!link_to('nuestrasRespuestas', 'Nuestras Respuestas')!!}</li>
                                     <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
                                     <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>

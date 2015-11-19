@@ -30,6 +30,8 @@ Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('usuarios','UsersController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 Route::resource('tiposSecretariados','TiposSecretariadosController');
+/*Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
+Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');*/
 Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
 Route::resource('nuestrasSolicitudes','NuestrasSolicitudesController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');

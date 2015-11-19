@@ -1,5 +1,5 @@
 /**
- * Created by abecerra on 07/05/2015.
+ * Created by abecerra on 19/11/2015.
  */
 $(document).ready(function () {
     var fechaActualTemporal = new Date();
