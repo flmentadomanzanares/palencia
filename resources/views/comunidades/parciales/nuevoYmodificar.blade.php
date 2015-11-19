@@ -52,11 +52,11 @@
     <br/>
 
     <div class="heading-caption">Comunicación</div>
-    {!! FORM::label('email_solicitud', 'Email Solicitud:') !!} <br/>
+    {!! FORM::label('email_solicitud', 'Email envío de Solicitud:') !!} <br/>
     {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email",
     "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('email_envio', 'Email Envío:') !!} <br/>
+    {!! FORM::label('email_envio', 'Email envío de Respuestas:') !!} <br/>
     {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email",
     "maxlength"=>"50"]) !!}
     <br/>

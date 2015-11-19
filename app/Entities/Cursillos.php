@@ -112,8 +112,8 @@ class Cursillos extends Model
 
     static public function getCursillosPDF($comunidad=0,$anyo=0,$semana=0)
     {
-        return Cursillos::select('cursillos.comunidad_id','cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.fecha_inicio',
-            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'))
+        return Cursillos::select('cursillos.comunidad_id','cursillos.num_cursillo', 'cursillos.cursillo',
+            'cursillos.fecha_inicio','cursillos.fecha_final', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'))
             ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')
             ->ComunidadCursillos($comunidad)
             ->AnyosCursillos($anyo)

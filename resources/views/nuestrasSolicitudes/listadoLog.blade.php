@@ -40,7 +40,7 @@
             </tbody>
         </table>
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('nuestrasRespuestas.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('nuestrasSolicitudes.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>

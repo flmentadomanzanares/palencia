@@ -108,46 +108,45 @@ class NuestrasRespuestasController extends Controller
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
-
         foreach ($destinatarios as $idx => $destinatario) {
             $nombreArchivo = "NR-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
                 if ($cursillo->comunidad_id == $destinatario->id) {
-                    $cursos[] = sprintf("Nº %6s de fecha %10s al %10s [Sem:%2d]", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)), $cursillo->semana);
+                    $cursos[] = sprintf("Nº %6s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                 }
             }
 
-            try {
-                //return view('nuestrasRespuestas.pdf.cartaRespuestaB3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'));
-                $pdf = \App::make('dompdf.wrapper');
-                $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save('respuestasCursillos\\' . $nombreArchivo);
-                $logEnvios[] = "Creada carta de respuesta para " . $destinatario->comunidad;
-            } catch (\Exception $e) {
-                $logEnvios[] = "Error al crear la carta de respuesta para " . $destinatario->comunidad;
-            }
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 $esCarta = false;
                 $nombreArchivoAdjuntoEmail = 'templatePdf\\NR-' . $remitente->comunidad . '.pdf';
                 try {
                     $pdf = \App::make('dompdf.wrapper');
                     $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
-                    $logEnvios[] = "Creado fichero adjunto para el email de respuesta de ". $destinatario->comunidad;
+                    $logEnvios[] = ["Creado fichero adjunto para el email de respuesta de " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
-                    $logEnvios[] = "Error al crear el fichero adjunto para email de ". $destinatario->comunidad;
+                    $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
                 }
                 try {
-                    $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuestaB1', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($nombreArchivo, $destinatario, $nombreArchivoAdjuntoEmail) {
-                        $message->from($destinatario->email_envio, $destinatario->comunidad);
-                        $message->to($destinatario->email_solicitud)->subject("Nuestra Respuesta")->cc('antonio_sga@yahoo.es');
+                    $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuestaB1', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
+                        $message->from($remitente->email_solicitud, $remitente->comunidad);
+                        $message->to($destinatario->email_envio)->subject("Nuestra Respuesta");
                         $message->attach($nombreArchivoAdjuntoEmail);
                     });
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? "Enviado email de respuesta a " . $destinatario->comunidad . " al correo " . $destinatario->email_solicitud :
-                    "Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_solicitud) > 0 ? $destinatario->email_solicitud : "(Sin determinar)");
+                $logEnvios[] = $envio > 0 ? ["Enviado email de respuesta a " . $destinatario->comunidad . " al correo " . $destinatario->email_envio, "", true] :
+                    ["Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
+            } else {
+                try {
+                    $pdf = \App::make('dompdf.wrapper');
+                    return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
+                    //$logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $nombreArchivo), "",true];
+                } catch (\Exception $e) {
+                    $logEnvios[] = ["Error al crear la carta de respuesta para " . $destinatario->comunidad, "", false];
+                }
             }
         }
         $titulo = "Operaciones Realizadas";
@@ -155,5 +154,18 @@ class NuestrasRespuestasController extends Controller
             compact('titulo', 'logEnvios'));
     }
 
+    private function DescargarArchivo($fichero)
+    {
+        $archivo = basename($fichero);
+        $ruta = 'respuestasCursillos/' . $archivo;
+        if (is_file($ruta)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename=' . $archivo);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($ruta));
+            readfile($ruta);
+        }
+
+    }
 
 }

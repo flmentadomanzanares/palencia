@@ -1,7 +1,7 @@
 <html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>palenciaDoc-B3</title>
+    <title>palenciaDoc-B2_B3</title>
     <style>
         body, html {
             font-family: Calibri;
@@ -9,7 +9,7 @@
 
         .logo {
             position: absolute;
-            top: 0;
+            top: -24px;
             right: 0;
             width: 64px;
             height: auto;
@@ -17,26 +17,26 @@
 
         .remitente {
             position: absolute;
-            top: 0em;
+            top: 3em;
             left: 0;
-            width: 28em;
-            text-align: center;
-            font-size: 12pt;
+            width: 20em;
+            text-align: left;
+            font-size: 13pt;
         }
 
         .fecha_emision {
             position: absolute;
-            top: 6em;
+            top: 3em;
             right: 0;
-            font-size: 10pt;
+            font-size: 12pt;
         }
 
         .destinatario {
             position: absolute;
-            top: 8em;
+            top: 6em;
             right: 0;
-            width: 25em;
-            font-size: 10pt;
+            width: 20em;
+            font-size: 12pt;
         }
 
         .tab {
@@ -56,9 +56,9 @@
 
         .mensaje {
             position: absolute;
-            top: 25em;
+            top: 15em;
             left: 0;
-            font-size: 10pt;
+            font-size: 12pt;
             line-height: 1.6em;
         }
 
@@ -66,23 +66,24 @@
             display: block;
             width: 100%;
             text-align: right;
-            font-size: 12pt;
+            font-size: 13pt;
+            font-weight: bold;
         }
 
         .footer {
             position: absolute;
             bottom: 0;
             left: 0;
-            font-size: 10pt;
+            font-size: 12pt;
             line-height: 1.6em;
         }
 
         .naranja {
-            color: rgb(255, 170, 1);
+            color: rgb(220, 100, 1);
         }
 
         .verde {
-            color: rgb(101, 199, 88);
+            color: rgb(50, 180, 1);
         }
 
         .rojo {
@@ -90,27 +91,27 @@
         }
 
         .celeste {
-            color: rgb(5, 232, 251);
+            color: rgb(5, 100, 255);
         }
 
         .rosa-palo {
-            color: rgb(226, 165, 173);
+            color: rgb(130, 100, 50);
         }
 
         .amarillo {
-            color: rgb(252, 241, 3);
+            color: rgb(220, 150, 1);
         }
 
         .lila {
-            color: rgb(177, 156, 251);
+            color: rgb(177, 100, 251);
         }
 
         .turquesa {
-            color: rgb(0, 173, 189);
+            color: rgb(0, 100, 189);
         }
 
         .violeta {
-            color: rgb(249, 17, 253);
+            color: rgb(249, 17, 200);
         }
     </style>
 </head>
@@ -120,31 +121,33 @@
     <img class="logo" src={!!asset('img/logo/logo.png')!!} alt=""/>
 </div>
 <div class="remitente">
-    CURSILLOS DE CRISTIANIDAD - DIÓCESIS DE CANARIAS<br/>
+    CURSILLOS DE CRISTIANDAD
+    <br/>
+    DE LA DIÓCESIS DE CANARIAS<br/>
     {{$remitente->direccion_postal}}<br/>
     {{$remitente->direccion}}<br/>
     {{$remitente->cp}} {{$remitente->localidad}}-{{$remitente->pais}}
 </div>
 
-    <div class="fecha_emision">
-        {{$remitente->localidad}},{{$fecha_emision}}
-    </div>
-    <div class="destinatario">
-        {{$destinatario->comunidad}}
-        <br/>
-        {{$destinatario->direccion}}
-        <br/>
-        {{$destinatario->cp}}-{{$destinatario->localidad}}
-        <br/>
-        {{$destinatario->provincia}}-{{$destinatario->pais}}
-    </div>
+<div class="fecha_emision">
+    {{$remitente->localidad}},{{$fecha_emision}}
+</div>
+<div class="destinatario">
+    {{$destinatario->comunidad}}
+    <br/>
+    {{$destinatario->direccion}}
+    <br/>
+    {{$destinatario->cp}}-{{$destinatario->localidad}}
+    <br/>
+    {{$destinatario->provincia}}-{{$destinatario->pais}}
+</div>
 
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
-        <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad <strong>Nº
-       ........</strong> a celebrar desde el <strong>..........</strong> de <strong>................................</strong> del 20<strong>.........</strong></span>
+        <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
+            ........ a celebrar desde el ............ de ................................................... del 20.........</span>
     <br/>
 
     <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
