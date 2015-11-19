@@ -81,10 +81,14 @@ class PdfController extends Controller {
     {
         $titulo = "Intendencia para Clausura";
         $solicitudEnviada = new SolicitudesEnviadas();
-        $anyos = Cursillos::getAnyoCursillosList();
-        $cursillos = Cursillos::getCursillosList();
+        $cursillos = new Cursillos();
+        $cursillos->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
+        $cursillos->fecha_final = $this->ponerFecha(date("d-m-Y"));
+        /*$anyos = Cursillos::getAnyoCursillosList();
+        $cursillos = Cursillos::getCursillosList();*/
 
-        return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));
+        return view("pdf.listarComunidades", compact('solicitudEnviada', 'cursillos', 'titulo'));
+       /* return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));*/
 
     }
 
@@ -101,16 +105,22 @@ class PdfController extends Controller {
 
         $titulo = "Intendencia para clausura";
 
+        $cursillos = new Cursillos();
+        $fecha_inicio = $cursillos->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
+        $fecha_final = $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
+
         $solicitudEnviada = new SolicitudesEnviadas();
 
-        $anyo = \Request::input('anyo');
+        /*$anyo = \Request::input('anyo');
         $idCursillo = \Request::input('cursillo_id');
 
-        $cursillo = Cursillos::getNombreCursillo((int)$idCursillo);
+        $cursillo = Cursillos::getNombreCursillo((int)$idCursillo);*/
         $date = date('d-m-Y');
-        $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($anyo, $idCursillo);
+       /* $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($anyo, $idCursillo);*/
+        $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
 
-        if ($anyo == 0 || $idCursillo == 0) {
+
+       /* if ($anyo == 0 || $idCursillo == 0) {
 
             return redirect('intendenciaClausura')->
             with('mensaje', 'Debe seleccionar un año y un cursillo.');
@@ -124,7 +134,13 @@ class PdfController extends Controller {
                     'anyo',
                     'date',
                     'titulo'))
-                ->render();
+                ->render();*/
+        $view = \View::make('pdf.imprimirComunidades',
+            compact('comunidades',
+                'anyo',
+                'date',
+                'titulo'))
+            ->render();
 
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($view);
@@ -132,7 +148,7 @@ class PdfController extends Controller {
 
         }
 
-    }
+
 
     /*******************************************************************
      *
@@ -259,5 +275,12 @@ class PdfController extends Controller {
 
         }
 
+    }
+
+    private function ponerFecha($date)
+    {
+        $partesFecha = date_parse_from_format('d/m/Y', $date);
+        $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
+        return date('Y-m-d H:i:s', $fecha);
     }
 }
