@@ -47,7 +47,7 @@
 @stop
 @section('js')
     {!! HTML::script('js/vendor/datepicker/datepicker.js') !!}
-    {!! HTML::script('js/comun/date.js') !!}
+    {!! HTML::script('js/comun/date2.js') !!}
 
 @endsection
 

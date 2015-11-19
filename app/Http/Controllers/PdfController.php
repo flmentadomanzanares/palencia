@@ -84,6 +84,7 @@ class PdfController extends Controller {
         $cursillos = new Cursillos();
         $cursillos->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillos->fecha_final = $this->ponerFecha(date("d-m-Y"));
+
         /*$anyos = Cursillos::getAnyoCursillosList();
         $cursillos = Cursillos::getCursillosList();*/
 
