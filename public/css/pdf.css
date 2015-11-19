@@ -1,12 +1,4 @@
-@font-face {
-    font-family: "Century Gothic regular";
-    src: url(../fonts/centuryGothic/GOTHIC.TTF);
-}
 
-@font-face {
-    font-family: "Century Gothic bold";
-    src: url(../fonts/centuryGothic/GOTHICBOLD.TTF);
-}
 
 
 .clearfix:after {
@@ -27,9 +19,8 @@ body {
     margin: 0 auto;
     color: #555555;
     background: #FFFFFF;
-    font-family: "Century Gothic regular", Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
-    font-family: "Century Gothic regular";
 }
 
 header {
@@ -45,15 +36,15 @@ header {
 
 .cabecera1 {
 
-    font-family: "Century Gothic bold";
     font-size: 25px;
+    font-weight: bold;
     margin-bottom:20px;
 
 }
 
 .cabecera2 {
 
-    font-family: "Century Gothic bold";
+    font-weight: bold;
     font-size: 18px;
     margin-bottom:20px;
 
@@ -62,7 +53,7 @@ header {
 
     background-color: #400090;
     color: #FFFFFF;
-    font-family: "Century Gothic bold";
+    font-weight: bold;
     font-size: 16px;
 
 }
@@ -72,7 +63,7 @@ header {
 
     background-color: #FF7A00;
     color: #FFFFFF;
-    font-family: "Century Gothic bold";
+    font-weight: bold;
     font-size: 16px;
 
 }
@@ -81,26 +72,21 @@ header {
 
     background-color: #400090;
     color: #FFFFFF;
-    font-family: "Century Gothic bold";
+    font-weight: bold;
     font-size: 20px;
     padding-top:20px;
-    padding-bottom:16px;
+    padding-bottom:20px;
 
 }
 
-
-
-/*h1 {
-
-    font-family: "Century Gothic bold";
-
+table thead, table th {
+    background-color: #9d9d9d;
+    color:#000000;
+    font-weight: bold;
+    text-align: center;
+    padding-top:20px;
+    padding-bottom:20px;
 }
-
-h2 {
-
-    font-family: "Century Gothic bold";
-
-}*/
 
 #logo {
     float: left;
@@ -114,7 +100,7 @@ table {
     margin-left:3px;
 }
 
-table th,
+
 table td {
     padding: 20px;
     background: #FFFFFF;

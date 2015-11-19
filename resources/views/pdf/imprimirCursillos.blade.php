@@ -42,10 +42,10 @@
 
             @if($cursillo->pais != $pais)
                 <tr>
-                    <th class="cabecera3 text-center" colspan="2">
+                    <td class="cabecera3 text-center" colspan="2">
                         País: {!! $cursillo->pais !!}
 
-                    </th>
+                    </td>
                 </tr>
 
                 <?php $pais = $cursillo->pais; ?>
@@ -53,9 +53,9 @@
 
             @if($cursillo->comunidad != $comunidad)
                 <tr>
-                    <th class="cabecera4 text-center" colspan="2">
+                    <td class="cabecera4 text-center" colspan="2">
                         Comunidad: {!! $cursillo->comunidad !!}
-                    </th>
+                    </td>
                 </tr>
                 <?php $comunidad = $cursillo->comunidad; ?>
             @endif

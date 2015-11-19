@@ -29,9 +29,9 @@
         @foreach ($comunidades as $comunidad)
 
             <tr>
-                <th >
+                <td class="text-center">
                     {!! $comunidad->comunidad !!}
-                </th>
+                </td>
             </tr>
         @endforeach
 

@@ -11,10 +11,10 @@
     <div class="cabecera1 text-center">
         {{ $titulo }}
     </div>
-    <div class="cabecera2">
+    {{--div class="cabecera2">
         Cursillo: {!! $cursillo->cursillo !!}<br/>
         Año: {{ $anyo }}
-    </div>
+    </div--}}
 </div>
 
 <div class="cabecera2">
@@ -25,7 +25,7 @@
 
 <table border="0" cellspacing="0" cellpadding="0">
     <?php $pais = null; ?>
-    <?php $comunidad = null; ?>
+    <?php $cursillo = null; ?>
 
         <thead>
 
@@ -34,21 +34,32 @@
 
         @foreach ($comunidades as $comunidad)
 
+            @if($comunidad->cursillo != $cursillo)
+                <tr>
+                    <td class="cabecera4 text-center">
+                        Cursillo: {!! $comunidad->cursillo !!}
+
+                    </td>
+                </tr>
+
+                <?php $cursillo = $comunidad->cursillo; ?>
+            @endif
+
             @if($comunidad->pais != $pais)
                 <tr>
-                    <th class="cabecera3 text-center">
-                        País: {!! $comunidad->pais !!}
+                    <td class="cabecera3 text-center">
+                        País: {!! $comunidad->pais!!}
 
-                    </th>
+                    </td>
                 </tr>
 
                 <?php $pais = $comunidad->pais; ?>
             @endif
 
                 <tr>
-                    <th >
+                    <td class="text-center">
                         {!! $comunidad->comunidad !!}
-                    </th>
+                    </td>
                 </tr>
         @endforeach
 

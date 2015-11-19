@@ -42,23 +42,19 @@
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"5"]) !!}
     <br/>
-    {!! FORM::label('apartadoCorreos', 'Apartado de Correos:') !!} <br/>
-    {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email",
-    "maxlength"=>"50"]) !!}
+    {!! FORM::label('direccion_postal', 'Apartado de Correos:') !!} <br/>
+    {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('direccion', 'Dirección:') !!} <br/>
     {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
     "maxlength"=>"100") )!!}
     <br/>
-
     <div class="heading-caption">Comunicación</div>
-    {!! FORM::label('email_solicitud', 'Email envío de Solicitud:') !!} <br/>
-    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email",
-    "maxlength"=>"50"]) !!}
+    {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
+    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('email_envio', 'Email envío de Respuestas:') !!} <br/>
-    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email",
-    "maxlength"=>"50"]) !!}
+    {!! FORM::label('email_envio', 'Email para enviar nuestras respuestas:') !!} <br/>
+    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
     {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Dirección WEB", "maxlength"=>"50"]) !!}
@@ -85,7 +81,6 @@
     {!! FORM::select('esColaborador',array('1'=>'Si','0'=>'No'), $comunidad->esColaborador
     ,array('class'=>'form-control')) !!}
     <br>
-
     <div class="heading-caption">Color Mis Cursos</div>
     {!! FORM::label ('color', 'Color Cursos') !!}
     <select id="select-color" class="form-control" name="color">
@@ -95,7 +90,6 @@
         @endforeach
     </select>
     <br/>
-
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control',

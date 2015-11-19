@@ -9,9 +9,10 @@ $fontPath:              "fonts/calibri.ttf" !default;
 //
 
 $app-color-base:         #400090 !default;
+/*$app-color-base:         #ff7a00 !default;*/
 $app-color-hover:        #00ff00 !default;
 $app-color-white:        #ffffff !default;
-$app-color-success:      #400090 !default;
+$app-color-success:      #ff7a00 !default;
 $app-color-fail:         #d9534f !default;
 $app-color-ok:           #337ab7 !default;
 
@@ -458,7 +459,7 @@ $navbar-default-toggle-border-color:       #ddd !default;
 //=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-bg:                         #400090 !default;
+$navbar-inverse-bg:                         #ff7a00 !default;
 $navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
 
 // Inverted navbar links
@@ -780,7 +781,8 @@ $panel-border-radius:         $border-radius-base !default;
 
 //** Border color for elements within panels
 $panel-inner-border:          #ddd !default;
-$panel-footer-bg:             #400090 !default;
+$panel-footer-bg:             #ff7a00 !default;
+
 
 $panel-default-text:          $gray-dark !default;
 $panel-default-border:        #ddd !default;

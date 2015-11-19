@@ -3,6 +3,7 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+/*$app-color-base:         #ff7a00 !default;*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 @font-face {
   font-family: "Century Gothic regular";
@@ -5437,8 +5438,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 
 .navbar-inverse {
-  background-color: #400090;
-  border-color: #29005d;
+  background-color: #ff7a00;
+  border-color: #cc6200;
   border-radius: 0px;
 }
 
@@ -5470,7 +5471,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #e1d0f9;
-  background-color: #29005d;
+  background-color: #cc6200;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -5495,22 +5496,22 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #30006c;
+  border-color: #db6900;
 }
 
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #29005d;
+  background-color: #cc6200;
   color: #e1d0f9;
 }
 
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #29005d;
+    border-color: #cc6200;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #29005d;
+    background-color: #cc6200;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
@@ -5524,7 +5525,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #e1d0f9;
-    background-color: #29005d;
+    background-color: #cc6200;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -6083,7 +6084,7 @@ a.badge:focus {
 
 .panel-footer {
   padding: 10px 15px;
-  background-color: #400090;
+  background-color: #ff7a00;
   border-top: 1px solid #ddd;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
@@ -7273,13 +7274,12 @@ footer {
   display: block;
   clear: both;
   text-align: center;
-  background-color: #400090;
+  background-color: #ff7a00;
   font-size: 13px;
   color: #ffffff;
   line-height: 38px;
   min-height: 35px;
   vertical-align: middle;
-  margin-top: 35px;
 }
 
 footer span {
@@ -7431,9 +7431,9 @@ body {
 }
 
 .label-viaoptima-success {
-  border: 1px solid #400090;
+  border: 1px solid #ff7a00;
   background-color: transparent;
-  color: #400090;
+  color: #ff7a00;
   min-width: 140px;
 }
 

@@ -22,7 +22,7 @@ class ValidateRulesCursillos extends Request {
     public function rules()
     {
         return [
-            "cursillo"    =>    "required|min:2|max:50",
+            "cursillo"    =>    "max:50",
             "num_cursillo"    =>    "numeric",
             "fecha_inicio"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
             "fecha_final"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
@@ -35,8 +35,7 @@ class ValidateRulesCursillos extends Request {
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'cursillo.required' => 'El cursillo es obligatorio.',
-            'cursillo.min' => 'Longitud mínima del cursillo :min caracteres.',
+
             'cursillo.max' => 'Longitud máxima del cursillo :max caracteres.',
             'num_cursillo.numeric'=>'El número del cursillo debe de ser numérico.',
             'fecha_inicio.required' => 'La fecha de inicio es obligatoria!',
