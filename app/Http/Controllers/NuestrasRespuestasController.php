@@ -124,7 +124,7 @@ class NuestrasRespuestasController extends Controller
                 $nombreArchivoAdjuntoEmail = 'templatePdf\\NR-' . $remitente->comunidad . '.pdf';
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
+                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
                     $logEnvios[] = ["Creado fichero adjunto para el email de respuesta de " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];

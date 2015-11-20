@@ -122,16 +122,16 @@ class NuestrasSolicitudesController extends Controller
 
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 $esCarta = false;
-                $nombreArchivoAdjuntoEmail = 'templatePdf\\NS-Ññáéíóú' . $remitente->comunidad . '.pdf';
+                $nombreArchivoAdjuntoEmail = 'templatePdf\\NS-' . $remitente->comunidad . '.pdf';
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
+                    $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
                     $logEnvios[] = ["Creado fichero adjunto para el email de solicitud para " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", false];
                 }
                 try {
-                    $envio = Mail::send('nuestrasSolicitudes.pdf.solicitudA1',
+                    $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
                             $message->from($remitente->email_solicitud, $remitente->comunidad);
