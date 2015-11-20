@@ -142,7 +142,6 @@
             @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
         @endif
 </div>
-
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
