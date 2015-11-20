@@ -16,7 +16,7 @@
                                     {{ $localidad->localidad }}
                                 </caption>
                                 <thead>
-                                <tr>
+                                <tr @if(!$localidad->activo) style="background-color:red" @endif>
                                     <th colspan="2" class="text-right">
                                         <a title="Editar"
                                            href="{{route('localidades.edit',array('id'=>$localidad->id))}}">
@@ -24,6 +24,7 @@
                                                 <div>Editar</div>
                                             </i>
                                         </a>
+
                                         @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                         {!! FORM::open(array('route' => array('localidades.destroy',
                                         $localidad->id),'method' => 'DELETE','title'=>'Borrar')) !!}

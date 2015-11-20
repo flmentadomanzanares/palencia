@@ -23,7 +23,7 @@
                             </div>
                         </caption>
                         <thead>
-                        <tr>
+                        <tr  @if(!$usuario->activo) style="background-color: red" @endif>
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
                                    href="{{route('usuarios.edit',array('id'=>$usuario->id))}}">

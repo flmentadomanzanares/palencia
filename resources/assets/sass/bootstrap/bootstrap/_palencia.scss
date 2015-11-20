@@ -241,7 +241,7 @@ body {
 // Botón de registros
 .btn-register {
   font-size: $font-size-app-base-register;
-  font-family: $font-family-century-gothic;
+  font-family: $font-family;
   background-color: $app-color-base;
   border-color: $app-color-base !important;
   text-align: center;
@@ -465,7 +465,7 @@ input[type=file]:hover {
 //AboutUs
 .about-us {
   padding: $padding-app-base;
-  font-family: $font-family-century-gothic;
+  font-family: $font-family;
   font-size: $font-size-app-base-content;
   width: 100%;
   float: left;

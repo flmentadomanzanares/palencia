@@ -11,13 +11,13 @@
             </div>
             @if(!$roles->isEmpty())
                 @foreach ($roles as $rol)
-                    <div>
+
                         <table class="table-viaoptima table-striped">
                             <caption>
                                 {!! $rol->rol !!}
                             </caption>
                             <thead>
-                            <tr>
+                            <tr @if(!$rol->activo) style="background-color:red" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('roles.edit',array('id'=>$rol->id))}}">
@@ -45,7 +45,7 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
+
                 @endforeach
             @else
                 <div class="clearfix">

@@ -8,17 +8,12 @@
 
 //Fuentes de vía óptima
 @font-face {
-  font-family: "Century Gothic regular";
-  src: url('../fonts/centuryGothic/GOTHIC.TTF');
-}
-
-@font-face {
   font-family: "Glyphicons Halflings";
   src: url('../fonts/glyphicons-halflings-regular.ttf');
 }
 
 html {
-  font-family: $font-family-century-gothic; //1
+  font-family: $font-family;
   -ms-text-size-adjust: 100%; // 2
   -webkit-text-size-adjust: 100%; // 2
   width: 100%;

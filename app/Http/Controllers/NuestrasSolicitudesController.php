@@ -18,7 +18,7 @@ class NuestrasSolicitudesController extends Controller
     {
         $titulo = "Nuestras Solicitudes";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0,true, "Resto Comunidades.....", false);
+        $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", false);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
         $cursillos = array();
@@ -100,8 +100,8 @@ class NuestrasSolicitudesController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'));
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
-        $numeroDestinatarios=count($destinatarios);
-        if (count($remitente) == 0 ||  $numeroDestinatarios== 0 || count($cursillos) == 0) {
+        $numeroDestinatarios = count($destinatarios);
+        if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes.index')->
             with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s.');
@@ -110,8 +110,8 @@ class NuestrasSolicitudesController extends Controller
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
         foreach ($destinatarios as $idx => $destinatario) {
-            $nombreArchivo = "NS-" . date("d_m_Y", strtotime('now')) . '-' .($destinatario->pais . '-' . $destinatario->comunidad) . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos').'.pdf';
-            $pathNombreArchivo ='solicitudesCursillos\\'.$nombreArchivo;
+            $nombreArchivo = "NS-" . date("d_m_Y", strtotime('now')) . '-' . ($destinatario->pais . '-' . $destinatario->comunidad) . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
+            $pathNombreArchivo = 'solicitudesCursillos\\' . $nombreArchivo;
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
@@ -133,11 +133,10 @@ class NuestrasSolicitudesController extends Controller
                 try {
                     $envio = Mail::send('nuestrasSolicitudes.pdf.solicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
-                        function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail)
-                        {
-                        $message->from($remitente->email_solicitud, $remitente->comunidad);
-                        $message->to($destinatario->email_envio)->subject("Nuestra Solicitud");
-                        $message->attach($nombreArchivoAdjuntoEmail);
+                        function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
+                            $message->from($remitente->email_solicitud, $remitente->comunidad);
+                            $message->to($destinatario->email_envio)->subject("Nuestra Solicitud");
+                            $message->attach($nombreArchivoAdjuntoEmail);
                         });
                 } catch (\Exception $e) {
                     $envio = 0;
@@ -147,11 +146,10 @@ class NuestrasSolicitudesController extends Controller
             } else {
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    if(count($destinatarios)>1) {
-                        $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save(mb_convert_encoding($pathNombreArchivo, 'ISO-8859-1','UTF-8'));
-                        $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $pathNombreArchivo), "",true];
-                    }
-                    else{
+                    if (count($destinatarios) > 1) {
+                        $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save(mb_convert_encoding($pathNombreArchivo, 'ISO-8859-1', 'UTF-8'));
+                        $logEnvios[] = ["Creada carta de solicitud  para " . $destinatario->comunidad, str_replace("\\", "/", $pathNombreArchivo), "", true];
+                    } else {
                         return $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
                     }
                 } catch (\Exception $e) {

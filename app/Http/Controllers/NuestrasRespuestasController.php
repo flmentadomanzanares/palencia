@@ -110,6 +110,7 @@ class NuestrasRespuestasController extends Controller
         $logEnvios = [];
         foreach ($destinatarios as $idx => $destinatario) {
             $nombreArchivo = "NR-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
+            $pathNombreArchivo = 'respuestasCursillos\\' . $nombreArchivo;
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
@@ -142,8 +143,13 @@ class NuestrasRespuestasController extends Controller
             } else {
                 try {
                     $pdf = \App::make('dompdf.wrapper');
+                    if (count($destinatarios) > 1) {
+                        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save(mb_convert_encoding($pathNombreArchivo, 'ISO-8859-1', 'UTF-8'));
+                        $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $pathNombreArchivo), "", true];
+                    } else {
+                        return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
+                    }
                     return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
-                    //$logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $nombreArchivo), "",true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear la carta de respuesta para " . $destinatario->comunidad, "", false];
                 }
