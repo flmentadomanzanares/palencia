@@ -583,18 +583,23 @@ input[type=file]:hover {
 
 //COLOR CURSILLOS
 .ponerCirculoColor {
-  display:inline-block;
+  display: inline-block;
   min-width: 1.2em;
   min-height: 1.2em;
   border-radius: 50%;
   margin-right: 5px;
 }
+
 //IMAGEN USER AUTHENTICATE
-.user-image{
-  width:$imagen-user-width;
-  height:$imagen-user-height;
-  border-radius:50%;
+.user-image {
+  width: $imagen-user-width;
+  height: $imagen-user-height;
+  border-radius: 50%;
+  position: absolute;
+  left: $imagen-user-left;
+  top: $imagen-user-top;
 }
+
 //ALTO 100%
 .altoMaximo {
   min-height: 100%;

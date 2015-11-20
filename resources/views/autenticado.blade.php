@@ -10,8 +10,10 @@
             <div class="row ">
                 @include('auth.parciales.buscar')
             </div>
+            <div class="panel panel-body">
                 {!! $calendar->calendar() !!}
                 {!! $calendar->script() !!}
+            </div>
         @endif
     </div>
 @endsection

@@ -20,8 +20,10 @@ html {
 
 body {
   float: none;
-  max-width: 1360px;
+  max-width: 100%;
   margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
   height: 100%;
 }
 
@@ -7734,9 +7736,12 @@ input[type=file]:hover {
 }
 
 .user-image {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  position: absolute;
+  left: -30px;
+  top: 5px;
 }
 
 .altoMaximo {
