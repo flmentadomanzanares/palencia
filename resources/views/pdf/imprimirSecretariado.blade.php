@@ -23,8 +23,8 @@
 
         <thead>
             <tr>
-                <th>Comunidad</th>
                 <th>Cursillo</th>
+                <th>Fecha Inicio</th>
 
             </tr>
         </thead>
@@ -33,11 +33,11 @@
         @foreach ($solicitudesEnviadas as $solicitudEnviada)
 
             <tr>
-                <td>
-                    {!! $solicitudEnviada->comunidad !!}
+               <td>
+                   {!! $solicitudEnviada->cursillo !!}
                 </td>
-                <td>
-                    {!! $solicitudEnviada->cursillo !!}
+                <td class="text-center">
+                    {!! Date("d/m/Y" , strtotime($solicitudEnviada->fecha_inicio) ) !!}
                 </td>
             </tr>
         @endforeach
@@ -52,8 +52,8 @@
 
         <thead>
         <tr>
-            <th>Comunidad</th>
             <th>Cursillo</th>
+            <th>Fecha Inicio</th>
 
         </tr>
         </thead>
@@ -63,10 +63,10 @@
 
             <tr>
                 <td>
-                    {!! $solicitudRecibida->comunidad !!}
+                    {!! $solicitudEnviada->cursillo !!}
                 </td>
-                <td>
-                    {!! $solicitudRecibida->cursillo !!}
+                <td class="text-center">
+                    {!! Date("d/m/Y" , strtotime($solicitudEnviada->fecha_inicio) ) !!}
                 </td>
             </tr>
         @endforeach
