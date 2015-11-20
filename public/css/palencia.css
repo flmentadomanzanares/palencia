@@ -6,11 +6,6 @@
 /*$app-color-base:         #ff7a00 !default;*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 @font-face {
-  font-family: "Century Gothic regular";
-  src: url("../fonts/centuryGothic/GOTHIC.TTF");
-}
-
-@font-face {
   font-family: "Glyphicons Halflings";
   src: url("../fonts/glyphicons-halflings-regular.ttf");
 }
@@ -7097,6 +7092,11 @@ button.close {
   border-right-width: 0;
   border-left-color: #fff;
   bottom: -10px;
+}
+
+@font-face {
+  font-family: CalibriPalencia;
+  src: url("fonts/calibri.ttf");
 }
 
 .thumbnail {
