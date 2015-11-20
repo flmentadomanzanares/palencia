@@ -5,8 +5,8 @@
     <div class="spinner"></div>
     <div class="hidden">
         <div class=" row">
-            <img src="{!!asset('img/portada/portada.jpg')!!}" alt="Portada" class="img-responsive ">
-            <br>
+            <img width="100%" height="100%" src="{!!asset('img/portada/portada.jpg')!!}" alt="Portada"
+                 class="img-responsive ">
             <div id="formularioModal">
                 <div class="ventanaModal">
                     <div class="headerFormularioModal">
@@ -37,7 +37,6 @@
                             <br/>
 
                             {!! FORM::submit('registrarse',array("class"=>"btn btn-success btn-block")) !!}
-
                             {!! FORM::close() !!}
                         </div>
                     </div>

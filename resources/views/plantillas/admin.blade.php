@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>@yield("titulo","Palencia")</title>
+    <title>Palencia</title>
     <meta charset="UTF-8">
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
@@ -12,11 +12,16 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div>
     <div class="row">
-        <img src={!!asset('img/header/cabecera.png')!!} alt="" class="img-responsive block-center">
+        <div class="pull-left">
+            <img src={!!asset('img/header/cabeceraPalencia.png')!!} alt="">
+        </div>
+        <div class="pull-right">
+            <img src={!!asset('img/header/cabeceraPaloma.png')!!} alt="">
+        </div>
     </div>
-    <nav role="navigation" id="barra" class="navbar navbar-inverse block-center">
+    <nav role="navigation" class="navbar navbar-inverse block-center">
         <div class="container-fluid">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -38,17 +43,21 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
                                     <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
-                                    <li>{!!link_to('localidades', 'Localidades')!!}</li>
-                                    <li>{!!link_to('paises', 'Paises')!!}</li>
-                                    <li>{!!link_to('provincias', 'Provincias')!!}</li>
-                                    <li>{!!link_to('roles','Roles')!!}</li>
-                                    <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
-                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
-                                    <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
-                                    <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                     <li role="separator" class="divider"></li>
                                     <li>{!!link_to('nuestrasRespuestas', 'Nuestras Respuestas')!!}</li>
                                     <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
+                                    <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('paises', 'Países')!!}</li>
+                                    <li>{!!link_to('provincias', 'Provincias')!!}</li>
+                                    <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
+                                    <li>{!!link_to('roles','Roles')!!}</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -120,7 +129,7 @@
         </ol>
     </div>
 @endif
-<h1 class="text-center">@yield ('titulo')</h1>
+@yield ('titulo')
 @yield("contenido")
 <footer>
     <span>&copy; Palencia | KOALNET - 2015</span>

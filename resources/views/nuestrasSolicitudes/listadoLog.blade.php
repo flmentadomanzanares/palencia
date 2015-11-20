@@ -9,7 +9,7 @@
             <thead>
             <tr>
                 <th colspan="2">
-                    {!! $titulo !!}
+                    !! $titulo !!}
                 </th>
             </tr>
             </thead>

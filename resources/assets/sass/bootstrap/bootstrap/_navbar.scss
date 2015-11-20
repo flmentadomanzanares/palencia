@@ -10,10 +10,6 @@
 .navbar {
   position: relative;
   min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
-  margin-bottom: $navbar-margin-bottom;
-  padding-top:($navbar-margin-bottom - 1px);
-  padding-left:($navbar-margin-bottom - 1px); //ABA220915
-  padding-right:($navbar-margin-bottom - 1px);//ABA220915
   border: 0;
 
   // Prevent floats from breaking the navbar
