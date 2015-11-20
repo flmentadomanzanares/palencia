@@ -124,34 +124,37 @@
     CURSILLOS DE CRISTIANDAD
     <br/>
     DE LA DIÓCESIS DE CANARIAS<br/>
-    {{$remitente->direccion_postal}}<br/>
-    {{$remitente->direccion}}<br/>
-    {{$remitente->cp}} {{$remitente->localidad}}-{{$remitente->pais}}
+    @if(strlen($remitente->direccion_postal)>0){{$remitente->direccion_postal}}<br/>@endif
+    @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
+    {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
 </div>
 
 <div class="fecha_emision">
     {{$remitente->localidad}},{{$fecha_emision}}
 </div>
 <div class="destinatario">
-    {{$destinatario->comunidad}}
-    <br/>
-    {{$destinatario->direccion}}
-    <br/>
-    {{$destinatario->cp}}-{{$destinatario->localidad}}
-    <br/>
-    {{$destinatario->provincia}}-{{$destinatario->pais}}
+    @if(strlen($destinatario->comunidad)>0){{$destinatario->comunidad}}<br/>@endif
+        @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
+        @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
+        @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
+        @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
+        @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
+            @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
+        @endif
 </div>
 
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
-        <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
-            ........ a celebrar desde el ............ de ................................................... del 20.........</span>
+        <span class="tab">Necesitamos vuestra intendencia para los Cursillos de nuestra Diócesis de
+            Canarias-Islas Canarias, España, que más abajo detallamos. Quedamos a vuestra disposición para orar
+            también nosotros por los Cursillos que Uds. puedan celebrar, para lo cual pueden enviarnos sus mensajes a
+            las direcciones mencionadas más abajo.</span>
     <br/>
 
-    <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
-        personales por el éxito espiritual y apostólico de ese Cursillo</span>
+    <span class="tab">Desde nuestra Iglesia de Canarias, unidos en la Comunión de los Santos, reciban nuestro
+        agradecimiento y nuestros mejores deseos por el éxito espiritual y apostólico de esa Comunidad.</span>
     <br/>
     <br/>
     <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
@@ -172,7 +175,7 @@
         !
     </span><br>
     @if($esCarta)
-        <span class="subrayado"><strong>CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></span>
+        <span class="subrayado"><strong>CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></span>
         <br/>
         <ul>
             @foreach($cursos as $curso)
@@ -183,13 +186,11 @@
 </div>
 @if($esCarta)
     <div class="footer">
-        <strong>NOTA.</strong><span> Les rogamos rellenen los datos para cada Cursillo en las fotocopias que sean necesarias.</span>
-        <br/>
         <span>Dirección para sus solicitudes:<span class="email"> {{$remitente->email_solicitud}}</span></span>
         <br/>
         <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
         <br/>
-    <span>Dirección postal: {{$remitente->direccion_postal}} {{$remitente->cp}} {{$remitente->localidad}}
+    <span>Dirección para pedir por carta: {{$remitente->direccion_postal}} {{$remitente->cp}} {{$remitente->localidad}}
         -{{$remitente->pais}}</span>
     </div>
 @endif

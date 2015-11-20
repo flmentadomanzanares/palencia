@@ -115,15 +115,14 @@ class NuestrasSolicitudesController extends Controller
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
-                if ($cursillo->comunidad_id == $destinatario->id) {
+                if ($cursillo->comunidad_id == $remitente->id) {
                     $cursos[] = sprintf("Nº %6s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                 }
             }
-
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
-                $esCarta = false;
                 $nombreArchivoAdjuntoEmail = 'templatePdf\\NS-' . $remitente->comunidad . '.pdf';
                 try {
+
                     $pdf = \App::make('dompdf.wrapper');
                     $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
                     $logEnvios[] = ["Creado fichero adjunto para el email de solicitud para " . $destinatario->comunidad, "", true];

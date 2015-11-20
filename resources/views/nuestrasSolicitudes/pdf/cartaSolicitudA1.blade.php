@@ -1,45 +1,16 @@
 <html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>palenciaDoc-B3</title>
+    <title>palenciaDoc-A1</title>
  </head>
 <body style="font-family: Calibri;font-size: 12pt">
-<div style="width:100%;text-align: center">
-    <strong style="font-size:18px;text-decoration: underline;line-height:1.6;">CURSILLOS DE CRISTIANDAD - DIÓCESIS DE CANARIAS</strong>
-    <br/>
-</div>
 <div>
-    <span  style="font-size:16px;line-height:1.6;padding-left: 2em;text-align: justify">Queridos hermanos: Les adjuntamos nuestra intendencia para los cursillos que nos han solicitado.</span>
+    <span  style="font-size:16px;line-height:1.6;text-align: justify">Queridos hermanos:</span>
     <br/>
-    <span  style="font-size:16px;line-height:1.6;text-align: justify">Por favor hagan fotocopia y rellenen los datos de cada uno de ellos, en el documento adjunto.</span>
-    <br/>
-    <span style="font-size:16px;line-height:1.6;text-align: justify">Les deseamos el mayor de los éxitos para la Gloria de Dios. Los cursillos por los que oraremos son los siguientes:</span>
-    <br/>
-    <ul>
-        @foreach($cursos as $curso)
-            <li style="font-size:16px;padding-left: 1.5em;line-height:1.6;">{{ $curso }}</li>
-        @endforeach
-    </ul>
-    <br/>
-    <span style="font-size:16px;line-height:1.6;text-align: justify">Les rogamos que en lo sucesivo utilicen las siguientes vías de contacto:</span>
-    <br/>
-    <span><strong style="font-size:16px;line-height:1.6;text-align: justify" >Por correo electrónico:</strong></span>
-    <br/>
-    <span style="padding-left: 2em;font-size:16px;line-height:1.6;text-align: justify">Para solicitar nuestra intendencia: <a
-                href="{{$remitente->email_solicitud}}">{{$remitente->email_solicitud}}</a></span>
-    <br/>
-    <span style="padding-left: 2em;font-size:16px;line-height:1.6;text-align: justify">Para enviarnos la vuestra: <a
-                href="{{$remitente->email_envio}}">{{$remitente->email_envio}}</a></span>
-    <br/>
-    <span><strong style="font-size:16px;line-height:1.6;text-align: justify">Por correo postal:</strong></span>
-    <br/>
-    <span style="padding-left: 2em; font-size:16px;line-height:1.6;text-align: justify">{{$remitente->direccion_postal}} {{$remitente->localidad}}-{{$remitente->cp}}
-        -{{$remitente->pais}}</span>
-    <br/>
-    <br/>
-    <span style="font-size:16px;line-height:1.6;text-align: justify">Un fuerte abrazo:</span>
-    <br/>
-    <span style="padding-left: 2em;"><strong style="font-size:16px;line-height:1.6;text-align: justify">{{$remitente->comunidad}}-{{$remitente->pais}}</strong></span>
+    <span  style="font-size:16px;line-height:1.6;;padding-left: 2em;text-align: justify">Les adjuntamos carta solicitando intendencia para
+        los Cursillos de nuestra Diócesis, en la que encontrarán las fechas en que tendrán lugar. Les rogamos nos comuniquen
+        los suyos para que nuestra Comunidad ore también por ellos. Por favor tengan en cuenta las direcciones de
+        correo electrónico  que figuran al pie de dicha carta.</span>
     <br/>
     <div style="text-align: right;font-size:20px;line-height:1.6" >
         <strong>¡
