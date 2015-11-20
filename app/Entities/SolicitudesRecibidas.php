@@ -97,7 +97,7 @@ class SolicitudesRecibidas extends Model
     static public function getSolicitudesComunidad($comunidadId = 0)
     {
 
-        return SolicitudesRecibidas::Select('comunidades.comunidad', 'cursillos.cursillo')
+        return SolicitudesRecibidas::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
             ->where('solicitudes_recibidas.aceptada', true)

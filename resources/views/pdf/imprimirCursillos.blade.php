@@ -70,7 +70,7 @@
 </table>
 @else
     <div>
-        <div class="cabecera2 text-center">
+        <div class="cabecera4 text-center">
             <p>¡Aviso! - No se ha encontrado ningun cursillo que listar.</p>
         </div>
     </div>
