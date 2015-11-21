@@ -21,7 +21,7 @@
                 {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control"))!!}
                 <br/>
                 <div class="heading-caption">Cursillos</div>
-                <div id="listado_cursillos" class="" style="max-height:250px;overflow-y: auto "></div>
+                <div id="listado_cursillos" class="text-left" style="max-height:250px;overflow-y: auto "></div>
                 <br/>
                 <div class="btn-action margin-bottom">
                     <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
