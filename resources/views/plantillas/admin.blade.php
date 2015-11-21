@@ -55,9 +55,7 @@
                                     <li>{!!link_to('localidades', 'Localidades')!!}</li>
                                     <li role="separator" class="divider"></li>
                                     <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
-                                    <li>{!!link_to('roles','Roles')!!}</li>
+
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -82,6 +80,11 @@
                                 <strong>{!!Auth::user()->name!!}</strong>
                                 <b class="caret"></b></a>
                             <ul role="menu" class="dropdown-menu">
+                                @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                                    <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
+                                    <li>{!!link_to('roles','Roles')!!}</li>
+                                    <li role="separator" class="divider"></li>
+                                @endif
                                 <li><a class="" href="{{ url('/auth/logout') }}">logout</a></li>
                             </ul>
                         </li>
@@ -89,6 +92,7 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle login" href="login" data-toggle="dropdown">login/sign in <strong
                                         class="caret"></strong></a>
+
                             <div class="dropdown-menu" style="padding: 20px;width:240px">
                                 {!! FORM::open(array('url' => 'auth/login')) !!}
                                 {!! FORM::label('email', 'email') !!} <br/>
