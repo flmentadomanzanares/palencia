@@ -2,6 +2,7 @@
  * Created by fmentado on 21/11/2015.
  */
 $(document).ready(function () {
+    console.log( window.location.pathname)
     var cursillos = function (comunidadId) {
         $.ajax(
                 {

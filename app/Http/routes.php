@@ -49,7 +49,7 @@ Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','use
 Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
 
 //Obtener relación de cursos vía Ajax (ModoSelect)
-Route::post('cursillosTotales', array('as'=>'cursillosTotales','before'=>'csrf','uses'=>'CursillosController@cursillosTotales'));
+Route::post('cursillosTotales', array('as'=>'ponerCursillosTotales','before'=>'csrf','uses'=>'CursillosController@cursillosTotales'));
 
 //Listados PDF
 // Listado Cursillos en el mundo
