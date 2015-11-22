@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     var fechaFinal = $('#datepicker2').datepicker({
         onRender: function (date) {
-            return date.valueOf() <= fechaInicio.date.valueOf() ? 'disabled' : '';
+            return date.valueOf() <= (fechaInicio.date.valueOf() || now.valueOf()()) ? 'disabled' : '';
         }
     }).on('changeDate', function (evt) {
         fechaFinal.hide();

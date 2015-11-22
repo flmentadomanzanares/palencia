@@ -7314,6 +7314,13 @@ body {
   width: 200px;
 }
 
+.calendario {
+  background-image: url("../img/iconos/calendario.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 32px 100%;
+}
+
 .btn-register {
   font-size: 14px;
   font-family: Arial, sans-serif;
