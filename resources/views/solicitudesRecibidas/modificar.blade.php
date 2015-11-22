@@ -23,9 +23,7 @@
     </div>
 @endsection
 @section("css")
-    {!! HTML::style("css/vendor/datepicker/datepicker.css") !!}
 @stop
 @section('js')
-    {!! HTML::script('js/vendor/datepicker/datepicker.js') !!}
-    {!! HTML::script('js/comun/date.js') !!}
+    {!! HTML::script('js/comun/listarCursos.js') !!}
 @endsection

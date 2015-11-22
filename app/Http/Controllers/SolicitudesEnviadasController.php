@@ -35,8 +35,8 @@ class SolicitudesEnviadasController extends Controller {
 	//Título Vista
         $titulo = "Nueva Solicitud Enviada";
         $solicitudEnviada = new SolicitudesEnviadas();
-        $comunidades = Comunidades::getComunidadesList();
-        $cursillos = Cursillos::getCursillosList();
+        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
+        $cursillos = array('0'=>'Cursillos...');
 
         //Vista
         return view('solicitudesEnviadas.nuevo',
@@ -108,8 +108,8 @@ class SolicitudesEnviadasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Enviada";
         $solicitudEnviada = SolicitudesEnviadas::find($id);
-        $comunidades = Comunidades::getComunidadesList();
-        $cursillos = Cursillos::getCursillosList();
+        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
+        $cursillos = array('0'=>'Cursillos...');
 
         //Vista
         return view('solicitudesEnviadas.modificar',
