@@ -1,6 +1,6 @@
 @extends('plantillas.admin')
 @section('titulo')
-    {!! $titulo !!}
+    <h1 class="text-center">{!! $titulo !!}</h1>
 @endsection
 @section('contenido')
     <div class="spinner"></div>
@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                         @foreach ($paises as $pais)
-                            <tr>
+                            <tr @if(!$pais->activo) class="red" @endif>
                                 <td>{{ $pais->pais }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">

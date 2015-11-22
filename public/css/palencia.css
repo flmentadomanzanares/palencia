@@ -11,7 +11,7 @@
 }
 
 html {
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   width: 100%;
@@ -20,8 +20,10 @@ html {
 
 body {
   float: none;
-  max-width: 1360px;
+  max-width: 100%;
   margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
   height: 100%;
 }
 
@@ -1314,7 +1316,7 @@ html {
 }
 
 body {
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #400090;
@@ -3604,7 +3606,7 @@ fieldset[disabled] a.btn {
 
 .btn-register {
   font-size: 14px;
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background-color: #00ff00;
   text-align: center;
   color: #ffffff;
@@ -4804,7 +4806,7 @@ tbody.collapse.in {
 }
 
 .nav-pills {
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 18px;
 }
 
@@ -4919,7 +4921,7 @@ tbody.collapse.in {
 }
 
 .tab-size-columna-caption {
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 18px;
   padding-bottom: 43px;
 }
@@ -4927,10 +4929,6 @@ tbody.collapse.in {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 24px;
-  padding-top: 23px;
-  padding-left: 23px;
-  padding-right: 23px;
   border: 0;
 }
 
@@ -7318,7 +7316,7 @@ body {
 
 .btn-register {
   font-size: 14px;
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background-color: #400090;
   border-color: #400090 !important;
   text-align: center;
@@ -7331,7 +7329,7 @@ body {
 
 .btn-action a, .btn-action button {
   min-width: 60px;
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif !important;
+  font-family: Arial, sans-serif !important;
   display: inline-block;
   padding: 15px 5px;
   background: #ffffff;
@@ -7388,7 +7386,7 @@ body {
 
 .panel-viaoptima-search a {
   min-width: 60px;
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif !important;
+  font-family: Arial, sans-serif !important;
   display: inline-block;
   padding: 15px 5px;
   background: #ffffff;
@@ -7595,7 +7593,7 @@ input[type=file]:hover {
 
 .about-us {
   padding: 5px;
-  font-family: "Century Gothic regular", Verdana, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 15px;
   width: 100%;
   float: left;
@@ -7738,9 +7736,12 @@ input[type=file]:hover {
 }
 
 .user-image {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  position: absolute;
+  left: -30px;
+  top: 5px;
 }
 
 .altoMaximo {

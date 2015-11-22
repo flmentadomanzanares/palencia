@@ -45,11 +45,13 @@ Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'cs
 //Cálculo del total de semanas por año vía Ajax
 Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
 
-//Obtener relación de cursos vía Ajax
+//Obtener relación de cursos vía Ajax (ModoTabla)
 Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
 
-//Listados PDF
+//Obtener relación de cursos vía Ajax (ModoSelect)
+Route::post('cursillosTotales', array('as'=>'ponerCursillosTotales','before'=>'csrf','uses'=>'CursillosController@cursillosTotales'));
 
+//Listados PDF
 // Listado Cursillos en el mundo
 Route::get('cursillosPaises', 'PdfController@getCursillos');
 Route::post('imprimirCursillos', array('as'=>'imprimirCursillos','before'=>'csrf','uses'=>'PdfController@imprimirCursillos'));

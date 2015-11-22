@@ -24,7 +24,7 @@ class Localidades extends Model
 
     public static function getLocalidades(Request $request)
     {
-        return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id')->
+        return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id','localidades.activo')->
         leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
         leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')->
         pais($request->get('pais'))->

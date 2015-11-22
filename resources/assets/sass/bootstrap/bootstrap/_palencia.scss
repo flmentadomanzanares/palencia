@@ -241,7 +241,7 @@ body {
 // Botón de registros
 .btn-register {
   font-size: $font-size-app-base-register;
-  font-family: $font-family-century-gothic;
+  font-family: $font-family;
   background-color: $app-color-base;
   border-color: $app-color-base !important;
   text-align: center;
@@ -465,7 +465,7 @@ input[type=file]:hover {
 //AboutUs
 .about-us {
   padding: $padding-app-base;
-  font-family: $font-family-century-gothic;
+  font-family: $font-family;
   font-size: $font-size-app-base-content;
   width: 100%;
   float: left;
@@ -583,18 +583,23 @@ input[type=file]:hover {
 
 //COLOR CURSILLOS
 .ponerCirculoColor {
-  display:inline-block;
+  display: inline-block;
   min-width: 1.2em;
   min-height: 1.2em;
   border-radius: 50%;
   margin-right: 5px;
 }
+
 //IMAGEN USER AUTHENTICATE
-.user-image{
-  width:$imagen-user-width;
-  height:$imagen-user-height;
-  border-radius:50%;
+.user-image {
+  width: $imagen-user-width;
+  height: $imagen-user-height;
+  border-radius: 50%;
+  position: absolute;
+  left: $imagen-user-left;
+  top: $imagen-user-top;
 }
+
 //ALTO 100%
 .altoMaximo {
   min-height: 100%;

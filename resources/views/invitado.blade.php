@@ -4,10 +4,15 @@
 @section ("contenido")
     <div class="spinner"></div>
     <div class="hidden">
-        <div class=" row">
-            <img src="{!!asset('img/portada/portada.jpg')!!}" alt="Portada" class="img-responsive ">
-            <br>
-            <div id="formularioModal">
+        <div class="row ">
+            <div class="full-width"
+                 style='height:450px;
+                         background-repeat:no-repeat;
+                         background-position:center center;
+                         background-size:100% 100%;
+                         background-image:url("{{asset('img/portada/portada.jpg')}}")'>
+            </div>
+                   <div id="formularioModal">
                 <div class="ventanaModal">
                     <div class="headerFormularioModal">
                         <span class="headerFormularioModalTitle"></span>
@@ -37,7 +42,6 @@
                             <br/>
 
                             {!! FORM::submit('registrarse',array("class"=>"btn btn-success btn-block")) !!}
-
                             {!! FORM::close() !!}
                         </div>
                     </div>

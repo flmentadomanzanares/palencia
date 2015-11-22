@@ -70,7 +70,7 @@
 @mixin btn-viaoptima-button-action()
 {
     min-width: $btn-min-width-table;
-    font-family: $font-family-century-gothic !important;
+    font-family: $font-family !important;
     display: inline-block;
     padding: (3 * $padding-app-base) $padding-app-base;
     background: $app-color-white;

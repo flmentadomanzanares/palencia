@@ -136,6 +136,18 @@ class Cursillos extends Model
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
     }
+    static public function getTodosMisCursillosLista($comunidad = 0)
+    {
+        if ($comunidad==0)
+        {
+            return;
+        }
+        return Cursillos::Select('cursillos.cursillo', 'cursillos.id')
+            ->ComunidadCursillos($comunidad)
+            ->orderBy('cursillos.fecha_inicio')
+            ->orderBy('cursillos.cursillo', 'ASC')
+            ->get();
+    }
 
     static public function getCursillo($id = null)
     {

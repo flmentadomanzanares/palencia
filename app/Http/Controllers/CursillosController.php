@@ -225,4 +225,11 @@ class CursillosController extends Controller
             return Cursillos::getTodosMisCursillos($comunidad,$anyo,$semana);
         }
     }
+    public function cursillosTotales(Request $request)
+    {
+          if (\Request::ajax()) {
+            $comunidad = $request->get('comunidadId');
+            return Cursillos::getTodosMisCursillosLista($comunidad);
+        }
+    }
 }

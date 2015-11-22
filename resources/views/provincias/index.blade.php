@@ -1,6 +1,6 @@
 @extends('plantillas.admin')
 @section('titulo')
-    {!! $titulo !!}
+    <h1 class="text-center">{!! $titulo !!}</h1>
 @endsection
 @section('contenido')
     <div class="spinner"></div>
@@ -13,7 +13,7 @@
                         @foreach ($provincias as $provincia)
                         <table class="table-viaoptima table-striped pull-left">
                             <thead>
-                            <tr>
+                            <tr @if(!$provincia->activo) style="background-color: red" @endif>
                                 <th colspan="2" class="text-left">
                                     {{$provincia->paises->pais}}
                                 </th>

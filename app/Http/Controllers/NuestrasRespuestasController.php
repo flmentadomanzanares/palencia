@@ -103,13 +103,14 @@ class NuestrasRespuestasController extends Controller
         if (count($remitente) == 0 || count($destinatarios) == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasRespuestas.index')->
-            with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s.');
+            with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
         foreach ($destinatarios as $idx => $destinatario) {
             $nombreArchivo = "NR-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
+            $pathNombreArchivo = 'respuestasCursillos\\' . $nombreArchivo;
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
@@ -123,7 +124,7 @@ class NuestrasRespuestasController extends Controller
                 $nombreArchivoAdjuntoEmail = 'templatePdf\\NR-' . $remitente->comunidad . '.pdf';
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
+                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
                     $logEnvios[] = ["Creado fichero adjunto para el email de respuesta de " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
@@ -142,8 +143,13 @@ class NuestrasRespuestasController extends Controller
             } else {
                 try {
                     $pdf = \App::make('dompdf.wrapper');
+                    if (count($destinatarios) > 1) {
+                        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save(mb_convert_encoding($pathNombreArchivo, 'ISO-8859-1', 'UTF-8'));
+                        $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $pathNombreArchivo), "", true];
+                    } else {
+                        return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
+                    }
                     return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
-                    //$logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $nombreArchivo), "",true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear la carta de respuesta para " . $destinatario->comunidad, "", false];
                 }

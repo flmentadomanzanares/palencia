@@ -1,6 +1,6 @@
 @extends('plantillas.admin')
 @section('titulo')
-    {!! $titulo !!}
+    <h1 class="text-center">{!! $titulo !!}</h1>
 @endsection
 @section('contenido')
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
