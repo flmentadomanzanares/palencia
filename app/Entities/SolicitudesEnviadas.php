@@ -59,14 +59,23 @@ class SolicitudesEnviadas extends Model {
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
+    {
+        if (is_numeric($cursilloId) && $cursilloId > 0) {
+            $query->where('solicitudes_enviadas.cursillo_id', $cursilloId);
+        }
+        return $query;
+    }
+
     static public function getSolicitudesEnviadas(Request $request)
     {
-        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','cursillos.cursillo',
-            'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'solicitudes_enviadas.cursillo_id',
+            'comunidades.comunidad','cursillos.cursillo', 'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
+            ->CursilloSolicitudesEnviadas($request->get('cursillo'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
@@ -126,4 +135,5 @@ class SolicitudesEnviadas extends Model {
             ->get();
 
     }
+
 }

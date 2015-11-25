@@ -21,7 +21,7 @@
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('comunidad', $comunidades, null,array("class"=>"select-control pull-left"))!!}
     {!! FORM::select('anyos', $anyos, null,array("class"=>"select-control pull-left",'id'=>'select_anyos'))!!}
-    {!! FORM::select('semanas', $semanas, null,array("class"=>"select-control pull-left",'id'=>'select_semanas'))!!}
+    {!! FORM::select('semanas', $semanas, null,array("class"=>"select-control pull-left", 'id'=>'select_semanas'))!!}
     {!! FORM::text('cursillo',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
