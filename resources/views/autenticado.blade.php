@@ -7,13 +7,19 @@
     <div class="spinner"></div>
     <div class="hidden" style="height:100%">
         @if (Auth::check())
-            <div class="row ">
-                @include('auth.parciales.buscar')
-            </div>
-            <div class="panel panel-body">
-                {!! $calendar->calendar() !!}
-                {!! $calendar->script() !!}
-            </div>
+            @if (!empty($calendar))
+                <div class="row ">
+                    @include('auth.parciales.buscar')
+                </div>
+                <div class="panel panel-body">
+
+                    {!! $calendar->calendar() !!}
+                    {!! $calendar->script() !!}
+
+                </div>
+            @else
+                <h1 class="alert alert-info text-center">No existe ningun cursillo programado</h1>
+            @endif
         @endif
     </div>
 @endsection

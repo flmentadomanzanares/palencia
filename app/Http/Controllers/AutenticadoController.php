@@ -1,5 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
+use MaddHatter\LaravelFullcalendar\Calendar;
 use Palencia\Entities\Cursillos;
 use Illuminate\Http\Request;
 
@@ -61,6 +62,9 @@ class AutenticadoController extends Controller
                 $cursillo->id //optional event ID
             );
         }
+
+        if (count($cursillos) > 0) {
+
         $calendar = \Calendar::addEvents($event)
             ->setOptions([ //set fullcalendar options
                 'lang' => '',
@@ -75,6 +79,9 @@ class AutenticadoController extends Controller
                     $(this).attr("href","cursillos/"+calEvent.id);
                 }'
             ]);
+
+        }
+
         return view('autenticado', compact('calendar', 'anyos', 'semanas', 'titulo'));
     }
 }

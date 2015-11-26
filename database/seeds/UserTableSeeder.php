@@ -17,7 +17,7 @@ class UserTableSeeder extends BaseSeeder {
     {
 
         // configuracion Faker para tabla users
-        return [
+        /*return [
 
             'fullname'  => $faker->name($gender = null|'male'|'female'),
             'name' => $faker->firstName,
@@ -25,7 +25,7 @@ class UserTableSeeder extends BaseSeeder {
             'password' => bcrypt('user'),
             'rol_id' => 2
 
-        ];
+        ];*/
 
     }
 
@@ -36,7 +36,7 @@ class UserTableSeeder extends BaseSeeder {
         $this->createAdmin();
 
         // datos generales
-        $this->createMultiple(50);
+        /*$this->createMultiple(50);*/
 
     }
 
