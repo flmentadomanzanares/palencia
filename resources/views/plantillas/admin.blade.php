@@ -15,10 +15,7 @@
 <div>
     <div class="row">
         <div class="pull-left">
-            <img src={!!asset('img/header/cabeceraPalencia.png')!!} alt="">
-        </div>
-        <div class="pull-right">
-            <img src={!!asset('img/header/cabeceraPaloma.png')!!} alt="">
+            <img src={!!asset('img/header/cabecera.png')!!} alt="">
         </div>
     </div>
     <nav role="navigation" class="navbar navbar-inverse block-center">
