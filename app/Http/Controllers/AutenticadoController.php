@@ -57,7 +57,7 @@ class AutenticadoController extends Controller
                 $cursillo->cursillo, //event title
                 true, //full day event?
                 $cursillo->fecha_inicio, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
-                $cursillo->fecha_final, //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
+                date('Y-m-d', strtotime($cursillo->fecha_final) + 86400), //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
                 $cursillo->color,
                 $cursillo->id //optional event ID
             );

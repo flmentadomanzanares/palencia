@@ -18,7 +18,7 @@
 
                 </div>
             @else
-                <h1 class="alert alert-info text-center">No existe ningun cursillo programado</h1>
+                <h1 class="alert alert-info text-center">No existen cursillos programados</h1>
             @endif
         @endif
     </div>
