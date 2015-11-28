@@ -34,6 +34,11 @@ Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
 Route::resource('nuestrasSolicitudes','NuestrasSolicitudesController');
+
+
+//Copia de seguridad
+Route::resource('copiaSeguridad', 'CopiaSeguriradController');
+
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
 Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
