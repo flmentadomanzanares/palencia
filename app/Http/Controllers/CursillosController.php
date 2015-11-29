@@ -1,6 +1,5 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Carbon\Carbon;
 use Palencia\Entities\TiposCursillos;
 use Palencia\Entities\TiposParticipantes;
 use Palencia\Http\Requests;

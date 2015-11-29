@@ -1,9 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
+
 
 class CopiaSeguridadController extends Controller
 {
@@ -17,7 +19,7 @@ class CopiaSeguridadController extends Controller
     {
         $titulo = "Copia Seguridad";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        return view('nuestrasRespuestas.index',
+        return view('copiaSeguridad.index',
             compact(
                 'nuestrasComunidades',
                 'titulo'));
@@ -86,7 +88,7 @@ class CopiaSeguridadController extends Controller
     {
     }
 
-    public function CrearCopia(Request $request)
+    public function comenzarCopia(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         if (count($remitente) == 0) {
@@ -94,49 +96,33 @@ class CopiaSeguridadController extends Controller
             route('CopiaSeguridad.index')->
             with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
         }
-
         $logEnvios = [];
+        $backupfile = "CS-PALENCIA_" . date("Y-m-d") . '.sql';
 
-        $cursos = [];
+        $dbhost = env('DB_HOST');
+        $dbuser = env('DB_USERNAME');
+        $dbpass = env('DB_PASSWORD');
+        $dbname = env('DB_DATABASE');
+        //Realizamos la copia de seguridad
 
-        /*
-                    if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
-                        $esCarta = false;
-                        $nombreArchivoAdjuntoEmail = 'templatePdf\\NR-' . $remitente->comunidad . '.pdf';
-                        try {
-                            $pdf = \App::make('dompdf.wrapper');
-                            $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
-                            $logEnvios[] = ["Creado fichero adjunto para el email de respuesta de " . $destinatario->comunidad, "", true];
-                        } catch (\Exception $e) {
-                            $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
-                        }
-                        try {
-                            $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuestaB1', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
-                                $message->from($remitente->email_solicitud, $remitente->comunidad);
-                                $message->to($destinatario->email_envio)->subject("Nuestra Respuesta");
-                                $message->attach($nombreArchivoAdjuntoEmail);
-                            });
-                        } catch (\Exception $e) {
-                            $envio = 0;
-                        }
-                        $logEnvios[] = $envio > 0 ? ["Enviado email de respuesta a " . $destinatario->comunidad . " al correo " . $destinatario->email_envio, "", true] :
-                            ["Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
-                    } else {
-                        try {
-                            $pdf = \App::make('dompdf.wrapper');
-                            if (count($destinatarios) > 1) {
-                                $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save(mb_convert_encoding($pathNombreArchivo, 'ISO-8859-1', 'UTF-8'));
-                                $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, str_replace("\\", "/", $pathNombreArchivo), "", true];
-                            } else {
-                                return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
-                            }
-                            return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
-                        } catch (\Exception $e) {
-                            $logEnvios[] = ["Error al crear la carta de respuesta para " . $destinatario->comunidad, "", false];
-                        }
-                    }
-                }
-        */
+        system("path d:\\xampp\\mysql\\bin;  mysqldump --opt --hosts=localhost --user=root --password= palencia > backups.sql");
+
+        if ((strcmp($remitente->comunicacion_preferida, "Email") == 0) && (strlen($remitente->email_solicitud) > 0)) {
+            try {
+                $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $backupfile) {
+                    $message->from($remitente->email_solicitud, $remitente->comunidad);
+                    $message->to($remitente->email_envio)->subject("Copia de Seguridad");
+                    $message->attach($backupfile);
+                });
+
+                unlink($backupfile);
+            } catch (\Exception $e) {
+                $envio = 0;
+            }
+            $logEnvios[] = $envio > 0 ? ["Enviado vía email la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . $remitente->email_envio, "", true] :
+                ["Fallo al enviar la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . (strlen($remitente->email_envio) > 0 ? $remitente->email_envio : "(Sin determinar)"), "", false];
+        } else {
+        }
         $titulo = "Operaciones Realizadas";
         return view('copiaSeguridad.listadoLog',
             compact('titulo', 'logEnvios'));

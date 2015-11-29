@@ -32,69 +32,6 @@ class NuestrasSolicitudesController extends Controller
                 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-    }
-
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
@@ -109,6 +46,8 @@ class NuestrasSolicitudesController extends Controller
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
+        //Ampliamos el tiempo de ejecución del servidor a 3 minutos.
+        ini_set("max_execution_time", 300);
         foreach ($destinatarios as $idx => $destinatario) {
             $nombreArchivo = "NS-" . date("d_m_Y", strtotime('now')) . '-' . ($destinatario->pais . '-' . $destinatario->comunidad) . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             $pathNombreArchivo = 'solicitudesCursillos\\' . $nombreArchivo;
@@ -136,6 +75,7 @@ class NuestrasSolicitudesController extends Controller
                             $message->to($destinatario->email_envio)->subject("Nuestra Solicitud");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
+                    unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
                 }

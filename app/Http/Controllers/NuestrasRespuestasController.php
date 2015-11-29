@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 
 class NuestrasRespuestasController extends Controller
@@ -32,69 +31,6 @@ class NuestrasRespuestasController extends Controller
                 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-    }
-
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
@@ -108,6 +44,8 @@ class NuestrasRespuestasController extends Controller
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
+        //Ampliamos el tiempo de ejecución del servidor a 3 minutos.
+        ini_set("max_execution_time", 300);
         foreach ($destinatarios as $idx => $destinatario) {
             $nombreArchivo = "NR-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             $pathNombreArchivo = 'respuestasCursillos\\' . $nombreArchivo;
@@ -130,11 +68,12 @@ class NuestrasRespuestasController extends Controller
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
                 }
                 try {
-                    $envio = Mail::send('nuestrasRespuestas.pdf.cartaRespuestaB1', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
+                    $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1", compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
                         $message->from($remitente->email_solicitud, $remitente->comunidad);
                         $message->to($destinatario->email_envio)->subject("Nuestra Respuesta");
                         $message->attach($nombreArchivoAdjuntoEmail);
                     });
+                    unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
                 }

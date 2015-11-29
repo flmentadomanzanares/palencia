@@ -1,10 +1,8 @@
 @extends('plantillas.admin')
-@section('titulo')
-
-@endsection
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
+        <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
             <tr>
@@ -40,7 +38,7 @@
             </tbody>
         </table>
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('nuestrasRespuestas.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('nuestrasRespuestas')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>

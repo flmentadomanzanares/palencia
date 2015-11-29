@@ -19,7 +19,7 @@ Route::get('/inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
 
 Route::controllers(['auth'=> 'Auth\AuthController','password'=> 'Auth\PasswordController']);
 
-//Rutas Controladores RestFull
+
 Route::resource('comunidades','ComunidadesController');
 Route::resource('cursillos','CursillosController');
 Route::resource('localidades','LocalidadesController');
@@ -28,20 +28,21 @@ Route::resource('provincias','ProvinciasController');
 Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('usuarios','UsersController');
-//Route::resource('tiposParticipantes','TiposParticipantesController');
+
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
-Route::resource('nuestrasRespuestas','NuestrasRespuestasController');
-Route::resource('nuestrasSolicitudes','NuestrasSolicitudesController');
+Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@index'));
+Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'before' => 'csrf', 'uses' => 'NuestrasSolicitudesController@index'));
 
 
 //Copia de seguridad
-Route::resource('copiaSeguridad', 'CopiaSeguriradController');
+Route::resource('copiaSeguridad', 'CopiaSeguridadController');
+Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
 
-//Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
-Route::post('enviarNuestrasRespuestas', array('as'=>'enviarNuestrasRespuestas','before'=>'csrf','uses'=>'NuestrasRespuestasController@enviar'));
 Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
+Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@enviar'));
+
 
 //Cambio de Provincias y localidades vía ajax.
 Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
