@@ -7029,7 +7029,6 @@ button.close {
   margin-left: -11px;
   border-bottom-width: 0;
   border-top-color: #999999;
-  border-top-color: fade(rgba(0, 0, 0, 0.2), 0.05);
   bottom: -11px;
 }
 
@@ -7047,7 +7046,6 @@ button.close {
   margin-top: -11px;
   border-left-width: 0;
   border-right-color: #999999;
-  border-right-color: fade(rgba(0, 0, 0, 0.2), 0.05);
 }
 
 .popover.right > .arrow:after {
@@ -7063,7 +7061,6 @@ button.close {
   margin-left: -11px;
   border-top-width: 0;
   border-bottom-color: #999999;
-  border-bottom-color: fade(rgba(0, 0, 0, 0.2), 0.05);
   top: -11px;
 }
 
@@ -7081,7 +7078,6 @@ button.close {
   margin-top: -11px;
   border-right-width: 0;
   border-left-color: #999999;
-  border-left-color: fade(rgba(0, 0, 0, 0.2), 0.05);
 }
 
 .popover.left > .arrow:after {

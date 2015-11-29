@@ -41,16 +41,16 @@ class AutenticadoController extends Controller
 
         //Obtenemos los parámetros de la respuesta
         $year = $request->input('anyo');
-        $week = $request->input('semana')>0?$request->input('semana'):1;
+        $week = $request->input('semana') > 0 ? $request->input('semana') : 1;
         $semanas = Array();
         //A partir del número de semana obtenemos el mes
-        if($year >0 && $week>0) {
+        if ($year > 0 && $week > 0) {
             $month = new \DateTime();
             $month->setISODate($year, $week);
             $mes = $month->format('m');
             $year = $month->format('Y');
         }
-        $date=$year>0 ? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d');
+        $date = $year > 0 ? date('Y-m-d', strtotime("$year-$mes-1")) : date('Y-m-d');
         //Cargamos los cursillos
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(
@@ -64,21 +64,20 @@ class AutenticadoController extends Controller
         }
 
         if (count($cursillos) > 0) {
-
-        $calendar = \Calendar::addEvents($event)
-            ->setOptions([ //set fullcalendar options
-                'lang' => '',
-                'defaultDate' => $date,
-                'buttonIcons' => true,
-                'editable' => false,
-                'weekNumbers' => true,
-                'eventLimit' => true, // allow "more" link when too many events
-                'header' => array('left' => 'next , prev', 'center' => 'title', 'right' => 'prev , next')
-            ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
-                'eventClick' => 'function(calEvent, jsEvent, view) {
+            $calendar = \Calendar::addEvents($event)
+                ->setOptions([ //set fullcalendar options
+                    'lang' => '',
+                    'defaultDate' => $date,
+                    'buttonIcons' => true,
+                    'editable' => false,
+                    'weekNumbers' => true,
+                    'eventLimit' => true, // allow "more" link when too many events
+                    'header' => array('left' => 'next , prev', 'center' => 'title', 'right' => 'prev , next')
+                ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+                    'eventClick' => 'function(calEvent, jsEvent, view) {
                     $(this).attr("href","cursillos/"+calEvent.id);
                 }'
-            ]);
+                ]);
 
         }
 
