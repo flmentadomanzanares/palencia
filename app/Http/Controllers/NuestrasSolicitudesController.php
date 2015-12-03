@@ -40,7 +40,7 @@ class NuestrasSolicitudesController extends Controller
         $numeroDestinatarios = count($destinatarios);
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
-            route('nuestrasSolicitudes.index')->
+            route('nuestrasSolicitudes')->
             with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
