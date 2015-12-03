@@ -80,6 +80,8 @@
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 <li>{!!link_to('roles','Roles')!!}</li>
                                 <li role="separator" class="divider"></li>
+                                <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
+                                <li role="separator" class="divider"></li>
                             @endif
                             <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                         </ul>
@@ -90,7 +92,7 @@
                                     class="caret"></strong></a>
 
                         <div class="dropdown-menu" style="padding: 20px;width:240px">
-                            {!! FORM::open(array('url' => 'auth/login')) !!}
+                            {!! FORM::open(array('url' => '/auth/login')) !!}
                             {!! FORM::label('email', 'email') !!} <br/>
                             {!! FORM::text ('email','',array("placeholder"=>"email de usuario",
                             "class"=>"form-control")) !!}

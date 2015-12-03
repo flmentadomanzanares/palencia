@@ -37,8 +37,8 @@ Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'before' 
 
 
 //Copia de seguridad
-Route::resource('copiaSeguridad', 'CopiaSeguridadController');
-Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
+Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@index'));
+Route::post('comenzarCopia', array('as' => 'comenzarCopia', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
 
 Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
 Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@enviar'));
