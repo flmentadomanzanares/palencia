@@ -40,17 +40,17 @@ Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas'
 
 
 //Cambio de Provincias y localidades vía ajax.
-Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
-Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
+Route::post('/cambiarProvincias', array('as' => 'cambiarProvincias', 'before' => 'csrf', 'uses' => 'ProvinciasController@cambiarProvincias'));
+Route::post('/cambiarLocalidades', array('as' => 'cambiarLocalidades', 'before' => 'csrf', 'uses' => 'LocalidadesController@cambiarLocalidades'));
 
 //Cálculo del total de semanas por año vía Ajax
-Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
+Route::post('/semanasTotales', array('as' => 'semanasTotales', 'before' => 'csrf', 'uses' => 'CursillosController@semanasTotales'));
 
 //Obtener relación de cursos vía Ajax (ModoTabla)
-Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
+Route::post('/listadoCursillos', array('as' => 'listadoCursillos', 'before' => 'csrf', 'uses' => 'CursillosController@listadoCursillos'));
 
 //Obtener relación de cursos vía Ajax (ModoSelect)
-Route::post('cursillosTotales', array('as'=>'ponerCursillosTotales','before'=>'csrf','uses'=>'CursillosController@cursillosTotales'));
+Route::post('/cursillosTotales', array('as' => 'ponerCursillosTotales', 'before' => 'csrf', 'uses' => 'CursillosController@cursillosTotales'));
 
 //Listados PDF
 // Listado Cursillos en el mundo
