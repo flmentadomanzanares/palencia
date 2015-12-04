@@ -20,7 +20,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/palencia/public/cambiarProvincias',
+                url: '/cambiarProvincias',
                 success: function (data) {
                     $('#select_provincia').empty();
                     $.each(data, function (key, element) {
@@ -44,7 +44,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/palencia/public/cambiarLocalidades',
+                url: '/cambiarLocalidades',
                 success: function (data) {
                     $('#select_localidad').empty();
                     $.each(data, function (key, element) {

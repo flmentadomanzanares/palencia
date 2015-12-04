@@ -12,7 +12,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 type: "post",
-                url: "/palencia/public/cursillosTotales",
+                    url: "/cursillosTotales",
                 success: function (data) {
 
                     var cursillos = $("#select-cursillos");

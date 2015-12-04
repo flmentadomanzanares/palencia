@@ -6,7 +6,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($cursillo, ['route' => ['cursillos.update', $cursillo->id], 'method' => 'patch']) !!}
-        @include('cursillos.Parciales.nuevoYmodificar')
+        @include('cursillos.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('cursillos.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">

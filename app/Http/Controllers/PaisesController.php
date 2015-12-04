@@ -1,10 +1,7 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
 use Palencia\Entities\Paises;
 
 //Validación

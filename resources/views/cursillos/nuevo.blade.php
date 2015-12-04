@@ -6,7 +6,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::open(['route' => 'cursillos.store']) !!}
-        @include('cursillos.Parciales.nuevoYmodificar')
+        @include('cursillos.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('cursillos.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">

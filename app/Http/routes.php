@@ -12,13 +12,9 @@
 */
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
-
 Route::get('/', 'InvitadoController@index');
-
 Route::get('/inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
-
 Route::controllers(['auth'=> 'Auth\AuthController','password'=> 'Auth\PasswordController']);
-
 
 Route::resource('comunidades','ComunidadesController');
 Route::resource('cursillos','CursillosController');
@@ -34,7 +30,6 @@ Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@index'));
 Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'before' => 'csrf', 'uses' => 'NuestrasSolicitudesController@index'));
-
 
 //Copia de seguridad
 Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@index'));
