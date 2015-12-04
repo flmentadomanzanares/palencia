@@ -82,8 +82,11 @@
                                 <li role="separator" class="divider"></li>
                                 <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
                                 <li role="separator" class="divider"></li>
+                            @else
+                                <li>{!!link_to('usuarios', 'Mi Perfil')!!}</li>
+                                <li role="separator" class="divider"></li>
+                                <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                             @endif
-                            <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                         </ul>
                     </li>
                 @else

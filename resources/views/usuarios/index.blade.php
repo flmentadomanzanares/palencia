@@ -17,17 +17,22 @@
                     <table class="table-viaoptima table-striped">
                         <caption>
                             <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt="">
+
                             <div class="pull-left">
                                 {!! $usuario->fullname!!}
 
                             </div>
                         </caption>
                         <thead>
-                        <tr  @if(!$usuario->activo) style="background-color: red" @endif>
+                        <tr @if(!$usuario->activo) style="background-color: red" @endif>
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
-                                   href="{{route('usuarios.edit',array('id'=>$usuario->id))}}">
-                                    <i class="glyphicon glyphicon-edit">
+                                   @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                                   href="{{route('usuarios.edit',array('id'=>$usuario->id))}}"
+                                   @else
+                                   href="{{route('miPerfil')}}"
+                                        @endif
+                                ><i class="glyphicon glyphicon-edit">
                                         <div>Editar</div>
                                     </i>
                                 </a>
@@ -80,13 +85,13 @@
                 @endforeach
                 @if (Auth::user()->roles->peso<config('opciones.roles.administrador'))
 
-                        <div class="btn-action">
-                            <a title="Volver" href="{{route('inicio')}}" class="pull-right">
-                                <i class="glyphicon glyphicon-arrow-left">
-                                    <div>Volver</div>
-                                </i>
-                            </a>
-                        </div>
+                    <div class="btn-action">
+                        <a title="Volver" href="{{route('inicio')}}" class="pull-right">
+                            <i class="glyphicon glyphicon-arrow-left">
+                                <div>Volver</div>
+                            </i>
+                        </a>
+                    </div>
                 @endif
             @else
                 <div class="clearfix">
