@@ -39,7 +39,6 @@
   list-style: none;
   font-size: $font-size-app-base-register;
   text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
-  margin-top: 2px !important;
   background-color: $dropdown-bg;
   border: 1px solid $dropdown-fallback-border; // IE8 fallback
   border: 1px solid $dropdown-border;
