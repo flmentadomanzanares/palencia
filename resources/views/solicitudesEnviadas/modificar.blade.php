@@ -6,7 +6,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($solicitudEnviada, ['route' => ['solicitudesEnviadas.update', $solicitudEnviada->id], 'method' => 'patch']) !!}
-        @include('solicitudesEnviadas.parciales.nuevoYmodificar')
+        @include('solicitudesEnviadas.Parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('solicitudesEnviadas.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">

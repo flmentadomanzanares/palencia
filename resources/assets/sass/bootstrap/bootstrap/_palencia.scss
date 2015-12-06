@@ -123,10 +123,6 @@
     tr {
       td {
         padding: $padding-app-base $padding-large-horizontal;
-        &:nth-child(2) {
-          max-width: 1px;
-          word-wrap: break-word;
-        }
       }
     }
   }
@@ -241,7 +237,7 @@ body {
 }
 
 //Imagen Calendario
-.calendario {
+.calendario{
   background-image: url("../img/iconos/calendario.png");
   background-position: right center;
   background-repeat: no-repeat;
@@ -610,14 +606,6 @@ input[type=file]:hover {
   position: absolute;
   left: $imagen-user-left;
   top: $imagen-user-top;
-}
-
-//IMAGEN HEADER
-.img-header {
-  background-image: url("../img/header/cabecera.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
 }
 
 //ALTO 100%

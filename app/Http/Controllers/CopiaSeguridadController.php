@@ -19,7 +19,73 @@ class CopiaSeguridadController extends Controller
     {
         $titulo = "Copia Seguridad";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        return view('copiaSeguridad.index', compact('nuestrasComunidades', 'titulo'));
+        return view('copiaSeguridad.index',
+            compact(
+                'nuestrasComunidades',
+                'titulo'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
     }
 
     public function comenzarCopia(Request $request)
@@ -27,7 +93,7 @@ class CopiaSeguridadController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         if (count($remitente) == 0) {
             return redirect()->
-            route('copiaSeguridad')->
+            route('CopiaSeguridad.index')->
             with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
         }
         $logEnvios = [];
@@ -36,20 +102,19 @@ class CopiaSeguridadController extends Controller
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');
         $dbpass = env('DB_PASSWORD');
-        $dbnamedb = env('DB_DATABASE');
+        $dbname = env('DB_DATABASE');
         //Realizamos la copia de seguridad
-        $fileCopiaSeguridad = "backups" . "/" . $backupfile;
-        $copiaSeguridad = "mysqldump --opt --host=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "   " . $dbnamedb . ">" . $fileCopiaSeguridad;
 
-        system($copiaSeguridad);
+        system("path d:\\xampp\\mysql\\bin;  mysqldump --opt --hosts=localhost --user=root --password= palencia > backups.sql");
 
         if ((strcmp($remitente->comunicacion_preferida, "Email") == 0) && (strlen($remitente->email_solicitud) > 0)) {
             try {
-                $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $fileCopiaSeguridad) {
+                $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $backupfile) {
                     $message->from($remitente->email_solicitud, $remitente->comunidad);
                     $message->to($remitente->email_envio)->subject("Copia de Seguridad");
-                    $message->attach($fileCopiaSeguridad);
+                    $message->attach($backupfile);
                 });
+
                 unlink($backupfile);
             } catch (\Exception $e) {
                 $envio = 0;
@@ -57,9 +122,7 @@ class CopiaSeguridadController extends Controller
             $logEnvios[] = $envio > 0 ? ["Enviado vía email la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . $remitente->email_envio, "", true] :
                 ["Fallo al enviar la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . (strlen($remitente->email_envio) > 0 ? $remitente->email_envio : "(Sin determinar)"), "", false];
         } else {
-            $logEnvios[] = ["Creado fichero de copia de seguridad para la comunidad " . $remitente->comunidad, str_replace("\\", "/", $fileCopiaSeguridad), true];
         }
-
         $titulo = "Operaciones Realizadas";
         return view('copiaSeguridad.listadoLog',
             compact('titulo', 'logEnvios'));

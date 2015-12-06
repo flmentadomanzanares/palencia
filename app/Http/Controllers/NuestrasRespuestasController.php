@@ -38,7 +38,7 @@ class NuestrasRespuestasController extends Controller
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
         if (count($remitente) == 0 || count($destinatarios) == 0 || count($cursillos) == 0) {
             return redirect()->
-            route('nuestrasRespuestas')->
+            route('nuestrasRespuestas.index')->
             with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");

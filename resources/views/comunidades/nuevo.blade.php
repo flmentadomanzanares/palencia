@@ -6,7 +6,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::open(['route' => 'comunidades.store']) !!}
-        @include('comunidades.parciales.nuevoYmodificar')
+        @include('comunidades.Parciales.nuevoYmodificar')
         <div class="btn-action  margin-bottom">
             <a title="Volver" href="{{route('comunidades.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">

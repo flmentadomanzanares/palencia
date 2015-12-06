@@ -50,7 +50,7 @@ class PdfController extends Controller {
 
         if ($anyo == 0 || $semana == 0) {
 
-            return redirect('intendenciaClausura')->
+            return redirect('cursillosPaises')->
             with('mensaje', 'Debe seleccionar un año y una semana.');
 
         } else {

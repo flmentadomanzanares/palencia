@@ -2,7 +2,7 @@
 
 use Palencia\Http\Requests;
 use Illuminate\Http\Request;
-use Palencia\Entities\TiposSecretariados;
+use Palencia\Entities\tiposSecretariados;
 
 //Validación
 use Palencia\Http\Requests\ValidateRulesTiposSecretariados;

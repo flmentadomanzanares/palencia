@@ -10,7 +10,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: '/listadoCursillos',
+            url: 'listadoCursillos',
             success: function (data) {
                 $('#listado_cursillos').empty();
                 $.each(data, function (key, element) {
@@ -45,7 +45,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: '/semanasTotales',
+            url: 'semanasTotales',
             success: function (data) {
                 var semanas = $('#select_semanas')
                 semanas.empty();

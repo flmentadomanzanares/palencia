@@ -5,7 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
-        {!! FORM::open(['route' => 'solicitudesEnviadas.store']) !!}
+        {!! FORM::open(['route' => 'solicitudesRecibidas.store']) !!}
         @include('solicitudesRecibidas.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('solicitudesRecibidas.index')}}" class="pull-left">

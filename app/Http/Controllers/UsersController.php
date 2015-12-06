@@ -12,8 +12,7 @@ use Palencia\Entities\Roles;
 //Se incluye las reglas de validación
 use Palencia\Http\Requests\ValidateRulesUsers;
 
-class UsersController extends Controller
-{
+class UsersController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -37,10 +36,10 @@ class UsersController extends Controller
             $users = User::where('id', -1)
                 ->get();
         }
-        $roles = ['0' => 'Elige Rol'] + Roles::where('peso', '>', 0)
+        $roles =['0'=>'Elige Rol']+ Roles::where('peso', '>', 0)
                 ->orderBy('rol', 'ASC')->lists('rol', 'id');
 
-        return view("usuarios.index", compact('users', 'titulo', 'roles'));
+        return view("usuarios.index", compact('users','titulo','roles'));
     }
 
     /**
@@ -103,7 +102,7 @@ class UsersController extends Controller
         $titulo = "Modificar Usuario";
         $usuario = User::find($id);
         $roles = Roles::orderBy('rol', 'ASC')
-            ->lists('rol', 'id');
+            ->lists('rol','id');
         return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
     }
 
@@ -126,7 +125,7 @@ class UsersController extends Controller
             }
         }
         //imagen upload
-        if (\Request::hasFile('foto')) {
+         if (\Request::hasFile('foto')) {
             $image = \Image::make(\Request::file('foto'));
             $filename = md5($image->filename . date("Y-m-d H:i:s")) . '.png';
             $path = 'uploads' . '/' . 'usuarios' . '/';
@@ -174,16 +173,9 @@ class UsersController extends Controller
             }
 
         }
+
         return redirect()->route('usuarios.index')
             ->with('mensaje', 'El usuario ' . $userNombre . ' eliminado correctamente.');
     }
 
-    public function perfil()
-    {
-        $titulo = "Modificar Usuario";
-        $usuario = User::find(\Auth::user()->id);
-        $roles = Roles::orderBy('rol', 'ASC')
-            ->lists('rol', 'id');
-        return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
-    }
 }

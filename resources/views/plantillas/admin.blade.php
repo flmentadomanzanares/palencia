@@ -14,8 +14,8 @@
 
 <div>
     <div class="row">
-        <div class="">
-
+        <div class="pull-left">
+            <img src={!!asset('img/header/cabecera.png')!!} alt="">
         </div>
     </div>
     <nav role="navigation" class="navbar navbar-inverse block-center">
@@ -74,17 +74,11 @@
                                     class="user-image"
                                     src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
                             <strong>{!!Auth::user()->name!!}</strong>
-                            <b class="caret"></b>
-                        </a>
+                            <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
                             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 <li>{!!link_to('roles','Roles')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
-                                <li role="separator" class="divider"></li>
-                            @else
-                                <li>{!!link_to('usuarios', 'Mi Perfil')!!}</li>
                                 <li role="separator" class="divider"></li>
                             @endif
                             <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
@@ -96,7 +90,7 @@
                                     class="caret"></strong></a>
 
                         <div class="dropdown-menu" style="padding: 20px;width:240px">
-                            {!! FORM::open(array('url' => '/auth/login')) !!}
+                            {!! FORM::open(array('url' => 'auth/login')) !!}
                             {!! FORM::label('email', 'email') !!} <br/>
                             {!! FORM::text ('email','',array("placeholder"=>"email de usuario",
                             "class"=>"form-control")) !!}

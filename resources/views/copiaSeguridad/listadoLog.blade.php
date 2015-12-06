@@ -1,10 +1,10 @@
 @extends('plantillas.admin')
 @section('titulo')
+
 @endsection
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
-        <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
             <tr>
@@ -21,8 +21,8 @@
                         @if(strlen($log[1])>0)
                             <div class="btn-action">
                                 <a title="Descargar" href="{{$log[1]}}" download="{{$log[1]}}" class="pull-left">
-                                    <i class="glyphicon glyphicon-floppy-disk">
-                                        <div>Descargar</div>
+                                    <i class="glyphicon glyphicon-print">
+                                        <div>Imprimir</div>
                                     </i>
                                 </a>
                             </div>
@@ -40,7 +40,7 @@
             </tbody>
         </table>
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('copiaSeguridad')}}" class="pull-left">
+            <a title="Volver" href="{{route('copiaSeguridad.index')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>
