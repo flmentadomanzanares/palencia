@@ -21,7 +21,7 @@ class ComunidadesController extends Controller
     public function index(Request $request)
     {
         if (!auth()->check())
-            return View("comun.invitado");
+            return View("invitado");
         $titulo = "Listado de comunidades";
         $comunidades = Comunidades::getComunidades($request);
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
@@ -50,7 +50,7 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $colors = Colores::getColores();
+        $colores = Colores::getColores();
         return view('comunidades.nuevo',
             compact(
                 'comunidad',
@@ -59,7 +59,7 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
-                'colors',
+                'colores',
                 'titulo'
             ));
     }

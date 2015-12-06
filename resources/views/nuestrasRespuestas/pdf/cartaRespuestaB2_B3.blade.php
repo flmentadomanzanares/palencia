@@ -22,6 +22,7 @@
             width: 20em;
             text-align: left;
             font-size: 13pt;
+            overflow: hidden;
         }
 
         .fecha_emision {
@@ -37,6 +38,7 @@
             right: 0;
             width: 20em;
             font-size: 12pt;
+            overflow: hidden;
         }
 
         .tab {
@@ -118,7 +120,7 @@
 <body>
 
 <div style="width:100%;text-align: right">
-    <img class="logo" src={!!asset('img/logo/logo.png')!!} alt=""/>
+    <img class="logo" src='img/logo/logo.png' alt=""/>
 </div>
 <div class="remitente">
     CURSILLOS DE CRISTIANDAD
