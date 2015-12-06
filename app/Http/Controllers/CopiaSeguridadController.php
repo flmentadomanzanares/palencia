@@ -96,16 +96,14 @@ class CopiaSeguridadController extends Controller
             with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
         }
         $logEnvios = [];
-        $backupfile = "CS-PALENCIA_" . date("Y-m-d") . '.sql';
+        $backupfile = "backups/CS-PALENCIA_" . date("Y-m-d_H:i:s") . '.sql';
 
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');
         $dbpass = env('DB_PASSWORD');
         $dbname = env('DB_DATABASE');
         //Realizamos la copia de seguridad
-
         system("mysqldump --opt --hosts=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "  " . $dbname . ">" . $backupfile);
-
         if ((strcmp($remitente->comunicacion_preferida, "Email") == 0) && (strlen($remitente->email_solicitud) > 0)) {
             try {
                 $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $backupfile) {
@@ -121,7 +119,7 @@ class CopiaSeguridadController extends Controller
             $logEnvios[] = $envio > 0 ? ["Enviado vía email la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . $remitente->email_envio, "", true] :
                 ["Fallo al enviar la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . (strlen($remitente->email_envio) > 0 ? $remitente->email_envio : "(Sin determinar)"), "", false];
         } else {
-
+            $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $backupfile, true];
         }
         $titulo = "Operaciones Realizadas";
         return view('copiaSeguridad.listadoLog',
