@@ -1,14 +1,14 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Palencia\Entities\Colores;
+use Palencia\Entities\Comunidades;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
 use Palencia\Entities\TiposComunicacionesPreferidas;
 use Palencia\Entities\TiposSecretariados;
 use Palencia\Http\Requests;
-use Illuminate\Http\Request;
-use Palencia\Entities\Comunidades;
 use Palencia\Http\Requests\ValidateRulesComunidades;
 
 class ComunidadesController extends Controller
