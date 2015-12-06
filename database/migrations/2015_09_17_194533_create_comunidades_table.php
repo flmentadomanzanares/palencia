@@ -59,7 +59,7 @@ class CreateComunidadesTable extends Migration {
 
             $table->boolean('esColaborador')->default(true);
 
-            $table->string('color',4)->default('#000');
+            $table->string('color', 7)->default('#000000');
 
             $table->boolean('activo')->default(true);
 

@@ -14,8 +14,8 @@
 
 <div>
     <div class="row">
-        <div class="pull-left">
-            <img src={!!asset('img/header/cabecera.png')!!} alt="">
+        <div class="">
+
         </div>
     </div>
     <nav role="navigation" class="navbar navbar-inverse block-center">
@@ -74,7 +74,8 @@
                                     class="user-image"
                                     src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
                             <strong>{!!Auth::user()->name!!}</strong>
-                            <b class="caret"></b></a>
+                            <b class="caret"></b>
+                        </a>
                         <ul role="menu" class="dropdown-menu">
                             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
@@ -85,8 +86,8 @@
                             @else
                                 <li>{!!link_to('usuarios', 'Mi Perfil')!!}</li>
                                 <li role="separator" class="divider"></li>
-                                <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                             @endif
+                            <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                         </ul>
                     </li>
                 @else

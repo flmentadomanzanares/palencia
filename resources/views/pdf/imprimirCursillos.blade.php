@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Cursillos en el Mundo</title>
-    {!! HTML::style('css/pdf.css') !!}
+    <link media="all" type="text/css" rel="stylesheet" href="{!!asset("css/pdf.css") !!}"/>
 </head>
 <body>
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -14,7 +14,7 @@
 
     <div class="cabecera2">
     @if ($anyo == 0)
-        </br>
+            <br/>
     @elseif($semana == 0)
         Año: {{ $anyo }}
     @else

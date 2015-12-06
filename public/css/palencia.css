@@ -7213,6 +7213,11 @@ button.close {
   padding: 5px 16px;
 }
 
+.table-viaoptima tbody tr td:nth-child(2) {
+  max-width: 1px;
+  word-wrap: break-word;
+}
+
 .table-size-optima {
   width: 66.17647%;
   margin-left: 16.91176%;
@@ -7744,6 +7749,13 @@ input[type=file]:hover {
   position: absolute;
   left: -30px;
   top: 5px;
+}
+
+.img-header {
+  background-image: url("../img/header/cabecera.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .altoMaximo {

@@ -36,6 +36,8 @@
         @endif
     </div>
 @endsection
+@section('css')
+@endsection
 @section('js')
     {!! HTML::script('js/comun/semanas.js') !!}
 @endsection
