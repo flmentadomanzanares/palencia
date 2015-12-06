@@ -7213,7 +7213,7 @@ button.close {
   padding: 5px 16px;
 }
 
-.table-viaoptima tbody tr td:nth-child(2) {
+.table-viaoptima tbody tr td:nth-child(2):not(.text-right) {
   max-width: 1px;
   word-wrap: break-word;
 }

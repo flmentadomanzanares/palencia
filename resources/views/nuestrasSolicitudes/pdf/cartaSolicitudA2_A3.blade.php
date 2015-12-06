@@ -22,6 +22,7 @@
             width: 20em;
             text-align: left;
             font-size: 13pt;
+            overflow: hidden;
         }
 
         .fecha_emision {
@@ -37,6 +38,7 @@
             right: 0;
             width: 20em;
             font-size: 12pt;
+            overflow: hidden;
         }
 
         .tab {

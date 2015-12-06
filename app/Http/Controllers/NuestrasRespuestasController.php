@@ -1,6 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Illuminate\Http\Request;
