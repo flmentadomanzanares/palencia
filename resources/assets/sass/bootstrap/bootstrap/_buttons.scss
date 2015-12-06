@@ -68,7 +68,7 @@ a.btn {
   text-align: center;
   color:$app-color-white;
   &:hover{
-       color:$app-color-base !important;
+    color: $app-color-hover !important;
   }
 }
 
