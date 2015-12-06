@@ -80,7 +80,11 @@
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
                                 <li>{!!link_to('roles','Roles')!!}</li>
                                 <li role="separator" class="divider"></li>
+                                <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
+                            @else
+                                <li>{!!link_to('miPerfil', 'Mi perfil')!!}</li>
                             @endif
+                                <li role="separator" class="divider"></li>
                             <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                         </ul>
                     </li>
