@@ -118,7 +118,7 @@
 <body>
 
 <div style="width:100%;text-align: right">
-    <img class="logo" src={!!asset('img/logo/logo.png')!!} alt=""/>
+    <img class="logo" src='img/logo/logo.png' alt=""/>
 </div>
 <div class="remitente">
     CURSILLOS DE CRISTIANDAD
