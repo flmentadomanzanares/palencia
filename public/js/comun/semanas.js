@@ -61,6 +61,7 @@ $(document).ready(function () {
             }
         });
     }
+
     $(document).on("change", "#select_anyos , #select_comunidad", function (evt) {
         evt.preventDefault();
         totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());

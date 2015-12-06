@@ -118,4 +118,16 @@ class SolicitudesRecibidas extends Model
 
     }
 
+    static public function getSemanasSolicitudesRecibidas($anyo=0) {
+
+        return SolicitudesRecibidas::Select((DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas')))
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
+            ->where('solicitudes_recibidas.aceptada', true)
+            ->where('cursillos.activo', true)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+            ->groupBy('semanas')
+            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->get();
+
+    }
 }

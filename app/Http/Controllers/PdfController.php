@@ -2,6 +2,7 @@
 
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
+use Illuminate\Http\Request;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\Comunidades;
@@ -283,5 +284,14 @@ class PdfController extends Controller {
         $partesFecha = date_parse_from_format('d/m/Y', $date);
         $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
         return date('Y-m-d H:i:s', $fecha);
+    }
+
+    public function semanasSolicitudes(Request $request) {
+
+        if (\Request::ajax()) {
+            $anyo = $request->get('anyo');
+            return SolicitudesRecibidas::getSemanasSolicitudesRecibidas($anyo);
+        }
+
     }
 }
