@@ -84,7 +84,7 @@
     <div class="heading-caption">Color Mis Cursos</div>
     {!! FORM::label ('color', 'Color Cursos') !!}
     <select id="select-color" class="form-control" name="color">
-        @foreach ($colors as $color)
+        @foreach ($colores as $color)
             <option value="{{$color->codigo_color}}"@if($color->codigo_color==$comunidad->color)
                     selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
