@@ -10,7 +10,7 @@ $fontPath: "fonts/calibri.ttf" !default;
 
 $app-color-base: #400090 !default;
 /*$app-color-base:         #ff7a00 !default;*/
-$app-color-hover: #00ff00 !default;
+$app-color-hover: #ff7a00 !default;
 $app-color-white: #ffffff !default;
 $app-color-success: #ff7a00 !default;
 $app-color-fail: #d9534f !default;
@@ -288,7 +288,7 @@ $dropdown-link-color: $gray-dark !default;
 //** Hover color for dropdown links.
 $dropdown-link-hover-color: darken($gray-dark, 5%) !default;
 //** Hover background for dropdown links.
-$dropdown-link-hover-bg: #f5f5f5 !default;
+$dropdown-link-hover-bg: #f5e9b4 !default;
 
 //** Active dropdown menu item text color.
 $dropdown-link-active-color: $component-active-color !default;

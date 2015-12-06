@@ -22,7 +22,7 @@
                             <tbody>
                                 <tr>
                                     <td>{{ $provincia->provincia }}</td>
-                                    <td  class="table-autenticado-columna-1">
+                                    <td class="table-autenticado-columna-1 text-right">
                                         <div class="btn-action">
                                             <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
                                                class="pull-left">
