@@ -7214,7 +7214,7 @@ button.close {
   padding: 5px 16px;
 }
 
-.table-viaoptima tbody tr td:nth-child(2):not(.text-right) {
+.table-viaoptima tbody tr td:not(.text-right):nth-child(2) {
   max-width: 1px;
   word-wrap: break-word;
 }
@@ -7255,14 +7255,6 @@ button.close {
 .table-autenticado-columna-1 {
   width: 160px;
   max-width: 160px;
-}
-
-.table-break-word :nth-child(1) {
-  vertical-align: top;
-}
-
-.table-break-word :nth-child(2) {
-  word-break: break-all;
 }
 
 textarea {

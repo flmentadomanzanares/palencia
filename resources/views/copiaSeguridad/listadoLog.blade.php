@@ -5,6 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
+        <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
             <tr>

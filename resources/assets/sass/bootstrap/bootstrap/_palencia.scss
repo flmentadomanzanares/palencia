@@ -123,7 +123,7 @@
     tr {
       td {
         padding: $padding-app-base $padding-large-horizontal;
-        &:nth-child(2):not(.text-right) {
+        &:not(.text-right):nth-child(2) {
           max-width: 1px;
           word-wrap: break-word;
         }
@@ -168,16 +168,6 @@
 .table-autenticado-columna-1 {
   width: $tabla-autenticado-columna-1;
   max-width: $tabla-autenticado-columna-1;
-}
-
-.table-break-word {
-  :nth-child(1) {
-    vertical-align: top;
-  }
-  :nth-child(2) {
-    word-break: break-all;
-  }
-
 }
 
 //TEXTAREA
