@@ -34,5 +34,4 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/semanas.js') !!}
 @endsection
