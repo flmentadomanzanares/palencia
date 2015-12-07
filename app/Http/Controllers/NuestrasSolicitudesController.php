@@ -35,7 +35,7 @@ class NuestrasSolicitudesController extends Controller
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'));
+        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0);
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
@@ -49,8 +49,9 @@ class NuestrasSolicitudesController extends Controller
         //Ampliamos el tiempo de ejecución del servidor a 3 minutos.
         ini_set("max_execution_time", 300);
         foreach ($destinatarios as $idx => $destinatario) {
-            $archivo = "solicitudesCursillos/NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
-            $nombreArchivo = mb_convert_encoding($archivo, 'ISO-8859-1', 'UTF-8');
+            $archivo = "solicitudesCursillos" . "/" . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
+            //Conversión a UTF
+            $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursos = [];
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
@@ -60,10 +61,12 @@ class NuestrasSolicitudesController extends Controller
             }
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 $esCarta = false;
-                $nombreArchivoAdjuntoEmail = mb_convert_encoding('templatePDF/NS-' . $remitente->comunidad . '.pdf', 'ISO-8859-1', 'UTF-8');
+                $archivoMail = 'templatePDF' . '/' . 'NS-' . $remitente->comunidad . '.pdf';
+                //Conversión a UTF
+                $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoMail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save(mb_convert_encoding($nombreArchivoAdjuntoEmail, 'ISO-8859-1', 'UTF-8'));
+                    $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado fichero adjunto para el email de solicitud para " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", false];

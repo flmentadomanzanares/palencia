@@ -12,85 +12,10 @@ class Comunidades extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: tipo_comunidad --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function tipo_secretariado()
-    {
-        return $this->belongsTo('App\TiposSecretariados', 'tipo_secretariado_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: tipo_comunidad --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function tipo_comunicacion_preferida()
-    {
-        return $this->belongsTo('App\TiposComunicacionesPreferidas', 'tipo_comunicacion_preferida_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: paises --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function paises()
-    {
-        return $this->belongsTo('App\Paises', 'pais_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: provincias --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function provincias()
-    {
-        return $this->belongsTo('App\Provincias', 'provincia_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: localidades --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function localidades()
-    {
-        return $this->belongsTo('App\Localidades', 'localidad_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function solicitudes_enviadas(){
-
-        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function solicitudes_recibidas(){
-        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
-    }
-
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo','tipos_comunicaciones_preferidas.comunicacion_preferida',
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
             ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
@@ -106,7 +31,7 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
-    static public function getComunidadPDF($comunidad = 0, $esPropia=false)
+    static public function getComunidadPDF($comunidad = 0, $esPropia = null)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -175,6 +100,113 @@ class Comunidades extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    static public function imprimirSecretariadosPais($pais = 0)
+    {
+
+        return Comunidades::Select('comunidades.comunidad')
+            ->where('comunidades.pais_id', '=', $pais)
+            ->where('comunidades.esColaborador', true)
+            ->where('comunidades.activo', true)
+            ->orderBy('comunidades.comunidad')
+            ->get();
+
+    }
+
+    public static function getComunidadesAll()
+    {
+        return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')
+            ->where('activo', true)
+            ->orderBy('comunidad', 'ASC')
+            ->Lists('comunidad', 'id');
+    }
+
+    static public function getNombreComunidad($id = null)
+    {
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos la comunidad
+        return Comunidades::Select('comunidades.comunidad')
+            ->where('comunidades.id', $id)
+            ->first();
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: tipo_comunidad --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function tipo_secretariado()
+    {
+        return $this->belongsTo('App\TiposSecretariados', 'tipo_secretariado_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: tipo_comunidad --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function tipo_comunicacion_preferida()
+    {
+        return $this->belongsTo('App\TiposComunicacionesPreferidas', 'tipo_comunicacion_preferida_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: paises --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function paises()
+    {
+        return $this->belongsTo('App\Paises', 'pais_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: provincias --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function provincias()
+    {
+        return $this->belongsTo('App\Provincias', 'provincia_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: localidades --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function localidades()
+    {
+        return $this->belongsTo('App\Localidades', 'localidad_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_enviadas()
+    {
+
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_recibidas()
+    {
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+    }
+
     public function scopeComunidades($query, $comunidad = null)
     {
         if ($comunidad != null && trim($comunidad) != '') {
@@ -202,7 +234,7 @@ class Comunidades extends Model
     public function scopeEsPropia($query, $esPropia = null)
     {
         if (is_numeric($esPropia)) {
-            $query->where('comunidades.esPropia', $esPropia==1?true:false);
+            $query->where('comunidades.esPropia', $esPropia == 1 ? true : false);
         }
         return $query;
     }
@@ -234,36 +266,6 @@ class Comunidades extends Model
             }
         }
         return $query;
-    }
-
-    static public function imprimirSecretariadosPais($pais=0)
-    {
-
-        return Comunidades::Select('comunidades.comunidad')
-            ->where('comunidades.pais_id', '=', $pais)
-            ->where('comunidades.esColaborador', true)
-            ->where('comunidades.activo', true)
-            ->orderBy('comunidades.comunidad')
-            ->get();
-
-    }
-
-    public static function getComunidadesAll()
-    {
-        return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')
-            ->where('activo', true)
-            ->orderBy('comunidad', 'ASC')
-            ->Lists('comunidad', 'id');
-    }
-
-    static public function getNombreComunidad($id = null)
-    {
-        if (!is_numeric($id))
-            return null;
-        //Obtenemos la comunidad
-        return Comunidades::Select('comunidades.comunidad')
-            ->where('comunidades.id', $id)
-            ->first();
     }
 }
 
