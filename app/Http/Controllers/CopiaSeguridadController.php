@@ -96,7 +96,8 @@ class CopiaSeguridadController extends Controller
             with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
         }
         $logEnvios = [];
-        $backupfile = "backups/CS-PALENCIA_" . date("Y-m-d_H:i:s") . '.sql';
+        //Ruta para linux
+        $backupfile = "backups/CS-PALENCIA_" . date("Y-m-d_H_i_s") . '.sql';
 
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');

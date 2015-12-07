@@ -49,6 +49,7 @@ class NuestrasSolicitudesController extends Controller
         //Ampliamos el tiempo de ejecución del servidor a 3 minutos.
         ini_set("max_execution_time", 300);
         foreach ($destinatarios as $idx => $destinatario) {
+            //Ruta Linux
             $archivo = "solicitudesCursillos" . "/" . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
