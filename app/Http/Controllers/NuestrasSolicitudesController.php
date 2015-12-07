@@ -1,10 +1,10 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Http\Requests;
-use Illuminate\Http\Request;
 
 class NuestrasSolicitudesController extends Controller
 {
@@ -87,7 +87,7 @@ class NuestrasSolicitudesController extends Controller
                     $pdf = \App::make('dompdf.wrapper');
                     if (count($destinatarios) > 1) {
                         $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save($nombreArchivo);
-                        $logEnvios[] = ["Creada carta de solicitud  para " . $destinatario->comunidad, $nombreArchivo, "", true];
+                        $logEnvios[] = ["Creada carta de solicitud  para " . $destinatario->comunidad, $nombreArchivo, true];
                     } else {
                         return $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
                     }

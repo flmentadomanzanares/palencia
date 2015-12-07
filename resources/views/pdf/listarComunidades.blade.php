@@ -17,10 +17,12 @@
                 {!! FORM::select('cursillo_id', $cursillos, $solicitudEnviada->cursillo_id, array('class'=>'form-control')) !!}
                 <br/> --}}
                 {!! FORM::label('fecha_inicio', 'Fecha Inicio') !!} <br/>
-                {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillos->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control', 'readonly'=>''])!!} <br/>
+                {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillos->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control calendario', 'readonly'=>''])!!}
+                <br/>
                 <br/>
                 {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
-                {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillos->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control', 'readonly'=>''])!!} <br/>
+                {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillos->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
+                <br/>
                 <br/>
                 <br/>
                 <div class="btn-action margin-bottom">
