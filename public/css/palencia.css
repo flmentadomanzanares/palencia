@@ -3613,7 +3613,7 @@ fieldset[disabled] a.btn {
 }
 
 .btn-register:hover {
-  color: #00ff00 !important;
+  color: #ff7a00 !important;
 }
 
 .btn-default {
@@ -4827,7 +4827,7 @@ tbody.collapse.in {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #00ff00;
+  color: #ff7a00;
   background-color: #ffffff;
 }
 
@@ -5097,9 +5097,9 @@ tbody.collapse.in {
 .navbar-toggle {
   position: relative;
   float: right;
-  margin-right: 0;
   padding: 8px;
-  margin-top: 60px;
+  margin-right: 0;
+  margin-top: 10px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -7746,11 +7746,15 @@ input[type=file]:hover {
   top: 5px;
 }
 
-.img-header {
+.img-header > div {
+  float: none;
+  margin: 0 auto;
   background-image: url("../img/header/cabecera.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  width: 60%;
+  height: 120px;
 }
 
 .altoMaximo {

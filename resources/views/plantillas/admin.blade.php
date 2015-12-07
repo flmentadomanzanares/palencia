@@ -13,10 +13,8 @@
 <body>
 
 <div>
-    <div class="row">
-        <div class="pull-left">
-            <img src={!!asset('img/header/cabecera.png')!!} alt="">
-        </div>
+    <div class="row img-header">
+        <div></div>
     </div>
     <nav role="navigation" class="navbar navbar-inverse block-center">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -135,7 +133,7 @@
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia | KOALNET - 2015</span>
+    <span>&copy; Palencia | KOALNET - 2015 | v1.0.0</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
