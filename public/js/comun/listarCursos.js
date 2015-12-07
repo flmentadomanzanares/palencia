@@ -2,7 +2,7 @@
  * Created by fmentado on 21/11/2015.
  */
 $(document).ready(function () {
-    console.log( window.location.pathname)
+    console.log(window.location.pathname);
     var cursillos = function (comunidadId) {
         $.ajax(
                 {
@@ -12,7 +12,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 type: "post",
-                url: "/palencia/public/cursillosTotales",
+                    url: "/cursillosTotales",
                 success: function (data) {
 
                     var cursillos = $("#select-cursillos");

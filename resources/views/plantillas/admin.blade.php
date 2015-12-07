@@ -91,7 +91,7 @@
                         <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Entrar<strong
                                     class="caret"></strong></a>
 
-                        <div class="dropdown-menu" style="padding: 20px;width:240px">
+                        <div class="dropdown-menu" style="padding: 20px">
                             {!! FORM::open(array('url' => 'auth/login')) !!}
                             {!! FORM::label('email', 'email') !!} <br/>
                             {!! FORM::text ('email','',array("placeholder"=>"email de usuario",

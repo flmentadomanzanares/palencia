@@ -3766,29 +3766,29 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-success {
   color: #fff;
-  background-color: #ff7a00;
-  border-color: #e66e00;
+  background-color: #400090;
+  border-color: #350076;
 }
 
 .btn-success:focus,
 .btn-success.focus {
   color: #fff;
-  background-color: #cc6200;
-  border-color: #663100;
+  background-color: #29005d;
+  border-color: black;
 }
 
 .btn-success:hover {
   color: #fff;
-  background-color: #cc6200;
-  border-color: #a85100;
+  background-color: #29005d;
+  border-color: #190039;
 }
 
 .btn-success:active,
 .btn-success.active,
 .open > .btn-success.dropdown-toggle {
   color: #fff;
-  background-color: #cc6200;
-  border-color: #a85100;
+  background-color: #29005d;
+  border-color: #190039;
 }
 
 .btn-success:active:hover,
@@ -3801,8 +3801,8 @@ fieldset[disabled] .btn-primary.active {
 .open > .btn-success.dropdown-toggle:focus,
 .open > .btn-success.dropdown-toggle.focus {
   color: #fff;
-  background-color: #a85100;
-  border-color: #663100;
+  background-color: #190039;
+  border-color: black;
 }
 
 .btn-success:active,
@@ -3829,12 +3829,12 @@ fieldset[disabled] .btn-success:focus,
 fieldset[disabled] .btn-success.focus,
 fieldset[disabled] .btn-success:active,
 fieldset[disabled] .btn-success.active {
-  background-color: #ff7a00;
-  border-color: #e66e00;
+  background-color: #400090;
+  border-color: #350076;
 }
 
 .btn-success .badge {
-  color: #ff7a00;
+  color: #400090;
   background-color: #fff;
 }
 
@@ -5098,9 +5098,8 @@ tbody.collapse.in {
   position: relative;
   float: right;
   padding: 8px;
-  margin-right: 0;
-  margin-top: 10px;
-  background-color: transparent;
+  margin: 10px;
+  background-color: #ffffff;
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -5482,7 +5481,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #333;
+  background-color: rgba(255, 255, 0, 0.6);
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
@@ -7355,7 +7354,7 @@ body {
   margin-bottom: 15px;
 }
 
-.btn {
+.btn, button[type="submit"] {
   outline: none;
 }
 

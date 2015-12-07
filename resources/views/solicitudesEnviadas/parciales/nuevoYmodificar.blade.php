@@ -10,7 +10,7 @@
     {!! FORM::label ('aceptada', 'Aceptada') !!} <br/>
     {!! FORM::select('aceptada',array('1'=>'Si','0'=>'No'), $solicitudEnviada->aceptada,array('class'=>'form-control')) !!}
     <br/>
-
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
             <div class="heading-caption">Zona Administrador</div>

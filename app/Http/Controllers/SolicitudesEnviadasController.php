@@ -1,12 +1,10 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
-
+use Palencia\Entities\SolicitudesEnviadas;
+use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesEnviadas;
 
 class SolicitudesEnviadasController extends Controller {
@@ -21,7 +19,7 @@ class SolicitudesEnviadasController extends Controller {
         $titulo = "Listado de Solicitudes Enviadas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
         $anyos = Cursillos::getAnyoCursillosList();
-        $semanas =Array();
+        $semanas = array();
         $cursillos =Cursillos::getCursillosList(null,true,"Cursillo...",true);
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'anyos', 'semanas', 'cursillos'));
     }

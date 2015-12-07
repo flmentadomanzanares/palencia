@@ -16,6 +16,7 @@ return [
 	*/
 
 	'driver' => 'smtp',
+	//'driver' => 'log',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ return [
 	|
 	*/
 
-		'host' => 'mail.smtp2go.com',
+	//'host' => 'mail.smtp2go.com',
+		'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +43,8 @@ return [
 	|
 	*/
 
-		'port' => 2525,
+	//'port' => 2525,
+		'port' => 587,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +70,8 @@ return [
 	|
 	*/
 
-	'encryption' => 'tls',
+	//'encryption' => 'tls',
+		'encryption' => 'tls',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +84,8 @@ return [
 	|
 	*/
 
-		'username' => 'franciscomentadomanzanares@gmail.com',
+	//'username' => 'franciscomentadomanzanares@gmail.com',
+		'username' => 'paulinomcclaspalmas@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -92,8 +97,8 @@ return [
 	| connection so that the application will be able to send messages.
 	|
 	*/
-
-		'password' => 'fmentadosmtp2go',
+	//'password' => 'fmentadosmtp2go',
+		'password' => 'Moreno69',
 
 	/*
 	|--------------------------------------------------------------------------

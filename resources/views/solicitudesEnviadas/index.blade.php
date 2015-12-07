@@ -5,6 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
             <div class="row ">
                 @include('solicitudesEnviadas.parciales.buscar')

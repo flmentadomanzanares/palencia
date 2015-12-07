@@ -188,10 +188,9 @@
   position: relative;
   float: right;
   padding: 8px;
-  margin-right: $navbar-padding-horizontal;
   //@include navbar-vertical-align(0px);
-  margin-top: 10px;
-  background-color: transparent;
+  margin: $margin-app-base;
+  background-color: $app-color-white;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid transparent;
   border-radius: $border-radius-base;
@@ -573,7 +572,7 @@
     border-color: $navbar-inverse-toggle-border-color;
     &:hover,
     &:focus {
-      background-color: $navbar-inverse-toggle-hover-bg;
+      background-color: rgba(255, 255, 0, .6);
     }
     .icon-bar {
       background-color: $navbar-inverse-toggle-icon-bar-bg;
