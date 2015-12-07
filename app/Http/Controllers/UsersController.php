@@ -1,16 +1,13 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
-
-use Palencia\Entities\User;
 use Palencia\Entities\Roles;
+use Palencia\Entities\User;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesUsers;
+
 
 //Se incluye las reglas de validación
-use Palencia\Http\Requests\ValidateRulesUsers;
 
 class UsersController extends Controller {
 
@@ -176,6 +173,15 @@ class UsersController extends Controller {
 
         return redirect()->route('usuarios.index')
             ->with('mensaje', 'El usuario ' . $userNombre . ' eliminado correctamente.');
+    }
+
+    public function perfil()
+    {
+        $titulo = "Modificar Usuario";
+        $usuario = User::find(\Auth::user()->id);
+        $roles = Roles::orderBy('rol', 'ASC')
+            ->lists('rol', 'id');
+        return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
     }
 
 }

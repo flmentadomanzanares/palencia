@@ -28,6 +28,7 @@ Route::resource('provincias','ProvinciasController');
 Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('usuarios','UsersController');
+Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
 
 Route::resource('tiposSecretariados','TiposSecretariadosController');
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
