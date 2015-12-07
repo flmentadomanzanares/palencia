@@ -1,14 +1,15 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Palencia\Entities\Comunidades;
+use Palencia\Entities\Cursillos;
+use Palencia\Entities\Paises;
+use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
-use Illuminate\Http\Request;
-use Palencia\Entities\Cursillos;
-use Palencia\Entities\SolicitudesEnviadas;
-use Palencia\Entities\Comunidades;
-use Palencia\Entities\Paises;
 
-class PdfController extends Controller {
+class PdfController extends Controller
+{
 
     /*******************************************************************
      *
@@ -90,8 +91,15 @@ class PdfController extends Controller {
         $cursillos = Cursillos::getCursillosList();*/
 
         return view("pdf.listarComunidades", compact('solicitudEnviada', 'cursillos', 'titulo'));
-       /* return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));*/
+        /* return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));*/
 
+    }
+
+    private function ponerFecha($date)
+    {
+        $partesFecha = date_parse_from_format('d/m/Y', $date);
+        $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
+        return date('Y-m-d H:i:s', $fecha);
     }
 
     /*******************************************************************
@@ -104,53 +112,15 @@ class PdfController extends Controller {
      *******************************************************************/
     public function imprimirComunidades()
     {
-
         $titulo = "Intendencia para clausura";
-
         $cursillos = new Cursillos();
         $fecha_inicio = $cursillos->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
         $fecha_final = $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
-
-        $solicitudEnviada = new SolicitudesEnviadas();
-
-        /*$anyo = \Request::input('anyo');
-        $idCursillo = \Request::input('cursillo_id');
-
-        $cursillo = Cursillos::getNombreCursillo((int)$idCursillo);*/
         $date = date('d-m-Y');
-       /* $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($anyo, $idCursillo);*/
         $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
-
-
-       /* if ($anyo == 0 || $idCursillo == 0) {
-
-            return redirect('intendenciaClausura')->
-            with('mensaje', 'Debe seleccionar un año y un cursillo.');
-
-        } else {
-
-
-            $view = \View::make('pdf.imprimirComunidades',
-                compact('comunidades',
-                    'cursillo',
-                    'anyo',
-                    'date',
-                    'titulo'))
-                ->render();*/
-        $view = \View::make('pdf.imprimirComunidades',
-            compact('comunidades',
-                'anyo',
-                'date',
-                'titulo'))
-            ->render();
-
-            $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadHTML($view);
-            return $pdf->stream('imprimirComunidades');
-
-        }
-
-
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirComunidades', compact('comunidades', 'anyo', 'date', 'titulo'))->download("popote.pdf");
+    }
 
     /*******************************************************************
      *
@@ -279,14 +249,8 @@ class PdfController extends Controller {
 
     }
 
-    private function ponerFecha($date)
+    public function semanasSolicitudes(Request $request)
     {
-        $partesFecha = date_parse_from_format('d/m/Y', $date);
-        $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
-        return date('Y-m-d H:i:s', $fecha);
-    }
-
-    public function semanasSolicitudes(Request $request) {
 
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
