@@ -10,7 +10,6 @@
                 @include('paises.parciales.buscar')
             </div>
             @if(!$paises->isEmpty())
-
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
@@ -22,7 +21,7 @@
                         </thead>
                         <tbody>
                         @foreach ($paises as $pais)
-                            <tr @if(!$pais->activo) class="red" @endif>
+                            <tr @if(!$pais->activo) class="foreground-disabled" @endif>
                                 <td>{{ $pais->pais }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">

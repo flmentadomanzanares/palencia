@@ -13,11 +13,11 @@
                 @foreach ($cursillos as $cursillo)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption>
+                            <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
                                 {!! $cursillo->cursillo !!}
                             </caption>
                             <thead>
-                            <tr style="@if($cursillo->activo==0)background: red !important; @endif">
+                            <tr @if(!$cursillo->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('cursillos.show',array('id'=>$cursillo->id))}}">
@@ -44,7 +44,7 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody @if(!$cursillo->activo) class="foreground-disabled" @endif>
                             <tr>
                                 <td class="table-autenticado-columna-1">Comunidad:</td>
                                 <td>

@@ -7,18 +7,19 @@
     <div class="hidden table-size-optima altoMaximo">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
-            <div class="row ">
+            <div class="row">
                 @include('solicitudesRecibidas.parciales.buscar')
             </div>
             @if(!$solicitudesRecibidas->isEmpty())
                 @foreach ($solicitudesRecibidas as $solicitudRecibida)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption>
+                            <caption
+                                    class="@if(!$solicitudRecibida->activo) foreground-disabled @endif">
                                 {!! $solicitudRecibida->cursillo !!}
                             </caption>
                             <thead>
-                            <tr style="@if($solicitudRecibida->activo==0)background: red !important; @endif">
+                            <tr @if(!$solicitudRecibida->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">
@@ -39,15 +40,9 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody @if(!$solicitudRecibida->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Solicitud Id:</td>
-                                <td>
-                                    {!! $solicitudRecibida->id !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Comunidad:</td>
+                                <td class="table-autenticado-columna-1">Comunidad:</td>
                                 <td>{!!$solicitudRecibida->comunidad!!}</td>
                             </tr>
                             <tr>

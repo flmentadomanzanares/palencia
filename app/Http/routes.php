@@ -31,6 +31,10 @@ Route::resource('usuarios','UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
 
 Route::resource('tiposSecretariados','TiposSecretariadosController');
+
+//Route::resource('tiposParticipantes','TiposParticipantesController');
+//Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+
 Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
 Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@index'));

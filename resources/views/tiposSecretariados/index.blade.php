@@ -6,11 +6,10 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
-            <div class="row ">
+            <div class="row">
                 @include('tiposSecretariados.parciales.buscar')
             </div>
             @if(!$tipos_secretariados->isEmpty())
-
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
@@ -22,11 +21,12 @@
                         </thead>
                         <tbody>
                         @foreach ($tipos_secretariados as $tipo_secretariado)
-                            <tr @if(!$tipo_secretariado->activo) class="red" @endif>
+                            <tr @if(!$tipo_secretariado->activo) class="foreground-disabled" @endif >
                                 <td>{{ $tipo_secretariado->tipo_secretariado }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
-                                        <a title="Editar" href="{{route('tiposSecretariados.edit', $tipo_secretariado->id)}}"
+                                        <a title="Editar"
+                                           href="{{route('tiposSecretariados.edit', $tipo_secretariado->id)}}"
                                            class="pull-left">
                                             <i class="glyphicon glyphicon-edit">
                                                 <div>Editar</div>
@@ -48,21 +48,22 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <div class="clearfix">
-                            <div class="alert alert-info" role="alert">
-                                <p><strong>¡Aviso!</strong> No se ha encontrado ningun tipo de secretariado que listar.</p>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="row text-center">
-                        {!! $tipos_secretariados->appends(Request::only(['tipo_secretariado']))->render()
-                        !!}{{-- Poner el paginador --}}
-                    </div>
-                    @else
-                        @include('comun.guestGoHome')
-                    @endif
                 </div>
+            @else
+                <div class="clearfix">
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun tipo de secretariado que listar.
+                        </p>
+                    </div>
+                </div>
+            @endif
+            <div class="row text-center">
+                {!! $tipos_secretariados->appends(Request::only(['tipo_secretariado']))->render()
+                !!}{{-- Poner el paginador --}}
+            </div>
+        @else
+            @include('comun.guestGoHome')
+        @endif
     </div>
 @endsection
 @section('js')

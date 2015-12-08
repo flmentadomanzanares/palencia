@@ -16,14 +16,14 @@
                 @foreach ($users as $usuario)
                     <table class="table-viaoptima table-striped">
                         <caption>
-                            <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt="">
-                            <div class="pull-left">
-                                {!! $usuario->fullname!!}
+                            <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt=""/>
 
+                            <div class="pull-left @if(!$usuario->activo) foreground-disabled @endif ">
+                                {!! $usuario->fullname!!}
                             </div>
                         </caption>
                         <thead>
-                        <tr  @if(!$usuario->activo) style="background-color: red" @endif>
+                        <tr @if(!$usuario->activo) class="background-disabled" @endif>
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
                                    href="{{route('usuarios.edit',array('id'=>$usuario->id))}}">
@@ -44,49 +44,48 @@
                             </th>
                         </tr>
                         </thead>
-                        <tboby>
-                            <tr>
-                                <td class="table-autenticado-columna-1">Usuario:</td>
-                                <td>{!! $usuario->name !!}</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{!! $usuario->email !!}</td>
-                            </tr>
-                            <tr>
-                                <td>Rol</td>
-                                <td>{!! ($usuario->roles->rol )!!}</td>
-                            </tr>
+                        <tbody @if(!$usuario->activo) class="foreground-disabled" @endif>
+                        <tr>
+                            <td class="table-autenticado-columna-1">Usuario:</td>
+                            <td>{!! $usuario->name !!}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{!! $usuario->email !!}</td>
+                        </tr>
+                        <tr>
+                            <td>Rol</td>
+                            <td>{!! ($usuario->roles->rol )!!}</td>
+                        </tr>
 
-                            @if (Auth::check())
-                                @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                    <tr>
-                                        <td>Activo</td>
-                                        <td>{!! $usuario->activo?'Si':'No' !!}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Confirmado</td>
-                                        <td>{!! $usuario->confirmado?'Si':'No' !!}</td>
-                                    </tr>
-                                @endif
+                        @if (Auth::check())
+                            @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                                <tr>
+                                    <td>Activo</td>
+                                    <td>{!! $usuario->activo?'Si':'No' !!}</td>
+                                </tr>
+                                <tr>
+                                    <td>Confirmado</td>
+                                    <td>{!! $usuario->confirmado?'Si':'No' !!}</td>
+                                </tr>
                             @endif
-
-                            <tr>
-                                <td>Fecha Alta</td>
-                                <td>{!! date("d/m/Y H:i:s",strtotime($usuario->created_at)) !!}</td>
-                            </tr>
-                        </tboby>
+                        @endif
+                        <tr>
+                            <td>Fecha Alta</td>
+                            <td>{!! date("d/m/Y H:i:s",strtotime($usuario->created_at)) !!}</td>
+                        </tr>
+                        </tbody>
                     </table>
                 @endforeach
                 @if (Auth::user()->roles->peso<config('opciones.roles.administrador'))
 
-                        <div class="btn-action">
-                            <a title="Volver" href="{{route('inicio')}}" class="pull-right">
-                                <i class="glyphicon glyphicon-arrow-left">
-                                    <div>Volver</div>
-                                </i>
-                            </a>
-                        </div>
+                    <div class="btn-action">
+                        <a title="Volver" href="{{route('inicio')}}" class="pull-right">
+                            <i class="glyphicon glyphicon-arrow-left">
+                                <div>Volver</div>
+                            </i>
+                        </a>
+                    </div>
                 @endif
             @else
                 <div class="clearfix">
@@ -95,14 +94,14 @@
                     </div>
                 </div>
             @endif
+            @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                <div class="row text-center">
+                    {!! $users->appends(Request::only(['campo','value','rol']))->render()
+                    !!}{{-- Poner el paginador --}}
+                </div>
+            @endif
         @else
             @include('comun.guestGoHome')
-        @endif
-        @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-            <div class="row text-center">
-                {!! $users->appends(Request::only(['campo','value','rol']))->render()
-                !!}{{-- Poner el paginador --}}
-            </div>
         @endif
     </div>
 @endsection

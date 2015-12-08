@@ -5,16 +5,6 @@ $bootstrap-sass-asset-helper: false !default;
 //fonts
 $fontPath: "fonts/calibri.ttf" !default;
 
-//== Colors
-//
-
-$app-color-base: #400090 !default;
-/*$app-color-base:         #ff7a00 !default;*/
-$app-color-hover: #ff7a00 !default;
-$app-color-white: #ffffff !default;
-$app-color-success: #ff7a00 !default;
-$app-color-fail: #d9534f !default;
-$app-color-ok: #337ab7 !default;
 
 //## Gray and brand colors for use across Bootstrap.
 
@@ -32,6 +22,17 @@ $gray-lighter-medium: lighten($gray-base, 80.5%) !default;
 $gray-lighter: lighten($gray-base, 93.5%) !default;
 // #eee
 
+//== Colores de la aplicación
+$app-color-base: #400090 !default;
+$app-color-hover: #ff7a00 !default;
+$app-color-white: #ffffff !default;
+$app-color-success: #00ff00 !default;
+$app-color-fail: #d9534f !default;
+$app-color-ok: #337ab7 !default;
+$app-color-foreground-disabled: $gray-lighter-medium !default;
+$app-color-background-disabled: $gray-lighter-medium !default;
+
+//Brand color
 $brand-primary: darken(#428bca, 6.5%) !default;
 // #337ab7
 $brand-success: $app-color-hover !default;

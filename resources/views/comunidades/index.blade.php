@@ -13,11 +13,11 @@
                 @foreach ($comunidades as $comunidad)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption>
+                            <caption class="@if(!$comunidad->activo) foreground-disabled @endif">
                                 {!! $comunidad->comunidad !!}
                             </caption>
                             <thead>
-                            <tr style="@if($comunidad->activo==0)background: red !important; @endif">
+                            <tr @if(!$comunidad->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('comunidades.show',$comunidad->id)}}">
@@ -44,7 +44,7 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody @if(!$comunidad->activo) class="foreground-disabled" @endif>
                             <tr>
                                 <td class="table-autenticado-columna-1">Secretariado:</td>
                                 <td>
@@ -95,7 +95,9 @@
                             </tr>
                             <tr>
                                 <td>Color Cursos:</td>
-                                <td> <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div></td>
+                                <td>
+                                    <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>

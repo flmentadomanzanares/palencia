@@ -12,11 +12,12 @@
                     @foreach ($localidades as $localidad)
                         <div class="full-Width">
                             <table class="table-viaoptima table-striped">
-                                <caption class="label-default text-center alert-warning">
+                                <caption
+                                        class="label-default text-center  @if(!$localidad->activo) foreground-disabled @else alert-warning @endif">
                                     {{ $localidad->localidad }}
                                 </caption>
                                 <thead>
-                                <tr @if(!$localidad->activo) style="background-color:red" @endif>
+                                <tr @if(!$localidad->activo) class="background-disabled" @endif>
                                     <th colspan="2" class="text-right">
                                         <a title="Editar"
                                            href="{{route('localidades.edit',array('id'=>$localidad->id))}}">
@@ -39,11 +40,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr @if(!$localidad->activo) class="foreground-disabled" @endif>
                                     <td class="table-autenticado-columna-1">País:</td>
                                     <td>{{ $localidad->pais }}</td>
                                 </tr>
-                                <tr>
+                                <tr @if(!$localidad->activo) class="foreground-disabled" @endif>
                                     <td>Provincia:</td>
                                     <td>{{ $localidad->provincia }}</td>
                                 </tr>

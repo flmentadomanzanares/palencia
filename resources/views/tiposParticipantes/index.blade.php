@@ -6,27 +6,25 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
-            <div class="row ">
+            <div class="row">
                 @include('tiposParticipantes.parciales.buscar')
             </div>
             @if(!$tipos_participantes->isEmpty())
-
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
                         <tr>
-                            <th colspan="2">
-                                Tipos de participantes
-                            </th>
+                            <th colspan="2">Tipos de participantes</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($tipos_participantes as $tipo_participante)
-                            <tr>
+                            <tr @if(!$tipo_participante->activo) class="foreground-disabled" @endif >
                                 <td>{{ $tipo_participante->tipo_participante }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
-                                        <a title="Editar" href="{{route('tiposParticipantes.edit', $tipo_participante->id)}}"
+                                        <a title="Editar"
+                                           href="{{route('tiposParticipantes.edit', $tipo_participante->id)}}"
                                            class="pull-left">
                                             <i class="glyphicon glyphicon-edit">
                                                 <div>Editar</div>
@@ -48,21 +46,21 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <div class="clearfix">
-                            <div class="alert alert-info" role="alert">
-                                <p><strong>¡Aviso!</strong> No se ha encontrado ningun tipo de participante que listar.</p>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="row text-center">
-                        {!! $tipos_participantes->appends(Request::only(['tipo_participante']))->render()
-                        !!}{{-- Poner el paginador --}}
-                    </div>
-                    @else
-                        @include('comun.guestGoHome')
-                    @endif
                 </div>
+            @else
+                <div class="clearfix">
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun tipo de participante que listar.</p>
+                    </div>
+                </div>
+            @endif
+            <div class="row text-center">
+                {!! $tipos_participantes->appends(Request::only(['tipo_participante']))->render()
+                !!}{{-- Poner el paginador --}}
+            </div>
+        @else
+            @include('comun.guestGoHome')
+        @endif
     </div>
 @endsection
 @section('js')

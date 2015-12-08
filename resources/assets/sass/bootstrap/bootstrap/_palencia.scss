@@ -108,6 +108,7 @@
           background-color: transparent;
           font-weight: normal;
           color: $app-color-white;
+          text-shadow: 1px 1px rgba(0, 0, 0, 1);
           &:hover {
             color: $app-color-hover;
           }
@@ -139,30 +140,6 @@
 
 .tabla-ancho-columna-1 {
   width: percentage($tabla-invitados-columna-1/$tabla-invitados-ancho);
-}
-
-.tabla-ancho-columna-2 {
-  width: percentage($tabla-invitados-columna-2/$tabla-invitados-ancho);
-}
-
-.tabla-ancho-columna-3 {
-  width: percentage($tabla-invitados-columna-3/$tabla-invitados-ancho);
-}
-
-.tabla-ancho-columna-4 {
-  width: percentage($tabla-invitados-columna-4/$tabla-invitados-ancho);
-}
-
-.tabla-vermas-ancho-columna-1 {
-  width: percentage($tabla-invitados-vermas-ancho-columna-1 / $tabla-invitados-vermas-ancho);
-}
-
-.tabla-vermas-ancho-columna-2 {
-  width: percentage($tabla-invitados-vermas-ancho-columna-2 / $tabla-invitados-vermas-ancho);
-}
-
-.table-vermas-ancho {
-  width: $tabla-invitados-vermas-ancho;
 }
 
 .table-autenticado-columna-1 {
@@ -391,14 +368,7 @@ body {
   margin-left: $tabla-invitados-padding;
 }
 
-// Color para textos
-.green {
-  color: $app-color-hover;
-}
 
-.red {
-  color: $app-color-fail !important;
-}
 
 //Pading para todas las páginas insertada en platillas
 .padding-page {
@@ -583,7 +553,9 @@ input[type=file]:hover {
   }
 }
 
-//COLOR CURSILLOS
+//COLORES
+//*********************************************************
+//Color de los cursillos
 .ponerCirculoColor {
   display: inline-block;
   min-width: 1.2em;
@@ -591,6 +563,34 @@ input[type=file]:hover {
   border-radius: 50%;
   margin-right: 5px;
 }
+
+// Color para los checks-ok
+.green {
+  color: $app-color-success !important;
+}
+
+.green-bk {
+  background-color: $app-color-success !important;
+}
+
+//Color para los checks-fails
+.red {
+  color: $app-color-fail !important;
+}
+
+.red-bk {
+  background-color: $app-color-fail !important;
+}
+
+//Color para los checks-fails
+.foreground-disabled {
+  color: $app-color-foreground-disabled !important;
+}
+
+.background-disabled {
+  background-color: $app-color-background-disabled !important;
+}
+
 
 //IMAGEN USER AUTHENTICATE
 .user-image {
