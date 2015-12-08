@@ -50,6 +50,10 @@
     "maxlength"=>"100") )!!}
     <br/>
     <div class="heading-caption">Comunicación</div>
+    {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
+    {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
+    $comunidad->tipo_comunicacion_preferida_id, ["class" =>
+    "form-control"]) !!} <br/>
     {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
     {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
@@ -71,10 +75,7 @@
     {!! FORM::text('telefono2',$comunidad->telefono2, ["class" => "form-control", "title"=>"Teléfono",
     "maxlength"=>"13"]) !!}
     <br/>
-    {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
-    {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
-    $comunidad->tipo_comunicacion_preferida_id, ["class" =>
-    "form-control"]) !!} <br/>
+
 
     <div class="heading-caption">Participativa</div>
     {!! FORM::label ('esColaborador', 'Colabora:') !!} <br/>

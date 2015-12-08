@@ -3,7 +3,6 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-/*$app-color-base:         #ff7a00 !default;*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 @font-face {
   font-family: "Glyphicons Halflings";
@@ -7197,6 +7196,7 @@ button.close {
   background-color: transparent;
   font-weight: normal;
   color: #ffffff;
+  text-shadow: 1px 1px black;
 }
 
 .table-viaoptima thead tr th button:hover, .table-viaoptima thead tr th a:hover {
@@ -7227,30 +7227,6 @@ button.close {
 
 .tabla-ancho-columna-1 {
   width: 25.55556%;
-}
-
-.tabla-ancho-columna-2 {
-  width: 23.11111%;
-}
-
-.tabla-ancho-columna-3 {
-  width: 44.66667%;
-}
-
-.tabla-ancho-columna-4 {
-  width: 6.66667%;
-}
-
-.tabla-vermas-ancho-columna-1 {
-  width: 22.22222%;
-}
-
-.tabla-vermas-ancho-columna-2 {
-  width: 77.77778%;
-}
-
-.table-vermas-ancho {
-  width: 900px;
 }
 
 .table-autenticado-columna-1 {
@@ -7430,9 +7406,9 @@ body {
 }
 
 .label-viaoptima-success {
-  border: 1px solid #ff7a00;
+  border: 1px solid #00ff00;
   background-color: transparent;
-  color: #ff7a00;
+  color: #00ff00;
   min-width: 140px;
 }
 
@@ -7521,14 +7497,6 @@ body {
 
 .margin-left-via-optima {
   margin-left: 1.88889%;
-}
-
-.green {
-  color: #ff7a00;
-}
-
-.red {
-  color: #d9534f !important;
 }
 
 .padding-page {
@@ -7734,6 +7702,30 @@ input[type=file]:hover {
   min-height: 1.2em;
   border-radius: 50%;
   margin-right: 5px;
+}
+
+.green {
+  color: #00ff00 !important;
+}
+
+.green-bk {
+  background-color: #00ff00 !important;
+}
+
+.red {
+  color: #d9534f !important;
+}
+
+.red-bk {
+  background-color: #d9534f !important;
+}
+
+.foreground-disabled {
+  color: #cdcdcd !important;
+}
+
+.background-disabled {
+  background-color: #cdcdcd !important;
 }
 
 .user-image {

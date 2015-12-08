@@ -11,17 +11,17 @@
                 @if(!$provincias->isEmpty())
                     <div class="full-Width">
                         @foreach ($provincias as $provincia)
-                        <table class="table-viaoptima table-striped pull-left">
-                            <thead>
-                            <tr @if(!$provincia->activo) style="background-color: red" @endif>
-                                <th colspan="2" class="text-left">
-                                    {{$provincia->paises->pais}}
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                            <table class="table-viaoptima table-striped pull-left">
+                                <thead>
+                                <tr @if(!$provincia->activo) class="background-disabled" @endif>
+                                    <th colspan="2" class="text-left">
+                                        {{$provincia->paises->pais}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
-                                    <td>{{ $provincia->provincia }}</td>
+                                    <td @if(!$provincia->activo) class="foreground-disabled" @endif>{{ $provincia->provincia }}</td>
                                     <td class="table-autenticado-columna-1 text-right">
                                         <div class="btn-action">
                                             <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
@@ -33,7 +33,7 @@
                                             @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                                 {!! FORM::open(array('route' => array('provincias.destroy', $provincia->id),
                                                 'method' => 'DELETE','title'=>'Borrar')) !!}
-                                                <button type="submit"  class="pull-right">
+                                                <button type="submit" class="pull-right">
                                                     <i class='glyphicon glyphicon-trash full-Width'>
                                                         <div>Borrar</div>
                                                     </i>
@@ -43,24 +43,24 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                            <div class="clearfix">
-                                <div class="alert alert-info" role="alert">
-                                    <p><strong>¡Aviso!</strong> No se ha encontrado ninguna provincia que
-                                        listar.</p>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            @else
+                                <div class="clearfix">
+                                    <div class="alert alert-info" role="alert">
+                                        <p><strong>¡Aviso!</strong> No se ha encontrado ninguna provincia que
+                                            listar.</p>
+                                    </div>
                                 </div>
+                            @endif
+                            <div class="row text-center">
+                                {!! $provincias->appends(Request::only(['provincia']))->render()
+                                !!}{{-- Poner el paginador --}}
                             </div>
-                        @endif
-                        <div class="row text-center">
-                            {!! $provincias->appends(Request::only(['provincia']))->render()
-                            !!}{{-- Poner el paginador --}}
-                        </div>
-                        @else
-                            @include('comun.guestGoHome')
-                        @endif
+                            @else
+                                @include('comun.guestGoHome')
+                            @endif
                     </div>
             </div>
     </div>

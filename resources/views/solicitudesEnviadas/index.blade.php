@@ -14,11 +14,12 @@
                 @foreach ($solicitudesEnviadas as $solicitudEnviada)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption>
+                            <caption
+                                    class="@if(!$solicitudEnviada->activo) foreground-disabled @endif">
                                 {!! $solicitudEnviada->cursillo !!}
                             </caption>
                             <thead>
-                            <tr style="@if($solicitudEnviada->activo==0)background: red !important; @endif">
+                            <tr @if(!$solicitudEnviada->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesEnviadas.edit',array('id'=>$solicitudEnviada->id))}}">
@@ -39,15 +40,9 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody @if(!$solicitudEnviada->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Solicitud Id:</td>
-                                <td>
-                                    {!! $solicitudEnviada->id !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Comunidad:</td>
+                                <td class="table-autenticado-columna-1">Comunidad:</td>
                                 <td>{!!$solicitudEnviada->comunidad!!}</td>
                             </tr>
                             <tr>

@@ -12,40 +12,39 @@
             @if(!$roles->isEmpty())
                 @foreach ($roles as $rol)
 
-                        <table class="table-viaoptima table-striped">
-                            <caption>
-                                {!! $rol->rol !!}
-                            </caption>
-                            <thead>
-                            <tr @if(!$rol->activo) style="background-color:red" @endif>
-                                <th colspan="2" class="text-right">
-                                    <a title="Editar"
-                                       href="{{route('roles.edit',array('id'=>$rol->id))}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
-                                    </a>
-                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    {!! FORM::open(array('route' => array('roles.destroy',
-                                    $rol->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                    <button type="submit">
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
-                                    </button>
-                                    {!! FORM::close() !!}
-                                    @endif
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="table-autenticado-columna-1">Peso:</td>
-                                <td>{!! ($rol->peso )!!}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                    <table class="table-viaoptima table-striped">
+                        <caption class="@if(!$rol->activo) foreground-disabled @endif">
+                            {!! $rol->rol !!}
+                        </caption>
+                        <thead>
+                        <tr @if(!$rol->activo) class="background-disabled" @endif>
+                            <th colspan="2" class="text-right">
+                                <a title="Editar"
+                                   href="{{route('roles.edit',array('id'=>$rol->id))}}">
+                                    <i class="glyphicon glyphicon-edit">
+                                        <div>Editar</div>
+                                    </i>
+                                </a>
+                                @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
+                                {!! FORM::open(array('route' => array('roles.destroy',
+                                $rol->id),'method' => 'DELETE','title'=>'Borrar')) !!}
+                                <button type="submit">
+                                    <i class='glyphicon glyphicon-trash full-Width'>
+                                        <div>Borrar</div>
+                                    </i>
+                                </button>
+                                {!! FORM::close() !!}
+                                @endif
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody @if(!$rol->activo) class="foreground-disabled" @endif>
+                        <tr>
+                            <td class="table-autenticado-columna-1">Peso:</td>
+                            <td>{!! ($rol->peso )!!}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 @endforeach
             @else
                 <div class="clearfix">

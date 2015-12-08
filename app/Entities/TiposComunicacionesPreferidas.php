@@ -9,12 +9,6 @@ class TiposComunicacionesPreferidas extends Model {
     protected $fillable=[]; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cursillosTipoComunicacionesPreferidas(){
-        return $this->hasMany("Palencia\Entities\Comunidades");
-    }
     public static function getTipoComunicacionesPreferidasList()
     {
         return ['0' => 'Comunicación...'] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
@@ -22,13 +16,23 @@ class TiposComunicacionesPreferidas extends Model {
             ->orderBy('comunicacion_preferida', 'ASC')
             ->Lists('comunicacion_preferida', 'id');
     }
+
     static public function getTiposComunicacionesPreferidas(Request $request){
-        return TiposComunicacionesPreferidas::Select('id','comunicacion_preferida')
+        return TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida', 'tipos_comunicaciones_preferidas.activo')
             ->tipoComunicacionesPreferidas($request->get('comunicacion_preferida'))
             ->orderBy('comunicacion_preferida', 'ASC')
             ->paginate()
             ->setPath('tiposComunicacionesPreferidas');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cursillosTipoComunicacionesPreferidas()
+    {
+        return $this->hasMany("Palencia\Entities\Comunidades");
+    }
+
     /**
      * @param $query
      * @param $pais
