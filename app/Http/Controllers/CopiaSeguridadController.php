@@ -1,7 +1,6 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Http\Requests;
 
@@ -102,26 +101,13 @@ class CopiaSeguridadController extends Controller
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');
         $dbpass = env('DB_PASSWORD');
-        $dbname = env('DB_DATABASE');
+        $dbnamedb = env('DB_DATABASE');
         //Realizamos la copia de seguridad
-        system("mysqldump --opt --compress  --host=" . $dbhost . " --password=" . $dbpass . " --user=" . $dbuser . "  --databases=" . $dbname . ">" . $backupfile);
-        if ((strcmp($remitente->comunicacion_preferida, "Email") == 0) && (strlen($remitente->email_solicitud) > 0)) {
-            try {
-                $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $backupfile) {
-                    $message->from($remitente->email_solicitud, $remitente->comunidad);
-                    $message->to($remitente->email_envio)->subject("Copia de Seguridad");
-                    $message->attach($backupfile);
-                });
-
-                unlink($backupfile);
-            } catch (\Exception $e) {
-                $envio = 0;
-            }
-            $logEnvios[] = $envio > 0 ? ["Enviado vía email la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . $remitente->email_envio, "", true] :
-                ["Fallo al enviar la copia de seguridad de la comunidad " . $remitente->comunidad . " al correo " . (strlen($remitente->email_envio) > 0 ? $remitente->email_envio : "(Sin determinar)"), "", false];
-        } else {
-            $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $backupfile, true];
-        }
+        $fileCopiaSeguridad = "backups/" . $backupfile;
+        $copiaSeguridad = "mysqldump --compact --opt --host=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "    " . $dbnamedb . ">" . $fileCopiaSeguridad;
+        System($copiaSeguridad);
+        //Realizamos la copia de seguridad
+        $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $fileCopiaSeguridad, true];
         $titulo = "Operaciones Realizadas";
         return view('copiaSeguridad.listadoLog',
             compact('titulo', 'logEnvios'));
