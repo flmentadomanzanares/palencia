@@ -31,7 +31,6 @@ Route::resource('usuarios','UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
 
 Route::resource('tiposSecretariados','TiposSecretariadosController');
-
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 

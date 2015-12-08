@@ -1,11 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
-use Palencia\Entities\tiposSecretariados;
+use Palencia\Entities\TiposSecretariados;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesTiposSecretariados;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesTiposSecretariados;
 
 class TiposSecretariadosController extends Controller
 {
