@@ -61,7 +61,6 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
-                $esCarta = false;
                 $archivoMail = 'templatePDF' . '/' . 'NS-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoMail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
@@ -72,6 +71,7 @@ class NuestrasSolicitudesController extends Controller
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", false];
                 }
+                $esCarta = false;
                 try {
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
