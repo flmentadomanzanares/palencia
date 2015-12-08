@@ -20,9 +20,9 @@
                             <div>Inicio</div>
                         </i>
                     </a>
-                    <button type="submit" title="Enviar" class="pull-right">
-                        <i class='glyphicon glyphicon-print full-Width'>
-                            <div>Imprimir</div>
+                    <button type="submit" title="Descargar" class="pull-right">
+                        <i class='glyphicon glyphicon-save full-Width'>
+                            <div>Descargar</div>
                         </i>
                     </button>
                 </div>

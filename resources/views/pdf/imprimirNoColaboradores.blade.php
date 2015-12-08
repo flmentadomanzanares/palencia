@@ -109,7 +109,9 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <div class=" cabecera1 text-center">
-    {{ $titulo }} {!! $pais->pais !!}<br/>
+
+        {{ $titulo }}<br/>
+
 </div>
 
 <div class=" cabecera2">

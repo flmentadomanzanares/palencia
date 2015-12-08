@@ -10,12 +10,6 @@
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirComunidades','method'=>'POST']) !!}
                 <div class="heading-caption">Seleccione rango de fechas para imprimir las comunidades ...</div>
-                {{--}}!! FORM::label('anyo', 'Año') !!} <br/>
-                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
-                <br/>
-                {!! FORM::label ('cursillo', 'Cursillo') !!}
-                {!! FORM::select('cursillo_id', $cursillos, $solicitudEnviada->cursillo_id, array('class'=>'form-control')) !!}
-                <br/> --}}
                 {!! FORM::label('fecha_inicio', 'Fecha Inicio') !!} <br/>
                 {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillos->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control calendario', 'readonly'=>''])!!}
                 <br/>
@@ -31,9 +25,9 @@
                             <div>Inicio</div>
                         </i>
                     </a>
-                    <button type="submit" title="Enviar" class="pull-right">
-                        <i class='glyphicon glyphicon-print full-Width'>
-                            <div>Imprimir</div>
+                    <button type="submit" title="Descargar" class="pull-right">
+                        <i class='glyphicon glyphicon-save full-Width'>
+                            <div>Descargar</div>
                         </i>
                     </button>
                 </div>

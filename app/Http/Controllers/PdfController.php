@@ -48,6 +48,7 @@ class PdfController extends Controller
         $anyo = \Request::input('anyo');
         $semana = \Request::input('semana');
         $date = date('d-m-Y');
+        $fichero = 'cursillosMundo'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
         if ($anyo == 0 || $semana == 0) {
@@ -56,17 +57,15 @@ class PdfController extends Controller
             with('mensaje', 'Debe seleccionar un año y una semana.');
 
         } else {
-            $view = \View::make('pdf.imprimirCursillos',
-                compact('cursillos',
-                    'anyo',
-                    'semana',
-                    'date',
-                    'titulo'))
-                ->render();
 
             $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadHTML($view);
-            return $pdf->stream('imprimirCursillos');
+            return $pdf->loadView('pdf.imprimirCursillos',
+                compact('cursillos',
+                        'anyo',
+                        'semana',
+                        'date',
+                        'titulo'))
+                ->download($fichero.'.pdf');
         }
 
 
@@ -87,11 +86,7 @@ class PdfController extends Controller
         $cursillos->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillos->fecha_final = $this->ponerFecha(date("d-m-Y"));
 
-        /*$anyos = Cursillos::getAnyoCursillosList();
-        $cursillos = Cursillos::getCursillosList();*/
-
         return view("pdf.listarComunidades", compact('solicitudEnviada', 'cursillos', 'titulo'));
-        /* return view("pdf.listarComunidades", compact('solicitudEnviada', 'anyos', 'cursillos', 'titulo'));*/
 
     }
 
@@ -117,9 +112,15 @@ class PdfController extends Controller
         $fecha_inicio = $cursillos->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
         $fecha_final = $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
         $date = date('d-m-Y');
+        $fichero = 'intendenciaClausura'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
         $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
         $pdf = \App::make('dompdf.wrapper');
-        return $pdf->loadView('pdf.imprimirComunidades', compact('comunidades', 'anyo', 'date', 'titulo'))->download("popote.pdf");
+        return $pdf->loadView('pdf.imprimirComunidades',
+            compact('comunidades',
+                    'anyo',
+                    'date',
+                    'titulo'))
+            ->download($fichero.'.pdf');
     }
 
     /*******************************************************************
@@ -159,6 +160,7 @@ class PdfController extends Controller
 
         $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
         $date = date('d-m-Y');
+        $fichero = 'secretariado'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
 
@@ -170,18 +172,14 @@ class PdfController extends Controller
 
         } else {
 
-
-            $view = \View::make('pdf.imprimirSecretariado',
+            $pdf = \App::make('dompdf.wrapper');
+            return $pdf->loadView('pdf.imprimirSecretariado',
                 compact('secretariado',
                     'solicitudesEnviadas',
                     'solicitudesRecibidas',
                     'date',
                     'titulo'))
-                ->render();
-
-            $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadHTML($view);
-            return $pdf->stream('imprimirSecretariado');
+                ->download($fichero.'.pdf');
 
         }
 
@@ -218,12 +216,11 @@ class PdfController extends Controller
 
         $titulo = "Secretariados de ";
 
-        $comunidades = new Comunidades();
-
         $idPais = \Request::input('pais');
 
         $pais = Paises::getNombrePais((int)$idPais);
         $date = date('d-m-Y');
+        $fichero = 'secretariadosPais'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
         $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
 
         if ($idPais == 0) {
@@ -233,19 +230,72 @@ class PdfController extends Controller
 
         } else {
 
-
-            $view = \View::make('pdf.imprimirSecretariadosPais',
+            $pdf = \App::make('dompdf.wrapper');
+            return $pdf->loadView('pdf.imprimirSecretariadosPais',
                 compact('comunidades',
                     'pais',
                     'date',
                     'titulo'))
-                ->render();
-
-            $pdf = \App::make('dompdf.wrapper');
-            $pdf->loadHTML($view);
-            return $pdf->stream('imprimirSecretariadosPais');
+                ->download($fichero.'.pdf');
 
         }
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados no colaboradores"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getNoColaboradores()
+    {
+        $titulo = "Secretariados No Colaboradores";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesList();
+
+
+        return view("pdf.listarNoColaboradores", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados por Paises"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirNoColaboradores()
+    {
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+
+        if ($idPais == 0) {
+
+            $titulo = "Secretariados No Colaboradores de Todos los Paises";
+
+        } else {
+
+            $titulo = "Secretariados No Colaboradores de ".$pais->pais;
+
+        }
+
+        $date = date('d-m-Y');
+        $fichero = 'secretariadosNoColaboradores'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $comunidades = Comunidades::imprimirSecretariadosNoColaboradores($idPais);
+
+            $pdf = \App::make('dompdf.wrapper');
+            return $pdf->loadView('pdf.imprimirNoColaboradores',
+                compact('comunidades',
+                    'date',
+                    'titulo'))
+                ->download($fichero.'.pdf');
+
 
     }
 

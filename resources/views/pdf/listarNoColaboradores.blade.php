@@ -8,7 +8,7 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                {!! FORM::open(['route'=>'imprimirSecretariadosPais','method'=>'POST']) !!}
+                {!! FORM::open(['route'=>'imprimirNoColaboradores','method'=>'POST']) !!}
                 <div class="heading-caption">Seleccione el país para imprimir los secretariados ...</div>
                 {!! FORM::label('pais', 'País') !!} <br/>
                 {!! FORM::select('pais', $paises, null,array("class"=>"form-control",'id'=>'select_paises'))!!}

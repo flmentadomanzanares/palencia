@@ -60,6 +60,8 @@
                                 <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
                                 <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
                                 <li>{!!link_to('secretariadosPais', 'Secretariados por pais')!!}</li>
+                                <li>{!!link_to('noColaboradores', 'Secretariados no colaboradores')!!}</li>
+
                             </ul>
                         </li>
                     </ul>

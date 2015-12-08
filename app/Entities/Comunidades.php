@@ -112,6 +112,30 @@ class Comunidades extends Model
 
     }
 
+    static public function imprimirSecretariadosNoColaboradores($pais)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
+    }
+
     public static function getComunidadesAll()
     {
         return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')

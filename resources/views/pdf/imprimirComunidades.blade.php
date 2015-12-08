@@ -2,14 +2,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Intendencia para Clausura</title>
-    {{--!! HTML::style('css/pdf.css') !!--}}
-    <style>
 
-        .clearfix:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+    <style>
 
         a {
             color: #0087C3;
@@ -72,17 +66,6 @@
 
         }
 
-        .cabecera5 {
-
-            background-color: #400090;
-            color: #FFFFFF;
-            font-weight: bold;
-            font-size: 20px;
-            padding-top:20px;
-            padding-bottom:20px;
-
-        }
-
         table thead, table th {
             background-color: #9d9d9d;
             color:#000000;
@@ -91,11 +74,6 @@
             padding-top:20px;
             padding-bottom:20px;
 
-        }
-
-        #logo {
-            float: left;
-            margin-top: 8px;
         }
 
         table {
@@ -123,16 +101,6 @@
             text-align: left;
         }
 
-        .td1 {
-
-            width: 10%;
-
-        }
-
-        .td2 {
-            width: 90%;
-        }
-
     </style>
 </head>
 <body>
@@ -142,10 +110,7 @@
     <div class="cabecera1 text-center">
         {{ $titulo }}
     </div>
-    {{--div class="cabecera2">
-        Cursillo: {!! $cursillo->cursillo !!}<br/>
-        Año: {{ $anyo }}
-    </div--}}
+
 </div>
 
 <div class="cabecera2">

@@ -77,3 +77,7 @@ Route::post('imprimirSecretariado', array('as'=>'imprimirSecretariado','before'=
 // Listado Secretariados por Pais
 Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
 Route::post('imprimirSecretariadosPais', array('as'=>'imprimirSecretariadosPais','before'=>'csrf','uses'=>'PdfController@imprimirSecretariadosPais'));
+
+// Listado Secretariados no colaboradores
+Route::get('noColaboradores', 'PdfController@getNoColaboradores');
+Route::post('imprimirNoColaboradores', array('as'=>'imprimirNoColaboradores','before'=>'csrf','uses'=>'PdfController@imprimirNoColaboradores'));

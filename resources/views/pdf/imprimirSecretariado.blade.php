@@ -2,14 +2,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Secretariados por país</title>
-    {{--!! HTML::style('css/pdf.css') !!--}}
-    <style>
 
-        .clearfix:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+    <style>
 
         a {
             color: #0087C3;
@@ -53,15 +47,6 @@
             margin-bottom:20px;
 
         }
-        .cabecera3 {
-
-            background-color: #400090;
-            color: #FFFFFF;
-            font-weight: bold;
-            font-size: 16px;
-
-        }
-
 
         .cabecera4 {
 
@@ -93,11 +78,6 @@
 
         }
 
-        #logo {
-            float: left;
-            margin-top: 8px;
-        }
-
         table {
             width: 100%;
             margin-bottom: 20px;
@@ -121,16 +101,6 @@
 
         table td {
             text-align: left;
-        }
-
-        .td1 {
-
-            width: 10%;
-
-        }
-
-        .td2 {
-            width: 90%;
         }
 
     </style>
@@ -194,10 +164,10 @@
 
             <tr>
                 <td>
-                    {!! $solicitudEnviada->cursillo !!}
+                    {!! $solicitudRecibida->cursillo !!}
                 </td>
                 <td class="text-center">
-                    {!! Date("d/m/Y" , strtotime($solicitudEnviada->fecha_inicio) ) !!}
+                    {!! Date("d/m/Y" , strtotime($solicitudRecibida->fecha_inicio) ) !!}
                 </td>
             </tr>
         @endforeach
