@@ -34,7 +34,7 @@ class SolicitudesEnviadasController extends Controller {
 	//Título Vista
         $titulo = "Nueva Solicitud Enviada";
         $solicitudEnviada = new SolicitudesEnviadas();
-        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
+        $comunidades = Comunidades::getComunidadesList(0, false, "", true);
         $cursillos = array('0'=>'Cursillos...');
 
         //Vista

@@ -15,7 +15,7 @@ return [
 	|
 	*/
 
-	'driver' => 'smtp',
+		'driver' => env('DRIVER'),
 	//'driver' => 'log',
 
 	/*
@@ -30,7 +30,7 @@ return [
 	*/
 
 	//'host' => 'mail.smtp2go.com',
-		'host' => 'smtp.gmail.com',
+		'host' => env('HOST'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
 	*/
 
 	//'port' => 2525,
-		'port' => 587,
+		'port' => env('PORT'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => null, 'name' => null],
+		'from' => env('FROM'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return [
 	*/
 
 	//'encryption' => 'tls',
-		'encryption' => 'tls',
+		'encryption' => env('ENCRYPTION'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
 	*/
 
 	//'username' => 'franciscomentadomanzanares@gmail.com',
-		'username' => 'paulinomcclaspalmas@gmail.com',
+		'username' => env('USERNAME'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
 	|
 	*/
 	//'password' => 'fmentadosmtp2go',
-		'password' => 'Moreno69',
+		'password' => env('PASSWORD'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -111,7 +111,7 @@ return [
 	|
 	*/
 
-	'sendmail' => '/usr/sbin/sendmail -bs',
+		'sendmail' => env('SENDMAIL'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -124,6 +124,6 @@ return [
 	|
 	*/
 
-	'pretend' => false,
+		'pretend' => env('PRETEND'),
 
 ];

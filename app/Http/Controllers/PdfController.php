@@ -8,6 +8,7 @@ use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Http\Requests;
 
+
 class PdfController extends Controller
 {
 
@@ -22,7 +23,7 @@ class PdfController extends Controller
     {
         $titulo = "Cursillos en el Mundo";
 
-        $anyos = Cursillos::getAnyoCursillosList();
+        $anyos = SolicitudesRecibidas::getAnyoSolicitudesRecibidasList();
         $semanas = Array();
 
         return view("pdf.listarCursillos",
@@ -48,7 +49,7 @@ class PdfController extends Controller
         $anyo = \Request::input('anyo');
         $semana = \Request::input('semana');
         $date = date('d-m-Y');
-        $fichero = 'cursillosMundo'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $fichero = 'cursillosMundo' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
         if ($anyo == 0 || $semana == 0) {
@@ -61,11 +62,11 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirCursillos',
                 compact('cursillos',
-                        'anyo',
-                        'semana',
-                        'date',
-                        'titulo'))
-                ->download($fichero.'.pdf');
+                    'anyo',
+                    'semana',
+                    'date',
+                    'titulo'))
+                ->download($fichero . '.pdf');
         }
 
 
@@ -112,15 +113,15 @@ class PdfController extends Controller
         $fecha_inicio = $cursillos->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
         $fecha_final = $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
         $date = date('d-m-Y');
-        $fichero = 'intendenciaClausura'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirComunidades',
             compact('comunidades',
-                    'anyo',
-                    'date',
-                    'titulo'))
-            ->download($fichero.'.pdf');
+                'anyo',
+                'date',
+                'titulo'))
+            ->download($fichero . '.pdf');
     }
 
     /*******************************************************************
@@ -135,10 +136,7 @@ class PdfController extends Controller
         $titulo = "Secretariado";
         $comunidad = new Comunidades();
         $comunidades = Comunidades::getComunidadesAll();
-
-
         return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo'));
-
     }
 
     /*******************************************************************
@@ -160,7 +158,7 @@ class PdfController extends Controller
 
         $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
         $date = date('d-m-Y');
-        $fichero = 'secretariado'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $fichero = 'secretariado' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
 
@@ -179,7 +177,7 @@ class PdfController extends Controller
                     'solicitudesRecibidas',
                     'date',
                     'titulo'))
-                ->download($fichero.'.pdf');
+                ->download($fichero . '.pdf');
 
         }
 
@@ -220,7 +218,7 @@ class PdfController extends Controller
 
         $pais = Paises::getNombrePais((int)$idPais);
         $date = date('d-m-Y');
-        $fichero = 'secretariadosPais'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $fichero = 'secretariadosPais' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
 
         if ($idPais == 0) {
@@ -236,7 +234,7 @@ class PdfController extends Controller
                     'pais',
                     'date',
                     'titulo'))
-                ->download($fichero.'.pdf');
+                ->download($fichero . '.pdf');
 
         }
 
@@ -281,31 +279,29 @@ class PdfController extends Controller
 
         } else {
 
-            $titulo = "Secretariados No Colaboradores de ".$pais->pais;
+            $titulo = "Secretariados No Colaboradores de " . $pais->pais;
 
         }
 
         $date = date('d-m-Y');
-        $fichero = 'secretariadosNoColaboradores'.substr($date,0,2).substr($date,3,2).substr($date,6,4);
+        $fichero = 'secretariadosNoColaboradores' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = Comunidades::imprimirSecretariadosNoColaboradores($idPais);
 
-            $pdf = \App::make('dompdf.wrapper');
-            return $pdf->loadView('pdf.imprimirNoColaboradores',
-                compact('comunidades',
-                    'date',
-                    'titulo'))
-                ->download($fichero.'.pdf');
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirNoColaboradores',
+            compact('comunidades',
+                'date',
+                'titulo'))
+            ->download($fichero . '.pdf');
 
 
     }
 
     public function semanasSolicitudes(Request $request)
     {
-
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             return SolicitudesRecibidas::getSemanasSolicitudesRecibidas($anyo);
         }
-
     }
 }

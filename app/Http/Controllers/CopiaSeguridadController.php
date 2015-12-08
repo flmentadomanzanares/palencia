@@ -97,14 +97,14 @@ class CopiaSeguridadController extends Controller
         }
         $logEnvios = [];
         //Ruta para linux
-        $backupfile = "backups/CS-PALENCIA_" . date("Y-m-d_H_i_s") . '.sql';
+        $backupfile = "CS-PALENCIA_" . date("Y-m-d_H_i_s") . '.sql';
 
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');
         $dbpass = env('DB_PASSWORD');
         $dbname = env('DB_DATABASE');
         //Realizamos la copia de seguridad
-        system("mysqldump --opt --hosts=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "  " . $dbname . ">" . $backupfile);
+        system("mysqldump --opt --compress  --host=" . $dbhost . " --password=" . $dbpass . " --user=" . $dbuser . "  --databases=" . $dbname . ">" . $backupfile);
         if ((strcmp($remitente->comunicacion_preferida, "Email") == 0) && (strlen($remitente->email_solicitud) > 0)) {
             try {
                 $envio = Mail::send('copiaSeguridad.mensajeCopSeg', compact('remitente'), function ($message) use ($remitente, $backupfile) {

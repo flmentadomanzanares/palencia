@@ -10,9 +10,9 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'semanasSolicitudes',
+            url: '/semanasSolicitudes',
             success: function (data) {
-                var semanas = $('#select_semanas')
+                var semanas = $('#select_semanas');
                 semanas.empty();
                 semanas.append("<option value='0'>--</option>");
                 $.each(data, function (key, element) {
@@ -25,7 +25,7 @@ $(document).ready(function () {
             error: function () {
             }
         });
-    }
+    };
     $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
         totalSemanasSolicitudesRecibidas($('#select_anyos option:selected').val());
