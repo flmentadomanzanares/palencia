@@ -143,4 +143,15 @@ class SolicitudesEnviadas extends Model {
             ->Lists('cursillos.cursillo', 'cursillos.id');
     }
 
+    static public function getSemanasSolicitudesEnviadas($anyo = 0)
+    {
+        return SolicitudesEnviadas::Select((DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas')))
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->where('cursillos.activo', true)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+            ->groupBy('semanas')
+            ->orderBy('semanas', 'ASC')
+            ->get();
+    }
 }
