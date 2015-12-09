@@ -78,7 +78,6 @@
                         <ul role="menu" class="dropdown-menu">
                             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
-                                <li>{!!link_to('roles','Roles')!!}</li>
                                 <li role="separator" class="divider"></li>
                                 <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
                             @else
