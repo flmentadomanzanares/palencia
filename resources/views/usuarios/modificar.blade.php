@@ -10,11 +10,21 @@
         !!}
         @include('usuarios.Parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('usuarios.index')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
+            @if (Auth::user()->roles->peso<config('opciones.roles.administrador'))
+                <div class="btn-action">
+                    <a title="Volver" href="{{route('inicio')}}" class="pull-left">
+                        <i class="glyphicon glyphicon-home">
+                            <div>Inicio</div>
+                        </i>
+                    </a>
+                </div>
+            @else
+                <a title="Volver" href="{{route('usuarios.index')}}" class="pull-left">
+                    <i class="glyphicon glyphicon-arrow-left">
+                        <div>Volver</div>
+                    </i>
+                </a>
+            @endif
             <button type="submit" title="Guardar" class="pull-right">
                 <i class='glyphicon glyphicon-floppy-disk full-Width'>
                     <div>Guardar</div>

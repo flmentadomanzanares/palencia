@@ -9,6 +9,22 @@ class Roles extends Model {
     protected $fillable = ['rol', 'peso']; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
+    public static function getRoles(Request $request)
+    {
+
+        return Roles::rol($request->get('rol'))
+            ->orderBy('rol', 'ASC')
+            ->paginate(3)
+            ->setPath('roles');
+    }
+
+    public static function getRolesList($placeholder = "Roles...")
+    {
+        return ['0' => $placeholder] + Roles::where('peso', '>', 0)
+            ->orderBy('rol', 'ASC')
+            ->lists('rol', 'id');
+    }
+
     public function scopeRol($query, $rol)
     {
         if (trim($rol) != '')
@@ -21,14 +37,5 @@ class Roles extends Model {
     public function users()
     {
         return $this->hasMany("Palencia\Entities\User");
-    }
-
-    public static function getRoles(Request $request)
-    {
-
-        return Roles::rol($request->get('rol'))
-            ->orderBy('rol', 'ASC')
-            ->paginate(3)
-            ->setPath('roles');
     }
 }
