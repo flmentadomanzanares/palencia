@@ -9,7 +9,8 @@ use Palencia\Http\Requests\ValidateRulesUsers;
 
 //Se incluye las reglas de validación
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -18,25 +19,17 @@ class UsersController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "";
-        //Vamos al indice y creamos una paginación de 8 elementos y con ruta usuarios
-        if (\Auth::check()) {
-            if (\Auth::user()->roles->peso < config('opciones.roles.administrador')) {
-                $titulo = "Mi perfil";
-                $users = User::getUser($request);
-            } else {
-                $titulo = "Listado de Usuarios";
-
-                $users = User::getUsers($request);
-            }
+        if (!auth()->check())
+            return View("invitado");
+        if (\Auth::user()->roles->peso < config('opciones.roles.administrador')) {
+            $titulo = "Mi perfil";
+            $users = User::getUser($request);
         } else {
-            $users = User::where('id', -1)
-                ->get();
+            $titulo = "Listado de Usuarios";
+            $users = User::getUsers($request);
         }
-        $roles =['0'=>'Elige Rol']+ Roles::where('peso', '>', 0)
-                ->orderBy('rol', 'ASC')->lists('rol', 'id');
-
-        return view("usuarios.index", compact('users','titulo','roles'));
+        $roles = Roles::getRolesList();
+        return view("usuarios.index", compact('users', 'titulo', 'roles'));
     }
 
     /**
@@ -73,7 +66,7 @@ class UsersController extends Controller {
                     return redirect()->route('usuarios.index')->with('mensaje', 'Nueva categoría error ' . $e->getCode());
             }
         }
-        return redirect('usuarios')->with('mensaje', 'La categoría ' . $user->categoria . ' creada satisfactoriamente.');
+        return redirect('usuarios')->with('mensaje', 'Usuario creado satisfactoriamente.');
 
     }
 
@@ -99,7 +92,7 @@ class UsersController extends Controller {
         $titulo = "Modificar Usuario";
         $usuario = User::find($id);
         $roles = Roles::orderBy('rol', 'ASC')
-            ->lists('rol','id');
+            ->lists('rol', 'id');
         return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
     }
 
@@ -122,7 +115,7 @@ class UsersController extends Controller {
             }
         }
         //imagen upload
-         if (\Request::hasFile('foto')) {
+        if (\Request::hasFile('foto')) {
             $image = \Image::make(\Request::file('foto'));
             $filename = md5($image->filename . date("Y-m-d H:i:s")) . '.png';
             $path = 'uploads' . '/' . 'usuarios' . '/';
@@ -142,8 +135,13 @@ class UsersController extends Controller {
                         ->with('mensaje', 'Modificar Perfil error ' . $e->getMessage());
             }
         }
+        if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
         return redirect()->route('usuarios.index')
             ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
+        } else {
+            return redirect()->route('inicio')
+                ->with('mensaje', 'El Perfil de usuario ha sido modificado.');
+        }
     }
 
     /**

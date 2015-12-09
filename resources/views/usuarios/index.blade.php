@@ -78,11 +78,10 @@
                     </table>
                 @endforeach
                 @if (Auth::user()->roles->peso<config('opciones.roles.administrador'))
-
                     <div class="btn-action">
                         <a title="Volver" href="{{route('inicio')}}" class="pull-right">
-                            <i class="glyphicon glyphicon-arrow-left">
-                                <div>Volver</div>
+                            <i class="glyphicon glyphicon-home">
+                                <div>Inicio</div>
                             </i>
                         </a>
                     </div>
