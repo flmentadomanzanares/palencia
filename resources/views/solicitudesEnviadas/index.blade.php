@@ -70,7 +70,7 @@
                 </div>
             @endif
             <div class="row text-center">
-                {!! $solicitudesEnviadas->appends(Request::only(['semanas','anyos']))->render()
+                {!! $solicitudesEnviadas->appends(Request::only(['semanas','anyos','cursillo']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else
@@ -79,5 +79,5 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/semanas.js') !!}
+    {!! HTML::script('js/comun/semanasSolicitudesEnviadas.js') !!}
 @endsection

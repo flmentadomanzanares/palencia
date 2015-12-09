@@ -136,6 +136,7 @@
 .table-size-optima {
   width: percentage($tabla-invitados-ancho/$screen-lg);
   margin-left: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/2;
+  margin-bottom: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/8;
 }
 
 .tabla-ancho-columna-1 {

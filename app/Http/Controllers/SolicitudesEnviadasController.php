@@ -18,9 +18,9 @@ class SolicitudesEnviadasController extends Controller {
     {
         $titulo = "Listado de Solicitudes Enviadas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
-        $anyos = Cursillos::getAnyoCursillosList();
-        $semanas = array();
-        $cursillos =Cursillos::getCursillosList(null,true,"Cursillo...",true);
+        $anyos = SolicitudesEnviadas::getAnyoSolicitudesEnviadasList();
+        $semanas =Array();
+        $cursillos = SolicitudesEnviadas::getCursillosSolicitudesEnviadasList();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'anyos', 'semanas', 'cursillos'));
     }
 

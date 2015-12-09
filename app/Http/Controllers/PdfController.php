@@ -275,7 +275,7 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados No Colaboradores de Todos los Paises";
+            $titulo = "Secretariados No Colaboradores de Todos los Países";
 
         } else {
 

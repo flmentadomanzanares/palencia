@@ -59,6 +59,19 @@ class SolicitudesEnviadas extends Model {
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    static public function getAnyoSolicitudesEnviadasList($conPlaceHolder = true, $placeHolder = "Año...")
+    {
+        $placeHolder = ['0' => $placeHolder];
+        $sql = SolicitudesEnviadas::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->groupBy('Anyos')
+            ->orderBy('Anyos')
+            ->where('cursillos.activo', true)
+            ->where('solicitudes_enviadas.activo', true)
+            ->Lists('Anyos', 'Anyos');
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
     public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
     {
         if (is_numeric($cursilloId) && $cursilloId > 0) {
@@ -69,8 +82,8 @@ class SolicitudesEnviadas extends Model {
 
     static public function getSolicitudesEnviadas(Request $request)
     {
-        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'solicitudes_enviadas.cursillo_id',
-            'comunidades.comunidad','cursillos.cursillo', 'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad', 'cursillos.cursillo',
+            'solicitudes_enviadas.cursillo_id', 'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
             ->AnyosCursillos($request->get('anyos'))
@@ -83,6 +96,7 @@ class SolicitudesEnviadas extends Model {
             ->setPath('solicitudesEnviadas');
 
     }
+
 
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
@@ -117,6 +131,16 @@ class SolicitudesEnviadas extends Model {
             ->orderBy('cursillos.cursillo')
             ->get();
 
+    }
+
+    static public function getCursillosSolicitudesEnviadasList($placeHolder = "Cursillos...")
+    {
+        return ['0' => $placeHolder] + SolicitudesEnviadas::Select('cursillos.id', 'cursillos.cursillo')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->orderBy('cursillos.cursillo')
+            ->where('cursillos.activo', true)
+            ->where('solicitudes_enviadas.activo', true)
+            ->Lists('cursillos.cursillo', 'cursillos.id');
     }
 
 }

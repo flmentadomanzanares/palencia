@@ -17,7 +17,7 @@
     </a>
 </div>
 <div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['semanas','anyos']),['route'=>'solicitudesEnviadas.index','method'=>'GET','class'=>'navbar-form
+    {!!FORM::model(Request::only(['semanas','anyos', 'cursillo']),['route'=>'solicitudesEnviadas.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('anyos', $anyos, null,array("class"=>"select-control pull-left",'id'=>'select_anyos'))!!}
     {!! FORM::select('semanas', $semanas, null,array("class"=>"select-control pull-left",'id'=>'select_semanas'))!!}
