@@ -12,73 +12,75 @@
 */
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
-
 Route::get('/', 'InvitadoController@index');
+Route::get('/inicio', ['as' => 'inicio', 'uses' => 'AutenticadoController@index']);
 
-Route::get('/inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
-
-Route::controllers(['auth'=> 'Auth\AuthController','password'=> 'Auth\PasswordController']);
-
-Route::resource('comunidades','ComunidadesController');
-Route::resource('cursillos','CursillosController');
-Route::resource('localidades','LocalidadesController');
-Route::resource('paises','PaisesController');
-Route::resource('provincias','ProvinciasController');
-//Route::resource('roles','RolesController');
-Route::resource('calendarioCursos','CalendarioCursosController');
-Route::resource('usuarios','UsersController');
+Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
+Route::resource('usuarios', 'UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
 
-Route::resource('tiposSecretariados','TiposSecretariadosController');
+Route::group(['middleware' => array('roles'), 'roles' => array('administrador'), 'before' => 'csrf'], function () {
+    Route::resource('comunidades', 'ComunidadesController');
+    Route::resource('cursillos', 'CursillosController');
+    Route::resource('localidades', 'LocalidadesController');
+    Route::resource('paises', 'PaisesController');
+    Route::resource('provincias', 'ProvinciasController');
+//Route::resource('roles','RolesController');
+    Route::resource('calendarioCursos', 'CalendarioCursosController');
+
+
+    Route::resource('tiposSecretariados', 'TiposSecretariadosController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
 
-Route::resource('solicitudesEnviadas','SolicitudesEnviadasController');
-Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
-Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@index'));
-Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'before' => 'csrf', 'uses' => 'NuestrasSolicitudesController@index'));
+    Route::resource('solicitudesEnviadas', 'SolicitudesEnviadasController');
+    Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
+    Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));
+    Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@index'));
 
 //Copia de seguridad
-Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'before' => 'csrf', 'middleware' => array('roles'), 'roles' => array('administrador'), 'uses' => 'CopiaSeguridadController@index'));
-Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
+    Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'uses' => 'CopiaSeguridadController@index'));
+    Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
 
-Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
-Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@enviar'));
+    Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
+    Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviar'));
 
 
 //Cambio de Provincias y localidades vía ajax.
-Route::post('cambiarProvincias', array('as'=>'cambiarProvincias','before'=>'csrf','uses'=>'ProvinciasController@cambiarProvincias'));
-Route::post('cambiarLocalidades', array('as'=>'cambiarLocalidades','before'=>'csrf','uses'=>'LocalidadesController@cambiarLocalidades'));
+    Route::post('cambiarProvincias', array('as' => 'cambiarProvincias', 'uses' => 'ProvinciasController@cambiarProvincias'));
+    Route::post('cambiarLocalidades', array('as' => 'cambiarLocalidades', 'uses' => 'LocalidadesController@cambiarLocalidades'));
 
 //Cálculo del total de semanas por año vía Ajax
-Route::post('semanasTotales', array('as'=>'semanasTotales','before'=>'csrf','uses'=>'CursillosController@semanasTotales'));
+    Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
 
 //Obtener relación de cursos vía Ajax (ModoTabla)
-Route::post('listadoCursillos', array('as'=>'listadoCursillos','before'=>'csrf','uses'=>'CursillosController@listadoCursillos'));
+    Route::post('listadoCursillos', array('as' => 'listadoCursillos', 'uses' => 'CursillosController@listadoCursillos'));
 
 //Obtener relación de cursos vía Ajax (ModoSelect)
-Route::post('cursillosTotales', array('as'=>'ponerCursillosTotales','before'=>'csrf','uses'=>'CursillosController@cursillosTotales'));
+    Route::post('cursillosTotales', array('as' => 'ponerCursillosTotales', 'uses' => 'CursillosController@cursillosTotales'));
 
 //Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
-Route::post('semanasSolicitudes', array('as'=>'semanasSolicitudes','before'=>'csrf','uses'=>'PdfController@semanasSolicitudes'));
+    Route::post('semanasSolicitudes', array('as' => 'semanasSolicitudes', 'uses' => 'PdfController@semanasSolicitudes'));
 
 //Listados PDF
 // Listado Cursillos en el mundo
-Route::get('cursillosPaises', 'PdfController@getCursillos');
-Route::post('imprimirCursillos', array('as'=>'imprimirCursillos','before'=>'csrf','uses'=>'PdfController@imprimirCursillos'));
+    Route::get('cursillosPaises', 'PdfController@getCursillos');
+    Route::post('imprimirCursillos', array('as' => 'imprimirCursillos', 'uses' => 'PdfController@imprimirCursillos'));
 
 // Listado Intendendencia para clausura
-Route::get('intendenciaClausura', 'PdfController@getComunidades');
-Route::post('imprimirComunidades', array('as'=>'imprimirComunidades','before'=>'csrf','uses'=>'PdfController@imprimirComunidades'));
+    Route::get('intendenciaClausura', 'PdfController@getComunidades');
+    Route::post('imprimirComunidades', array('as' => 'imprimirComunidades', 'uses' => 'PdfController@imprimirComunidades'));
 
 // Listado Secretariado
-Route::get('secretariado', 'PdfController@getSecretariado');
-Route::post('imprimirSecretariado', array('as'=>'imprimirSecretariado','before'=>'csrf','uses'=>'PdfController@imprimirSecretariado'));
+    Route::get('secretariado', 'PdfController@getSecretariado');
+    Route::post('imprimirSecretariado', array('as' => 'imprimirSecretariado', 'uses' => 'PdfController@imprimirSecretariado'));
 
 // Listado Secretariados por Pais
-Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
-Route::post('imprimirSecretariadosPais', array('as'=>'imprimirSecretariadosPais','before'=>'csrf','uses'=>'PdfController@imprimirSecretariadosPais'));
+    Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
+    Route::post('imprimirSecretariadosPais', array('as' => 'imprimirSecretariadosPais', 'uses' => 'PdfController@imprimirSecretariadosPais'));
 
 // Listado Secretariados no colaboradores
-Route::get('noColaboradores', 'PdfController@getNoColaboradores');
-Route::post('imprimirNoColaboradores', array('as'=>'imprimirNoColaboradores','before'=>'csrf','uses'=>'PdfController@imprimirNoColaboradores'));
+    Route::get('noColaboradores', 'PdfController@getNoColaboradores');
+    Route::post('imprimirNoColaboradores', array('as' => 'imprimirNoColaboradores', 'uses' => 'PdfController@imprimirNoColaboradores'));
+});
+
