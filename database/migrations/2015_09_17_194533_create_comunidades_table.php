@@ -21,7 +21,7 @@ class CreateComunidadesTable extends Migration {
             $table->boolean('esPropia')->default(false);
 
             $table->bigInteger('tipo_secretariado_id')->unsigned();
-            $table->foreign('tipo_secretariado_id')->references('id')->on('tipos_secretariados')->onDelete('cascade');
+            $table->foreign('tipo_secretariado_id')->references('id')->on('tipos_secretariados')->onUpdate("cascade");
 
             $table->string('responsable',100);
 
@@ -32,13 +32,13 @@ class CreateComunidadesTable extends Migration {
             $table->string('cp',5);
 
             $table->bigInteger('pais_id')->unsigned();
-            $table->foreign('pais_id')->references('id')->on('paises')->onDelete('cascade');
+            $table->foreign('pais_id')->references('id')->on('paises')->onUpdate("cascade");
 
             $table->bigInteger('provincia_id')->unsigned();
-            $table->foreign('provincia_id')->references('id')->on('provincias')->onDelete('cascade');
+            $table->foreign('provincia_id')->references('id')->on('provincias')->onUpdate("cascade");
 
             $table->bigInteger('localidad_id')->unsigned();
-            $table->foreign('localidad_id')->references('id')->on('localidades')->onDelete('cascade');
+            $table->foreign('localidad_id')->references('id')->on('localidades')->onUpdate("cascade");
 
             $table->string('email_solicitud',50);
 
@@ -53,13 +53,13 @@ class CreateComunidadesTable extends Migration {
             $table->string('telefono2',13)->nullable();
 
             $table->bigInteger('tipo_comunicacion_preferida_id')->unsigned();
-            $table->foreign('tipo_comunicacion_preferida_id')->references('id')->on('tipos_comunicaciones_preferidas')->onDelete('cascade');
+            $table->foreign('tipo_comunicacion_preferida_id')->references('id')->on('tipos_comunicaciones_preferidas')->onUpdate("cascade");
 
             $table->text('observaciones');
 
             $table->boolean('esColaborador')->default(true);
 
-            $table->string('color',4)->default('#000');
+            $table->string('color',7)->default('#000000');
 
             $table->boolean('activo')->default(true);
 

@@ -19,7 +19,7 @@ class CreateProvinciasTable extends Migration {
             $table->string('provincia',50)->unique();
 
             $table->bigInteger('pais_id')->unsigned();
-            $table->foreign('pais_id')->references('id')->on('paises')->onDelete('cascade');
+            $table->foreign('pais_id')->references('id')->on('paises')->onUpdate("cascade");
 
             $table->boolean('activo')->default(true);
 

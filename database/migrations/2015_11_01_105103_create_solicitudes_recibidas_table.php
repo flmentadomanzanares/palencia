@@ -17,10 +17,10 @@ class CreateSolicitudesRecibidasTable extends Migration {
             $table->bigIncrements('id');
 
             $table->bigInteger('comunidad_id')->unsigned();
-            $table->foreign('comunidad_id')->references('id')->on('comunidades')->onDelete('cascade');
+            $table->foreign('comunidad_id')->references('id')->on('comunidades')->onUpdate("cascade");
 
             $table->bigInteger('cursillo_id')->unsigned();
-            $table->foreign('cursillo_id')->references('id')->on('cursillos')->onDelete('cascade');
+            $table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 
             $table->boolean('aceptada')->default(true);
 

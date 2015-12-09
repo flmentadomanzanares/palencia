@@ -7249,6 +7249,7 @@ footer {
   line-height: 38px;
   min-height: 35px;
   vertical-align: middle;
+  box-shadow: 0 4px -4px rgba(0, 0, 0, 0.3);
 }
 
 footer span {
