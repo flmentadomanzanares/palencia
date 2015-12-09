@@ -19,13 +19,12 @@ Route::get('/inicio',['as'=>'inicio','uses'=>'AutenticadoController@index']);
 
 Route::controllers(['auth'=> 'Auth\AuthController','password'=> 'Auth\PasswordController']);
 
-
 Route::resource('comunidades','ComunidadesController');
 Route::resource('cursillos','CursillosController');
 Route::resource('localidades','LocalidadesController');
 Route::resource('paises','PaisesController');
 Route::resource('provincias','ProvinciasController');
-Route::resource('roles','RolesController');
+//Route::resource('roles','RolesController');
 Route::resource('calendarioCursos','CalendarioCursosController');
 Route::resource('usuarios','UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
@@ -39,9 +38,8 @@ Route::resource('solicitudesRecibidas','SolicitudesRecibidasController');
 Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'before' => 'csrf', 'uses' => 'NuestrasRespuestasController@index'));
 Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'before' => 'csrf', 'uses' => 'NuestrasSolicitudesController@index'));
 
-
 //Copia de seguridad
-Route::resource('copiaSeguridad', 'CopiaSeguridadController');
+Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'before' => 'csrf', 'middleware' => array('roles'), 'roles' => array('administrador'), 'uses' => 'CopiaSeguridadController@index'));
 Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'before' => 'csrf', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
 
 Route::post('enviarNuestrasSolicitudes', array('as'=>'enviarNuestrasSolicitudes','before'=>'csrf','uses'=>'NuestrasSolicitudesController@enviar'));
