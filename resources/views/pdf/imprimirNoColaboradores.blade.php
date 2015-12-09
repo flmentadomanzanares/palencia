@@ -48,6 +48,15 @@
 
         }
 
+        .cabecera3 {
+
+            background-color: #400090;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 16px;
+
+        }
+
         .cabecera4 {
 
             background-color: #FF7A00;
@@ -124,6 +133,7 @@
 
 <table border="0" cellspacing="0" cellpadding="0">
 
+        <?php $pais = null; ?>
         <thead>
 
         </thead>
@@ -131,6 +141,16 @@
 
         @foreach ($comunidades as $comunidad)
 
+            @if($comunidad->pais != $pais)
+                <tr>
+                    <td class="cabecera4 text-center">
+                        País: {!! $comunidad->pais!!}
+
+                    </td>
+                </tr>
+
+                <?php $pais = $comunidad->pais; ?>
+            @endif
             <tr>
                 <td class="text-center">
                     {!! $comunidad->comunidad !!}

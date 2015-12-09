@@ -117,7 +117,8 @@ class Comunidades extends Model
 
         if ($pais == 0) {
 
-            return Comunidades::Select('comunidades.comunidad')
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
                 ->where('comunidades.esColaborador', false)
                 ->where('comunidades.activo', true)
                 ->orderBy('comunidades.comunidad')
