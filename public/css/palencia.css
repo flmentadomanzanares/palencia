@@ -7395,54 +7395,6 @@ body {
   top: -1px;
 }
 
-.label-viaoptima {
-  border: 1px solid #400090;
-  background-color: transparent;
-  color: #400090;
-  min-width: 140px;
-}
-
-.label-viaoptima[href]:hover,
-.label-viaoptima[href]:focus {
-  background-color: transparent;
-}
-
-.label-viaoptima-success {
-  border: 1px solid #00ff00;
-  background-color: transparent;
-  color: #00ff00;
-  min-width: 140px;
-}
-
-.label-viaoptima-success[href]:hover,
-.label-viaoptima-success[href]:focus {
-  background-color: transparent;
-}
-
-.label-viaoptima-fail {
-  border: 1px solid #d9534f;
-  background-color: transparent;
-  color: #d9534f;
-  min-width: 140px;
-}
-
-.label-viaoptima-fail[href]:hover,
-.label-viaoptima-fail[href]:focus {
-  background-color: transparent;
-}
-
-.label-viaoptima-ok {
-  border: 1px solid #337ab7;
-  background-color: transparent;
-  color: #337ab7;
-  min-width: 140px;
-}
-
-.label-viaoptima-ok[href]:hover,
-.label-viaoptima-ok[href]:focus {
-  background-color: transparent;
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
@@ -7562,47 +7514,7 @@ input[type=file]:hover {
   cursor: pointer;
 }
 
-.about-us {
-  padding: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  width: 100%;
-  float: left;
-}
-
-.about-us iframe {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.about-us div:first-child {
-  width: 40%;
-  padding: 5px;
-  float: left;
-}
-
-@media screen and (max-width: 768px) {
-  .about-us div:first-child {
-    width: 100%;
-  }
-}
-
-.about-us div:last-child {
-  width: 60%;
-  padding: 5px;
-  float: left;
-}
-
-.about-us div:last-child p {
-  text-align: justify;
-}
-
-@media screen and (max-width: 768px) {
-  .about-us div:last-child {
-    width: 100%;
-  }
-}
-
-#formularioModal {
+.formularioModal {
   display: none;
   position: fixed;
   width: 100%;
@@ -7614,7 +7526,7 @@ input[type=file]:hover {
   z-index: 9999;
 }
 
-#formularioModal .ventanaModal {
+.formularioModal .ventanaModal {
   display: block;
   position: absolute;
   width: 100%;
@@ -7625,7 +7537,7 @@ input[type=file]:hover {
   z-index: 1;
 }
 
-#formularioModal .ventanaModal .headerFormularioModal {
+.formularioModal .ventanaModal .headerFormularioModal {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -7639,13 +7551,12 @@ input[type=file]:hover {
   z-index: 2;
 }
 
-#formularioModal .ventanaModal .headerFormularioModal:before {
+.formularioModal .ventanaModal .headerFormularioModal > span {
   font-size: 30px;
   color: white;
-  content: "REGISTRO";
 }
 
-#formularioModal .ventanaModal .cuerpoFormularioModal {
+.formularioModal .ventanaModal .cuerpoFormularioModal {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -7659,7 +7570,7 @@ input[type=file]:hover {
   background-color: #ffffff;
 }
 
-#formularioModal .ventanaModal .closeFormModal {
+.formularioModal .ventanaModal .closeFormModal {
   position: absolute;
   width: 24px;
   top: 6px;
@@ -7674,12 +7585,12 @@ input[type=file]:hover {
   border-radius: 50%;
 }
 
-#formularioModal .ventanaModal .closeFormModal:hover {
+.formularioModal .ventanaModal .closeFormModal:hover {
   background-color: #c9302c;
   cursor: pointer;
 }
 
-#formularioModal .ventanaModal .scroll {
+.formularioModal .ventanaModal .scroll {
   box-sizing: border-box;
   display: block;
   position: relative;
@@ -7693,7 +7604,7 @@ input[type=file]:hover {
 }
 
 @media screen and (min-width: 400px) {
-  #formularioModal .ventanaModal {
+  .formularioModal .ventanaModal {
     max-width: 330px;
   }
 }

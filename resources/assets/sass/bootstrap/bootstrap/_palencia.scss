@@ -289,32 +289,6 @@ body {
   top: -1px;
 }
 
-//LABELS
-//******************************************************
-.label-viaoptima {
-  @include label-variant(rgba(0, 0, 0, 0), $app-color-base);
-  color: $app-color-base;
-  min-width: $label-min-width;
-}
-
-.label-viaoptima-success {
-  @include label-variant(rgba(0, 0, 0, 0), $app-color-success);
-  color: $app-color-success;
-  min-width: $label-min-width;
-}
-
-.label-viaoptima-fail {
-  @include label-variant(rgba(0, 0, 0, 0), $app-color-fail);
-  color: $app-color-fail;
-  min-width: $label-min-width;
-}
-
-.label-viaoptima-ok {
-  @include label-variant(rgba(0, 0, 0, 0), $app-color-ok);
-  color: $app-color-ok;
-  min-width: $label-min-width;
-}
-
 //GENERIC
 //******************************************************
 //Ocultar con overflow
@@ -369,8 +343,6 @@ body {
 .margin-left-via-optima {
   margin-left: $tabla-invitados-padding;
 }
-
-
 
 //Pading para todas las páginas insertada en platillas
 .padding-page {
@@ -436,40 +408,9 @@ input[type=file]:hover {
   cursor: pointer;
 }
 
-//AboutUs
-.about-us {
-  padding: $padding-app-base;
-  font-family: $font-family;
-  font-size: $font-size-app-base-content;
-  width: 100%;
-  float: left;
-  iframe {
-    background-color: rgba(0, 0, 0, .1);
-  }
-  div:first-child {
-    width: 40%;
-    padding: $padding-app-base;
-    float: left;
-    @media screen and (max-width: $screen-sm-min) {
-      width: 100%;
-    }
-  }
-  div:last-child {
-    width: 60%;
-    padding: $padding-app-base;
-    float: left;
-    p {
-      text-align: justify;
-    }
-    @media screen and (max-width: $screen-sm-min) {
-      width: 100%;
-    }
-  }
-}
-
 //Formulario Registro
 //*************************************************************************
-#formularioModal {
+.formularioModal {
   display: none;
   position: fixed;
   width: 100%;
@@ -500,10 +441,9 @@ input[type=file]:hover {
       background-color: $app-color-base;
       color: $app-color-white;
       z-index: 2;
-      &:before {
+      & > span {
         font-size: 2 * $font-size-app-base-content;
         color: white;
-        content: "REGISTRO";
       }
     }
     .cuerpoFormularioModal {
@@ -592,7 +532,6 @@ input[type=file]:hover {
 .background-disabled {
   background-color: $app-color-background-disabled !important;
 }
-
 
 //IMAGEN USER AUTHENTICATE
 .user-image {
