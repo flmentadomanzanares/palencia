@@ -103,7 +103,8 @@
                             !!} <br/>
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             <br/>
-                            <a class="formularioModal btn btn-default btn-block" href="">Registrarse</a>
+                            <a class="mostrarformularioModal btn btn-default btn-block" data-selector="password-reset"
+                               href="">Registrarse</a>
                             {!! FORM::close() !!}
                         </div>
                     </li>
@@ -134,7 +135,7 @@
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia | KOALNET - 2015 | v1.0.0</span>
+    <span>&copy; Palencia v1.0.0 | KOALNET - 2015</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
