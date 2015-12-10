@@ -130,17 +130,6 @@
 
         @foreach ($comunidades as $comunidad)
 
-            @if($comunidad->cursillo != $cursillo)
-                <tr>
-                    <td class="cabecera4 text-center">
-                        Cursillo: {!! $comunidad->cursillo !!}
-
-                    </td>
-                </tr>
-
-                <?php $cursillo = $comunidad->cursillo; ?>
-            @endif
-
             @if($comunidad->pais != $pais)
                 <tr>
                     <td class="cabecera3 text-center">
@@ -150,6 +139,17 @@
                 </tr>
 
                 <?php $pais = $comunidad->pais; ?>
+            @endif
+
+            @if($comunidad->cursillo != $cursillo)
+                <tr>
+                    <td class="cabecera4 text-center">
+                        Cursillo: {!! $comunidad->cursillo !!}
+
+                    </td>
+                </tr>
+
+                <?php $cursillo = $comunidad->cursillo; ?>
             @endif
 
                 <tr>
