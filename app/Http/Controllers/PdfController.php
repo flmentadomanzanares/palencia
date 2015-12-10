@@ -297,11 +297,19 @@ class PdfController extends Controller
 
     }
 
-    public function semanasSolicitudes(Request $request)
+    public function semanasSolicitudesRecibidas(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             return SolicitudesRecibidas::getSemanasSolicitudesRecibidas($anyo);
+        }
+    }
+
+    public function semanasSolicitudesEnviadas(Request $request)
+    {
+        if (\Request::ajax()) {
+            $anyo = $request->get('anyo');
+            return SolicitudesEnviadas::getSemanasSolicitudesEnviadas($anyo);
         }
     }
 }
