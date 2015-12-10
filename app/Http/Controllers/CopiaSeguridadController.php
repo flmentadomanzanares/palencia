@@ -28,7 +28,7 @@ class CopiaSeguridadController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         if (count($remitente) == 0) {
             return redirect()->
-            route('CopiaSeguridad.index')->
+            route('copiaSeguridad')->
             with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
         }
         $logEnvios = [];
