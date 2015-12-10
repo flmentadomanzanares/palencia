@@ -34,8 +34,9 @@ class SolicitudesEnviadasController extends Controller {
 	//Título Vista
         $titulo = "Nueva Solicitud Enviada";
         $solicitudEnviada = new SolicitudesEnviadas();
-        $comunidades = Comunidades::getComunidadesList(0, false, "", true);
-        $cursillos = array('0'=>'Cursillos...');
+        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
+        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
+        $cursillos = Cursillos::getTodosMisCursillosLista(array_keys($comunidadesPropias)[0], true);
 
         //Vista
         return view('solicitudesEnviadas.nuevo',
@@ -107,8 +108,9 @@ class SolicitudesEnviadasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Enviada";
         $solicitudEnviada = SolicitudesEnviadas::find($id);
-        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
-        $cursillos = array('0'=>'Cursillos...');
+        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
+        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
+        $cursillos = Cursillos::getTodosMisCursillosLista(array_keys($comunidadesPropias)[0], true);
 
         //Vista
         return view('solicitudesEnviadas.modificar',
@@ -134,6 +136,7 @@ class SolicitudesEnviadasController extends Controller {
         $solicitudEnviada->cursillo_id = \Request::input('cursillo_id');
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
+
         //Intercepción de errores
         try {
             //Guardamos Los valores
