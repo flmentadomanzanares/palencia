@@ -236,7 +236,7 @@ class CursillosController extends Controller
     {
         if (\Request::ajax()) {
             $comunidad = $request->get('comunidadId');
-            return Cursillos::getTodosMisCursillosLista($comunidad);
+            return Cursillos::getTodosMisAnyosCursillosList($comunidad);
         }
     }
 

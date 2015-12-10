@@ -18,7 +18,7 @@ class NuestrasRespuestasController extends Controller
         $titulo = "Nuestras Respuestas";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(0, false, '', true);
-        $anyos = Cursillos::getAnyoCursillosList();
+        $anyos = Array();
         $semanas = Array();
         $cursillos = Array();
         return view('nuestrasRespuestas.index',

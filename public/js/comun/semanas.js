@@ -2,7 +2,7 @@ $(document).ready(function () {
     var totalAnyos = function (comunidadId) {
         $.ajax({
             data: {
-                'comunidadId': comunidad,
+                'comunidadId': comunidadId,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -11,10 +11,10 @@ $(document).ready(function () {
             success: function (data) {
                 var anyos = $('#select_anyos');
                 anyos.empty();
-                anyos.append("<option value='0'>--</option>");
                 $.each(data, function (key, element) {
-                    anyos.append("<option value='" + element.anyo + "'>" + element.anyo + "</option>");
+                    anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
+                totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
             },
             error: function () {
             }
@@ -96,6 +96,6 @@ $(document).ready(function () {
             return;
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
     });
-    totalSemanas($('#select_anyos').val(), $('#select_comunidad').val());
+    totalAnyos($("#select_comunidad").val());
 
 });

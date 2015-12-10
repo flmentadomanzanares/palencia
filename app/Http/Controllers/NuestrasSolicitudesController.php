@@ -19,7 +19,7 @@ class NuestrasSolicitudesController extends Controller
         $titulo = "Nuestras Solicitudes";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", false);
-        $anyos = Cursillos::getAnyoCursillosList();
+        $anyos = Array();
         $semanas = Array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',
