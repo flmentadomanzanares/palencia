@@ -17,7 +17,7 @@
 
         .remitente {
             position: absolute;
-            top: 3em;
+            top: 0;
             left: 0;
             width: 20em;
             text-align: left;
@@ -34,7 +34,7 @@
 
         .destinatario {
             position: absolute;
-            top: 6em;
+            top: 7.2em;
             right: 0;
             width: 20em;
             font-size: 12pt;
@@ -58,10 +58,10 @@
 
         .mensaje {
             position: absolute;
-            top: 15em;
+            top: 19em;
             left: 0;
             font-size: 12pt;
-            line-height: 1.6em;
+            line-height: 1.5em;
         }
 
         .firma {
@@ -72,6 +72,10 @@
             font-weight: bold;
         }
 
+        .center {
+            text-align: center;
+            display: block;
+        }
         .footer {
             position: absolute;
             bottom: 0;
@@ -123,37 +127,33 @@
     <img class="logo" src='img/logo/logo.png' alt=""/>
 </div>
 <div class="remitente">
-    CURSILLOS DE CRISTIANDAD
-    <br/>
-    DE LA DIÓCESIS DE CANARIAS<br/>
-    @if(strlen($remitente->direccion_postal)>0){{$remitente->direccion_postal}}<br/>@endif
+    <span class="center">{{$remitente->comunidad}}</span>
     @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
     {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
 </div>
 
-<div class="fecha_emision">
-    {{$remitente->localidad}},{{$fecha_emision}}
-</div>
+<div class="fecha_emision"></div>
 <div class="destinatario">
     @if(strlen($destinatario->comunidad)>0){{$destinatario->comunidad}}<br/>@endif
-        @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
-        @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
-        @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
-        @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
-        @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
-            @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
-        @endif
+    @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
+    @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
+    @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
+    @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
+    @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
+    @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
+    @endif
 </div>
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
+    <br/>
     <br/>
         <span class="tab">Necesitamos vuestra intendencia para los Cursillos de nuestra Diócesis de
             Canarias-Islas Canarias, España, que más abajo detallamos. Quedamos a vuestra disposición para orar
             también nosotros por los Cursillos que Uds. puedan celebrar, para lo cual pueden enviarnos sus mensajes a
             las direcciones mencionadas más abajo.</span>
     <br/>
-
+    <br/>
     <span class="tab">Desde nuestra Iglesia de Canarias, unidos en la Comunión de los Santos, reciban nuestro
         agradecimiento y nuestros mejores deseos por el éxito espiritual y apostólico de esa Comunidad.</span>
     <br/>
@@ -161,6 +161,7 @@
     <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
     <br/>
     <br/>
+    <span class="tab">{{$remitente->localidad}},&nbsp;{{$fecha_emision}}</span>
     <span class="firma">
         ¡
         <span class="naranja">D</span>
@@ -191,8 +192,8 @@
         <br/>
         <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
         <br/>
-    <span>Dirección para pedir por carta: {{$remitente->direccion_postal}} {{$remitente->cp}} {{$remitente->localidad}}
-        -{{$remitente->pais}}</span>
+        <span>Dirección para pedir por carta: {{$remitente->direccion_postal}} {{$remitente->localidad}}
+            -{{$remitente->pais}}</span>
     </div>
 @endif
 </body>

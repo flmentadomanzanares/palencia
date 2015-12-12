@@ -80,6 +80,11 @@
             line-height: 1.6em;
         }
 
+        .center {
+            text-align: center;
+            display: block;
+        }
+
         .naranja {
             color: rgb(220, 100, 1);
         }
@@ -123,24 +128,21 @@
     <img class="logo" src='img/logo/logo.png' alt=""/>
 </div>
 <div class="remitente">
-    CURSILLOS DE CRISTIANDAD
-    <br/>
-    DE LA DIÓCESIS DE CANARIAS<br/>
-    {{$remitente->direccion}}<br/>
-    {{$remitente->cp}} {{$remitente->localidad}}-{{$remitente->pais}}
+    <span class="center">{{$remitente->comunidad}}</span>
+    @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
+    {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
 </div>
 
-<div class="fecha_emision">
-
-</div>
+<div class="fecha_emision"></div>
 <div class="destinatario">
-    {{$destinatario->comunidad}}
-    <br/>
-    {{$destinatario->direccion}}
-    <br/>
-    {{$destinatario->cp}}-{{$destinatario->localidad}}
-    <br/>
-    {{$destinatario->provincia}}-{{$destinatario->pais}}
+    @if(strlen($destinatario->comunidad)>0){{$destinatario->comunidad}}<br/>@endif
+    @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
+    @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
+    @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
+    @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
+    @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
+    @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
+    @endif
 </div>
 
 <div class="mensaje">
@@ -192,7 +194,8 @@
         <br/>
         <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
         <br/>
-        <span>Dirección postal: {{$remitente->direccion_postal}}  {{$remitente->localidad}}-{{$remitente->pais}}</span>
+        <span>Dirección para pedir por carta: {{$remitente->direccion_postal}}  {{$remitente->localidad}}
+            -{{$remitente->pais}}</span>
     </div>
 @endif
 </body>
