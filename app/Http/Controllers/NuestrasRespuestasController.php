@@ -47,7 +47,7 @@ class NuestrasRespuestasController extends Controller
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
         if (count($remitente) == 0 || count($destinatarios) == 0 || count($cursillos) == 0) {
             return redirect()->
-            route('nuestrasRespuestas.index')->
+            route('nuestrasRespuestas')->
             with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -71,6 +71,7 @@ class NuestrasRespuestasController extends Controller
                 $archivoEmail = 'templatePDF/NR-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                $esCarta = false;
                 try {
                     $pdf = \App::make('dompdf.wrapper');
                     $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
@@ -78,7 +79,7 @@ class NuestrasRespuestasController extends Controller
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
                 }
-                $esCarta = false;
+
                 try {
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]

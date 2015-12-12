@@ -17,7 +17,7 @@
 
         .remitente {
             position: absolute;
-            top: 3em;
+            top: 0;
             left: 0;
             width: 20em;
             text-align: left;
@@ -34,7 +34,7 @@
 
         .destinatario {
             position: absolute;
-            top: 6em;
+            top: 7.2em;
             right: 0;
             width: 20em;
             font-size: 12pt;
@@ -58,10 +58,10 @@
 
         .mensaje {
             position: absolute;
-            top: 15em;
+            top: 19em;
             left: 0;
             font-size: 12pt;
-            line-height: 1.6em;
+            line-height: 1.5em;
         }
 
         .firma {
@@ -126,13 +126,12 @@
     CURSILLOS DE CRISTIANDAD
     <br/>
     DE LA DIÓCESIS DE CANARIAS<br/>
-    {{$remitente->direccion_postal}}<br/>
     {{$remitente->direccion}}<br/>
     {{$remitente->cp}} {{$remitente->localidad}}-{{$remitente->pais}}
 </div>
 
 <div class="fecha_emision">
-    {{$remitente->localidad}},{{$fecha_emision}}
+
 </div>
 <div class="destinatario">
     {{$destinatario->comunidad}}
@@ -148,17 +147,19 @@
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
+    <br/>
         <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
             ........ a celebrar desde el ............ de ................................................... del 20.........</span>
     <br/>
-
+    <br/>
     <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
-        personales por el éxito espiritual y apostólico de ese Cursillo</span>
+        personales por el éxito espiritual y apostólico de ese Cursillo.</span>
     <br/>
     <br/>
     <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
     <br/>
     <br/>
+    <span class="tab">{{$remitente->localidad}},&nbsp;{{$fecha_emision}}</span>
     <span class="firma">
         ¡
         <span class="naranja">D</span>
@@ -191,8 +192,7 @@
         <br/>
         <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
         <br/>
-    <span>Dirección postal: {{$remitente->direccion_postal}} {{$remitente->cp}} {{$remitente->localidad}}
-        -{{$remitente->pais}}</span>
+        <span>Dirección postal: {{$remitente->direccion_postal}}  {{$remitente->localidad}}-{{$remitente->pais}}</span>
     </div>
 @endif
 </body>
