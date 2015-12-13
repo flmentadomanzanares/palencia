@@ -35,7 +35,7 @@ class NuestrasRespuestasController extends Controller
     {
         Mail::raw('Prueba simple', function ($message) {
             $message->from('us@example.com', 'Laravel');
-            $message->to('antonio_sga@yahoo.es')->cc('bar@example.com');
+            $message->to('franciscomentadomanzanares@gmail.@yahoo.es')->cc('bar@example.com');
         });
         return null;
     }
@@ -45,6 +45,11 @@ class NuestrasRespuestasController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, true);
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
+        //Configuración del listado html
+        $listadoPosicionInicial = 43.5;
+        $listadoTotal = 11;
+        $listadoTotalRestoPagina = 40;
+        $separacionLinea = 1.5;
         if (count($remitente) == 0 || count($destinatarios) == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasRespuestas')->
@@ -74,12 +79,14 @@ class NuestrasRespuestasController extends Controller
                 $esCarta = false;
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
+                    $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3'
+                        , compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                            , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                        ), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado fichero adjunto para el email de respuesta de " . $destinatario->comunidad, "", true];
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
                 }
-
                 try {
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
@@ -102,7 +109,6 @@ class NuestrasRespuestasController extends Controller
                     $separacionLinea = 1.5;
                     $pdf = \App::make('dompdf.wrapper');
                     if (count($destinatarios) > 1) {
-
                         $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
