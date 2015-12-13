@@ -103,10 +103,6 @@ class NuestrasRespuestasController extends Controller
                     ["Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
             } else {
                 try {
-                    $listadoPosicionInicial = 40.5;
-                    $listadoTotal = 11;
-                    $listadoTotalRestoPagina = 40;
-                    $separacionLinea = 1.5;
                     $pdf = \App::make('dompdf.wrapper');
                     if (count($destinatarios) > 1) {
                         $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
