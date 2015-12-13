@@ -17,7 +17,7 @@ class NuestrasRespuestasController extends Controller
     {
         $titulo = "Nuestras Respuestas";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, false, '', true);
+        $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", true);
         $anyos = Array();
         $semanas = Array();
         $cursillos = Array();
@@ -43,7 +43,7 @@ class NuestrasRespuestasController extends Controller
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'));
+        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, true);
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
         if (count($remitente) == 0 || count($destinatarios) == 0 || count($cursillos) == 0) {
             return redirect()->
@@ -102,6 +102,7 @@ class NuestrasRespuestasController extends Controller
                     $separacionLinea = 1.5;
                     $pdf = \App::make('dompdf.wrapper');
                     if (count($destinatarios) > 1) {
+
                         $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
