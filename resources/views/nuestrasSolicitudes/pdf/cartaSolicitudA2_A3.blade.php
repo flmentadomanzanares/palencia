@@ -6,6 +6,7 @@
         @page {
             margin: 1.2cm;
         }
+
         body, html {
             font-family: Calibri;
         }
@@ -79,6 +80,23 @@
             text-align: center;
             display: block;
         }
+
+        .pagina {
+            position: fixed;
+            top: 275mm;
+            text-align: center;
+        }
+
+        .saltoPagina {
+            position: fixed;
+            page-break-before: left;
+
+        }
+
+        .list {
+            position: fixed;
+        }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -158,17 +176,22 @@
         <span class="turquesa">E</span>
         <span class="violeta">S</span>
         !
-    </span><br>
+    </span>
+        <br>
     @if($esCarta)
-        <span class="subrayado"><strong>CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></span>
-        <br/>
-        <ul>
-            @foreach($cursos as $curso)
-                <li class="tab">{{ $curso }}</li>
+            <div class="listado"><strong class="subrayado">CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></div>
+            <?php $i = 0?>
+            <?php $pagina = 0 ?>
+            @foreach($cursos as $index=>$curso)
+                @if($index>0 && $i==$listadoTotal)<?php $listadoTotal = $listadoTotalRestoPagina;$listadoPosicionInicial = 0;$i = 0; ?>
+                <div class="pagina">Pg {{$pagina=$pagina +1}}</div>
+                <div class="saltoPagina"></div>@endif
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">{{ $curso }}</div>
+                <?php $i++?>
             @endforeach
-        </ul>
     @endif
 </div>
 @include("pdf.Template.carta.footer")
+<?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </body>
 </html>
