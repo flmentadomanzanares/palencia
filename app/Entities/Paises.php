@@ -64,4 +64,16 @@ class Paises extends Model {
             ->where('paises.id', $id)
             ->first();
     }
+
+    public static function getPaisesColaboradores()
+    {
+        return ['0' => 'País...'] + Paises::Select('paises.id', 'pais')
+            ->leftJoin('comunidades', 'comunidades.pais_id', '=', 'paises.id')
+            ->where('paises.activo', true)
+            ->where('comunidades.esColaborador', true)
+            ->orderBy('pais', 'ASC')
+            ->Lists('pais', 'id');
+    }
+
+
 }

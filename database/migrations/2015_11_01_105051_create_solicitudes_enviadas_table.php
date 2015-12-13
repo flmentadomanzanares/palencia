@@ -22,7 +22,7 @@ class CreateSolicitudesEnviadasTable extends Migration {
             $table->bigInteger('cursillo_id')->unsigned();
             $table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 
-            $table->boolean('aceptada')->default(true);
+            $table->boolean('aceptada')->default(false);
 
             $table->boolean('activo')->default(true);
 

@@ -210,4 +210,10 @@ class Cursillos extends Model
             ->where('cursillos.id', $id)
             ->first();
     }
+
+   /* static public function getUltimoCursillo()
+    {
+        return Cursillos::Select('cursillos.id', 'cursillos.comunidad_id')
+            ->last();
+    }*/
 }

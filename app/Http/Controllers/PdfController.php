@@ -194,7 +194,8 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados por Pais";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesList();
+        //$paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesColaboradores();
 
 
         return view("pdf.listarSecretariadosPais", compact('comunidades', 'paises', 'titulo'));

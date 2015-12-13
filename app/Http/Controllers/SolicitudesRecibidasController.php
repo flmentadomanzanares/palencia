@@ -180,4 +180,39 @@ class SolicitudesRecibidasController extends Controller {
             ->with('mensaje', 'La solicitud ha sido eliminada correctamente.');
     }
 
+    /**
+     *  Crea una nueva solicitud recibida
+     *
+     */
+
+   /* public function crearSolicitudRecibida()
+    {
+        $cursillo = getUltimoCursillo();
+
+        //Creamos una nueva instancia al modelo.
+        $solicitudRecibida = new SolicitudesRecibidas();
+        $solicitudRecibida->comunidad_id = $cursillo->comunidad_id;
+        $solicitudRecibida->cursillo_id = $cursillo->id;
+
+        //Intercepción de errores
+        try {
+            //Guardamos Los valores
+            $solicitudRecibida->save();
+
+        } catch (\Exception $e) {
+            switch ($e->getCode()) {
+                case 23000:
+                    return redirect()->
+                    route('solicitudesRecibidas.create')->
+                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    break;
+                default:
+                    return redirect()->
+                    route('solicitudesRecibidas.index')->
+                    with('mensaje', 'Nueva Solicitud error ' . $e->getCode());
+            }
+        }
+
+    }*/
+
 }
