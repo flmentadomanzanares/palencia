@@ -3,6 +3,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>palenciaDoc-B2_B3</title>
     <style>
+        @page {
+            margin: 1.2cm;
+            size: A4 portrait;
+        }
+
         body, html {
             font-family: Calibri;
         }
@@ -72,16 +77,33 @@
             font-weight: bold;
         }
 
+        .pagina {
+            position: fixed;
+            top: 275mm;
+            text-align: center;
+
+        }
+
         .footer {
             position: absolute;
             bottom: 0;
             left: 0;
             font-size: 12pt;
-            line-height: 1.6em;
+            line-height: 1.6;
+        }
+
+        .saltoPagina {
+            position: fixed;
+            page-break-before: left;
+
+        }
+
+        .list {
+            position: fixed;
         }
 
         .center {
-            text-align: center;
+            text-align: left;
             display: block;
         }
 
@@ -123,28 +145,7 @@
     </style>
 </head>
 <body>
-
-<div style="width:100%;text-align: right">
-    <img class="logo" src='img/logo/logo.png' alt=""/>
-</div>
-<div class="remitente">
-    <span class="center">{{$remitente->comunidad}}</span>
-    @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
-    {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
-</div>
-
-<div class="fecha_emision"></div>
-<div class="destinatario">
-    @if(strlen($destinatario->comunidad)>0){{$destinatario->comunidad}}<br/>@endif
-    @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
-    @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
-    @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
-    @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
-    @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
-    @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
-    @endif
-</div>
-
+@include("pdf.Template.carta.header")
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
@@ -175,28 +176,22 @@
         <span class="turquesa">E</span>
         <span class="violeta">S</span>
         !
-    </span><br>
+    </span>
+    <br>
     @if($esCarta)
-        <span class="subrayado"><strong>CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></span>
-        <br/>
-        <ul>
-            @foreach($cursos as $curso)
-                <li class="tab">{{ $curso }}</li>
-            @endforeach
-        </ul>
+        <div class="listado"><strong class="subrayado">CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></div>
+        <?php $i = 0?>
+        <?php $pagina = 0 ?>
+        @foreach($cursos as $index=>$curso)
+            @if($index>0 && $i==$listadoTotal)<?php $listadoTotal = $listadoTotalRestoPagina;$listadoPosicionInicial = 0;$i = 0; ?>
+            <div class="pagina">Pg {{$pagina=$pagina +1}}</div>
+            <div class="saltoPagina"></div>@endif
+            <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">{{ $curso }}</div>
+            <?php $i++?>
+        @endforeach
     @endif
+    @include("pdf.Template.carta.footer")
+    <?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </div>
-@if($esCarta)
-    <div class="footer">
-        <strong>NOTA.</strong><span> Les rogamos rellenen los datos para cada Cursillo en las fotocopias que sean necesarias.</span>
-        <br/>
-        <span>Dirección para sus solicitudes:<span class="email"> {{$remitente->email_solicitud}}</span></span>
-        <br/>
-        <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
-        <br/>
-        <span>Dirección para pedir por carta: {{$remitente->direccion_postal}}  {{$remitente->localidad}}
-            -{{$remitente->pais}}</span>
-    </div>
-@endif
 </body>
 </html>

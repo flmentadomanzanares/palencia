@@ -3,6 +3,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>palenciaDoc-A2_A3</title>
     <style>
+        @page {
+            margin: 1.2cm;
+        }
         body, html {
             font-family: Calibri;
         }
@@ -122,27 +125,7 @@
     </style>
 </head>
 <body>
-
-<div style="width:100%;text-align: right">
-    <img class="logo" src='img/logo/logo.png' alt=""/>
-</div>
-<div class="remitente">
-    <span class="center">{{$remitente->comunidad}}</span>
-    @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
-    {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
-</div>
-
-<div class="fecha_emision"></div>
-<div class="destinatario">
-    @if(strlen($destinatario->comunidad)>0){{$destinatario->comunidad}}<br/>@endif
-    @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
-    @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
-    @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
-    @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
-    @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
-    @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
-    @endif
-</div>
+@include("pdf.Template.carta.header")
 <div class="mensaje">
     @if (!$esCarta) <br/> @endif
     <span>Queridos hermanos:</span>
@@ -186,15 +169,6 @@
         </ul>
     @endif
 </div>
-@if($esCarta)
-    <div class="footer">
-        <span>Dirección para sus solicitudes:<span class="email"> {{$remitente->email_solicitud}}</span></span>
-        <br/>
-        <span>Dirección para sus envíos:<span class="email"> {{$remitente->email_envio}}</span></span>
-        <br/>
-        <span>Dirección para pedir por carta: {{$remitente->direccion_postal}} {{$remitente->localidad}}
-            -{{$remitente->pais}}</span>
-    </div>
-@endif
+@include("pdf.Template.carta.footer")
 </body>
 </html>

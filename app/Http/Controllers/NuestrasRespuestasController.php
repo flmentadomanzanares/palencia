@@ -64,7 +64,7 @@ class NuestrasRespuestasController extends Controller
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
                 if ($cursillo->comunidad_id == $destinatario->id) {
-                    $cursos[] = sprintf("Nº %6s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
+                    $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                 }
             }
             if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
@@ -96,12 +96,21 @@ class NuestrasRespuestasController extends Controller
                     ["Fallo al enviar respuesta a " . $destinatario->comunidad . " al correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
             } else {
                 try {
+                    $listadoPosicionInicial = 40.5;
+                    $listadoTotal = 11;
+                    $listadoTotalRestoPagina = 40;
+                    $separacionLinea = 1.5;
                     $pdf = \App::make('dompdf.wrapper');
                     if (count($destinatarios) > 1) {
-                        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->save($nombreArchivo);
+                        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
+                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                            ))->save($nombreArchivo);
                         $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, $nombreArchivo, "", true];
                     } else {
-                        return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3', compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'))->download($nombreArchivo);
+                        return $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
+                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta', 'listadoPosicionInicial'
+                                , 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'))->download($nombreArchivo);
                     }
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear la carta de respuesta para " . $destinatario->comunidad, "", false];
