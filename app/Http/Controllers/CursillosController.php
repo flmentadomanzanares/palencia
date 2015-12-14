@@ -1,11 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Palencia\Entities\Comunidades;
+use Palencia\Entities\Cursillos;
 use Palencia\Entities\TiposCursillos;
 use Palencia\Entities\TiposParticipantes;
 use Palencia\Http\Requests;
-use Illuminate\Http\Request;
-use Palencia\Entities\Cursillos;
-use Palencia\Entities\Comunidades;
 use Palencia\Http\Requests\ValidateRulesCursillos;
 
 class CursillosController extends Controller
@@ -48,6 +48,13 @@ class CursillosController extends Controller
                 'tipos_participantes',
                 'titulo'
             ));
+    }
+
+    private function ponerFecha($date)
+    {
+        $partesFecha = date_parse_from_format('d/m/Y', $date);
+        $fecha = mktime(12, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
+        return date('Y-m-d H:i:s', $fecha);
     }
 
     /**
@@ -198,13 +205,6 @@ class CursillosController extends Controller
             ->with('mensaje', 'El cursillo ha sido eliminado correctamente.');
     }
 
-    private function ponerFecha($date)
-    {
-        $partesFecha = date_parse_from_format('d/m/Y', $date);
-        $fecha = mktime(12, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
-        return date('Y-m-d H:i:s', $fecha);
-    }
-
     public function semanasTotales(Request $request)
     {
        if (\Request::ajax()) {
@@ -231,4 +231,13 @@ class CursillosController extends Controller
             return Cursillos::getTodosMisCursillosLista($comunidad);
         }
     }
+
+    public function totalAnyos(Request $request)
+    {
+        if (\Request::ajax()) {
+            $comunidad = $request->get('comunidadId');
+            return Cursillos::getTodosMisAnyosCursillosList($comunidad);
+        }
+    }
+
 }

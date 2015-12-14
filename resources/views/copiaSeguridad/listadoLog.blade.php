@@ -41,7 +41,7 @@
             </tbody>
         </table>
         <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('copiaSeguridad.index')}}" class="pull-left">
+            <a title="Volver" href="{{route('copiaSeguridad')}}" class="pull-left">
                 <i class="glyphicon glyphicon-arrow-left">
                     <div>Volver</div>
                 </i>

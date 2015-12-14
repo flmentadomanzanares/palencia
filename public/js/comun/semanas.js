@@ -1,4 +1,25 @@
 $(document).ready(function () {
+    var totalAnyos = function (comunidadId) {
+        $.ajax({
+            data: {
+                'comunidadId': comunidadId,
+                '_token': $('input[name="_token"]').val()
+            },
+            dataType: "json",
+            type: 'post',
+            url: 'totalAnyos',
+            success: function (data) {
+                var anyos = $('#select_anyos');
+                anyos.empty();
+                $.each(data, function (key, element) {
+                    anyos.append("<option value='" + element + "'>" + element + "</option>");
+                });
+                totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
+            },
+            error: function () {
+            }
+        });
+    };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
     var totalCursillos = function (comunidad, year, semana) {
         $.ajax({
@@ -23,10 +44,10 @@ $(document).ready(function () {
                         "<tbody>" +
                         "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
                         "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
-                        "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString()+ "  [Sem:"+element.semana + "]</td></tr>" +
+                        "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "]</td></tr>" +
                         "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
                         "</tbody>" +
-                        "</table>"
+                        "</table>";
                     $('#listado_cursillos').append(html);
                 });
             },
@@ -47,7 +68,7 @@ $(document).ready(function () {
             type: 'post',
             url: 'semanasTotales',
             success: function (data) {
-                var semanas = $('#select_semanas')
+                var semanas = $('#select_semanas');
                 semanas.empty();
                 semanas.append("<option value='0'>--</option>");
                 $.each(data, function (key, element) {
@@ -60,9 +81,12 @@ $(document).ready(function () {
             error: function () {
             }
         });
-    }
-
-    $(document).on("change", "#select_anyos , #select_comunidad", function (evt) {
+    };
+    $(document).on("change", "#select_comunidad", function (evt) {
+        evt.preventDefault();
+        totalAnyos($(this).val());
+    });
+    $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
         totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
     });
@@ -72,6 +96,6 @@ $(document).ready(function () {
             return;
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
     });
-    totalSemanas($('#select_anyos').val(), $('#select_comunidad').val());
+    totalAnyos($("#select_comunidad").val());
 
 });
