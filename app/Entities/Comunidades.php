@@ -31,8 +31,9 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
-    static public function getComunidadPDF($comunidad = 0, $esPropia = null)
+    static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
     {
+
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
             'comunidades.email_solicitud', 'comunidades.email_envio', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
@@ -47,7 +48,7 @@ class Comunidades extends Model
                         WHERE comunidades.id = cursillos.comunidad_id
                         GROUP BY cursillos.comunidad_id
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
-            ->Where('cursillosTotales', '>', 0)
+            ->ExcluirSinCursillos($excluirSinCursillos)
             ->ComunidadesId($comunidad)
             ->esPropia($esPropia)
             ->orderBy("comunidades.comunidad")
@@ -264,6 +265,14 @@ class Comunidades extends Model
         return $query;
     }
 
+    public function scopeExcluirSinCursillos($query, $excluirSinCursillos = false)
+    {
+
+        if ($excluirSinCursillos) {
+            $query->where('cursillosTotales', '>', 0);
+        }
+        return $query;
+    }
     public function scopeTipoSecretariado($query, $secretariado = 0)
     {
         if (is_numeric($secretariado) && $secretariado > 0) {
