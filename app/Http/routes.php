@@ -14,7 +14,7 @@
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', 'InvitadoController@index');
 Route::get('/inicio', ['as' => 'inicio', 'uses' => 'AutenticadoController@index']);
-
+Route::get('/enviar1', array('as' => 'enviar1', 'uses' => 'NuestrasSolicitudesController@enviar1'));
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));

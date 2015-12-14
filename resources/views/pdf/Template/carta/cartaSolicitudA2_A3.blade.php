@@ -1,11 +1,9 @@
-<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>palenciaDoc-B2_B3</title>
+    <title>palenciaDoc-A2_A3</title>
     <style>
         @page {
             margin: 1.2cm;
-            size: A4 portrait;
         }
 
         body, html {
@@ -77,18 +75,18 @@
             font-weight: bold;
         }
 
+        .center {
+            text-align: center;
+            display: block;
+        }
+
         .pagina {
             position: fixed;
             top: 275mm;
             text-align: center;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            font-size: 12pt;
-            line-height: 1.6;
+            background-color: white;
+            height: 30px;
+            border-top: 1px solid rgb(0, 0, 0);
         }
 
         .saltoPagina {
@@ -101,9 +99,12 @@
             position: fixed;
         }
 
-        .center {
-            text-align: left;
-            display: block;
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 12pt;
+            line-height: 1.6em;
         }
 
         .naranja {
@@ -150,12 +151,14 @@
     <span>Queridos hermanos:</span>
     <br/>
     <br/>
-        <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
-            ........ a celebrar desde el ............ de ................................................... del 20.........</span>
+        <span class="tab">Necesitamos vuestra intendencia para los Cursillos de nuestra Diócesis de
+            Canarias-Islas Canarias, España, que más abajo detallamos. Quedamos a vuestra disposición para orar
+            también nosotros por los Cursillos que Uds. puedan celebrar, para lo cual pueden enviarnos sus mensajes a
+            las direcciones mencionadas más abajo.</span>
     <br/>
     <br/>
-    <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
-        personales por el éxito espiritual y apostólico de ese Cursillo.</span>
+    <span class="tab">Desde nuestra Iglesia de Canarias, unidos en la Comunión de los Santos, reciban nuestro
+        agradecimiento y nuestros mejores deseos por el éxito espiritual y apostólico de esa Comunidad.</span>
     <br/>
     <br/>
     <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
@@ -178,7 +181,7 @@
     </span>
     <br>
     @if($esCarta)
-        <div class="listado"><strong class="subrayado">CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></div>
+        <div class="listado"><strong class="subrayado">CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></div>
         <?php $i = 0?>
         <?php $pagina = 0 ?>
         @foreach($cursos as $index=>$curso)
@@ -193,4 +196,4 @@
 @include("pdf.Template.carta.footer")
 <?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </body>
-</html>
+

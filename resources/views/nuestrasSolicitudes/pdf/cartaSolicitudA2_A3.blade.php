@@ -85,6 +85,8 @@
             position: fixed;
             top: 275mm;
             text-align: center;
+            background-color: white;
+            border-top: 1px solid rgb(0, 0, 0);
         }
 
         .saltoPagina {

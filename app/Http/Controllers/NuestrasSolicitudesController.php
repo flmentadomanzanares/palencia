@@ -60,8 +60,10 @@ class NuestrasSolicitudesController extends Controller
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
-        //Ampliamos el tiempo de ejecución del servidor a 3 minutos.
-        ini_set("max_execution_time", 300);
+        $multiplesPdf = \App::make('dompdf.wrapper');
+        $multiplesPdfContain = "<html lang=\"es\">";
+        //Ampliamos el tiempo de ejecución del servidor a 5 minutos.
+        ini_set("max_execution_time", 500);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $archivo = "solicitudesCursillos" . "/" . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
@@ -110,14 +112,26 @@ class NuestrasSolicitudesController extends Controller
                     ["Fallo al enviar la solicitud al destinatario " . $destinatario->comunidad . " a su correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
             } else {
                 try {
-                    $pdf = \App::make('dompdf.wrapper');
+
+
                     if (count($destinatarios) > 1) {
-                        $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
+                        $view = \View::make('pdf.Template.carta.cartaSolicitudA2_A3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->save($nombreArchivo);
+                            ))->render();
+                        $multiplesPdfContain .= $view;
+
+
+                        // $view =  \View::make('pdf.imprimirCursillos', compact('cursillos', 'week', 'year','date', 'titulo'))->render();
+                        // $pdf = \App::make('dompdf.wrapper');
+                        //  $pdf->loadHTML($view);
+                        //  -        return $pdf->stream('imprimirCursillos'); /* muestra en pantalla*/
+                        //return $pdf->download('invoice'); /* crea pdf en directorio descargas */
+                        // return $pdf->stream('imprimirCursillos');
+                        //dd($multiplesPdf);
                         $logEnvios[] = ["Creada carta de solicitud  para " . $destinatario->comunidad, $nombreArchivo, true];
                     } else {
+                        $pdf = \App::make('dompdf.wrapper');
                         return $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3'
                             , compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
@@ -127,6 +141,13 @@ class NuestrasSolicitudesController extends Controller
                     $logEnvios[] = ["Error al crear la carta de solicitud para " . $destinatario->comunidad, "", false];
                 }
             }
+        }
+        if (count($destinatarios) > 1) {
+            $multiplesPdfContain .= "</html>";
+            $multiplesPdf->loadHTML($multiplesPdfContain);
+            $multiplesPdf->output();
+            return $multiplesPdf->stream();
+            $multiplesPdf->save("popo.pdf");
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',

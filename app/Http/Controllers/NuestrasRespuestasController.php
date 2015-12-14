@@ -31,15 +31,6 @@ class NuestrasRespuestasController extends Controller
                 'titulo'));
     }
 
-    public function enviar1(Request $request)
-    {
-        Mail::raw('Prueba simple', function ($message) {
-            $message->from('us@example.com', 'Laravel');
-            $message->to('franciscomentadomanzanares@gmail.@yahoo.es')->cc('bar@example.com');
-        });
-        return null;
-    }
-
     public function enviar(Request $request)
     {
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
@@ -120,7 +111,6 @@ class NuestrasRespuestasController extends Controller
                 }
             }
         }
-
         $titulo = "Operaciones Realizadas";
         return view('nuestrasRespuestas.listadoLog',
             compact('titulo', 'logEnvios'));

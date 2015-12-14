@@ -29,8 +29,8 @@ return [
 	|
 	*/
 
-	//'host' => 'mail.smtp2go.com',
-		'host' => env('HOST'),
+		'host' => 'mail.smtp2go.com',
+	//	'host' => env('HOST'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,8 +43,8 @@ return [
 	|
 	*/
 
-	//'port' => 2525,
-		'port' => env('PORT'),
+		'port' => 2525,
+	//	'port' => env('PORT'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -70,8 +70,8 @@ return [
 	|
 	*/
 
-	//'encryption' => 'tls',
-		'encryption' => env('ENCRYPTION'),
+		'encryption' => 'tls',
+	//'encryption' => env('ENCRYPTION'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,8 +84,8 @@ return [
 	|
 	*/
 
-	//'username' => 'franciscomentadomanzanares@gmail.com',
-		'username' => env('USERNAME'),
+		'username' => 'franciscomentadomanzanares@gmail.com',
+	//	'username' => env('USERNAME'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,8 +97,8 @@ return [
 	| connection so that the application will be able to send messages.
 	|
 	*/
-	//'password' => 'fmentadosmtp2go',
-		'password' => env('PASSWORD'),
+		'password' => 'fmentadosmtp2go',
+	//	'password' => env('PASSWORD'),
 
 	/*
 	|--------------------------------------------------------------------------
