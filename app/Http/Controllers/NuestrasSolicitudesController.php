@@ -44,7 +44,7 @@ class NuestrasSolicitudesController extends Controller
         $numeroDestinatarios = count($destinatarios);
         //Configuración del listado html
         $listadoPosicionInicial = 43.5;
-        $listadoTotal = 11;
+        $listadoTotal = 9;
         $listadoTotalRestoPagina = 40;
         $separacionLinea = 1.5;
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {

@@ -87,6 +87,7 @@ class Cursillos extends Model
 
             $result = Cursillos::Select('cursillos.cursillo', 'cursillos.id')
                 ->ComunidadCursillos($comunidad)
+                ->where('cursillos.activo', true)
                 ->orderBy('cursillos.fecha_inicio')
                 ->orderBy('cursillos.cursillo', 'ASC')
                 ->get();
@@ -95,6 +96,7 @@ class Cursillos extends Model
 
             $result = Cursillos::Select('cursillos.cursillo', 'cursillos.id')
                 ->ComunidadCursillos($comunidad)
+                ->where('cursillos.activo', true)
                 ->orderBy('cursillos.fecha_inicio')
                 ->orderBy('cursillos.cursillo', 'ASC')
                 ->Lists('cursillos.cursillo', 'cursillos.id');
