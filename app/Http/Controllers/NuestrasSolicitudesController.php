@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
+use Palencia\Entities\TiposComunicacionesPreferidas;
 use Palencia\Http\Requests;
 
 class NuestrasSolicitudesController extends Controller
@@ -19,6 +20,7 @@ class NuestrasSolicitudesController extends Controller
         $titulo = "Nuestras Solicitudes";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", false);
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $anyos = Array();
         $semanas = Array();
         $cursillos = array();
@@ -29,20 +31,13 @@ class NuestrasSolicitudesController extends Controller
                 'cursillos',
                 'anyos',
                 'semanas',
+                'tipos_comunicaciones_preferidas',
                 'titulo'));
-    }
-
-    public function enviar1(Request $request)
-    {
-        Mail::raw('Prueba simple', function ($message) {
-            $message->from('us@example.com', 'Laravel');
-            $message->to('franciscomentadomanzanares@gmail.com');
-        });
-        return null;
     }
 
     public function enviar(Request $request)
     {
+        $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
@@ -60,43 +55,51 @@ class NuestrasSolicitudesController extends Controller
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
+        //PDF en múltiples páginas
         $multiplesPdf = \App::make('dompdf.wrapper');
-        $multiplesPdfContain = "<html lang=\"es\">";
+        $multiplesPdfBegin = '<html lang="es">';
+        $multiplesPdfContain = "";
+        $multiplesPdfEnd = '</html>';
+
         //Ampliamos el tiempo de ejecución del servidor a 5 minutos.
         ini_set("max_execution_time", 500);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
-            $archivo = "solicitudesCursillos" . "/" . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
+            $separatorPath = "/";
+            $path = "solicitudesCursillos";
+            $archivo = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursos = [];
             $esCarta = true;
+            //Obtenemos Los cursos relacionados con la comunidad y creamos la línea de impresión para enviarla al template en memoria
             foreach ($cursillos as $idx => $cursillo) {
                 if ($cursillo->comunidad_id == $remitente->id) {
                     $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                 }
             }
-            if ((strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
-                $archivoMail = "templatePDF" . "/" . 'NS-' . $remitente->comunidad . '.pdf';
-
+            // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
+            if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
+                //Nombre del archivo a adjuntar
+                $archivoMail = "templatePDF" . $separatorPath . 'NS-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoMail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
                 $nombreArchivoAdjuntoEmail = str_replace(" ", "", $nombreArchivoAdjuntoEmail);
                 try {
                     $pdf = \App::make('dompdf.wrapper');
-                    $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3'
-                        , compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                    $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
+                        compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                             , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                        ), [], 'UTF-8')->save($nombreArchivoAdjuntoEmail);
-                    $logEnvios[] = ["Creado fichero adjunto para el email de solicitud para " . $destinatario->comunidad, "", true];
+                        ))->render();
+                    $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
+                    $pdf->output();
+                    $pdf->save($nombreArchivoAdjuntoEmail);
+                    $logEnvios[] = ["Creado fichero adjunto para el email de solicitud a la comunidad " . $destinatario->comunidad, "", "floppy-saved", true];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", false];
+                    $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", "floppy-remove", false];
                 }
                 $esCarta = false;
                 try {
-                    if (strlen($remitente->email_solicitud) == 0) {
-                        $logEnvios[] = ["La comunidad " . $remitente->comunidad . " carece de email de remitente", "", false];
-                    }
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -108,46 +111,48 @@ class NuestrasSolicitudesController extends Controller
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud al destinatario " . $destinatario->comunidad . " al correo " . $destinatario->email_envio, "", true] :
-                    ["Fallo al enviar la solicitud al destinatario " . $destinatario->comunidad . " a su correo " . (strlen($destinatario->email_envio) > 0 ? $destinatario->email_envio : "(Sin determinar)"), "", false];
-            } else {
+                $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud al destinatario " . $destinatario->comunidad . " al correo " . $destinatario->email_envio, "", "envelope", true] :
+                    ["Fallo al enviar la solicitud al destinatario " . $destinatario->comunidad . " a su correo " . $destinatario->email_envio, "", "envelope", false];
+            } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
+                $logEnvios[] = ["La comunidad " . $remitente->comunidad . " carece de email de remitente", "", "envelope", false];
+            } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
-
-
                     if (count($destinatarios) > 1) {
+                        /* Crear carta por comunidad
+                          $pdf = \App::make('dompdf.wrapper');
+                          $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
+                              compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                                  , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                              ))->save($nombreArchivo);
+                          $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, $nombreArchivo, "", true];
+                        */
                         $view = \View::make('pdf.Template.carta.cartaSolicitudA2_A3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
                         $multiplesPdfContain .= $view;
-
-
-                        // $view =  \View::make('pdf.imprimirCursillos', compact('cursillos', 'week', 'year','date', 'titulo'))->render();
-                        // $pdf = \App::make('dompdf.wrapper');
-                        //  $pdf->loadHTML($view);
-                        //  -        return $pdf->stream('imprimirCursillos'); /* muestra en pantalla*/
-                        //return $pdf->download('invoice'); /* crea pdf en directorio descargas */
-                        // return $pdf->stream('imprimirCursillos');
-                        //dd($multiplesPdf);
-                        $logEnvios[] = ["Creada carta de solicitud  para " . $destinatario->comunidad, $nombreArchivo, true];
+                        $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
                     } else {
                         $pdf = \App::make('dompdf.wrapper');
-                        return $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3'
-                            , compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                        $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
+                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->download($nombreArchivo);
+                            ))->render();
+                        $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
+                        $pdf->output();
+                        return $pdf->download($nombreArchivo);
                     }
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear la carta de solicitud para " . $destinatario->comunidad, "", false];
+                    $logEnvios[] = ["Error al crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }
             }
         }
-        if (count($destinatarios) > 1) {
-            $multiplesPdfContain .= "</html>";
-            $multiplesPdf->loadHTML($multiplesPdfContain);
+        if (count($destinatarios) > 1 && $tipoEnvio != 2) {
+            $pathTotalComunidadesCarta = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
+            $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
-            return $multiplesPdf->stream();
-            $multiplesPdf->save("popo.pdf");
+            $multiplesPdf->save($pathTotalComunidadesCarta);
+            $logEnvios[] = ["Creada cartas de solicitud  para todas las comunidades con modalidad de carta.", $pathTotalComunidadesCarta, "list-alt", true];
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',

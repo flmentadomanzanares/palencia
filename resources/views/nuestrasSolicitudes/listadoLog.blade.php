@@ -27,7 +27,7 @@
                         @else
                             <div class="btn-action text-center">
                             <span title="realizado">
-                                <i class="glyphicon @if($log[2])glyphicon-check green @else glyphicon-remove red @endif"></i>
+                                <i class="glyphicon glyphicon-{{$log[2]}} @if($log[3]) green @else red @endif"></i>
                             </span>
                             </div>
                         @endif

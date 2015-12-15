@@ -283,11 +283,6 @@ body {
   line-height: 18px;
 }
 
-// Quick fix for badges in buttons
-.btn & {
-  position: relative;
-  top: -1px;
-}
 
 //GENERIC
 //******************************************************
@@ -509,6 +504,7 @@ input[type=file]:hover {
 // Color para los checks-ok
 .green {
   color: $app-color-success !important;
+  font-size: 1.5em;
 }
 
 .green-bk {
@@ -518,6 +514,7 @@ input[type=file]:hover {
 //Color para los checks-fails
 .red {
   color: $app-color-fail !important;
+  font-size: 1.5em;
 }
 
 .red-bk {

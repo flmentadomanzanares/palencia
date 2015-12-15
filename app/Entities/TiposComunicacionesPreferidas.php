@@ -9,9 +9,9 @@ class TiposComunicacionesPreferidas extends Model {
     protected $fillable=[]; //Campos a usar
     protected $guarded =['id']; //Campos no se usan
 
-    public static function getTipoComunicacionesPreferidasList()
+    public static function getTipoComunicacionesPreferidasList($placeholder = "Comunicación...")
     {
-        return ['0' => 'Comunicación...'] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
+        return ['0' => $placeholder] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
             ->where('activo', true)
             ->orderBy('comunicacion_preferida', 'ASC')
             ->Lists('comunicacion_preferida', 'id');
