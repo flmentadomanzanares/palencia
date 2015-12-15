@@ -75,8 +75,8 @@
             font-weight: bold;
         }
 
-        .center {
-            text-align: center;
+        .alineacion {
+            text-align: left;
             display: block;
         }
 

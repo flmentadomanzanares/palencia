@@ -100,7 +100,7 @@
             position: fixed;
         }
 
-        .center {
+        .alineacion {
             text-align: left;
             display: block;
         }

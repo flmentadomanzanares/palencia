@@ -126,7 +126,7 @@ class NuestrasSolicitudesController extends Controller
                               ))->save($nombreArchivo);
                           $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, $nombreArchivo, "", true];
                         */
-                        $view = \View::make('pdf.Template.carta.cartaSolicitudA2_A3',
+                        $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
