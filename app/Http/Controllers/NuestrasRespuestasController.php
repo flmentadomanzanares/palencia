@@ -42,7 +42,7 @@ class NuestrasRespuestasController extends Controller
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
         //Configuración del listado html
-        $listadoPosicionInicial = 43.5;
+        $listadoPosicionInicial = 40.5;
         $listadoTotal = 11;
         $listadoTotalRestoPagina = 40;
         $separacionLinea = 1.5;
