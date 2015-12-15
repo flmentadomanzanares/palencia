@@ -5,8 +5,7 @@
 </head>
 <body style="font-family: Calibri;font-size: 12pt">
 <div style="width:100%;text-align: center">
-    <strong style="font-size:18px;text-decoration: underline;line-height:1.6;">CURSILLOS DE CRISTIANDAD - DIÓCESIS DE
-        CANARIAS</strong>
+    <strong style="font-size:18px;text-decoration: underline;line-height:1.6;">{{$remitente->comunidad}}</strong>
     <br/>
 </div>
 <div>
