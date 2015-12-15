@@ -50,7 +50,7 @@ class NuestrasSolicitudesController extends Controller
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
-            with('mensaje', 'No se puede realizar el envío,comprueba  el remitente y/o destinatario/s  y/o curso/s');
+            with('mensaje', 'No se puede realizar la operación, debe de existir remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
@@ -131,7 +131,7 @@ class NuestrasSolicitudesController extends Controller
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
                         $multiplesPdfContain .= $view;
-                        $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
+                        $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
                     } else {
                         $pdf = \App::make('dompdf.wrapper');
                         $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
@@ -153,6 +153,9 @@ class NuestrasSolicitudesController extends Controller
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
             $logEnvios[] = ["Creada cartas de solicitud  para todas las comunidades con modalidad de carta.", $pathTotalComunidadesCarta, "list-alt", true];
+        }
+        if (count($logEnvios) == 0) {
+            $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
