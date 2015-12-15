@@ -56,6 +56,7 @@ class Cursillos extends Model
             ->ComunidadCursillos($comunidad)
             ->AnyosCursillos($anyo)
             ->SemanasCursillos($semana)
+            ->Where('cursillos.activo', true)
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->get();
     }
@@ -69,6 +70,7 @@ class Cursillos extends Model
             ->ComunidadCursillos($comunidad)
             ->AnyosCursillos($anyo)
             ->SemanasCursillos($semana)
+            ->where('cursillos.activo', true)
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('semana', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
