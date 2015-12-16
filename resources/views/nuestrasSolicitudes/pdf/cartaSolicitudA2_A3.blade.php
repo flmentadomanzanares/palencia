@@ -85,6 +85,7 @@
             top: 275mm;
             text-align: center;
             background-color: white;
+            height: 30px;
             border-top: 1px solid rgb(0, 0, 0);
         }
 

@@ -58,6 +58,10 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 //Obtener relación de cursos vía Ajax (ModoTabla)
     Route::post('listadoCursillos', array('as' => 'listadoCursillos', 'uses' => 'CursillosController@listadoCursillos'));
 
+//Obtener relación de cursos excepto los míos vía Ajax (ModoTabla)
+    Route::post('listadoCursillosRespuestas', array('as' => 'listadoCursillosRespuestas', 'uses' => 'CursillosController@listadoCursillosExceptoLosMios'));
+
+
 //Obtener relación de cursos vía Ajax (ModoSelect)
     Route::post('cursillosTotales', array('as' => 'ponerCursillosTotales', 'uses' => 'CursillosController@cursillosTotales'));
 
