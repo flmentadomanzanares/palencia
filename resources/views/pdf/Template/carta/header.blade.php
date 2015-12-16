@@ -2,7 +2,7 @@
     <img class="logo" src='img/logo/logo.png' alt=""/>
 </div>
 <div class="remitente">
-    <span class="center">{{$remitente->comunidad}}</span>
+    <span class="alineacion">{{$remitente->comunidad}}</span>
     @if(strlen($remitente->direccion)){{$remitente->direccion}}<br/>@endif
     {{$remitente->cp}} {{$remitente->localidad}}@if(strlen($remitente->pais)>0)-{{$remitente->pais}} @endif
 </div>

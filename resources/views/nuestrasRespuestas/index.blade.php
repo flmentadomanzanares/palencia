@@ -9,6 +9,9 @@
         @if (Auth::check())
             <div class="row ">
                 {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades','cursillo','semanas','anyos']),['route'=>'enviarNuestrasRespuestas','method'=>'POST']) !!}
+                <div class="heading-caption">Modalidad envío</div>
+                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
+                <br/>
                 <div class="heading-caption">Remitente</div>
                 {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control"))!!}
                 <br/>

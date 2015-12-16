@@ -1,4 +1,3 @@
-<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>palenciaDoc-A2_A3</title>
@@ -76,8 +75,8 @@
             font-weight: bold;
         }
 
-        .center {
-            text-align: center;
+        .alineacion {
+            text-align: left;
             display: block;
         }
 
@@ -196,4 +195,3 @@
 @include("pdf.Template.carta.footer")
 <?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </body>
-</html>
