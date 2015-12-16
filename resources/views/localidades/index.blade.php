@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 @endif
-                <div class="row text-center">
+                <div class="row paginationBlock">
                     {!! $localidades->appends(Request::only(['localidad']))->render()
                     !!}{{-- Poner el paginador --}}
                 </div>

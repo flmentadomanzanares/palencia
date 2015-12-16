@@ -57,7 +57,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $tipos_secretariados->appends(Request::only(['tipo_secretariado']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>

@@ -69,7 +69,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $solicitudesRecibidas->appends(Request::only(['semanas','anyos','cursillo']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>

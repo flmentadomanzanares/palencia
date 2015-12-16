@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     @endif
-                    <div class="row text-center">
+                    <div class="row paginationBlock">
                         {!! $paises->appends(Request::only(['pais']))->render()
                         !!}{{-- Poner el paginador --}}
                     </div>
