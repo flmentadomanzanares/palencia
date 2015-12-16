@@ -37,6 +37,7 @@
             font-size: 25px;
             font-weight: bold;
             margin-bottom:20px;
+            color:#000000;
 
         }
 
@@ -45,6 +46,7 @@
             font-weight: bold;
             font-size: 18px;
             margin-bottom:20px;
+            color:#000000;
 
         }
 
@@ -59,8 +61,9 @@
 
         .cabecera5 {
 
-            background-color: #400090;
-            color: #FFFFFF;
+            color: #000000;
+            /*background-color: #400090;
+            color: #FFFFFF;*/
             font-weight: bold;
             font-size: 20px;
             padding-top:20px;
@@ -69,7 +72,12 @@
         }
 
         table thead, table th {
-            background-color: #9d9d9d;
+            /*background-color: #9d9d9d;*/
+            border-bottom: 1px solid #4a4949;
+            border-top: 1px solid #4a4949;
+            border-left: 1px solid #4a4949;
+            border-right: 1px solid #4a4949;
+            font-size: 18px;
             color:#000000;
             font-weight: bold;
             text-align: center;
