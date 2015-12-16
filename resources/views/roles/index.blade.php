@@ -53,7 +53,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $roles->appends(Request::only(['rol']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>

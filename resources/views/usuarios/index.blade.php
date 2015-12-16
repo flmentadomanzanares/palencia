@@ -94,7 +94,7 @@
                 </div>
             @endif
             @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                <div class="row text-center">
+                    <div class="row paginationBlock">
                     {!! $users->appends(Request::only(['campo','value','rol']))->render()
                     !!}{{-- Poner el paginador --}}
                 </div>

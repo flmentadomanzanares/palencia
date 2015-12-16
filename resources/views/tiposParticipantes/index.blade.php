@@ -54,7 +54,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $tipos_participantes->appends(Request::only(['tipo_participante']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>

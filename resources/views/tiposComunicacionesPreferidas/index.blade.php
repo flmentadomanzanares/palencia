@@ -55,7 +55,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $tipos_comunicaciones_preferidas->appends(Request::only(['comunicacion_preferida']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>

@@ -114,7 +114,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row text-center">
+            <div class="row paginationBlock">
                 {!! $comunidades->appends(Request::only(['comunidad','esPropia','secretariado','pais']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
