@@ -113,6 +113,7 @@ class Cursillos extends Model
         return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y") as anyos'))
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->ComunidadCursillos($comunidad)
+            ->Where('cursillos.activo', true)
             ->distinct()
             ->Lists('anyos');
     }
@@ -135,6 +136,7 @@ class Cursillos extends Model
     {
         $placeHolder = ['0' => $placeHolder];
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
+            ->where('cursillos.activo', true)
             ->groupBy('Anyos')
             ->orderBy('Anyos')
             ->Lists('Anyos', 'Anyos');
@@ -146,6 +148,7 @@ class Cursillos extends Model
 
         return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas'))
             ->ComunidadCursillos($cursillos)
+            ->where('cursillos.activo', true)
             ->groupBy('semanas')
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->orderBy('semanas')
