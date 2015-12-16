@@ -233,7 +233,7 @@ class Cursillos extends Model
     public function scopeComunidadCursillosMenosLosMios($query, $comunidadId = 0)
     {
         if (is_numeric($comunidadId) && $comunidadId > 0) {
-            $query->where('cursillos.comunidad_id', '!=', $comunidadId);
+            $query->where('cursillos.comunidad_id', '<>', $comunidadId);
         }
         return $query;
     }

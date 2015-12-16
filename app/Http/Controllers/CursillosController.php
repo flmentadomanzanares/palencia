@@ -225,7 +225,7 @@ class CursillosController extends Controller
         }
     }
 
-    public function listadoCursillosRespuesta(Request $request)
+    public function listadoCursillosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
