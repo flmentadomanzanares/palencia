@@ -56,6 +56,7 @@ class NuestrasSolicitudesController extends Controller
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
         //PDF en múltiples páginas
+        $destinatariosConCarta = 0;
         $multiplesPdf = \App::make('dompdf.wrapper');
         $multiplesPdfBegin = '<html lang="es">';
         $multiplesPdfContain = "";
@@ -132,6 +133,7 @@ class NuestrasSolicitudesController extends Controller
                             ))->render();
                         $multiplesPdfContain .= $view;
                         $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
+                        $destinatariosConCarta += 1;
                     } else {
                         $pdf = \App::make('dompdf.wrapper');
                         $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
@@ -147,7 +149,7 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
         }
-        if (count($destinatarios) > 1 && $tipoEnvio != 2) {
+        if ($destinatariosConCarta > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
