@@ -122,6 +122,7 @@ class Comunidades extends Model
                 ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
                 ->where('comunidades.esColaborador', false)
                 ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
                 ->orderBy('comunidades.comunidad')
                 ->get();
 
