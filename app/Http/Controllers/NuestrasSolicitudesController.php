@@ -43,9 +43,9 @@ class NuestrasSolicitudesController extends Controller
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
         //Configuración del listado html
-        $listadoPosicionInicial = 43.5;
-        $listadoTotal = 9;
-        $listadoTotalRestoPagina = 40;
+        $listadoPosicionInicial = 43.5; //primera linea
+        $listadoTotal = 9;  // nº lineas cursillo max primera pagina
+        $listadoTotalRestoPagina = 40; // nº lineas cursillo resto de las paginas
         $separacionLinea = 1.5;
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->

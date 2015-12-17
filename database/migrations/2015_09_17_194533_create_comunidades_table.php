@@ -29,7 +29,7 @@ class CreateComunidadesTable extends Migration {
 
             $table->string('direccion_postal',100)->nullable();;
 
-            $table->string('cp',5)->nullable();;
+            $table->string('cp',9)->nullable();;
 
             $table->bigInteger('pais_id')->unsigned();
             $table->foreign('pais_id')->references('id')->on('paises')->onUpdate("cascade");

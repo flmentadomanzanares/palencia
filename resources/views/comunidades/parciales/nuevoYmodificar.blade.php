@@ -40,7 +40,7 @@
     @endif
 
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
-    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"5"]) !!}
+    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"9"]) !!}
     <br/>
     {!! FORM::label('direccion_postal', 'Apartado de Correos:') !!} <br/>
     {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}

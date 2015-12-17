@@ -68,15 +68,13 @@
             font-size: 20px;
             padding-top:20px;
             padding-bottom:20px;
+            border: 1px solid #4a4949;
 
         }
 
         table thead, table th {
             /*background-color: #9d9d9d;*/
-            border-bottom: 1px solid #4a4949;
-            border-top: 1px solid #4a4949;
-            border-left: 1px solid #4a4949;
-            border-right: 1px solid #4a4949;
+            border: 1px solid #4a4949;
             font-size: 18px;
             color:#000000;
             font-weight: bold;
