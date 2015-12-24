@@ -5,6 +5,10 @@
 
     <style>
 
+        @page {
+            margin: 1.2cm;
+        }
+
         a {
             color: #0087C3;
             text-decoration: none;
@@ -102,8 +106,40 @@
             font-weight: normal;
         }
 
-        table td {
-            text-align: left;
+        .contenedor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 12pt;
+            line-height: 1.5em;
+        }
+
+        @page {
+            margin: 1.2cm;
+        }
+
+        .pagina {
+            position: fixed;
+            top: 265mm;
+            text-align: center;
+            height: 30px;
+            color:#000000;
+        }
+
+        .saltoPagina {
+            position:fixed;
+            page-break-before: left;
+        }
+
+        .list {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height:30px;
+            min-width: 190mm;
+            border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
         }
 
     </style>
@@ -111,6 +147,7 @@
 <body>
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+<div class="contenedor">
 <div class=" cabecera1 text-center">
     {{ $titulo }} {!! $pais->pais !!}<br/>
 </div>
@@ -123,24 +160,31 @@
 
     <div class="cabecera5 text-center">Secretariados</div><br/>
 
-<table border="0" cellspacing="0" cellpadding="0">
+    <?php
+        $i = 0;
+        $pagina = 0
+    ?>
 
-        <thead>
+    @foreach ($comunidades as $index=>$comunidad)
+        @if($index > 0 && $i == $listadoTotal)
+            <?php
+                $listadoTotal = $listadoTotalRestoPagina;
+                $listadoPosicionInicial = 0;
+                $i = 0;
+            ?>
+            <div class="pagina">P&aacute;g. {{$pagina=$pagina +1}}</div>
+            <div class="saltoPagina"></div>
+        @endif
 
-        </thead>
-        <tbody>
+        <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            {!! $comunidad->comunidad !!}
+        </div>
+        <?php $i++?>
 
-        @foreach ($comunidades as $comunidad)
+    @endforeach
 
-            <tr>
-                <td class="text-center">
-                    {!! $comunidad->comunidad !!}
-                </td>
-            </tr>
-        @endforeach
+    <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina=$pagina +1) . '</div>' ?>
 
-        </tbody>
-</table>
 @else
     <div>
         <div class="cabecera4 text-center">
@@ -148,5 +192,7 @@
         </div>
     </div>
 @endif
+
+</div>
 </body>
 </html>

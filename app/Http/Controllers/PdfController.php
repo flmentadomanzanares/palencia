@@ -222,6 +222,17 @@ class PdfController extends Controller
         $fichero = 'secretariadosPais' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 15;
+        $listadoTotal = 19;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
+        /*$listadoPosicionInicial = 13;
+        $listadoTotal = 13;
+        $listadoTotalRestoPagina = 17;
+        $separacionLinea = 3;*/
+
         if ($idPais == 0) {
 
             return redirect('secretariadosPais')->
@@ -231,10 +242,16 @@ class PdfController extends Controller
 
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariadosPais',
-                compact('comunidades',
+                compact(
+                    'comunidades',
                     'pais',
                     'date',
-                    'titulo'))
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'separacionLinea',
+                    'listadoTotalRestoPagina'
+                ))
                 ->download($fichero . '.pdf');
 
         }
@@ -274,6 +291,12 @@ class PdfController extends Controller
 
         $pais = Paises::getNombrePais((int)$idPais);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 13;
+        $listadoTotal = 20;
+        $listadoTotalRestoPagina = 40;
+        $separacionLinea = 3;
+
         if ($idPais == 0) {
 
             $titulo = "Secretariados No Colaboradores de Todos los Países";
@@ -290,9 +313,15 @@ class PdfController extends Controller
 
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirNoColaboradores',
-            compact('comunidades',
+            compact(
+                'comunidades',
                 'date',
-                'titulo'))
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
             ->download($fichero . '.pdf');
 
 
@@ -308,6 +337,7 @@ class PdfController extends Controller
 
     public function semanasSolicitudesEnviadas(Request $request)
     {
+
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             return SolicitudesEnviadas::getSemanasSolicitudesEnviadas($anyo);
