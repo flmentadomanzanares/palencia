@@ -43,19 +43,20 @@ class NuestrasSolicitudesController extends Controller
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
         //Configuración del listado html
-        $listadoPosicionInicial = 43.5;
-        $listadoTotal = 9;
-        $listadoTotalRestoPagina = 40;
+        $listadoPosicionInicial = 43.5; //primera linea
+        $listadoTotal = 9;  // nº lineas cursillo max primera pagina
+        $listadoTotalRestoPagina = 40; // nº lineas cursillo resto de las paginas
         $separacionLinea = 1.5;
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
-            with('mensaje', 'No se puede realizar la operación, debe de existir remitente y/o destinatario/s  y/o curso/s');
+            with('mensaje', 'No se puede realizar la operación, comprueba que exista remitente y/o destinatario/s  y/o curso/s');
         }
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
         //PDF en múltiples páginas
+        $destinatariosConCarta = 0;
         $multiplesPdf = \App::make('dompdf.wrapper');
         $multiplesPdfBegin = '<html lang="es">';
         $multiplesPdfContain = "";
@@ -94,9 +95,9 @@ class NuestrasSolicitudesController extends Controller
                     $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);
-                    $logEnvios[] = ["Creado fichero adjunto para el email de solicitud a la comunidad " . $destinatario->comunidad, "", "floppy-saved", true];
+                    $logEnvios[] = ["Creado fichero adjunto para el email de solicitud de la comunidad " . $destinatario->comunidad, "", "floppy-saved", true];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el fichero adjunto para el email de " . $destinatario->comunidad, "", "floppy-remove", false];
+                    $logEnvios[] = ["Error al crear el fichero adjunto para el email de la comunidad" . $destinatario->comunidad, "", "floppy-remove", false];
                 }
                 $esCarta = false;
                 try {
@@ -111,10 +112,10 @@ class NuestrasSolicitudesController extends Controller
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud al destinatario " . $destinatario->comunidad . " al correo " . $destinatario->email_envio, "", "envelope", true] :
-                    ["Fallo al enviar la solicitud al destinatario " . $destinatario->comunidad . " a su correo " . $destinatario->email_envio, "", "envelope", false];
+                $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", true] :
+                    ["No se pudo enviar la solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", false];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
-                $logEnvios[] = ["La comunidad " . $remitente->comunidad . " carece de email de remitente", "", "envelope", false];
+                $logEnvios[] = ["La comunidad remitente " . $remitente->comunidad . " carece de email", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
                     if (count($destinatarios) > 1) {
@@ -132,6 +133,7 @@ class NuestrasSolicitudesController extends Controller
                             ))->render();
                         $multiplesPdfContain .= $view;
                         $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
+                        $destinatariosConCarta += 1;
                     } else {
                         $pdf = \App::make('dompdf.wrapper');
                         $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
@@ -143,11 +145,11 @@ class NuestrasSolicitudesController extends Controller
                         return $pdf->download($nombreArchivo);
                     }
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
+                    $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }
             }
         }
-        if (count($destinatarios) > 1 && $tipoEnvio != 2) {
+        if ($destinatariosConCarta > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();

@@ -261,7 +261,7 @@ class PdfController extends Controller
 
     /*******************************************************************
      *
-     *  Listado "Secretariados por Paises"
+     *  Listado "Secretariados no colaboradores"
      *
      *  Función para imprimir el listado con los parametros
      *  seleccionados

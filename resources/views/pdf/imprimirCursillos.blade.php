@@ -37,6 +37,7 @@
             font-size: 25px;
             font-weight: bold;
             margin-bottom:20px;
+            color:#000000;
 
         }
 
@@ -45,24 +46,27 @@
             font-weight: bold;
             font-size: 18px;
             margin-bottom:20px;
+            color:#000000;
 
         }
         .cabecera3 {
 
-            background-color: #400090;
-            color: #FFFFFF;
+           /* background-color: #400090;*/
+            color: #000000;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            border: 1px solid #4a4949;
 
         }
 
 
         .cabecera4 {
 
-            background-color: #FF7A00;
-            color: #FFFFFF;
+            /*background-color: #FF7A00;*/
+            color: #000000;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            border: 1px solid #4a4949;
 
         }
 

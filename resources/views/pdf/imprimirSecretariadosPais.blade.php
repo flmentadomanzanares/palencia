@@ -37,6 +37,7 @@
             font-size: 25px;
             font-weight: bold;
             margin-bottom:20px;
+            color:#000000;
 
         }
 
@@ -45,6 +46,7 @@
             font-weight: bold;
             font-size: 18px;
             margin-bottom:20px;
+            color:#000000;
 
         }
 
@@ -59,12 +61,13 @@
 
         .cabecera5 {
 
-            background-color: #400090;
-            color: #FFFFFF;
+            /*background-color: #400090;*/
+            color: #000000;
             font-weight: bold;
             font-size: 20px;
             padding-top:20px;
             padding-bottom:20px;
+            border: 1px solid #4a4949;
 
         }
 

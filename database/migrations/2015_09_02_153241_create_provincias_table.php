@@ -16,7 +16,7 @@ class CreateProvinciasTable extends Migration {
 		{
 			$table->bigIncrements('id');
 
-            $table->string('provincia',50)->unique();
+            $table->string('provincia',50);
 
             $table->bigInteger('pais_id')->unsigned();
             $table->foreign('pais_id')->references('id')->on('paises')->onUpdate("cascade");

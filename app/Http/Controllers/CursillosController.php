@@ -110,6 +110,11 @@ class CursillosController extends Controller
         //Título de la vista.
         $titulo = "Detalles del cursillo";
         $cursillo = Cursillos::getCursillo($id);
+        if (count($cursillo) == 0) {
+            return redirect()->
+            route('inicio')->
+            with('mensaje', 'El cursillo no está dado de alta.');
+        }
         return view('cursillos.ver',
             compact(
                 'cursillo',
