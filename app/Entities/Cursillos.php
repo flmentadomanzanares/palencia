@@ -77,13 +77,15 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $semana = 0)
+    static public function getTodosLosCursillosMenosLosMios($comunidadPropia = 0, $comunidadNoPropia = 0, $anyo = 0, $semana = 0)
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             'comunidades.comunidad', 'comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
-            ->ComunidadCursillosMenosLosMios($comunidad)
+            ->where('comunidades.activo', true)
+            ->ComunidadCursillosMenosLosMios($comunidadPropia)
+            ->ComunidadCursillosResto($comunidadNoPropia)
             ->AnyosCursillos($anyo)
             ->SemanasCursillos($semana)
             ->where('cursillos.activo', true)
@@ -147,15 +149,14 @@ class Cursillos extends Model
             ->first();
     }
 
-    static public function getAnyoCursillosList($comunidad = 0, $conPlaceHolder = true, $placeHolder = "Año...")
+    static public function getAnyoCursillosList($comunidad = array(), $conPlaceHolder = true, $placeHolder = "Año...")
     {
-        $placeHolder = ['0' => $placeHolder];
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->where('cursillos.activo', true)
             ->groupBy('Anyos')
             ->orderBy('Anyos')
             ->Lists('Anyos', 'Anyos');
-        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+        return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
     static public function getSemanasCursillos($anyo = 0, $cursillos = 0)
@@ -233,9 +234,18 @@ class Cursillos extends Model
     public function scopeComunidadCursillosMenosLosMios($query, $comunidadId = 0)
     {
         if (is_numeric($comunidadId) && $comunidadId > 0) {
-            $query->where('cursillos.comunidad_id', '<>', $comunidadId);
+            $query->where('cursillos.comunidad_id', '<>', $comunidadId)
+                ->where('comunidades.espropia', true);
+
         }
         return $query;
+    }
+
+    public function scopeComunidadCursillosResto($query, $comunidadId = 0)
+    {
+        $comparador = (is_numeric($comunidadId) && $comunidadId > 0) ? "=" : "<>";
+        return $query->orWhere('cursillos.comunidad_id', $comparador, $comunidadId)
+            ->where('comunidades.espropia', false);
     }
     public function scopeCursilloId($query, $cursilloId = 0)
     {
