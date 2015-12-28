@@ -228,11 +228,6 @@ class PdfController extends Controller
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
-        /*$listadoPosicionInicial = 13;
-        $listadoTotal = 13;
-        $listadoTotalRestoPagina = 17;
-        $separacionLinea = 3;*/
-
         if ($idPais == 0) {
 
             return redirect('secretariadosPais')->
@@ -292,10 +287,10 @@ class PdfController extends Controller
         $pais = Paises::getNombrePais((int)$idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 13;
+        $listadoPosicionInicial = 12;
         $listadoTotal = 20;
-        $listadoTotalRestoPagina = 40;
-        $separacionLinea = 3;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
 
         if ($idPais == 0) {
 
