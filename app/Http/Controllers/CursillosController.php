@@ -220,6 +220,16 @@ class CursillosController extends Controller
         }
     }
 
+    public function semanasTotalesResultadoSolicitud(Request $request)
+    {
+        if (\Request::ajax()) {
+            $anyo = $request->get('anyo');
+            $comunidadPropia = $request->get('comunidadPropia');
+            $comunidadNoPropia = $request->get('comunidadNoPropia');
+            $semanas = Cursillos::getSemanasCursillos($anyo, $comunidadPropia, $comunidadNoPropia);
+            return $semanas;
+        }
+    }
     public function listadoCursillos(Request $request)
     {
         if (\Request::ajax()) {
@@ -233,11 +243,11 @@ class CursillosController extends Controller
     public function listadoCursillosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
+            $comunidadPropia = $request->get('comunidadPropia');
+            $comunidadNoPropia = $request->get('comunidadNoPropia');
             $anyo = $request->get('anyo');
-            $comunidad = $request->get('comunidad');
             $semana = $request->get('semana');
-            //$comunidadExcluir[] = $request->get('nuestraComunidad');
-            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $semana);
+            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadPropia, $comunidadNoPropia, $anyo, $semana);
         }
     }
     public function cursillosTotales(Request $request)
@@ -256,4 +266,12 @@ class CursillosController extends Controller
         }
     }
 
+    public function totalAnyosRespuestaSolicitud(Request $request)
+    {
+        if (\Request::ajax()) {
+            $comunidadPropia[] = $request->get('comunidadPropia');
+            $comunidadNoPropia[] = $request->get('comunidadNoPropia');
+            return Cursillos::getTodosMisAnyosCursillosResultadoSolicitudList($comunidadPropia, $comunidadNoPropia);
+        }
+    }
 }

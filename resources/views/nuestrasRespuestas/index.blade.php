@@ -13,10 +13,10 @@
                 {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
                 <br/>
                 <div class="heading-caption">Remitente</div>
-                {!! FORM::select('nuestraComunidad', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_nuestra_comunidad'))!!}
+                {!! FORM::select('comunidad_propia', $nuestrasComunidades, null,array("class"=>"form-control","id"=>"select_comunidad_propia"))!!}
                 <br/>
                 <div class="heading-caption">Destinatario/s</div>
-                {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}
+                {!! FORM::select('comunidad_no_propia', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad_no_propia'))!!}
                 <br/>
                 <div class="heading-caption">Fecha Cursillos</div>
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
