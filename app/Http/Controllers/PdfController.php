@@ -115,12 +115,24 @@ class PdfController extends Controller
         $date = date('d-m-Y');
         $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 6;
+        $listadoTotal = 23;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirComunidades',
             compact('comunidades',
-                'anyo',
-                'date',
-                'titulo'))
+                    'anyo',
+                    'date',
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'listadoTotalRestoPagina',
+                    'separacionLinea'
+                    ))
             ->download($fichero . '.pdf');
     }
 
@@ -287,7 +299,7 @@ class PdfController extends Controller
         $pais = Paises::getNombrePais((int)$idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 12;
+        $listadoPosicionInicial = 13;
         $listadoTotal = 20;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;

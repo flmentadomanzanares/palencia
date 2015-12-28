@@ -40,8 +40,8 @@
 
             font-size: 25px;
             font-weight: bold;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
         }
 
@@ -49,8 +49,8 @@
 
             font-weight: bold;
             font-size: 18px;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
         }
 
@@ -65,45 +65,13 @@
 
         .cabecera5 {
 
-            /*background-color: #400090;*/
             color: #000000;
             font-weight: bold;
             font-size: 20px;
-            padding-top:20px;
-            padding-bottom:20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             border: 1px solid #4a4949;
 
-        }
-
-        table thead, table th {
-            background-color: #9d9d9d;
-            color:#000000;
-            font-weight: bold;
-            text-align: center;
-            padding-top:20px;
-            padding-bottom:20px;
-
-        }
-
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-
-        }
-
-
-        table td {
-            padding: 20px;
-            background: #FFFFFF;
-            text-align: center;
-            border-bottom: 1px solid #4a4949;
-            color: #000000;
-
-        }
-
-        table th {
-            white-space: nowrap;
-            font-weight: normal;
         }
 
         .contenedor {
@@ -123,11 +91,11 @@
             top: 265mm;
             text-align: center;
             height: 30px;
-            color:#000000;
+            color: #000000;
         }
 
         .saltoPagina {
-            position:fixed;
+            position: fixed;
             page-break-before: left;
         }
 
@@ -136,7 +104,7 @@
             position: fixed;
             text-align: center;
             line-height: 1.6em;
-            height:30px;
+            height: 30px;
             min-width: 190mm;
             border-bottom: 1px solid #4a4949;
             vertical-align: -15px;
@@ -148,50 +116,50 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <div class="contenedor">
-<div class=" cabecera1 text-center">
-    {{ $titulo }} {!! $pais->pais !!}<br/>
-</div>
+    <div class=" cabecera1 text-center">
+        {{ $titulo }} {!! $pais->pais !!}<br/>
+    </div>
 
-<div class=" cabecera2">
-    Fecha: {{ $date }}
-</div>
+    <div class=" cabecera2">
+        Fecha: {{ $date }}
+    </div>
 
-@if(!$comunidades->isEmpty())
+    @if(!$comunidades->isEmpty())
 
-    <div class="cabecera5 text-center">Secretariados</div><br/>
+        <div class="cabecera5 text-center">Secretariados</div><br/>
 
-    <?php
+        <?php
         $i = 0;
         $pagina = 0
-    ?>
+        ?>
 
-    @foreach ($comunidades as $index=>$comunidad)
-        @if($index > 0 && $i == $listadoTotal)
-            <?php
+        @foreach ($comunidades as $index=>$comunidad)
+            @if($index > 0 && $i == $listadoTotal)
+                <?php
                 $listadoTotal = $listadoTotalRestoPagina;
                 $listadoPosicionInicial = 0;
                 $i = 0;
-            ?>
-            <div class="pagina">P&aacute;g. {{$pagina=$pagina +1}}</div>
-            <div class="saltoPagina"></div>
-        @endif
+                ?>
+                <div class="pagina">P&aacute;g. {{$pagina=$pagina +1}}</div>
+                <div class="saltoPagina"></div>
+            @endif
 
-        <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-            {!! $comunidad->comunidad !!}
+            <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                {!! $comunidad->comunidad !!}
+            </div>
+            <?php $i++?>
+
+        @endforeach
+
+        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
+
+    @else
+        <div>
+            <div class="cabecera4 text-center">
+                <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
+            </div>
         </div>
-        <?php $i++?>
-
-    @endforeach
-
-    <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina=$pagina +1) . '</div>' ?>
-
-@else
-    <div>
-        <div class="cabecera4 text-center">
-            <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
-        </div>
-    </div>
-@endif
+    @endif
 
 </div>
 </body>
