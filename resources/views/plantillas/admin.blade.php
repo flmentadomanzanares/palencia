@@ -103,7 +103,7 @@
                             !!} <br/>
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             <br/>
-                            <a class="mostrarformularioModal btn btn-default btn-block" data-selector="password-reset"
+                            <a class="mostrarformularioModal btn btn-default btn-block" data-selector="registro"
                                href="">Registrarse</a>
                             {!! FORM::close() !!}
                         </div>

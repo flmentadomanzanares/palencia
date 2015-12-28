@@ -13,7 +13,7 @@
                 {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
                 <br/>
                 <div class="heading-caption">Remitente</div>
-                {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control"))!!}
+                {!! FORM::select('nuestraComunidad', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_nuestra_comunidad'))!!}
                 <br/>
                 <div class="heading-caption">Destinatario/s</div>
                 {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}

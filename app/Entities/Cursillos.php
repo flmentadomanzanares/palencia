@@ -61,7 +61,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getTodosMisCursillos($comunidad = 0, $anyo = 0, $semana = 0)
+    static public function getTodosMisCursillos($comunidad = 0, $anyo = 0, $semana = 0, $comunidadesExcluidas = array())
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             'comunidades.comunidad', 'comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
@@ -77,12 +77,13 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $semana = 0)
+    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $semana = 0, $excluirComunidades = array())
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             'comunidades.comunidad', 'comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->ComunidadesExcluidas($excluirComunidades)
             ->ComunidadCursillosMenosLosMios($comunidad)
             ->AnyosCursillos($anyo)
             ->SemanasCursillos($semana)
@@ -230,10 +231,18 @@ class Cursillos extends Model
         return $query;
     }
 
+    public function scopeComunidadesExcluidas($query, $comunidadesId = array())
+    {
+        if (count($comunidadesId) > 0) {
+            $query->whereNotIn('cursillos.comunidad_id', $comunidadesId);
+        }
+        return $query;
+    }
+
     public function scopeComunidadCursillosMenosLosMios($query, $comunidadId = 0)
     {
         if (is_numeric($comunidadId) && $comunidadId > 0) {
-            $query->where('cursillos.comunidad_id', '<>', $comunidadId);
+            $query->where('cursillos.comunidad_id', $comunidadId);
         }
         return $query;
     }

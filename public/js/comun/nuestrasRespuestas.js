@@ -21,12 +21,13 @@ $(document).ready(function () {
         });
     };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
-    var totalCursillos = function (comunidad, year, semana) {
+    var totalCursillos = function (comunidad, year, semana, nuestraComunidad) {
         $.ajax({
             data: {
                 'anyo': year,
                 'semana': semana,
                 'comunidad': comunidad,
+                'nuestraComunidad': nuestraComunidad,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -76,12 +77,16 @@ $(document).ready(function () {
                 });
                 if ($('#listado_cursillos').length == 0)
                     return;
-                totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0);
+                totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0, $('#select_nuestra_comunidad option:selected').val());
             },
             error: function () {
             }
         });
     };
+    $(document).on("change", "#select_nuestra_comunidad", function (evt) {
+        evt.preventDefault();
+        $("#select_comunidad").trigger("change");
+    });
     $(document).on("change", "#select_comunidad", function (evt) {
         evt.preventDefault();
         totalAnyos($(this).val());
@@ -94,7 +99,7 @@ $(document).ready(function () {
         evt.preventDefault();
         if ($('#listado_cursillos').length == 0)
             return;
-        totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
+        totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val(), $('#select_nuestra_comunidad option:selected').val());
     });
     totalAnyos($("#select_comunidad").val());
 

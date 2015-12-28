@@ -236,7 +236,8 @@ class CursillosController extends Controller
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
             $semana = $request->get('semana');
-            return Cursillos::getTodosLosCursillosMenosLosMios($comunidad, $anyo, $semana);
+            //$comunidadExcluir[] = $request->get('nuestraComunidad');
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $semana);
         }
     }
     public function cursillosTotales(Request $request)
