@@ -36,8 +36,8 @@
 
             font-size: 25px;
             font-weight: bold;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
         }
 
@@ -45,74 +45,64 @@
 
             font-weight: bold;
             font-size: 18px;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
         }
-        .cabecera3 {
 
-           /* background-color: #400090;*/
+        .cabecera3 {
             color: #000000;
             font-weight: bold;
-            font-size: 18px;
             border: 1px solid #4a4949;
-
+            text-align: center;
         }
-
 
         .cabecera4 {
-
-            /*background-color: #FF7A00;*/
             color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
             font-weight: bold;
-            font-size: 18px;
+            height: 30px;
+            min-width: 190mm;
             border: 1px solid #4a4949;
-
         }
 
-        table thead, table th {
-            background-color: #9d9d9d;
-            color:#000000;
-            font-weight: bold;
+        .contenedor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 12pt;
+            line-height: 1.5em;
+        }
+
+        @page {
+            margin: 1.2cm;
+        }
+
+        .pagina {
+            position: fixed;
+            top: 265mm;
             text-align: center;
-            padding-top:20px;
-            padding-bottom:20px;
-
-        }
-
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-
-        }
-
-
-        table td {
-            padding: 20px;
-            background: #FFFFFF;
-            text-align: center;
-            border-bottom: 1px solid #4a4949;
+            height: 30px;
             color: #000000;
-
         }
 
-        table th {
-            white-space: nowrap;
-            font-weight: normal;
+        .saltoPagina {
+            position: fixed;
+            page-break-before: left;
         }
 
-        table td {
-            text-align: left;
-        }
+        .list {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height: 30px;
+            min-width: 190mm;
+            border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
 
-        .td1 {
-
-            width: 10%;
-
-        }
-
-        .td2 {
-            width: 90%;
         }
 
     </style>
@@ -120,73 +110,121 @@
 <body>
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-<div class="text-center">
-    <div class="cabecera1">
-        {{ $titulo }}
+<div class="contenedor">
+
+    <?php
+    $pais = null;
+    $comunidad = null;
+    $i = 0;
+    $pagina = 0;
+    $lineasPorPagina = $listadoTotal;
+    $saltoPagina = $lineasPorPagina - 3;
+    ?>
+
+    <div class="text-center">
+        <div class="cabecera1">
+            {{ $titulo }}
+        </div>
+
+        <div class="cabecera2">
+            @if ($anyo == 0)
+                </br>
+            @elseif($semana == 0)
+                Año: {{ $anyo }}
+            @else
+                Semana: {{ $semana }} - {{ $anyo }}
+            @endif
+        </div>
     </div>
 
     <div class="cabecera2">
-    @if ($anyo == 0)
-        </br>
-    @elseif($semana == 0)
-        Año: {{ $anyo }}
-    @else
-        Semana: {{ $semana }} - {{ $anyo }}
-    @endif
+        Fecha: {{ $date }}
     </div>
-</div>
 
-<div class="cabecera2">
-    Fecha: {{ $date }}
-</div>
+    @if(!$cursillos->isEmpty())
 
-@if(!$cursillos->isEmpty())
+        @foreach ($cursillos as $index=>$cursillo)
+            @if($index>0 && $i==$lineasPorPagina)
+                <?php
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 3;
+                    $listadoPosicionInicial = 0;
+                $i = 0;
+                ?>
+                <div class="pagina">Pag. {{$pagina += 1}}</div>
+                <div class="saltoPagina"></div>
 
-<table border="0" cellspacing="0" cellpadding="0">
-    <?php $pais = null; ?>
-    <?php $comunidad = null; ?>
-
-        <thead>
-
-        </thead>
-        <tbody>
-
-        @foreach ($cursillos as $cursillo)
+            @endif
 
             @if($cursillo->pais != $pais)
-                <tr>
-                    <td class="cabecera3 text-center" colspan="2">
-                        País: {!! $cursillo->pais !!}
 
-                    </td>
-                </tr>
+                @if($index>0 && $i>=$saltoPagina)
+                    <?php
+                        $lineasPorPagina = $listadoTotalRestoPagina;
+                        $saltoPagina = $lineasPorPagina - 3;
+                        $listadoPosicionInicial = 0;
+                        $i = 0;
+                    ?>
+                    <div class="pagina">Pag. {{$pagina += 1}}</div>
+                    <div class="saltoPagina"></div>
+                @endif
+                <?php $i++?>
+                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    País: {!! $cursillo->pais !!}
+                </div>
 
                 <?php $pais = $cursillo->pais; ?>
-            @endif
-
-            @if($cursillo->comunidad != $comunidad)
-                <tr>
-                    <td class="cabecera4 text-center" colspan="2">
-                        Comunidad: {!! $cursillo->comunidad !!}
-                    </td>
-                </tr>
+                <?php $i++?>
+                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Comunidad: {!! $cursillo->comunidad !!}
+                </div>
+                <?php $i++?>
                 <?php $comunidad = $cursillo->comunidad; ?>
+
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+                </div>
+            @elseif($cursillo->comunidad != $comunidad)
+
+                @if($index>0 && $i>=$saltoPagina)
+                    <?php
+                        $lineasPorPagina = $listadoTotalRestoPagina;
+                        $saltoPagina = $lineasPorPagina - 3;
+                        $listadoPosicionInicial = 0;
+                        $i = 0;
+                    ?>
+                    <div class="pagina">Pag. {{$pagina += 1}}</div>
+                    <div class="saltoPagina"></div>
+                @endif
+
+                <?php $i++?>
+                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Comunidad: {!! $cursillo->comunidad !!}
+                </div>
+
+                <?php $comunidad = $cursillo->comunidad; ?>
+                <?php $i++?>
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+                </div>
+            @else
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+
+                </div>
             @endif
 
-            <tr>
-                <td class="td1">{!! $cursillo->num_cursillo !!}</td>
-                <td class="td2">{!! $cursillo->cursillo !!}</td>
-            </tr>
-        @endforeach
+            <?php $i++?>
 
-        </tbody>
-</table>
-@else
-    <div>
-        <div class="cabecera4 text-center">
+        @endforeach
+        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
+    @else
+        <div class="cabecera3">
             <p>¡Aviso! - No se ha encontrado ningun cursillo que listar.</p>
         </div>
-    </div>
-@endif
+    @endif
+
+</div>
+
 </body>
 </html>

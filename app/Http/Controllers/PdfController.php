@@ -52,6 +52,13 @@ class PdfController extends Controller
         $fichero = 'cursillosMundo' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 10;
+        $listadoTotal = 22;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         if ($anyo == 0 || $semana == 0) {
 
             return redirect('cursillosPaises')->
@@ -62,10 +69,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirCursillos',
                 compact('cursillos',
-                    'anyo',
-                    'semana',
-                    'date',
-                    'titulo'))
+                        'anyo',
+                        'semana',
+                        'date',
+                        'titulo',
+                        'listadoPosicionInicial',
+                        'listadoTotal',
+                        'listadoTotalRestoPagina',
+                        'separacionLinea'
+                        ))
                 ->download($fichero . '.pdf');
         }
 
