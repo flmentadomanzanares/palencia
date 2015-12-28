@@ -35,21 +35,20 @@
                                aria-haspopup="true" aria-expanded="false">Administrador<span
                                         class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
-                                <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('nuestrasRespuestas', 'Nuestras Respuestas')!!}</li>
-                                <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('solicitudesEnviadas', 'Solicitudes enviadas')!!}</li>
-                                <li>{!!link_to('solicitudesRecibidas', 'Solicitudes recibidas')!!}</li>
-                                <li role="separator" class="divider"></li>
                                 <li>{!!link_to('paises', 'Países')!!}</li>
                                 <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                 <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                                <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
+                                <li role="separator" class="divider"></li>
+                                <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
+                                <li role="separator" class="divider"></li>
+                                <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
+                                <li>{!!link_to('solicitudesEnviadas', 'Sus Respuestas')!!}</li>
+                                <li role="separator" class="divider"></li>
+                                <li>{!!link_to('solicitudesRecibidas', 'Sus Solicitudes')!!}</li>
+                                <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                                 <li role="separator" class="divider"></li>
                                 <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
-
                             </ul>
                         </li>
                         <li class="dropdown">
