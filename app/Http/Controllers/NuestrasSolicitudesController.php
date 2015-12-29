@@ -41,6 +41,18 @@ class NuestrasSolicitudesController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
+        $incidencias = array();
+        foreach ($destinatarios as $idx => $destinatario) {
+            if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
+                $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para envío de solicitudes";
+            }
+
+        }
+        if (count($incidencias) > 0) {
+            $titulo = "Comunidades sin email de solicitud";
+            return view('nuestrasSolicitudes.comprobacion',
+                compact('titulo', 'incidencias'));
+        }
         $numeroDestinatarios = count($destinatarios);
         //Configuración del listado html
         $listadoPosicionInicial = 43.5; //primera linea
@@ -62,8 +74,8 @@ class NuestrasSolicitudesController extends Controller
         $multiplesPdfContain = "";
         $multiplesPdfEnd = '</html>';
 
-        //Ampliamos el tiempo de ejecución del servidor a 5 minutos.
-        ini_set("max_execution_time", 500);
+        //Ampliamos el tiempo de ejecución del servidor a 40 minutos.
+        ini_set("max_execution_time", 4000);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $separatorPath = "/";
@@ -101,6 +113,7 @@ class NuestrasSolicitudesController extends Controller
                 }
                 $esCarta = false;
                 try {
+                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -115,7 +128,7 @@ class NuestrasSolicitudesController extends Controller
                 $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", true] :
                     ["No se pudo enviar la solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", false];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
-                $logEnvios[] = ["La comunidad remitente " . $remitente->comunidad . " carece de email", "", "envelope", false];
+                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " carece de email para solicitud", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
                     if (count($destinatarios) > 1) {
