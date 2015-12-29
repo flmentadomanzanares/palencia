@@ -186,6 +186,11 @@ class PdfController extends Controller
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 8;
+        $listadoTotal = 22;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
 
         if ($idComunidad == 0) {
 
@@ -197,10 +202,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariado',
                 compact('secretariado',
-                    'solicitudesEnviadas',
-                    'solicitudesRecibidas',
-                    'date',
-                    'titulo'))
+                        'solicitudesEnviadas',
+                        'solicitudesRecibidas',
+                        'date',
+                        'titulo',
+                        'listadoPosicionInicial',
+                        'listadoTotal',
+                        'listadoTotalRestoPagina',
+                        'separacionLinea'
+                        ))
                 ->download($fichero . '.pdf');
 
         }

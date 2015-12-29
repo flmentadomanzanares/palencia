@@ -68,6 +68,31 @@
             border: 1px solid #4a4949;
         }
 
+        .cabeceraIzda {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            font-weight: bold;
+            height: 30px;
+            width: 25mm;
+            border: 1px solid #4a4949;
+            float: left;
+
+        }
+
+        .cabeceraDcha {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            font-weight: bold;
+            height: 30px;
+            width: 163mm;
+            border: 1px solid #4a4949;
+            margin-left: 104px;
+        }
+
         .contenedor {
             position: absolute;
             top: 0;
@@ -105,6 +130,30 @@
 
         }
 
+        .listIzda {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height: 30px;
+            width: 25mm;
+            border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
+            float: left;
+        }
+
+        .listDcha {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height: 30px;
+            width: 163mm;
+            border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
+            margin-left: 104px;
+        }
+
     </style>
 </head>
 <body>
@@ -118,7 +167,7 @@
     $i = 0;
     $pagina = 0;
     $lineasPorPagina = $listadoTotal;
-    $saltoPagina = $lineasPorPagina - 3;
+    $saltoPagina = $lineasPorPagina - 4;
     ?>
 
     <div class="text-center">
@@ -146,9 +195,9 @@
         @foreach ($cursillos as $index=>$cursillo)
             @if($index>0 && $i==$lineasPorPagina)
                 <?php
-                    $lineasPorPagina = $listadoTotalRestoPagina;
-                    $saltoPagina = $lineasPorPagina - 3;
-                    $listadoPosicionInicial = 0;
+                $lineasPorPagina = $listadoTotalRestoPagina;
+                $saltoPagina = $lineasPorPagina - 4;
+                $listadoPosicionInicial = 0;
                 $i = 0;
                 ?>
                 <div class="pagina">Pag. {{$pagina += 1}}</div>
@@ -160,10 +209,10 @@
 
                 @if($index>0 && $i>=$saltoPagina)
                     <?php
-                        $lineasPorPagina = $listadoTotalRestoPagina;
-                        $saltoPagina = $lineasPorPagina - 3;
-                        $listadoPosicionInicial = 0;
-                        $i = 0;
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 4;
+                    $listadoPosicionInicial = 0;
+                    $i = 0;
                     ?>
                     <div class="pagina">Pag. {{$pagina += 1}}</div>
                     <div class="saltoPagina"></div>
@@ -179,19 +228,31 @@
                     Comunidad: {!! $cursillo->comunidad !!}
                 </div>
                 <?php $i++?>
+                <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Numero
+                </div>
+                <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Cursillo
+                </div>
+
+                <?php $i++?>
                 <?php $comunidad = $cursillo->comunidad; ?>
 
-                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+                <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!}
                 </div>
+                <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->cursillo !!}
+                </div>
+
             @elseif($cursillo->comunidad != $comunidad)
 
                 @if($index>0 && $i>=$saltoPagina)
                     <?php
-                        $lineasPorPagina = $listadoTotalRestoPagina;
-                        $saltoPagina = $lineasPorPagina - 3;
-                        $listadoPosicionInicial = 0;
-                        $i = 0;
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 4;
+                    $listadoPosicionInicial = 0;
+                    $i = 0;
                     ?>
                     <div class="pagina">Pag. {{$pagina += 1}}</div>
                     <div class="saltoPagina"></div>
@@ -201,23 +262,38 @@
                 <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
                     Comunidad: {!! $cursillo->comunidad !!}
                 </div>
+                    <?php $i++?>
+                    <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                        Numero
+                    </div>
+                    <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                        Cursillo
+                    </div>
 
                 <?php $comunidad = $cursillo->comunidad; ?>
                 <?php $i++?>
-                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+                <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!}
                 </div>
-            @else
-                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    {!! $cursillo->num_cursillo !!} - {!! $cursillo->cursillo !!}
+                <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->cursillo !!}
+                </div>
 
+            @else
+
+                <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->num_cursillo !!}
                 </div>
+                <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->cursillo !!}
+                </div>
+
             @endif
 
             <?php $i++?>
 
         @endforeach
-        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
+        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>';?>
     @else
         <div class="cabecera3">
             <p>¡Aviso! - No se ha encontrado ningun cursillo que listar.</p>
