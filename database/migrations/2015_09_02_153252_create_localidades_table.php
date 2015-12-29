@@ -16,8 +16,7 @@ class CreateLocalidadesTable extends Migration {
 		{
 			$table->bigIncrements('id');
 
-            $table->string('localidad',50)
-                ->unique();
+            $table->string('localidad',50);
 
             $table->bigInteger('provincia_id')
                 ->unsigned();

@@ -21,7 +21,7 @@ class ValidateRulesComunidades extends Request
     public function rules()
     {
         return [
-            "comunidad"=>"required|min:4",
+            "comunidad"=>"required|min:1",
             "tipo_secretariado_id" => "required|numeric|min:1",
             "direccion" => "max:100",
             "pais_id" => "required|numeric|min:1",

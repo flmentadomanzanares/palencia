@@ -52,6 +52,13 @@ class PdfController extends Controller
         $fichero = 'cursillosMundo' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
 
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 10;
+        $listadoTotal = 22;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         if ($anyo == 0 || $semana == 0) {
 
             return redirect('cursillosPaises')->
@@ -62,10 +69,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirCursillos',
                 compact('cursillos',
-                    'anyo',
-                    'semana',
-                    'date',
-                    'titulo'))
+                        'anyo',
+                        'semana',
+                        'date',
+                        'titulo',
+                        'listadoPosicionInicial',
+                        'listadoTotal',
+                        'listadoTotalRestoPagina',
+                        'separacionLinea'
+                        ))
                 ->download($fichero . '.pdf');
         }
 
@@ -115,12 +127,24 @@ class PdfController extends Controller
         $date = date('d-m-Y');
         $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 6;
+        $listadoTotal = 23;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirComunidades',
             compact('comunidades',
-                'anyo',
-                'date',
-                'titulo'))
+                    'anyo',
+                    'date',
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'listadoTotalRestoPagina',
+                    'separacionLinea'
+                    ))
             ->download($fichero . '.pdf');
     }
 
@@ -162,6 +186,11 @@ class PdfController extends Controller
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 8;
+        $listadoTotal = 22;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
 
         if ($idComunidad == 0) {
 
@@ -173,10 +202,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariado',
                 compact('secretariado',
-                    'solicitudesEnviadas',
-                    'solicitudesRecibidas',
-                    'date',
-                    'titulo'))
+                        'solicitudesEnviadas',
+                        'solicitudesRecibidas',
+                        'date',
+                        'titulo',
+                        'listadoPosicionInicial',
+                        'listadoTotal',
+                        'listadoTotalRestoPagina',
+                        'separacionLinea'
+                        ))
                 ->download($fichero . '.pdf');
 
         }
@@ -222,6 +256,12 @@ class PdfController extends Controller
         $fichero = 'secretariadosPais' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 15;
+        $listadoTotal = 19;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         if ($idPais == 0) {
 
             return redirect('secretariadosPais')->
@@ -231,10 +271,16 @@ class PdfController extends Controller
 
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariadosPais',
-                compact('comunidades',
+                compact(
+                    'comunidades',
                     'pais',
                     'date',
-                    'titulo'))
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'separacionLinea',
+                    'listadoTotalRestoPagina'
+                ))
                 ->download($fichero . '.pdf');
 
         }
@@ -274,6 +320,12 @@ class PdfController extends Controller
 
         $pais = Paises::getNombrePais((int)$idPais);
 
+        //Configuración del listado html
+        $listadoPosicionInicial = 13;
+        $listadoTotal = 20;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
         if ($idPais == 0) {
 
             $titulo = "Secretariados No Colaboradores de Todos los Países";
@@ -290,9 +342,15 @@ class PdfController extends Controller
 
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirNoColaboradores',
-            compact('comunidades',
+            compact(
+                'comunidades',
                 'date',
-                'titulo'))
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
             ->download($fichero . '.pdf');
 
 
@@ -308,6 +366,7 @@ class PdfController extends Controller
 
     public function semanasSolicitudesEnviadas(Request $request)
     {
+
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             return SolicitudesEnviadas::getSemanasSolicitudesEnviadas($anyo);

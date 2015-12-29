@@ -36,8 +36,8 @@
 
             font-size: 25px;
             font-weight: bold;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
         }
 
@@ -45,68 +45,101 @@
 
             font-weight: bold;
             font-size: 18px;
-            margin-bottom:20px;
-            color:#000000;
+            margin-bottom: 20px;
+            color: #000000;
 
+        }
+
+        .cabecera3 {
+            color: #000000;
+            font-weight: bold;
+            border: 1px solid #4a4949;
+            text-align: center;
         }
 
         .cabecera4 {
-
-            background-color: #FF7A00;
-            color: #FFFFFF;
-            font-weight: bold;
-            font-size: 16px;
-
-        }
-
-        .cabecera5 {
-
             color: #000000;
-            /*background-color: #400090;
-            color: #FFFFFF;*/
-            font-weight: bold;
-            font-size: 20px;
-            padding-top:20px;
-            padding-bottom:20px;
-            border: 1px solid #4a4949;
-
-        }
-
-        table thead, table th {
-            /*background-color: #9d9d9d;*/
-            border: 1px solid #4a4949;
-            font-size: 18px;
-            color:#000000;
-            font-weight: bold;
+            position: fixed;
             text-align: center;
-            padding-top:20px;
-            padding-bottom:20px;
-
+            line-height: 1.6em;
+            font-weight: bold;
+            height: 30px;
+            min-width: 190mm;
+            border: 1px solid #4a4949;
         }
 
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-
-        }
-
-
-        table td {
-            padding: 20px;
-            background: #FFFFFF;
+        .cabeceraIzda {
+            color: #000000;
+            position: fixed;
             text-align: center;
+            line-height: 1.6em;
+            font-weight: bold;
+            height: 30px;
+            width: 138mm;
+            border: 1px solid #4a4949;
+            float:left;
+
+        }
+
+        .cabeceraDcha {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            font-weight: bold;
+            height: 30px;
+            width: 50mm;
+            border: 1px solid #4a4949;
+            margin-left:530px;
+        }
+
+        .contenedor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 12pt;
+            line-height: 1.5em;
+        }
+
+        @page {
+            margin: 1.2cm;
+        }
+
+        .pagina {
+            position: fixed;
+            top: 265mm;
+            text-align: center;
+            height: 30px;
+            color: #000000;
+        }
+
+        .saltoPagina {
+            position: fixed;
+            page-break-before: left;
+        }
+
+        .listIzda {
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height: 30px;
+            width: 138mm;
             border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
+            float:left;
+        }
+
+        .listDcha {
             color: #000000;
-
-        }
-
-        table th {
-            white-space: nowrap;
-            font-weight: normal;
-        }
-
-        table td {
-            text-align: left;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
+            height: 30px;
+            width: 50mm;
+            border-bottom: 1px solid #4a4949;
+            vertical-align: -15px;
+            margin-left:530px;
         }
 
     </style>
@@ -114,78 +147,123 @@
 <body>
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-<div class=" cabecera1 text-center">
-    {{ $titulo }} {!! $secretariado->comunidad !!}<br/>
-</div>
+<div class="contenedor">
 
-<div class=" cabecera2">
-    Fecha: {{ $date }}
-</div>
+    <?php
+    $pais = null;
+    $comunidad = null;
+    $i = 0;
+    $pagina = 0;
+    $lineasPorPagina = $listadoTotal;
+    $saltoPagina = $lineasPorPagina - 3;
+    ?>
 
-@if(!$solicitudesRecibidas->isEmpty() || !$solicitudesEnviadas->isEmpty() )
+    <div class=" cabecera1 text-center">
+        {{ $titulo }} {!! $secretariado->comunidad !!}<br/>
+    </div>
 
-    <div class="cabecera5 text-center">Solicitudes Enviadas</div><br/>
+    <div class=" cabecera2">
+        Fecha: {{ $date }}
+    </div>
 
-    <table border="0" cellspacing="0" cellpadding="0">
+    @if(!$solicitudesRecibidas->isEmpty() || !$solicitudesEnviadas->isEmpty())
 
-        <thead>
-            <tr>
-                <th>Cursillo</th>
-                <th>Fecha Inicio</th>
 
-            </tr>
-        </thead>
-        <tbody>
 
-        @foreach ($solicitudesEnviadas as $solicitudEnviada)
+        <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Solicitudes Enviadas
+        </div>
 
-            <tr>
-               <td>
-                   {!! $solicitudEnviada->cursillo !!}
-                </td>
-                <td class="text-center">
-                    {!! Date("d/m/Y" , strtotime($solicitudEnviada->fecha_inicio) ) !!}
-                </td>
-            </tr>
+        <?php $i++?>
+
+        <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Cursillo
+        </div>
+        <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Fecha Inicio
+        </div>
+
+        <?php $i++?>
+
+        @foreach ($solicitudesEnviadas as $index=>$solicitudEnviada)
+            @if($index>0 && $i==$lineasPorPagina)
+                <?php
+                $lineasPorPagina = $listadoTotalRestoPagina;
+                $saltoPagina = $lineasPorPagina - 3;
+                $listadoPosicionInicial = 0;
+                $i = 0;
+                ?>
+                <div class="pagina">Pag. {{$pagina += 1}}</div>
+                <div class="saltoPagina"></div>
+            @endif
+
+            <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+
+                {!! $solicitudEnviada->cursillo !!}
+            </div>
+            <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+
+                {!! Date("d/m/Y" , strtotime($solicitudEnviada->fecha_inicio) ) !!}
+            </div>
+            <?php $i++?>
         @endforeach
 
-        </tbody>
-        <br/>
-    </table>
+        @if($i>=$saltoPagina)
+            <?php
+            $lineasPorPagina = $listadoTotalRestoPagina;
+            $saltoPagina = $lineasPorPagina - 3;
+            $listadoPosicionInicial = 0;
+            $i = 0;
+            ?>
+            <div class="pagina">Pag. {{$pagina += 1}}</div>
+            <div class="saltoPagina"></div>
+        @endif
 
-    <div class="cabecera5 text-center">Solicitudes Recibidas</div><br/>
+        <?php $i++?>
+        <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Solicitudes Recibidas
+        </div>
+        <?php $i++?>
+        <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Cursillo
+        </div>
+        <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Fecha Inicio
+        </div>
+            <?php $i++?>
+        @foreach ($solicitudesRecibidas as $index=>$solicitudRecibida)
+            @if($index>0 && $i==$lineasPorPagina)
+                <?php
+                $lineasPorPagina = $listadoTotalRestoPagina;
+                $saltoPagina = $lineasPorPagina - 3;
+                $listadoPosicionInicial = 0;
+                $i = 0;
+                ?>
+                <div class="pagina">Pag. {{$pagina += 1}}</div>
+                <div class="saltoPagina"></div>
+            @endif
 
-    <table border="0" cellspacing="0" cellpadding="0">
+            <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 
-        <thead>
-        <tr>
-            <th>Cursillo</th>
-            <th>Fecha Inicio</th>
+                {!! $solicitudRecibida->cursillo !!}
+            </div>
+            <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 
-        </tr>
-        </thead>
-        <tbody>
-
-        @foreach ($solicitudesRecibidas as $solicitudRecibida)
-
-            <tr>
-                <td>
-                    {!! $solicitudRecibida->cursillo !!}
-                </td>
-                <td class="text-center">
-                    {!! Date("d/m/Y" , strtotime($solicitudRecibida->fecha_inicio) ) !!}
-                </td>
-            </tr>
+                {!! Date("d/m/Y" , strtotime($solicitudRecibida->fecha_inicio) ) !!}
+            </div>
+            <?php $i++?>
         @endforeach
 
-        </tbody>
-    </table>
-@else
-    <div>
-        <div class="cabecera4 text-center">
+        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
+
+    @else
+        <div class="cabecera3">
             <p>¡Aviso! - No se ha encontrado ninguna solicitud que listar para el secretariado solicitado.</p>
         </div>
-    </div>
-@endif
+    @endif
+
+
+</div>
+
 </body>
 </html>
