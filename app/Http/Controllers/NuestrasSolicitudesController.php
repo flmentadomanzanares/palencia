@@ -35,35 +35,57 @@ class NuestrasSolicitudesController extends Controller
                 'titulo'));
     }
 
+    public function comprobarSolicitudes(Request $request)
+    {
+        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
+        $tipoEnvio = $request->get("modalidad");
+        if ($tipoEnvio != 1) {
+            $incidencias = array();
+            foreach ($destinatarios as $idx => $destinatario) {
+                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
+                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para envío de solicitudes";
+                }
+
+            }
+            if (count($incidencias) > 0) {
+                $tipos_comunicaciones_preferidas = $request->get('modalidad');
+                $nuestrasComunidades = $request->get('nuestrasComunidades');
+                $anyos = $request->get('anyo');
+                $semanas = $request->get('semana');
+                $restoComunidades = $request->get('restoComunidades');
+                $titulo = "Comunidades sin email de solicitud";
+                return view('nuestrasSolicitudes.comprobacion',
+                    compact('titulo',
+                        'incidencias',
+                        'tipos_comunicaciones_preferidas',
+                        'nuestrasComunidades',
+                        'anyos',
+                        'semanas',
+                        'restoComunidades'
+                    ));
+            }
+        }
+        $this->enviar($request);
+    }
+
     public function enviar(Request $request)
     {
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
-        $incidencias = array();
-        foreach ($destinatarios as $idx => $destinatario) {
-            if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
-                $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para envío de solicitudes";
-            }
-
-        }
-        if (count($incidencias) > 0) {
-            $titulo = "Comunidades sin email de solicitud";
-            return view('nuestrasSolicitudes.comprobacion',
-                compact('titulo', 'incidencias'));
-        }
         $numeroDestinatarios = count($destinatarios);
-        //Configuración del listado html
-        $listadoPosicionInicial = 43.5; //primera linea
-        $listadoTotal = 9;  // nº lineas cursillo max primera pagina
-        $listadoTotalRestoPagina = 40; // nº lineas cursillo resto de las paginas
-        $separacionLinea = 1.5;
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
             with('mensaje', 'No se puede realizar la operación, comprueba que exista remitente y/o destinatario/s  y/o curso/s');
         }
+        //Configuración del listado html
+        $listadoPosicionInicial = 43.5; //primera linea
+        $listadoTotal = 9;  // nº lineas cursillo max primera pagina
+        $listadoTotalRestoPagina = 40; // nº lineas cursillo resto de las paginas
+        $separacionLinea = 1.5;
+
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
@@ -74,8 +96,8 @@ class NuestrasSolicitudesController extends Controller
         $multiplesPdfContain = "";
         $multiplesPdfEnd = '</html>';
 
-        //Ampliamos el tiempo de ejecución del servidor a 40 minutos.
-        ini_set("max_execution_time", 4000);
+        //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
+        ini_set("max_execution_time", 6000);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $separatorPath = "/";
@@ -107,9 +129,9 @@ class NuestrasSolicitudesController extends Controller
                     $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);
-                    $logEnvios[] = ["Creado fichero adjunto para el email de solicitud de la comunidad " . $destinatario->comunidad, "", "floppy-saved", true];
+                    $logEnvios[] = ["Creado fichero adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-saved", true];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el fichero adjunto para el email de la comunidad" . $destinatario->comunidad, "", "floppy-remove", false];
+                    $logEnvios[] = ["Error al crear el fichero adjunto para la comunidad" . $destinatario->comunidad, "", "floppy-remove", false];
                 }
                 $esCarta = false;
                 try {
@@ -125,10 +147,10 @@ class NuestrasSolicitudesController extends Controller
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? ["Enviado email de solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", true] :
-                    ["No se pudo enviar la solicitud a la comunidad destinataria " . $destinatario->comunidad . " con dirección " . $destinatario->email_envio, "", "envelope", false];
+                $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", true] :
+                    ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", false];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
-                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " carece de email para solicitud", "", "envelope", false];
+                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
                     if (count($destinatarios) > 1) {

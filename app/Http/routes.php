@@ -42,6 +42,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'uses' => 'CopiaSeguridadController@index'));
     Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
 
+    Route::post('comprobarNuestrasSolicitudes', array('as' => 'comprobarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@comprobarSolicitudes'));
     Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
     Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviar'));
 

@@ -61,8 +61,8 @@ class NuestrasRespuestasController extends Controller
         $multiplesPdfContain = "";
         $multiplesPdfEnd = '</html>';
 
-        //Ampliamos el tiempo de ejecución del servidor a 5 minutos.
-        ini_set("max_execution_time", 500);
+        //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
+        ini_set("max_execution_time", 6000);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta para linux
             $separatorPath = "/";
