@@ -43,7 +43,7 @@ class NuestrasSolicitudesController extends Controller
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
                 if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
-                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para envío de solicitudes";
+                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras solicitudes";
                 }
 
             }

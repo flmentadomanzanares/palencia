@@ -127,7 +127,7 @@ class Cursillos extends Model
 
     static public function getTodosMisAnyosCursillosList($comunidad = 0)
     {
-        return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y") as anyos'))
+        return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyos'))
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->ComunidadCursillos($comunidad)
             ->Where('cursillos.activo', true)
