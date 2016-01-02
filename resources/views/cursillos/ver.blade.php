@@ -25,7 +25,11 @@
                 <td>{!!$cursillo->num_cursillo!!}</td>
             </tr>
             <tr>
-                <td>Semana:</td>
+                <td>Año ISO-8601:</td>
+                <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
+            </tr>
+            <tr>
+                <td>Semana ISO-8601:</td>
                 <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
             </tr>
             <tr>
