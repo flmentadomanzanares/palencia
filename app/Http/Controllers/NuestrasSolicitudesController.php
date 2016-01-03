@@ -37,6 +37,7 @@ class NuestrasSolicitudesController extends Controller
 
     public function comprobarSolicitudes(Request $request)
     {
+
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $tipoEnvio = $request->get("modalidad");
         if ($tipoEnvio != 1) {
@@ -65,7 +66,7 @@ class NuestrasSolicitudesController extends Controller
                     ));
             }
         }
-        $this->enviar($request);
+        return $this->enviar($request);
     }
 
     public function enviar(Request $request)
@@ -153,6 +154,7 @@ class NuestrasSolicitudesController extends Controller
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
+
                     if (count($destinatarios) > 1) {
                         /* Crear carta por comunidad
                           $pdf = \App::make('dompdf.wrapper');
@@ -194,6 +196,7 @@ class NuestrasSolicitudesController extends Controller
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
         }
+
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
             compact('titulo', 'logEnvios'));
