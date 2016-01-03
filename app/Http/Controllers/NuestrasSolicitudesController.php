@@ -171,7 +171,7 @@ class NuestrasSolicitudesController extends Controller
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Creada cartas de solicitud  para todas las comunidades con modalidad de carta.", $pathTotalComunidadesCarta, "list-alt", true];
+            $logEnvios[] = ["Cartas creadas.", $pathTotalComunidadesCarta, "list-alt", true];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
