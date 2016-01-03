@@ -115,30 +115,13 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = ["La comunidad " . $remitente->comunidad . " carece de email de remitente", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
-
-                    if (count($destinatarios) > 1) {
-                        /*$pdf = \App::make('dompdf.wrapper');
-                        $pdf->loadView('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->save($nombreArchivo);*/
-                        $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->render();
-                        $multiplesPdfContain .= $view;
-                        $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
-                        $destinatariosConCarta += 1;
-                    } else {
-                        $pdf = \App::make('dompdf.wrapper');
-                        $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->render();
-                        $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
-                        $pdf->output();
-                        return $pdf->download($nombreArchivo);
-                    }
+                    $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
+                        compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                            , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                        ))->render();
+                    $multiplesPdfContain .= $view;
+                    $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
+                    $destinatariosConCarta += 1;
                 } catch (\Exception $e) {
                     $logEnvios[] = ["Error al crear la carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }

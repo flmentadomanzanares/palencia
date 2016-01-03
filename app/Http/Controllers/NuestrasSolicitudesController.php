@@ -37,7 +37,6 @@ class NuestrasSolicitudesController extends Controller
 
     public function comprobarSolicitudes(Request $request)
     {
-
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $tipoEnvio = $request->get("modalidad");
         if ($tipoEnvio != 1) {
@@ -46,7 +45,6 @@ class NuestrasSolicitudesController extends Controller
                 if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras solicitudes";
                 }
-
             }
             if (count($incidencias) > 0) {
                 $tipos_comunicaciones_preferidas = $request->get('modalidad');
@@ -176,7 +174,6 @@ class NuestrasSolicitudesController extends Controller
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
         }
-
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
             compact('titulo', 'logEnvios'));

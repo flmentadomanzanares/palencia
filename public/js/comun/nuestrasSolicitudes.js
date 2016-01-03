@@ -44,7 +44,7 @@ $(document).ready(function () {
                         "<tbody>" +
                         "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
                         "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
-                        "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "]</td></tr>" +
+                        "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
                         "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
                         "</tbody>" +
                         "</table>";
@@ -62,7 +62,6 @@ $(document).ready(function () {
                 'anyo': year,
                 'comunidad': comunidad,
                 '_token': $('input[name="_token"]').val()
-
             },
             dataType: "json",
             type: 'post',
