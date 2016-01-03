@@ -34,7 +34,7 @@ class Cursillos extends Model
 
     static public function getCursillos(Request $request)
     {
-        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
+        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'comunidades.color',
             'cursillos.activo', 'comunidades.comunidad', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
@@ -42,7 +42,8 @@ class Cursillos extends Model
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->Cursillo($request->get('cursillo'))
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->paginate(5)
             ->setPath('cursillos');
