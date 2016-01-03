@@ -13,9 +13,7 @@
                 @foreach ($cursillos as $cursillo)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
-                                {!! $cursillo->cursillo !!}
-                            </caption>
+
                             <thead>
                             <tr @if(!$cursillo->activo) class="background-disabled"
                                 @else style="background-color:{{$cursillo->color}};" @endif>
@@ -50,6 +48,12 @@
                                 <td class="table-autenticado-columna-1">Comunidad:</td>
                                 <td>
                                     {!! $cursillo->comunidad !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombre Cursillo:</td>
+                                <td>
+                                    {!! $cursillo->cursillo !!}
                                 </td>
                             </tr>
                             <tr>
