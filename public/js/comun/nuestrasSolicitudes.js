@@ -97,7 +97,4 @@ $(document).ready(function () {
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
     });
     totalAnyos($("#select_comunidad").val());
-    $(document).on("click", "button[type='submit']", function (evt) {
-        $("div.spinner").css("display", 'block');
-    });
 });
