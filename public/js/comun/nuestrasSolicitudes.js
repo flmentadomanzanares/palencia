@@ -98,7 +98,6 @@ $(document).ready(function () {
     });
     totalAnyos($("#select_comunidad").val());
     $(document).on("click", "button[type='submit']", function (evt) {
-        //evt.preventDefault();
         $("div.spinner").css("display", 'block');
     });
 });
