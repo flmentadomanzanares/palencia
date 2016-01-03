@@ -154,33 +154,13 @@ class NuestrasSolicitudesController extends Controller
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
-
-                    if (count($destinatarios) > 1) {
-                        /* Crear carta por comunidad
-                          $pdf = \App::make('dompdf.wrapper');
-                          $pdf->loadView('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
-                              compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                  , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                              ))->save($nombreArchivo);
-                          $logEnvios[] = ["Creada carta de respuesta para " . $destinatario->comunidad, $nombreArchivo, "", true];
-                        */
-                        $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
-                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->render();
-                        $multiplesPdfContain .= $view;
-                        $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
-                        $destinatariosConCarta += 1;
-                    } else {
-                        $pdf = \App::make('dompdf.wrapper');
-                        $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
-                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                            ))->render();
-                        $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
-                        $pdf->output();
-                        return $pdf->download($nombreArchivo);
-                    }
+                    $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
+                        compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                            , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                        ))->render();
+                    $multiplesPdfContain .= $view;
+                    $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
+                    $destinatariosConCarta += 1;
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }
