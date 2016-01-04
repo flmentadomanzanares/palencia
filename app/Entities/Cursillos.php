@@ -17,6 +17,7 @@ class Cursillos extends Model
             'cursillos.fecha_final', 'comunidades.comunidad', 'comunidades.color')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->ComunidadCursillosTipo($request->get('esPropia'))
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -207,6 +208,14 @@ class Cursillos extends Model
     public function solicitudes_recibidas()
     {
         return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+    }
+
+    public function scopeComunidadCursillosTipo($query, $tipo = 0)
+    {
+        if (is_numeric($tipo)) {
+            $query->where('comunidades.esPropia', $tipo);
+        }
+        return $query;
     }
 
     public function scopeAnyosCursillos($query, $anyo = 0)
