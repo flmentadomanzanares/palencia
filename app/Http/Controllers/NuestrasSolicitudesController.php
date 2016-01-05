@@ -90,6 +90,7 @@ class NuestrasSolicitudesController extends Controller
         $logEnvios = [];
         //PDF en múltiples páginas
         $destinatariosConCarta = 0;
+        $destinatariosConEmail = 0;
         $multiplesPdf = \App::make('dompdf.wrapper');
         $multiplesPdfBegin = '<html lang="es">';
         $multiplesPdfContain = "";
@@ -142,6 +143,7 @@ class NuestrasSolicitudesController extends Controller
                             $message->to($destinatario->email_envio)->subject("Nuestra Solicitud");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
+                    $destinatariosConEmail += 1;
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
@@ -164,15 +166,31 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
         }
+
         if ($destinatariosConCarta > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Cartas creadas.", $pathTotalComunidadesCarta, "list-alt", true];
+            $logEnvios[] = ["Cartas creadas de solicitud.", $pathTotalComunidadesCarta, "list-alt", true];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
+        } else {
+            if ($destinatariosConEmail > 0) {
+                $logEnvios[] = [$destinatariosConEmail . ($destinatariosConEmail > 1 ? " emails enviados." : " email enviado"), "", "send", true];
+            }
+            if ($destinatariosConCarta > 0) {
+                $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "ok", true];
+            }
+            //Creamos el Log
+            $logArchivo = array();
+            $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+            foreach ($logEnvios as $log) {
+                $logArchivo[] = $log[0] . "\n";
+            }
+            //Guardamos a archivo
+            file_put_contents('log/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
