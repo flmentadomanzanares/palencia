@@ -40,17 +40,19 @@ class NuestrasRespuestasController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, true);
         $cursillos = Cursillos::getCursillosPDF($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'));
+        //Comprobación
         $numeroDestinatarios = count($destinatarios);
-        //Configuración del listado html
-        $listadoPosicionInicial = 40.5;
-        $listadoTotal = 11;
-        $listadoTotalRestoPagina = 40;
-        $separacionLinea = 1.5;
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasRespuestas')->
             with('mensaje', 'No se puede realizar la operación, debe de existir remitente y/o destinatario/s  y/o curso/s');
         }
+        //Configuración del listado html
+        $listadoPosicionInicial = 40.5;
+        $listadoTotal = 11;
+        $listadoTotalRestoPagina = 40;
+        $separacionLinea = 1.5;
+
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         $logEnvios = [];
@@ -98,6 +100,7 @@ class NuestrasRespuestasController extends Controller
                 }
                 $esCarta = false;
                 try {
+                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -132,7 +135,7 @@ class NuestrasRespuestasController extends Controller
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Creada cartas de respuesta para todas las comunidades con modalidad de carta.", $pathTotalComunidadesCarta, "list-alt", true];
+            $logEnvios[] = ["Creada cartas de respuesta.", $pathTotalComunidadesCarta, "list-alt", true];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign", false];
