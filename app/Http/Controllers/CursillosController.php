@@ -230,7 +230,8 @@ class CursillosController extends Controller
             return $semanas;
         }
     }
-    public function listadoCursillos(Request $request)
+
+    public function listadoCursillosSolicitudes(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');

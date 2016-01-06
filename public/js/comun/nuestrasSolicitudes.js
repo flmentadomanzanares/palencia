@@ -31,7 +31,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'listadoCursillos',
+            url: 'listadoCursillosSolicitudes',
             success: function (data) {
                 $('#listado_cursillos').empty();
                 $.each(data, function (key, element) {

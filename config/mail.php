@@ -14,9 +14,8 @@ return [
 	| Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "log"
 	|
 	*/
-
-		'driver' => env('DRIVER'),
-	//'driver' => 'log',
+		'driver' => 'smtp',
+	//'driver' => env('DRIVER'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,7 +28,8 @@ return [
 	|
 	*/
 
-		'host' => 'mail.smtp2go.com',
+		'host' => 'smtp.gmail.com',
+	//	'host' => 'mail.smtp2go.com',
 	//	'host' => env('HOST'),
 
 	/*
@@ -43,8 +43,9 @@ return [
 	|
 	*/
 
-		'port' => 2525,
-	//	'port' => env('PORT'),
+		'port' => '587',
+	//	'port' => 2525,
+	//'port' => env('PORT'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,8 +85,9 @@ return [
 	|
 	*/
 
-		'username' => 'franciscomentadomanzanares@gmail.com',
-	//	'username' => env('USERNAME'),
+		'username' => 'paulinomcclaspalmas@gmail.com',
+	//	'username' => 'franciscomentadomanzanares@gmail.com',
+	//'username' => env('USERNAME'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,8 +99,9 @@ return [
 	| connection so that the application will be able to send messages.
 	|
 	*/
-		'password' => 'fmentadosmtp2go',
-	//	'password' => env('PASSWORD'),
+		'password' => 'Moreno69',
+	//	'password' => 'fmentadosmtp2go',
+	//  'password' => env('PASSWORD'),
 
 	/*
 	|--------------------------------------------------------------------------

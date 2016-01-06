@@ -13,8 +13,7 @@
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', 'InvitadoController@index');
-Route::get('/inicio', ['as' => 'inicio', 'uses' => 'AutenticadoController@index']);
-Route::get('/enviar1', array('as' => 'enviar1', 'uses' => 'NuestrasSolicitudesController@enviar1'));
+Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
@@ -27,12 +26,9 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::resource('provincias', 'ProvinciasController');
 //Route::resource('roles','RolesController');
     Route::resource('calendarioCursos', 'CalendarioCursosController');
-
-
     Route::resource('tiposSecretariados', 'TiposSecretariadosController');
 //Route::resource('tiposParticipantes','TiposParticipantesController');
 //Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
-
     Route::resource('solicitudesEnviadas', 'SolicitudesEnviadasController');
     Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
     Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));
@@ -64,7 +60,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('semanasTotalesResultadoSolicitud', array('as' => 'semanasTotalesResultadoSolicitud', 'uses' => 'CursillosController@semanasTotalesResultadoSolicitud'));
 
 //Obtener relación de cursos vía Ajax (ModoTabla)
-    Route::post('listadoCursillos', array('as' => 'listadoCursillos', 'uses' => 'CursillosController@listadoCursillos'));
+    Route::post('listadoCursillosSolicitudes', array('as' => 'listadoCursillosSolicitudes', 'uses' => 'CursillosController@listadoCursillosSolicitudes'));
 
 //Obtener relación de cursos excepto los míos vía Ajax (ModoTabla)
     Route::post('listadoCursillosRespuestas', array('as' => 'listadoCursillosRespuestas', 'uses' => 'CursillosController@listadoCursillosRespuestas'));
