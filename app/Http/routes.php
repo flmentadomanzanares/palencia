@@ -13,6 +13,7 @@
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', 'InvitadoController@index');
+Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');
@@ -51,7 +52,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('totalAnyos', array('as' => 'totalAnyos', 'uses' => 'CursillosController@totalAnyos'));
 
     //Cálculo del total de años de los cursos de un conjunto de comunidades vía Ajax
-    Route::post('totalAnyosRespuestaSolicitud', array('as' => 'totalAnyosRespuestaSolicitud', 'uses' => 'CursillosController@totalAnyosRespuesta'));
+    Route::post('totalAnyosRespuesta', array('as' => 'totalAnyosRespuesta', 'uses' => 'CursillosController@totalAnyosRespuesta'));
 
 //Cálculo del total de semanas por año vía Ajax
     Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
