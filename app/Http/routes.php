@@ -51,7 +51,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('totalAnyos', array('as' => 'totalAnyos', 'uses' => 'CursillosController@totalAnyos'));
 
     //Cálculo del total de años de los cursos de un conjunto de comunidades vía Ajax
-    Route::post('totalAnyosRespuestaSolicitud', array('as' => 'totalAnyosRespuestaSolicitud', 'uses' => 'CursillosController@totalAnyos'));
+    Route::post('totalAnyosRespuestaSolicitud', array('as' => 'totalAnyosRespuestaSolicitud', 'uses' => 'CursillosController@totalAnyosRespuesta'));
 
 //Cálculo del total de semanas por año vía Ajax
     Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
