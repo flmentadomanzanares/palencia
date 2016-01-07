@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     $('.spinner').css('display','none');
-    $('.spinner + .hidden').removeClass('hidden');
+    $('.hidden').removeClass('hidden');
 });
 $(document).on("click", "button[type='submit']", function (evt) {
     $("div.spinner").css("display", 'block');
