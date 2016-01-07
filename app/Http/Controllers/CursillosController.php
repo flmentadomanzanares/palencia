@@ -270,7 +270,7 @@ class CursillosController extends Controller
     public function totalAnyosRespuesta(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidad = $request->get('comunidadId');
+            $comunidad = $request->get('comunidadPropia');
             return Cursillos::getTodosMisAnyosCursillosList($comunidad);
         }
     }

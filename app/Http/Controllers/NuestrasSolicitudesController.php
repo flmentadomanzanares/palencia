@@ -74,6 +74,7 @@ class NuestrasSolicitudesController extends Controller
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
+        //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
@@ -135,7 +136,7 @@ class NuestrasSolicitudesController extends Controller
                 }
                 $esCarta = false;
                 try {
-                    $destinatario->email_envio = "antonio_sga@yahoo.es";
+                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -148,8 +149,8 @@ class NuestrasSolicitudesController extends Controller
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", true] :
-                    ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", false];
+                $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope", true] :
+                    ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope", false];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {

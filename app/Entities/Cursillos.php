@@ -140,14 +140,15 @@ class Cursillos extends Model
         return $result;
     }
 
-    static public function getTodosMisAnyosCursillosList($comunidad = 0)
+    static public function getTodosMisAnyosCursillosList($comunidad = 0, $conPlaceHolder = true, $placeHolder = "Año...")
     {
-        return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyos'))
+        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyos'))
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->ComunidadCursillos($comunidad)
             ->Where('cursillos.activo', true)
             ->distinct()
-            ->Lists('anyos');
+            ->Lists('anyos', 'anyos');
+        return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
     static public function getCursillo($id = null)

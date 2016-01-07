@@ -41,6 +41,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 
     Route::post('comprobarNuestrasSolicitudes', array('as' => 'comprobarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@comprobarSolicitudes'));
     Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
+    Route::post('comprobarNuestrasRespuestas', array('as' => 'comprobarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@comprobarRespuestas'));
     Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviar'));
 
 
