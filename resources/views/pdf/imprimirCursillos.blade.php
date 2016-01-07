@@ -262,13 +262,13 @@
                 <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
                     Comunidad: {!! $cursillo->comunidad !!}
                 </div>
-                    <?php $i++?>
-                    <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                        Numero
-                    </div>
-                    <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                        Cursillo
-                    </div>
+                <?php $i++?>
+                <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Numero
+                </div>
+                <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    Cursillo
+                </div>
 
                 <?php $comunidad = $cursillo->comunidad; ?>
                 <?php $i++?>

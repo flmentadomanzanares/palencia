@@ -176,14 +176,14 @@
 
         <?php $i++?>
 
-        <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-            Cursillo
-        </div>
-        <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-            Fecha Inicio
-        </div>
+            <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                Cursillo
+            </div>
+            <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                Fecha Inicio
+            </div>
 
-        <?php $i++?>
+            <?php $i++?>
 
         @foreach ($solicitudesEnviadas as $index=>$solicitudEnviada)
             @if($index>0 && $i==$lineasPorPagina)

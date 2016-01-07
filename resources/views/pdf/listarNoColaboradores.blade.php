@@ -4,7 +4,6 @@
 @endsection
 @section('contenido')
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">

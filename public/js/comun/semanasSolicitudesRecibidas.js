@@ -10,7 +10,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: '/semanasSolicitudesRecibidas',
+            url: '/palencia/public/semanasSolicitudesRecibidas',
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
