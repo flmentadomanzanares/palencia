@@ -41,7 +41,7 @@ class NuestrasRespuestasController extends Controller
         if ($tipoEnvio != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
+                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_envio) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras respuestas";
                 }
             }
@@ -138,7 +138,7 @@ class NuestrasRespuestasController extends Controller
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
                             $message->from($remitente->email_envio, $remitente->comunidad);
-                            $message->to($destinatario->email_solicitud)->subject("Nuestra Respuesta");
+                            $message->to($destinatario->email_envio)->subject("Nuestra Respuesta");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
                     $destinatariosConEmail += 1;

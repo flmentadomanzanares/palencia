@@ -141,7 +141,7 @@ class NuestrasSolicitudesController extends Controller
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
                             $message->from($remitente->email_solicitud, $remitente->comunidad);
-                            $message->to($destinatario->email_envio)->subject("Nuestra Solicitud");
+                            $message->to($destinatario->email_solicitud)->subject("Nuestra Solicitud");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
                     $destinatariosConEmail += 1;
