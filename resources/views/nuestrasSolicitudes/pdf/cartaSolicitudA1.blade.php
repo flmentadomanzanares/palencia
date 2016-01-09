@@ -12,6 +12,8 @@
         los suyos para que nuestra Comunidad ore también por ellos. Por favor tengan en cuenta las direcciones de
         correo electrónico  que figuran al pie de dicha carta.</span>
     <br/>
+    <span style="font-size:16px;line-height:1.6;;padding-left: 2em;text-align: justify">Un fuerte abrazo. MCC Diócesis de Canarias, Espa&ntilde;a.</span>
+    <br/>
     <div style="text-align: right;font-size:20px;line-height:1.6" >
         <strong>¡
         <span style="color: rgb(220, 100, 1)">D</span>

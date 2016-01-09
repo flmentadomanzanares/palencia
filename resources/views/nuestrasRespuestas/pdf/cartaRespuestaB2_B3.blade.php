@@ -192,7 +192,7 @@
         @endforeach
     @endif
 </div>
-@include("pdf.Template.carta.footer")
+@include("pdf.Template.carta.footerRespuesta")
 <?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </body>
 

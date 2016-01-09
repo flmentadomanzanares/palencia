@@ -133,6 +133,7 @@ class NuestrasRespuestasController extends Controller
                 }
                 $esCarta = false;
                 try {
+                    $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
                     $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
