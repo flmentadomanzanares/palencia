@@ -13,8 +13,8 @@
     @else
         @if(strlen($destinatario->direccion_postal)>0){{$destinatario->direccion_postal}}<br/> @endif
     @endif
-    @if(strlen($destinatario->cp)>0){{$destinatario->cp}} @endif
-    @if(strlen($destinatario->localidad)>0)-{{$destinatario->localidad}} @endif
+    @if(strlen($destinatario->cp)>0){{$destinatario->cp}}- @endif
+    @if(strlen($destinatario->localidad)>0){{$destinatario->localidad}} @endif
     @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
     @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
     @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
