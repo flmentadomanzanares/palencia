@@ -142,7 +142,7 @@ class Cursillos extends Model
 
     static public function getTodosMisAnyosCursillosList($comunidad = 0, $conPlaceHolder = true, $placeHolder = "Año...")
     {
-        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyos'))
+        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y") as anyos'))
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->ComunidadCursillos($comunidad)
             ->Where('cursillos.activo', true)
@@ -183,6 +183,17 @@ class Cursillos extends Model
             ->groupBy('semanas')
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->orderBy('semanas')
+            ->get();
+    }
+
+    static public function getFechasInicioCursillos($anyo = 0, $cursillos = 0)
+    {
+        return Cursillos::Select('cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana')
+            , DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'))
+            ->ComunidadCursillos($cursillos)
+            ->where('cursillos.activo', true)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y")'), '=', $anyo)
+            ->orderBy('cursillos.fecha_inicio')
             ->get();
     }
 
@@ -233,7 +244,7 @@ class Cursillos extends Model
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y")'), '=', $anyo);
         }
         return $query;
     }

@@ -8,7 +8,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'totalAnyosRespuesta',
+            url: 'totalAnyosRespuestas',
             success: function (data) {
                 var anyos = $('#select_anyos');
                 anyos.empty();

@@ -58,6 +58,9 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 //Cálculo del total de semanas por año vía Ajax
     Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
 
+    //Cálculo del total de semanas por año vía Ajax
+    Route::post('fechasInicioResultado', array('as' => 'fechasInicioResultado', 'uses' => 'CursillosController@fechasInicioResultado'));
+
 //Cálculo del total de semanas para nuestras respuestas u nuestras solicitudes por año vía Ajax
     Route::post('semanasTotalesResultadoSolicitud', array('as' => 'semanasTotalesResultadoSolicitud', 'uses' => 'CursillosController@semanasTotalesResultadoSolicitud'));
 

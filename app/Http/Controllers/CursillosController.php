@@ -220,6 +220,16 @@ class CursillosController extends Controller
         }
     }
 
+    public function fechasInicioResultado(Request $request)
+    {
+        if (\Request::ajax()) {
+            $anyo = $request->get('anyo');
+            $comunidad = $request->get('comunidad');
+            $fechasInicio = Cursillos::getFechasInicioCursillos($anyo, $comunidad);
+            return $fechasInicio;
+        }
+    }
+
     public function semanasTotalesResultadoSolicitud(Request $request)
     {
         if (\Request::ajax()) {
