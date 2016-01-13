@@ -19,9 +19,9 @@
     {!!FORM::model(Request::only(['comunidad','esPropia','secretariado','pais']),['route'=>'comunidades.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('pais', $paises, null,array("class"=>"select-control pull-left"))!!}
-    {!! FORM::select('secretariado', $secretariados, null,array("class"=>"select-control pull-left"))!!}
+    {{--{!! FORM::select('secretariado', $secretariados, null,array("class"=>"select-control pull-left"))!!}
     {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','1'=>'Propia','0'=>'No Propia'),
-    null,array("class"=>"select-control pull-left"))!!}
+    null,array("class"=>"select-control pull-left"))!!}--}}
     {!! FORM::text('comunidad',null,['class'=>'select-control pull-left','placeholder'=>'Comunidad....'])!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}

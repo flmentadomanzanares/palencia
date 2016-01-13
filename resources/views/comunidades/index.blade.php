@@ -115,8 +115,10 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $comunidades->appends(Request::only(['comunidad','esPropia','secretariado','pais']))->render()
+                {!! $comunidades->appends(Request::only(['comunidad','pais']))->render()
                 !!}{{-- Poner el paginador --}}
+                {{--{!! $comunidades->appends(Request::only(['comunidad','esPropia','secretariado','pais']))->render()
+                !!}--}}{{-- Poner el paginador --}}
             </div>
         @else
             @include('invitado')
