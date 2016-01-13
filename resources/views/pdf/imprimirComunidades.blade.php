@@ -107,12 +107,11 @@
 <div class="contenedor">
 
     <?php
-        $pais = null;
-        $cursillo = null;
-        $i = 0;
-        $pagina = 0;
-        $lineasPorPagina = $listadoTotal;
-        $saltoPagina = $lineasPorPagina - 3;
+    $pais = null;
+    $i = 0;
+    $pagina = 0;
+    $lineasPorPagina = $listadoTotal;
+    $saltoPagina = $lineasPorPagina - 3;
     ?>
 
     <div class="text-center">
@@ -132,45 +131,17 @@
 
             @if($index>0 && $i==$lineasPorPagina)
                 <?php
-                    $lineasPorPagina = $listadoTotalRestoPagina;
-                    $saltoPagina = $lineasPorPagina - 3;
-                    $listadoPosicionInicial = 0;
-                    $i = 0;
+                $lineasPorPagina = $listadoTotalRestoPagina;
+                $saltoPagina = $lineasPorPagina - 3;
+                $listadoPosicionInicial = 0;
+                $i = 0;
                 ?>
                 <div class="pagina">Pag. {{$pagina += 1}}</div>
                 <div class="saltoPagina"></div>
 
             @endif
 
-            @if($comunidad->cursillo != $cursillo)
-
-                @if($index>0 && $i>=$saltoPagina)
-                    <?php
-                    $lineasPorPagina = $listadoTotalRestoPagina;
-                    $saltoPagina = $lineasPorPagina - 3;
-                    $listadoPosicionInicial = 0;
-                    $i = 0;
-                    ?>
-                    <div class="pagina">Pag. {{$pagina += 1}}</div>
-                    <div class="saltoPagina"></div>
-                @endif
-                <?php $i++?>
-                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    Cursillo: {!! $comunidad->comunidad!!}
-                </div>
-
-                <?php $cursillo = $comunidad->cursillo; ?>
-                <?php $i++?>
-                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    País: {!! $comunidad->pais!!}
-                </div>
-                <?php $i++?>
-                <?php $pais = $comunidad->pais; ?>
-
-                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    {!! $comunidad->comunidad !!}
-                </div>
-            @elseif($comunidad->pais != $pais)
+            @if($comunidad->pais != $pais)
 
                 @if($index>0 && $i>=$saltoPagina)
                     <?php
