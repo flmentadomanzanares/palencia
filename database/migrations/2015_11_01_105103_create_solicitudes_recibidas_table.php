@@ -19,9 +19,6 @@ class CreateSolicitudesRecibidasTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onUpdate("cascade");
 
-            $table->bigInteger('cursillo_id')->unsigned();
-            $table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
-
             $table->boolean('aceptada')->default(false);
 
             $table->boolean('activo')->default(true);

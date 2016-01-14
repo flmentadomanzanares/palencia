@@ -96,5 +96,8 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 // Listado Secretariados no colaboradores
     Route::get('noColaboradores', 'PdfController@getNoColaboradores');
     Route::post('imprimirNoColaboradores', array('as' => 'imprimirNoColaboradores', 'uses' => 'PdfController@imprimirNoColaboradores'));
+
+//Obtener relación de cursillos de una comunidad de una solicitud
+    Route::post('cursillosSolicitudEnviada', array('as' => 'cursillosSolicitudEnviada', 'uses' => 'SolicitudesEnviadasController@getCursillosSolicitudEnviada'));
 });
 

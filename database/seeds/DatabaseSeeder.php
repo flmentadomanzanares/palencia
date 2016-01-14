@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
             'cursillos',
             'solicitudes_enviadas',
             'solicitudes_recibidas',
+            'solicitudes_enviadas_cursillos',
+            'solicitudes_recibidas_cursillos'
         ));
         $this->call('ColoresTableSeeder');
         $this->call('RolesTableSeeder');
@@ -46,6 +48,8 @@ class DatabaseSeeder extends Seeder
         $this->call('CursillosTableSeeder');
         $this->call('SolicitudesEnviadasTableSeeder');
         $this->call('SolicitudesRecibidasTableSeeder');
+        $this->call('SolicitudesEnviadasCursillosTableSeeder');
+        $this->call('SolicitudesRecibidasCursillosTableSeeder');
 
     }
 

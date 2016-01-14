@@ -17,9 +17,7 @@ class SolicitudesEnviadasTableSeeder extends BaseSeeder {
 
         return [
 
-            'comunidad_id'  => $this->getRandom('Comunidades')->id,
-            'cursillo_id' => $this->getRandom('Cursillos')->id,
-
+            'comunidad_id'  => $this->getRandom('Comunidades')->id
 
         ];
 
