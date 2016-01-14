@@ -277,7 +277,7 @@ class CursillosController extends Controller
         }
     }
 
-    public function totalAnyosRespuesta(Request $request)
+    public function totalAnyosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
             $comunidad = $request->get('comunidadPropia');
