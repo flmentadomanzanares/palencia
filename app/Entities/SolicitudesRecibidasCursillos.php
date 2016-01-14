@@ -46,4 +46,22 @@ class SolicitudesRecibidasCursillos extends Model {
     {
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
+
+    /*****************************************************************************************************************
+     *
+     * Función que devuelve una lista de los cursillos de una comunidad y solicitud determinadas
+     *
+     *****************************************************************************************************************/
+    static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0)
+    {
+        return SolicitudesRecibidasCursillos::Select('cursillos.cursillo', 'comunidades.comunidad')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
+            ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
+            ->where('solicitudes_recibidas_cursillos.solicitud_id', '=', $solicitudId)
+            ->where('solicitudes_recibidas_cursillos.comunidad_id', '=', $comunidadId)
+            ->where('solicitudes_recibidas_cursillos.activo', true)
+            ->orderBy('cursillos.cursillo', 'ASC')
+            ->get();
+    }
 }

@@ -25,5 +25,4 @@
 @section("css")
 @stop
 @section('js')
-    {!! HTML::script('js/comun/listarCursos.js') !!}
 @endsection

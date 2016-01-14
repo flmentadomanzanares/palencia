@@ -19,8 +19,6 @@ class SolicitudesEnviadasController extends Controller {
     {
         $titulo = "Listado de Solicitudes Enviadas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
-        /*$anyos = SolicitudesEnviadas::getAnyoSolicitudesEnviadasList();
-        $semanas =Array();*/
         $comunidades = SolicitudesEnviadas::getComunidadesSolicitudesEnviadasList();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'comunidades'));
     }

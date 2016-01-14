@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
-            <div class="row">
+            <div class="row ">
                 @include('solicitudesRecibidas.parciales.buscar')
             </div>
             @if(!$solicitudesRecibidas->isEmpty())
@@ -16,7 +16,7 @@
                         <table class="table-viaoptima table-striped">
                             <caption
                                     class="@if(!$solicitudRecibida->activo) foreground-disabled @endif">
-                                {!! $solicitudRecibida->cursillo !!}
+                                {!! $solicitudRecibida->comunidad !!}
                             </caption>
                             <thead>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled" @endif>
@@ -27,6 +27,15 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
+                                    {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' => 'POST','title'=>'Mostrar Cursillos')) !!}
+                                    {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
+                                    {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
+                                    <button type="submit">
+                                        <i class='glyphicon glyphicon-education full-Width'>
+                                            <div>Cursillos</div>
+                                        </i>
+                                    </button>
+                                    {!! FORM::close() !!}
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                     {!! FORM::open(array('route' => array('solicitudesRecibidas.destroy',
                                     $solicitudRecibida->id),'method' => 'DELETE','title'=>'Borrar')) !!}
@@ -42,16 +51,12 @@
                             </thead>
                             <tbody @if(!$solicitudRecibida->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Comunidad:</td>
-                                <td>{!!$solicitudRecibida->comunidad!!}</td>
+                                <td class="table-autenticado-columna-1">Fecha de Envio:</td>
+                                <td>{!! Date("d/m/Y - H:i:s" , strtotime($solicitudRecibida->created_at) )!!}</td>
                             </tr>
                             <tr>
-                                <td>Año Cursillo:</td>
-                                <td>{!! Date("Y" , strtotime($solicitudRecibida->fecha_inicio) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Semana Cursillo:</td>
-                                <td>{!! Date("W" , strtotime($solicitudRecibida->fecha_inicio) )!!}</td>
+                                <td>Aceptada:</td>
+                                <td> @if ($solicitudRecibida->aceptada ) Si @else No @endif </td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>
@@ -70,7 +75,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $solicitudesRecibidas->appends(Request::only(['semanas','anyos','cursillo']))->render()
+                {!! $solicitudesRecibidas->appends(Request::only(['comunidades']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

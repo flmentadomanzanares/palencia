@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\SolicitudesRecibidas;
+use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesRecibidas;
 
@@ -17,10 +18,8 @@ class SolicitudesRecibidasController extends Controller {
     {
         $titulo = "Listado de Solicitudes Recibidas";
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request);
-        $anyos = SolicitudesRecibidas::getAnyoSolicitudesRecibidasList();
-        $semanas =Array();
-        $cursillos = SolicitudesRecibidas::getCursillosSolicitudesRecibidasList();
-        return view("solicitudesRecibidas.index", compact('solicitudesRecibidas', 'titulo', 'anyos', 'semanas', 'cursillos'));
+        $comunidades = SolicitudesRecibidas::getComunidadesSolicitudesRecibidasList();
+        return view("solicitudesRecibidas.index", compact('solicitudesRecibidas', 'titulo', 'comunidades'));
     }
 
     /**
@@ -33,15 +32,15 @@ class SolicitudesRecibidasController extends Controller {
         //Título Vista
         $titulo = "Nueva Solicitud Recibida";
         $solicitudRecibida = new SolicitudesRecibidas();
-        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
-        $cursillos = array('0'=>'Cursillos...');
+        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
+        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
+
 
         //Vista
         return view('solicitudesRecibidas.nuevo',
             compact(
                 'solicitudRecibida',
                 'comunidades',
-                'cursillos',
                 'titulo'
             ));
     }
@@ -57,7 +56,6 @@ class SolicitudesRecibidasController extends Controller {
         $solicitudRecibida = new SolicitudesRecibidas();
         //Asignamos valores traidos del formulario.
         $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
-        $solicitudRecibida->cursillo_id = \Request::input('cursillo_id');
         $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
 
@@ -106,15 +104,14 @@ class SolicitudesRecibidasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Recibida";
         $solicitudRecibida = SolicitudesRecibidas::find($id);
-        $comunidades = Comunidades::getComunidadesList(false,false,"",true);
-        $cursillos = array('0'=>'Cursillos...');
+        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
+        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
 
         //Vista
         return view('solicitudesRecibidas.modificar',
             compact(
                 'solicitudRecibida',
                 'comunidades',
-                'cursillos',
                 'titulo'
             ));
     }
@@ -130,9 +127,9 @@ class SolicitudesRecibidasController extends Controller {
         //Creamos una nueva instancia al modelo.
         $solicitudRecibida = SolicitudesRecibidas::find($id);
         $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
-        $solicitudRecibida->cursillo_id = \Request::input('cursillo_id');
         $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
+
         //Intercepción de errores
         try {
             //Guardamos Los valores
@@ -151,7 +148,7 @@ class SolicitudesRecibidasController extends Controller {
                     with('mensaje', 'Modificar Solicitud error ' . $e->getCode());
             }
         }
-        //Redireccionamos a Solicitudes Enviadas (index)
+        //Redireccionamos a Solicitudes Recibidas (index)
         return redirect('solicitudesRecibidas')->
         with('mensaje', 'La solicitud ha sido modificada satisfactoriamente.');
     }
@@ -180,39 +177,17 @@ class SolicitudesRecibidasController extends Controller {
             ->with('mensaje', 'La solicitud ha sido eliminada correctamente.');
     }
 
-    /**
-     *  Crea una nueva solicitud recibida
-     *
-     */
 
-   /* public function crearSolicitudRecibida()
+    public function getCursillosSolicitudRecibida(Request $request)
     {
-        $cursillo = getUltimoCursillo();
 
-        //Creamos una nueva instancia al modelo.
-        $solicitudRecibida = new SolicitudesRecibidas();
-        $solicitudRecibida->comunidad_id = $cursillo->comunidad_id;
-        $solicitudRecibida->cursillo_id = $cursillo->id;
+        $titulo="Listado de Cursillos";
+        $comunidadId=$request->comunidad_id;
+        $solicitudId=$request->solicitud_id;
+        $comunidad=Comunidades::getNombreComunidad($comunidadId);
 
-        //Intercepción de errores
-        try {
-            //Guardamos Los valores
-            $solicitudRecibida->save();
+        $solicitudesRecibidasCursillos= SolicitudesRecibidasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
 
-        } catch (\Exception $e) {
-            switch ($e->getCode()) {
-                case 23000:
-                    return redirect()->
-                    route('solicitudesRecibidas.create')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
-                    break;
-                default:
-                    return redirect()->
-                    route('solicitudesRecibidas.index')->
-                    with('mensaje', 'Nueva Solicitud error ' . $e->getCode());
-            }
-        }
-
-    }*/
-
+        return view("solicitudesRecibidas.verCursillos", compact('solicitudesRecibidasCursillos', 'titulo', 'comunidad', 'solicitudId'));
+    }
 }

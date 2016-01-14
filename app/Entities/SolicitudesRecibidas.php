@@ -21,18 +21,22 @@ class SolicitudesRecibidas extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    public function scopeComunidadSolicitudesRecibidas($query, $comunidadId = 0)
+    {
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+
+            $query->where('solicitudes_recibidas.comunidad_id', $comunidadId);
+        }
+        return $query;
+    }
+
     static public function getSolicitudesRecibidas(Request $request)
     {
-        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'cursillos.cursillo',
-            'solicitudes_recibidas.cursillo_id', 'cursillos.fecha_inicio', 'solicitudes_recibidas.activo')
+        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad','solicitudes_recibidas.aceptada',
+            'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
-            ->CursilloSolicitudesRecibidas($request->get('cursillo'))
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
-            ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('cursillos.cursillo', 'ASC')
+            ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
+            ->orderBy('solicitudes_recibidas.id', 'ASC')
             ->paginate(5)
             ->setPath('solicitudesRecibidas');
 
@@ -93,6 +97,18 @@ class SolicitudesRecibidas extends Model
             ->where('solicitudes_recibidas.activo', true)
             ->Lists('Anyos', 'Anyos');
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
+    static public function getComunidadesSolicitudesRecibidasList($placeHolder = "Comunidades...")
+    {
+
+        return ['0' => $placeHolder] + SolicitudesRecibidas::Select('comunidades.id', 'comunidades.comunidad')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+            ->where('comunidades.activo', true)
+            ->where('solicitudes_recibidas.activo', true)
+            ->orderBy('comunidades.comunidad')
+            ->Lists('comunidades.comunidad', 'comunidades.id');
+
     }
 
     static public function getCursillosSolicitudesRecibidasList($placeHolder = "Cursillos...")
