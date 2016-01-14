@@ -21,11 +21,11 @@ $(document).ready(function () {
         });
     };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
-    var totalCursillos = function (comunidad, year, semana) {
+    var totalCursillos = function (comunidad, year, cursillo) {
         $.ajax({
             data: {
                 'anyo': year,
-                'semana': semana,
+                'cursillo': cursillo,
                 'comunidad': comunidad,
                 '_token': $('input[name="_token"]').val()
             },
@@ -65,14 +65,14 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'fechasInicioResultado',
+            url: 'fechasInicioCursosSolicitud',
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
                 semanas.append("<option value='0'>Fecha Inicio...</option>");
                 $.each(data, function (key, element) {
                     var fecha = formatoFecha(new Date(element.fecha_inicio));
-                    semanas.append("<option value='" + fecha + "'>" + fecha + " [" + element.anyo + "-Sem:" + element.semana + "]</option>");
+                    semanas.append("<option value='" + element.id + "'>" + fecha + " [" + element.anyo + "-Sem:" + element.semana + "]</option>");
                 });
                 if ($('#listado_cursillos').length == 0)
                     return;

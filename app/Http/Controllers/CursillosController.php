@@ -220,7 +220,7 @@ class CursillosController extends Controller
         }
     }
 
-    public function fechasInicioResultado(Request $request)
+    public function fechasInicioCursosSolicitud(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
@@ -230,7 +230,7 @@ class CursillosController extends Controller
         }
     }
 
-    public function semanasTotalesResultadoSolicitud(Request $request)
+    public function fechasInicioCursosResultado(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
@@ -246,8 +246,8 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $semana = $request->get('semana');
-            return Cursillos::getTodosMisCursillos($comunidad,$anyo,$semana);
+            $cursillo = $request->get('cursillo');
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $cursillo);
         }
     }
 

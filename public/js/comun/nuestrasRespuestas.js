@@ -69,7 +69,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'semanasTotalesResultadoSolicitud',
+            url: 'fechasInicioCursosResultado',
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
