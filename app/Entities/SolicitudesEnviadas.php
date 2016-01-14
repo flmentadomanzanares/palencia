@@ -8,8 +8,7 @@ class SolicitudesEnviadas extends Model {
     protected $tabla = "solicitudes_enviadas";
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
-
-    /*****************************************************************************************************************
+ /*****************************************************************************************************************
  *
  * Relacion many to one: comunidad_id --> comunidades
  *
@@ -21,17 +20,19 @@ class SolicitudesEnviadas extends Model {
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
 
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: cursillo_id --> cursillos
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function cursillos()
+ /*****************************************************************************************************************
+  *
+  * Relacion one to many: solicitud_id_id --> solicitudes_enviadas
+  *
+  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+  *
+  *****************************************************************************************************************/
+    public function solicitudes_enviadas_cursillos()
     {
-        return $this->belongsTo('Palencia\Entities\Comunidades', 'cursillo_id');
+
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
     }
+
 
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
@@ -72,6 +73,16 @@ class SolicitudesEnviadas extends Model {
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    public function scopeComunidadSolicitudesEnviadas($query, $comunidadId = 0)
+    {
+
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+
+            $query->where('solicitudes_enviadas.comunidad_id', $comunidadId);
+        }
+        return $query;
+    }
+
     public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
     {
         if (is_numeric($cursilloId) && $cursilloId > 0) {
@@ -82,21 +93,15 @@ class SolicitudesEnviadas extends Model {
 
     static public function getSolicitudesEnviadas(Request $request)
     {
-        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad', 'cursillos.cursillo',
-            'solicitudes_enviadas.cursillo_id', 'cursillos.fecha_inicio', 'solicitudes_enviadas.activo')
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','solicitudes_enviadas.aceptada',
+            'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
-            ->CursilloSolicitudesEnviadas($request->get('cursillo'))
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
-            ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('cursillos.cursillo', 'ASC')
+            ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
+            ->orderBy('solicitudes_enviadas.id', 'ASC')
             ->paginate(5)
             ->setPath('solicitudesEnviadas');
 
     }
-
 
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
@@ -129,6 +134,18 @@ class SolicitudesEnviadas extends Model {
             ->orderBy('comunidades.comunidad')
             ->orderBy('cursillos.cursillo')
             ->get();
+
+    }
+
+    static public function getComunidadesSolicitudesEnviadasList($placeHolder = "Comunidades...")
+    {
+
+        return ['0' => $placeHolder] + SolicitudesEnviadas::Select('comunidades.id', 'comunidades.comunidad')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->where('comunidades.activo', true)
+            ->where('solicitudes_enviadas.activo', true)
+            ->orderBy('comunidades.comunidad')
+            ->Lists('comunidades.comunidad', 'comunidades.id');
 
     }
 

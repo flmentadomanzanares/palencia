@@ -119,14 +119,15 @@ class SolicitudesRecibidas extends Model
 
     /*****************************************************************************************************************
      *
-     * Relacion many to one: cursillo_id --> cursillos
+     * Relacion one to many: solicitud_id_id --> solicitudes_recibidas
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      *
      *****************************************************************************************************************/
-    public function cursillos()
+    public function solicitudes_recibidas_cursillos()
     {
-        return $this->belongsTo('Palencia\Entities\Comunidades', 'cursillo_id');
+
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
     }
 
     public function scopeAnyosCursillos($query, $anyo = 0)

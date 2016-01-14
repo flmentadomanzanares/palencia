@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\SolicitudesEnviadas;
+use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesEnviadas;
 
@@ -18,10 +19,10 @@ class SolicitudesEnviadasController extends Controller {
     {
         $titulo = "Listado de Solicitudes Enviadas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
-        $anyos = SolicitudesEnviadas::getAnyoSolicitudesEnviadasList();
-        $semanas =Array();
-        $cursillos = SolicitudesEnviadas::getCursillosSolicitudesEnviadasList();
-        return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'anyos', 'semanas', 'cursillos'));
+        /*$anyos = SolicitudesEnviadas::getAnyoSolicitudesEnviadasList();
+        $semanas =Array();*/
+        $comunidades = SolicitudesEnviadas::getComunidadesSolicitudesEnviadasList();
+        return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'comunidades'));
     }
 
 	/**
@@ -36,14 +37,13 @@ class SolicitudesEnviadasController extends Controller {
         $solicitudEnviada = new SolicitudesEnviadas();
         $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
         $comunidades = Comunidades::getComunidadesList(0, false, "", false);
-        $cursillos = Cursillos::getTodosMisCursillosLista(array_keys($comunidadesPropias)[0], true);
+
 
         //Vista
         return view('solicitudesEnviadas.nuevo',
             compact(
                 'solicitudEnviada',
                 'comunidades',
-                'cursillos',
                 'titulo'
             ));
     }
@@ -59,7 +59,6 @@ class SolicitudesEnviadasController extends Controller {
         $solicitudEnviada = new SolicitudesEnviadas();
         //Asignamos valores traidos del formulario.
         $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
-        $solicitudEnviada->cursillo_id = \Request::input('cursillo_id');
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 
@@ -110,14 +109,12 @@ class SolicitudesEnviadasController extends Controller {
         $solicitudEnviada = SolicitudesEnviadas::find($id);
         $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
         $comunidades = Comunidades::getComunidadesList(0, false, "", false);
-        $cursillos = Cursillos::getTodosMisCursillosLista(array_keys($comunidadesPropias)[0], true);
 
         //Vista
         return view('solicitudesEnviadas.modificar',
             compact(
                 'solicitudEnviada',
                 'comunidades',
-                'cursillos',
                 'titulo'
             ));
 	}
@@ -133,7 +130,6 @@ class SolicitudesEnviadasController extends Controller {
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = SolicitudesEnviadas::find($id);
         $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
-        $solicitudEnviada->cursillo_id = \Request::input('cursillo_id');
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 
@@ -183,5 +179,18 @@ class SolicitudesEnviadasController extends Controller {
         return redirect()->route('solicitudesEnviadas.index')
             ->with('mensaje', 'La solicitud ha sido eliminada correctamente.');
 	}
+
+    public function getCursillosSolicitudEnviada(Request $request)
+    {
+
+        $titulo="Listado de Cursillos";
+        $comunidadId=$request->comunidad_id;
+        $solicitudId=$request->solicitud_id;
+        $comunidad=Comunidades::getNombreComunidad($comunidadId);
+
+        $solicitudesEnviadasCursillos= SolicitudesEnviadasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
+
+        return view("solicitudesEnviadas.verCursillos", compact('solicitudesEnviadasCursillos', 'titulo', 'comunidad', 'solicitudId'));
+    }
 
 }

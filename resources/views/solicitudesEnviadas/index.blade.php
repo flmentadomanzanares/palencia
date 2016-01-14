@@ -16,7 +16,7 @@
                         <table class="table-viaoptima table-striped">
                             <caption
                                     class="@if(!$solicitudEnviada->activo) foreground-disabled @endif">
-                                {!! $solicitudEnviada->cursillo !!}
+                                {!! $solicitudEnviada->comunidad !!}
                             </caption>
                             <thead>
                             <tr @if(!$solicitudEnviada->activo) class="background-disabled" @endif>
@@ -27,6 +27,15 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
+                                    {!! FORM::open(array('route' => 'cursillosSolicitudEnviada','method' => 'POST','title'=>'Mostrar Cursillos')) !!}
+                                    {!! FORM::hidden('comunidad_id', $solicitudEnviada->comunidad_id) !!}
+                                    {!! FORM::hidden('solicitud_id', $solicitudEnviada->id) !!}
+                                    <button type="submit">
+                                        <i class='glyphicon glyphicon-education full-Width'>
+                                            <div>Cursillos</div>
+                                        </i>
+                                    </button>
+                                    {!! FORM::close() !!}
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                     {!! FORM::open(array('route' => array('solicitudesEnviadas.destroy',
                                     $solicitudEnviada->id),'method' => 'DELETE','title'=>'Borrar')) !!}
@@ -42,16 +51,12 @@
                             </thead>
                             <tbody @if(!$solicitudEnviada->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Comunidad:</td>
-                                <td>{!!$solicitudEnviada->comunidad!!}</td>
+                                <td class="table-autenticado-columna-1">Fecha de Envio:</td>
+                                <td>{!! Date("d/m/Y - H:i:s" , strtotime($solicitudEnviada->created_at) )!!}</td>
                             </tr>
                             <tr>
-                                <td>Año Cursillo:</td>
-                                <td>{!! Date("Y" , strtotime($solicitudEnviada->fecha_inicio) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Semana Cursillo:</td>
-                                <td>{!! Date("W" , strtotime($solicitudEnviada->fecha_inicio) )!!}</td>
+                                <td>Aceptada:</td>
+                                <td> @if ($solicitudEnviada->aceptada ) Si @else No @endif </td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>
@@ -70,7 +75,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $solicitudesEnviadas->appends(Request::only(['semanas','anyos','cursillo']))->render()
+                {!! $solicitudesEnviadas->appends(Request::only(['comunidades']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

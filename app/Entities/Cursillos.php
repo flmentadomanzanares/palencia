@@ -211,7 +211,7 @@ class Cursillos extends Model
      */
     public function solicitudes_enviadas()
     {
-        return $this->hasMany("Palencia\Entities\SolicitudesEnviadas");
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
     }
 
     /**
@@ -219,7 +219,7 @@ class Cursillos extends Model
      */
     public function solicitudes_recibidas()
     {
-        return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
     }
 
     public function scopeComunidadCursillosTipo($query, $tipo = 0)
