@@ -22,9 +22,6 @@ class CreateSolicitudesEnviadasCursillosTable extends Migration {
             $table->bigInteger('cursillo_id')->unsigned();
             $table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 
-            $table->bigInteger('comunidad_id')->unsigned();
-            $table->foreign('comunidad_id')->references('id')->on('comunidades')->onUpdate("cascade");
-
             $table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
