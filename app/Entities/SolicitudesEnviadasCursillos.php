@@ -73,7 +73,7 @@ class SolicitudesEnviadasCursillos extends Model {
     {
 
         return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')

@@ -5,7 +5,8 @@ use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\Paises;
 use Palencia\Entities\SolicitudesEnviadas;
-use Palencia\Entities\SolicitudesRecibidas;
+use Palencia\Entities\SolicitudesEnviadasCursillos;
+use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
 
 
@@ -23,7 +24,7 @@ class PdfController extends Controller
     {
         $titulo = "Cursillos en el Mundo";
 
-        $anyos = SolicitudesRecibidas::getAnyoSolicitudesRecibidasList();
+        $anyos = SolicitudesRecibidasCursillos::getAnyoSolicitudesRecibidasList();
         $semanas = Array();
 
         return view("pdf.listarCursillos",
@@ -50,7 +51,7 @@ class PdfController extends Controller
         $semana = \Request::input('semana');
         $date = date('d-m-Y');
         $fichero = 'cursillosMundo' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $cursillos = SolicitudesRecibidas::imprimirCursillosPorPaises($anyo, $semana);
+        $cursillos = SolicitudesRecibidasCursillos::imprimirCursillosPorPaises($anyo, $semana);
 
 
         //Configuración del listado html
@@ -94,7 +95,7 @@ class PdfController extends Controller
     public function getComunidades()
     {
         $titulo = "Intendencia para Clausura";
-        $solicitudEnviada = new SolicitudesEnviadas();
+        $solicitudEnviada = new SolicitudesEnviadasCursillos();
         $cursillos = new Cursillos();
         $cursillos->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillos->fecha_final = $this->ponerFecha(date("d-m-Y"));
@@ -126,7 +127,7 @@ class PdfController extends Controller
         $fecha_final = $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
         $date = date('d-m-Y');
         $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $comunidades = SolicitudesEnviadas::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
+        $comunidades = SolicitudesEnviadasCursillos::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
 
         //Configuración del listado html
         $listadoPosicionInicial = 6;
@@ -183,8 +184,8 @@ class PdfController extends Controller
         $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
         $date = date('d-m-Y');
         $fichero = 'secretariado' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesComunidad($idComunidad);
-        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesComunidad($idComunidad);
+        $solicitudesRecibidas = SolicitudesRecibidasCursillos::getSolicitudesComunidad($idComunidad);
+        $solicitudesEnviadas = SolicitudesEnviadasCursillos::getSolicitudesComunidad($idComunidad);
 
         //Configuración del listado html
         $listadoPosicionInicial = 8;
@@ -356,11 +357,11 @@ class PdfController extends Controller
 
     }
 
-    public function semanasSolicitudesRecibidas(Request $request)
+    public function semanasSolicitudesRecibidasCursillos(Request $request)
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
-            return SolicitudesRecibidas::getSemanasSolicitudesRecibidas($anyo);
+            return SolicitudesRecibidasCursillos::getSemanasSolicitudesRecibidas($anyo);
         }
     }
 
