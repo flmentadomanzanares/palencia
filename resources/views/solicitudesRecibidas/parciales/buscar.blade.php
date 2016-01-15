@@ -5,11 +5,11 @@
             <div>Inicio</div>
         </i>
     </a>
-    <a title="nuevo" href="{{route('solicitudesRecibidas.create')}}" class="pull-left">
+    {{--<a title="nuevo" href="{{route('solicitudesRecibidas.create')}}" class="pull-left">
         <i class="glyphicon glyphicon-plus">
             <div>Nuevo</div>
         </i>
-    </a>
+    </a>--}}
     <a title="Listar" href="{{route('solicitudesRecibidas.index')}}" class="pull-left">
         <i class="glyphicon glyphicon-list">
             <div>Listar</div>

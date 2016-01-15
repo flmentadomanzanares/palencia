@@ -37,14 +37,14 @@
                                     </button>
                                     {!! FORM::close() !!}
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    {!! FORM::open(array('route' => array('solicitudesEnviadas.destroy',
+                                    {{--{!! FORM::open(array('route' => array('solicitudesEnviadas.destroy',
                                     $solicitudEnviada->id),'method' => 'DELETE','title'=>'Borrar')) !!}
                                     <button type="submit">
                                         <i class='glyphicon glyphicon-trash full-Width'>
                                             <div>Borrar</div>
                                         </i>
                                     </button>
-                                    {!! FORM::close() !!}
+                                    {!! FORM::close() !!}--}}
                                     @endif
                                 </th>
                             </tr>
