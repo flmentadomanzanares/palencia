@@ -234,7 +234,22 @@ class Comunidades extends Model
         return $this->hasMany("Palencia\Entities\SolicitudesRecibidas");
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_enviadas_cursillos()
+     {
 
+         return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
+     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function solicitudes_recibidas_cursillos()
+     {
+            return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
+     }
 
     public function scopeComunidades($query, $comunidad = null)
     {

@@ -108,7 +108,8 @@ class SolicitudesEnviadas extends Model {
 
          return SolicitudesEnviadas::distinct()->Select('paises.pais', 'comunidades.comunidad')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('solicitudes_enviadas.aceptada', true)
             ->where('solicitudes_enviadas.activo', true)
@@ -127,7 +128,7 @@ class SolicitudesEnviadas extends Model {
 
         return SolicitudesEnviadas::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->where('solicitudes_enviadas.aceptada', true)
             ->where('solicitudes_enviadas.activo', true)
             ->where('comunidades.id', '=', $comunidadId)

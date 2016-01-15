@@ -19,6 +19,10 @@ class CreateSolicitudesRecibidasCursillosTable extends Migration {
             $table->bigInteger('solicitud_id')->unsigned();
             $table->foreign('solicitud_id')->references('id')->on('solicitudes_recibidas')->onUpdate("cascade");
 
+
+            $table->bigInteger('comunidad_id')->unsigned();
+            $table->foreign('comunidad_id')->references('comunidad_id')->on('solicitudes_recibidas')->onUpdate("cascade");
+
             $table->bigInteger('cursillo_id')->unsigned();
             $table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 

@@ -25,6 +25,18 @@ class SolicitudesRecibidasCursillos extends Model {
 
     /*****************************************************************************************************************
      *
+     * Relacion many to one: comunidad_id --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function comunidades()
+    {
+        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
+    }
+
+    /*****************************************************************************************************************
+     *
      * Relacion many to one: cursillo_id --> cursillos
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -62,10 +74,11 @@ class SolicitudesRecibidasCursillos extends Model {
     {
 
         return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
+            ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-            ->where('solicitudes_recibidas_cursillos.aceptada', true)
+            ->where('solicitudes_recibidas.aceptada', true)
             ->where('cursillos.activo', true)
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), '=', $semana)

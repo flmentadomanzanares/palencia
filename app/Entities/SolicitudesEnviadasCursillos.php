@@ -23,6 +23,18 @@ class SolicitudesEnviadasCursillos extends Model {
 
     /*****************************************************************************************************************
      *
+     * Relacion many to one: comunidad_id --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function comunidades()
+    {
+        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
+    }
+
+    /*****************************************************************************************************************
+     *
      * Relacion many to one: cursillo_id --> cursillos
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -61,7 +73,7 @@ class SolicitudesEnviadasCursillos extends Model {
     {
 
         return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
