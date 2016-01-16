@@ -8,7 +8,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'totalAnyosRespuesta',
+            url: 'totalAnyosRespuestas',
             success: function (data) {
                 var anyos = $('#select_anyos');
                 anyos.empty();
@@ -65,17 +65,17 @@ $(document).ready(function () {
                 'comunidadPropia': comunidadPropia,
                 'comunidadNoPropia': comunidadNoPropia,
                 '_token': $('input[name="_token"]').val()
-
             },
             dataType: "json",
             type: 'post',
-            url: 'semanasTotalesResultadoSolicitud',
+            url: 'fechasInicioCursosResultado',
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
-                semanas.append("<option value='0'>Semana...</option>");
+                semanas.append("<option value='0'>Fecha Inicio...</option>");
                 $.each(data, function (key, element) {
-                    semanas.append("<option value='" + element.semanas + "'>" + element.semanas + "</option>");
+                    var fecha = formatoFecha(new Date(element.fecha_inicio));
+                    semanas.append("<option value='" + element.id + "'>" + fecha + " [" + element.anyo + "-Sem:" + element.semana + "]</option>");
                 });
                 if ($('#listado_cursillos').length == 0)
                     return;
@@ -85,6 +85,11 @@ $(document).ready(function () {
             }
         });
     };
+
+    function formatoFecha(date) {
+        var fecha = date.toLocaleString().split("/");
+        return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
+    }
     $(document).on("change", "#select_comunidad_propia", function (evt) {
         evt.preventDefault();
         $("#select_comunidad_no_propia").trigger("change");

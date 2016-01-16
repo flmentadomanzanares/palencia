@@ -21,11 +21,11 @@ $(document).ready(function () {
         });
     };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
-    var totalCursillos = function (comunidad, year, semana) {
+    var totalCursillos = function (comunidad, year, cursillo) {
         $.ajax({
             data: {
                 'anyo': year,
-                'semana': semana,
+                'cursillo': cursillo,
                 'comunidad': comunidad,
                 '_token': $('input[name="_token"]').val()
             },
@@ -35,7 +35,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('#listado_cursillos').empty();
                 $.each(data, function (key, element) {
-                    var fecha = new Date(element.fecha_inicio);
+                    var fecha = formatoFecha(new Date(element.fecha_inicio));
                     var html = "<table class='table-viaoptima table-striped'><thead>" +
                         "<tr style='Background: " + element.color + ";'>" +
                         "<th colspan='2' class='text-center'>" + element.comunidad + "</th>" +
@@ -44,7 +44,7 @@ $(document).ready(function () {
                         "<tbody>" +
                         "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
                         "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
-                        "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
+                        "<tr>" + "<td>Inicio</td><td>" + fecha + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
                         "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
                         "</tbody>" +
                         "</table>";
@@ -65,13 +65,14 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'semanasTotales',
+            url: 'fechasInicioCursosSolicitud',
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
-                semanas.append("<option value='0'>Semana...</option>");
+                semanas.append("<option value='0'>Fecha Inicio...</option>");
                 $.each(data, function (key, element) {
-                    semanas.append("<option value='" + element.semanas + "'>" + element.semanas + "</option>");
+                    var fecha = formatoFecha(new Date(element.fecha_inicio));
+                    semanas.append("<option value='" + element.id + "'>" + fecha + " [" + element.anyo + "-Sem:" + element.semana + "]</option>");
                 });
                 if ($('#listado_cursillos').length == 0)
                     return;
@@ -81,6 +82,11 @@ $(document).ready(function () {
             }
         });
     };
+
+    function formatoFecha(date) {
+        var fecha = date.toLocaleString().split("/");
+        return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
+    }
     $(document).on("change", "#select_comunidad", function (evt) {
         evt.preventDefault();
         totalAnyos($(this).val());

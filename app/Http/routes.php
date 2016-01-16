@@ -53,13 +53,16 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('totalAnyos', array('as' => 'totalAnyos', 'uses' => 'CursillosController@totalAnyos'));
 
     //Cálculo del total de años de los cursos de un conjunto de comunidades vía Ajax
-    Route::post('totalAnyosRespuesta', array('as' => 'totalAnyosRespuesta', 'uses' => 'CursillosController@totalAnyosRespuesta'));
+    Route::post('totalAnyosRespuestas', array('as' => 'totalAnyosRespuestas', 'uses' => 'CursillosController@totalAnyosRespuestas'));
 
 //Cálculo del total de semanas por año vía Ajax
     Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
 
+    //Cálculo del total de semanas por año vía Ajax
+    Route::post('fechasInicioCursosResultado', array('as' => 'fechasInicioCursosResultado', 'uses' => 'CursillosController@fechasInicioCursosResultado'));
+
 //Cálculo del total de semanas para nuestras respuestas u nuestras solicitudes por año vía Ajax
-    Route::post('semanasTotalesResultadoSolicitud', array('as' => 'semanasTotalesResultadoSolicitud', 'uses' => 'CursillosController@semanasTotalesResultadoSolicitud'));
+    Route::post('fechasInicioCursosSolicitud', array('as' => 'fechasInicioCursosSolicitud', 'uses' => 'CursillosController@fechasInicioCursosSolicitud'));
 
 //Obtener relación de cursos vía Ajax (ModoTabla)
     Route::post('listadoCursillosSolicitudes', array('as' => 'listadoCursillosSolicitudes', 'uses' => 'CursillosController@listadoCursillosSolicitudes'));

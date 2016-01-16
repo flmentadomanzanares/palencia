@@ -64,19 +64,29 @@
                                 <td>Año ISO-8601:</td>
                                 <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
                             </tr>
-                             <tr>
-                                 <td>Semana ISO-8601:</td>
+                            <tr>
+                                <td>Semana ISO-8601:</td>
                                 <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
                             </tr>
                             <tr>
                                 <td>Asistentes:</td>
                                 <td>{!!$cursillo->tipo_participante!!}</td>
                             </tr>
+                            @if($cursillo->esPropia)
+                                <tr>
+                                    <td>Es Solicitud:</td>
+                                    <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td>Es Respuesta:</td>
+                                    <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td>Activo:</td>
                                 <td> @if ($cursillo->activo ) Si @else No @endif </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>

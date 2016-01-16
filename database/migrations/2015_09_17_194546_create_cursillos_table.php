@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCursillosTable extends Migration {
 
@@ -31,6 +31,10 @@ class CreateCursillosTable extends Migration {
 
             $table->bigInteger('tipo_participante_id')->unsigned();
             $table->foreign('tipo_participante_id')->references('id')->on('tipos_participantes')->onUpdate("cascade");
+
+            $table->boolean('esRespuestas')->default(false);
+
+            $table->boolean('esSolicitud')->default(false);
 
             $table->boolean('activo')->default(true);
 
