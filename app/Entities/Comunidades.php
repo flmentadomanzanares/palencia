@@ -75,10 +75,19 @@ class Comunidades extends Model
             ->first();
     }
 
+    static public function getComunidadConCursilloId($id = null)
+    {
+        if (!is_numeric($id))
+            return null;
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia')
+            ->leftJoin('cursillos', 'comunidades.id', '=', 'cursillos.comunidad_id')
+            ->where('cursillos.id', $id)
+            ->get();
+    }
+
     public static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
         $placeHolder = ['0' => $placeHolder];
-
         if (!$excluirSinCursillos) {
             $sql = Comunidades::Select('id', 'comunidad')
                 ->where('activo', true)

@@ -133,8 +133,14 @@ class CursillosController extends Controller
         //Título Vista
         $titulo = "Modificar Cursillo";
         $cursillo = Cursillos::find($id);
+        if ($cursillo == null)
+            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
-        $comunidades = Comunidades::getComunidadesList();
+        //Si incluimos las comunidades
+        //$comunidades = Comunidades::getComunidadesList();
+        //$comunidades = Comunidades::getComunidadConCursilloId($id);
+        //$comunidades=[$comunidades[0]->id=>$comunidades[0]->comunidad];
+
         //Vista
         return view('cursillos.modificar',
             compact(
@@ -155,12 +161,14 @@ class CursillosController extends Controller
     {
         //Creamos una nueva instancia al modelo.
         $cursillo = Cursillos::find($id);
+        if ($cursillo == null)
+            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
         $cursillo->cursillo = \Request::input('cursillo');
         $cursillo->num_cursillo = \Request::input('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
         $cursillo->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
         $cursillo->descripcion = \Request::input('descripcion');
-        $cursillo->comunidad_id = \Request::input('comunidad_id');
+        //$cursillo->comunidad_id = \Request::input('comunidad_id');
         $cursillo->tipo_participante_id = \Request::input('tipo_participante_id');
         $cursillo->esSolicitud = \Request::input('esSolicitud');
         $cursillo->esRespuesta = \Request::input('esRespuesta');
@@ -197,6 +205,8 @@ class CursillosController extends Controller
     public function destroy($id)
     {
         $cursillo = Cursillos::find($id);
+        if ($cursillo == null)
+            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
         try {
             $cursillo->delete();
         } catch (\Exception $e) {
