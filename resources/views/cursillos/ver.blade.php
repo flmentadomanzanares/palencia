@@ -7,7 +7,8 @@
     <div class="hidden table-size-optima altoMaximo">
         <table class="table-viaoptima table-striped">
             <thead>
-            <tr style="@if($cursillo->activo==0)background: red !important; @endif">
+            <tr @if(!$cursillo->activo) class="background-disabled"
+                @else style="background-color:{{$cursillo->color}};" @endif>
                 <th colspan="2" class="text-center">
                     {!! $cursillo->cursillo !!}
                 </th>
@@ -50,11 +51,22 @@
                 <td>Asistentes:</td>
                 <td>{!!$cursillo->tipo_participante!!}</td>
             </tr>
-            <tr>
-                <td>Activo:</td>
-                <td> @if ($cursillo->activo ) Si @else No @endif </td>
-            </tr>
-
+            @if (Auth::check())
+                @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                    <tr>
+                        <td>Tiene Solicitud:</td>
+                        <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
+                    </tr>
+                    <tr>
+                        <td>Tiene Respuesta:</td>
+                        <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
+                    </tr>
+                    <tr>
+                        <td>Activo:</td>
+                        <td> @if ($cursillo->activo ) Si @else No @endif </td>
+                    </tr>
+                @endif
+            @endif
             </tbody>
         </table>
         <div class="btn-action margin-bottom">

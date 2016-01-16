@@ -27,6 +27,10 @@
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
             <div class="heading-caption">Zona Administrador</div>
+            {!! FORM::label ('esSolicitud', 'Tiene Solicitud') !!} <br/>
+            {!! FORM::select('esSolicitud',array('0'=>'No','1'=>'Si'), $cursillo->esSolicitud,array('class'=>'form-control')) !!}
+            {!! FORM::label ('esRespuesta', 'Tiene Respuesta') !!} <br/>
+            {!! FORM::select('esRespuesta',array('0'=>'No','1'=>'Si'), $cursillo->esRespuesta,array('class'=>'form-control')) !!}
             {!! FORM::label ('estado', 'Activo') !!} <br/>
             {!! FORM::select('activo',array('1'=>'Si','0'=>'No'), $cursillo->activo,array('class'=>'form-control')) !!}
         @endif

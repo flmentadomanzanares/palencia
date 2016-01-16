@@ -71,7 +71,7 @@ class NuestrasRespuestasController extends Controller
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('comunidad_propia'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('comunidad_no_propia'), 0, true);
-        $cursillos = Cursillos::getCursillosPDF($request->get('comunidad_no_propia'), $request->get('anyo'), $request->get('semana'));
+        $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('comunidad_no_propia'), $request->get('anyo'), $request->get('semana'), false);
         //Verificación
         $numeroDestinatarios = count($destinatarios);
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
@@ -133,8 +133,8 @@ class NuestrasRespuestasController extends Controller
                 }
                 $esCarta = false;
                 try {
-                   /* $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
-                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";*/
+                    $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
+                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {

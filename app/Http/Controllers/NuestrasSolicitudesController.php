@@ -72,7 +72,7 @@ class NuestrasSolicitudesController extends Controller
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
-        $cursillos = Cursillos::getCursillosPDF($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
+        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
         $numeroDestinatarios = count($destinatarios);
         //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {

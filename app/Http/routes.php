@@ -62,7 +62,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('fechasInicioCursosResultado', array('as' => 'fechasInicioCursosResultado', 'uses' => 'CursillosController@fechasInicioCursosResultado'));
 
 //Cálculo del total de semanas para nuestras respuestas u nuestras solicitudes por año vía Ajax
-    Route::post('fechasInicioSolicitud', array('as' => 'fechasInicioCursosSolicitud', 'uses' => 'CursillosController@fechasInicioCursosSolicitud'));
+    Route::post('fechasInicioCursosSolicitud', array('as' => 'fechasInicioCursosSolicitud', 'uses' => 'CursillosController@fechasInicioCursosSolicitud'));
 
 //Obtener relación de cursos vía Ajax (ModoTabla)
     Route::post('listadoCursillosSolicitudes', array('as' => 'listadoCursillosSolicitudes', 'uses' => 'CursillosController@listadoCursillosSolicitudes'));
