@@ -69,9 +69,9 @@ class NuestrasRespuestasController extends Controller
     public function enviar(Request $request)
     {
         $tipoEnvio = $request->get("modalidad");
-        $remitente = Comunidades::getComunidad($request->get('comunidad_propia'));
-        $destinatarios = Comunidades::getComunidadPDF($request->get('comunidad_no_propia'), 0, true);
-        $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('comunidad_no_propia'), $request->get('anyo'), $request->get('semana'), false);
+        $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
+        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, true);
+        $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('restoComunidades'), $request->get('anyo'), $request->get('semana'), false);
         //Verificación
         $numeroDestinatarios = count($destinatarios);
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
@@ -150,7 +150,7 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", true] :
                     ["No se pudo enviar la respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", false];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) == 0)) {
-                $logEnvios[] = ["La comunidad destinataria " . $remitente->comunidad . " no dispone de email de respuesta", "", "envelope", false];
+                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de respuesta", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
