@@ -21,7 +21,7 @@ return ['campoUser' => [
                         '4'=>'Administrador',
     ],
     'roles'        => [
-                        'administrador'=> '300',
+        'administrador' => '400',
     ],
 ];
 ?>
