@@ -258,8 +258,8 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $cursillo = $request->get('cursillo');
-            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $cursillo);
+            $esSolicitudAmterior = $request->get('esSolicitudAmterior');
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $esSolicitudAmterior);
         }
     }
 

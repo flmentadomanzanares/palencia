@@ -14,19 +14,20 @@ $(document).ready(function () {
                 $.each(data, function (key, element) {
                     anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
-                totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
+                totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
             },
             error: function () {
             }
         });
     };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
-    var totalCursillos = function (comunidad, year, cursillo) {
+    var totalCursillos = function (comunidad, year, esSolicitudAmterior) {
+        console.log(esSolicitudAmterior);
         $.ajax({
             data: {
-                'anyo': year,
-                'cursillo': cursillo,
                 'comunidad': comunidad,
+                'anyo': year,
+                'esSolicitudAmterior': esSolicitudAmterior,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -55,51 +56,19 @@ $(document).ready(function () {
             }
         });
     };
-    //Ajax para calcular el número de semanas según el año
-    var totalSemanas = function (year, comunidad) {
-        $.ajax({
-            data: {
-                'anyo': year,
-                'comunidad': comunidad,
-                '_token': $('input[name="_token"]').val()
-            },
-            dataType: "json",
-            type: 'post',
-            url: 'fechasInicioCursosSolicitud',
-            success: function (data) {
-                var semanas = $('#select_semanas');
-                semanas.empty();
-                semanas.append("<option value='0'>Fecha Inicio...</option>");
-                $.each(data, function (key, element) {
-                    var fecha = formatoFecha(new Date(element.fecha_inicio));
-                    semanas.append("<option value='" + element.id + "'>" + fecha + " [" + element.anyo + "-Sem:" + element.semana + "]</option>");
-                });
-                if ($('#listado_cursillos').length == 0)
-                    return;
-                totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0);
-            },
-            error: function () {
-            }
-        });
-    };
 
     function formatoFecha(date) {
         var fecha = date.toLocaleString().split("/");
         return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
     }
+
     $(document).on("change", "#select_comunidad", function (evt) {
         evt.preventDefault();
         totalAnyos($(this).val());
     });
-    $(document).on("change", "#select_anyos", function (evt) {
+    $(document).on("change", "#select_anyos, #select_boolean", function (evt) {
         evt.preventDefault();
-        totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
-    });
-    $(document).on("change", "#select_semanas", function (evt) {
-        evt.preventDefault();
-        if ($('#listado_cursillos').length == 0)
-            return;
-        totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
+        totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
     });
     totalAnyos($("#select_comunidad").val());
 });

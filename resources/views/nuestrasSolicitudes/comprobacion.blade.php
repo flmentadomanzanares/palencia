@@ -38,7 +38,7 @@
             {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
             {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
             {!! FORM::hidden('anyo', $anyos)!!}
-            {!! FORM::hidden('semana', $semanas)!!}
+            {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
             {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
             <button type="submit" title="Enviar" class="pull-right">
                 <i class='glyphicon glyphicon-envelope full-Width'>

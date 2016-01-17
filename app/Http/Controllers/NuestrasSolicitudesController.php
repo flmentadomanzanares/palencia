@@ -50,7 +50,7 @@ class NuestrasSolicitudesController extends Controller
                 $tipos_comunicaciones_preferidas = $request->get('modalidad');
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
-                $semanas = $request->get('semana');
+                $incluirSolicitudesAnteriores = $request->get('incluirSolicitudesAnteriores');
                 $restoComunidades = $request->get('restoComunidades');
                 $titulo = "Comunidades sin email de solicitud";
                 return view('nuestrasSolicitudes.comprobacion',
@@ -59,7 +59,7 @@ class NuestrasSolicitudesController extends Controller
                         'tipos_comunicaciones_preferidas',
                         'nuestrasComunidades',
                         'anyos',
-                        'semanas',
+                        'incluirSolicitudesAnteriores',
                         'restoComunidades'
                     ));
             }
@@ -72,8 +72,13 @@ class NuestrasSolicitudesController extends Controller
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
-        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('semana'));
+        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('incluirSolicitudesAnteriores'));
         $numeroDestinatarios = count($destinatarios);
+        //Flag usado para realizar la operación de actualizado de los cursos que requieren de solicitud.
+        $actualizarCursillos = false;
+        //Flag usado en el log.
+        $ActualizarCursillosLog = false;
+
         //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
@@ -99,6 +104,20 @@ class NuestrasSolicitudesController extends Controller
 
         //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
         ini_set("max_execution_time", 6000);
+
+        //Obtenemos Los cursos relacionados con la comunidad y creamos la línea de impresión para enviarla al template en memoria
+        $cursos = [];
+        $cursosActualizados = [];
+        $contadorCursosActualizados = 0;
+        foreach ($cursillos as $idx => $cursillo) {
+            if ($cursillo->comunidad_id == $remitente->id) {
+                $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
+                if (!$cursillo->esSolicitud) {
+                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud", $cursillo->num_cursillo, $remitente->comunidad);
+                    $contadorCursosActualizados += 1;
+                }
+            }
+        }
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $separatorPath = "/";
@@ -106,14 +125,7 @@ class NuestrasSolicitudesController extends Controller
             $archivo = $path . $separatorPath . "NS-" . date("d_m_Y", strtotime('now')) . '-' . $destinatario->pais . '-' . $destinatario->comunidad . '-' . ($request->get('anyo') > 0 ? $request->get('anyo') : 'TotalCursos') . '.pdf';
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
-            $cursos = [];
             $esCarta = true;
-            //Obtenemos Los cursos relacionados con la comunidad y creamos la línea de impresión para enviarla al template en memoria
-            foreach ($cursillos as $idx => $cursillo) {
-                if ($cursillo->comunidad_id == $remitente->id) {
-                    $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
-                }
-            }
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 //Nombre del archivo a adjuntar
@@ -146,6 +158,7 @@ class NuestrasSolicitudesController extends Controller
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
                     $destinatariosConEmail += 1;
+                    $actualizarCursillos = true;
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
@@ -163,6 +176,7 @@ class NuestrasSolicitudesController extends Controller
                     $multiplesPdfContain .= $view;
                     $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
                     $destinatariosConCarta += 1;
+                    $actualizarCursillos = true;
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }
@@ -185,14 +199,31 @@ class NuestrasSolicitudesController extends Controller
             if ($destinatariosConCarta > 0) {
                 $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "ok", true];
             }
+            //Cambiamos de estado las solicitudes que no están como esSolicitud
+            if ($actualizarCursillos) {
+                if (Cursillos::setCursillosEsSolicitud($remitente->id, $cursillos) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
+                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad . " ha"
+                        . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Solicitud.", "", "thumbs-up", true];
+                    $ActualizarCursillosLog = true;
+                } elseif ($contadorCursosActualizados > 0) {
+                    $logEnvios[] = [count($cursosActualizados) . " Cursos de la comunidad " . $remitente->comunidad . " no se ha" . ($contadorCursosActualizados > 1 ? "n" : "") .
+                        " podido actualizar como Solicitud.", "", "thumbs-down", false];
+                }
+            }
+
             //Creamos el Log
             $logArchivo = array();
             $logArchivo[] = date('d/m/Y H:i:s') . "\n";
             foreach ($logEnvios as $log) {
                 $logArchivo[] = $log[0] . "\n";
             }
+            if ($ActualizarCursillosLog) {
+                foreach ($cursosActualizados as $log) {
+                    $logArchivo[] = $log[0] . "\n";
+                }
+            }
             //Guardamos a archivo
-            file_put_contents('log/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
+            file_put_contents('logs/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
