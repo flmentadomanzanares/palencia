@@ -89,7 +89,7 @@ class SolicitudesRecibidas extends Model
     static public function getAnyoSolicitudesRecibidasList($conPlaceHolder = true, $placeHolder = "Año...")
     {
         $placeHolder = ['0' => $placeHolder];
-        $sql = SolicitudesRecibidas::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
+        $sql = SolicitudesRecibidasCursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
             ->groupBy('Anyos')
             ->orderBy('Anyos')

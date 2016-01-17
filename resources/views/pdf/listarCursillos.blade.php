@@ -36,5 +36,5 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/semanasSolicitudesRecibidas.js') !!}
+    {!! HTML::script('js/comun/semanasSolicitudesRecibidasCursillos.js') !!}
 @endsection

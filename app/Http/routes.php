@@ -79,6 +79,9 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 
 //Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
     Route::post('semanasSolicitudesRecibidas', array('as' => 'semanasSolicitudesRecibidas', 'uses' => 'PdfController@semanasSolicitudesRecibidas'));
+
+//Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
+    Route::post('semanasSolicitudesRecibidasCursillos', array('as' => 'semanasSolicitudesRecibidasCursillos', 'uses' => 'PdfController@semanasSolicitudesRecibidasCursillos'));
 //Listados PDF
 // Listado Cursillos en el mundo
     Route::get('cursillosPaises', 'PdfController@getCursillos');

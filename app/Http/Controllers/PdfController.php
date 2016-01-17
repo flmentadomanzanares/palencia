@@ -5,6 +5,7 @@ use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\Paises;
 use Palencia\Entities\SolicitudesEnviadas;
+use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
@@ -70,15 +71,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirCursillos',
                 compact('cursillos',
-                        'anyo',
-                        'semana',
-                        'date',
-                        'titulo',
-                        'listadoPosicionInicial',
-                        'listadoTotal',
-                        'listadoTotalRestoPagina',
-                        'separacionLinea'
-                        ))
+                    'anyo',
+                    'semana',
+                    'date',
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'listadoTotalRestoPagina',
+                    'separacionLinea'
+                ))
                 ->download($fichero . '.pdf');
         }
 
