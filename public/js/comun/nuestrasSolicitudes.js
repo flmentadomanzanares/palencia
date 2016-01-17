@@ -70,5 +70,5 @@ $(document).ready(function () {
         evt.preventDefault();
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
     });
-    totalAnyos($("#select_comunidad").val());
+    $("#select_comunidad").trigger('change');
 });

@@ -21,8 +21,8 @@ class NuestrasSolicitudesController extends Controller
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", false);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
-        $anyos = Array();
-        $semanas = Array();
+        $modalidad = $request->get("modalidad");
+        $anyos = array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',
             compact(
@@ -30,7 +30,7 @@ class NuestrasSolicitudesController extends Controller
                 'restoComunidades',
                 'cursillos',
                 'anyos',
-                'semanas',
+                'modalidad',
                 'tipos_comunicaciones_preferidas',
                 'titulo'));
     }
@@ -118,6 +118,7 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
         }
+        dd($cursosActualizados);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $separatorPath = "/";

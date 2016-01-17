@@ -8,7 +8,7 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades','cursillo','semanas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
+                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','cursillo','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
                 <div class="heading-caption">Modalidad envío</div>
                 {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
                 <br/>
