@@ -118,7 +118,6 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
         }
-        dd($cursosActualizados);
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta Linux
             $separatorPath = "/";
@@ -220,7 +219,7 @@ class NuestrasSolicitudesController extends Controller
             }
             if ($ActualizarCursillosLog) {
                 foreach ($cursosActualizados as $log) {
-                    $logArchivo[] = $log[0] . "\n";
+                    $logArchivo[] = $log . "\n";
                 }
             }
             //Guardamos a archivo
