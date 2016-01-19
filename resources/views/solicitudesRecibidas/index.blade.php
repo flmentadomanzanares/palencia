@@ -75,7 +75,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $solicitudesRecibidas->appends(Request::only(['comunidades']))->render()
+                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

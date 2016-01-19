@@ -35,6 +35,7 @@ class SolicitudesRecibidas extends Model
         return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad','solicitudes_recibidas.aceptada',
             'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+            ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
             ->orderBy('solicitudes_recibidas.id', 'ASC')
             ->paginate(5)
@@ -166,6 +167,14 @@ class SolicitudesRecibidas extends Model
     {
         if (is_numeric($cursilloId) && $cursilloId > 0) {
             $query->where('solicitudes_recibidas.cursillo_id', $cursilloId);
+        }
+        return $query;
+    }
+
+    public function scopeAceptada($query, $aceptada = null)
+    {
+        if (is_numeric($aceptada)) {
+            $query->where('solicitudes_recibidas.aceptada', $aceptada == 1 ? true : false);
         }
         return $query;
     }

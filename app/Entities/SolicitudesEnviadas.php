@@ -33,6 +33,13 @@ class SolicitudesEnviadas extends Model {
         return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
     }
 
+    public function scopeAceptada($query, $aceptada = null)
+    {
+        if (is_numeric($aceptada)) {
+            $query->where('solicitudes_enviadas.aceptada', $aceptada == 1 ? true : false);
+        }
+        return $query;
+    }
 
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
@@ -96,6 +103,7 @@ class SolicitudesEnviadas extends Model {
         return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','solicitudes_enviadas.aceptada',
             'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
             ->orderBy('solicitudes_enviadas.id', 'ASC')
             ->paginate(5)

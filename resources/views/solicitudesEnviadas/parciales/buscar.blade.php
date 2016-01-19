@@ -20,6 +20,8 @@
     {!!FORM::model(Request::only(['comunidades']),['route'=>'solicitudesEnviadas.index','method'=>'GET','class'=>'navbar-form
     navbar-right','role'=>'search']) !!}
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"select-control pull-left"))!!}
+    {!! FORM::select('aceptada', array(''=>'Solicitud Aceptada...','1'=>'Aceptada','0'=>'No Aceptada'),
+    null,array("class"=>"select-control pull-left"))!!}
     <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
     {!! FORM::close() !!}
 </div>
