@@ -74,12 +74,12 @@
                             </tr>
                             @if($cursillo->esPropia)
                                 <tr>
-                                    <td>Es Solicitud:</td>
+                                    <td>Emitida Solicitud:</td>
                                     <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
                                 </tr>
                             @else
                                 <tr>
-                                    <td>Es Respuesta:</td>
+                                    <td>Emitida Respuesta:</td>
                                     <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
                                 </tr>
                             @endif

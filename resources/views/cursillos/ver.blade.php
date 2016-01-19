@@ -54,11 +54,11 @@
             @if (Auth::check())
                 @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                     <tr>
-                        <td>Tiene Solicitud:</td>
+                        <td>Emitida Solicitud:</td>
                         <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
                     </tr>
                     <tr>
-                        <td>Tiene Respuesta:</td>
+                        <td>Emitida Respuesta:</td>
                         <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
                     </tr>
                     <tr>

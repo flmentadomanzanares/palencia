@@ -258,19 +258,18 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $cursillo = $request->get('cursillo');
-            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $cursillo);
+            $esSolicitudAnterior = $request->get('esSolicitudAnterior');
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $esSolicitudAnterior);
         }
     }
 
     public function listadoCursillosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidadPropia = $request->get('comunidadPropia');
             $comunidadNoPropia = $request->get('comunidadNoPropia');
             $anyo = $request->get('anyo');
-            $semana = $request->get('semana');
-            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia, $anyo, $semana);
+            $esRespuestaAnterior = $request->get('esRespuestaAnterior');
+            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia, $anyo, $esRespuestaAnterior);
         }
     }
     public function cursillosTotales(Request $request)

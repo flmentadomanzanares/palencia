@@ -21,9 +21,7 @@
                                 <i class="glyphicon glyphicon-envelope red "></i>
                             </span>
                         </div>
-
                     </td>
-
                 </tr>
             @endforeach
             </tbody>
@@ -34,11 +32,11 @@
                     <div>Volver</div>
                 </i>
             </a>
-            {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades','cursillo','semanas','anyos']),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
+            {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','incluirSolicitudesAnteriores','anyos']),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
             {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
             {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
             {!! FORM::hidden('anyo', $anyos)!!}
-            {!! FORM::hidden('semana', $semanas)!!}
+            {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
             {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
             <button type="submit" title="Enviar" class="pull-right">
                 <i class='glyphicon glyphicon-envelope full-Width'>

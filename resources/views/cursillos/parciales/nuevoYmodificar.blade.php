@@ -36,10 +36,10 @@
             <div class="heading-caption">Zona Administrador</div>
             @if($cursillo->id)
                 @if($cursillo->comunidades->esPropia)
-                    {!! FORM::label ('esSolicitud', 'Tiene Solicitud') !!} <br/>
+                        {!! FORM::label ('esSolicitud', 'Emitida Solicitud') !!} <br/>
                     {!! FORM::select('esSolicitud',array('0'=>'No','1'=>'Si'), $cursillo->esSolicitud,array('class'=>'form-control')) !!}
                 @else
-                    {!! FORM::label ('esRespuesta', 'Tiene Respuesta') !!} <br/>
+                        {!! FORM::label ('esRespuesta', 'Emitida Respuesta') !!} <br/>
                     {!! FORM::select('esRespuesta',array('0'=>'No','1'=>'Si'), $cursillo->esRespuesta,array('class'=>'form-control')) !!}
                 @endif
             @endif

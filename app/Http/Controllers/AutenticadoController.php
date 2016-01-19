@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Controllers;
 
-use MaddHatter\LaravelFullcalendar\Calendar;
-use Palencia\Entities\Cursillos;
 use Illuminate\Http\Request;
+use Palencia\Entities\Cursillos;
 
 class AutenticadoController extends Controller
 {
@@ -54,6 +53,7 @@ class AutenticadoController extends Controller
         //Cargamos los cursillos
         foreach ($cursillos as $cursillo) {
             $event[] = \Calendar::event(
+                $cursillo->comunidad,
                 $cursillo->cursillo, //event title
                 true, //full day event?
                 $cursillo->fecha_inicio, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
