@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    var totalAnyos = function (comunidadId) {
+    var totalAnyos = function (comunidadPropiaId) {
         $.ajax({
             data: {
-                'comunidadId': comunidadId,
+                'comunidadId': comunidadPropiaId,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -20,14 +20,13 @@ $(document).ready(function () {
             }
         });
     };
-    //Ajax para obtener los cursos de la/s comunidad/es anualmente o por semana.
-    var totalCursillos = function (comunidad, year, esSolicitudAmterior) {
-        console.log(esSolicitudAmterior);
+    //Ajax para obtener los cursos de la/s comunidad/es anualmente
+    var totalCursillos = function (comunidadPropiaId, year, esSolicitudAnterior) {
         $.ajax({
             data: {
-                'comunidad': comunidad,
+                'comunidad': comunidadPropiaId,
                 'anyo': year,
-                'esSolicitudAmterior': esSolicitudAmterior,
+                'esSolicitudAmterior': esSolicitudAnterior,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",

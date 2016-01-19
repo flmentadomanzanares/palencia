@@ -52,7 +52,7 @@ class NuestrasSolicitudesController extends Controller
                 $anyos = $request->get('anyo');
                 $incluirSolicitudesAnteriores = $request->get('incluirSolicitudesAnteriores');
                 $restoComunidades = $request->get('restoComunidades');
-                $titulo = "Comunidades sin email de solicitud";
+                $titulo = "Comunidades sin email de envío de solicitud";
                 return view('nuestrasSolicitudes.comprobacion',
                     compact('titulo',
                         'incidencias',
@@ -113,7 +113,7 @@ class NuestrasSolicitudesController extends Controller
             if ($cursillo->comunidad_id == $remitente->id) {
                 $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                 if (!$cursillo->esSolicitud) {
-                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud", $cursillo->num_cursillo, $remitente->comunidad);
+                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud.", $cursillo->num_cursillo, $remitente->comunidad);
                     $contadorCursosActualizados += 1;
                 }
             }
