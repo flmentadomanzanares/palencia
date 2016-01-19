@@ -26,7 +26,7 @@ $(document).ready(function () {
             data: {
                 'comunidad': comunidadPropiaId,
                 'anyo': year,
-                'esSolicitudAmterior': esSolicitudAnterior,
+                'esSolicitudAnterior': esSolicitudAnterior,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -69,5 +69,5 @@ $(document).ready(function () {
         evt.preventDefault();
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
     });
-    $("#select_comunidad").trigger('change');
+    totalAnyos($('#select_comunidad option:selected').val());
 });
