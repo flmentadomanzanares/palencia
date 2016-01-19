@@ -73,8 +73,8 @@ class SolicitudesRecibidasCursillos extends Model {
     static public function imprimirCursillosPorPaises($anyo = 0, $semana = 0)
     {
 
-        return SolicitudesRecibidas::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+        return SolicitudesRecibidasCursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
@@ -101,18 +101,31 @@ class SolicitudesRecibidasCursillos extends Model {
             ->Lists('Anyos', 'Anyos');
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
-    static public function getSemanasSolicitudesRecibidas($anyo = 0)
+    static public function getSemanasSolicitudesRecibidasCursillos($anyo = 0)
     {
         return SolicitudesRecibidasCursillos::Select((DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas')))
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
-            ->where('solicitudes_recibidas_cursillos.aceptada', true)
+            ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
+            ->where('solicitudes_recibidas.aceptada', true)
+            ->where('cursillos.activo', true)
+            ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
+            ->groupBy('semanas')
+            ->orderBy('semanas', 'ASC')
+            ->get();
+
+    }
+
+    static public function getSemanasSolicitudesRecibidas($anyo = 0)
+    {
+        return SolicitudesRecibidas::Select((DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas')))
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
+            ->where('solicitudes_recibidas.aceptada', true)
             ->where('cursillos.activo', true)
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->groupBy('semanas')
             ->orderBy('semanas', 'ASC')
             ->get();
     }
-
     /*****************************************************************************************************************
      *
      * Función que devuelve los datos para el listado "Secretariado"

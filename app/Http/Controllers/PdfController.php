@@ -362,7 +362,7 @@ class PdfController extends Controller
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
-            return SolicitudesRecibidasCursillos::getSemanasSolicitudesRecibidas($anyo);
+            return SolicitudesRecibidasCursillos::getSemanasSolicitudesRecibidasCursillos($anyo);
         }
     }
 

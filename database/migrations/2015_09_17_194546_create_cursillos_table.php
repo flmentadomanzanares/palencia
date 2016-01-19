@@ -32,7 +32,7 @@ class CreateCursillosTable extends Migration {
             $table->bigInteger('tipo_participante_id')->unsigned();
             $table->foreign('tipo_participante_id')->references('id')->on('tipos_participantes')->onUpdate("cascade");
 
-            $table->boolean('esRespuestas')->default(false);
+            $table->boolean('esRespuesta')->default(false);
 
             $table->boolean('esSolicitud')->default(false);
 
