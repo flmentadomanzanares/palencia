@@ -163,10 +163,12 @@ class NuestrasRespuestasController extends Controller
                     $totalContadorCursosActualizados += $contadorCursosActualizados;
                     $actualizarCursillos = true;
                     foreach ($cursosActualizados as $actualizados) {
-
+                        $totalCursosActualizados[] .= $actualizados;
                     }
-                    array_push($totalCursosActualizados, $cursosActualizados);
-                    array_push($totalCursosActualizadosIds, $cursosActualizadosIds);
+                    foreach ($cursosActualizadosIds as $id) {
+                        $totalCursosActualizadosIds[] .= $id;
+                    }
+
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
@@ -186,8 +188,12 @@ class NuestrasRespuestasController extends Controller
                     $destinatariosConCarta += 1;
                     $actualizarCursillos = true;
                     $totalContadorCursosActualizados += $contadorCursosActualizados;
-                    array_push($totalCursosActualizados, $cursosActualizados);
-                    array_push($totalCursosActualizadosIds, $cursosActualizadosIds);
+                    foreach ($cursosActualizados as $actualizados) {
+                        $totalCursosActualizados[] .= $actualizados;
+                    }
+                    foreach ($cursosActualizadosIds as $id) {
+                        $totalCursosActualizadosIds[] .= $id;
+                    }
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
                 }
@@ -211,8 +217,7 @@ class NuestrasRespuestasController extends Controller
             }
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($actualizarCursillos) {
-                dd($totalCursosActualizadosIds);
-                if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds[0]) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
+                if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " ha"
                         . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "thumbs-up", true];
                     $actualizarCursillosLog = true;
@@ -229,7 +234,7 @@ class NuestrasRespuestasController extends Controller
             }
 
             if ($actualizarCursillosLog) {
-                foreach ($cursosActualizados as $log) {
+                foreach ($totalCursosActualizados as $log) {
                     $logArchivo[] = $log . "\n";
                 }
             }
