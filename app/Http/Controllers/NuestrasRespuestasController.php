@@ -168,9 +168,14 @@ class NuestrasRespuestasController extends Controller
                     foreach ($cursosActualizadosIds as $id) {
                         $totalCursosActualizadosIds[] .= $id;
                     }
-
+                    if ($contadorCursosActualizados > 1) {
+                        $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                            . ($contadorCursosActualizados > 1 ? "n" : "") . " preparada" . ($contadorCursosActualizados > 1 ? "s" : "") . " para pasar al estado de Respuesta.", "", "dashboard", true];
+                    }
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
+                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
+                        . ($contadorCursosActualizados > 1 ? "s" : "") . " del cambio de estado a Respuesta" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "dashboard", false];
                     $envio = 0;
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", true] :
@@ -194,8 +199,14 @@ class NuestrasRespuestasController extends Controller
                     foreach ($cursosActualizadosIds as $id) {
                         $totalCursosActualizadosIds[] .= $id;
                     }
+                    if ($contadorCursosActualizados > 1) {
+                        $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                            . ($contadorCursosActualizados > 1 ? "n" : "") . " preparado" . ($contadorCursosActualizados > 1 ? "s" : "") . " para cambiar al estado de Respuesta.", "", "dashboard", true];
+                    }
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
+                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
+                        . ($contadorCursosActualizados > 1 ? "s" : "") . " del cambio de estado a Respuesta" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "dashboard", false];
                 }
             }
         }
@@ -218,11 +229,12 @@ class NuestrasRespuestasController extends Controller
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($actualizarCursillos) {
                 if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
-                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " ha"
-                        . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "thumbs-up", true];
+                    $logEnvios[] = [$totalContadorCursosActualizados . " Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " ha"
+                        . ($totalContadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "thumbs-up", true];
                     $actualizarCursillosLog = true;
-                } elseif ($contadorCursosActualizados > 0) {
-                    $logEnvios[] = [count($cursosActualizados) . " Cursos de la comunidad " . $destinatario->comunidad . " no se ha" . ($contadorCursosActualizados > 1 ? "n" : "") .
+                } elseif ($totalContadorCursosActualizados > 0) {
+                    $logEnvios[] = [$totalContadorCursosActualizados . " Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") .
+                        " no se ha" . ($totalContadorCursosActualizados > 1 ? "n" : "") .
                         " podido actualizar como Respuesta.", "", "thumbs-down", false];
                 }
             }
