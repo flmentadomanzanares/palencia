@@ -119,7 +119,7 @@ class NuestrasRespuestasController extends Controller
                 if ($cursillo->comunidad_id == $destinatario->id) {
                     $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                     if (!$cursillo->esRespuesta) {
-                        $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es respuesta.", $cursillo->num_cursillo, $destinatario->comunidad);
+                        $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursillo->num_cursillo, $destinatario->comunidad);
                         $cursosActualizadosIds[] = $cursillo->id;
                         $totalContadorCursos += 1;
                     }
@@ -168,7 +168,7 @@ class NuestrasRespuestasController extends Controller
                     }
                     if ($contador > 0) {
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
-                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard green"];
+                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning"];
                     }
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
@@ -199,7 +199,7 @@ class NuestrasRespuestasController extends Controller
                     }
                     if ($contador > 0) {
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
-                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard green"];
+                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning"];
                     }
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify red"];
@@ -248,7 +248,7 @@ class NuestrasRespuestasController extends Controller
                 }
             }
             //Guardamos a archivo
-            file_put_contents('logs/NR_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
+            file_put_contents('logs/NR/NR_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
         }
         $titulo = "Operaciones Realizadas";
         return view('nuestrasRespuestas.listadoLog',
