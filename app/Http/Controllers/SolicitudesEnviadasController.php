@@ -33,7 +33,7 @@ class SolicitudesEnviadasController extends Controller {
 	//Título Vista
         $titulo = "Nueva Solicitud Enviada";
         $solicitudEnviada = new SolicitudesEnviadas();
-        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
+       /* $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);*/
         $comunidades = Comunidades::getComunidadesList(0, false, "", false);
 
 
@@ -105,14 +105,12 @@ class SolicitudesEnviadasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Enviada";
         $solicitudEnviada = SolicitudesEnviadas::find($id);
-        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
-        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
-
+        $comunidad=Comunidades::getNombreComunidad($solicitudEnviada->comunidad_id);
         //Vista
         return view('solicitudesEnviadas.modificar',
             compact(
                 'solicitudEnviada',
-                'comunidades',
+                'comunidad',
                 'titulo'
             ));
 	}
@@ -127,7 +125,7 @@ class SolicitudesEnviadasController extends Controller {
 	{
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = SolicitudesEnviadas::find($id);
-        $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
+        /*$solicitudEnviada->comunidad_id = \Request::input('comunidad_id');*/
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 

@@ -104,14 +104,13 @@ class SolicitudesRecibidasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Recibida";
         $solicitudRecibida = SolicitudesRecibidas::find($id);
-        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
-        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
+        $comunidad=Comunidades::getNombreComunidad($solicitudRecibida->comunidad_id);
 
         //Vista
         return view('solicitudesRecibidas.modificar',
             compact(
                 'solicitudRecibida',
-                'comunidades',
+                'comunidad',
                 'titulo'
             ));
     }
@@ -126,7 +125,7 @@ class SolicitudesRecibidasController extends Controller {
     {
         //Creamos una nueva instancia al modelo.
         $solicitudRecibida = SolicitudesRecibidas::find($id);
-        $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
+        /*$solicitudRecibida->comunidad_id = \Request::input('comunidad_id');*/
         $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
 

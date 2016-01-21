@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="heading-caption">Comunidad</div>
     {!! FORM::label ('comunidad', 'Comunidad') !!}
-    {!! FORM::select('comunidad_id', $comunidades, $solicitudRecibida->comunidad_id, array('class'=>'form-control','id'=>'select-comunidades')) !!}
+    {!! FORM::text('comunidad',$comunidad->comunidad, ['class' => 'form-control', 'readonly']) !!}
     <br/>
     {!! FORM::label ('aceptada', 'Aceptada') !!} <br/>
     {!! FORM::select('aceptada',array('1'=>'Si','0'=>'No'), $solicitudRecibida->aceptada,array('class'=>'form-control')) !!}
