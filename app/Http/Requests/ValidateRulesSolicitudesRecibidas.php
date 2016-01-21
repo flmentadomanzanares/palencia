@@ -22,7 +22,6 @@ class ValidateRulesSolicitudesRecibidas extends Request {
     public function rules()
     {
         return [
-            "comunidad_id"    =>    "required",
             "aceptada"    =>    "boolean",
             "activo"    =>    "boolean"
         ];
