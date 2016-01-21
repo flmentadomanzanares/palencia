@@ -27,6 +27,8 @@ $app-color-base: #400090 !default;
 $app-color-hover: #ff7a00 !default;
 $app-color-white: #ffffff !default;
 $app-color-success: #009900 !default;
+$app-color-info: #5bc0de !default;
+$app-color-warning: #f0ad4e !default;
 $app-color-fail: #d9534f !default;
 $app-color-ok: #337ab7 !default;
 $app-color-foreground-disabled: $gray-lighter-medium !default;
@@ -61,6 +63,7 @@ $link-hover-decoration: none !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 //Aplication Font
+$app-font-icon-log: 1.5em;
 $font-family: Arial, sans-serif !default;
 $font-family-plyphicons-regular: "Glyphicons Halflings", Verdana, Arial, sans-serif !default;
 

@@ -7010,6 +7010,20 @@ input[type=file]:hover {
   background-color: #d9534f !important;
 }
 
+.warning {
+  color: #f0ad4e !important;
+  font-size: 1.5em;
+}
+
+.info {
+  color: #5bc0de !important;
+  font-size: 1.5em;
+}
+
+.italica {
+  font-style: italic;
+}
+
 .foreground-disabled {
   color: #cdcdcd !important;
 }

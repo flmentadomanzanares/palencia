@@ -100,7 +100,7 @@ class Comunidades extends Model
                 ->EsPropia($propia)
                 ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
                         FROM cursillos, comunidades
-                        WHERE comunidades.id = cursillos.comunidad_id AND cursillos.esRespuesta = false
+                        WHERE comunidades.id = cursillos.comunidad_id
                         GROUP BY cursillos.comunidad_id
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
                 ->Where('cursillosTotales', '>', 0)

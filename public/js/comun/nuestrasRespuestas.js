@@ -68,5 +68,5 @@ $(document).ready(function () {
         evt.preventDefault();
         totalCursillos($('#select_comunidad_no_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
     });
-    $("#select_comunidad_no_propia").trigger('change');
+    totalAnyos($('#select_comunidad_no_propia option:selected').val());
 });

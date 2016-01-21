@@ -506,7 +506,7 @@ input[type=file]:hover {
 // Color para los checks-ok
 .green {
   color: $app-color-success !important;
-  font-size: 1.5em;
+  font-size: $app-font-icon-log;
 }
 
 .green-bk {
@@ -516,13 +516,26 @@ input[type=file]:hover {
 //Color para los checks-fails
 .red {
   color: $app-color-fail !important;
-  font-size: 1.5em;
+  font-size: $app-font-icon-log;
 }
 
 .red-bk {
   background-color: $app-color-fail !important;
 }
 
+.warning {
+  color: $app-color-warning !important;
+  font-size: $app-font-icon-log;
+}
+
+.info {
+  color: $app-color-info !important;
+  font-size: $app-font-icon-log;
+}
+
+.italica {
+  font-style: italic;
+}
 //Color para los checks-fails
 .foreground-disabled {
   color: $app-color-foreground-disabled !important;
