@@ -89,14 +89,11 @@ class NuestrasRespuestasController extends Controller
         $fecha_emision = date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y');
         //Array contenedor de logs.
         $logEnvios = [];
-        //Flag usado en el log.
-        $actualizarCursillosLog = false;
         //Colección de cursos que van a ser actualizados y sus correspondiente mensajes.
         $totalCursosActualizadosIds = [];
         $totalCursosActualizados = [];
         $totalContadorCursosActualizados = 0;
-        //Flag usado para realizar la operación de actualizado de los cursos que requieren de respuesta.
-        $actualizarCursillos = false;
+        $totalContadorCursos = 0;
         //PDF en múltiples páginas
         $destinatariosConCarta = 0;
         $destinatariosConEmail = 0;
@@ -117,7 +114,6 @@ class NuestrasRespuestasController extends Controller
             $cursos = [];
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
-            $contadorCursosActualizados = 0;
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
                 if ($cursillo->comunidad_id == $destinatario->id) {
@@ -125,7 +121,7 @@ class NuestrasRespuestasController extends Controller
                     if (!$cursillo->esRespuesta) {
                         $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es respuesta.", $cursillo->num_cursillo, $destinatario->comunidad);
                         $cursosActualizadosIds[] = $cursillo->id;
-                        $contadorCursosActualizados += 1;
+                        $totalContadorCursos += 1;
                     }
                 }
             }
@@ -149,6 +145,8 @@ class NuestrasRespuestasController extends Controller
                     $logEnvios[] = ["Error al crear el fichero adjunto para email de " . $destinatario->comunidad, "", false];
                 }
                 $esCarta = false;
+                //Obtenemos el número de cursillos a procesar
+                $contador = count($cursosActualizados);
                 try {
                     $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
                     $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
@@ -160,22 +158,22 @@ class NuestrasRespuestasController extends Controller
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
                     $destinatariosConEmail += 1;
-                    $totalContadorCursosActualizados += $contadorCursosActualizados;
-                    $actualizarCursillos = true;
+
+                    $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
                         $totalCursosActualizados[] .= $actualizados;
                     }
                     foreach ($cursosActualizadosIds as $id) {
                         $totalCursosActualizadosIds[] .= $id;
                     }
-                    if ($contadorCursosActualizados > 1) {
-                        $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
-                            . ($contadorCursosActualizados > 1 ? "n" : "") . " preparada" . ($contadorCursosActualizados > 1 ? "s" : "") . " para pasar al estado de Respuesta.", "", "dashboard", true];
+                    if ($contador > 0) {
+                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard", true];
                     }
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
-                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
-                        . ($contadorCursosActualizados > 1 ? "s" : "") . " del cambio de estado a Respuesta" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "dashboard", false];
+                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
+                        . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard", false];
                     $envio = 0;
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope", true] :
@@ -183,6 +181,7 @@ class NuestrasRespuestasController extends Controller
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de respuesta", "", "envelope", false];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
+                $contador = count($cursosActualizados);
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
@@ -191,22 +190,21 @@ class NuestrasRespuestasController extends Controller
                     $multiplesPdfContain .= $view;
                     $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", true];
                     $destinatariosConCarta += 1;
-                    $actualizarCursillos = true;
-                    $totalContadorCursosActualizados += $contadorCursosActualizados;
+                    $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
                         $totalCursosActualizados[] .= $actualizados;
                     }
                     foreach ($cursosActualizadosIds as $id) {
                         $totalCursosActualizadosIds[] .= $id;
                     }
-                    if ($contadorCursosActualizados > 1) {
-                        $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
-                            . ($contadorCursosActualizados > 1 ? "n" : "") . " preparado" . ($contadorCursosActualizados > 1 ? "s" : "") . " para cambiar al estado de Respuesta.", "", "dashboard", true];
+                    if ($contador > 0) {
+                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard", true];
                     }
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $destinatario->comunidad, "", "align-justify", false];
-                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
-                        . ($contadorCursosActualizados > 1 ? "s" : "") . " del cambio de estado a Respuesta" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "dashboard", false];
+                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
+                        . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard", false];
                 }
             }
         }
@@ -227,11 +225,10 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "ok", true];
             }
             //Cambiamos de estado las respuestas que no están como esRespuesta
-            if ($actualizarCursillos) {
+            if ($totalContadorCursosActualizados > 0) {
                 if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
-                    $logEnvios[] = [$totalContadorCursosActualizados . " Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " ha"
-                        . ($totalContadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " como Respuesta.", "", "thumbs-up", true];
-                    $actualizarCursillosLog = true;
+                    $logEnvios[] = ["[" . $totalContadorCursosActualizados . "/" . $totalContadorCursos . "] Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " ha"
+                        . ($totalContadorCursosActualizados > 1 ? "n" : "") . " cambiado al estado de respuesta realizada.", "", "thumbs-up", true];
                 } elseif ($totalContadorCursosActualizados > 0) {
                     $logEnvios[] = [$totalContadorCursosActualizados . " Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") .
                         " no se ha" . ($totalContadorCursosActualizados > 1 ? "n" : "") .
@@ -245,7 +242,7 @@ class NuestrasRespuestasController extends Controller
                 $logArchivo[] = $log[0] . "\n";
             }
 
-            if ($actualizarCursillosLog) {
+            if ($totalContadorCursosActualizados > 0) {
                 foreach ($totalCursosActualizados as $log) {
                     $logArchivo[] = $log . "\n";
                 }
