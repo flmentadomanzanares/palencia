@@ -19,7 +19,8 @@
                                 {!! $solicitudEnviada->comunidad !!}
                             </caption>
                             <thead>
-                            <tr @if(!$solicitudEnviada->activo) class="background-disabled" @endif>
+                            <tr @if(!$solicitudEnviada->activo) class="background-disabled"
+                                @else style="background-color:{{$solicitudEnviada->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesEnviadas.edit',array('id'=>$solicitudEnviada->id))}}">

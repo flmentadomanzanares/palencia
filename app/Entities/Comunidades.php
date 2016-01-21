@@ -161,7 +161,7 @@ class Comunidades extends Model
         if (!is_numeric($id))
             return null;
         //Obtenemos la comunidad
-        return Comunidades::Select('comunidades.comunidad')
+        return Comunidades::Select('comunidades.comunidad', 'comunidades.color')
             ->where('comunidades.id', $id)
             ->first();
     }

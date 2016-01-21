@@ -11,7 +11,7 @@
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
-                        <tr>
+                        <tr style="background-color:{{$comunidad->color}};">
                             <th colspan="2">
                                 Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
                             </th>

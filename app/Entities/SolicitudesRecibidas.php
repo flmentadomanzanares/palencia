@@ -32,8 +32,8 @@ class SolicitudesRecibidas extends Model
 
     static public function getSolicitudesRecibidas(Request $request)
     {
-        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad','solicitudes_recibidas.aceptada',
-            'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at', 'solicitudes_recibidas.comunidad_id')
+        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'comunidades.color',
+            'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))

@@ -100,8 +100,9 @@ class SolicitudesEnviadas extends Model {
 
     static public function getSolicitudesEnviadas(Request $request)
     {
-        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','solicitudes_enviadas.aceptada',
-            'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at', 'solicitudes_enviadas.comunidad_id')
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','comunidades.color',
+            'solicitudes_enviadas.aceptada', 'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at',
+            'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
