@@ -124,10 +124,10 @@ class SolicitudesEnviadas extends Model
         if (count($cursillosIds) > 0 && count($comunidadesIds) > 0) {
 
             try {
-                DB::transaction(function () use (&$comunidadesIds, $cursillosIds) {
-                    foreach ($comunidadesIds as $comunidadId) {
-                        $solicitudEnviada = new SolicitudesEnviadas();
-                        $solicitudEnviada->comunidad_id = $comunidadId;
+                foreach ($comunidadesIds as $comunidadId) {
+                    $solicitudEnviada = new SolicitudesEnviadas();
+                    $solicitudEnviada->comunidad_id = $comunidadId;
+                    DB::transaction(function () use ($comunidadesIds, $cursillosIds, $solicitudEnviada, $comunidadId) {
                         $solicitudEnviada->save();
                         $cursillos = Cursillos::whereIn('id', $cursillosIds)->get();
                         $solicitudes_enviadas_cursillos = [];
@@ -135,8 +135,8 @@ class SolicitudesEnviadas extends Model
                             $solicitudes_enviadas_cursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
                         }
                         $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudes_enviadas_cursillos);
-                    }
-                });
+                    });
+                }
             } catch (QueryException $ex) {
                 dd($ex->errorInfo);
             }
