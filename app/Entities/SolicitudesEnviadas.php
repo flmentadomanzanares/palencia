@@ -1,61 +1,16 @@
 <?php namespace Palencia\Entities;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SolicitudesEnviadas extends Model {
+class SolicitudesEnviadas extends Model
+{
 
     protected $tabla = "solicitudes_enviadas";
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
- /*****************************************************************************************************************
- *
- * Relacion many to one: comunidad_id --> comunidades
- *
- * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
- *
- *****************************************************************************************************************/
-    public function comunidades()
-    {
-        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
-    }
-
- /*****************************************************************************************************************
-  *
-  * Relacion one to many: solicitud_id_id --> solicitudes_enviadas
-  *
-  * @return \Illuminate\Database\Eloquent\Relations\HasMany
-  *
-  *****************************************************************************************************************/
-    public function solicitudes_enviadas_cursillos()
-    {
-
-        return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
-    }
-
-    public function scopeAceptada($query, $aceptada = null)
-    {
-        if (is_numeric($aceptada)) {
-            $query->where('solicitudes_enviadas.aceptada', $aceptada == 1 ? true : false);
-        }
-        return $query;
-    }
-
-    public function scopeAnyosCursillos($query, $anyo = 0)
-    {
-        if (is_numeric($anyo) && $anyo > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
-        }
-        return $query;
-    }
-
-    public function scopeSemanasCursillos($query, $semana = 0)
-    {
-        if (is_numeric($semana) && $semana > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
-        }
-        return $query;
-    }
 
     static public function getAnyoCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
     {
@@ -80,27 +35,9 @@ class SolicitudesEnviadas extends Model {
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    public function scopeComunidadSolicitudesEnviadas($query, $comunidadId = 0)
-    {
-
-        if (is_numeric($comunidadId) && $comunidadId > 0) {
-
-            $query->where('solicitudes_enviadas.comunidad_id', $comunidadId);
-        }
-        return $query;
-    }
-
-    public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
-    {
-        if (is_numeric($cursilloId) && $cursilloId > 0) {
-            $query->where('solicitudes_enviadas.cursillo_id', $cursilloId);
-        }
-        return $query;
-    }
-
     static public function getSolicitudesEnviadas(Request $request)
     {
-        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad','comunidades.color',
+        return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad', 'comunidades.color',
             'solicitudes_enviadas.aceptada', 'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at',
             'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
@@ -115,7 +52,7 @@ class SolicitudesEnviadas extends Model {
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
 
-         return SolicitudesEnviadas::distinct()->Select('paises.pais', 'comunidades.comunidad')
+        return SolicitudesEnviadas::distinct()->Select('paises.pais', 'comunidades.comunidad')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
@@ -132,7 +69,7 @@ class SolicitudesEnviadas extends Model {
 
     }
 
-    static public function getSolicitudesComunidad($comunidadId=0)
+    static public function getSolicitudesComunidad($comunidadId = 0)
     {
 
         return SolicitudesEnviadas::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
@@ -179,5 +116,97 @@ class SolicitudesEnviadas extends Model {
             ->groupBy('semanas')
             ->orderBy('semanas', 'ASC')
             ->get();
+    }
+
+    static public function crearComunidadesCursillos($comunidadesIds = array(), $cursillosIds = array())
+    {
+
+        if (count($cursillosIds) > 0 && count($comunidadesIds) > 0) {
+
+            try {
+                DB::transaction(function () use (&$comunidadesIds, $cursillosIds) {
+                    foreach ($comunidadesIds as $comunidadId) {
+                        $solicitudEnviada = new SolicitudesEnviadas();
+                        $solicitudEnviada->comunidad_id = $comunidadId;
+                        $solicitudEnviada->save();
+                        $cursillos = Cursillos::whereIn('id', $cursillosIds)->get();
+                        $solicitudes_enviadas_cursillos = [];
+                        foreach ($cursillos as $curso) {
+                            $solicitudes_enviadas_cursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
+                        }
+                        $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudes_enviadas_cursillos);
+                    }
+                });
+            } catch (QueryException $ex) {
+                dd($ex->errorInfo);
+            }
+        }
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion one to many: solicitud_id_id --> solicitudes_enviadas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *
+     *****************************************************************************************************************/
+    public function solicitudes_enviadas_cursillos()
+    {
+
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos", "solicitud_id");
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: comunidad_id --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function comunidades()
+    {
+        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
+    }
+
+    public function scopeAceptada($query, $aceptada = null)
+    {
+        if (is_numeric($aceptada)) {
+            $query->where('solicitudes_enviadas.aceptada', $aceptada == 1 ? true : false);
+        }
+        return $query;
+    }
+
+    public function scopeAnyosCursillos($query, $anyo = 0)
+    {
+        if (is_numeric($anyo) && $anyo > 0) {
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
+        }
+        return $query;
+    }
+
+    public function scopeSemanasCursillos($query, $semana = 0)
+    {
+        if (is_numeric($semana) && $semana > 0) {
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
+        }
+        return $query;
+    }
+
+    public function scopeComunidadSolicitudesEnviadas($query, $comunidadId = 0)
+    {
+
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+
+            $query->where('solicitudes_enviadas.comunidad_id', $comunidadId);
+        }
+        return $query;
+    }
+
+    public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
+    {
+        if (is_numeric($cursilloId) && $cursilloId > 0) {
+            $query->where('solicitudes_enviadas.cursillo_id', $cursilloId);
+        }
+        return $query;
     }
 }

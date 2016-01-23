@@ -33,7 +33,6 @@ class Comunidades extends Model
 
     static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
     {
-
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
             'comunidades.email_solicitud', 'comunidades.email_envio', 'comunidades.direccion_postal', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
@@ -247,18 +246,18 @@ class Comunidades extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function solicitudes_enviadas_cursillos()
-     {
+    {
 
-         return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
-     }
+        return $this->hasMany("Palencia\Entities\SolicitudesEnviadasCursillos");
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function solicitudes_recibidas_cursillos()
-     {
-            return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
-     }
+    {
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
+    }
 
     public function scopeComunidades($query, $comunidad = null)
     {
@@ -300,6 +299,7 @@ class Comunidades extends Model
         }
         return $query;
     }
+
     public function scopeTipoSecretariado($query, $secretariado = 0)
     {
         if (is_numeric($secretariado) && $secretariado > 0) {

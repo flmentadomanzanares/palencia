@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
+use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\TiposComunicacionesPreferidas;
 use Palencia\Http\Requests;
 
@@ -107,6 +108,7 @@ class NuestrasSolicitudesController extends Controller
         $cursosActualizados = [];
         $cursosActualizadosIds = [];
         $contadorCursosActualizados = 0;
+        $comunidadesDestinatarias = [];
         foreach ($cursillos as $idx => $cursillo) {
             if ($cursillo->comunidad_id == $remitente->id) {
                 $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
@@ -158,6 +160,7 @@ class NuestrasSolicitudesController extends Controller
                         });
                     $destinatariosConEmail += 1;
                     $actualizarCursillos = true;
+                    $comunidadesDestinatarias[] = $destinatario->id;
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
@@ -176,6 +179,7 @@ class NuestrasSolicitudesController extends Controller
                     $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify green"];
                     $destinatariosConCarta += 1;
                     $actualizarCursillos = true;
+                    $comunidadesDestinatarias[] = $destinatario->id;
                 } catch (\Exception $e) {
                     $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify red"];
                 }
@@ -208,7 +212,8 @@ class NuestrasSolicitudesController extends Controller
                         " podido actualizar como Solicitud.", "", "thumbs-down false"];
                 }
             }
-
+            //Actualizamos las tablas de forma automática
+            SolicitudesEnviadas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
             //Creamos el Log
             $logArchivo = array();
             $logArchivo[] = date('d/m/Y H:i:s') . "\n";
