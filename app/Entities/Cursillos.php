@@ -60,20 +60,25 @@ class Cursillos extends Model
      * @param array $cursillos
      * @return mixed
      */
-    static public function setCursillosEsSolicitud($comunidadId = 0)
+    static public function setCursillosEsSolicitud($cursillosIds = array())
     {
-        return Cursillos::where('cursillos.esSolicitud', false)
-            ->where("cursillos.activo", true)
-            ->where('cursillos.comunidad_id', $comunidadId)
-            ->update(array('cursillos.esSolicitud' => true));
+        $recordsCount = 0;
+        DB::transaction(function () use (&$recordsCount, $cursillosIds) {
+            $ids = implode(",", $cursillosIds);
+            $recordsCount = DB::update("update cursillos set esSolicitud=true  where (esSolicitud = false and activo = true and id in ($ids))");
+        });
+        return $recordsCount;
     }
 
     static public function setCursillosEsRespuesta($cursillosIds = array())
     {
-        return Cursillos::where('cursillos.esRespuesta', false)
-            ->where("cursillos.activo", true)
-            ->whereIn('cursillos.id', $cursillosIds)
-            ->update(array('cursillos.esRespuesta' => true));
+        $recordsCount = 0;
+        DB::transaction(function () use (&$recordsCount, $cursillosIds) {
+            $ids = implode(",", $cursillosIds);
+            $recordsCount = DB::update("update cursillos set esRespuesta=true  where (esRespuesta = false and activo = true and id in ($ids))");
+
+        });
+        return $recordsCount;
     }
 
     /**
@@ -84,7 +89,7 @@ class Cursillos extends Model
      */
     static public function getCursillosPDFSolicitud($comunidad = 0, $anyo = 0, $incluirSolicitudesAnteriores = 0)
     {
-        return Cursillos::select('cursillos.comunidad_id', 'cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.esRespuesta',
+        return Cursillos::select('cursillos.id', 'cursillos.comunidad_id', 'cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.esRespuesta',
             'cursillos.fecha_inicio', 'cursillos.fecha_final', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             'cursillos.esSolicitud')
             ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')

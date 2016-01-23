@@ -105,6 +105,7 @@ class NuestrasSolicitudesController extends Controller
         //Obtenemos Los cursos relacionados con la comunidad y creamos la línea de impresión para enviarla al template en memoria
         $cursos = [];
         $cursosActualizados = [];
+        $cursosActualizadosIds = [];
         $contadorCursosActualizados = 0;
         foreach ($cursillos as $idx => $cursillo) {
             if ($cursillo->comunidad_id == $remitente->id) {
@@ -112,6 +113,7 @@ class NuestrasSolicitudesController extends Controller
                 if (!$cursillo->esSolicitud) {
                     $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud.", $cursillo->num_cursillo, $remitente->comunidad);
                     $contadorCursosActualizados += 1;
+                    $cursosActualizadosIds[] = $cursillo->id;
                 }
             }
         }
@@ -197,8 +199,8 @@ class NuestrasSolicitudesController extends Controller
                 $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "ok green"];
             }
             //Cambiamos de estado las solicitudes que no están como esSolicitud
-            if ($actualizarCursillos) {
-                if (Cursillos::setCursillosEsSolicitud($remitente->id, $cursillos) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
+            if ($actualizarCursillos && count($cursosActualizadosIds) > 0) {
+                if (Cursillos::setCursillosEsSolicitud($cursosActualizadosIds) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad . " ha"
                         . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Solicitud.", "", "thumbs-up green"];
                 } elseif ($contadorCursosActualizados > 0) {
