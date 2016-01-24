@@ -37,6 +37,7 @@ class SolicitudesRecibidas extends Model
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
+            ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.id', 'ASC')
             ->paginate(5)
             ->setPath('solicitudesRecibidas');
