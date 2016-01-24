@@ -118,40 +118,49 @@ class SolicitudesEnviadas extends Model
             ->get();
     }
 
-    static public function crearComunidadesCursillos($comunidadesIds = array(), $cursillosIds = array())
+    static public function crearComunidadesCursillos($comunidades = array(), $cursillosIds = array())
     {
-        $logs = ["No se han incluido nuevas solicitudes enviadas.", "", "info-sign info"];
-        $pluralComunidad = count($comunidadesIds) > 1 ? true : false;
+        $logs = [];
+        $pluralComunidad = count($comunidades) > 1 ? true : false;
         $pluralCursillo = count($cursillosIds) > 1 ? true : false;
         $contadorTotalCursillos = 0;
         $contadorTotalComunidades = 0;
-        if (count($cursillosIds) > 0 && count($comunidadesIds) > 0) {
-            foreach ($comunidadesIds as $comunidadId) {
+        if (count($cursillosIds) > 0 && count($comunidades) > 0) {
+            $cursillos = Cursillos::getAlgunosCursillos($cursillosIds);
+            if (count($cursillos) == 0)
+                return $logs[] = ["No hay cursillos que guardar.", "", "info-sign warning icon-size-large"];
+            foreach ($comunidades as $comunidad) {
                 $solicitudEnviada = new SolicitudesEnviadas();
-                $solicitudEnviada->comunidad_id = $comunidadId;
+                $solicitudEnviada->comunidad_id = $comunidad[0];
                 try {
-                    DB::transaction(function () use ($comunidadesIds, $cursillosIds, $solicitudEnviada, $comunidadId, &$contadorTotalCursillos, &$contadorTotalComunidades) {
+                    DB::transaction(function ()
+                    use ($solicitudEnviada, $comunidad, $cursillos, &$contadorTotalCursillos, &$contadorTotalComunidades, &$logs) {
                         $solicitudEnviada->save();
-                        $cursillos = Cursillos::whereIn('id', $cursillosIds)->get();
                         $solicitudesEnviadasCursillos = [];
+                        $cursos = [];
                         foreach ($cursillos as $curso) {
-                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
+                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidad[0]]);
+                            $cursos[] = ["Incluido el cursillo " . $curso->cursillo . " con número " . $curso->num_cursillo . " a la comunidad " . $comunidad[1], "", "ok-circle info icon-size-normal"];
                         }
                         $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
                         $contadorTotalComunidades += 1;
                         $contadorTotalCursillos += count($cursillos);
+                        $logs[] = ["Incluida la comunidad " . $comunidad[1] . " en concepto de pendiente de respuesta a la solicitud.", "", "ok-sign green icon-size-large"];
+                        foreach ($cursos as $curso) {
+                            $logs[] = $curso;
+                        }
                     });
-
-                    $logs = ["Se ha" . ($pluralComunidad ? "n" : "") . " incluido " . $contadorTotalComunidades
-                        . " comunidad" . ($pluralComunidad ? "es" : "") . " y "
-                        . $contadorTotalCursillos . " cursillo" . ($pluralCursillo ? "s" : "") . " en la"
-                        . ($pluralCursillo ? "s" : "") . " solicitud" . ($pluralCursillo ? "es" : "")
-                        . " enviada" . ($pluralCursillo ? "s." : "."), "", "certificate green"];
                 } catch (QueryException $ex) {
-
+                    $logs[] = ["No se han incluido la comunidad " . $comunidad[1] . " a pendiente de respuesta de la solicitud.", "", "exclamation-sign warning icon-size-large"];
                 }
-
             }
+            $logs[] = ["Se ha" . ($pluralComunidad ? "n" : "") . " incluido " . $contadorTotalComunidades
+                . " comunidad" . ($pluralComunidad ? "es" : "") . " y "
+                . $contadorTotalCursillos . " cursillo" . ($pluralCursillo ? "s" : "") . " en la"
+                . ($pluralCursillo ? "s" : "") . " solicitud" . ($pluralCursillo ? "es" : "")
+                . " pendiente" . ($pluralCursillo ? "s" : "") . " de respuesta" . ($pluralCursillo ? "s" : ""), "", "plus-sign green icon-size-large"];
+        } else {
+            $logs[] = ["No se han incluido nuevas solicitudes pendientes de respuestas.", "", "info-sign info icon-size-large"];
         }
         return $logs;
     }

@@ -6994,7 +6994,6 @@ input[type=file]:hover {
 
 .green {
   color: #009900 !important;
-  font-size: 1.5em;
 }
 
 .green-bk {
@@ -7003,7 +7002,6 @@ input[type=file]:hover {
 
 .red {
   color: #d9534f !important;
-  font-size: 1.5em;
 }
 
 .red-bk {
@@ -7012,12 +7010,22 @@ input[type=file]:hover {
 
 .warning {
   color: #f0ad4e !important;
-  font-size: 1.5em;
 }
 
 .info {
   color: #5bc0de !important;
-  font-size: 1.5em;
+}
+
+.icon-size-normal {
+  font-size: 1.2em !important;
+}
+
+.icon-size-small {
+  font-size: 0.8em !important;
+}
+
+.icon-size-large {
+  font-size: 1.5em !important;
 }
 
 .italica {
