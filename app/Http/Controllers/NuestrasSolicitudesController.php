@@ -206,7 +206,7 @@ class NuestrasSolicitudesController extends Controller
             if ($actualizarCursillos && count($cursosActualizadosIds) > 0) {
                 if (Cursillos::setCursillosEsSolicitud($cursosActualizadosIds) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad . " ha"
-                        . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Solicitud.", "", "thumbs-up green"];
+                        . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Solicitud realizada.", "", "thumbs-up green"];
                 } elseif ($contadorCursosActualizados > 0) {
                     $logEnvios[] = [count($cursosActualizados) . " Cursos de la comunidad " . $remitente->comunidad . " no se ha" . ($contadorCursosActualizados > 1 ? "n" : "") .
                         " podido actualizar como Solicitud.", "", "thumbs-down false"];
