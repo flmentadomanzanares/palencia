@@ -213,7 +213,7 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
             //Actualizamos las tablas de forma automática
-            SolicitudesEnviadas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
+            $logEnvios[] = SolicitudesEnviadas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
             //Creamos el Log
             $logArchivo = array();
             $logArchivo[] = date('d/m/Y H:i:s') . "\n";

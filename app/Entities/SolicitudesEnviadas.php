@@ -120,27 +120,40 @@ class SolicitudesEnviadas extends Model
 
     static public function crearComunidadesCursillos($comunidadesIds = array(), $cursillosIds = array())
     {
-
+        $logs = ["No se han incluido nuevas solicitudes enviadas.", "", "info-sign info"];
+        $pluralComunidad = count($comunidadesIds) > 1 ? true : false;
+        $pluralCursillo = count($cursillosIds) > 1 ? true : false;
+        $contadorTotalCursillos = 0;
+        $contadorTotalComunidades = 0;
         if (count($cursillosIds) > 0 && count($comunidadesIds) > 0) {
-
-            try {
-                foreach ($comunidadesIds as $comunidadId) {
-                    $solicitudEnviada = new SolicitudesEnviadas();
-                    $solicitudEnviada->comunidad_id = $comunidadId;
-                    DB::transaction(function () use ($comunidadesIds, $cursillosIds, $solicitudEnviada, $comunidadId) {
+            foreach ($comunidadesIds as $comunidadId) {
+                $solicitudEnviada = new SolicitudesEnviadas();
+                $solicitudEnviada->comunidad_id = $comunidadId;
+                try {
+                    DB::transaction(function () use ($comunidadesIds, $cursillosIds, $solicitudEnviada, $comunidadId, &$contadorTotalCursillos, &$contadorTotalComunidades) {
                         $solicitudEnviada->save();
                         $cursillos = Cursillos::whereIn('id', $cursillosIds)->get();
-                        $solicitudes_enviadas_cursillos = [];
+                        $solicitudesEnviadasCursillos = [];
                         foreach ($cursillos as $curso) {
-                            $solicitudes_enviadas_cursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
+                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
                         }
-                        $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudes_enviadas_cursillos);
+                        $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
+                        $contadorTotalComunidades += 1;
+                        $contadorTotalCursillos += count($cursillos);
                     });
+
+                    $logs = ["Se ha" . ($pluralComunidad ? "n" : "") . " incluido " . $contadorTotalComunidades
+                        . " comunidad" . ($pluralComunidad ? "es" : "") . " y "
+                        . $contadorTotalCursillos . " cursillo" . ($pluralCursillo ? "s" : "") . " en la"
+                        . ($pluralCursillo ? "s" : "") . " solicitud" . ($pluralCursillo ? "es" : "")
+                        . " enviada" . ($pluralCursillo ? "s." : "."), "", "certificate green"];
+                } catch (QueryException $ex) {
+
                 }
-            } catch (QueryException $ex) {
-                dd($ex->errorInfo);
+
             }
         }
+        return $logs;
     }
 
     /*****************************************************************************************************************
@@ -179,7 +192,7 @@ class SolicitudesEnviadas extends Model
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio," % x")'), '=', $anyo);
         }
         return $query;
     }
@@ -187,7 +200,7 @@ class SolicitudesEnviadas extends Model
     public function scopeSemanasCursillos($query, $semana = 0)
     {
         if (is_numeric($semana) && $semana > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio," % v")'), 'like', $semana);
         }
         return $query;
     }
