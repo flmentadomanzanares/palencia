@@ -53,14 +53,17 @@ class SolicitudesEnviadasCursillos extends Model {
      *****************************************************************************************************************/
     static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0)
     {
-        return SolicitudesEnviadasCursillos::Select('cursillos.cursillo', 'comunidades.comunidad')
+        return SolicitudesEnviadasCursillos::Select('cursillos.*', 'comunidades.comunidad',
+            'tipos_participantes.tipo_participante')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
+            ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->where('solicitudes_enviadas_cursillos.solicitud_id', '=', $solicitudId)
             ->where('solicitudes_enviadas.comunidad_id', '=', $comunidadId)
             ->where('solicitudes_enviadas_cursillos.activo', true)
             ->orderBy('cursillos.cursillo', 'ASC')
+            ->orderBy('cursillos.id', 'ASC')
             ->get();
     }
 

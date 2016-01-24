@@ -125,7 +125,6 @@ class SolicitudesEnviadasController extends Controller {
 	{
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = SolicitudesEnviadas::find($id);
-        /*$solicitudEnviada->comunidad_id = \Request::input('comunidad_id');*/
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 

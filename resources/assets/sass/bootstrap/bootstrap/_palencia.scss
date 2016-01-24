@@ -363,6 +363,19 @@ body {
   margin-bottom: $margin-app-base;
 }
 
+//Heading alternativo en los crud
+.heading-caption-bold {
+  text-align: center;
+  display: block;
+  background-color: $app-color-base;
+  color: $app-color-white;
+  font-size: 2* $font-size-app-base-header;
+  padding: $padding-app-large $padding-app-base;
+  margin-bottom: $margin-app-xs;
+  margin-top: $margin-app-xs;
+  font-weight: bold;
+}
+
 /**********************************************************
 *       Subida logo/foto
 ***********************************************************/
