@@ -32,6 +32,7 @@
   &.fade .modal-dialog {
     @include translate(0, -25%);
     @include transition-transform(0.3s ease-out);
+    z-index:1042;
   }
   &.in .modal-dialog { @include translate(0, 0) }
 }

@@ -6136,6 +6136,7 @@ button.close {
   -moz-transition: -moz-transform 0.3s ease-out;
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
+  z-index: 1042;
 }
 .modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
@@ -6719,6 +6720,7 @@ body {
   font-size: 13px;
   color: #400090;
   margin: 2px;
+  outline: none;
 }
 .btn-action a:hover, .btn-action button:hover {
   color: #ff7a00;
