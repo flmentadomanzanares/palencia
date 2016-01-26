@@ -6,7 +6,13 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
-
+            <div class="panel-viaoptima-search">
+                <a title="Volver" href="{{route('solicitudesEnviadas.index')}}" class="pull-left">
+                    <i class="glyphicon glyphicon-arrow-left">
+                        <div>Volver</div>
+                    </i>
+                </a>
+            </div>
             @if(!$solicitudesEnviadasCursillos->isEmpty())
                 <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
                     Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
