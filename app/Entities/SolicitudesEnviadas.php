@@ -119,29 +119,51 @@ class SolicitudesEnviadas extends Model
             ->get();
     }
 
-    static public function crearComunidadesCursillos($comunidadesIds = array(), $cursillosIds = array())
+    static public function crearComunidadesCursillos($comunidades = array(), $cursillosIds = array())
     {
-
-        if (count($cursillosIds) > 0 && count($comunidadesIds) > 0) {
-
-            try {
-                foreach ($comunidadesIds as $comunidadId) {
-                    $solicitudEnviada = new SolicitudesEnviadas();
-                    $solicitudEnviada->comunidad_id = $comunidadId;
-                    DB::transaction(function () use ($comunidadesIds, $cursillosIds, $solicitudEnviada, $comunidadId) {
+        $logs = [];
+        $pluralComunidad = count($comunidades) > 1 ? true : false;
+        $pluralCursillo = count($cursillosIds) > 1 ? true : false;
+        $contadorTotalCursillos = 0;
+        $contadorTotalComunidades = 0;
+        if (count($cursillosIds) > 0 && count($comunidades) > 0) {
+            $cursillos = Cursillos::getAlgunosCursillos($cursillosIds);
+            if (count($cursillos) == 0)
+                return $logs[] = ["No hay cursillos que procesar.", "", "info-sign warning icon-size-large"];
+            foreach ($comunidades as $comunidad) {
+                $solicitudEnviada = new SolicitudesEnviadas();
+                $solicitudEnviada->comunidad_id = $comunidad[0];
+                try {
+                    DB::transaction(function ()
+                    use ($solicitudEnviada, $comunidad, $cursillos, &$contadorTotalCursillos, &$contadorTotalComunidades, &$logs) {
                         $solicitudEnviada->save();
-                        $cursillos = Cursillos::whereIn('id', $cursillosIds)->get();
-                        $solicitudes_enviadas_cursillos = [];
+                        $solicitudesEnviadasCursillos = [];
+                        $cursos = [];
                         foreach ($cursillos as $curso) {
-                            $solicitudes_enviadas_cursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidadId]);
+                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidad[0]]);
+                            $cursos[] = ["Incluido el cursillo " . $curso->cursillo . " con número " . $curso->num_cursillo . " a la comunidad " . $comunidad[1], "", "ok-circle info icon-size-normal"];
                         }
-                        $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudes_enviadas_cursillos);
+                        $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
+                        $contadorTotalComunidades += 1;
+                        $contadorTotalCursillos += count($cursillos);
+                        $logs[] = ["Incluida la comunidad " . $comunidad[1] . " en concepto de pendiente de respuesta a la solicitud.", "", "ok-sign green icon-size-large"];
+                        foreach ($cursos as $curso) {
+                            $logs[] = $curso;
+                        }
                     });
+                } catch (QueryException $ex) {
+                    $logs[] = ["No se han incluido la comunidad " . $comunidad[1] . " a pendiente de respuesta de la solicitud.", "", "exclamation-sign warning icon-size-large"];
                 }
-            } catch (QueryException $ex) {
-                dd($ex->errorInfo);
             }
+            $logs[] = ["Se ha" . ($pluralComunidad ? "n" : "") . " incluido " . $contadorTotalComunidades
+                . " comunidad" . ($pluralComunidad ? "es" : "") . " y "
+                . $contadorTotalCursillos . " cursillo" . ($pluralCursillo ? "s" : "") . " en la"
+                . ($pluralCursillo ? "s" : "") . " solicitud" . ($pluralCursillo ? "es" : "")
+                . " pendiente" . ($pluralCursillo ? "s" : "") . " de respuesta" . ($pluralCursillo ? "s" : ""), "", "plus-sign green icon-size-large"];
+        } else {
+            $logs[] = ["No se han incluido nuevas solicitudes pendientes de respuestas.", "", "info-sign info icon-size-large"];
         }
+        return $logs;
     }
 
     /*****************************************************************************************************************
@@ -180,7 +202,7 @@ class SolicitudesEnviadas extends Model
     public function scopeAnyosCursillos($query, $anyo = 0)
     {
         if (is_numeric($anyo) && $anyo > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio," % x")'), '=', $anyo);
         }
         return $query;
     }
@@ -188,7 +210,7 @@ class SolicitudesEnviadas extends Model
     public function scopeSemanasCursillos($query, $semana = 0)
     {
         if (is_numeric($semana) && $semana > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio," % v")'), 'like', $semana);
         }
         return $query;
     }

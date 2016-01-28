@@ -75,8 +75,7 @@ class NuestrasSolicitudesController extends Controller
         $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
         $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('incluirSolicitudesAnteriores'));
         $numeroDestinatarios = count($destinatarios);
-        //Flag usado para realizar la operación de actualizado de los cursos que requieren de solicitud.
-        $actualizarCursillos = false;
+
         //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
@@ -143,9 +142,9 @@ class NuestrasSolicitudesController extends Controller
                     $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);
-                    $logEnvios[] = ["Creado fichero adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-saved green"];
+                    $logEnvios[] = ["Creado documento adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el fichero adjunto para la comunidad" . $destinatario->comunidad, "", "floppy-remove red"];
+                    $logEnvios[] = ["Error al crear el documento adjunto para la comunidad" . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
                 }
                 $esCarta = false;
                 try {
@@ -159,16 +158,15 @@ class NuestrasSolicitudesController extends Controller
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
                     $destinatariosConEmail += 1;
-                    $actualizarCursillos = true;
-                    $comunidadesDestinatarias[] = $destinatario->id;
+                    $comunidadesDestinatarias[] = [$destinatario->id, $destinatario->comunidad];
                     unlink($nombreArchivoAdjuntoEmail);
                 } catch (\Exception $e) {
                     $envio = 0;
                 }
-                $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope green"] :
-                    ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope red"];
+                $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope green icon-size-large"] :
+                    ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope red icon-size-large"];
             } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
-                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope red"];
+                $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope red icon-size-large"];
             } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
                 try {
                     $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
@@ -176,12 +174,11 @@ class NuestrasSolicitudesController extends Controller
                             , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                         ))->render();
                     $multiplesPdfContain .= $view;
-                    $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify green"];
+                    $logEnvios[] = ["Creada carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify green icon-size-large"];
                     $destinatariosConCarta += 1;
-                    $actualizarCursillos = true;
-                    $comunidadesDestinatarias[] = $destinatario->id;
+                    $comunidadesDestinatarias[] = [$destinatario->id, $destinatario->comunidad];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify red"];
+                    $logEnvios[] = ["No se ha podido crear la carta de solicitud para la comunidad " . $destinatario->comunidad, "", "align-justify red icon-size-large"];
                 }
             }
         }
@@ -191,43 +188,48 @@ class NuestrasSolicitudesController extends Controller
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Cartas creadas de solicitud.", $pathTotalComunidadesCarta, "list-alt green"];
+            $logEnvios[] = ["Cartas creadas de solicitud.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
         }
-        if (count($logEnvios) == 0) {
-            $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign red"];
-        } else {
-            if ($destinatariosConEmail > 0) {
-                $logEnvios[] = [$destinatariosConEmail . ($destinatariosConEmail > 1 ? " emails enviados." : " email enviado"), "", "send green"];
+        if ($destinatariosConEmail > 0) {
+            $logEnvios[] = [$destinatariosConEmail . ($destinatariosConEmail > 1 ? " emails enviados." : " email enviado"), "", "info-sign info icon-size-large"];
+        }
+        if ($destinatariosConCarta > 0) {
+            $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "info-sign info icon-size-large"];
+        }
+        //Cambiamos de estado las solicitudes que no están como esSolicitud
+        if (count($comunidadesDestinatarias) > 0 && count($cursosActualizadosIds) > 0) {
+            if (Cursillos::setCursillosEsSolicitud($cursosActualizadosIds) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
+                $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad . " ha"
+                    . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " a solicitud realizada.", "", "info-sign info icon-size-large"];
+            } elseif ($contadorCursosActualizados > 0) {
+                $logEnvios[] = [count($cursosActualizados) . " Cursos de la comunidad " . $remitente->comunidad . " no se ha" . ($contadorCursosActualizados > 1 ? "n" : "") .
+                    " podido actualizar como Solicitud.", "", "exclamation-sign red icon-size-large"];
             }
-            if ($destinatariosConCarta > 0) {
-                $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "ok green"];
+        }
+        //Actualizamos las tablas de forma automática y añadimos los logs
+        $logSolicitudesEnviadas = SolicitudesEnviadas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
+        //Obtenemos el último registro del log generado.
+        if (count($logSolicitudesEnviadas) > 0) {
+            $logEnvios[] = $logSolicitudesEnviadas[count($logSolicitudesEnviadas) - 1];
+        }
+
+        //Creamos el Log de archivo
+        $logArchivo = array();
+        $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+        foreach ($logEnvios as $log) {
+            $logArchivo[] = $log[0] . "\n";
+        }
+        if ($contadorCursosActualizados > 0) {
+            foreach ($cursosActualizados as $log) {
+                $logArchivo[] = $log . "\n";
             }
-            //Cambiamos de estado las solicitudes que no están como esSolicitud
-            if ($actualizarCursillos && count($cursosActualizadosIds) > 0) {
-                if (Cursillos::setCursillosEsSolicitud($cursosActualizadosIds) == $contadorCursosActualizados && $contadorCursosActualizados > 0) {
-                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contadorCursosActualizados > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad . " ha"
-                        . ($contadorCursosActualizados > 1 ? "n" : "") . " sido actualizado" . ($contadorCursosActualizados > 1 ? "s" : "") . " como Solicitud realizada.", "", "thumbs-up green"];
-                } elseif ($contadorCursosActualizados > 0) {
-                    $logEnvios[] = [count($cursosActualizados) . " Cursos de la comunidad " . $remitente->comunidad . " no se ha" . ($contadorCursosActualizados > 1 ? "n" : "") .
-                        " podido actualizar como Solicitud.", "", "thumbs-down false"];
-                }
-            }
-            //Actualizamos las tablas de forma automática
-            SolicitudesEnviadas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
-            //Creamos el Log
-            $logArchivo = array();
-            $logArchivo[] = date('d/m/Y H:i:s') . "\n";
-            foreach ($logEnvios as $log) {
+            foreach ($logSolicitudesEnviadas as $log) {
                 $logArchivo[] = $log[0] . "\n";
             }
-            if ($contadorCursosActualizados > 0) {
-                foreach ($cursosActualizados as $log) {
-                    $logArchivo[] = $log . "\n";
-                }
-            }
-            //Guardamos a archivo
-            file_put_contents('logs/NS/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
         }
+        //Guardamos a archivo
+        file_put_contents('logs/NS/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
+
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
             compact('titulo', 'logEnvios'));

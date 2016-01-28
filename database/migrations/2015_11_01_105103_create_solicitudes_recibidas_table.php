@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateSolicitudesRecibidasTable extends Migration {
 
@@ -19,7 +19,7 @@ class CreateSolicitudesRecibidasTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
             $table->foreign('comunidad_id')->references('id')->on('comunidades')->onUpdate("cascade");
 
-            $table->boolean('aceptada')->default(false);
+            $table->boolean('aceptada')->default(true);
 
             $table->boolean('activo')->default(true);
 
