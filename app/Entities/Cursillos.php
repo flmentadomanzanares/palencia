@@ -63,6 +63,14 @@ class Cursillos extends Model
             ->get();
     }
 
+    static public function getAlgunosCursillosConComunidades($comunidadesIds = array(), $cursillosIds = array())
+    {
+        return Cursillos::Select('cursillos.*', 'comunidades.comunidad')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
+            ->whereIn('comunidades.id', $comunidadesIds)
+            ->whereIn('cursillos.id', $cursillosIds)
+            ->get();
+    }
 
     /**
      * @param int $comunidadId
