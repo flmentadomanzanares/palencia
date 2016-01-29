@@ -59,7 +59,7 @@
                                 <td>{!! Date("d/m/Y - H:i:s" , strtotime($solicitudRecibida->created_at) )!!}</td>
                             </tr>
                             <tr>
-                                <td>Aceptada:</td>
+                                <td>Respondida:</td>
                                 <td> @if ($solicitudRecibida->aceptada ) Si @else No @endif </td>
                             </tr>
                             <tr>

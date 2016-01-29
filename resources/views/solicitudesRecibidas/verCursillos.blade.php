@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="panel-viaoptima-search">
-                <a title="Volver" href="{{route('solicitudesEnviadas.index')}}" class="pull-left">
+                <a title="Volver" href="{{route('solicitudesRecibidas.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
                         <div>Volver</div>
                     </i>
