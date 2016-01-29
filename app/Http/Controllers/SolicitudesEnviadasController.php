@@ -17,7 +17,7 @@ class SolicitudesEnviadasController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Solicitudes Enviadas";
+        $titulo = "Respuestas Recibidas";
         $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
         $comunidades = SolicitudesEnviadas::getComunidadesSolicitudesEnviadasList();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'comunidades'));
@@ -182,8 +182,7 @@ class SolicitudesEnviadasController extends Controller {
         $comunidadId=$request->comunidad_id;
         $solicitudId=$request->solicitud_id;
         $comunidad=Comunidades::getNombreComunidad($comunidadId);
-
-        $solicitudesEnviadasCursillos= SolicitudesEnviadasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
+        $solicitudesEnviadasCursillos= SolicitudesEnviadasCursillos::getCursillosSolicitud($comunidadId, $solicitudId, $request);
 
         return view("solicitudesEnviadas.verCursillos", compact('solicitudesEnviadasCursillos', 'titulo', 'comunidad', 'solicitudId'));
     }

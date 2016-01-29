@@ -16,7 +16,7 @@ class SolicitudesRecibidasController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Solicitudes Recibidas";
+        $titulo = "Solicitudes Recibidas";
         $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request);
         $comunidades = SolicitudesRecibidas::getComunidadesSolicitudesRecibidasList();
         return view("solicitudesRecibidas.index", compact('solicitudesRecibidas', 'titulo', 'comunidades'));

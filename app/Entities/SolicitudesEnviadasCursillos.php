@@ -1,7 +1,9 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudesEnviadasCursillos extends Model {
 
@@ -45,13 +47,22 @@ class SolicitudesEnviadasCursillos extends Model {
         return $this->belongsTo('Palencia\Entities\Cursillos', 'cursillo_id');
     }
 
+    public function scopeCursilloSolicitudesEnviadas($query, $cursilloId = 0)
+    {
+
+        if (is_numeric($cursilloId) && $cursilloId > 0) {
+
+            $query->where('solicitudes_enviadas_cursillos.cursillo_id', $cursilloId);
+        }
+        return $query;
+    }
 
     /*****************************************************************************************************************
      *
      * Función que devuelve una lista de los cursillos de una comunidad y solicitud determinadas
      *
      *****************************************************************************************************************/
-    static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0)
+    static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0, Request $request)
     {
         return SolicitudesEnviadasCursillos::Select('cursillos.*', 'comunidades.comunidad',
             'tipos_participantes.tipo_participante')
@@ -62,10 +73,12 @@ class SolicitudesEnviadasCursillos extends Model {
             ->where('solicitudes_enviadas_cursillos.solicitud_id', '=', $solicitudId)
             ->where('solicitudes_enviadas.comunidad_id', '=', $comunidadId)
             ->where('solicitudes_enviadas_cursillos.activo', true)
+            ->CursilloSolicitudesEnviadas($request->get('cursillos'))
             ->orderBy('cursillos.cursillo', 'ASC')
             ->orderBy('cursillos.id', 'ASC')
             ->get();
     }
+
 
     /*****************************************************************************************************************
      *
@@ -111,5 +124,14 @@ class SolicitudesEnviadasCursillos extends Model {
             ->orderBy('cursillos.cursillo')
             ->get();
 
+    }
+
+    static public function borrarTablaSolicitudesEnviadasCursillos($anyo = 0)
+    {
+        DB::transaction(function($anyo) {
+
+            DB::table('solicitudes_enviadas_cursillos')->truncate()
+                ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%Y")'), '=', $anyo);
+        });
     }
 }
