@@ -20,7 +20,7 @@
                             </caption>
                             <thead>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled"
-                                @else style="background-color:{{$solicitudRecibida->color}};" @endif>
+                                                                 @else style="background-color:{{$solicitudRecibida->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">
@@ -28,14 +28,17 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
-                                    {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' => 'POST','title'=>'Mostrar Cursillos')) !!}
+                                    {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
+                                    'POST','title'=>'Mostrar Cursillos')) !!}
                                     {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
                                     {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
-                                    <button type="submit">
-                                        <i class='glyphicon glyphicon-education full-Width'>
-                                            <div>Cursillos</div>
-                                        </i>
-                                    </button>
+                                    @if ($solicitudRecibida->aceptada==1)
+                                        <button type="submit">
+                                            <i class='glyphicon glyphicon-education full-Width'>
+                                                <div>Cursillos</div>
+                                            </i>
+                                        </button>
+                                    @endif
                                     {!! FORM::close() !!}
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                     {{--{!! FORM::open(array('route' => array('solicitudesRecibidas.destroy',
