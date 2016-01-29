@@ -229,7 +229,7 @@
                 </div>
                 <?php $i++?>
                 <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    Numero
+                    N&uacute;mero
                 </div>
                 <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
                     Cursillo
