@@ -210,6 +210,7 @@ class NuestrasRespuestasController extends Controller
                 }
             }
         }
+
         if ($destinatariosConCarta > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NR-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
@@ -226,6 +227,7 @@ class NuestrasRespuestasController extends Controller
             if ($destinatariosConCarta > 0) {
                 $logEnvios[] = [$destinatariosConCarta . ($destinatariosConCarta > 1 ? " cartas creadas." : " carta creada."), "", "info-sign info icon-size-large"];
             }
+
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($totalContadorCursosActualizados > 0) {
                 if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
@@ -240,8 +242,10 @@ class NuestrasRespuestasController extends Controller
             //Actualizamos las tablas de forma automática y añadimos los logs
             $logSolicitudesRecibidas = SolicitudesRecibidas::crearComunidadesCursillos($comunidadesDestinatarias, $totalCursosActualizadosIds);
             //Obtenemos el último registro del log generado.
+
             if (count($logSolicitudesRecibidas) > 0) {
                 $logEnvios[] = $logSolicitudesRecibidas[count($logSolicitudesRecibidas) - 1];
+
             }
             //Creamos el Log
             $logArchivo = array();

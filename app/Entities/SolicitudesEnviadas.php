@@ -129,7 +129,7 @@ class SolicitudesEnviadas extends Model
         if (count($cursillosIds) > 0 && count($comunidades) > 0) {
             $cursillos = Cursillos::getAlgunosCursillos($cursillosIds);
             if (count($cursillos) == 0)
-                return $logs[] = ["No hay cursillos que procesar.", "", "info-sign warning icon-size-large"];
+                return null;
             foreach ($comunidades as $comunidad) {
                 $solicitudEnviada = new SolicitudesEnviadas();
                 $solicitudEnviada->comunidad_id = $comunidad[0];
