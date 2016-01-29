@@ -63,7 +63,10 @@ $link-hover-decoration: none !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 //Aplication Font
-$app-font-icon-log: 1.5em;
+$app-font-icon-log-normal: 1.2em !default;
+$app-font-icon-log-large: 1.5em !default;
+$app-font-icon-log-small: .8em !default;
+
 $font-family: Arial, sans-serif !default;
 $font-family-plyphicons-regular: "Glyphicons Halflings", Verdana, Arial, sans-serif !default;
 

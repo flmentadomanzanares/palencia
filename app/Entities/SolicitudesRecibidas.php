@@ -21,15 +21,6 @@ class SolicitudesRecibidas extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    public function scopeComunidadSolicitudesRecibidas($query, $comunidadId = 0)
-    {
-        if (is_numeric($comunidadId) && $comunidadId > 0) {
-
-            $query->where('solicitudes_recibidas.comunidad_id', $comunidadId);
-        }
-        return $query;
-    }
-
     static public function getSolicitudesRecibidas(Request $request)
     {
         return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'comunidades.color',
@@ -123,16 +114,55 @@ class SolicitudesRecibidas extends Model
             ->Lists('cursillos.cursillo', 'cursillos.id');
     }
 
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: comunidad_id --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function comunidades()
+    static public function crearComunidadesCursillos($comunidades = array(), $cursillosIds = array())
     {
-        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
+        $logs = [];
+        $pluralComunidad = count($comunidades) > 1 ? true : false;
+        $pluralCursillo = count($cursillosIds) > 1 ? true : false;
+        $contadorTotalCursillos = 0;
+        $contadorTotalComunidades = 0;
+        //Obtenemos los ids de las comunidades
+        $comunidadesIds = array_column($comunidades, 0);
+        $cursillos = Cursillos::getAlgunosCursillosConComunidades($comunidadesIds, $cursillosIds);
+        if (count($cursillos) == 0)
+            return $logs[] = ["No hay cursillos que procesar.", "", "info-sign warning icon-size-large"];
+        if (count($cursillosIds) > 0 && count($comunidades) > 0) {
+            foreach ($comunidades as $comunidad) {
+                $solicitudRecibida = new SolicitudesRecibidas();
+                $solicitudRecibida->comunidad_id = $comunidad[0];
+                try {
+                    DB::transaction(function ()
+                    use ($solicitudRecibida, $comunidad, $cursillos, &$contadorTotalCursillos, &$contadorTotalComunidades, &$logs) {
+                        $solicitudRecibida->save();
+                        $solicitudesRecibidasCursillos = [];
+                        $cursos = [];
+                        foreach ($cursillos as $curso) {
+                            if ($curso->comunidad_id == $comunidad[0]) {
+                                $solicitudesRecibidasCursillos[] = new SolicitudesRecibidasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidad[0]]);
+                                $cursos[] = ["Incluido el cursillo " . $curso->cursillo . " con número " . $curso->num_cursillo . " a la comunidad " . $comunidad[1], "", "ok-circle info icon-size-normal"];
+                                $contadorTotalCursillos += 1;
+                            }
+                        }
+                        $logs[] = ["Incluida la comunidad " . $comunidad[1] . " en concepto de respuesta de solicitud a sus cursillos.", "", "ok-sign green icon-size-large"];
+                        $solicitudRecibida->solicitudes_recibidas_cursillos()->saveMany($solicitudesRecibidasCursillos);
+                        $contadorTotalComunidades += 1;
+                        foreach ($cursos as $curso) {
+                            $logs[] = $curso;
+                        }
+                    });
+                } catch (QueryException $ex) {
+                    $logs[] = ["No se han incluido la comunidad " . $comunidad[1] . " como respuesta de solicitud  a sus cursillos.", "", "exclamation-sign warning icon-size-large"];
+                }
+            }
+            $logs[] = ["Se ha" . ($pluralComunidad ? "n" : "") . " incluido " . $contadorTotalComunidades
+                . " comunidad" . ($pluralComunidad ? "es" : "") . " y "
+                . $contadorTotalCursillos . " cursillo" . ($pluralCursillo ? "s" : "") . " en la"
+                . ($pluralCursillo ? "s" : "") . " respuesta" . ($pluralCursillo ? "s" : "")
+                . " de solicitud pendiente" . ($pluralCursillo ? "s" : ""), "", "plus-sign green icon-size-large"];
+        } else {
+            $logs[] = ["No se han incluido nuevas respuestas de solicitud.", "", "info-sign info icon-size-large"];
+        }
+        return $logs;
     }
 
     /*****************************************************************************************************************
@@ -145,7 +175,28 @@ class SolicitudesRecibidas extends Model
     public function solicitudes_recibidas_cursillos()
     {
 
-        return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
+        return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos", "solicitud_id");
+    }
+
+    public function scopeComunidadSolicitudesRecibidas($query, $comunidadId = 0)
+    {
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+
+            $query->where('solicitudes_recibidas.comunidad_id', $comunidadId);
+        }
+        return $query;
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: comunidad_id --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function comunidades()
+    {
+        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
 
     public function scopeAnyosCursillos($query, $anyo = 0)

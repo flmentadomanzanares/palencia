@@ -31,6 +31,28 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
+    static public function getComunidadPDFRespuestas($comunidad = 0, $esPropia = null, $excluirSinCursillos = false, $excluirRespuestasAnteriores = true)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
+            'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
+            'comunidades.email_solicitud', 'comunidades.email_envio', 'comunidades.direccion_postal', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
+            ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
+            ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
+                '=', 'tipos_comunicaciones_preferidas.id')
+            ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
+            ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
+            ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
+            ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
+                        FROM cursillos, comunidades
+                        WHERE comunidades.id = cursillos.comunidad_id and cursillos.esRespuesta = (!$excluirRespuestasAnteriores)
+                        GROUP BY cursillos.comunidad_id
+            ) cursillos"), "comunidades.id", "=", 'cursilloId')
+            ->ExcluirSinCursillos($excluirSinCursillos)
+            ->ComunidadesId($comunidad)
+            ->esPropia($esPropia)
+            ->orderBy("comunidades.comunidad")
+            ->get();
+    }
     static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
@@ -44,7 +66,7 @@ class Comunidades extends Model
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
             ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
                         FROM cursillos, comunidades
-                        WHERE comunidades.id = cursillos.comunidad_id
+                        WHERE comunidades.id = cursillos.comunidad_id and cursillos.esRespuesta = false
                         GROUP BY cursillos.comunidad_id
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
             ->ExcluirSinCursillos($excluirSinCursillos)

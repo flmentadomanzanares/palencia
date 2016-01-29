@@ -520,7 +520,6 @@ input[type=file]:hover {
 // Color para los checks-ok
 .green {
   color: $app-color-success !important;
-  font-size: $app-font-icon-log;
 }
 
 .green-bk {
@@ -530,7 +529,6 @@ input[type=file]:hover {
 //Color para los checks-fails
 .red {
   color: $app-color-fail !important;
-  font-size: $app-font-icon-log;
 }
 
 .red-bk {
@@ -539,14 +537,23 @@ input[type=file]:hover {
 
 .warning {
   color: $app-color-warning !important;
-  font-size: $app-font-icon-log;
 }
 
 .info {
   color: $app-color-info !important;
-  font-size: $app-font-icon-log;
 }
 
+.icon-size-normal {
+  font-size: $app-font-icon-log-normal !important;
+}
+
+.icon-size-small {
+  font-size: $app-font-icon-log-small !important;
+}
+
+.icon-size-large {
+  font-size: $app-font-icon-log-large !important;
+}
 .italica {
   font-style: italic;
 }

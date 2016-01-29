@@ -18,7 +18,7 @@
                     <td width=1px class="text-right">
                         <div class="btn-action text-center">
                             <span title="realizado">
-                                <i class="glyphicon glyphicon-envelope red "></i>
+                                <i class="glyphicon glyphicon-envelope red icon-size-large"></i>
                             </span>
                         </div>
                     </td>
