@@ -3,7 +3,7 @@
     {!! FORM::label ('comunidad', 'Comunidad') !!}
     {!! FORM::text('comunidad',$comunidad->comunidad, ['class' => 'form-control', 'readonly']) !!}
     <br/>
-    {!! FORM::label ('aceptada', 'Aceptada') !!} <br/>
+    {!! FORM::label ('aceptada', 'Respondida') !!} <br/>
     {!! FORM::select('aceptada',array('1'=>'Si','0'=>'No'), $solicitudRecibida->aceptada,array('class'=>'form-control')) !!}
     <br/>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
