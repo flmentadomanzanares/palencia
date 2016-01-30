@@ -89,7 +89,7 @@ img {
   padding: $thumbnail-padding;
   line-height: $line-height-base;
   background-color: $thumbnail-bg;
-  border: 1px solid $thumbnail-border;
+  border: 1px solid $thumbnail-caption-color;
   border-radius: $thumbnail-border-radius;
   @include transition(all .2s ease-in-out);
 
