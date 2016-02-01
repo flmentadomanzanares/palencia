@@ -10,7 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+//Verificación de email
+Route::get('register/verify/{confirmationCode}', ['as' => 'confirmacion', 'uses' => 'AutenticadoController@confirmar']);
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', 'InvitadoController@index');
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);

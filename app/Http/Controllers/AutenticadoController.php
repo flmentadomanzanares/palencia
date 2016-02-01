@@ -83,4 +83,25 @@ class AutenticadoController extends Controller
 
         return view('autenticado', compact('calendar', 'anyos', 'semanas', 'titulo'));
     }
+
+    public function confirmar($codigoConfirmacion)
+    {
+        if (!$codigoConfirmacion) {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user = User::where('codigo_confirmacion', $codigoConfirmacion)->first();
+
+        if (!$user) {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user->confirmado = true;
+        $user->codigo_confirmacion = null;
+        $user->save();
+
+        Flash::message('You have successfully verified your account.');
+
+        return Redirect::route('invitado');
+    }
 }

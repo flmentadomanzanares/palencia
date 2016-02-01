@@ -52,8 +52,8 @@ class UsersController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea categorías vacías. con store()
     public function store(ValidateRulesUsers $request)
     {
+        $codigoConfirmacion = str_random(30);
         $user = new User; //Creamos instancia al modelo
-
         $user->categoria = \Request::input('categoria'); //Asignamos el valor al campo.
         try {
             $user->save();
@@ -66,7 +66,14 @@ class UsersController extends Controller
                     return redirect()->route('usuarios.index')->with('mensaje', 'Nueva categoría error ' . $e->getCode());
             }
         }
-        return redirect('usuarios')->with('mensaje', 'Usuario creado satisfactoriamente.');
+        Mail::send('emails.verificacion', $codigoConfirmacion, function ($message) {
+            $message->to(Input::get('email'), Input::get('name'))
+                ->subject('Verifica tu dirección de correo');
+        });
+
+        Flash::message('Gracias por darte de alta, verifica tu correo');
+        //return Redirect::inicio();
+        return redirect('invitado')->with('mensaje', 'Usuario creado satisfactoriamente.');
 
     }
 
