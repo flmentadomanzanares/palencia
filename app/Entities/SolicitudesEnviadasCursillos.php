@@ -88,7 +88,7 @@ class SolicitudesEnviadasCursillos extends Model {
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
 
-        $sql= SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
+        return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
@@ -100,7 +100,6 @@ class SolicitudesEnviadasCursillos extends Model {
             ->orderBy('paises.pais', 'ASC')
             ->orderBy('comunidades.comunidad', 'ASC')
             ->get();
-        dd($sql);
 
     }
 
