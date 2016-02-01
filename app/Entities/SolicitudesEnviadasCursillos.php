@@ -95,10 +95,8 @@ class SolicitudesEnviadasCursillos extends Model {
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
             ->where('solicitudes_enviadas.aceptada', true)
             ->where('solicitudes_enviadas_cursillos.activo', true)
-            ->where('cursillos.fecha_inicio', '>', $fecha_inicio)
-            ->orWhere('cursillos.fecha_inicio', '=', $fecha_inicio)
-            ->where('cursillos.fecha_final', '<', $fecha_final)
-            ->orWhere('cursillos.fecha_final', '=', $fecha_final)
+            ->where('cursillos.fecha_inicio', '>=', $fecha_inicio)
+            ->where('cursillos.fecha_final', '<=', $fecha_final)
             ->orderBy('paises.pais', 'ASC')
             ->orderBy('comunidades.comunidad', 'ASC')
             ->get();
