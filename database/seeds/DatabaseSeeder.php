@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
@@ -44,12 +44,12 @@ class DatabaseSeeder extends Seeder
         $this->call('TiposComunicacionesPreferidasTableSeeder');
         $this->call('TiposParticipantesTableSeeder');
         $this->call('TiposSecretariadosTableSeeder');
-        $this->call('ComunidadesTableSeeder');
-        $this->call('CursillosTableSeeder');
-        $this->call('SolicitudesEnviadasTableSeeder');
-        $this->call('SolicitudesRecibidasTableSeeder');
-        $this->call('SolicitudesEnviadasCursillosTableSeeder');
-        $this->call('SolicitudesRecibidasCursillosTableSeeder');
+        // $this->call('ComunidadesTableSeeder');
+        //$this->call('CursillosTableSeeder');
+        //$this->call('SolicitudesEnviadasTableSeeder');
+        // $this->call('SolicitudesRecibidasTableSeeder');
+        //$this->call('SolicitudesEnviadasCursillosTableSeeder');
+        //$this->call('SolicitudesRecibidasCursillosTableSeeder');
 
     }
 

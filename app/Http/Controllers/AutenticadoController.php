@@ -100,7 +100,7 @@ class AutenticadoController extends Controller
         $user->codigo_confirmacion = null;
         $user->save();
 
-        Flash::message('You have successfully verified your account.');
+        Flash::message('La verificación de cuenta se ha realizado con éxito.');
 
         return Redirect::route('invitado');
     }
