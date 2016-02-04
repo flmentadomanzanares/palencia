@@ -11,10 +11,13 @@
 |
 */
 //Verificación de email
-Route::get('register/verify/{confirmationCode}', ['as' => 'confirmacion', 'uses' => 'AutenticadoController@confirmar']);
+
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
-Route::get('/', 'InvitadoController@index');
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
+Route::get('register/verify/{codigoConfirmacion}', ['uses' => 'InvitadoController@confirmar'], function ($codigoConfirmacion = null) {
+
+
+});
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');

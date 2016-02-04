@@ -62,7 +62,6 @@ class AutenticadoController extends Controller
                 $cursillo->id //optional event ID
             );
         }
-
         if (count($cursillos) > 0) {
             $calendar = \Calendar::addEvents($event)
                 ->setOptions([ //set fullcalendar options
@@ -78,30 +77,7 @@ class AutenticadoController extends Controller
                     $(this).attr("href","cursillos/"+calEvent.id);
                 }'
                 ]);
-
         }
-
         return view('autenticado', compact('calendar', 'anyos', 'semanas', 'titulo'));
-    }
-
-    public function confirmar($codigoConfirmacion)
-    {
-        if (!$codigoConfirmacion) {
-            throw new InvalidConfirmationCodeException;
-        }
-
-        $user = User::where('codigo_confirmacion', $codigoConfirmacion)->first();
-
-        if (!$user) {
-            throw new InvalidConfirmationCodeException;
-        }
-
-        $user->confirmado = true;
-        $user->codigo_confirmacion = null;
-        $user->save();
-
-        Flash::message('La verificación de cuenta se ha realizado con éxito.');
-
-        return Redirect::route('invitado');
     }
 }
