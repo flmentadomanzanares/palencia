@@ -23,5 +23,8 @@ return ['campoUser' => [
     'roles'        => [
         'administrador' => '400',
     ],
+    'verificar' => [
+        'Email' => false
+    ],
 ];
 ?>
