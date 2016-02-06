@@ -16,7 +16,7 @@ class CreateCursillosTable extends Migration {
         {
             $table->bigIncrements('id');
 
-            $table->string('cursillo',50)->default("Cursillo para la cristiandad");
+            $table->string('cursillo', 50);
 
             $table->string('num_cursillo',10);
 

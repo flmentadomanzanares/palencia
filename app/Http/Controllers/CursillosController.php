@@ -19,11 +19,11 @@ class CursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Cursillos";
-        $comunidades =Comunidades::getComunidadesList(null,true,"Comunidad...",true);
+        $comunidades = Comunidades::getComunidadesList(null, true, "Comunidad...", true);
         $cursillos = Cursillos::getCursillos($request);
         $anyos = Cursillos::getAnyoCursillosList();
-        $semanas =Array();
-        return view("cursillos.index", compact('comunidades','cursillos', 'titulo', 'anyos', 'semanas'));
+        $semanas = Array();
+        return view("cursillos.index", compact('comunidades', 'cursillos', 'titulo', 'anyos', 'semanas'));
     }
 
     /**
@@ -36,6 +36,7 @@ class CursillosController extends Controller
         //Título Vista
         $titulo = "Nuevo Cursillo";
         $cursillo = new Cursillos();
+        $cursillo->cursillo = "CURSILLO DE CRISTIANDAD";
         $cursillo->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillo->fecha_final = $this->ponerFecha(date("d-m-Y"));
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
@@ -224,10 +225,10 @@ class CursillosController extends Controller
 
     public function semanasTotales(Request $request)
     {
-       if (\Request::ajax()) {
+        if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $semanas = Cursillos::getSemanasCursillos($anyo,$comunidad);
+            $semanas = Cursillos::getSemanasCursillos($anyo, $comunidad);
             return $semanas;
         }
     }
@@ -274,7 +275,7 @@ class CursillosController extends Controller
     }
     public function cursillosTotales(Request $request)
     {
-          if (\Request::ajax()) {
+        if (\Request::ajax()) {
             $comunidad = $request->get('comunidadId');
             return Cursillos::getTodosMisCursillosLista($comunidad);
         }

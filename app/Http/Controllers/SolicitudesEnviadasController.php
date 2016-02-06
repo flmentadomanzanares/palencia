@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
-use Palencia\Entities\Cursillos;
 use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Http\Requests;

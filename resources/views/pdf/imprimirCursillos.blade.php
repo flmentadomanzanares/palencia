@@ -169,10 +169,10 @@
     @if(!$cursillos->isEmpty())
 
         @foreach ($cursillos as $index=>$cursillo)
-                @if($index>0 && $i==$lineasPorPagina)
+            @if($index>0 && $i==$lineasPorPagina)
                     <?php
                     $lineasPorPagina = $listadoTotalRestoPagina;
-                    $saltoPagina = $lineasPorPagina - 3;
+                $saltoPagina = $lineasPorPagina - 3;
                     $listadoPosicionInicial = 0;
                     $i = 0;
                     ?>
@@ -181,33 +181,33 @@
 
                 @endif
 
-                @if($cursillo->pais != $pais)
+            @if($cursillo->pais != $pais)
 
-                    @if($index>0 && $i>=$saltoPagina)
-                        <?php
-                        $lineasPorPagina = $listadoTotalRestoPagina;
-                        $saltoPagina = $lineasPorPagina - 3;
-                        $listadoPosicionInicial = 0;
-                        $i = 0;
-                        ?>
-                        <div class="pagina">Pag. {{$pagina += 1}}</div>
-                        <div class="saltoPagina"></div>
-                    @endif
+                @if($index>0 && $i>=$saltoPagina)
+                    <?php
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 3;
+                    $listadoPosicionInicial = 0;
+                    $i = 0;
+                    ?>
+                    <div class="pagina">Pag. {{$pagina += 1}}</div>
+                    <div class="saltoPagina"></div>
+                @endif
 
-                    <?php $i++?>
-                    <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                        País: {!! $cursillo->pais!!}
-                    </div>
+                <?php $i++?>
+                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    País: {!! $cursillo->pais!!}
+                </div>
 
-                    <?php $pais = $cursillo->pais; ?>
-                    <?php $i++?>
-                    <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                        {!! $cursillo->comunidad !!}
-                    </div>
-                @else
-                    <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                        {!! $cursillo->comunidad !!}
-                    </div>
+                <?php $pais = $cursillo->pais; ?>
+                <?php $i++?>
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->comunidad !!}
+                </div>
+            @else
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $cursillo->comunidad !!}
+                </div>
                 @endif
 
                 <?php $i++?>

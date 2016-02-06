@@ -1,13 +1,13 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 
 class LocalidadesController extends Controller

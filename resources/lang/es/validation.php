@@ -28,7 +28,7 @@ return [
 		"array"   => "El campo :attribute de estar entre :min and :max elementos.",
 	],
 	"boolean"              => "El campo :attribute es verdadero o falso.",
-	"confirmed"            => "El campo :attribute confirmación de no búsqueda.",
+		"confirmed" => "El campo :attribute ha fallado al verificarse.",
 	"date"                 => "El campo :attribute es una fecha no válida.",
 	"date_format"          => "El campo :attribute no tiene el formato :format.",
 	"different"            => "El campo :attribute y :other debe ser diferentes.",

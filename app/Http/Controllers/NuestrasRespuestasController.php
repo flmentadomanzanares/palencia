@@ -19,7 +19,7 @@ class NuestrasRespuestasController extends Controller
     {
         $titulo = "Responder";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", true);
+        $restoComunidades = Comunidades::getComunidadesList(0, true, "Enviar las respuestas pendientes", true);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = Array();

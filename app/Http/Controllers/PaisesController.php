@@ -1,14 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
-use Palencia\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
 use Palencia\Entities\Paises;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesPaises;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesPaises;
 
 class PaisesController extends Controller {
 

@@ -12,16 +12,16 @@
 */
 //Verificación de email
 
+
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
-Route::get('register/verify/{codigoConfirmacion}', ['uses' => 'InvitadoController@confirmar'], function ($codigoConfirmacion = null) {
 
-
-});
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');
+Route::get('cursillos/{id}', ['before' => 'csrf', 'uses' => 'CursillosController@show']);
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
+Route::get('register/verify/{codigoConfirmacion}', ['before' => 'csrf', 'uses' => 'InvitadoController@confirmar']);
 
 Route::group(['middleware' => array('roles'), 'roles' => array('administrador'), 'before' => 'csrf'], function () {
     Route::resource('comunidades', 'ComunidadesController');
@@ -38,7 +38,6 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
     Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));
     Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@index'));
-
 //Copia de seguridad
     Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'uses' => 'CopiaSeguridadController@index'));
     Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'uses' => 'CopiaSeguridadController@comenzarCopia'));

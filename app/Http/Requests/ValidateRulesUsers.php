@@ -1,7 +1,5 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
 class ValidateRulesUsers extends Request {
 
 	/**
@@ -40,6 +38,7 @@ class ValidateRulesUsers extends Request {
             'foto.mimes' => 'Formato de imagen no válido. usa formato jpeg, png y/o jpg.',
             'password.min' => 'Longitud mínima del Password :min caracteres.',
             'password.max' => 'Longitud máxima del Password :max caracteres.',
+				'password.confirmed' => 'Password no coincidente.',
         ];
     }
 

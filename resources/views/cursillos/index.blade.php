@@ -52,12 +52,6 @@
                                     {!! $cursillo->comunidad !!}
                                 </td>
                             </tr>
-                            {{--}}<tr>
-                                <td>Nombre Cursillo:</td>
-                                <td>
-                                    {!! $cursillo->cursillo !!}
-                                </td>
-                            </tr>--}}
                             <tr>
                                 <td>Número:</td>
                                 <td>{!!$cursillo->num_cursillo!!}</td>
