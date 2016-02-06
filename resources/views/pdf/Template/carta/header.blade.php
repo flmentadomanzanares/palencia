@@ -9,9 +9,9 @@
 <div class="destinatario">
     <span>CURSILLOS DE CRISTIANDAD DE</span><br>
     @if(strlen($destinatario->comunidad)>0){{strtoupper($destinatario->comunidad)}}<br/>@endif
-    @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>
+    @if(strlen($destinatario->direccion_postal)>0){{$destinatario->direccion_postal}}<br/>
     @else
-        @if(strlen($destinatario->direccion_postal)>0){{$destinatario->direccion_postal}}<br/> @endif
+        @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
     @endif
     @if(strlen($destinatario->cp)>0){{$destinatario->cp}}- @endif
     @if(strlen($destinatario->localidad)>0){{$destinatario->localidad}} @endif
