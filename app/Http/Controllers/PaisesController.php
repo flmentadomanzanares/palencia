@@ -19,7 +19,7 @@ class PaisesController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Países";
+        $titulo = "Países";
 
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta categorias
         $paises= Paises::getPaises($request);

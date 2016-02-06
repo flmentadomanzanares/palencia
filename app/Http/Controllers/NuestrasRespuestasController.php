@@ -17,7 +17,7 @@ class NuestrasRespuestasController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Nuestras Respuestas";
+        $titulo = "Responder";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", true);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
@@ -149,8 +149,8 @@ class NuestrasRespuestasController extends Controller
                 //Obtenemos el número de cursillos a procesar
                 $contador = count($cursosActualizados);
                 try {
-                    $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
-                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
+                    $destinatario->email_solicitud = "antonio_sga@yahoo.es";
+                    $destinatario->email_envio = "antonio_sga@yahoo.es";
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {

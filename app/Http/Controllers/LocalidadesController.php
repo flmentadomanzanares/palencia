@@ -20,7 +20,7 @@ class LocalidadesController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Localidades";
+        $titulo = "Localidades";
         //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
         $paises = Paises::getPaisesList();
         $provincias = Provincias::getProvinciasList();

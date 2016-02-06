@@ -17,7 +17,7 @@ class ProvinciasController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Provincias";
+        $titulo = "Provincias";
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta provincias
         $paises = Paises::getPaisesList();
         $provincias= Provincias::getProvincias($request);
