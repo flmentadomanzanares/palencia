@@ -20,7 +20,7 @@ class NuestrasSolicitudesController extends Controller
     {
         $titulo = "Nuestras Solicitudes";
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, true, "Resto Comunidades.....", false);
+        $restoComunidades = Comunidades::getComunidadesList(0, true, "Enviar a todas las comunidades", false);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = array();

@@ -6,25 +6,31 @@
  * Time: 8:40
  */
 return ['campoUser' => [
-                        'fullname' => 'Nombre',
-                        'name' => 'Usuario',
-                        'email' => 'Email',
-                        'activo' => 'Activo',
-                        'nactivo' => 'No Activo',
-                        'confirmado' => 'Confirmado',
-                        'nconfirmado' => 'No Confirmado',
+    'fullname' => 'Nombre',
+    'name' => 'Usuario',
+    'email' => 'Email',
+    'activo' => 'Activo',
+    'nactivo' => 'No Activo',
+    'confirmado' => 'Confirmado',
+    'nconfirmado' => 'No Confirmado',
+],
+    'rolUser' => [
+        '0' => 'Elige Rol',
+        '2' => 'Registrado',
+        '3' => 'Autorizado',
+        '4' => 'Administrador',
     ],
-    'rolUser'     =>  [
-                        '0'=>'Elige Rol',
-                        '2'=>'Registrado',
-                        '3'=>'Autorizado',
-                        '4'=>'Administrador',
-    ],
-    'roles'        => [
+    'roles' => [
         'administrador' => '400',
     ],
     'verificar' => [
-        'Email' => false
+        'Email' => false,
+        'recordarPassword' => false,
     ],
+    'accion' => [
+        'cerrarAnyo' => false,
+        'comprobarCursos' => false
+    ],
+
 ];
 ?>
