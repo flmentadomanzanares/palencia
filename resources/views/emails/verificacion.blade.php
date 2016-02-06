@@ -9,7 +9,8 @@
 <div>
     Gracias por crear una cuenta en nuestra comunidad
     Por favor, haz clic en el enlace para activar la cuenta.
-    {{ URL::to('register/verify/' .  $codigoConfirmacion) }}.<br/>
+    <a href="{{ URL::to('register/verify/' .  $codigoConfirmacion) }}">Haz clic aquí para validar la cuenta de
+        usuario</a>.<br/>
 </div>
 <div style="text-align: right;font-size:20px;line-height:1.6">
     <strong>¡
