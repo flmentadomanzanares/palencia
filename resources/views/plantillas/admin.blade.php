@@ -45,7 +45,7 @@
                                 <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
                                 <li>{!!link_to('solicitudesEnviadas', 'Sus Respuestas')!!}</li>
                                 <li role="separator" class="divider"></li>
-                                <li>{!!link_to('solicitudesRecibidas', 'Sus Solicitudes')!!}</li>
+                                <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
                                 <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                                 <li role="separator" class="divider"></li>
                                 <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
