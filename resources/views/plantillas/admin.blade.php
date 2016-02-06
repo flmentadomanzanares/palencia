@@ -31,7 +31,7 @@
                         <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span> <span
                                         class="sr-only">(current)</span></a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Administrador<span
                                         class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -52,7 +52,7 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>

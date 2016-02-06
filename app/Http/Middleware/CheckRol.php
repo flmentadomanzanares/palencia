@@ -17,7 +17,7 @@ class CheckRol
         // Get the required roles from the route
         $roles = $this->getRequiredRoleForRoute($request->route());
         if (is_null($request->user())) {
-            return redirect()->route('invitado');
+            return redirect()->route('/');
         }
         // Check if a role is required for the route, and
         // if so, ensure that the user has that role.

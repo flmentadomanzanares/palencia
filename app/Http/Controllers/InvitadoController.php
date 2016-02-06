@@ -1,5 +1,7 @@
 <?php namespace Palencia\Http\Controllers;
 
+use Palencia\Entities\User;
+
 class InvitadoController extends Controller {
 
 	/*
@@ -33,4 +35,25 @@ class InvitadoController extends Controller {
 		return view('invitado');
 	}
 
+	public function confirmar($codigoConfirmacion)
+	{
+		if (!$codigoConfirmacion) {
+			return redirect()->
+			route('invitado')->
+			with('mensaje', 'No se ha podido validar el usuario.');
+		}
+		$user = User::where('codigo_confirmacion', $codigoConfirmacion)->first();
+		if ($user == null) {
+			return redirect()->
+			route('invitado')->
+			with('mensaje', 'No se ha podido validar el usuario.');
+		}
+		$user->confirmado = true;
+		$user->codigo_confirmacion = null;
+		$user->save();
+		return redirect()->
+		route('invitado')->
+		with('mensaje', 'La verificación de cuenta se ha realizado con éxito.');
+
+	}
 }

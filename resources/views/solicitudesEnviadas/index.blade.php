@@ -88,5 +88,5 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/semanasSolicitudesEnviadas.js') !!}
+
 @endsection

@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         if (!auth()->check())
-            return View("invitado");
+            return View("/");
         if (\Auth::user()->roles->peso < config('opciones.roles.administrador')) {
             $titulo = "Mi perfil";
             $users = User::getUser($request);
@@ -30,55 +30,6 @@ class UsersController extends Controller
         }
         $roles = Roles::getRolesList();
         return view("usuarios.index", compact('users', 'titulo', 'roles'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $user = new User;
-        return view('usuarios.nuevo', compact('user'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-
-    //si no se incluye el control de reglas de validación como argumento, el método crea categorías vacías. con store()
-    public function store(ValidateRulesUsers $request)
-    {
-        $user = new User; //Creamos instancia al modelo
-
-        $user->categoria = \Request::input('categoria'); //Asignamos el valor al campo.
-        try {
-            $user->save();
-        } catch (\Exception $e) {
-            switch ($e->getCode()) {
-                case 23000:
-                    return redirect()->route('usuarios.create')->with('mensaje', 'La categoría ' . \Request::input('categoria') . ' está ya dada de alta.');
-                    break;
-                default:
-                    return redirect()->route('usuarios.index')->with('mensaje', 'Nueva categoría error ' . $e->getCode());
-            }
-        }
-        return redirect('usuarios')->with('mensaje', 'Usuario creado satisfactoriamente.');
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
