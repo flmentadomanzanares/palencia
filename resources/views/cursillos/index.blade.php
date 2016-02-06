@@ -13,19 +13,21 @@
                 @foreach ($cursillos as $cursillo)
                     <div>
                         <table class="table-viaoptima table-striped">
-
+                            <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
+                                {!! $cursillo->cursillo !!}
+                            </caption>
                             <thead>
                             <tr @if(!$cursillo->activo) class="background-disabled"
                                 @else style="background-color:{{$cursillo->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
-                                       href="{{route('cursillos.show',array('id'=>$cursillo->id))}}">
+                                       href="{{route('cursillos.show',$cursillo->id)}}">
                                         <i class="glyphicon glyphicon-eye-open">
                                             <div>Detalles</div>
                                         </i>
                                     </a>
                                     <a title="Editar"
-                                       href="{{route('cursillos.edit',array('id'=>$cursillo->id))}}">
+                                       href="{{route('cursillos.edit',$cursillo->id)}}">
                                         <i class="glyphicon glyphicon-edit">
                                             <div>Editar</div>
                                         </i>
@@ -50,12 +52,12 @@
                                     {!! $cursillo->comunidad !!}
                                 </td>
                             </tr>
-                            <tr>
+                            {{--}}<tr>
                                 <td>Nombre Cursillo:</td>
                                 <td>
                                     {!! $cursillo->cursillo !!}
                                 </td>
-                            </tr>
+                            </tr>--}}
                             <tr>
                                 <td>Número:</td>
                                 <td>{!!$cursillo->num_cursillo!!}</td>

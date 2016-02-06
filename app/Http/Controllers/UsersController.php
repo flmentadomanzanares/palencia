@@ -25,7 +25,7 @@ class UsersController extends Controller
             $titulo = "Mi perfil";
             $users = User::getUser($request);
         } else {
-            $titulo = "Listado de Usuarios";
+            $titulo = "Usuarios";
             $users = User::getUsers($request);
         }
         $roles = Roles::getRolesList();

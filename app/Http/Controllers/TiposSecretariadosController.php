@@ -17,7 +17,7 @@ class TiposSecretariadosController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de tipos de secretariados";
+        $titulo = "Tipos de Secretariados";
         $tipos_secretariados = TiposSecretariados::getTipoSecretariados($request);
         return view("tiposSecretariados.index", compact('tipos_secretariados', 'titulo'));
     }

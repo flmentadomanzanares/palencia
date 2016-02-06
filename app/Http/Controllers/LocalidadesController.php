@@ -1,13 +1,13 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesLocalidades;
 
 
 class LocalidadesController extends Controller
@@ -20,7 +20,7 @@ class LocalidadesController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Localidades";
+        $titulo = "Localidades";
         //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
         $paises = Paises::getPaisesList();
         $provincias = Provincias::getProvinciasList();

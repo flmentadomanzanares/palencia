@@ -22,7 +22,7 @@ class ComunidadesController extends Controller
     {
         if (!auth()->check())
             return View("invitado");
-        $titulo = "Listado de comunidades";
+        $titulo = "Comunidades";
         $comunidades = Comunidades::getComunidades($request);
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisesList();

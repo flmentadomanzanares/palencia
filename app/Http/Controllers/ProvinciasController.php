@@ -1,12 +1,12 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesProvincias;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesProvincias;
 
 class ProvinciasController extends Controller {
 
@@ -17,7 +17,7 @@ class ProvinciasController extends Controller {
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de Provincias";
+        $titulo = "Provincias";
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta provincias
         $paises = Paises::getPaisesList();
         $provincias= Provincias::getProvincias($request);

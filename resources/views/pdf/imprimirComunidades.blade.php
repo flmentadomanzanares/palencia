@@ -96,7 +96,7 @@
             line-height: 1.6em;
             height: 30px;
             min-width: 190mm;
-            border-bottom: 1px solid #4a4949;
+            /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
         }
     </style>

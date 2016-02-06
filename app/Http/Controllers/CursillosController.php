@@ -18,7 +18,7 @@ class CursillosController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de cursillos";
+        $titulo = "Cursillos";
         $comunidades = Comunidades::getComunidadesList(null, true, "Comunidad...", true);
         $cursillos = Cursillos::getCursillos($request);
         $anyos = Cursillos::getAnyoCursillosList();
@@ -273,7 +273,6 @@ class CursillosController extends Controller
             return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia, $anyo, $esRespuestaAnterior);
         }
     }
-
     public function cursillosTotales(Request $request)
     {
         if (\Request::ajax()) {

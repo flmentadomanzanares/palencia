@@ -125,7 +125,7 @@
             line-height: 1.6em;
             height: 30px;
             width: 138mm;
-            border-bottom: 1px solid #4a4949;
+            /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
             float:left;
         }
@@ -137,7 +137,7 @@
             line-height: 1.6em;
             height: 30px;
             width: 50mm;
-            border-bottom: 1px solid #4a4949;
+            /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
             margin-left:530px;
         }
