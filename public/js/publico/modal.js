@@ -15,6 +15,8 @@ $(document).ready(function () {
     });
     $('a.mostrarformularioModal').on('click', function (evt) {
         evt.preventDefault();
+        if ($("li.dropdown").hasClass("open"))
+            $("li.dropdown").removeClass("open");
         selector = "#" + $(this).data("selector");
         $(selector).hide().fadeIn(velocidadFade, function () {
             $(selector + " .ventanaModal").animate({"margin-left": '-' + $(selector + " .ventanaModal").css("width")}, velocidadScroll);
