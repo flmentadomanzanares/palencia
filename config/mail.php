@@ -100,7 +100,7 @@ return [
 	|
 	*/
 		'password' => 'koalnet28',
-	//	'password' => 'fmentadosmtp2go',
+	//	'password' => 'Moreno69',
 	//  'password' => env('PASSWORD'),
 
 	/*

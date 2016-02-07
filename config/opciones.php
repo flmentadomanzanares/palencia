@@ -37,6 +37,10 @@ return ['campoUser' => [
         'carta' => 'carta',
         'email' => 'email',
     ],
+    "emailTestSender" => [
+        "active" => true,
+        "email" => "pmgcur02@gmail.com",
+    ],
 
 ];
 ?>

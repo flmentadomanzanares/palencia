@@ -154,8 +154,11 @@ class NuestrasRespuestasController extends Controller
                 //Obtenemos el número de cursillos a procesar
                 $contador = count($cursosActualizados);
                 try {
-                    $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
-                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
+                    if (config("opciones.emailTestSender.active")) {
+                        $destinatario->email_solicitud = config("opciones.emailTestSender.email");
+                        $destinatario->email_envio = config("opciones.emailTestSender.email");
+                    }
+
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
