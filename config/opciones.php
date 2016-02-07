@@ -19,7 +19,7 @@ return ['campoUser' => [
     ],
     'verificar' => [
         'Email' => false,
-        'recordarPassword' => true,
+        'recordarPassword' => false,
     ],
     'accion' => [
         'copiaSeguridad' => true,

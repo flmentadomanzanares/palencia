@@ -85,8 +85,8 @@ return [
 	|
 	*/
 
-	//'username' => 'paulinomcclaspalmas@gmail.com',
-		'username' => 'koalnetsmtp@gmail.com',
+	'username' => 'paulinomcclaspalmas@gmail.com',
+		//'username' => 'koalnetsmtp@gmail.com',
 	//'username' => env('USERNAME'),
 
 	/*
@@ -99,7 +99,8 @@ return [
 	| connection so that the application will be able to send messages.
 	|
 	*/
-		'password' => 'koalnet28',
+    'password' => 'Moreno69',
+    //'password' => 'koalnet28',
 	//	'password' => 'fmentadosmtp2go',
 	//  'password' => env('PASSWORD'),
 
