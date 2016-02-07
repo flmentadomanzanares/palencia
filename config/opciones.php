@@ -22,15 +22,20 @@ return ['campoUser' => [
         'recordarPassword' => true,
     ],
     'accion' => [
+        'copiaSeguridad' => true,
         'cerrarAnyo' => false,
         'comprobarCursos' => false,
-        'roles' => true,
-        'tiposParticipantes' => true,
-        'tipoComunicacionesPreferidas' => true,
+        'roles' => false,
+        'tiposParticipantes' => false,
+        'tipoComunicacionesPreferidas' => false,
     ],
     'envios' => [
         'timeout' => 6000,
         'comunidadesMax' => 0, //0=todos
+    ],
+    'documento' => [
+        'carta' => 'carta',
+        'email' => 'email',
     ],
 
 ];

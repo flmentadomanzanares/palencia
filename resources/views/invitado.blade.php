@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            @if ($recordar)
+            @if (config("opciones.verificar.recordarPassword"))
                 <div id="password-reset" class="formularioModal">
                     <div class="ventanaModal">
                         <div class="headerFormularioModal">

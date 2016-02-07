@@ -92,6 +92,7 @@ class NuestrasRespuestasController extends Controller
         //Array contenedor de logs.
         $logEnvios = [];
         //Colección de cursos que van a ser actualizados y sus correspondiente mensajes.
+        $comunidadesDestinatarias = [];
         $totalCursosActualizadosIds = [];
         $totalCursosActualizados = [];
         $totalContadorCursosActualizados = 0;
@@ -117,6 +118,7 @@ class NuestrasRespuestasController extends Controller
             $cursos = [];
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
+
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
 

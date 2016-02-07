@@ -86,10 +86,14 @@
                         <ul role="menu" class="dropdown-menu">
                             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                 <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
-                                {{--<li role="separator" class="divider"></li>
-                                <li>{!!link_to('cerrarAnyo','Cerrar A&ntilde;o')!!}</li>--}}
+                                @if (config("opciones.accion.copiaSeguridad"))
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
+                                @endif
+                                @if (config("opciones.accion.cerrarAnyo"))
+                                    <li role="separator" class="divider"></li>
+                                    <li>{!!link_to('cerrarAnyo','Cerrar A&ntilde;o')!!}</li>
+                                @endif
                             @else
                                 <li>{!!link_to('miPerfil', 'Mi perfil')!!}</li>
                             @endif
@@ -113,7 +117,7 @@
                             !!} <br/>
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             <br/>
-                            @if($recordar)
+                            @if(config("opciones.verificar.recordarPassword"))
                                 <a class="mostrarformularioModal btn btn-default btn-block"
                                    data-selector="password-reset"
                                    href="">Recordar password</a>
