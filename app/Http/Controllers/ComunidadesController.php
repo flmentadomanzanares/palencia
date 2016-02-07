@@ -20,8 +20,6 @@ class ComunidadesController extends Controller
      */
     public function index(Request $request)
     {
-        if (!auth()->check())
-            return View("invitado");
         $titulo = "Comunidades";
         $comunidades = Comunidades::getComunidades($request);
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
@@ -128,6 +126,9 @@ class ComunidadesController extends Controller
         //Título Vista
         $titulo = "Detalles Comunidad";
         $comunidad = Comunidades::getComunidad($id);
+        if ($comunidad == null) {
+            return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
+        }
         return view('comunidades.ver',
             compact(
                 'comunidad',
@@ -147,6 +148,9 @@ class ComunidadesController extends Controller
         //Título Vista
         $titulo = "Modificar Comunidad";
         $comunidad = Comunidades::find($id);
+        if ($comunidad == null) {
+            return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
+        }
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisToList($comunidad->provincia_id);
         $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
@@ -176,6 +180,9 @@ class ComunidadesController extends Controller
     {
         //Creamos una nueva instancia al modelo.
         $comunidad = Comunidades::find($id);
+        if ($comunidad == null) {
+            return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
+        }
         $comunidad->comunidad = \Request::input('comunidad');
         $comunidad->esPropia = \Request::input('esPropia');
         $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
@@ -228,6 +235,9 @@ class ComunidadesController extends Controller
     public function destroy($id)
     {
         $comunidad = Comunidades::find($id);
+        if ($comunidad == null) {
+            return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
+        }
         try {
             $comunidad->delete();
         } catch (\Exception $e) {

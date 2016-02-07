@@ -14,22 +14,28 @@ return ['campoUser' => [
     'confirmado' => 'Confirmado',
     'nconfirmado' => 'No Confirmado',
 ],
-    'rolUser' => [
-        '0' => 'Elige Rol',
-        '2' => 'Registrado',
-        '3' => 'Autorizado',
-        '4' => 'Administrador',
-    ],
     'roles' => [
         'administrador' => '400',
     ],
     'verificar' => [
         'Email' => false,
-        'recordarPassword' => false,
+        'recordarPassword' => true,
     ],
     'accion' => [
+        'copiaSeguridad' => true,
         'cerrarAnyo' => false,
-        'comprobarCursos' => false
+        'comprobarCursos' => false,
+        'roles' => false,
+        'tiposParticipantes' => false,
+        'tipoComunicacionesPreferidas' => false,
+    ],
+    'envios' => [
+        'timeout' => 6000,
+        'comunidadesMax' => 0, //0=todos
+    ],
+    'documento' => [
+        'carta' => 'carta',
+        'email' => 'email',
     ],
 
 ];

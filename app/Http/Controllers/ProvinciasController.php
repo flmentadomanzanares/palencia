@@ -8,7 +8,8 @@ use Palencia\Http\Requests\ValidateRulesProvincias;
 
 //Validación
 
-class ProvinciasController extends Controller {
+class ProvinciasController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -20,8 +21,8 @@ class ProvinciasController extends Controller {
         $titulo = "Provincias";
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta provincias
         $paises = Paises::getPaisesList();
-        $provincias= Provincias::getProvincias($request);
-        return view("provincias.index",compact("provincias", 'paises', "titulo"));
+        $provincias = Provincias::getProvincias($request);
+        return view("provincias.index", compact("provincias", 'paises', "titulo"));
 
     }
 
@@ -90,6 +91,9 @@ class ProvinciasController extends Controller {
 
         //Nos situamos sobre la provincia.
         $provincias = Provincias::find($id);
+        if ($provincias == null) {
+            return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
+        }
 
         //Vista
         return view('provincias.mostrar',
@@ -111,6 +115,9 @@ class ProvinciasController extends Controller {
         //Título Vista
         $titulo = 'Modificar Provincia';
         $provincias = Provincias::find($id);
+        if ($provincias == null) {
+            return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
+        }
         $paises = Paises::getPaisesList();
         return view('provincias.modificar',
             compact(
@@ -129,6 +136,9 @@ class ProvinciasController extends Controller {
     public function update($id, ValidateRulesProvincias $request)
     {
         $provincias = Provincias::find($id);
+        if ($provincias == null) {
+            return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
+        }
         $provincias->pais_id = \Request::input('pais');
         $provincias->provincia = \Request::input('provincia');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
@@ -158,6 +168,9 @@ class ProvinciasController extends Controller {
     public function destroy($id)
     {
         $provincias = Provincias::find($id);
+        if ($provincias == null) {
+            return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
+        }
         $provinciaNombre = $provincias->provincia;
         try {
             $provincias->delete();
@@ -186,7 +199,7 @@ class ProvinciasController extends Controller {
             $pais_id = (int)\Request::input('pais_id');
             return Provincias::where('pais_id', $pais_id)
                 ->where('activo', true)
-                ->orderBy('provincia','ASC')
+                ->orderBy('provincia', 'ASC')
                 ->select('provincia', 'id')
                 ->get();
         }

@@ -44,26 +44,26 @@
                     </div>
                 </div>
             </div>
-            <div id="password-reset" class="formularioModal">
-                <div class="ventanaModal">
-                    <div class="headerFormularioModal">
-                        <span>RESETEAR</span>
-                        <a title="Cerrar" class="closeFormModal">X</a>
-                    </div>
-                    <div class="cuerpoFormularioModal">
-                        <div class="scroll">
-                            {!! FORM::open(array('url' => '/password/email','method'=>'post')) !!}
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                            {!! FORM::label ('email', 'email de envío') !!} <br/>
-                            {!! FORM::text('email',"",array("class"=>"form-control", 'value'=>old('email'))) !!} <br/>
-
-                            {!! FORM::submit('Reset password',array("class"=>"btn btn-success btn-block")) !!}
-                            {!! FORM::close() !!}
+            @if (config("opciones.verificar.recordarPassword"))
+                <div id="password-reset" class="formularioModal">
+                    <div class="ventanaModal">
+                        <div class="headerFormularioModal">
+                            <span>RESETEAR</span>
+                            <a title="Cerrar" class="closeFormModal">X</a>
+                        </div>
+                        <div class="cuerpoFormularioModal">
+                            <div class="scroll">
+                                {!! FORM::open(array('url' => '/password/email','method'=>'post')) !!}
+                                {!! FORM::label ('email', 'email de envío') !!} <br/>
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <br/>
+                                {!! FORM::submit('Reset password',array("class"=>"btn btn-success btn-block")) !!}
+                                {!! FORM::close() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @stop

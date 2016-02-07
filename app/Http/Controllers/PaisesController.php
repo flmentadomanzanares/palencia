@@ -7,7 +7,8 @@ use Palencia\Http\Requests\ValidateRulesPaises;
 
 //Validación
 
-class PaisesController extends Controller {
+class PaisesController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -19,8 +20,8 @@ class PaisesController extends Controller {
         $titulo = "Países";
 
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta categorias
-        $paises= Paises::getPaises($request);
-        return view("paises.index",compact("paises", "titulo"));
+        $paises = Paises::getPaises($request);
+        return view("paises.index", compact("paises", "titulo"));
     }
 
 
@@ -70,7 +71,7 @@ class PaisesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -81,25 +82,31 @@ class PaisesController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
     {
         $titulo = "Modificar País";
         $paises = Paises::find($id);
+        if ($paises == null) {
+            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+        }
         return view('paises.modificar', compact('paises', 'titulo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id, ValidateRulesPaises $request)
     {
         $paises = Paises::find($id);
+        if ($paises == null) {
+            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+        }
         $paises->pais = \Request::input("pais");
         if (\Auth::user()->roles->peso >= config("opciones.roles.administrador")) {
             $paises->activo = \Request::input("activo");
@@ -126,6 +133,9 @@ class PaisesController extends Controller {
     public function destroy($id)
     {
         $paises = Paises::find($id);
+        if ($paises == null) {
+            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+        }
         $paisNombre = $paises->pais;
 
         try {

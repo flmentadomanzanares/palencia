@@ -100,7 +100,7 @@ class NuestrasSolicitudesController extends Controller
         $multiplesPdfEnd = '</html>';
 
         //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
-        ini_set("max_execution_time", 6000);
+        ini_set("max_execution_time", config('opciones.envios.timeout'));
 
         //Obtenemos Los cursos relacionados con la comunidad y creamos la línea de impresión para enviarla al template en memoria
         $cursos = [];

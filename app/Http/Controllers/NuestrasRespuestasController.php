@@ -73,6 +73,7 @@ class NuestrasRespuestasController extends Controller
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true, $request->get('incluirRespuestasAnteriores'));
         $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('restoComunidades'), $request->get('anyo'), $request->get('incluirRespuestasAnteriores'), false);
+
         //Verificación
         $numeroDestinatarios = count($destinatarios);
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
@@ -91,6 +92,7 @@ class NuestrasRespuestasController extends Controller
         //Array contenedor de logs.
         $logEnvios = [];
         //Colección de cursos que van a ser actualizados y sus correspondiente mensajes.
+        $comunidadesDestinatarias = [];
         $totalCursosActualizadosIds = [];
         $totalCursosActualizados = [];
         $totalContadorCursosActualizados = 0;
@@ -104,7 +106,8 @@ class NuestrasRespuestasController extends Controller
         $multiplesPdfEnd = '</html>';
 
         //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
-        ini_set("max_execution_time", 6000);
+        ini_set("max_execution_time", config('opciones.envios.timeout'));
+
         foreach ($destinatarios as $idx => $destinatario) {
             //Ruta para linux
             $separatorPath = "/";
@@ -115,8 +118,10 @@ class NuestrasRespuestasController extends Controller
             $cursos = [];
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
+
             $esCarta = true;
             foreach ($cursillos as $idx => $cursillo) {
+
                 if ($cursillo->comunidad_id == $destinatario->id) {
                     $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                     if (!$cursillo->esRespuesta) {
@@ -149,8 +154,8 @@ class NuestrasRespuestasController extends Controller
                 //Obtenemos el número de cursillos a procesar
                 $contador = count($cursosActualizados);
                 try {
-                    $destinatario->email_solicitud = "antonio_sga@yahoo.es";
-                    $destinatario->email_envio = "antonio_sga@yahoo.es";
+                    $destinatario->email_solicitud = "franciscomentadomanzanares@gmail.com";
+                    $destinatario->email_envio = "franciscomentadomanzanares@gmail.com";
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -172,9 +177,11 @@ class NuestrasRespuestasController extends Controller
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
                     unlink($nombreArchivoAdjuntoEmail);
-                } catch (\Exception $e) {
-                    $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
-                        . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
+                } catch (\Exception $ex) {
+                    if (count($cursosActualizados) > 0) {
+                        $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
+                            . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
+                    }
                     $envio = 0;
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope green icon-size-large"] :

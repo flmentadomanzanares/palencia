@@ -1,10 +1,10 @@
 <?php namespace Palencia\Http\Controllers;
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\TiposParticipantes;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesTiposParticipantes;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesTiposParticipantes;
 
 class TiposParticipantesController extends Controller
 {
@@ -74,6 +74,9 @@ class TiposParticipantesController extends Controller
     {
         $titulo = "Modificar tipo de participante";
         $tipos_participantes = TiposParticipantes::find($id);
+        if ($tipos_participantes == null) {
+            return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
+        }
         return view('tiposParticipantes.modificar', compact('tipos_participantes','titulo'));
      }
 
@@ -86,6 +89,9 @@ class TiposParticipantesController extends Controller
     public function update($id, ValidateRulesTiposParticipantes $request)
     {
         $tipos_participantes = TiposParticipantes::find($id);
+        if ($tipos_participantes == null) {
+            return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
+        }
         $tipos_participantes->tipo_participante = \Request::input('tipo_participante');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_participantes->activo = \Request::input('activo');
@@ -113,6 +119,9 @@ class TiposParticipantesController extends Controller
     public function destroy($id)
     {
         $tipos_participantes = TiposParticipantes::find($id);
+        if ($tipos_participantes == null) {
+            return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
+        }
         $participante =$tipos_participantes->tipo_participante;
         try {
             $tipos_participantes->delete();

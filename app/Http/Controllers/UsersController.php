@@ -42,6 +42,9 @@ class UsersController extends Controller
     {
         $titulo = "Modificar Usuario";
         $usuario = User::find($id);
+        if ($usuario == null) {
+            return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
+        }
         $roles = Roles::orderBy('rol', 'ASC')
             ->lists('rol', 'id');
         return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));
@@ -56,6 +59,9 @@ class UsersController extends Controller
     public function update($id, ValidateRulesUsers $request)
     {
         $user = User::find($id);
+        if ($user == null) {
+            return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
+        }
         $user->fullname = \Request::input('fullname');
         $user->name = \Request::input('name');
         $user->password = strlen(\Request::input('password')) > 0 ? \Hash::make(\Request::input('password')) : $user->password;
@@ -87,8 +93,8 @@ class UsersController extends Controller
             }
         }
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-        return redirect()->route('usuarios.index')
-            ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
+            return redirect()->route('usuarios.index')
+                ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
         } else {
             return redirect()->route('inicio')
                 ->with('mensaje', 'El Perfil de usuario ha sido modificado.');
@@ -104,6 +110,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        if ($user == null) {
+            return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
+        }
         $userNombre = $user->name;
         try {
             $user->delete();
@@ -128,6 +137,9 @@ class UsersController extends Controller
     {
         $titulo = "Modificar Usuario";
         $usuario = User::find(\Auth::user()->id);
+        if ($usuario == null) {
+            return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
+        }
         $roles = Roles::orderBy('rol', 'ASC')
             ->lists('rol', 'id');
         return view('usuarios.modificar', compact('usuario', 'roles', 'titulo'));

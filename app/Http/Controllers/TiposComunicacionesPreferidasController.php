@@ -1,11 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\TiposComunicacionesPreferidas;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesTiposComunicacionesPreferidas;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesTiposComunicacionesPreferidas;
 
 class TiposComunicacionesPreferidasController extends Controller
 {
@@ -77,6 +77,9 @@ class TiposComunicacionesPreferidasController extends Controller
     {
         $titulo = "Modificar tipo de comunicacion preferida";
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
+        if ($tipos_comunicaciones_preferidas == null) {
+            return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
+        }
         return view('tiposComunicacionesPreferidas.modificar', compact('tipos_comunicaciones_preferidas', 'titulo'));
     }
 
@@ -89,6 +92,9 @@ class TiposComunicacionesPreferidasController extends Controller
     public function update($id, ValidateRulesTiposComunicacionesPreferidas $request)
     {
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
+        if ($tipos_comunicaciones_preferidas == null) {
+            return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
+        }
         $tipos_comunicaciones_preferidas->comunicacion_preferida = \Request::input('comunicacion_preferida');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_comunicaciones_preferidas->activo = \Request::input('activo');
@@ -116,6 +122,9 @@ class TiposComunicacionesPreferidasController extends Controller
     public function destroy($id)
     {
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
+        if ($tipos_comunicaciones_preferidas == null) {
+            return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
+        }
         $comunicacion_preferida = $tipos_comunicaciones_preferidas->comunicacion_preferida;
         try {
             $tipos_comunicaciones_preferidas->delete();

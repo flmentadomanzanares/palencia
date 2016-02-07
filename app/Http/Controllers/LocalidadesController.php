@@ -99,6 +99,9 @@ class LocalidadesController extends Controller
         //Título Vista
         $titulo = "Modificar Localidad";
         $localidades = Localidades::find($id);
+        if ($localidades == null) {
+            return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
+        }
         $provincias = Provincias::getProvinciaToList($localidades->provincia_id);
         $paises = Paises::getPaisToList($localidades->provincia_id);
         return view('localidades.modificar',
@@ -118,6 +121,9 @@ class LocalidadesController extends Controller
     public function update($id, ValidateRulesLocalidades $request)
     {
         $localidades = Localidades::find($id);
+        if ($localidades == null) {
+            return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
+        }
         $localidades->localidad = \Request::input('localidad');
         $localidades->provincia_id = \Request::input('provincia');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
@@ -146,6 +152,9 @@ class LocalidadesController extends Controller
     public function destroy($id)
     {
         $localidades = Localidades::find($id);
+        if ($localidades == null) {
+            return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
+        }
         $localidadNombre = $localidades->localidad;
         try {
             $localidades->delete();

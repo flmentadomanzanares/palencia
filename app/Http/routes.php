@@ -29,23 +29,31 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::resource('localidades', 'LocalidadesController');
     Route::resource('paises', 'PaisesController');
     Route::resource('provincias', 'ProvinciasController');
-//Route::resource('roles','RolesController');
     Route::resource('calendarioCursos', 'CalendarioCursosController');
     Route::resource('tiposSecretariados', 'TiposSecretariadosController');
-//Route::resource('tiposParticipantes','TiposParticipantesController');
-//Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+    if (config("opciones.accion.roles")) {
+        Route::resource('roles', 'RolesController');
+    }
+    if (config("opciones.accion.tiposParticipantes")) {
+        Route::resource('tiposParticipantes', 'TiposParticipantesController');
+    }
+    if (config("opciones.accion.tipoComunicacionesPreferidas")) {
+        Route::resource('tiposComunicacionesPreferidas', 'TiposComunicacionesPreferidasController');
+    }
     Route::resource('solicitudesEnviadas', 'SolicitudesEnviadasController');
     Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
     Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));
     Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@index'));
 //Copia de seguridad
-    Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'uses' => 'CopiaSeguridadController@index'));
-    Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
-
+    if (config("opciones.accion.copiaSeguridad")) {
+        Route::get('copiaSeguridad', array('as' => 'copiaSeguridad', 'uses' => 'CopiaSeguridadController@index'));
+        Route::post('comenzarCopiaSeguridad', array('as' => 'comenzarCopiaSeguridad', 'uses' => 'CopiaSeguridadController@comenzarCopia'));
+    }
 //Cerrar año
-    Route::get('cerrarAnyo', array('as' => 'cerrarAnyo', 'uses' => 'CerrarAnyoController@getAnyo'));
-    Route::post('borrarTablas', array('as' => 'borrarTablas', 'uses' => 'CerrarAnyoController@borrarTablas'));
-
+    if (config("opciones.accion.cerrarAnyo")) {
+        Route::get('cerrarAnyo', array('as' => 'cerrarAnyo', 'uses' => 'CerrarAnyoController@getAnyo'));
+        Route::post('borrarTablas', array('as' => 'borrarTablas', 'uses' => 'CerrarAnyoController@borrarTablas'));
+    }
     Route::post('comprobarNuestrasSolicitudes', array('as' => 'comprobarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@comprobarSolicitudes'));
     Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
     Route::post('comprobarNuestrasRespuestas', array('as' => 'comprobarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@comprobarRespuestas'));
