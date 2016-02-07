@@ -7,7 +7,8 @@ use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesRecibidas;
 
-class SolicitudesRecibidasController extends Controller {
+class SolicitudesRecibidasController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -85,7 +86,7 @@ class SolicitudesRecibidasController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -96,7 +97,7 @@ class SolicitudesRecibidasController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -104,7 +105,10 @@ class SolicitudesRecibidasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Recibida";
         $solicitudRecibida = SolicitudesRecibidas::find($id);
-        $comunidad=Comunidades::getNombreComunidad($solicitudRecibida->comunidad_id);
+        if ($solicitudRecibida == null) {
+            return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
+        $comunidad = Comunidades::getNombreComunidad($solicitudRecibida->comunidad_id);
 
         //Vista
         return view('solicitudesRecibidas.modificar',
@@ -118,13 +122,16 @@ class SolicitudesRecibidasController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id, ValidateRulesSolicitudesRecibidas $request)
     {
         //Creamos una nueva instancia al modelo.
         $solicitudRecibida = SolicitudesRecibidas::find($id);
+        if ($solicitudRecibida == null) {
+            return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
         $solicitudRecibida->aceptada = \Request::input('aceptada');
         $solicitudRecibida->activo = \Request::input('activo');
 
@@ -154,12 +161,15 @@ class SolicitudesRecibidasController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy($id)
     {
         $solicitudRecibida = SolicitudesRecibidas::find($id);
+        if ($solicitudRecibida == null) {
+            return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
         try {
             $solicitudRecibida->delete();
         } catch (\Exception $e) {
@@ -178,14 +188,11 @@ class SolicitudesRecibidasController extends Controller {
 
     public function getCursillosSolicitudRecibida(Request $request)
     {
-
-        $titulo="Listado de Cursillos";
-        $comunidadId=$request->comunidad_id;
-        $solicitudId=$request->solicitud_id;
-        $comunidad=Comunidades::getNombreComunidad($comunidadId);
-
-        $solicitudesRecibidasCursillos= SolicitudesRecibidasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
-
+        $titulo = "Listado de Cursillos";
+        $comunidadId = $request->comunidad_id;
+        $solicitudId = $request->solicitud_id;
+        $comunidad = Comunidades::getNombreComunidad($comunidadId);
+        $solicitudesRecibidasCursillos = SolicitudesRecibidasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
         return view("solicitudesRecibidas.verCursillos", compact('solicitudesRecibidasCursillos', 'titulo', 'comunidad', 'solicitudId'));
     }
 }

@@ -49,6 +49,15 @@
                                 <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                                 <li role="separator" class="divider"></li>
                                 <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
+                                @if (config("opciones.accion.roles"))
+                                    <li>{!!link_to('roles', 'Roles')!!}</li>
+                                @endif
+                                @if (config("opciones.accion.tiposParticipantes"))
+                                    <li>{!!link_to('tiposParticipantes', 'Tipo de Participantes')!!}</li>
+                                @endif
+                                @if (config("opciones.accion.tipoComunicacionesPreferidas"))
+                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipo de Comunicación')!!}</li>
+                                @endif
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -84,7 +93,7 @@
                             @else
                                 <li>{!!link_to('miPerfil', 'Mi perfil')!!}</li>
                             @endif
-                                <li role="separator" class="divider"></li>
+                            <li role="separator" class="divider"></li>
                             <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
                         </ul>
                     </li>
@@ -104,6 +113,11 @@
                             !!} <br/>
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             <br/>
+                            @if($recordar)
+                                <a class="mostrarformularioModal btn btn-default btn-block"
+                                   data-selector="password-reset"
+                                   href="">Recordar password</a>
+                            @endif
                             <a class="mostrarformularioModal btn btn-default btn-block" data-selector="registro"
                                href="">Registrarse</a>
                             {!! FORM::close() !!}

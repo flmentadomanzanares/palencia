@@ -75,8 +75,11 @@ class TiposSecretariadosController extends Controller
     {
         $titulo = "Modificar tipo de secretariado";
         $tipos_secretariados = tiposSecretariados::find($id);
-        return view('tiposSecretariados.modificar', compact('tipos_secretariados','titulo'));
-     }
+        if ($tipos_secretariados == null) {
+            return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
+        }
+        return view('tiposSecretariados.modificar', compact('tipos_secretariados', 'titulo'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -87,6 +90,9 @@ class TiposSecretariadosController extends Controller
     public function update($id, ValidateRulesTiposSecretariados $request)
     {
         $tipos_secretariados = tiposSecretariados::find($id);
+        if ($tipos_secretariados == null) {
+            return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
+        }
         $tipos_secretariados->tipo_secretariado = \Request::input('tipo_secretariado');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
             $tipos_secretariados->activo = \Request::input('activo');
@@ -114,14 +120,17 @@ class TiposSecretariadosController extends Controller
     public function destroy($id)
     {
         $tipos_secretariados = tiposSecretariados::find($id);
-        $comunidad =$tipos_secretariados->secretariado;
+        if ($tipos_secretariados == null) {
+            return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
+        }
+        $comunidad = $tipos_secretariados->secretariado;
         try {
             $tipos_secretariados->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposSecretariados.index')
-                        ->with('mensaje', 'El tipo de secretariado '.$comunidad.' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de secretariado ' . $comunidad . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
                     return redirect()->route('tiposSecretariados.index')

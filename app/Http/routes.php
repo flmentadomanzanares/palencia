@@ -29,11 +29,17 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::resource('localidades', 'LocalidadesController');
     Route::resource('paises', 'PaisesController');
     Route::resource('provincias', 'ProvinciasController');
-//Route::resource('roles','RolesController');
     Route::resource('calendarioCursos', 'CalendarioCursosController');
     Route::resource('tiposSecretariados', 'TiposSecretariadosController');
-//Route::resource('tiposParticipantes','TiposParticipantesController');
-//Route::resource('tiposComunicacionesPreferidas','TiposComunicacionesPreferidasController');
+    if (config("opciones.accion.roles")) {
+        Route::resource('roles', 'RolesController');
+    }
+    if (config("opciones.accion.tiposParticipantes")) {
+        Route::resource('tiposParticipantes', 'TiposParticipantesController');
+    }
+    if (config("opciones.accion.tipoComunicacionesPreferidas")) {
+        Route::resource('tiposComunicacionesPreferidas', 'TiposComunicacionesPreferidasController');
+    }
     Route::resource('solicitudesEnviadas', 'SolicitudesEnviadasController');
     Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
     Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));

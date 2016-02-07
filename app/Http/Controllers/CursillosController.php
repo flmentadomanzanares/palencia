@@ -135,7 +135,7 @@ class CursillosController extends Controller
         $titulo = "Modificar Cursillo";
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
-            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
+            return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
         //Si incluimos las comunidades
         //$comunidades = Comunidades::getComunidadesList();
@@ -163,7 +163,7 @@ class CursillosController extends Controller
         //Creamos una nueva instancia al modelo.
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
-            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
+            return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
         $cursillo->cursillo = \Request::input('cursillo');
         $cursillo->num_cursillo = \Request::input('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
@@ -207,7 +207,7 @@ class CursillosController extends Controller
     {
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
-            return redirect('cursillos')->withErrors("No se ha encontrado el cursillo.");
+            return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
         try {
             $cursillo->delete();
         } catch (\Exception $e) {
@@ -273,6 +273,7 @@ class CursillosController extends Controller
             return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia, $anyo, $esRespuestaAnterior);
         }
     }
+
     public function cursillosTotales(Request $request)
     {
         if (\Request::ajax()) {

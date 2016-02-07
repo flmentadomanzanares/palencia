@@ -51,6 +51,7 @@ class Comunidades extends Model
             ->ComunidadesId($comunidad)
             ->esPropia($esPropia)
             ->orderBy("comunidades.comunidad")
+            ->take(config('opciones.envios.comunidadesMax'))
             ->get();
     }
     static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
@@ -73,6 +74,7 @@ class Comunidades extends Model
             ->ComunidadesId($comunidad)
             ->esPropia($esPropia)
             ->orderBy("comunidades.comunidad")
+            ->take(config('opciones.envios.comunidadesMax'))
             ->get();
     }
 

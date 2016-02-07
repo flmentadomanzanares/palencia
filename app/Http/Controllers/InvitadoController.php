@@ -32,7 +32,8 @@ class InvitadoController extends Controller {
 	 */
 	public function index()
 	{
-		return view('invitado');
+		$recordar = config("opciones.verificar.recordarPassword");
+		return view('invitado', compact('recordar'));
 	}
 
 	public function confirmar($codigoConfirmacion)

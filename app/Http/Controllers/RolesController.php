@@ -1,11 +1,11 @@
 <?php namespace Palencia\Http\Controllers;
 
-use Palencia\Http\Requests;
 use Illuminate\Http\Request;
 use Palencia\Entities\Roles;
+use Palencia\Http\Requests;
+use Palencia\Http\Requests\ValidateRulesRoles;
 
 //Validación
-use Palencia\Http\Requests\ValidateRulesRoles;
 
 
 class RolesController extends Controller {
@@ -89,6 +89,9 @@ class RolesController extends Controller {
     {
         $titulo = "Modificar Rol";
         $roles = Roles::find($id);
+        if ($roles == null) {
+            return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
+        }
         return view('roles.modificar', compact('roles', 'titulo'));
     }
 
@@ -101,6 +104,9 @@ class RolesController extends Controller {
     public function update($id, ValidateRulesRoles $request)
     {
         $roles = Roles::find($id);
+        if ($roles == null) {
+            return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
+        }
         $nombreRol = $roles->rol;
         $roles->rol = \Request::input('rol');
         $roles->peso = \Request::input('peso');
@@ -129,6 +135,9 @@ class RolesController extends Controller {
     public function destroy($id)
     {
         $roles = Roles::find($id);
+        if ($roles == null) {
+            return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
+        }
         $rolNombre = $roles->rol;
         try {
             $roles->delete();

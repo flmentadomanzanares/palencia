@@ -104,6 +104,9 @@ class SolicitudesEnviadasController extends Controller {
         //Título Vista
         $titulo = "Modificar Solicitud Enviada";
         $solicitudEnviada = SolicitudesEnviadas::find($id);
+        if ($solicitudEnviada == null) {
+            return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
         $comunidad=Comunidades::getNombreComunidad($solicitudEnviada->comunidad_id);
         //Vista
         return view('solicitudesEnviadas.modificar',
@@ -124,6 +127,9 @@ class SolicitudesEnviadasController extends Controller {
 	{
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = SolicitudesEnviadas::find($id);
+        if ($solicitudEnviada == null) {
+            return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
         $solicitudEnviada->aceptada = \Request::input('aceptada');
         $solicitudEnviada->activo = \Request::input('activo');
 
@@ -159,6 +165,9 @@ class SolicitudesEnviadasController extends Controller {
 	public function destroy($id)
 	{
         $solicitudEnviada = SolicitudesEnviadas::find($id);
+        if ($solicitudEnviada == null) {
+            return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
+        }
         try {
             $solicitudEnviada->delete();
         } catch (\Exception $e) {
