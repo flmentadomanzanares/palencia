@@ -39,7 +39,7 @@ return ['campoUser' => [
     ],
     "emailTestSender" => [
         "active" => true,
-        "email" => "pmgcur02@gmail.com",
+        "email" => 'franciscomentadomanzanares@gmail.com'//"pmgcur02@gmail.com",
     ],
 
 ];

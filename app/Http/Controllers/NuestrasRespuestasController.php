@@ -131,13 +131,16 @@ class NuestrasRespuestasController extends Controller
                     }
                 }
             }
+
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) > 0)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
-                $nombreArchivoAdjuntoEmail = str_replace(" ", "", $nombreArchivoAdjuntoEmail);
+                $nombreArchivoAdjuntoEmail = str_replace(" ", "_", $nombreArchivoAdjuntoEmail);
+
                 try {
+
                     $pdf = \App::make('dompdf.wrapper');
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
@@ -153,12 +156,12 @@ class NuestrasRespuestasController extends Controller
                 $esCarta = false;
                 //Obtenemos el número de cursillos a procesar
                 $contador = count($cursosActualizados);
+
                 try {
                     if (config("opciones.emailTestSender.active")) {
                         $destinatario->email_solicitud = config("opciones.emailTestSender.email");
                         $destinatario->email_envio = config("opciones.emailTestSender.email");
                     }
-
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursos, 'remitente' => $remitente, 'destinatario' => $destinatario, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
@@ -166,6 +169,7 @@ class NuestrasRespuestasController extends Controller
                             $message->to($destinatario->email_envio)->subject("Nuestra Respuesta");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
+
                     $destinatariosConEmail += 1;
                     $comunidadesDestinatarias[] = [$destinatario->id, $destinatario->comunidad];
                     $totalContadorCursosActualizados += $contador;
@@ -175,11 +179,14 @@ class NuestrasRespuestasController extends Controller
                     foreach ($cursosActualizadosIds as $id) {
                         $totalCursosActualizadosIds[] .= $id;
                     }
+
                     if ($contador > 0) {
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
+
                     unlink($nombreArchivoAdjuntoEmail);
+
                 } catch (\Exception $ex) {
                     if (count($cursosActualizados) > 0) {
                         $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " excluido"
@@ -220,7 +227,6 @@ class NuestrasRespuestasController extends Controller
                 }
             }
         }
-
         if ($destinatariosConCarta > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NR-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
