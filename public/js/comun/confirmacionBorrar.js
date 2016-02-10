@@ -1,7 +1,7 @@
 $(function () {
-    $(document).on('click', '.borrado', function (e) {
-        $(this.form).submit();
-        $('#myModal').modal('hide');
+    $(document).on('click', '.verificarBorrado', function (e) {
+        $(this).closest('form').submit();
+        $('#verificarBorrado').modal('hide');
     });
 });
 

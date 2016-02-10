@@ -28,9 +28,11 @@ return ['campoUser' => [
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
+        'mostrarModalDeBorrado' => true,
     ],
     'envios' => [
-        'timeout' => 6000,
+        'timeout' => 30,
+        'seMaxtTimeAt' => 30,
         'comunidadesMax' => 0, //0=todos
     ],
     'documento' => [

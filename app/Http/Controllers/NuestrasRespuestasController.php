@@ -18,8 +18,10 @@ class NuestrasRespuestasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Responder";
+        //Comprobamos si el server permite modificar el tiempo de ejecución del script.
+        $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, true, "Enviar las respuestas pendientes", true);
+        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = Array();
@@ -131,7 +133,8 @@ class NuestrasRespuestasController extends Controller
                     }
                 }
             }
-
+            //Reseteamos el tiempo de ejecución del script definiendo un nuevo tamaño de espera.
+            set_time_limit(config('opciones.envios.seMaxtTimeAt'));
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) > 0)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $remitente->comunidad . '.pdf';

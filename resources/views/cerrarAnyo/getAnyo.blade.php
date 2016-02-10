@@ -10,7 +10,8 @@
             <div class="row ">
                 {!! FORM::open(['route'=>'borrarTablas','method'=>'POST']) !!}
                 <div class="alert alert-danger" role="alert">
-                    ¡¡AVISO!!: Al pulsar "Borrar" se borraran todos los registros de cursillos y solicitudes del año seleccionado.
+                    ¡¡AVISO!!: Al pulsar "Borrar" se borraran todos los registros de cursillos y solicitudes del año
+                    seleccionado.
                 </div>
                 <div class="heading-caption">Seleccione año a cerrar ...</div>
                 {!! FORM::label('anyo', 'Año') !!} <br/>
@@ -23,34 +24,18 @@
                             <div>Inicio</div>
                         </i>
                     </a>
-                    <button type="button" id="delete" class="pull-right" data-toggle="modal" data-target="#myModal">
+                    <button type="button" id="delete" class="pull-right" data-toggle="modal"
+                            data-target="#verificarBorrado">
                         <i class='glyphicon glyphicon-trash full-Width'>
                             <div>Borrar</div>
                         </i>
                     </button>
-
                 </div>
-                <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Borrar cursillos y sus solicitudes</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿Esta seguro que quiere borrar los cursillos y sus solicitudes?</p>
-                                <p>Una vez borrados no se podran recuperar.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal">¡No!, quiero volver atras</button>
-                                <button type="submit" class="btn btn-danger borrado">¡Si!, quiero borrarlos</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                @if(config('opciones.accion.mostrarModalDeBorrado'))
+                    @include('comun.verificarBorrado')
+                @endif
                 {!! FORM::close() !!}
             </div>
-
         @else
             @include('comun.guestGoHome')
         @endif
@@ -58,5 +43,4 @@
 @endsection
 @section('js')
     {!! HTML::script('js/comun/semanasSolicitudesRecibidasCursillos.js') !!}
-    {!! HTML::script('js/comun/confirmacionBorrar.js') !!}
 @endsection

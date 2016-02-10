@@ -19,8 +19,10 @@ class NuestrasSolicitudesController extends Controller
     public function index(Request $request)
     {
         $titulo = "Nuestras Solicitudes";
+        //Comprobamos si el server permite modificar el tiempo de ejecución del script.
+        $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, true, "Enviar a todas las comunidades", false);
+        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar a todas las comunidades", false);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = array();
@@ -126,6 +128,8 @@ class NuestrasSolicitudesController extends Controller
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $esCarta = true;
+            //Comprobamos si el server permite modificar el tiempo de ejecución del script.
+            $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 //Nombre del archivo a adjuntar
