@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'username' => env('MAILUSERNAME'),
+     'username' => env('MAILUSERNAME'),
 
     /*
     |--------------------------------------------------------------------------
