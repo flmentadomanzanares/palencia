@@ -148,8 +148,10 @@ class NuestrasSolicitudesController extends Controller
                 }
                 $esCarta = false;
                 try {
-                    $destinatario->email_solicitud = "antonio_sga@yahoo.es";
-                    $destinatario->email_envio = "antonio_sga@yahoo.es";
+                    if (config("opciones.emailTestSender.active")) {
+                        $destinatario->email_solicitud = config("opciones.emailTestSender.email");
+                        $destinatario->email_envio = config("opciones.emailTestSender.email");
+                    }
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'),
                         function ($message) use ($remitente, $destinatario, $nombreArchivoAdjuntoEmail) {
