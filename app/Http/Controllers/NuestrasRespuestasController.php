@@ -39,7 +39,7 @@ class NuestrasRespuestasController extends Controller
 
     public function comprobarRespuestas(Request $request)
     {
-        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, true);
+        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true);
         $tipoEnvio = $request->get("modalidad");
         if ($tipoEnvio != 1) {
             $incidencias = array();

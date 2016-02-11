@@ -50,6 +50,7 @@ class Comunidades extends Model
             ->ExcluirSinCursillos($excluirSinCursillos)
             ->ComunidadesId($comunidad)
             ->esPropia($esPropia)
+            ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
             ->take(config('opciones.envios.comunidadesMax'))
             ->get();
@@ -73,6 +74,7 @@ class Comunidades extends Model
             ->ExcluirSinCursillos($excluirSinCursillos)
             ->ComunidadesId($comunidad)
             ->esPropia($esPropia)
+            ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
             ->take(config('opciones.envios.comunidadesMax'))
             ->get();
