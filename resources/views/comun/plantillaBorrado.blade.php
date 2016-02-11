@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="verificarBorrado">
+<div class="modal fade" tabindex="-1" role="dialog" id="borradoModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">¡No!, quiero volver atras</button>
-                <button type="button" class="btn btn-danger verificarBorrado">¡Si!, quiero borrarlos</button>
+                <button type="button" class="btn btn-danger realizarBorrado">¡Si!, quiero borrarlos</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

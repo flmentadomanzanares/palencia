@@ -34,9 +34,9 @@
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                             {!! FORM::open(array('route' => array('paises.destroy', $pais->id),
                                             'method' => 'DELETE','title'=>'Borrar')) !!}
-                                            <button type="@if(config('opciones.accionmostrarModalDeBorrado'))button@else submit@endif"
+                                            <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button@else submit @endif"
                                                     class="pull-right" data-toggle="modal"
-                                                    data-target="#verificarBorrado">
+                                                    data-target="#borradoModal">
                                                 <i class='glyphicon glyphicon-trash full-Width'>
                                                     <div>Borrar</div>
                                                 </i>
