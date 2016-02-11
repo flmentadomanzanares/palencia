@@ -25,7 +25,7 @@
                         </i>
                     </a>
                     <button type="button" id="delete" class="pull-right" data-toggle="modal"
-                            data-target="#verificarBorrado">
+                            data-target="#borradoModal">
                         <i class='glyphicon glyphicon-trash full-Width'>
                             <div>Borrar</div>
                         </i>
