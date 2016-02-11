@@ -33,23 +33,36 @@ $(document).ready(function () {
             type: 'post',
             url: 'listadoCursillosSolicitudes',
             success: function (data) {
-                $('#listado_cursillos').empty();
-                $.each(data, function (key, element) {
-                    var fecha = formatoFecha(new Date(element.fecha_inicio));
-                    var html = "<table class='table-viaoptima table-striped'><thead>" +
-                        "<tr style='Background: " + element.color + ";'>" +
-                        "<th colspan='2' class='text-center'>" + element.comunidad + "</th>" +
+                var html = "";
+                if (data.length > 0) {
+                    $.each(data, function (key, element) {
+                        var fecha = formatoFecha(new Date(element.fecha_inicio));
+                        html += "<table class='table-viaoptima table-striped'><thead>" +
+                            "<tr style='Background: " + element.color + ";'>" +
+                            "<th colspan='2' class='text-center'>" + element.comunidad + "</th>" +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>" +
+                            "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
+                            "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
+                            "<tr>" + "<td>Inicio</td><td>" + fecha + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
+                            "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
+                            "</tbody>" +
+                            "</table>";
+
+                    });
+                }
+                else {
+                    html += "<table class='table-viaoptima table-striped'><thead>" +
+                        "<tr style='Background: #000;'>" +
+                        "<th colspan='2' class='text-center'>Sin cursillos a procesar</th>" +
                         "</tr>" +
                         "</thead>" +
                         "<tbody>" +
-                        "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
-                        "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
-                        "<tr>" + "<td>Inicio</td><td>" + fecha + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
-                        "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
                         "</tbody>" +
                         "</table>";
-                    $('#listado_cursillos').append(html);
-                });
+                }
+                $('#listado_cursillos').empty().append(html);
             },
             error: function () {
             }
