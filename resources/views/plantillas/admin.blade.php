@@ -159,6 +159,9 @@
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}
+@if(config('opciones.accion.mostrarModalDeBorrado'))
+    {!! HTML::script("js/comun/verificarBorrado.js")!!}
+@endif
 @yield("js")
 </body>
 </html>
