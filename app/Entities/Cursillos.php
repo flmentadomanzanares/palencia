@@ -229,7 +229,7 @@ class Cursillos extends Model
         //Obtenemos el cursillo
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'cursillos.fecha_final',
             'cursillos.descripcion', 'cursillos.activo', 'cursillos.num_cursillo', 'cursillos.esRespuesta', 'cursillos.esSolicitud',
-            'comunidades.comunidad', 'comunidades.color', 'tipos_participantes.tipo_participante')
+            'comunidades.comunidad', 'comunidades.color', 'comunidades.esPropia', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('cursillos.id', $id)
@@ -278,6 +278,15 @@ class Cursillos extends Model
         return Cursillos::Select('cursillos.cursillo')
             ->where('cursillos.id', $id)
             ->first();
+    }
+
+    static public function borrarTablaCursillos($anyo = 0)
+    {
+        DB::transaction(function ($anyo) {
+
+            DB::table('cursillos')->delete()
+                ->where(DB::raw('DATE_FORMAT(_cursillos.fecha_final,"%Y")'), '=', $anyo);
+        });
     }
 
     public function comunidades()
@@ -397,14 +406,5 @@ class Cursillos extends Model
     {
         if (trim($cursillo) != '')
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
-    }
-
-    static public function borrarTablaCursillos($anyo = 0)
-    {
-        DB::transaction(function($anyo) {
-
-            DB::table('cursillos')->delete()
-                ->where(DB::raw('DATE_FORMAT(_cursillos.fecha_final,"%Y")'), '=', $anyo);
-        });
     }
 }

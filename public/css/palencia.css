@@ -6934,15 +6934,11 @@ input[type=file]:hover {
 .formularioModal .ventanaModal .headerFormularioModal {
   box-sizing: border-box;
   display: block;
-  position: absolute;
   width: 100%;
   height: 40px;
-  top: 0;
-  left: 0;
   text-align: center;
   background-color: #400090;
   color: #ffffff;
-  z-index: 2;
 }
 .formularioModal .ventanaModal .headerFormularioModal > span {
   font-size: 30px;
@@ -6951,20 +6947,25 @@ input[type=file]:hover {
 .formularioModal .ventanaModal .cuerpoFormularioModal {
   box-sizing: border-box;
   display: block;
-  position: absolute;
   width: 100%;
   height: auto;
-  top: 0;
-  left: 0;
-  padding-top: 40px;
-  z-index: 1;
+  color: #400090;
+  background-color: #ffffff;
+}
+
+.formularioModal .ventanaModal .footerFormularioModal {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  padding: 5px;
   color: #400090;
   background-color: #ffffff;
 }
 .formularioModal .ventanaModal .closeFormModal {
   position: absolute;
   width: 24px;
-  top: 6px;
+  top: 9px;
   right: 3px;
   font-size: 15px;
   font-weight: bold;
@@ -6985,8 +6986,6 @@ input[type=file]:hover {
   position: relative;
   width: 100%;
   height: 95%;
-  left: 0;
-  right: 0;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 5px;
