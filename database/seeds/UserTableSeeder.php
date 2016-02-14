@@ -1,7 +1,7 @@
 <?php
 
-use Palencia\Entities\User;
 use Faker\Generator;
+use Palencia\Entities\User;
 
 class UserTableSeeder extends BaseSeeder {
 
@@ -48,14 +48,16 @@ class UserTableSeeder extends BaseSeeder {
             'name' => 'Antonio',
             'email' => 'antonio@gmail.com',
             'password' => bcrypt('admin'),
-            'rol_id' => 4
+            'rol_id' => 4,
+            'confirmado' => true
         ]);
         User::create([
             'fullname'  => 'Francisco Luis Mentado Manzanares',
             'name' => 'Fmentado',
             'email' => 'a@a.es',
             'password' => bcrypt('fmentado'),
-            'rol_id' => 4
+            'rol_id' => 4,
+            'confirmado' => true
         ]);
 
     }

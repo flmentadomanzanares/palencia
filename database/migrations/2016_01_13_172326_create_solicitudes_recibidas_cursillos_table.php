@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateSolicitudesRecibidasCursillosTable extends Migration {
 
@@ -23,8 +23,9 @@ class CreateSolicitudesRecibidasCursillosTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
 
             $table->bigInteger('cursillo_id')->unsigned();
+			$table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 
-            $table->boolean('activo')->default(true);
+			$table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 

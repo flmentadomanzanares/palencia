@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateSolicitudesEnviadasCursillosTable extends Migration {
 
@@ -22,6 +22,7 @@ class CreateSolicitudesEnviadasCursillosTable extends Migration {
             $table->bigInteger('comunidad_id')->unsigned();
 
             $table->bigInteger('cursillo_id')->unsigned();
+			$table->foreign('cursillo_id')->references('id')->on('cursillos')->onUpdate("cascade");
 
             $table->boolean('activo')->default(true);
 
