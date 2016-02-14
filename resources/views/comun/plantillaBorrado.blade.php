@@ -1,15 +1,16 @@
-<div id="confirmarBorrado" class="formularioModal">
+<div class="formularioModal">
     <div class="ventanaModal">
         <div class="headerFormularioModal">
             <span class="text-center"></span>
-            <a title="Cerrar" class="closeFormModal">X</a>
+
+            <div title="Cerrar" class="closeFormModal">X</div>
         </div>
         <div class="cuerpoFormularioModal">
-            <div class="scroll">
-                <span class="text-center"></span>
-            </div>
-            <button type="button" class="btn btn-danger pull-left">No</button>
-            <button type="submit" class="btn btn-success pull-right">Si</button>
+            <div class="scroll"></div>
+        </div>
+        <div class="footerFormularioModal">
+            <div class="btn btn-danger pull-left"></div>
+            <div class="btn btn-success pull-right actionOkClick"></div>
         </div>
     </div>
 </div>

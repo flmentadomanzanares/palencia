@@ -35,9 +35,12 @@
                                             {!! FORM::open(array('route' => array('paises.destroy', $pais->id),
                                             'method' => 'DELETE','title'=>'Borrar')) !!}
                                             <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
-                                                    class="pull-right verificarBorrado" data-selector="confirmarBorrado"
+                                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                    class="pull-right lanzarModal"
                                                     data-title="BORRADO"
-                                                    data-descripcion="¿ Seguro que deseas eliminar el país <b>{{$pais->pais}}</b> ?">
+                                                    data-descripcion="¿ Seguro que deseas eliminar el país <b>{{$pais->pais}}</b> ?"
+                                                    data-footer="true"
+                                                    @endif >
                                                 <i class='glyphicon glyphicon-trash full-Width'>
                                                     <div>Borrar</div>
                                                 </i>
