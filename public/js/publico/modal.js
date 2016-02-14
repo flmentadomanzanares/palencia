@@ -10,6 +10,9 @@ $(document).ready(function () {
     });
     $('.lanzarModal').on('click', function (evt) {
         evt.preventDefault();
+        if ($("li.dropdown").hasClass("open")) {
+            $("li.dropdown").removeClass("open");
+        }
         var elementoClick = $(this);
         if (elementoClick.data('selectorId')) {
             selector = $("#" + elementoClick.data("selectorId"));
