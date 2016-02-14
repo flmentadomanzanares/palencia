@@ -29,7 +29,7 @@ $(document).ready(function () {
         if (descripcion.length > 0) {
             selector.find(".cuerpoFormularioModal .scroll")
                 .empty()
-                .append("<span class='text-center'>" + (elementoClick.data('descripcion')) + "</span>")
+                .append("<div class='text-center'>" + (elementoClick.data('descripcion')) + "</div>")
         }
         if (String.toLowerCase(footer) !== "true") {
             selector.find(".ventanaModal > .footerFormularioModal").remove();
