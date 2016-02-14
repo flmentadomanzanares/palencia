@@ -215,9 +215,9 @@ body {
 //Imagen Calendario
 .calendario {
   background-image: url("../img/iconos/calendario.png");
-  background-position: right center;
+  background-position: right 1px;
   background-repeat: no-repeat;
-  background-size: 32px 100%;
+  background-size: 30px 32px;
 }
 
 //BOTONES
@@ -497,6 +497,8 @@ input[type=file]:hover {
       overflow-x: hidden;
       overflow-y: auto;
       padding: $padding-app-base;
+      font-size: $font-size-app-base-content;
+      font-weight: normal;
     }
     @media screen and (min-width: 400px) {
       max-width: 330px;

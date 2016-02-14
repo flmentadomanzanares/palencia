@@ -2996,8 +2996,9 @@ legend {
 label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin: 5px 0;
+  font-weight: normal;
+  font-size: 16px;
 }
 
 input[type="search"] {
@@ -3966,7 +3967,7 @@ tbody.collapse.in {
   list-style: none;
   font-size: 14px;
   text-align: left;
-  margin-top: 2px !important;
+  margin-top: 0 !important;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -6690,9 +6691,9 @@ body {
 
 .calendario {
   background-image: url("../img/iconos/calendario.png");
-  background-position: right center;
+  background-position: right 1px;
   background-repeat: no-repeat;
-  background-size: 32px 100%;
+  background-size: 30px 32px;
 }
 
 .btn-register {
@@ -6952,7 +6953,6 @@ input[type=file]:hover {
   color: #400090;
   background-color: #ffffff;
 }
-
 .formularioModal .ventanaModal .footerFormularioModal {
   box-sizing: border-box;
   display: inline-block;
@@ -6989,6 +6989,8 @@ input[type=file]:hover {
   overflow-x: hidden;
   overflow-y: auto;
   padding: 5px;
+  font-size: 15px;
+  font-weight: normal;
 }
 @media screen and (min-width: 400px) {
   .formularioModal .ventanaModal {
