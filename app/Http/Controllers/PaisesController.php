@@ -33,8 +33,8 @@ class PaisesController extends Controller
     public function create()
     {
         $titulo = "Nuevo País";
-        $paises = new Paises;
-        return view("paises.nuevo", compact("paises", "titulo"));
+        $pais = new Paises;
+        return view("paises.nuevo", compact("pais", "titulo"));
 
     }
 
@@ -47,16 +47,15 @@ class PaisesController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
     public function store(ValidateRulesPaises $request)
     {
-        $paises = new Paises; //Creamos instancia al modelo
-
-        $paises->pais = \Request::input("pais"); //Asignamos el valor al campo.
+        $pais = new Paises; //Creamos instancia al modelo
+        $pais->pais = $request->get("pais"); //Asignamos el valor al campo.
         try {
-            $paises->save();
+            $pais->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route("paises.create")
-                        ->with("mensaje", "El país " . \Request::input("pais") . " está ya dado de alta.");
+                        ->with("mensaje", "El país " . $pais->pais . " está ya dado de alta.");
                     break;
                 default:
                     return redirect()->route("paises.index")
@@ -64,19 +63,8 @@ class PaisesController extends Controller
             }
         }
         return redirect("paises")
-            ->with("mensaje", "El país " . $paises->pais . " creado satisfactoriamente.");
+            ->with("mensaje", "El país " . $pais->pais . " se ha creado satisfactoriamente.");
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -88,11 +76,11 @@ class PaisesController extends Controller
     public function edit($id)
     {
         $titulo = "Modificar País";
-        $paises = Paises::find($id);
-        if ($paises == null) {
+        $pais = Paises::find($id);
+        if ($pais == null) {
             return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
         }
-        return view('paises.modificar', compact('paises', 'titulo'));
+        return view('paises.modificar', compact('pais', 'titulo'));
     }
 
     /**
@@ -103,16 +91,16 @@ class PaisesController extends Controller
      */
     public function update($id, ValidateRulesPaises $request)
     {
-        $paises = Paises::find($id);
-        if ($paises == null) {
+        $pais = Paises::find($id);
+        if ($pais == null) {
             return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
         }
-        $paises->pais = \Request::input("pais");
+        $pais->pais = $request->get("pais");
         if (\Auth::user()->roles->peso >= config("opciones.roles.administrador")) {
-            $paises->activo = \Request::input("activo");
+            $pais->activo = $request->get("activo");
         }
         try {
-            $paises->save();
+            $pais->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -121,7 +109,7 @@ class PaisesController extends Controller
             }
         }
         return redirect()->route("paises.index")
-            ->with("mensaje", "País  modificado satisfactoriamente.");
+            ->with("mensaje", $pais->pais . " se ha modificado satisfactoriamente.");
     }
 
     /**
@@ -132,28 +120,24 @@ class PaisesController extends Controller
      */
     public function destroy($id)
     {
-        $paises = Paises::find($id);
-        if ($paises == null) {
+        $pais = Paises::find($id);
+        if ($pais == null) {
             return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
         }
-        $paisNombre = $paises->pais;
-
         try {
-            $paises->delete();
+            $pais->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route("paises.index")
-                        ->with("mensaje", "El país " . $paisNombre . " no se puede eliminar al tener registros asociados.");
+                        ->with("mensaje", $pais->pais . " no se puede eliminar al tener provincias asociadas. ");
                     break;
                 default:
                     return redirect()->route("paises.index")
                         ->with("mensaje", "Eliminar país error " . $e->getCode());
             }
-
         }
-
         return redirect()->route("paises.index")
-            ->with("mensaje", "El país " . $paisNombre . " eliminado correctamente.");
+            ->with("mensaje", $pais->pais . " se ha borrado correctamente.");
     }
 }

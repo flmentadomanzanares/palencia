@@ -6747,20 +6747,23 @@ body {
   border: 1px solid #400090;
 }
 
-.panel-viaoptima-search {
+.panel-search {
   margin-bottom: 5px;
   background-color: transparent;
   border: none;
   border-radius: 0;
 }
-.panel-viaoptima-search:before, .panel-viaoptima-search:after {
+
+.panel-search:before, .panel-search:after {
   content: " ";
   display: table;
 }
-.panel-viaoptima-search:after {
+
+.panel-search:after {
   clear: both;
 }
-.panel-viaoptima-search a {
+
+.panel-search a {
   min-width: 60px;
   font-family: Arial, sans-serif !important;
   display: inline-block;
@@ -6773,10 +6776,12 @@ body {
   color: #400090;
   margin: 2px;
 }
-.panel-viaoptima-search a:hover {
+
+.panel-search a:hover {
   color: #ff7a00;
 }
-.panel-viaoptima-search a > i {
+
+.panel-search a > i {
   display: inline-block;
 }
 

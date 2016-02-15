@@ -8,7 +8,8 @@ use Palencia\Http\Requests\ValidateRulesRoles;
 //Validación
 
 
-class RolesController extends Controller {
+class RolesController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -20,8 +21,8 @@ class RolesController extends Controller {
         $titulo = "Listado de Roles";
 
         //Vamos al indice y creamos una paginación de 3 elementos y con ruta categorias
-        $roles= Roles::getRoles($request);
-        return view("roles.index",compact("roles", "titulo"));
+        $roles = Roles::getRoles($request);
+        return view("roles.index", compact("roles", "titulo"));
     }
 
     /**
@@ -32,8 +33,8 @@ class RolesController extends Controller {
     public function create()
     {
         $titulo = "Nuevo Rol";
-        $roles = new Roles;
-        return view("roles.nuevo", compact("roles", "titulo"));
+        $rol = new Roles();
+        return view("roles.nuevo", compact("rol", "titulo"));
     }
 
     /**
@@ -45,18 +46,18 @@ class RolesController extends Controller {
     //si no se incluye el control de reglas de validación como argumento, el método crea roles vacíos. con store()
     public function store(ValidateRulesRoles $request)
     {
-        $roles = new Roles; //Creamos instancia al modelo
+        $rol = new Roles(); //Creamos instancia al modelo
 
-        $roles->rol = \Request::input('rol'); //Asignamos el valor al campo.
-        $roles->peso = \Request::input('peso'); //Asignamos el valor al campo.
+        $rol->rol = $request->get('rol'); //Asignamos el valor al campo.
+        $rol->peso = $request->get('peso'); //Asignamos el valor al campo.
 
         try {
-            $roles->save();
+            $rol->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('roles.create')
-                        ->with('mensaje', 'El rol ' . \Request::input('rol') . ' está ya dado de alta.');
+                        ->with('mensaje', 'El rol ' . $rol->rol . ' está ya dado de alta.');
                     break;
                 default:
                     return redirect()->route('roles.index')
@@ -64,19 +65,8 @@ class RolesController extends Controller {
             }
         }
         return redirect('roles')
-            ->with('mensaje', 'El rol ' . $roles->rol . ' creado satisfactoriamente.');
+            ->with('mensaje', 'El rol ' . $rol->rol . ' se ha creado satisfactoriamente.');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -88,11 +78,11 @@ class RolesController extends Controller {
     public function edit($id)
     {
         $titulo = "Modificar Rol";
-        $roles = Roles::find($id);
-        if ($roles == null) {
+        $rol = Roles::find($id);
+        if ($rol == null) {
             return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
         }
-        return view('roles.modificar', compact('roles', 'titulo'));
+        return view('roles.modificar', compact('rol', 'titulo'));
     }
 
     /**
@@ -103,18 +93,17 @@ class RolesController extends Controller {
      */
     public function update($id, ValidateRulesRoles $request)
     {
-        $roles = Roles::find($id);
-        if ($roles == null) {
+        $rol = Roles::find($id);
+        if ($rol == null) {
             return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
         }
-        $nombreRol = $roles->rol;
-        $roles->rol = \Request::input('rol');
-        $roles->peso = \Request::input('peso');
+        $rol->rol = $request->get('rol');
+        $rol->peso = $request->get('peso');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-            $roles->activo = \Request::input('activo');
+            $rol->activo = $request->get('activo');
         }
         try {
-            $roles->save();
+            $rol->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -123,7 +112,7 @@ class RolesController extends Controller {
             }
         }
         return redirect()->route('roles.index')
-            ->with('mensaje', 'roles ' . $nombreRol . ' ha sido modificado correctamente ');
+            ->with('mensaje', 'roles ' . $rol->rol . ' ha sido modificado correctamente ');
     }
 
     /**
@@ -134,18 +123,17 @@ class RolesController extends Controller {
      */
     public function destroy($id)
     {
-        $roles = Roles::find($id);
-        if ($roles == null) {
+        $rol = Roles::find($id);
+        if ($rol == null) {
             return Redirect('roles')->with('mensaje', 'No se encuentra el rol seleccionado.');
         }
-        $rolNombre = $roles->rol;
         try {
-            $roles->delete();
+            $rol->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('roles.index')
-                        ->with('mensaje', 'El rol ' . $rolNombre . ' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El rol ' . $rol->rol . ' no se puede eliminar al tener usuarios asociados.');
                     break;
                 default:
                     return redirect()->route('roles.index')
@@ -153,8 +141,6 @@ class RolesController extends Controller {
             }
 
         }
-
-        return redirect()->route('roles.index')->with('mensaje', 'El rol ' . $rolNombre . ' eliminado correctamente.');
+        return redirect()->route('roles.index')->with('mensaje', 'El rol ' . $rol->rol . ' se ha eliminado correctamente.');
     }
-
 }

@@ -32,10 +32,7 @@ class SolicitudesEnviadasController extends Controller {
 	//Título Vista
         $titulo = "Nueva Solicitud Enviada";
         $solicitudEnviada = new SolicitudesEnviadas();
-       /* $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);*/
         $comunidades = Comunidades::getComunidadesList(0, false, "", false);
-
-
         //Vista
         return view('solicitudesEnviadas.nuevo',
             compact(
@@ -55,9 +52,9 @@ class SolicitudesEnviadasController extends Controller {
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = new SolicitudesEnviadas();
         //Asignamos valores traidos del formulario.
-        $solicitudEnviada->comunidad_id = \Request::input('comunidad_id');
-        $solicitudEnviada->aceptada = \Request::input('aceptada');
-        $solicitudEnviada->activo = \Request::input('activo');
+        $solicitudEnviada->comunidad_id = $request->get('comunidad_id');
+        $solicitudEnviada->aceptada = $request->get('aceptada');
+        $solicitudEnviada->activo = $request->get('activo');
 
         //Intercepción de errores
         try {
@@ -130,8 +127,8 @@ class SolicitudesEnviadasController extends Controller {
         if ($solicitudEnviada == null) {
             return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $solicitudEnviada->aceptada = \Request::input('aceptada');
-        $solicitudEnviada->activo = \Request::input('activo');
+        $solicitudEnviada->aceptada = $request->get('aceptada');
+        $solicitudEnviada->activo = $request->get('activo');
 
         //Intercepción de errores
         try {

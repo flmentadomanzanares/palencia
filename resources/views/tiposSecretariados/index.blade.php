@@ -9,7 +9,7 @@
             <div class="row">
                 @include('tiposSecretariados.parciales.buscar')
             </div>
-            @if(!$tipos_secretariados->isEmpty())
+            @if(!$tipoSecretariados->isEmpty())
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
@@ -20,7 +20,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($tipos_secretariados as $tipo_secretariado)
+                        @foreach ($tipoSecretariados as $tipo_secretariado)
                             <tr @if(!$tipo_secretariado->activo) class="foreground-disabled" @endif >
                                 <td>{{ $tipo_secretariado->tipo_secretariado }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
@@ -34,12 +34,22 @@
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                             {!! FORM::open(array('route' => array('tiposSecretariados.destroy', $tipo_secretariado->id),
-                                            'method' => 'DELETE','title'=>'Borrar')) !!}
-                                            <button type="submit" class="pull-right">
+                                            'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar'))) !!}
+                                            <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                    class="pull-right lanzarModal"
+                                                    data-title="BORRADO"
+                                                    data-descripcion="¿Seguro que deseas eliminar este tipo de secretariado?
+                                                    <h3><strong class='green'>{{ $tipo_secretariado->tipo_secretariado}}</strong></h3>"
+                                                    data-footer="true"
+                                                    @endif >
                                                 <i class='glyphicon glyphicon-trash full-Width'>
                                                     <div>Borrar</div>
                                                 </i>
                                             </button>
+                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                @include ("comun.plantillaBorrado")
+                                            @endif
                                             {!! FORM::close() !!}
                                         @endif
                                     </div>
@@ -58,7 +68,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $tipos_secretariados->appends(Request::only(['tipo_secretariado']))->render()
+                {!! $tipoSecretariados->appends(Request::only(['tipo_secretariado']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

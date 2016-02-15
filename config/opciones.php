@@ -19,15 +19,15 @@ return ['campoUser' => [
     ],
     'verificar' => [
         'Email' => false,
-        'recordarPassword' => false,
+        'recordarPassword' => true,
     ],
     'accion' => [
-        'copiaSeguridad' => true,
-        'cerrarAnyo' => false,
+        'copiaSeguridad' => false,
+        'cerrarAnyo' => true,
         'comprobarCursos' => false,
-        'roles' => false,
-        'tiposParticipantes' => false,
-        'tipoComunicacionesPreferidas' => false,
+        'roles' => true,
+        'tiposParticipantes' => true,
+        'tipoComunicacionesPreferidas' => true,
         'mostrarModalDeBorrado' => true,
     ],
     'envios' => [
@@ -41,7 +41,7 @@ return ['campoUser' => [
     ],
     "emailTestSender" => [
         "active" => true,
-        "email" => 'franciscomentadomanzanares@gmail.com'//"pmgcur02@gmail.com",
+        "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 
 ];

@@ -5,7 +5,6 @@ use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\Paises;
 use Palencia\Entities\SolicitudesEnviadas;
-use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
@@ -300,7 +299,7 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados No Colaboradores";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList();
 
 
         return view("pdf.listarNoColaboradores", compact('comunidades', 'paises', 'titulo'));
