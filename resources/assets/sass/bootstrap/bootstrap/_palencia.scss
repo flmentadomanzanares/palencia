@@ -212,6 +212,7 @@ body {
   background-color: rgba(255, 255, 255, .9);
   z-index: 5000;
 }
+
 //Imagen Calendario
 .calendario {
   background-image: url("../img/iconos/calendario.png");
@@ -238,7 +239,7 @@ body {
 .btn-action {
   a, button {
     @include btn-viaoptima-button-action();
-    outline:none;
+    outline: none;
   }
 }
 
@@ -554,9 +555,11 @@ input[type=file]:hover {
 .icon-size-large {
   font-size: $app-font-icon-log-large !important;
 }
+
 .italica {
   font-style: italic;
 }
+
 //Color para los checks-fails
 .foreground-disabled {
   color: $app-color-foreground-disabled !important;

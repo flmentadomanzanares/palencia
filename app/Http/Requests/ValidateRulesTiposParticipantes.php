@@ -1,6 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-class ValidateRulesTiposParticipantes extends Request {
+class ValidateRulesTiposParticipantes extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -20,9 +21,10 @@ class ValidateRulesTiposParticipantes extends Request {
     public function rules()
     {
         return [
-            "tipo_participante"    =>    "required|min:2|max:50",
+            "tipo_participante" => "required|min:2|max:50",
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

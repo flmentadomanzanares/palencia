@@ -1,10 +1,11 @@
 <?php
 
-use Palencia\Entities\Roles;
 use Faker\Generator;
+use Palencia\Entities\Roles;
 
 
-class RolesTableSeeder extends BaseSeeder {
+class RolesTableSeeder extends BaseSeeder
+{
 
     public function getModel()
     {

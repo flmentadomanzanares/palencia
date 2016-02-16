@@ -138,14 +138,14 @@ class PdfController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirComunidades',
             compact('comunidades',
-                    'anyo',
-                    'date',
-                    'titulo',
-                    'listadoPosicionInicial',
-                    'listadoTotal',
-                    'listadoTotalRestoPagina',
-                    'separacionLinea'
-                    ))
+                'anyo',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'listadoTotalRestoPagina',
+                'separacionLinea'
+            ))
             ->download($fichero . '.pdf');
     }
 
@@ -203,15 +203,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariado',
                 compact('secretariado',
-                        'solicitudesEnviadas',
-                        'solicitudesRecibidas',
-                        'date',
-                        'titulo',
-                        'listadoPosicionInicial',
-                        'listadoTotal',
-                        'listadoTotalRestoPagina',
-                        'separacionLinea'
-                        ))
+                    'solicitudesEnviadas',
+                    'solicitudesRecibidas',
+                    'date',
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'listadoTotalRestoPagina',
+                    'separacionLinea'
+                ))
                 ->download($fichero . '.pdf');
 
         }

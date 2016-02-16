@@ -18,6 +18,7 @@
                 <br/>
                 <br/>
                 <br/>
+
                 <div class="btn-action margin-bottom">
                     <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
                         <i class="glyphicon glyphicon-home">

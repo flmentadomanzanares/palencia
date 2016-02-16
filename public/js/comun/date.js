@@ -13,7 +13,7 @@ $(document).ready(function () {
             return date.valueOf() < now.valueOf() ? 'disabled' : '';
         }
     }).on('changeDate', function (evt) {
-        var newDate = new Date(evt.date)
+        var newDate = new Date(evt.date);
         newDate.setDate(newDate.getDate());
         fechaFinal.setValue(newDate);
         fechaInicio.hide();

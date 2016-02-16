@@ -1,5 +1,5 @@
 <div class="panel-search">
-   <a title="inicio" href="{{route('inicio')}}" class="pull-left">
+    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
         <i class="glyphicon glyphicon-home">
             <div>Inicio</div>
         </i>

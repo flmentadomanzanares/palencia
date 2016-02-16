@@ -20,7 +20,7 @@
                             </caption>
                             <thead>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled"
-                                                                 @else style="background-color:{{$solicitudRecibida->color}};" @endif>
+                                @else style="background-color:{{$solicitudRecibida->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">

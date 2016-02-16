@@ -9,7 +9,7 @@
             <div class="row">
                 @include('tiposParticipantes.parciales.buscar')
             </div>
-            @if(!$tipos_participantes->isEmpty())
+            @if(!$tiposParticipantes->isEmpty())
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
@@ -18,26 +18,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($tipos_participantes as $tipo_participante)
-                            <tr @if(!$tipo_participante->activo) class="foreground-disabled" @endif >
-                                <td>{{ $tipo_participante->tipo_participante }}</td>
+                        @foreach ($tiposParticipantes as $tipoParticipante)
+                            <tr @if(!$tipoParticipante->activo) class="foreground-disabled" @endif >
+                                <td>{{ $tipoParticipante->tipo_participante }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
                                         <a title="Editar"
-                                           href="{{route('tiposParticipantes.edit', $tipo_participante->id)}}"
+                                           href="{{route('tiposParticipantes.edit', $tipoParticipante->id)}}"
                                            class="pull-left">
                                             <i class="glyphicon glyphicon-edit">
                                                 <div>Editar</div>
                                             </i>
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                            {!! FORM::open(array('route' => array('tiposParticipantes.destroy', $tipo_participante->id),
-                                            'method' => 'DELETE','title'=>'Borrar')) !!}
-                                            <button type="submit" class="pull-right">
+                                            {!! FORM::open(array('route' => array('tiposParticipantes.destroy', $tipoParticipante->id),
+                                            'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar'))) !!}
+                                            <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                    class="pull-right lanzarModal"
+                                                    data-title="BORRADO"
+                                                    data-descripcion="¿Seguro que deseas eliminar este tipo de participante?
+                                                    <h3><strong class='green'>{{ $tipoParticipante->tipo_participante }}</strong></h3>"
+                                                    data-footer="true"
+                                                    @endif >
                                                 <i class='glyphicon glyphicon-trash full-Width'>
                                                     <div>Borrar</div>
                                                 </i>
                                             </button>
+                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                @include ("comun.plantillaBorrado")
+                                            @endif
                                             {!! FORM::close() !!}
                                         @endif
                                     </div>
@@ -55,7 +65,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $tipos_participantes->appends(Request::only(['tipo_participante']))->render()
+                {!! $tiposParticipantes->appends(Request::only(['tipo_participante']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

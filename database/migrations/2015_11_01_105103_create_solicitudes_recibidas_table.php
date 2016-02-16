@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSolicitudesRecibidasTable extends Migration {
+class CreateSolicitudesRecibidasTable extends Migration
+{
 
     /**
      * Run the migrations.
@@ -12,8 +13,7 @@ class CreateSolicitudesRecibidasTable extends Migration {
      */
     public function up()
     {
-        Schema::create('solicitudes_recibidas', function(Blueprint $table)
-        {
+        Schema::create('solicitudes_recibidas', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('comunidad_id')->unsigned();

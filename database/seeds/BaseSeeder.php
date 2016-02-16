@@ -2,8 +2,8 @@
 
 use Faker\Factory as Faker;
 use Faker\Generator;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Seeder;
 
 
 /**********************************************************************
@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Collection;
  *   Clase base para crear datos de prueba.
  *
  **********************************************************************/
-abstract class BaseSeeder extends Seeder {
+abstract class BaseSeeder extends Seeder
+{
 
-    protected $total = 50;  // numero de registros a crear
-    protected static $pool; // repositorio para generar datos aleatorios
+    protected static $pool;  // numero de registros a crear
+    protected $total = 50; // repositorio para generar datos aleatorios
 
     /**********************************************************************
      *
@@ -43,30 +44,13 @@ abstract class BaseSeeder extends Seeder {
     protected function createMultiple($total, array $customValues = array())
     {
 
-        for ($i = 1; $i <= $total; $i++)
-        {
+        for ($i = 1; $i <= $total; $i++) {
 
             $this->create($customValues);
 
         }
 
     }
-
-    /**********************************************************************
-     *
-     *   Metodo para especificar el modelo para los datos de prueba que
-     *   queremos crear. Crea una nueva instancia de la clase especificada
-     *   (modelo)
-     *
-     **********************************************************************/
-    abstract public function getModel();
-
-    /**********************************************************************
-     *
-     *   Metodo para obtener los datos de prueba generados con Faker
-     *
-     **********************************************************************/
-    abstract public function getDummyData(Generator $faker, array $customValues = array());
 
     /**********************************************************************
      *
@@ -91,6 +75,67 @@ abstract class BaseSeeder extends Seeder {
         return $this->addToPool($this->getModel()->create($values));
 
     }
+
+    /**********************************************************************
+     *
+     *   Metodo para obtener los datos de prueba generados con Faker
+     *
+     **********************************************************************/
+    abstract public function getDummyData(Generator $faker, array $customValues = array());
+
+    /*******************************************************************************
+     *
+     *   Metodo que añade la clase(modelo) que vayamos creando con los seeders al
+     *   repositorio(pool), creando una collection con sus datos.
+     *
+     *  $entity nombre de la clase del seeder(modelo)
+     *
+     *  Nota: selecciona los valores aleatoriamente de un repositorio(pool).
+     *
+     ******************************************************************************/
+    protected function addToPool($entity)
+    {
+
+        // obtenemos el nombre de la clase sin el namespace
+        $reflection = new ReflectionClass($entity);
+        $class = $reflection->getShortName();
+
+        // verificamos si la collection para esa clase ya existe y si no la creamos
+        if (!$this->collectionExist($class)) {
+
+            static::$pool[$class] = new Collection();
+
+        }
+
+        // añadimos la nueva clase al repositorio
+        static::$pool[$class]->add($entity);
+
+        return $entity;
+
+    }
+
+    /*******************************************************************************
+     *
+     *   Metodo que verifica si la collection especificada existe en el repositorio.
+     *
+     *  $collection nombre de la collection a verificar.
+     *
+     ******************************************************************************/
+    protected function collectionExist($collection)
+    {
+
+        return isset (static::$pool[$collection]);
+
+    }
+
+    /**********************************************************************
+     *
+     *   Metodo para especificar el modelo para los datos de prueba que
+     *   queremos crear. Crea una nueva instancia de la clase especificada
+     *   (modelo)
+     *
+     **********************************************************************/
+    abstract public function getModel();
 
     /*******************************************************************************
      *
@@ -131,8 +176,7 @@ abstract class BaseSeeder extends Seeder {
     {
 
         // verificamos que el modelo existe en el repositorio
-        if ( ! $this->collectionExist($model))
-        {
+        if (!$this->collectionExist($model)) {
 
             throw new Exception("La collection del modelo " . $model . " no existe en el repositorio.");
 
@@ -140,52 +184,6 @@ abstract class BaseSeeder extends Seeder {
 
         // devuelve una seleccion aleatoria de los datos del modelo especificado
         return static::$pool[$model]->random();
-
-    }
-
-    /*******************************************************************************
-     *
-     *   Metodo que añade la clase(modelo) que vayamos creando con los seeders al
-     *   repositorio(pool), creando una collection con sus datos.
-     *
-     *  $entity nombre de la clase del seeder(modelo)
-     *
-     *  Nota: selecciona los valores aleatoriamente de un repositorio(pool).
-     *
-     ******************************************************************************/
-    protected function addToPool($entity)
-    {
-
-        // obtenemos el nombre de la clase sin el namespace
-        $reflection = new ReflectionClass($entity);
-        $class = $reflection->getShortName();
-
-        // verificamos si la collection para esa clase ya existe y si no la creamos
-        if ( ! $this->collectionExist($class))
-        {
-
-            static::$pool[$class] = new Collection();
-
-        }
-
-        // añadimos la nueva clase al repositorio
-        static::$pool[$class]->add($entity);
-
-        return $entity;
-
-    }
-
-    /*******************************************************************************
-     *
-     *   Metodo que verifica si la collection especificada existe en el repositorio.
-     *
-     *  $collection nombre de la collection a verificar.
-     *
-     ******************************************************************************/
-    protected function collectionExist($collection)
-    {
-
-        return isset (static::$pool[$collection]);
 
     }
 }

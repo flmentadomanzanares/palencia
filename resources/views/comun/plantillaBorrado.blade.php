@@ -2,6 +2,7 @@
     <div class="ventanaModal">
         <div class="headerFormularioModal">
             <span class="text-center"></span>
+
             <div title="Cerrar" class="closeFormModal">X</div>
         </div>
         <div class="cuerpoFormularioModal">

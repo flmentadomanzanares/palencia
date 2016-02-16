@@ -1,22 +1,22 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateTiposSecretariadosTable extends Migration {
+class CreateTiposSecretariadosTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-        Schema::create('tipos_secretariados', function(Blueprint $table)
-        {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tipos_secretariados', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('tipo_secretariado',50);
+            $table->string('tipo_secretariado', 50);
 
             $table->boolean('activo')->default(true);
 
@@ -24,16 +24,16 @@ class CreateTiposSecretariadosTable extends Migration {
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
         });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::drop('tipos_secretariados');
-	}
+    }
 
 }

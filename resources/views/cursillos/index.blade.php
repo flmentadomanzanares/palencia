@@ -18,7 +18,7 @@
                             </caption>
                             <thead>
                             <tr @if(!$cursillo->activo) class="background-disabled"
-                                                        @else style="background-color:{{$cursillo->color}};" @endif>
+                                @else style="background-color:{{$cursillo->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('cursillos.show',$cursillo->id)}}">

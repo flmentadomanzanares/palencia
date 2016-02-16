@@ -21,7 +21,7 @@ class ValidateRulesComunidades extends Request
     public function rules()
     {
         return [
-            "comunidad"=>"required|min:1",
+            "comunidad" => "required|min:1",
             "tipo_secretariado_id" => "required|numeric|min:1",
             "direccion" => "max:100",
             "pais_id" => "required|numeric|min:1",
@@ -34,8 +34,8 @@ class ValidateRulesComunidades extends Request
             "telefono1" => "max:13",
             "telefono2" => "max:13",
             "tipo_comunicacion_preferida_id" => "required|numeric|min:1",
-            "esPropia"=>"boolean",
-            "esColaborador"=>"boolean",
+            "esPropia" => "boolean",
+            "esColaborador" => "boolean",
             "activo" => "boolean"
 
         ];

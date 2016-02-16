@@ -1,9 +1,10 @@
 <?php
 
-use Palencia\Entities\Provincias;
 use Faker\Generator;
+use Palencia\Entities\Provincias;
 
-class ProvinciasTableSeeder extends BaseSeeder {
+class ProvinciasTableSeeder extends BaseSeeder
+{
 
     public function getModel()
     {
@@ -39,7 +40,7 @@ class ProvinciasTableSeeder extends BaseSeeder {
 
         Provincias::create([
             'provincia' => 'Las Palmas',
-            'pais_id'  => 73
+            'pais_id' => 73
 
         ]);
 

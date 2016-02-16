@@ -55,6 +55,7 @@ class Comunidades extends Model
             ->take(config('opciones.envios.comunidadesMax'))
             ->get();
     }
+
     static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
