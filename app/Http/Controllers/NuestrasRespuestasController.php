@@ -44,7 +44,7 @@ class NuestrasRespuestasController extends Controller
         if ($tipoEnvio != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_envio) == 0)) {
+                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_envio) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras respuestas";
                 }
             }
@@ -136,7 +136,7 @@ class NuestrasRespuestasController extends Controller
             //Reseteamos el tiempo de ejecución del script definiendo un nuevo tamaño de espera.
             set_time_limit(config('opciones.envios.seMaxtTimeAt'));
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
-            if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) > 0)) {
+            if ($tipoEnvio != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_envio) > 0)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
@@ -199,9 +199,9 @@ class NuestrasRespuestasController extends Controller
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope green icon-size-large"] :
                     ["No se pudo enviar la respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) == 0)) {
+            } elseif ($tipoEnvio != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_envio) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de respuesta", "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
+            } elseif ($tipoEnvio != 2 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) != 0)) {
                 $contador = count($cursosActualizados);
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',

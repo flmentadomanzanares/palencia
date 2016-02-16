@@ -35,7 +35,7 @@ return ['campoUser' => [
         'seMaxtTimeAt' => 30,
         'comunidadesMax' => 0, //0=todos
     ],
-    'documento' => [
+    'tipo' => [
         'carta' => 'carta',
         'email' => 'email',
     ],
