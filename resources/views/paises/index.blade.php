@@ -33,12 +33,13 @@
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                             {!! FORM::open(array('route' => array('paises.destroy', $pais->id),
-                                            'method' => 'DELETE','title'=>'Borrar')) !!}
+                                            'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))  !!}
                                             <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                                     @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                     class="pull-right lanzarModal"
                                                     data-title="BORRADO"
-                                                    data-descripcion="¿ Seguro que deseas eliminar el país <b>{{$pais->pais}}</b> ?"
+                                                    data-descripcion="¿Seguro que deseas eliminar este país?
+                                                    <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
                                                     data-footer="true"
                                                     @endif >
                                                 <i class='glyphicon glyphicon-trash full-Width'>

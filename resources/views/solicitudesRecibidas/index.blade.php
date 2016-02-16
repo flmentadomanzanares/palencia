@@ -20,7 +20,7 @@
                             </caption>
                             <thead>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled"
-                                                                 @else style="background-color:{{$solicitudRecibida->color}};" @endif>
+                                @else style="background-color:{{$solicitudRecibida->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">
@@ -40,16 +40,6 @@
                                         </button>
                                     @endif
                                     {!! FORM::close() !!}
-                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    {{--{!! FORM::open(array('route' => array('solicitudesRecibidas.destroy',
-                                    $solicitudRecibida->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                    <button type="submit">
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
-                                    </button>
-                                    {!! FORM::close() !!}--}}
-                                    @endif
                                 </th>
                             </tr>
                             </thead>
@@ -88,5 +78,4 @@
     </div>
 @endsection
 @section('js')
-
 @endsection

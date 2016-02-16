@@ -1,6 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-class ValidateRulesTiposComunicacionesPreferidas extends Request {
+class ValidateRulesTiposComunicacionesPreferidas extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -20,9 +21,10 @@ class ValidateRulesTiposComunicacionesPreferidas extends Request {
     public function rules()
     {
         return [
-            "comunicacion_preferida"    =>    "required|min:2|max:50",
+            "comunicacion_preferida" => "required|min:2|max:50",
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

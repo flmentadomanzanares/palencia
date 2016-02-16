@@ -5,7 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
-        {!! FORM::model($paises, ['route' => ['paises.update', $paises->id], 'method' => 'patch']) !!}
+        {!! FORM::model($pais, ['route' => ['paises.update', $pais->id], 'method' => 'patch']) !!}
         @include('paises.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom ">
             <a title="Volver" href="{{route('paises.index')}}" class="pull-left">

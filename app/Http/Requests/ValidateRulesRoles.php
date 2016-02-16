@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
-class ValidateRulesRoles extends Request {
+class ValidateRulesRoles extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +21,11 @@ class ValidateRulesRoles extends Request {
     public function rules()
     {
         return [
-            "rol"    =>    "required|min:2|max:50",
-            "peso"    =>    "required|integer"
+            "rol" => "required|min:2|max:50",
+            "peso" => "required|integer"
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

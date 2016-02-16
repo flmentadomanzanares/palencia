@@ -153,7 +153,7 @@
 
         <div class="cabecera2">
             @if ($anyo == 0)
-                </br>
+            </br>
             @elseif($semana == 0)
                 Año: {{ $anyo }}
             @else
@@ -170,16 +170,16 @@
 
         @foreach ($cursillos as $index=>$cursillo)
             @if($index>0 && $i==$lineasPorPagina)
-                    <?php
-                    $lineasPorPagina = $listadoTotalRestoPagina;
+                <?php
+                $lineasPorPagina = $listadoTotalRestoPagina;
                 $saltoPagina = $lineasPorPagina - 3;
-                    $listadoPosicionInicial = 0;
-                    $i = 0;
-                    ?>
-                    <div class="pagina">Pag. {{$pagina += 1}}</div>
-                    <div class="saltoPagina"></div>
+                $listadoPosicionInicial = 0;
+                $i = 0;
+                ?>
+                <div class="pagina">Pag. {{$pagina += 1}}</div>
+                <div class="saltoPagina"></div>
 
-                @endif
+            @endif
 
             @if($cursillo->pais != $pais)
 
@@ -208,9 +208,9 @@
                 <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
                     {!! $cursillo->comunidad !!}
                 </div>
-                @endif
+            @endif
 
-                <?php $i++?>
+            <?php $i++?>
 
 
         @endforeach

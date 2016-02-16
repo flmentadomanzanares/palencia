@@ -6,11 +6,8 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
         <div class="row">
-
-            {!! FORM::model($roles, ['route' => ['roles.update', $roles->id], 'method' => 'patch']) !!}
-
+            {!! FORM::model($rol, ['route' => ['roles.update', $rol->id], 'method' => 'patch']) !!}
             @include('roles.parciales.nuevoYmodificar')
-
             <div class="btn-action margin-bottom">
                 <a title="Volver" href="{{route('roles.index')}}" class="pull-left">
                     <i class="glyphicon glyphicon-arrow-left">
@@ -23,14 +20,11 @@
                     </i>
                 </button>
             </div>
-
             {!! FORM::close() !!}
         </div>
     </div>
 @endsection
 @section("css")
-
 @stop
 @section('js')
-
 @endsection

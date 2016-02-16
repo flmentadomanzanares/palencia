@@ -5,7 +5,6 @@ use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
 use Palencia\Entities\Paises;
 use Palencia\Entities\SolicitudesEnviadas;
-use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidasCursillos;
 use Palencia\Http\Requests;
@@ -139,14 +138,14 @@ class PdfController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirComunidades',
             compact('comunidades',
-                    'anyo',
-                    'date',
-                    'titulo',
-                    'listadoPosicionInicial',
-                    'listadoTotal',
-                    'listadoTotalRestoPagina',
-                    'separacionLinea'
-                    ))
+                'anyo',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'listadoTotalRestoPagina',
+                'separacionLinea'
+            ))
             ->download($fichero . '.pdf');
     }
 
@@ -204,15 +203,15 @@ class PdfController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             return $pdf->loadView('pdf.imprimirSecretariado',
                 compact('secretariado',
-                        'solicitudesEnviadas',
-                        'solicitudesRecibidas',
-                        'date',
-                        'titulo',
-                        'listadoPosicionInicial',
-                        'listadoTotal',
-                        'listadoTotalRestoPagina',
-                        'separacionLinea'
-                        ))
+                    'solicitudesEnviadas',
+                    'solicitudesRecibidas',
+                    'date',
+                    'titulo',
+                    'listadoPosicionInicial',
+                    'listadoTotal',
+                    'listadoTotalRestoPagina',
+                    'separacionLinea'
+                ))
                 ->download($fichero . '.pdf');
 
         }
@@ -300,7 +299,7 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados No Colaboradores";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList();
 
 
         return view("pdf.listarNoColaboradores", compact('comunidades', 'paises', 'titulo'));

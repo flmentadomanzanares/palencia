@@ -2,7 +2,6 @@
 // Navs
 // --------------------------------------------------
 
-
 // Base class
 // --------------------------------------------------
 
@@ -17,7 +16,7 @@
     display: block;
 
     > a {
-      color:$gray-lighter-medium;
+      color: $gray-lighter-medium;
       position: relative;
       display: block;
       padding: $nav-link-padding;
@@ -25,8 +24,8 @@
       &:hover,
       &:focus {
         text-decoration: none;
-        background-color: $app-color-white;//$nav-link-hover-bg;
-        color:$app-color-hover;
+        background-color: $app-color-white; //$nav-link-hover-bg;
+        color: $app-color-hover;
       }
     }
 
@@ -71,7 +70,6 @@
   }
 }
 
-
 // Tabs
 // -------------------------
 
@@ -114,7 +112,6 @@
   }
 }
 
-
 // Pills
 // -------------------------
 .nav-pills {
@@ -145,7 +142,6 @@
   }
 }
 
-
 // Stacked pills
 .nav-stacked {
   > li {
@@ -156,7 +152,6 @@
     }
   }
 }
-
 
 // Nav variations
 // --------------------------------------------------
@@ -222,7 +217,6 @@
   }
 }
 
-
 // Tabbable tabs
 // -------------------------
 
@@ -235,7 +229,6 @@
     display: block;
   }
 }
-
 
 // Dropdowns
 // -------------------------
@@ -260,8 +253,9 @@
   text-overflow: ellipsis;
 
 }
-.tab-size-columna-caption{
- font-family: $column-caption-font-family;
+
+.tab-size-columna-caption {
+  font-family: $column-caption-font-family;
   font-size: $column-caption-font-size;
   padding-bottom: $column-caption-padding-bottom;
 }

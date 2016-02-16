@@ -5,14 +5,14 @@ $(document).ready(function () {
     console.log(window.location.pathname);
     var cursillos = function (comunidadId) {
         $.ajax(
-                {
+            {
                 data: {
                     'comunidadId': comunidadId,
                     '_token': $('input[name="_token"]').val()
                 },
                 dataType: "json",
                 type: "post",
-                    url: "/cursillosTotales",
+                url: "/cursillosTotales",
                 success: function (data) {
 
                     var cursillos = $("#select-cursillos");

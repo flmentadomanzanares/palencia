@@ -11,7 +11,6 @@
             </div>
             @if(!$roles->isEmpty())
                 @foreach ($roles as $rol)
-
                     <table class="table-viaoptima table-striped">
                         <caption class="@if(!$rol->activo) foreground-disabled @endif">
                             {!! $rol->rol !!}
@@ -27,12 +26,22 @@
                                 </a>
                                 @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                 {!! FORM::open(array('route' => array('roles.destroy',
-                                $rol->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                <button type="submit">
+                                $rol->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar'))) !!}
+                                <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                        @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                        class="pull-right lanzarModal"
+                                        data-title="BORRADO"
+                                        data-descripcion="¿Seguro que deseas eliminar este rol?
+                                                    <h3><strong class='green'>{{ $rol->rol}}</strong></h3>"
+                                        data-footer="true"
+                                        @endif >
                                     <i class='glyphicon glyphicon-trash full-Width'>
                                         <div>Borrar</div>
                                     </i>
                                 </button>
+                                @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                    @include ("comun.plantillaBorrado")
+                                @endif
                                 {!! FORM::close() !!}
                                 @endif
                             </th>

@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
-class ValidateRulesProvincias extends Request {
+class ValidateRulesProvincias extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +21,12 @@ class ValidateRulesProvincias extends Request {
     public function rules()
     {
         return [
-            "pais"      =>   "required|numeric|min:1",
-            "provincia"    =>    "required|min:2|max:50",
+            "pais" => "required|numeric|min:1",
+            "provincia" => "required|min:2|max:50",
 
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

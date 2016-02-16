@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SemanaCursilloComunidades extends Model {
+class SemanaCursilloComunidades extends Model
+{
 
-	//
+    //
 
 }

@@ -23,7 +23,7 @@ class ComunidadesController extends Controller
         $titulo = "Comunidades";
         $comunidades = Comunidades::getComunidades($request);
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList(0, true);
         $provincias = Provincias::getProvinciasList();
         return view("comunidades.index",
             compact('comunidades',
@@ -44,7 +44,7 @@ class ComunidadesController extends Controller
         $titulo = "Nueva Comunidad";
         $comunidad = new Comunidades();
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList();
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
@@ -71,27 +71,27 @@ class ComunidadesController extends Controller
     {
         //Creamos una nueva instancia al modelo.
         $comunidad = new Comunidades();
-        $comunidad->comunidad = \Request::input('comunidad');
-        $comunidad->esPropia = \Request::input('esPropia');
-        $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
-        $comunidad->responsable = \Request::input('responsable');
-        $comunidad->direccion = \Request::input('direccion');
-        $comunidad->direccion_postal = \Request::input('direccion_postal');
-        $comunidad->cp = \Request::input('cp');
-        $comunidad->pais_id = \Request::input('pais_id');
-        $comunidad->provincia_id = \Request::input('provincia_id');
-        $comunidad->localidad_id = \Request::input('localidad_id');
-        $comunidad->email_solicitud = \Request::input('email_solicitud');
-        $comunidad->email_envio = \Request::input('email_envio');
-        $comunidad->web = \Request::input('web');
-        $comunidad->facebook = \Request::input('facebook');
-        $comunidad->telefono1 = \Request::input('telefono1');
-        $comunidad->telefono2 = \Request::input('telefono2');
-        $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
-        $comunidad->observaciones = \Request::input('observaciones');
-        $comunidad->esColaborador = \Request::input('esColaborador');
-        $comunidad->color = \Request::input('color');
-        $comunidad->activo = \Request::input('activo');
+        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->esPropia = $request->get('esPropia');
+        $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
+        $comunidad->responsable = $request->get('responsable');
+        $comunidad->direccion = $request->get('direccion');
+        $comunidad->direccion_postal = $request->get('direccion_postal');
+        $comunidad->cp = $request->get('cp');
+        $comunidad->pais_id = $request->get('pais_id');
+        $comunidad->provincia_id = $request->get('provincia_id');
+        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->email_solicitud = $request->get('email_solicitud');
+        $comunidad->email_envio = $request->get('email_envio');
+        $comunidad->web = $request->get('web');
+        $comunidad->facebook = $request->get('facebook');
+        $comunidad->telefono1 = $request->get('telefono1');
+        $comunidad->telefono2 = $request->get('telefono2');
+        $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
+        $comunidad->observaciones = $request->get('observaciones');
+        $comunidad->esColaborador = $request->get('esColaborador');
+        $comunidad->color = $request->get('color');
+        $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {
             //Guardamos Los valores
@@ -112,7 +112,7 @@ class ComunidadesController extends Controller
         }
         //Redireccionamos a Comunidades (index)
         return redirect('comunidades')->
-        with('mensaje', 'La comunidad  ha sido creada satisfactoriamente.');
+        with('mensaje', 'La comunidad ' . $comunidad->comunidad . ' ha sido creada satisfactoriamente.');
     }
 
     /**
@@ -152,7 +152,7 @@ class ComunidadesController extends Controller
             return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
         }
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
-        $paises = Paises::getPaisToList($comunidad->provincia_id);
+        $paises = Paises::getPaisFromProvinciaIdToList($comunidad->provincia_id);
         $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
@@ -183,27 +183,27 @@ class ComunidadesController extends Controller
         if ($comunidad == null) {
             return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
         }
-        $comunidad->comunidad = \Request::input('comunidad');
-        $comunidad->esPropia = \Request::input('esPropia');
-        $comunidad->tipo_secretariado_id = \Request::input('tipo_secretariado_id');
-        $comunidad->responsable = \Request::input('responsable');
-        $comunidad->direccion = \Request::input('direccion');
-        $comunidad->direccion_postal = \Request::input('direccion_postal');
-        $comunidad->cp = \Request::input('cp');
-        $comunidad->pais_id = \Request::input('pais_id');
-        $comunidad->provincia_id = \Request::input('provincia_id');
-        $comunidad->localidad_id = \Request::input('localidad_id');
-        $comunidad->email_solicitud = \Request::input('email_solicitud');
-        $comunidad->email_envio = \Request::input('email_envio');
-        $comunidad->web = \Request::input('web');
-        $comunidad->facebook = \Request::input('facebook');
-        $comunidad->telefono1 = \Request::input('telefono1');
-        $comunidad->telefono2 = \Request::input('telefono2');
-        $comunidad->tipo_comunicacion_preferida_id = \Request::input('tipo_comunicacion_preferida_id');
-        $comunidad->observaciones = \Request::input('observaciones');
-        $comunidad->esColaborador = \Request::input('esColaborador');
-        $comunidad->color = \Request::input('color');
-        $comunidad->activo = \Request::input('activo');
+        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->esPropia = $request->get('esPropia');
+        $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
+        $comunidad->responsable = $request->get('responsable');
+        $comunidad->direccion = $request->get('direccion');
+        $comunidad->direccion_postal = $request->get('direccion_postal');
+        $comunidad->cp = $request->get('cp');
+        $comunidad->pais_id = $request->get('pais_id');
+        $comunidad->provincia_id = $request->get('provincia_id');
+        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->email_solicitud = $request->get('email_solicitud');
+        $comunidad->email_envio = $request->get('email_envio');
+        $comunidad->web = $request->get('web');
+        $comunidad->facebook = $request->get('facebook');
+        $comunidad->telefono1 = $request->get('telefono1');
+        $comunidad->telefono2 = $request->get('telefono2');
+        $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
+        $comunidad->observaciones = $request->get('observaciones');
+        $comunidad->esColaborador = $request->get('esColaborador');
+        $comunidad->color = $request->get('color');
+        $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {
             //Guardamos Los valores
@@ -213,7 +213,7 @@ class ComunidadesController extends Controller
                 case 23000:
                     return redirect()->
                     route('comunidades.index')->
-                    with('mensaje', 'la comunidad está ya dada de alta.');
+                    with('mensaje', 'la comunidad ' . $comunidad->comunidad . ' está ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -223,7 +223,7 @@ class ComunidadesController extends Controller
         }
         //Redireccionamos a Comunidades (index)
         return redirect('comunidades')->
-        with('mensaje', 'La comunidad  ha sido  modificada satisfactoriamente.');
+        with('mensaje', 'La comunidad ' . $comunidad->comunidad . ' ha sido  modificada satisfactoriamente.');
     }
 
     /**
@@ -243,13 +243,13 @@ class ComunidadesController extends Controller
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('comunidades.index')->with('mensaje', 'La comunidad  no se puede eliminar al tener registros asociados.');
+                    return redirect()->route('comunidades.index')->with('mensaje', 'La comunidad ' . $comunidad->comunidad . '  no se puede eliminar al tener cursillos asociados.');
                     break;
                 default:
                     return redirect()->route('comunidades.index')->with('mensaje', 'Eliminar comunidad error ' . $e->getCode());
             }
         }
         return redirect()->route('comunidades.index')
-            ->with('mensaje', 'La comunidad ha sido eliminada correctamente.');
+            ->with('mensaje', 'La comunidad ' . $comunidad->comunidad . ' ha sido borrada correctamente.');
     }
 }

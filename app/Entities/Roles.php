@@ -3,7 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Roles extends Model {
+class Roles extends Model
+{
 
     protected $tabla = "roles";
     protected $fillable = ['rol', 'peso']; //Campos a usar

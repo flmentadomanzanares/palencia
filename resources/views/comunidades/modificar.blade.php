@@ -26,7 +26,7 @@
     {!! HTML::style("css/vendor/ColorPicker/jquery.simplecolorpicker.css")!!}
 @stop
 @section('js')
-      {!! HTML::script('js/comun/direccion.js') !!}
-      {!! HTML::script("js/vendor/ColorPicker/jquery.simplecolorpicker.js")!!}
-      {!! HTML::script("js/comun/color.js")!!}
+    {!! HTML::script('js/comun/direccion.js') !!}
+    {!! HTML::script("js/vendor/ColorPicker/jquery.simplecolorpicker.js")!!}
+    {!! HTML::script("js/comun/color.js")!!}
 @endsection
