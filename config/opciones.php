@@ -19,23 +19,23 @@ return ['campoUser' => [
     ],
     'verificar' => [
         'Email' => false,
-        'recordarPassword' => true,
+        'recordarPassword' => false,
     ],
     'accion' => [
-        'copiaSeguridad' => false,
-        'cerrarAnyo' => true,
-        'comprobarCursos' => false,
-        'roles' => true,
-        'tiposParticipantes' => true,
-        'tipoComunicacionesPreferidas' => true,
-        'mostrarModalDeBorrado' => true,
+        'copiaSeguridad' => true,
+        'cerrarAnyo' => false,
+        'crearSusRespuestas' => true,
+        'roles' => false,
+        'tiposParticipantes' => false,
+        'tipoComunicacionesPreferidas' => false,
+        'mostrarModalDeBorrado' => false,
     ],
     'envios' => [
         'timeout' => 30,
         'seMaxtTimeAt' => 30,
         'comunidadesMax' => 0, //0=todos
     ],
-    'documento' => [
+    'tipo' => [
         'carta' => 'carta',
         'email' => 'email',
     ],

@@ -56,7 +56,7 @@ class Comunidades extends Model
             ->get();
     }
 
-    static public function getComunidadPDF($comunidad = 0, $esPropia = null, $excluirSinCursillos = false)
+    static public function getComunidadPDFSolicitudes($comunidad = 0, $esPropia = null, $excluirSinCursillos = false, $modalidad = 0)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -74,6 +74,7 @@ class Comunidades extends Model
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
             ->ExcluirSinCursillos($excluirSinCursillos)
             ->ComunidadesId($comunidad)
+            ->ModalidadComunicacion($modalidad)
             ->esPropia($esPropia)
             ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
@@ -111,15 +112,27 @@ class Comunidades extends Model
             ->get();
     }
 
-    public static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
+    public static function getComunidadesModalidadComunicacionList($modalidadComunicacion = 0, $conPlaceHolder = true, $placeHolder = "Comunidades...")
+    {
+        $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+            ->where('comunidades.activo', true)
+            ->where('comunidades.esPropia', false)
+            ->ModalidadComunicacion($modalidadComunicacion)
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->get();
+        return array("placeholder" => $conPlaceHolder ? $placeHolder : "", "comunidades" => $sql);
+    }
+
+    public
+    static function getComunidadesList($propia = null, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false)
     {
         $placeHolder = ['0' => $placeHolder];
         if (!$excluirSinCursillos) {
-            $sql = Comunidades::Select('id', 'comunidad')
-                ->where('activo', true)
+            $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+                ->where('comunidades.activo', true)
                 ->EsPropia($propia)
-                ->orderBy('comunidad', 'ASC')
-                ->Lists('comunidad', 'id');
+                ->orderBy('comunidades.comunidad', 'ASC')
+                ->Lists('comunidades.comunidad', 'id');
         } else {
             $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
                 ->where('comunidades.activo', true)
@@ -284,6 +297,14 @@ class Comunidades extends Model
     public function solicitudes_recibidas_cursillos()
     {
         return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
+    }
+
+    public function scopeModalidadComunicacion($query, $modalidadComunicacion = 0)
+    {
+        if (is_numeric($modalidadComunicacion) && $modalidadComunicacion > 0) {
+            $query->where('comunidades.tipo_comunicacion_preferida_id', $modalidadComunicacion);
+        }
+        return $query;
     }
 
     public function scopeComunidades($query, $comunidad = null)

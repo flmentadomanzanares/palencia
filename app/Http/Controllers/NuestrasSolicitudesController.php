@@ -18,13 +18,13 @@ class NuestrasSolicitudesController extends Controller
      */
     public function index(Request $request)
     {
+        $modalidad = $request->get("modalidad");
         $titulo = "Nuestras Solicitudes";
         //Comprobamos si el server permite modificar el tiempo de ejecución del script.
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar a todas las comunidades", false);
+        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
-        $modalidad = $request->get("modalidad");
         $anyos = array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',
@@ -40,12 +40,11 @@ class NuestrasSolicitudesController extends Controller
 
     public function comprobarSolicitudes(Request $request)
     {
-        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
-        $tipoEnvio = $request->get("modalidad");
-        if ($tipoEnvio != 1) {
+        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $request->get("modalidad"));
+        if ($request->get("modalidad") != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_solicitud) == 0)) {
+                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_solicitud) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras solicitudes";
                 }
             }
@@ -72,9 +71,9 @@ class NuestrasSolicitudesController extends Controller
 
     public function enviar(Request $request)
     {
-        $tipoEnvio = $request->get("modalidad");
+        $modalidadComunicacion = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDF($request->get('restoComunidades'), 0, false);
+        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $modalidadComunicacion);
         $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('incluirSolicitudesAnteriores'));
         $numeroDestinatarios = count($destinatarios);
 
@@ -130,8 +129,8 @@ class NuestrasSolicitudesController extends Controller
             $esCarta = true;
             //Comprobamos si el server permite modificar el tiempo de ejecución del script.
             $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-            // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
-            if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) > 0)) {
+            // $modalidadComunicacion si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
+            if ($modalidadComunicacion != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 //Nombre del archivo a adjuntar
                 $archivoMail = "templatePDF" . $separatorPath . 'NS-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
@@ -171,9 +170,9 @@ class NuestrasSolicitudesController extends Controller
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope green icon-size-large"] :
                     ["No se pudo enviar la solicitud a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_solicitud, "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_solicitud) == 0)) {
+            } elseif ($modalidadComunicacion != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_solicitud) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de solicitud", "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
+            } elseif ($modalidadComunicacion != 2 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) != 0)) {
                 try {
                     $view = \View::make('nuestrasSolicitudes.pdf.cartaSolicitudA2_A3',
                         compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
