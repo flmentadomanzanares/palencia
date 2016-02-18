@@ -266,9 +266,14 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = $logSolicitudesRecibidas[count($logSolicitudesRecibidas) - 1];
 
             }
-            //Creamos el Log
+            //Creamos la cabecera del Log
             $logArchivo = array();
-            $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Usuario->' . $request->user()->name . "\n";
+            $logArchivo[] = 'Email->' . $request->user()->email . "\n";
+            $logArchivo[] = 'Ip->' . $request->server('REMOTE_ADDR') . "\n";
+            $logArchivo[] = '******************************************' . "\n";
+
             foreach ($logEnvios as $log) {
                 $logArchivo[] = $log[0] . "\n";
             }

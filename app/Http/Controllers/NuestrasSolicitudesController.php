@@ -127,9 +127,9 @@ class NuestrasSolicitudesController extends Controller
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $esCarta = true;
-            //Comprobamos si el server permite modificar el tiempo de ejecución del script.
-            $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-            // $modalidadComunicacion si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
+            //intentanmos modificar el tiempo de ejecución del script.
+            set_time_limit(config('opciones.envios.seMaxtTimeAt'));
+            // modalidadComunicacion si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($modalidadComunicacion != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 //Nombre del archivo a adjuntar
                 $archivoMail = "templatePDF" . $separatorPath . 'NS-' . $remitente->comunidad . '.pdf';
@@ -218,9 +218,13 @@ class NuestrasSolicitudesController extends Controller
             $logEnvios[] = $logSolicitudesEnviadas[count($logSolicitudesEnviadas) - 1];
         }
 
-        //Creamos el Log de archivo
+        //Creamos la cabecera del Log de archivo
         $logArchivo = array();
-        $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+        $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
+        $logArchivo[] = 'Usuario->' . $request->user()->name . "\n";
+        $logArchivo[] = 'Email->' . $request->user()->email . "\n";
+        $logArchivo[] = 'Ip->' . $request->server('REMOTE_ADDR') . "\n";
+        $logArchivo[] = '******************************************' . "\n";
         foreach ($logEnvios as $log) {
             $logArchivo[] = $log[0] . "\n";
         }
