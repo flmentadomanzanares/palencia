@@ -255,7 +255,7 @@ class CursillosController extends Controller
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
             $esSolicitudAnterior = $request->get('esSolicitudAnterior');
-            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $esSolicitudAnterior);
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN));
         }
     }
 

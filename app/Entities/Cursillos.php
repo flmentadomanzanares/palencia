@@ -317,8 +317,8 @@ class Cursillos extends Model
 
     public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = 0)
     {
-        if (is_numeric($esSolicitudAnterior) && $esSolicitudAnterior == 1) {
-            $query->where('cursillos.esSolicitud', !$esSolicitudAnterior);
+        if (is_bool($esSolicitudAnterior)) {
+            $query->where('cursillos.esSolicitud', $esSolicitudAnterior);
         }
         return $query;
     }

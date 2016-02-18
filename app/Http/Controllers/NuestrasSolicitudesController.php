@@ -52,6 +52,7 @@ class NuestrasSolicitudesController extends Controller
                 $tipos_comunicaciones_preferidas = $request->get('modalidad');
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
+                $generarSusRespuestas = $request->get('generarSusRespuestas');
                 $incluirSolicitudesAnteriores = $request->get('incluirSolicitudesAnteriores');
                 $restoComunidades = $request->get('restoComunidades');
                 $titulo = "Comunidades sin email de envío de solicitud";
@@ -60,6 +61,7 @@ class NuestrasSolicitudesController extends Controller
                         'incidencias',
                         'tipos_comunicaciones_preferidas',
                         'nuestrasComunidades',
+                        'generarSusRespuestas',
                         'anyos',
                         'incluirSolicitudesAnteriores',
                         'restoComunidades'
@@ -71,10 +73,11 @@ class NuestrasSolicitudesController extends Controller
 
     public function enviar(Request $request)
     {
+
         $modalidadComunicacion = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $modalidadComunicacion);
-        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('incluirSolicitudesAnteriores'));
+        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), filter_var($request->get('incluirSolicitudesAnteriores'), FILTER_VALIDATE_BOOLEAN));
         $numeroDestinatarios = count($destinatarios);
 
         //Verificación
@@ -112,7 +115,7 @@ class NuestrasSolicitudesController extends Controller
         foreach ($cursillos as $idx => $cursillo) {
             if ($cursillo->comunidad_id == $remitente->id) {
                 $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
-                if (!$cursillo->esSolicitud) {
+                if (!$cursillo->esSolicitud || ($cursillo->esSolicitud && $request->get('generarSusRespuestas') && $request->get('incluirSolicitudesAnteriores'))) {
                     $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud.", $cursillo->num_cursillo, $remitente->comunidad);
                     $contadorCursosActualizados += 1;
                     $cursosActualizadosIds[] = $cursillo->id;

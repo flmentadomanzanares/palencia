@@ -21,7 +21,7 @@
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
 
-                <div class="heading-caption">Excluir Solicitudes Anteriores</div>
+                <div class="heading-caption">Incluir Solicitudes Anteriores</div>
                 {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
                 <br/>
 

@@ -36,6 +36,7 @@
             {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
             {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
             {!! FORM::hidden('anyo', $anyos)!!}
+            {!! FORM::hidden('generarSusRespuestas', $generarSusRespuestas)!!}
             {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
             {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
             <button type="submit" title="Enviar" class="pull-right">
