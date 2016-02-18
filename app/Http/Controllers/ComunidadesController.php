@@ -252,4 +252,12 @@ class ComunidadesController extends Controller
         return redirect()->route('comunidades.index')
             ->with('mensaje', 'La comunidad ' . $comunidad->comunidad . ' ha sido borrada correctamente.');
     }
+
+    public function cambiarComunidadesNoPropias(Request $request)
+    {
+        if (\Request::ajax()) {
+            $modalidadComunicacion = $request->get('modalidadComunicacion');
+            return Comunidades::getComunidadesModalidadComunicacionList($modalidadComunicacion, true, "Enviar a todas las comunidades");
+        }
+    }
 }

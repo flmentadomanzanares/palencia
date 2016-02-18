@@ -60,68 +60,72 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviar'));
 
 
-//Cambio de Provincias y localidades vía ajax.
+    //Cambio de Provincias y localidades vía ajax.
     Route::post('cambiarProvincias', array('as' => 'cambiarProvincias', 'uses' => 'ProvinciasController@cambiarProvincias'));
     Route::post('cambiarLocalidades', array('as' => 'cambiarLocalidades', 'uses' => 'LocalidadesController@cambiarLocalidades'));
 
-//Cálculo del total de años de los cursos de una comunidad vía Ajax
+    //Cálculo del total de años de los cursos de una comunidad vía Ajax
     Route::post('totalAnyos', array('as' => 'totalAnyos', 'uses' => 'CursillosController@totalAnyos'));
+
+    //Cálculo del total de años de los cursos de una comunidad vía Ajax
+    Route::post('cambiarComunidadesNoPropias', array('as' => 'cambiarComunidadesNoPropias', 'uses' => 'ComunidadesController@cambiarComunidadesNoPropias'));
+
 
     //Cálculo del total de años de los cursos de un conjunto de comunidades vía Ajax
     Route::post('totalAnyosRespuestas', array('as' => 'totalAnyosRespuestas', 'uses' => 'CursillosController@totalAnyosRespuestas'));
 
-//Cálculo del total de semanas por año vía Ajax
+    //Cálculo del total de semanas por año vía Ajax
     Route::post('semanasTotales', array('as' => 'semanasTotales', 'uses' => 'CursillosController@semanasTotales'));
 
     //Cálculo del total de semanas por año vía Ajax
     Route::post('fechasInicioCursosResultado', array('as' => 'fechasInicioCursosResultado', 'uses' => 'CursillosController@fechasInicioCursosResultado'));
 
-//Cálculo del total de semanas para nuestras respuestas u nuestras solicitudes por año vía Ajax
+    //Cálculo del total de semanas para nuestras respuestas u nuestras solicitudes por año vía Ajax
     Route::post('fechasInicioCursosSolicitud', array('as' => 'fechasInicioCursosSolicitud', 'uses' => 'CursillosController@fechasInicioCursosSolicitud'));
 
-//Obtener relación de cursos vía Ajax (ModoTabla)
+    //Obtener relación de cursos vía Ajax (ModoTabla)
     Route::post('listadoCursillosSolicitudes', array('as' => 'listadoCursillosSolicitudes', 'uses' => 'CursillosController@listadoCursillosSolicitudes'));
 
-//Obtener relación de cursos excepto los míos vía Ajax (ModoTabla)
+    //Obtener relación de cursos excepto los míos vía Ajax (ModoTabla)
     Route::post('listadoCursillosRespuestas', array('as' => 'listadoCursillosRespuestas', 'uses' => 'CursillosController@listadoCursillosRespuestas'));
 
 
-//Obtener relación de cursos vía Ajax (ModoSelect)
+    //Obtener relación de cursos vía Ajax (ModoSelect)
     Route::post('cursillosTotales', array('as' => 'ponerCursillosTotales', 'uses' => 'CursillosController@cursillosTotales'));
 
-//Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
+    //Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
     Route::post('semanasSolicitudesEnviadas', array('as' => 'semanasSolicitudesEnviadas', 'uses' => 'PdfController@semanasSolicitudesEnviadas'));
 
-//Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
+    //Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
     Route::post('semanasSolicitudesRecibidas', array('as' => 'semanasSolicitudesRecibidas', 'uses' => 'PdfController@semanasSolicitudesRecibidas'));
 
-//Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
+    //Obtener relación de semanas con solicitudes recibidas vía Ajax (ModoSelect)
     Route::post('semanasSolicitudesRecibidasCursillos', array('as' => 'semanasSolicitudesRecibidasCursillos', 'uses' => 'PdfController@semanasSolicitudesRecibidasCursillos'));
-//Listados PDF
-// Listado Cursillos en el mundo
+    //Listados PDF
+    // Listado Cursillos en el mundo
     Route::get('cursillosPaises', 'PdfController@getCursillos');
     Route::post('imprimirCursillos', array('as' => 'imprimirCursillos', 'uses' => 'PdfController@imprimirCursillos'));
 
-// Listado Intendendencia para clausura
+    // Listado Intendendencia para clausura
     Route::get('intendenciaClausura', 'PdfController@getComunidades');
     Route::post('imprimirComunidades', array('as' => 'imprimirComunidades', 'uses' => 'PdfController@imprimirComunidades'));
 
-// Listado Secretariado
+    // Listado Secretariado
     Route::get('secretariado', 'PdfController@getSecretariado');
     Route::post('imprimirSecretariado', array('as' => 'imprimirSecretariado', 'uses' => 'PdfController@imprimirSecretariado'));
 
-// Listado Secretariados por Pais
+    // Listado Secretariados por Pais
     Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
     Route::post('imprimirSecretariadosPais', array('as' => 'imprimirSecretariadosPais', 'uses' => 'PdfController@imprimirSecretariadosPais'));
 
-// Listado Secretariados no colaboradores
+    // Listado Secretariados no colaboradores
     Route::get('noColaboradores', 'PdfController@getNoColaboradores');
     Route::post('imprimirNoColaboradores', array('as' => 'imprimirNoColaboradores', 'uses' => 'PdfController@imprimirNoColaboradores'));
 
-//Obtener relación de cursillos de una comunidad de una solicitud enviada
+    //Obtener relación de cursillos de una comunidad de una solicitud enviada
     Route::post('cursillosSolicitudEnviada', array('as' => 'cursillosSolicitudEnviada', 'uses' => 'SolicitudesEnviadasController@getCursillosSolicitudEnviada'));
 
-//Obtener relación de cursillos de una comunidad de una solicitud recibida
+    //Obtener relación de cursillos de una comunidad de una solicitud recibida
     Route::post('cursillosSolicitudRecibida', array('as' => 'cursillosSolicitudRecibida', 'uses' => 'SolicitudesRecibidasController@getCursillosSolicitudRecibida'));
 
 });
