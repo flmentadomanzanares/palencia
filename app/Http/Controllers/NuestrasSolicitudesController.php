@@ -73,7 +73,6 @@ class NuestrasSolicitudesController extends Controller
 
     public function enviar(Request $request)
     {
-
         $modalidadComunicacion = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $modalidadComunicacion);

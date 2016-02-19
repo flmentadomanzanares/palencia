@@ -113,7 +113,7 @@ $(document).ready(function () {
         evt.preventDefault();
         var generarSusRespuestas = parseInt($('#select_boolean').val());
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
-        $('#select_generar_sus_respuestas').prop('disabled', generarSusRespuestas ? true : false);
+        $('#select_generar_sus_respuestas').prop('disabled', generarSusRespuestas ? false : true);
 
     });
     $('#select_generar_sus_respuestas').prop('disabled', true);

@@ -22,12 +22,12 @@
                 <br/>
 
                 <div class="heading-caption">Incluir Solicitudes Anteriores</div>
-                {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
+                {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), 0,array("class"=>"form-control",'id'=>'select_boolean'))!!}
                 <br/>
 
-                @if(config("opciones.accion.crearSusRespuestas"))
+                @if(config("opciones.accion.crearSusRespuestasConSolicitudesAnterioresRealizadas"))
                     <div class="heading-caption">Generar Sus Respuestas</div>
-                    {!! FORM::select('generarSusRespuestas', Array('0'=>'No','1'=>'Si'), null,array("class"=>"form-control",'id'=>'select_generar_sus_respuestas'))!!}
+                    {!! FORM::select('generarSusRespuestas', Array('0'=>'No','1'=>'Si'), 0,array("class"=>"form-control",'id'=>'select_generar_sus_respuestas'))!!}
                     <br/>
                 @endif
 
