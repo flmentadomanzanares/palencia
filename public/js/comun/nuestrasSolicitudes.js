@@ -8,7 +8,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'cambiarComunidadesNoPropias',
+            url: 'cambiarComunidadesNoPropiasSolicitudes',
             success: function (data) {
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
@@ -117,5 +117,6 @@ $(document).ready(function () {
 
     });
     $('#select_generar_sus_respuestas').prop('disabled', true);
+    poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad option:selected').val());
 });

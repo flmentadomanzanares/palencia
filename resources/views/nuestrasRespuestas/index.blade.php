@@ -10,7 +10,7 @@
             <div class="row ">
                 {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasRespuestas','method'=>'POST']) !!}
                 <div class="heading-caption">Modalidad</div>
-                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
+                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
                 <br/>
 
                 <div class="heading-caption">Remitente</div>
@@ -25,7 +25,7 @@
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
 
-                <div class="heading-caption">Excluir Respuestas Anteriores</div>
+                <div class="heading-caption">Incluir Respuestas Anteriores</div>
                 {!! FORM::select('incluirRespuestasAnteriores', Array('1'=>'Si','0'=>'No'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
                 <br/>
 

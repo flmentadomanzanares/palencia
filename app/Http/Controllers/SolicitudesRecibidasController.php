@@ -33,7 +33,7 @@ class SolicitudesRecibidasController extends Controller
         //Título Vista
         $titulo = "Nueva Solicitud Recibida";
         $solicitudRecibida = new SolicitudesRecibidas();
-        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
+        $comunidades = Comunidades::getComunidadesList(false, false, "", false);
         //Vista
         return view('solicitudesRecibidas.nuevo',
             compact(
