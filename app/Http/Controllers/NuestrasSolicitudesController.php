@@ -22,8 +22,8 @@ class NuestrasSolicitudesController extends Controller
         $titulo = "Nuestras Solicitudes";
         //Comprobamos si el server permite modificar el tiempo de ejecución del script.
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-        $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
+        $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
+        $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $anyos = array();
         $cursillos = array();
@@ -40,8 +40,9 @@ class NuestrasSolicitudesController extends Controller
 
     public function comprobarSolicitudes(Request $request)
     {
-        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $request->get("modalidad"));
-        if ($request->get("modalidad") != 1) {
+        $tipoComunicacion = $request->get('modalidad');
+        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $tipoComunicacion);
+        if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
                 if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_solicitud) == 0)) {
@@ -49,9 +50,10 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
             if (count($incidencias) > 0) {
-                $tipos_comunicaciones_preferidas = $request->get('modalidad');
+                $tipos_comunicaciones_preferidas = $tipoComunicacion;
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
+                $generarSusRespuestas = $request->get('generarSusRespuestas');
                 $incluirSolicitudesAnteriores = $request->get('incluirSolicitudesAnteriores');
                 $restoComunidades = $request->get('restoComunidades');
                 $titulo = "Comunidades sin email de envío de solicitud";
@@ -60,6 +62,7 @@ class NuestrasSolicitudesController extends Controller
                         'incidencias',
                         'tipos_comunicaciones_preferidas',
                         'nuestrasComunidades',
+                        'generarSusRespuestas',
                         'anyos',
                         'incluirSolicitudesAnteriores',
                         'restoComunidades'
@@ -73,10 +76,9 @@ class NuestrasSolicitudesController extends Controller
     {
         $modalidadComunicacion = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), 0, false, $modalidadComunicacion);
-        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('incluirSolicitudesAnteriores'));
+        $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $modalidadComunicacion);
+        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), filter_var($request->get('incluirSolicitudesAnteriores'), FILTER_VALIDATE_BOOLEAN));
         $numeroDestinatarios = count($destinatarios);
-
         //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
@@ -112,7 +114,7 @@ class NuestrasSolicitudesController extends Controller
         foreach ($cursillos as $idx => $cursillo) {
             if ($cursillo->comunidad_id == $remitente->id) {
                 $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
-                if (!$cursillo->esSolicitud) {
+                if (!$cursillo->esSolicitud || ($cursillo->esSolicitud && $request->get('generarSusRespuestas') && $request->get('incluirSolicitudesAnteriores'))) {
                     $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado al estado de es solicitud.", $cursillo->num_cursillo, $remitente->comunidad);
                     $contadorCursosActualizados += 1;
                     $cursosActualizadosIds[] = $cursillo->id;
@@ -127,9 +129,9 @@ class NuestrasSolicitudesController extends Controller
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $esCarta = true;
-            //Comprobamos si el server permite modificar el tiempo de ejecución del script.
-            $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-            // $modalidadComunicacion si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
+            //intentanmos modificar el tiempo de ejecución del script.
+            set_time_limit(config('opciones.envios.seMaxtTimeAt'));
+            // modalidadComunicacion si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
             if ($modalidadComunicacion != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_solicitud) > 0)) {
                 //Nombre del archivo a adjuntar
                 $archivoMail = "templatePDF" . $separatorPath . 'NS-' . $remitente->comunidad . '.pdf';
@@ -218,9 +220,13 @@ class NuestrasSolicitudesController extends Controller
             $logEnvios[] = $logSolicitudesEnviadas[count($logSolicitudesEnviadas) - 1];
         }
 
-        //Creamos el Log de archivo
+        //Creamos la cabecera del Log de archivo
         $logArchivo = array();
-        $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+        $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
+        $logArchivo[] = 'Usuario->' . $request->user()->name . "\n";
+        $logArchivo[] = 'Email->' . $request->user()->email . "\n";
+        $logArchivo[] = 'Ip->' . $request->server('REMOTE_ADDR') . "\n";
+        $logArchivo[] = '******************************************' . "\n";
         foreach ($logEnvios as $log) {
             $logArchivo[] = $log[0] . "\n";
         }

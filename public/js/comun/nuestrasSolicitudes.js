@@ -8,7 +8,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             type: 'post',
-            url: 'cambiarComunidadesNoPropias',
+            url: 'cambiarComunidadesNoPropiasSolicitudes',
             success: function (data) {
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
@@ -53,7 +53,7 @@ $(document).ready(function () {
             data: {
                 'comunidad': comunidadPropiaId,
                 'anyo': year,
-                'esSolicitudAnterior': esSolicitudAnterior,
+                'esSolicitudAnterior': Boolean(parseInt(esSolicitudAnterior)),
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -113,9 +113,10 @@ $(document).ready(function () {
         evt.preventDefault();
         var generarSusRespuestas = parseInt($('#select_boolean').val());
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
-        $('#select_generar_sus_respuestas').prop('disabled', generarSusRespuestas ? true : false);
+        $('#select_generar_sus_respuestas').prop('disabled', generarSusRespuestas ? false : true);
 
     });
     $('#select_generar_sus_respuestas').prop('disabled', true);
+    poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad option:selected').val());
 });

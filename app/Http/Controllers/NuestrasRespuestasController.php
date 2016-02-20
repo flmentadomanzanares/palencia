@@ -20,8 +20,8 @@ class NuestrasRespuestasController extends Controller
         $titulo = "Responder";
         //Comprobamos si el server permite modificar el tiempo de ejecución del script.
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-        $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
+        $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
+        $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = Array();
@@ -39,9 +39,11 @@ class NuestrasRespuestasController extends Controller
 
     public function comprobarRespuestas(Request $request)
     {
-        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true);
-        $tipoEnvio = $request->get("modalidad");
-        if ($tipoEnvio != 1) {
+        $incluirRespuestasAnteriores = filter_var($request->get('incluirRespuestasAnteriores'), FILTER_VALIDATE_BOOLEAN);
+        $tipoComunicacion = $request->get('modalidad');
+        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), false, true, $incluirRespuestasAnteriores, $tipoComunicacion);
+
+        if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
                 if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_envio) == 0)) {
@@ -49,10 +51,10 @@ class NuestrasRespuestasController extends Controller
                 }
             }
             if (count($incidencias) > 0) {
-                $tipos_comunicaciones_preferidas = $request->get('modalidad');
+                $tipos_comunicaciones_preferidas = $tipoComunicacion;
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
-                $incluirRespuestasAnteriores = $request->get('incluirRespuestasAnteriores');
+                $incluirRespuestasAnteriores = $incluirRespuestasAnteriores;
                 $restoComunidades = $request->get('restoComunidades');
                 $titulo = "Comunidades sin email de envío de respuestas";
                 return view('nuestrasRespuestas.comprobacion',
@@ -73,7 +75,8 @@ class NuestrasRespuestasController extends Controller
     {
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true, $request->get('incluirRespuestasAnteriores'));
+        $incluirRespuestasAnteriores = filter_var($request->get('incluirRespuestasAnteriores'), FILTER_VALIDATE_BOOLEAN);
+        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), false, true, $incluirRespuestasAnteriores, $tipoEnvio);
         $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('restoComunidades'), $request->get('anyo'), $request->get('incluirRespuestasAnteriores'), false);
 
         //Verificación
@@ -266,9 +269,14 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = $logSolicitudesRecibidas[count($logSolicitudesRecibidas) - 1];
 
             }
-            //Creamos el Log
+            //Creamos la cabecera del Log
             $logArchivo = array();
-            $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Usuario->' . $request->user()->name . "\n";
+            $logArchivo[] = 'Email->' . $request->user()->email . "\n";
+            $logArchivo[] = 'Ip->' . $request->server('REMOTE_ADDR') . "\n";
+            $logArchivo[] = '******************************************' . "\n";
+
             foreach ($logEnvios as $log) {
                 $logArchivo[] = $log[0] . "\n";
             }

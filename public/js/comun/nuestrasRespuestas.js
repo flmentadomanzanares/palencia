@@ -1,4 +1,32 @@
 $(document).ready(function () {
+    var poner_comunicacion = function (modalidadComunicacion) {
+        $.ajax({
+            data: {
+                'modalidadComunicacion': modalidadComunicacion,
+                '_token': $('input[name="_token"]').val()
+            },
+            dataType: "json",
+            type: 'post',
+            url: 'cambiarComunidadesNoPropiasRespuestas',
+            success: function (data) {
+                var comunidadesNoPropias = $('#select_comunidad_no_propia');
+                comunidadesNoPropias.empty();
+                if (data.placeholder.length > 0) {
+                    comunidadesNoPropias.append("<option value='0'>" + data.placeholder + "</option>");
+                }
+                $.each(data.comunidades, function (key, element) {
+                    comunidadesNoPropias.append("<option value='" + element.id + "'>" + element.comunidad + "</option>");
+                });
+                totalCursillos($('#select_comunidad_no_propia option:selected').val(),
+                    $('#select_anyos option:selected').val(),
+                    $('#select_boolean option:selected').val(),
+                    $('#select_comunicacion option:selected').val()
+                );
+            },
+            error: function () {
+            }
+        });
+    };
     var totalAnyos = function (comunidadPropiaId) {
         $.ajax({
             data: {
@@ -14,19 +42,24 @@ $(document).ready(function () {
                 $.each(data, function (key, element) {
                     anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
-                totalCursillos($('#select_comunidad_no_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+                totalCursillos($('#select_comunidad_no_propia option:selected').val(),
+                    $('#select_anyos option:selected').val(),
+                    $('#select_boolean option:selected').val(),
+                    $('#select_comunicacion option:selected').val()
+                );
             },
             error: function () {
             }
         });
     };
     //Ajax para obtener los cursos de la/s comunidad/es anualmente.
-    var totalCursillos = function (comunidadNoPropiaId, year, esRespuestaAnterior) {
+    var totalCursillos = function (comunidadNoPropiaId, year, esRespuestaAnterior, tipoComunicacion) {
         $.ajax({
             data: {
                 'comunidadNoPropia': comunidadNoPropiaId,
                 'anyo': year,
                 'esRespuestaAnterior': esRespuestaAnterior,
+                'tipoComunicacion': tipoComunicacion,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -79,7 +112,16 @@ $(document).ready(function () {
     });
     $(document).on("change", "#select_anyos, #select_boolean", function (evt) {
         evt.preventDefault();
-        totalCursillos($('#select_comunidad_no_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+        totalCursillos($('#select_comunidad_no_propia option:selected').val(),
+            $('#select_anyos option:selected').val(),
+            $('#select_boolean option:selected').val(),
+            $('#select_comunicacion option:selected').val()
+        );
     });
+    $(document).on("change", "#select_comunicacion", function (evt) {
+        evt.preventDefault();
+        poner_comunicacion($(this).val());
+    });
+    poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad_no_propia option:selected').val());
 });

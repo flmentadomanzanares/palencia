@@ -67,9 +67,11 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     //Cálculo del total de años de los cursos de una comunidad vía Ajax
     Route::post('totalAnyos', array('as' => 'totalAnyos', 'uses' => 'CursillosController@totalAnyos'));
 
-    //Cálculo del total de años de los cursos de una comunidad vía Ajax
-    Route::post('cambiarComunidadesNoPropias', array('as' => 'cambiarComunidadesNoPropias', 'uses' => 'ComunidadesController@cambiarComunidadesNoPropias'));
+    //Cambio de las comunidades según tipo de comunicación solicitudes
+    Route::post('cambiarComunidadesNoPropiasSolicitudes', array('as' => 'cambiarComunidadesNoPropiasSolicitudes', 'uses' => 'ComunidadesController@cambiarComunidadesNoPropiasSolicitudes'));
 
+    //Cambio de las comunidades según tipo de comunicación respuestas
+    Route::post('cambiarComunidadesNoPropiasRespuestas', array('as' => 'cambiarComunidadesNoPropiasRespuestas', 'uses' => 'ComunidadesController@cambiarComunidadesNoPropiasRespuestas'));
 
     //Cálculo del total de años de los cursos de un conjunto de comunidades vía Ajax
     Route::post('totalAnyosRespuestas', array('as' => 'totalAnyosRespuestas', 'uses' => 'CursillosController@totalAnyosRespuestas'));

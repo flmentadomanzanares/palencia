@@ -253,11 +253,19 @@ class ComunidadesController extends Controller
             ->with('mensaje', 'La comunidad ' . $comunidad->comunidad . ' ha sido borrada correctamente.');
     }
 
-    public function cambiarComunidadesNoPropias(Request $request)
+    public function cambiarComunidadesNoPropiasSolicitudes(Request $request)
     {
         if (\Request::ajax()) {
             $modalidadComunicacion = $request->get('modalidadComunicacion');
-            return Comunidades::getComunidadesModalidadComunicacionList($modalidadComunicacion, true, "Enviar a todas las comunidades");
+            return Comunidades::getComunidadesModalidadComunicacionListSolicitudes($modalidadComunicacion, true, "Enviar a todas las comunidades");
+        }
+    }
+
+    public function cambiarComunidadesNoPropiasRespuestas(Request $request)
+    {
+        if (\Request::ajax()) {
+            $modalidadComunicacion = $request->get('modalidadComunicacion');
+            return Comunidades::getComunidadesModalidadComunicacionListRespuestas($modalidadComunicacion, true, "Enviar las respuestas pendientes");
         }
     }
 }

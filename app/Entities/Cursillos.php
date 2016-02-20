@@ -149,7 +149,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $esRespuestaAnterior = 0)
+    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $esRespuestaAnterior = 0, $tipoComunicacion = 0)
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.color',
@@ -160,6 +160,7 @@ class Cursillos extends Model
             ->ComunidadCursillosResto($comunidad)
             ->AnyosCursillos($anyo)
             ->FilterEsRespuestaAnterior($esRespuestaAnterior)
+            ->FiltroComunidadCursillosTipoComunicacion($tipoComunicacion)
             ->where('cursillos.activo', true)
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -317,24 +318,32 @@ class Cursillos extends Model
 
     public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = 0)
     {
-        if (is_numeric($esSolicitudAnterior) && $esSolicitudAnterior == 1) {
-            $query->where('cursillos.esSolicitud', !$esSolicitudAnterior);
+        if (is_bool($esSolicitudAnterior) && !$esSolicitudAnterior) {
+            $query->where('cursillos.esSolicitud', $esSolicitudAnterior);
         }
         return $query;
     }
 
     public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = 0)
     {
-        if (is_numeric($esRespuestaAnterior) && $esRespuestaAnterior == 1) {
-            $query->where('cursillos.esRespuesta', !$esRespuestaAnterior);
+        if (is_bool($esRespuestaAnterior) && !$esRespuestaAnterior) {
+            $query->where('cursillos.esRespuesta', $esRespuestaAnterior);
         }
         return $query;
     }
 
     public function scopeFiltroComunidadCursillosTipo($query, $tipo = 0)
     {
-        if (is_numeric($tipo)) {
+        if (is_bool($tipo)) {
             $query->where('comunidades.esPropia', $tipo);
+        }
+        return $query;
+    }
+
+    public function scopeFiltroComunidadCursillosTipoComunicacion($query, $tipo = 0)
+    {
+        if (is_numeric($tipo) && $tipo > 0) {
+            $query->where('comunidades.tipo_comunicacion_preferida_id', $tipo);
         }
         return $query;
     }
