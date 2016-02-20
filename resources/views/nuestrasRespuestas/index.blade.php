@@ -26,7 +26,7 @@
                 <br/>
 
                 <div class="heading-caption">Incluir Respuestas Anteriores</div>
-                {!! FORM::select('incluirRespuestasAnteriores', Array('1'=>'Si','0'=>'No'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
+                {!! FORM::select('incluirRespuestasAnteriores', Array('0'=>'No','1'=>'Si'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
                 <br/>
 
                 <div class="heading-caption">Cursillos</div>
