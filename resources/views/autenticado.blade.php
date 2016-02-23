@@ -12,10 +12,8 @@
                     @include('auth.parciales.buscar')
                 </div>
                 <div class="panel panel-body">
-
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}
-
                 </div>
             @else
                 <h1 class="alert alert-info text-center">No existen cursillos programados</h1>

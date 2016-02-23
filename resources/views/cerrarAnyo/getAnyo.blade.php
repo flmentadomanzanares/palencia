@@ -25,25 +25,18 @@
                                 <div>Inicio</div>
                             </i>
                         </a>
-                        <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
-                                @if(config('opciones.accion.mostrarModalDeBorrado'))
+                        <button type="button"
                                 class="pull-right lanzarModal"
                                 data-title="BORRADO"
                                 data-descripcion="¿Seguro que deseas eliminar los cursos y sus solicitudes?
-                                                    <h3><strong class='green'></strong></h3>"
-                                data-footer="true"
-                                @endif >
+                                <h3><strong class='green'></strong></h3>"
+                                data-footer="true">
                             <i class='glyphicon glyphicon-trash full-Width'>
                                 <div>Borrar</div>
                             </i>
                         </button>
-                        @if(config('opciones.accion.mostrarModalDeBorrado'))
-                            @include ("comun.plantillaBorrado")
-                        @endif
+                        @include ("comun.plantillaBorrado")
                     </div>
-                    @if(config('opciones.accion.mostrarModalDeBorrado'))
-                        @include('comun.plantillaBorrado')
-                    @endif
                     {!! FORM::close() !!}
                 @else
                     <div class="heading-caption">No hay cursillos que eliminar</div>
@@ -62,4 +55,6 @@
     </div>
 @endsection
 @section('js')
+    @if(!config('opciones.accion.mostrarModalDeBorrado'))
+    @endif
 @endsection

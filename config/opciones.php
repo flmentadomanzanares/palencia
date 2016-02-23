@@ -23,7 +23,7 @@ return ['campoUser' => [
     ],
     'accion' => [
         'copiaSeguridad' => true,
-        'cerrarAnyo' => false,
+        'cerrarAnyo' => true,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => true,
         'roles' => false,
         'tiposParticipantes' => false,
