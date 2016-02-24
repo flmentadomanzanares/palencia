@@ -6,8 +6,6 @@
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
     {!! HTML::style('css/palencia.css') !!}
-    {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
-
     @yield("css")
 </head>
 <body>
@@ -155,7 +153,7 @@
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia v1.0.0 | KOALNET - 2015</span>
+    <span>&copy; Palencia v2.0.0 | KOALNET - 2015</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
