@@ -153,7 +153,7 @@
     <br/>
     <br/>
         <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
-            ........ a celebrar desde el ............ de ................................................... del 20.........</span>
+            {{$cur['num']}} a celebrar desde el {{$cur['dia']}} de {{$cur['mes']}} del {{$cur['anyo']}}</span>
     <br/>
     <br/>
     <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
@@ -179,20 +179,7 @@
         !
     </span>
     <br>
-    @if($esCarta)
-        <div class="listado"><strong class="subrayado">CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></div>
-        <?php $i = 0?>
-        <?php $pagina = 0 ?>
-        @foreach($cursos as $index=>$curso)
-            @if($index>0 && $i==$listadoTotal)<?php $listadoTotal = $listadoTotalRestoPagina;$listadoPosicionInicial = 0;$i = 0; ?>
-            <div class="pagina">Pg {{$pagina=$pagina +1}}</div>
-            <div class="saltoPagina"></div>@endif
-            <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">{{ $curso }}</div>
-            <?php $i++?>
-        @endforeach
-    @endif
 </div>
 @include("pdf.Template.carta.footerRespuesta")
-<?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>
 </body>
 

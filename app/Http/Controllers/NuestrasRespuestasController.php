@@ -129,10 +129,12 @@ class NuestrasRespuestasController extends Controller
 
                 if ($cursillo->comunidad_id == $destinatario->id) {
                     if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
-                        $cursos[] = ['num' => $cursillo->num_cursillo, 'fecha' => ''];
-                    } else {
-                        $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
+                        $curso[] = ['num' => $cursillo->num_cursillo,
+                            'dia' => date('d', strtotime($cursillo->fecha_inicio)),
+                            'mes' => $meses[date('n', strtotime($cursillo->fecha_inicio)) - 1],
+                            'anyo' => date('Y', strtotime($cursillo->fecha_inicio))];
                     }
+                    $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                     if (!$cursillo->esRespuesta) {
                         $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursillo->num_cursillo, $destinatario->comunidad);
                         $cursosActualizadosIds[] = $cursillo->id;
@@ -150,23 +152,29 @@ class NuestrasRespuestasController extends Controller
                 $nombreArchivoAdjuntoEmail = str_replace(" ", "_", $nombreArchivoAdjuntoEmail);
 
                 try {
+                    $pdf = \App::make('dompdf.wrapper');
                     if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
-
-                        $pdf = \App::make('dompdf.wrapper');
-                        dd("EMAIL con cartaCumplimentadaIndividual");
+                        $multiplesPdfContain = "";
+                        foreach ($curso as $cur) {
+                            $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3PorCurso',
+                                compact('cur', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                                    , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                                ))->render();
+                            $multiplesPdfContain .= $view;
+                        }
+                        $view = $multiplesPdfContain;
                     } else {
-                        $pdf = \App::make('dompdf.wrapper');
                         $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                             compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
-                        $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
-                        $pdf->output();
-                        $pdf->save($nombreArchivoAdjuntoEmail);
-                        $logEnvios[] = ["Creado documento adjunto para el email de respuesta a la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                     }
+                    $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
+                    $pdf->output();
+                    $pdf->save($nombreArchivoAdjuntoEmail);
+                    $logEnvios[] = ["Creado documento adjunto para el email de respuesta a la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el documentoo adjunto para email de " . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
+                    $logEnvios[] = ["Error al crear el documento adjunto para email de " . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
                 }
                 $esCarta = false;
                 //Obtenemos el número de cursillos a procesar
