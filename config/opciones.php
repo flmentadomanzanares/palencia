@@ -24,11 +24,12 @@ return ['campoUser' => [
     'accion' => [
         'copiaSeguridad' => true,
         'cerrarAnyo' => true,
-        'crearSusRespuestasConSolicitudesAnterioresRealizadas' => true,
+        'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
         'mostrarModalDeBorrado' => false,
+        'cartaCumplimentadaIndividualNuestrasRespuestas' => true,
     ],
     'envios' => [
         'timeout' => 30,
