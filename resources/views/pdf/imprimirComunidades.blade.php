@@ -118,6 +118,9 @@
         <div class="cabecera1 text-center">
             {{ $titulo }}
         </div>
+        <div class="cabecera2 text-center">
+            {{ $titulo2 }}
+        </div>
 
     </div>
 

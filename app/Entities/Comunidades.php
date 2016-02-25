@@ -191,6 +191,15 @@ class Comunidades extends Model
             ->first();
     }
 
+    static public function getNombreComunidadPropia()
+    {
+
+        //Obtenemos la comunidad
+        return Comunidades::Select('comunidades.comunidad')
+            ->where('comunidades.esPropia', true)
+            ->first();
+    }
+
     /*****************************************************************************************************************
      *
      * Relacion many to one: tipo_comunidad --> comunidades

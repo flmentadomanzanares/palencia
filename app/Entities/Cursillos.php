@@ -37,6 +37,15 @@ class Cursillos extends Model
             ->Lists('cursillo', 'id');
     }
 
+
+    public static function getNumeroCursillosList()
+    {
+        return ['0' => 'Cursillo...'] + Cursillos::Select('cursillos.id', 'cursillos.num_cursillo')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
+            ->orderBy('cursillos.num_cursillo', 'ASC')
+            ->Lists('cursillos.num_cursillo', 'cursillos.id');
+    }
+
     static public function getCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'comunidades.color',
@@ -276,6 +285,17 @@ class Cursillos extends Model
             return null;
         //Obtenemos el cursillo
         return Cursillos::Select('cursillos.cursillo')
+            ->where('cursillos.id', $id)
+            ->first();
+    }
+
+    static public function getCursilloParaIntendencia($id = null)
+    {
+        if (!is_numeric($id))
+            return null;
+        //Obtenemos el cursillo
+        return Cursillos::Select('cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('cursillos.id', $id)
             ->first();
     }

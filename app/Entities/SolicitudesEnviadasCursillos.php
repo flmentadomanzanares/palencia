@@ -79,13 +79,29 @@ class SolicitudesEnviadasCursillos extends Model {
             ->get();
     }
 
-
     /*****************************************************************************************************************
      *
      * Función que devuelve los datos para el listado "Intendencia para Clausura"
      *
      *****************************************************************************************************************/
-    static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
+    static public function imprimirIntendenciaClausura($idCursillo = null)
+    {
+
+        return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->where('solicitudes_enviadas_cursillos.activo', true)
+            ->where('cursillos.id', '>=', $idCursillo)
+            ->orderBy('paises.pais', 'ASC')
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->get();
+
+    }
+
+    /*static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
 
         return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
@@ -101,7 +117,7 @@ class SolicitudesEnviadasCursillos extends Model {
             ->orderBy('comunidades.comunidad', 'ASC')
             ->get();
 
-    }
+    }*/
 
     /*****************************************************************************************************************
      *
@@ -131,5 +147,15 @@ class SolicitudesEnviadasCursillos extends Model {
             DB::table('solicitudes_enviadas_cursillos')->truncate()
                 ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%Y")'), '=', $anyo);
         });
+    }
+
+    public static function getNumeroCursillosList()
+    {
+        return ['0' => 'Cursillo...'] + SolicitudesEnviadasCursillos::Select('solicitudes_enviadas_cursillos.cursillo_id', 'cursillos.num_cursillo')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
+            ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->orderBy('cursillos.num_cursillo', 'ASC')
+            ->Lists('cursillos.num_cursillo', 'solicitudes_enviadas_cursillos.cursillo_id');
     }
 }
