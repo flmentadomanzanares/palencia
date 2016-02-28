@@ -16,7 +16,7 @@ class CopiaSeguridadController extends Controller
     public function index(Request $request)
     {
         $titulo = "Copia Seguridad";
-        $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
+        $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         return view('copiaSeguridad.index',
             compact(
                 'nuestrasComunidades',

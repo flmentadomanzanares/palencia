@@ -5,7 +5,7 @@
 @section('contenido')
     <div class="spinner"></div>
     <div class="hidden table-size-optima altoMaximo">
-        {!! FORM::model($tipos_secretariados, ['route' => ['tiposSecretariados.update', $tipos_secretariados->id], 'method' => 'patch']) !!}
+        {!! FORM::model($tipoSecretariado, ['route' => ['tiposSecretariados.update', $tipoSecretariado->id], 'method' => 'patch']) !!}
         @include('tiposSecretariados.parciales.nuevoYmodificar')
         <div class="btn-action margin-bottom">
             <a title="Volver" href="{{route('tiposSecretariados.index')}}" class="pull-left">

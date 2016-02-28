@@ -1,4 +1,29 @@
 $(document).ready(function () {
+
+    var poner_comunicacion = function (modalidadComunicacion) {
+        $.ajax({
+            data: {
+                'modalidadComunicacion': modalidadComunicacion,
+                '_token': $('input[name="_token"]').val()
+            },
+            dataType: "json",
+            type: 'post',
+            url: 'cambiarComunidadesNoPropiasSolicitudes',
+            success: function (data) {
+                var comunidadesNoPropias = $('#select_resto_comunidades');
+                comunidadesNoPropias.empty();
+                if (data.placeholder.length > 0) {
+                    comunidadesNoPropias.append("<option value='0'>" + data.placeholder + "</option>");
+                }
+                $.each(data.comunidades, function (key, element) {
+                    comunidadesNoPropias.append("<option value='" + element.id + "'>" + element.comunidad + "</option>");
+                });
+            },
+            error: function () {
+            }
+        });
+    };
+
     var totalAnyos = function (comunidadPropiaId) {
         $.ajax({
             data: {
@@ -20,13 +45,15 @@ $(document).ready(function () {
             }
         });
     };
+
+
     //Ajax para obtener los cursos de la/s comunidad/es anualmente
     var totalCursillos = function (comunidadPropiaId, year, esSolicitudAnterior) {
         $.ajax({
             data: {
                 'comunidad': comunidadPropiaId,
                 'anyo': year,
-                'esSolicitudAnterior': esSolicitudAnterior,
+                'esSolicitudAnterior': Boolean(parseInt(esSolicitudAnterior)),
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -78,9 +105,18 @@ $(document).ready(function () {
         evt.preventDefault();
         totalAnyos($(this).val());
     });
+    $(document).on("change", "#select_comunicacion", function (evt) {
+        evt.preventDefault();
+        poner_comunicacion($(this).val());
+    });
     $(document).on("change", "#select_anyos, #select_boolean", function (evt) {
         evt.preventDefault();
+        var generarSusRespuestas = parseInt($('#select_boolean').val());
         totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+        $('#select_generar_sus_respuestas').prop('disabled', generarSusRespuestas ? false : true);
+
     });
+    $('#select_generar_sus_respuestas').prop('disabled', true);
+    poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad option:selected').val());
 });

@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUsersTable extends Migration {
+class CreateUsersTable extends Migration
+{
 
     /**
      * Run the migrations.
@@ -12,14 +13,13 @@ class CreateUsersTable extends Migration {
      */
     public function up()
     {
-        Schema::create('users', function(Blueprint $table)
-        {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fullname');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->string("foto",100)->default('default.png');
+            $table->string("foto", 100)->default('default.png');
             $table->bigInteger('rol_id')->unsigned()->default(2);
             $table->foreign('rol_id')->references('id')->on('roles')->onUpdate("cascade");
             $table->boolean('confirmado')->default(false);
@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration {
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *

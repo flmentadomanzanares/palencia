@@ -1,7 +1,8 @@
 <?php namespace Palencia\Events;
 
-abstract class Event {
+abstract class Event
+{
 
-	//
+    //
 
 }

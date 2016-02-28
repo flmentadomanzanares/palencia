@@ -3,13 +3,13 @@
  */
     $(document).ready(function () {
         //Cambio provincias.
-        var inicializar = function(){
+        var inicializar = function () {
             //definimos las variables
             var pais = $('#select_pais').val();
             var provincia = $('#select_provincia').val();
             var localidad = $('#select_localidad').val();
             //Rellenamos los selects
-            listarProvincias(pais,provincia);
+            listarProvincias(pais, provincia);
             listarLocalidades(provincia, localidad);
         };
         var listarProvincias = function (paisId, provincia) {
@@ -29,7 +29,7 @@
                         else
                             $('#select_provincia').append("<option value='" + element.id + "'>" + element.provincia + "</option>");
                     });
-                   if (provincia == undefined) {
+                    if (provincia == undefined) {
                         listarLocalidades($('#select_provincia option:selected').val());
                     }
 
@@ -58,14 +58,14 @@
         };
         $('#select_pais').change(function (evt) {
             evt.preventDefault();
-            if ( ($('#select_provincia').length == 0 ))
+            if (($('#select_provincia').length == 0 ))
                 return;
             listarProvincias($('#select_pais option:selected').val());
         });
         //Cambio Localidades.
         $('#select_provincia').change(function (evt) {
             evt.preventDefault();
-            if ( ($('#select_localidad').length == 0 ))
+            if (($('#select_localidad').length == 0 ))
                 return;
             listarLocalidades($('#select_provincia option:selected').val());
         });

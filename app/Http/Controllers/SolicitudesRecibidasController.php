@@ -33,10 +33,7 @@ class SolicitudesRecibidasController extends Controller
         //Título Vista
         $titulo = "Nueva Solicitud Recibida";
         $solicitudRecibida = new SolicitudesRecibidas();
-        $comunidadesPropias = Comunidades::getComunidadesList(1, false, "", true);
-        $comunidades = Comunidades::getComunidadesList(0, false, "", false);
-
-
+        $comunidades = Comunidades::getComunidadesList(false, false, "", false);
         //Vista
         return view('solicitudesRecibidas.nuevo',
             compact(
@@ -56,9 +53,9 @@ class SolicitudesRecibidasController extends Controller
         //Creamos una nueva instancia al modelo.
         $solicitudRecibida = new SolicitudesRecibidas();
         //Asignamos valores traidos del formulario.
-        $solicitudRecibida->comunidad_id = \Request::input('comunidad_id');
-        $solicitudRecibida->aceptada = \Request::input('aceptada');
-        $solicitudRecibida->activo = \Request::input('activo');
+        $solicitudRecibida->comunidad_id = $request->get('comunidad_id');
+        $solicitudRecibida->aceptada = $request->get('aceptada');
+        $solicitudRecibida->activo = $request->get('activo');
 
         //Intercepción de errores
         try {
@@ -81,17 +78,6 @@ class SolicitudesRecibidasController extends Controller
         //Redireccionamos a Solicitudes Recibidas (index)
         return redirect('solicitudesRecibidas')->
         with('mensaje', 'La solicitud se ha creado satisfactoriamente.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -132,8 +118,8 @@ class SolicitudesRecibidasController extends Controller
         if ($solicitudRecibida == null) {
             return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $solicitudRecibida->aceptada = \Request::input('aceptada');
-        $solicitudRecibida->activo = \Request::input('activo');
+        $solicitudRecibida->aceptada = $request->get('aceptada');
+        $solicitudRecibida->activo = $request->get('activo');
 
         //Intercepción de errores
         try {

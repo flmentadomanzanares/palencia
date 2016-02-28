@@ -1,9 +1,10 @@
 <?php
 
-use Palencia\Entities\User;
 use Faker\Generator;
+use Palencia\Entities\User;
 
-class UserTableSeeder extends BaseSeeder {
+class UserTableSeeder extends BaseSeeder
+{
 
     public function getModel()
     {
@@ -44,18 +45,20 @@ class UserTableSeeder extends BaseSeeder {
     {
 
         User::create([
-            'fullname'  => 'Antonio Becerra Aleman',
+            'fullname' => 'Antonio Becerra Aleman',
             'name' => 'Antonio',
             'email' => 'antonio@gmail.com',
             'password' => bcrypt('admin'),
-            'rol_id' => 4
+            'rol_id' => 4,
+            'confirmado' => true
         ]);
         User::create([
-            'fullname'  => 'Francisco Luis Mentado Manzanares',
+            'fullname' => 'Francisco Luis Mentado Manzanares',
             'name' => 'Fmentado',
             'email' => 'a@a.es',
             'password' => bcrypt('fmentado'),
-            'rol_id' => 4
+            'rol_id' => 4,
+            'confirmado' => true
         ]);
 
     }

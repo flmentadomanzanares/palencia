@@ -19,7 +19,7 @@ class CursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Cursillos";
-        $comunidades = Comunidades::getComunidadesList(null, true, "Comunidad...", true);
+        $comunidades = Comunidades::getComunidadesList(0, true, "Comunidad...", true);
         $cursillos = Cursillos::getCursillos($request);
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
@@ -66,28 +66,28 @@ class CursillosController extends Controller
     public function store(ValidateRulesCursillos $request)
     {
         //Creamos una nueva instancia al modelo.
-        $cursillos = new Cursillos();
+        $cursillo = new Cursillos();
         //Asignamos valores traidos del formulario.
-        $cursillos->cursillo = \Request::input('cursillo');
-        $cursillos->num_cursillo = \Request::input('num_cursillo');
-        $cursillos->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
-        $cursillos->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
-        $cursillos->descripcion = \Request::input('descripcion');
-        $cursillos->comunidad_id = \Request::input('comunidad_id');
-        $cursillos->tipo_participante_id = \Request::input('tipo_participante_id');
-        $cursillos->activo = \Request::input('activo');
+        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->num_cursillo = $request->get('num_cursillo');
+        $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
+        $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));
+        $cursillo->descripcion = $request->get('descripcion');
+        $cursillo->comunidad_id = $request->get('comunidad_id');
+        $cursillo->tipo_participante_id = $request->get('tipo_participante_id');
+        $cursillo->activo = $request->get('activo');
 
         //Intercepción de errores
         try {
             //Guardamos Los valores
-            $cursillos->save();
+            $cursillo->save();
 
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->
                     route('cursillos.create')->
-                    with('mensaje', 'El cursillo está ya dado de alta.');
+                    with('mensaje', 'El cursillo nº' . $cursillo->num_cursillo . ' está ya dado de alta.');
                     break;
                 default:
                     return redirect()->
@@ -97,7 +97,7 @@ class CursillosController extends Controller
         }
         //Redireccionamos a Cursillos (index)
         return redirect('cursillos')->
-        with('mensaje', 'El Cursillo creado satisfactoriamente.');
+        with('mensaje', 'El cursillo con nº' . $cursillo->num_cursillo . ' ha sido creado satisfactoriamente.');
     }
 
     /**
@@ -137,11 +137,6 @@ class CursillosController extends Controller
         if ($cursillo == null)
             return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
-        //Si incluimos las comunidades
-        //$comunidades = Comunidades::getComunidadesList();
-        //$comunidades = Comunidades::getComunidadConCursilloId($id);
-        //$comunidades=[$comunidades[0]->id=>$comunidades[0]->comunidad];
-
         //Vista
         return view('cursillos.modificar',
             compact(
@@ -164,16 +159,16 @@ class CursillosController extends Controller
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
             return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
-        $cursillo->cursillo = \Request::input('cursillo');
-        $cursillo->num_cursillo = \Request::input('num_cursillo');
-        $cursillo->fecha_inicio = $this->ponerFecha(\Request::input('fecha_inicio'));
-        $cursillo->fecha_final = $this->ponerFecha(\Request::input('fecha_final'));
-        $cursillo->descripcion = \Request::input('descripcion');
-        //$cursillo->comunidad_id = \Request::input('comunidad_id');
-        $cursillo->tipo_participante_id = \Request::input('tipo_participante_id');
-        $cursillo->esSolicitud = \Request::input('esSolicitud');
-        $cursillo->esRespuesta = \Request::input('esRespuesta');
-        $cursillo->activo = \Request::input('activo');
+        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->num_cursillo = $request->get('num_cursillo');
+        $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
+        $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));
+        $cursillo->descripcion = $request->get('descripcion');
+        //$cursillo->comunidad_id = $request->get('comunidad_id');
+        $cursillo->tipo_participante_id = $request->get('tipo_participante_id');
+        $cursillo->esSolicitud = $request->get('esSolicitud');
+        $cursillo->esRespuesta = $request->get('esRespuesta');
+        $cursillo->activo = $request->get('activo');
         //Intercepción de errores
         try {
             //Guardamos Los valores
@@ -194,7 +189,7 @@ class CursillosController extends Controller
         }
         //Redireccionamos a Cursillos (index)
         return redirect('cursillos')->
-        with('mensaje', 'El Cursillo ha sido modificado satisfactoriamente.');
+        with('mensaje', 'El cursillo con nº' . $cursillo->num_cursillo . ' ha sido modificado satisfactoriamente.');
     }
 
     /**
@@ -213,14 +208,14 @@ class CursillosController extends Controller
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
-                    return redirect()->route('cursillos.index')->with('mensaje', 'El cursillo no se puede eliminar al tener registros asociados.');
+                    return redirect()->route('cursillos.index')->with('mensaje', 'El cursillo con nº' . $cursillo->num_cursillo . ' no se puede eliminar al haber sido procesado.');
                     break;
                 default:
                     return redirect()->route('cursillos.index')->with('mensaje', 'Eliminar cursillo error ' . $e->getCode());
             }
         }
         return redirect()->route('cursillos.index')
-            ->with('mensaje', 'El cursillo ha sido eliminado correctamente.');
+            ->with('mensaje', 'El cursillo con nº' . $cursillo->num_cursillo . ' ha sido eliminado correctamente.');
     }
 
     public function semanasTotales(Request $request)
@@ -260,7 +255,7 @@ class CursillosController extends Controller
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
             $esSolicitudAnterior = $request->get('esSolicitudAnterior');
-            return Cursillos::getTodosMisCursillos($comunidad, $anyo, $esSolicitudAnterior);
+            return Cursillos::getTodosMisCursillos($comunidad, $anyo, filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN));
         }
     }
 
@@ -270,7 +265,12 @@ class CursillosController extends Controller
             $comunidadNoPropia = $request->get('comunidadNoPropia');
             $anyo = $request->get('anyo');
             $esRespuestaAnterior = $request->get('esRespuestaAnterior');
-            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia, $anyo, $esRespuestaAnterior);
+            $tipoComunicacion = $request->get("tipoComunicacion");
+            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia,
+                $anyo,
+                filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN),
+                $tipoComunicacion
+            );
         }
     }
 

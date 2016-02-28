@@ -9,8 +9,8 @@
 }
 
 .slides ul {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   list-style: none;
   position: relative;
 }
@@ -46,6 +46,7 @@
     opacity: 0;
   }
 }
+
 @keyframes anim_slides {
   25% {
     opacity: 1;
@@ -101,7 +102,6 @@
   -moz-animation-delay: 9.0s;
 }
 
-
 .slides ul li img {
   display: block;
 }
@@ -152,6 +152,7 @@
     opacity: 0;
   }
 }
+
 //Animación de texto
 .slides ul li div {
   background-color: #000000;

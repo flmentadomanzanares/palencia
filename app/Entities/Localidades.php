@@ -16,15 +16,16 @@ class Localidades extends Model
             ->orderBy('localidad', 'ASC')
             ->Lists('localidad', 'id');
     }
+
     public static function getLocalidadToList($id)
     {
-        return Localidades::where('id',$id)->
-        lists('localidad','id');
+        return Localidades::where('id', $id)->
+        lists('localidad', 'id');
     }
 
     public static function getLocalidades(Request $request)
     {
-        return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id','localidades.activo')->
+        return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id', 'localidades.activo')->
         leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
         leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')->
         pais($request->get('pais'))->
@@ -35,6 +36,16 @@ class Localidades extends Model
         orderBy('localidad', 'ASC')->
         paginate()->
         setPath('localidades');
+    }
+
+    public static function getLocalidad($id)
+    {
+
+        return Localidades::select('localidades.*', 'provincias.provincia', 'paises.pais')->
+        leftjoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
+        leftjoin('paises', 'paises.id', '=', 'provincias.pais_id')->
+        where('localidades.id', $id)->
+        first();
     }
 
     /**
@@ -89,15 +100,6 @@ class Localidades extends Model
     public function provincias()
     {
         return $this->belongsTo('Palencia\Entities\Provincias', 'provincia_id');
-    }
-
-    public static function getLocalidad($id){
-
-        return Localidades::select('localidades.*', 'provincias.provincia', 'paises.pais')->
-        leftjoin('provincias','provincias.id', '=', 'localidades.provincia_id')->
-        leftjoin('paises','paises.id', '=', 'provincias.pais_id')->
-        where('localidades.id', $id)->
-        first();
     }
 
 }

@@ -79,6 +79,7 @@ class SolicitudesEnviadasCursillos extends Model {
             ->get();
     }
 
+
     /*****************************************************************************************************************
      *
      * Función que devuelve los datos para el listado "Intendencia para Clausura"
@@ -147,15 +148,5 @@ class SolicitudesEnviadasCursillos extends Model {
             DB::table('solicitudes_enviadas_cursillos')->truncate()
                 ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%Y")'), '=', $anyo);
         });
-    }
-
-    public static function getNumeroCursillosList()
-    {
-        return ['0' => 'Cursillo...'] + SolicitudesEnviadasCursillos::Select('solicitudes_enviadas_cursillos.cursillo_id', 'cursillos.num_cursillo')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
-            ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
-            ->where('solicitudes_enviadas.aceptada', true)
-            ->orderBy('cursillos.num_cursillo', 'ASC')
-            ->Lists('cursillos.num_cursillo', 'solicitudes_enviadas_cursillos.cursillo_id');
     }
 }

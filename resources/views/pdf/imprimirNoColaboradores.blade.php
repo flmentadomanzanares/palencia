@@ -120,11 +120,11 @@
 <div class="contenedor">
 
     <?php
-        $pais = null;
-        $i = 0;
-        $pagina = 0;
-        $lineasPorPagina = $listadoTotal;
-        $saltoPagina = $lineasPorPagina - 3;
+    $pais = null;
+    $i = 0;
+    $pagina = 0;
+    $lineasPorPagina = $listadoTotal;
+    $saltoPagina = $lineasPorPagina - 3;
 
     ?>
 
@@ -160,10 +160,10 @@
 
                 @if($index>0 && $i>=$saltoPagina)
                     <?php
-                        $lineasPorPagina = $listadoTotalRestoPagina;
-                        $saltoPagina = $lineasPorPagina - 3;
-                        $listadoPosicionInicial = 0;
-                        $i = 0;
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 3;
+                    $listadoPosicionInicial = 0;
+                    $i = 0;
                     ?>
                     <div class="pagina">Pag. {{$pagina += 1}}</div>
                     <div class="saltoPagina"></div>

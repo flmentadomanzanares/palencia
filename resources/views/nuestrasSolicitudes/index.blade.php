@@ -10,7 +10,7 @@
             <div class="row ">
                 {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
                 <div class="heading-caption">Modalidad</div>
-                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control"))!!}
+                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
                 <br/>
 
                 <div class="heading-caption">Remitente</div>
@@ -21,12 +21,18 @@
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
 
-                <div class="heading-caption">Excluir Solicitudes Anteriores</div>
-                {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), null,array("class"=>"form-control",'id'=>'select_boolean'))!!}
+                <div class="heading-caption">Incluir Solicitudes Anteriores</div>
+                {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), 0,array("class"=>"form-control",'id'=>'select_boolean'))!!}
                 <br/>
 
+                @if(config("opciones.accion.crearSusRespuestasConSolicitudesAnterioresRealizadas"))
+                    <div class="heading-caption">Generar Sus Respuestas</div>
+                    {!! FORM::select('generarSusRespuestas', Array('0'=>'No','1'=>'Si'), 0,array("class"=>"form-control",'id'=>'select_generar_sus_respuestas'))!!}
+                    <br/>
+                @endif
+
                 <div class="heading-caption">Destinatario/s</div>
-                {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control"))!!}
+                {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_resto_comunidades'))!!}
                 <br/>
 
                 <div class="heading-caption">Cursillos</div>

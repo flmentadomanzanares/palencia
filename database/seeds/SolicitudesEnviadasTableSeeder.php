@@ -1,9 +1,10 @@
 <?php
 
-use Palencia\Entities\SolicitudesEnviadas;
 use Faker\Generator;
+use Palencia\Entities\SolicitudesEnviadas;
 
-class SolicitudesEnviadasTableSeeder extends BaseSeeder {
+class SolicitudesEnviadasTableSeeder extends BaseSeeder
+{
 
     public function getModel()
     {
@@ -17,7 +18,7 @@ class SolicitudesEnviadasTableSeeder extends BaseSeeder {
 
         return [
 
-            'comunidad_id'  => $this->getRandom('Comunidades')->id
+            'comunidad_id' => $this->getRandom('Comunidades')->id
 
         ];
 

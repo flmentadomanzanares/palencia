@@ -20,8 +20,8 @@ class NuestrasRespuestasController extends Controller
         $titulo = "Responder";
         //Comprobamos si el server permite modificar el tiempo de ejecución del script.
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
-        $nuestrasComunidades = Comunidades::getComunidadesList(1, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(0, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
+        $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
+        $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
         $modalidad = $request->get("modalidad");
         $anyos = Array();
@@ -39,20 +39,22 @@ class NuestrasRespuestasController extends Controller
 
     public function comprobarRespuestas(Request $request)
     {
-        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true);
-        $tipoEnvio = $request->get("modalidad");
-        if ($tipoEnvio != 1) {
+        $incluirRespuestasAnteriores = filter_var($request->get('incluirRespuestasAnteriores'), FILTER_VALIDATE_BOOLEAN);
+        $tipoComunicacion = $request->get('modalidad');
+        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), false, true, $incluirRespuestasAnteriores, $tipoComunicacion);
+
+        if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == "Email" && (strlen($destinatario->email_envio) == 0)) {
+                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_envio) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras respuestas";
                 }
             }
             if (count($incidencias) > 0) {
-                $tipos_comunicaciones_preferidas = $request->get('modalidad');
+                $tipos_comunicaciones_preferidas = $tipoComunicacion;
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
-                $incluirRespuestasAnteriores = $request->get('incluirRespuestasAnteriores');
+                $incluirRespuestasAnteriores = $incluirRespuestasAnteriores;
                 $restoComunidades = $request->get('restoComunidades');
                 $titulo = "Comunidades sin email de envío de respuestas";
                 return view('nuestrasRespuestas.comprobacion',
@@ -73,7 +75,8 @@ class NuestrasRespuestasController extends Controller
     {
         $tipoEnvio = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
-        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), 0, true, $request->get('incluirRespuestasAnteriores'));
+        $incluirRespuestasAnteriores = filter_var($request->get('incluirRespuestasAnteriores'), FILTER_VALIDATE_BOOLEAN);
+        $destinatarios = Comunidades::getComunidadPDFRespuestas($request->get('restoComunidades'), false, true, $incluirRespuestasAnteriores, $tipoEnvio);
         $cursillos = Cursillos::getCursillosPDFRespuesta($request->get('restoComunidades'), $request->get('anyo'), $request->get('incluirRespuestasAnteriores'), false);
 
         //Verificación
@@ -125,6 +128,12 @@ class NuestrasRespuestasController extends Controller
             foreach ($cursillos as $idx => $cursillo) {
 
                 if ($cursillo->comunidad_id == $destinatario->id) {
+                    if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
+                        $curso[] = ['num' => $cursillo->num_cursillo,
+                            'dia' => date('d', strtotime($cursillo->fecha_inicio)),
+                            'mes' => $meses[date('n', strtotime($cursillo->fecha_inicio)) - 1],
+                            'anyo' => date('Y', strtotime($cursillo->fecha_inicio))];
+                    }
                     $cursos[] = sprintf("Nº %'06s de fecha %10s al %10s", $cursillo->num_cursillo, date('d/m/Y', strtotime($cursillo->fecha_inicio)), date('d/m/Y', strtotime($cursillo->fecha_final)));
                     if (!$cursillo->esRespuesta) {
                         $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursillo->num_cursillo, $destinatario->comunidad);
@@ -136,25 +145,36 @@ class NuestrasRespuestasController extends Controller
             //Reseteamos el tiempo de ejecución del script definiendo un nuevo tamaño de espera.
             set_time_limit(config('opciones.envios.seMaxtTimeAt'));
             // $tipoEnvio si es distinto de carta , si su comunicación preferida es email y si tiene correo destinatario para el envío
-            if ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) > 0)) {
+            if ($tipoEnvio != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_envio) > 0)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $remitente->comunidad . '.pdf';
                 //Conversión a UTF
                 $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
                 $nombreArchivoAdjuntoEmail = str_replace(" ", "_", $nombreArchivoAdjuntoEmail);
 
                 try {
-
                     $pdf = \App::make('dompdf.wrapper');
-                    $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                        compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
-                            , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
-                        ))->render();
+                    if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
+                        $multiplesPdfContain = "";
+                        foreach ($curso as $cur) {
+                            $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3PorCurso',
+                                compact('cur', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                                    , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                                ))->render();
+                            $multiplesPdfContain .= $view;
+                        }
+                        $view = $multiplesPdfContain;
+                    } else {
+                        $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
+                            compact('cursos', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                                , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
+                            ))->render();
+                    }
                     $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado documento adjunto para el email de respuesta a la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el documentoo adjunto para email de " . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
+                    $logEnvios[] = ["Error al crear el documento adjunto para email de " . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
                 }
                 $esCarta = false;
                 //Obtenemos el número de cursillos a procesar
@@ -199,9 +219,9 @@ class NuestrasRespuestasController extends Controller
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope green icon-size-large"] :
                     ["No se pudo enviar la respuesta a la comunidad " . $destinatario->comunidad . " al email " . $destinatario->email_envio, "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 1 && (strcmp($destinatario->comunicacion_preferida, "Email") == 0) && (strlen($destinatario->email_envio) == 0)) {
+            } elseif ($tipoEnvio != 1 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($destinatario->email_envio) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $destinatario->comunidad . " no dispone de email de respuesta", "", "envelope red icon-size-large"];
-            } elseif ($tipoEnvio != 2 && (strcmp($destinatario->comunicacion_preferida, "Email") != 0)) {
+            } elseif ($tipoEnvio != 2 && (strcasecmp($destinatario->comunicacion_preferida, config("opciones.tipo.email")) != 0)) {
                 $contador = count($cursosActualizados);
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
@@ -266,9 +286,14 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = $logSolicitudesRecibidas[count($logSolicitudesRecibidas) - 1];
 
             }
-            //Creamos el Log
+            //Creamos la cabecera del Log
             $logArchivo = array();
-            $logArchivo[] = date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
+            $logArchivo[] = 'Usuario->' . $request->user()->name . "\n";
+            $logArchivo[] = 'Email->' . $request->user()->email . "\n";
+            $logArchivo[] = 'Ip->' . $request->server('REMOTE_ADDR') . "\n";
+            $logArchivo[] = '******************************************' . "\n";
+
             foreach ($logEnvios as $log) {
                 $logArchivo[] = $log[0] . "\n";
             }

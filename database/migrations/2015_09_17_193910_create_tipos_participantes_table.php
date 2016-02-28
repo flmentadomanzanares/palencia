@@ -1,22 +1,22 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateTiposParticipantesTable extends Migration {
+class CreateTiposParticipantesTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('tipos_participantes', function(Blueprint $table)
-        {
+        Schema::create('tipos_participantes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('tipo_participante',50);
+            $table->string('tipo_participante', 50);
 
             $table->boolean('activo')->default(true);
 

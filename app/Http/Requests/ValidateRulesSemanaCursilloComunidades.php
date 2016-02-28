@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
-class ValidateRulesSemanaCursilloComunidades extends Request {
+class ValidateRulesSemanaCursilloComunidades extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,14 @@ class ValidateRulesSemanaCursilloComunidades extends Request {
     public function rules()
     {
         return [
-            "cursillo_id"    =>    "required",
-            "comunidad_id"    =>    "required",
-            "calendario_id"    =>    "required",
-            "activo"    =>    "boolean"
+            "cursillo_id" => "required",
+            "comunidad_id" => "required",
+            "calendario_id" => "required",
+            "activo" => "boolean"
 
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

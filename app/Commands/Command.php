@@ -1,7 +1,8 @@
 <?php namespace Palencia\Commands;
 
-abstract class Command {
+abstract class Command
+{
 
-	//
+    //
 
 }

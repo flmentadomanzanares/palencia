@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
     }).on('changeDate', function (evt) {
         if (evt.date.valueOf() > fechaFinal.date.valueOf()) {
-            var newDate = new Date(evt.date)
+            var newDate = new Date(evt.date);
             newDate.setDate(newDate.getDate() + 1);
             fechaFinal.setValue(newDate);
         }
@@ -38,7 +38,7 @@ $(document).ready(function () {
             var date2 = new Date(this.date.valueOf() - 18);
             return date1.getFullYear() > date2.getFullYear() ? 'disabled' : '';
         }
-    })
+    });
 
     var soloAnyo = $('#soloAnyo').datepicker({
         format: 'yyyy',
@@ -54,9 +54,9 @@ $(document).ready(function () {
     }).data('datepicker');
 
     /*Date.prototype.getTotalWeekOfYear = function (year) {
-        var d = new Date(year, 11, 31);
-        d.setHours(0, 0, 0);
-        d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-        return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
-    };*/
+     var d = new Date(year, 11, 31);
+     d.setHours(0, 0, 0);
+     d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+     return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
+     };*/
 });

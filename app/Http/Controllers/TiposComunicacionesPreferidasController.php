@@ -18,10 +18,9 @@ class TiposComunicacionesPreferidasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de comunicaciones preferidas";
-        $tipos_comunicaciones_preferidas =
+        $tiposComunicacionesPreferidas =
             TiposComunicacionesPreferidas::getTiposComunicacionesPreferidas($request);
-
-        return view("tiposComunicacionesPreferidas.index", compact('tipos_comunicaciones_preferidas', 'titulo'));
+        return view("tiposComunicacionesPreferidas.index", compact('tiposComunicacionesPreferidas', 'titulo'));
     }
 
     /**
@@ -32,8 +31,8 @@ class TiposComunicacionesPreferidasController extends Controller
     public function create()
     {
         $titulo = "Nuevo tipo de comunicacion_preferida";
-        $tipos_comunicaciones_preferidas = new TiposComunicacionesPreferidas();
-        return view('tiposComunicacionesPreferidas.nuevo', compact('tipos_comunicaciones_preferidas', 'titulo'));
+        $tipoComunicacionPreferida = new TiposComunicacionesPreferidas();
+        return view('tiposComunicacionesPreferidas.nuevo', compact('tipoComunicacionPreferida', 'titulo'));
     }
 
     /**
@@ -45,15 +44,15 @@ class TiposComunicacionesPreferidasController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
     public function store(ValidateRulesTiposComunicacionesPreferidas $request)
     {
-        $tipos_comunicaciones_preferidas = new TiposComunicacionesPreferidas(); //Creamos instancia al modelo
-        $tipos_comunicaciones_preferidas->comunicacion_preferida = \Request::input('comunicacion_preferida'); //Asignamos el valor al campo.
+        $tipoComunicacionPreferida = new TiposComunicacionesPreferidas(); //Creamos instancia al modelo
+        $tipoComunicacionPreferida->comunicacion_preferida = $request->get('comunicacion_preferida'); //Asignamos el valor al campo.
         try {
-            $tipos_comunicaciones_preferidas->save();
+            $tipoComunicacionPreferida->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposComunicacionesPreferidas.create')
-                        ->with('mensaje', 'El tipo de comunicacion preferida ' . \Request::input('comunicacion_preferida') . ' está ya dado de alta . ');
+                        ->with('mensaje', 'El tipo de comunicacion preferida ' . $request->get('comunicacion_preferida') . ' está ya dado de alta. ');
                     break;
                 default:
                     return redirect()
@@ -62,7 +61,7 @@ class TiposComunicacionesPreferidasController extends Controller
             }
         }
         return redirect('tiposComunicacionesPreferidas')
-            ->with('mensaje', 'El tipo de comunicacion preferida ' . $tipos_comunicaciones_preferidas->comunicacion_preferida . ' creado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de comunicacion preferida ' . $tipoComunicacionPreferida->comunicacion_preferida . ' ha sido creada satisfactoriamente. ');
 
     }
 
@@ -76,11 +75,11 @@ class TiposComunicacionesPreferidasController extends Controller
     public function edit($id)
     {
         $titulo = "Modificar tipo de comunicacion preferida";
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
-        if ($tipos_comunicaciones_preferidas == null) {
+        $tipoComunicacionPreferida = TiposComunicacionesPreferidas::find($id);
+        if ($tipoComunicacionPreferida == null) {
             return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
         }
-        return view('tiposComunicacionesPreferidas.modificar', compact('tipos_comunicaciones_preferidas', 'titulo'));
+        return view('tiposComunicacionesPreferidas.modificar', compact('tipoComunicacionPreferida', 'titulo'));
     }
 
     /**
@@ -91,16 +90,16 @@ class TiposComunicacionesPreferidasController extends Controller
      */
     public function update($id, ValidateRulesTiposComunicacionesPreferidas $request)
     {
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
-        if ($tipos_comunicaciones_preferidas == null) {
+        $tipoComunicacionPreferida = TiposComunicacionesPreferidas::find($id);
+        if ($tipoComunicacionPreferida == null) {
             return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
         }
-        $tipos_comunicaciones_preferidas->comunicacion_preferida = \Request::input('comunicacion_preferida');
+        $tipoComunicacionPreferida->comunicacion_preferida = $request->get('comunicacion_preferida');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
-            $tipos_comunicaciones_preferidas->activo = \Request::input('activo');
+            $tipoComunicacionPreferida->activo = $request->get('activo');
         }
         try {
-            $tipos_comunicaciones_preferidas->save();
+            $tipoComunicacionPreferida->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -110,7 +109,7 @@ class TiposComunicacionesPreferidasController extends Controller
             }
         }
         return redirect()->route('tiposComunicacionesPreferidas.index')
-            ->with('mensaje', 'El tipo de comunicacion preferida se ha modificado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de comunicacion preferida ' . $tipoComunicacionPreferida->comunicacion_preferida . ' ha sido modificada satisfactoriamente . ');
     }
 
     /**
@@ -121,18 +120,17 @@ class TiposComunicacionesPreferidasController extends Controller
      */
     public function destroy($id)
     {
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::find($id);
-        if ($tipos_comunicaciones_preferidas == null) {
+        $tipoComunicacionPreferida = TiposComunicacionesPreferidas::find($id);
+        if ($tipoComunicacionPreferida == null) {
             return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
         }
-        $comunicacion_preferida = $tipos_comunicaciones_preferidas->comunicacion_preferida;
         try {
-            $tipos_comunicaciones_preferidas->delete();
+            $tipoComunicacionPreferida->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposComunicacionesPreferidas.index')
-                        ->with('mensaje', 'El tipo de comunicacion preferida ' . $comunicacion_preferida . ' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de comunicacion preferida ' . $tipoComunicacionPreferida->comunicacion_preferida . ' no se puede eliminar al tener comunidades asociadas.');
                     break;
                 default:
                     return redirect()->route('tiposComunicacionesPreferidas.index')
@@ -140,6 +138,6 @@ class TiposComunicacionesPreferidasController extends Controller
             }
         }
         return redirect()->route('tiposComunicacionesPreferidas.index')
-            ->with('mensaje', 'El tipo de comunicacion preferida se ha eliminado correctamente.');
+            ->with('mensaje', 'El tipo de comunicacion preferida ' . $tipoComunicacionPreferida->comunicacion_preferida . ' se ha eliminado correctamente.');
     }
 }
