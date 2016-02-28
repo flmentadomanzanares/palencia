@@ -126,11 +126,14 @@ class PdfController extends Controller
         $idCursillo = \Request::input('num_cursillo');
         $date = date('d-m-Y');
         $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $comunidades = SolicitudesEnviadasCursillos::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
+        $comunidades = SolicitudesEnviadasCursillos::imprimirIntendenciaClausura($idCursillo);
+        $comunidadPropia = Comunidades::getNombreComunidadPropia();
+        $cursillo = Cursillos::getCursilloParaIntendencia($idCursillo);
+        $titulo2 = "Del Cursillo Nº " . $cursillo->num_cursillo . " " . $cursillo->tipo_participante
+            . " de la Diócesis de  " . ucwords(strtolower($comunidadPropia->comunidad));
 
-        //Configuración del listado html
-        $listadoPosicionInicial = 6;
-        $listadoTotal = 23;
+        $listadoPosicionInicial = 10;
+        $listadoTotal = 21;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 

@@ -300,14 +300,14 @@ class Cursillos extends Model
             ->first();
     }
 
-    static public function borrarTablaCursillos($anyo = 0)
+    /*static public function borrarTablaCursillos($anyo = 0)
     {
         DB::transaction(function ($anyo) {
 
             DB::table('cursillos')->delete()
                 ->where(DB::raw('DATE_FORMAT(_cursillos.fecha_final,"%Y")'), '=', $anyo);
         });
-    }
+    }*/
 
     public function comunidades()
     {
