@@ -97,13 +97,19 @@ class PdfController extends Controller
     {
         $titulo = "Intendencia para Clausura";
         $solicitudEnviada = new SolicitudesEnviadasCursillos();
-        $cursillos = new Cursillos();
+        //$cursillos = new Cursillos();
         $cursillos=SolicitudesEnviadasCursillos::getNumeroCursillosList();
 
         return view("pdf.listarComunidades", compact('solicitudEnviada', 'cursillos', 'titulo'));
 
     }
 
+    private function ponerFecha($date)
+    {
+        $partesFecha = date_parse_from_format('d/m/Y', $date);
+        $fecha = mktime(0, 0, 0, $partesFecha['month'], $partesFecha['day'], $partesFecha['year']);
+        return date('Y-m-d H:i:s', $fecha);
+    }
 
     /*******************************************************************
      *
@@ -116,17 +122,14 @@ class PdfController extends Controller
     public function imprimirComunidades()
     {
         $titulo = "Intendencia para clausura";
-        $cursillos = new Cursillos();
+        /*$cursillos = new Cursillos();*/
         $idCursillo = \Request::input('num_cursillo');
         $date = date('d-m-Y');
         $fichero = 'intendenciaClausura' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $comunidades = SolicitudesEnviadasCursillos::imprimirIntendenciaClausura($idCursillo);
-        $comunidadPropia = Comunidades::getNombreComunidadPropia();
-        $cursillo = Cursillos::getCursilloParaIntendencia($idCursillo);
-        $titulo2 = "Del Cursillo Nº " . $cursillo->num_cursillo . " " . $cursillo->tipo_participante
-            . " de la Diócesis de  " . ucwords(strtolower($comunidadPropia->comunidad));
+        $comunidades = SolicitudesEnviadasCursillos::imprimirIntendenciaClausura($fecha_inicio, $fecha_final);
 
-        $listadoPosicionInicial = 10;
+        //Configuración del listado html
+        $listadoPosicionInicial = 6;
         $listadoTotal = 23;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
@@ -174,7 +177,7 @@ class PdfController extends Controller
 
         $titulo = "Secretariado ";
 
-        $comunidad = new Comunidades();
+        //$comunidad = new Comunidades();
 
         $idComunidad = \Request::input('comunidad');
 

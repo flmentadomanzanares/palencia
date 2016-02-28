@@ -12,6 +12,16 @@ class Comunidades extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
+    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = false, $placeholderText = "País...")
+    {
+        $sql = Paises::Select('id', 'pais')
+            ->where('activo', true)
+            ->PaisId($id)
+            ->orderBy('pais', 'ASC')
+            ->Lists('pais', 'id');
+        return $placeholder ? ['0' => $placeholderText] + $sql : $sql;
+    }
+
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
