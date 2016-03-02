@@ -59,13 +59,17 @@ class CreateComunidadesTable extends Migration
 
             $table->boolean('esColaborador')->default(true);
 
-            $table->string('color', 7)->default('#000000');
+            $table->string('colorFondo', 7)->default('#000000');
+
+            $table->string('colorTexto', 7)->default('#ffffff');
 
             $table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
+
+            $table->unique('comunidad', 'pais_id');
         });
     }
 

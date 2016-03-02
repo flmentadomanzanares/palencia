@@ -1,7 +1,8 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Palencia\Entities\Colores;
+use Palencia\Entities\ColoresFondo;
+use Palencia\Entities\ColoresTexto;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
@@ -48,7 +49,9 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $colores = Colores::getColores();
+        $coloresFondo = ColoresFondo::getColoresFondos();
+        $coloresTexto = ColoresTexto::getColores();
+        dd("POPO");
         return view('comunidades.nuevo',
             compact(
                 'comunidad',
@@ -57,7 +60,8 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
-                'colores',
+                'coloresFondo',
+                'coloresTexto',
                 'titulo'
             ));
     }
@@ -90,7 +94,8 @@ class ComunidadesController extends Controller
         $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = $request->get('observaciones');
         $comunidad->esColaborador = $request->get('esColaborador');
-        $comunidad->color = $request->get('color');
+        $comunidad->colorFondo = $request->get('colorFondo');
+        $comunidad->colorTexto = $request->get('colorTexto');
         $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {
@@ -156,7 +161,8 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $colores = Colores::getColores();
+        $coloresFondo = ColoresFondo::getColores();
+        $coloresTexto = ColoresTexto::getColores();
         return view('comunidades.modificar',
             compact(
                 'comunidad',
@@ -165,7 +171,8 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
-                'colores',
+                'coloresFondo',
+                'coloresTexto',
                 'titulo'
             ));
     }
@@ -202,7 +209,8 @@ class ComunidadesController extends Controller
         $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = $request->get('observaciones');
         $comunidad->esColaborador = $request->get('esColaborador');
-        $comunidad->color = $request->get('color');
+        $comunidad->colorFondo = $request->get('colorFondo');
+        $comunidad->colorTexto = $request->get('colorTexto');
         $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {

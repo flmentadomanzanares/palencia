@@ -85,14 +85,22 @@
     <br>
 
     <div class="heading-caption">Color Mis Cursos</div>
-    {!! FORM::label ('color', 'Color Cursos') !!}
-    <select id="select-color" class="form-control" name="color">
-        @foreach ($colores as $color)
-            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->color)
+    {!! FORM::label ('colorFondo', 'Color Fondo Cursos') !!}
+    <select id="select-color-fondo" class="form-control" name="colorFondo">
+        @foreach ($coloresFondo as $color)
+            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->colorFondo)
             selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
     </select>
     <br/>
+    {!! FORM::label ('colorTexto', 'Color Fondo Cursos') !!}
+    <select id="select-color-texto" class="form-control" name="colorTexto">
+        @foreach ($coloresTexto as $color)
+            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->colorTexto)
+            selected="selected" @endif>{{$color->nombre_color}}</option>
+        @endforeach
+    </select>
+
 
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>

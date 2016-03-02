@@ -15,7 +15,7 @@ class Comunidades extends Model
     static public function getComunidades(Request $request)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
             ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
@@ -81,9 +81,9 @@ class Comunidades extends Model
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.color',
-            'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion', 'paises.pais',
-            'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email_solicitud',
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion',
+            'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email_solicitud',
             'comunidades.direccion_postal', 'comunidades.email_envio', 'comunidades.web', 'comunidades.facebook',
             'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'comunidades.observaciones', 'comunidades.esColaborador', 'comunidades.activo')
@@ -211,7 +211,7 @@ class Comunidades extends Model
         if (!is_numeric($id))
             return null;
         //Obtenemos la comunidad
-        return Comunidades::Select('comunidades.comunidad', 'comunidades.color')
+        return Comunidades::Select('comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto')
             ->where('comunidades.id', $id)
             ->first();
     }
