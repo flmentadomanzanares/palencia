@@ -1,8 +1,8 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Palencia\Entities\ColoresFondo;
-use Palencia\Entities\ColoresTexto;
+use Palencia\Entities\ColoresFondos;
+use Palencia\Entities\ColoresTextos;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
@@ -49,9 +49,8 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $coloresFondo = ColoresFondo::getColoresFondos();
-        $coloresTexto = ColoresTexto::getColores();
-        dd("POPO");
+        $coloresFondo = ColoresFondos::getColoresFondos();
+        $coloresTexto = ColoresTextos::getColoresTextos();
         return view('comunidades.nuevo',
             compact(
                 'comunidad',

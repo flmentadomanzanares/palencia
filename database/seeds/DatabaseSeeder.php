@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
 
         // Borramos todos los registros de las tablas antes de cargarlos de nuevo
         $this->truncateTables(array(
-            'colores_fondo',
-            'colores_texto',
+            'colores_fondos',
+            'colores_textos',
             'roles',
             'users',
             'password_resets',

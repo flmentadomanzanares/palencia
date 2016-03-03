@@ -13,7 +13,7 @@ class CreateColoresTextoTable extends Migration
      */
     public function up()
     {
-        Schema::create('colores_texto', function (Blueprint $table) {
+        Schema::create('colores_textos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre_color', 25);
             $table->string('codigo_color', 7);
@@ -30,7 +30,7 @@ class CreateColoresTextoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('colores_texto');
+        Schema::drop('colores_textos');
     }
 
 }

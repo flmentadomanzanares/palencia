@@ -13,6 +13,7 @@
     /**
      * Constructor.
      */
+    var SimpleColorPickerCollection = Array();
     var SimpleColorPicker = function (select, options) {
         this.init('simplecolorpicker', select, options);
     };
@@ -44,7 +45,7 @@
                     + 'Texto</span>').insertAfter(self.$select);
                 self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
 
-                self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
+                self.$picker = $('<span style="background-color: ' + self.options.backgroundColor + '" class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
                 self.$colorList = self.$picker;
 
                 //Reajustamos la posicion del ColorPicker en los resize
@@ -132,6 +133,7 @@
         },
 
         resizePicker: function () {
+
             var pos = this.$icon.offset();
             this.$picker.css({
                 // posicionamos a la derecha del selectable
@@ -235,7 +237,10 @@
         picker: false,
 
         // Animation delay in milliseconds
-        pickerDelay: 0
+        pickerDelay: 0,
+
+        //BackgroundColor
+        backgroundColor: '#fff'
     };
 
 })(jQuery);

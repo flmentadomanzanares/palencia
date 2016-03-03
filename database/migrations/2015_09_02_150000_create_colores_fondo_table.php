@@ -13,7 +13,7 @@ class CreateColoresFondoTable extends Migration
      */
     public function up()
     {
-        Schema::create('colores_fondo', function (Blueprint $table) {
+        Schema::create('colores_fondos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre_color', 25);
             $table->string('codigo_color', 7);
@@ -30,7 +30,7 @@ class CreateColoresFondoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('colores_fondo');
+        Schema::drop('colores_fondos');
     }
 
 }

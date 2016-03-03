@@ -3,9 +3,12 @@ $(document).ready(function () {
     var velocidadScroll = 800;
     var selector;
     $(window).resize(function () {
+        if (selector == undefined)
+            return;
         if (selector.css("display") == "block") {
             var resizeModal = selector.find(".ventanaModal");
             resizeModal.css("margin-left", '-' + parseInt(resizeModal.css("width")) + "px");
+
         }
     });
     $('.lanzarModal').on('click', function (evt) {
