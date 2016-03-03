@@ -16,6 +16,7 @@
     var SimpleColorPickerCollection = Array();
     var SimpleColorPicker = function (select, options) {
         this.init('simplecolorpicker', select, options);
+        SimpleColorPickerCollection.push(this);
     };
 
     /**
@@ -133,12 +134,13 @@
         },
 
         resizePicker: function () {
-
-            var pos = this.$icon.offset();
-            this.$picker.css({
-                // posicionamos a la derecha del selectable
-                left: pos.left + this.$icon.outerWidth() - this.$picker.outerWidth(),
-                top: pos.top + this.$icon.outerHeight()
+            $.each(SimpleColorPickerCollection, function (idx, elm) {
+                var pos = elm.$icon.offset();
+                this.$picker.css({
+                    // posicionamos a la derecha del selectable
+                    left: pos.left + elm.$icon.outerWidth() - elm.$picker.outerWidth(),
+                    top: pos.top + elm.$icon.outerHeight()
+                });
             });
         },
 
