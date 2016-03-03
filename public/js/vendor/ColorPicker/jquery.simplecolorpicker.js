@@ -41,9 +41,11 @@
                 var selectText = self.$select.find('> option:selected').text();
                 self.$icon = $('<span class="simplecolorpicker icon"'
                     + ' title="' + selectText + '"'
-                    + ' style="color:white;background-color: ' + self.$select.val() + ';"'
+                    + ' style="'
+                    + (self.options.applyForeGroundColor ? "color:" + self.$select.val() : (self.options.applyBackGroundColor) ? "background-color:" + self.$select.val() : "white")
+                    + ';"'
                     + ' role="button" tabindex="0">'
-                    + 'Texto</span>').insertAfter(self.$select);
+                    + '</span>').insertAfter(self.$select);
                 self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
 
                 self.$picker = $('<span style="background-color: ' + self.options.backgroundColor + '" class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
@@ -241,8 +243,14 @@
         // Animation delay in milliseconds
         pickerDelay: 0,
 
-        //BackgroundColor
-        backgroundColor: '#fff'
+        //BackgroundColor for picker contain
+        backgroundColor: '#fff',
+
+        //apply for select text
+        applyForeGroundColor: false,
+
+        //apply for select backGround
+        applyBackGroundColor: true,
     };
 
 })(jQuery);

@@ -92,7 +92,6 @@
             selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
     </select>
-    <br/>
     {!! FORM::label ('colorTexto', 'Color Texto Cursos') !!}
     <select id="select-color-texto" class="form-control" name="colorTexto">
         @foreach ($coloresTexto as $color)
@@ -101,6 +100,9 @@
         @endforeach
     </select>
     <br/>
+    <div class="panel panel-default panel-body text-center">
+        <div id="muestraColoresComunidad" class="icon-size-large">Cursillo</div>
+    </div>
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control',
