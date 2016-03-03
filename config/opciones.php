@@ -24,10 +24,10 @@ return ['campoUser' => [
     'accion' => [
         'copiaSeguridad' => true,
         'cerrarAnyo' => false,
-        'comprobarCursos' => false,
-        'roles' => false,
-        'tiposParticipantes' => false,
-        'tipoComunicacionesPreferidas' => false,
+        /*'comprobarCursos' => false,*/
+        'roles' => true, // CRUD roles
+        'tiposParticipantes' => true, // CRUD tiposParticipantes
+        'tipoComunicacionesPreferidas' => true, // CRUD tipoComunicacionesPreferidas
         'mostrarModalDeBorrado' => true,
     ],
     'envios' => [
