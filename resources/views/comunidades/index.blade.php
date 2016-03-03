@@ -103,9 +103,16 @@
                                 <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
                             </tr>
                             <tr>
-                                <td>Color Cursos:</td>
+                                <td>Color Fondo Cursos:</td>
                                 <td>
-                                    <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div>
+                                    <div class="ponerCirculoColor"
+                                         style="background-color:{{$comunidad->colorFondo}}"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Color Texto Cursos:</td>
+                                <td>
+                                    <div class="ponerCirculoColor" style="color:{{$comunidad->colorTexto}}"></div>
                                 </td>
                             </tr>
                             <tr>

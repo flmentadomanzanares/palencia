@@ -160,8 +160,8 @@ class ComunidadesController extends Controller
         $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $coloresFondo = ColoresFondo::getColores();
-        $coloresTexto = ColoresTexto::getColores();
+        $coloresFondo = ColoresFondos::getColoresFondos();
+        $coloresTexto = ColoresTextos::getColoresTextos();
         return view('comunidades.modificar',
             compact(
                 'comunidad',

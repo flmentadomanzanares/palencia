@@ -34,11 +34,11 @@ $(document).ready(function () {
                 .empty()
                 .append("<div class='text-center'>" + (elementoClick.data('descripcion')) + "</div>")
         }
-        if (String.toLowerCase(footer) !== "true") {
+        if (footer.toString().toLowerCase() !== "true") {
             selector.find(".ventanaModal > .footerFormularioModal").remove();
         }
         else {
-            if (String.toLowerCase(confirm) !== "confirm") {
+            if (confirm.toString().toLowerCase() !== "confirm") {
                 selector.find(".ventanaModal > .footerFormularioModal > div:first-child:not('.actionOkClick')").remove();
             } else {
                 selector.find(".ventanaModal > .footerFormularioModal > div:first-child").html(cancelText);
