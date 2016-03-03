@@ -5,7 +5,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SolicitudesEnviadasCursillos extends Model {
+class SolicitudesEnviadasCursillos extends Model
+{
 
     protected $tabla = "solicitudes_enviadas_cursillos";
     protected $fillable = []; //Campos a usar
@@ -62,7 +63,7 @@ class SolicitudesEnviadasCursillos extends Model {
      * Función que devuelve una lista de los cursillos de una comunidad y solicitud determinadas
      *
      *****************************************************************************************************************/
-    static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0, Request $request)
+    static public function getCursillosSolicitud($comunidadId = 0, $solicitudId = 0, Request $request)
     {
         return SolicitudesEnviadasCursillos::Select('cursillos.*', 'comunidades.comunidad',
             'tipos_participantes.tipo_participante')
@@ -125,7 +126,7 @@ class SolicitudesEnviadasCursillos extends Model {
      * Función que devuelve los datos para el listado "Secretariado"
      *
      *****************************************************************************************************************/
-    static public function getSolicitudesComunidad($comunidadId=0)
+    static public function getSolicitudesComunidad($comunidadId = 0)
     {
 
         return SolicitudesEnviadasCursillos::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
@@ -143,10 +144,20 @@ class SolicitudesEnviadasCursillos extends Model {
 
     static public function borrarTablaSolicitudesEnviadasCursillos($anyo = 0)
     {
-        DB::transaction(function($anyo) {
+        DB::transaction(function ($anyo) {
 
             DB::table('solicitudes_enviadas_cursillos')->truncate()
                 ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%Y")'), '=', $anyo);
         });
+    }
+
+    public static function getNumeroCursillosList()
+    {
+        return ['0' => 'Cursillo...'] + SolicitudesEnviadasCursillos::Select('solicitudes_enviadas_cursillos.cursillo_id', 'cursillos.num_cursillo')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
+            ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->orderBy('cursillos.num_cursillo', 'ASC')
+            ->Lists('cursillos.num_cursillo', 'solicitudes_enviadas_cursillos.cursillo_id');
     }
 }
