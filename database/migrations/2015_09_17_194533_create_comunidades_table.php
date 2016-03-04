@@ -69,7 +69,7 @@ class CreateComunidadesTable extends Migration
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
 
-            $table->unique('comunidad', 'pais_id');
+            $table->unique(['pais_id', 'comunidad'], 'comunidad_pais');
         });
     }
 
