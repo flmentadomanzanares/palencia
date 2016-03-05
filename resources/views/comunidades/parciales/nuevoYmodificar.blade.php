@@ -101,7 +101,7 @@
     </select>
     <br/>
     <div class="panel panel-default panel-body text-center">
-        <div id="muestraColoresComunidad" class="icon-size-large">Cursillo</div>
+        <div id="muestraColoresComunidad" class="icon-size-large">Resultado Color Fondo + Color Texto</div>
     </div>
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>

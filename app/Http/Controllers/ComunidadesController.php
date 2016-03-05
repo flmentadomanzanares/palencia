@@ -44,6 +44,8 @@ class ComunidadesController extends Controller
         //Título Vista
         $titulo = "Nueva Comunidad";
         $comunidad = new Comunidades();
+        $comunidad->colorFondo = '#000000';
+        $comunidad->colorTexto = '#ffffff';
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisesFromPaisIdToList();
         $provincias = Provincias::getProvinciasList();

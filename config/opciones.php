@@ -17,19 +17,21 @@ return ['campoUser' => [
     'roles' => [
         'administrador' => '400',
     ],
-    'verificar' => [
-        'Email' => false,
+    'seguridad' => [
+        'Email' => true,
         'recordarPassword' => false,
+        'captcha' => false,
     ],
     'accion' => [
-        'copiaSeguridad' => true,
-        'cerrarAnyo' => true,
+        'copiaSeguridad' => false,
+        'cerrarAnyo' => false,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
-        'roles' => true,
-        'tiposParticipantes' => true,
-        'tipoComunicacionesPreferidas' => true,
-        'mostrarModalDeBorrado' => true,
-        'cartaCumplimentadaIndividualNuestrasRespuestas' => true,
+        'roles' => false,
+        'tiposParticipantes' => false,
+        'tipoComunicacionesPreferidas' => false,
+        'mostrarModalDeBorrado' => false,
+        'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
+
     ],
     'envios' => [
         'timeout' => 30,
