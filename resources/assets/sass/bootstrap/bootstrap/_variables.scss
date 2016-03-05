@@ -935,6 +935,7 @@ $footer-margin-top: 1em !default;
 $column-caption-padding-bottom: 43px !default;
 $column-caption-font-size: $font-size-app-base-pill !default;
 $column-caption-font-family: $font-family !default;
+
 //Márgenes
 $margin-app-base: 10px !default;
 $margin-app-small: 5px !default;
@@ -949,9 +950,19 @@ $logo-file-height: $logo-img-height !default;
 $logo-file-width: $logo-img-width !default;
 $logo-file-margin-left: 4px !default;
 $logo-file-margin-top: 3px !default;
+
 //imagen autenticado
 $imagen-user-width: 40px !default;
 $imagen-user-height: $imagen-user-width !default;
 $imagen-user-left: -30px !default;
 $imagen-user-top: 5px !default;
 
+//Contenedor Calendar
+$calendar-container-min-width: 400px !default;
+$calendar-container-max-width: 800px !default;
+$calendar-container-margin: 0 auto 35px !default;
+$calendar-container-padding: 15px !default;
+$calendar-container-backGroundColor: rgb(255, 248, 228) !default;
+$calendar-container-textColor: rgb(42, 104, 6) !default;
+$calendar-container-borderRadius: 10px !default;
+$calendar-container-borderColor: rgb(117, 155, 152) !default;

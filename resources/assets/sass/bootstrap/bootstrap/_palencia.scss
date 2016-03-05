@@ -598,3 +598,18 @@ input[type=file]:hover {
 .altoMaximo {
   min-height: 100%;
 }
+
+//CALENDARIO
+.calendar-container {
+  display: table;
+  float: none;
+  max-width: $calendar-container-max-width;
+  min-width: $calendar-container-min-width;
+  background-color: $calendar-container-backGroundColor;
+  color: $calendar-container-textColor;
+  margin: $calendar-container-margin;
+  padding: $calendar-container-padding;
+  border-radius: $calendar-container-borderRadius;
+  border: 1px solid $calendar-container-borderColor;
+  box-sizing: border-box;
+}

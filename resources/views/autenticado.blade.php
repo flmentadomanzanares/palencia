@@ -5,13 +5,13 @@
 @section('contenido')
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="spinner"></div>
-    <div class="hidden" style="height:100%">
+    <div class="hidden">
         @if (Auth::check())
             @if (!empty($calendar))
                 <div class="row ">
                     @include('auth.parciales.buscar')
                 </div>
-                <div class="panel panel-body">
+                <div class="calendar-container">
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}
                 </div>
@@ -20,6 +20,9 @@
             @endif
         @endif
     </div>
+@endsection
+@section('css')
+    {!! HTML::style('css/vendor/fullCalendar/fullcalendar.css') !!}
 @endsection
 @section('js')
     {!! HTML::script('js/comun/semanas.js') !!}
