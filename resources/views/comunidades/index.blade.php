@@ -112,7 +112,8 @@
                             <tr>
                                 <td>Color Texto Cursos:</td>
                                 <td>
-                                    <div class="ponerCirculoColor" style="color:{{$comunidad->colorTexto}}"></div>
+                                    <div class="ponerCirculoColor"
+                                         style="background-color:{{$comunidad->colorTexto}}"></div>
                                 </td>
                             </tr>
                             <tr>
