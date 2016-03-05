@@ -25,30 +25,32 @@
                                     <td class="table-autenticado-columna-1 text-right">
                                         <div class="btn-action">
                                             <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
-                                               class="pull-left">
+                                               class="@if($provincia->activo) pull-left @else pull-right @endif">
                                                 <i class="glyphicon glyphicon-edit">
                                                     <div>Editar</div>
                                                 </i>
                                             </a>
                                             @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                                {!! FORM::open(array('route' => array('provincias.destroy', $provincia->id),
-                                                'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar'))) !!}
-                                                <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
-                                                        @if(config('opciones.accion.mostrarModalDeBorrado'))
-                                                        class="pull-right lanzarModal"
-                                                        data-title="BORRADO"
-                                                        data-descripcion="¿Seguro que deseas eliminar esta provincia?
+                                                @if($provincia->activo)
+                                                    {!! FORM::open(array('route' => array('provincias.destroy', $provincia->id),
+                                                    'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar'))) !!}
+                                                    <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                            class="pull-right lanzarModal"
+                                                            data-title="BORRADO"
+                                                            data-descripcion="¿Seguro que deseas eliminar esta provincia?
                                                         <h3><strong class='green'>{{$provincia->provincia}}</strong></h3>"
-                                                        data-footer="true"
-                                                        @endif >
-                                                    <i class='glyphicon glyphicon-trash full-Width'>
-                                                        <div>Borrar</div>
-                                                    </i>
-                                                </button>
-                                                @if(config('opciones.accion.mostrarModalDeBorrado'))
-                                                    @include ("comun.plantillaBorrado")
+                                                            data-footer="true"
+                                                            @endif >
+                                                        <i class='glyphicon glyphicon-trash full-Width'>
+                                                            <div>Borrar</div>
+                                                        </i>
+                                                    </button>
+                                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                        @include ("comun.plantillaBorrado")
+                                                    @endif
+                                                    {!! FORM::close() !!}
                                                 @endif
-                                                {!! FORM::close() !!}
                                             @endif
                                         </div>
                                     </td>

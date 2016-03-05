@@ -18,12 +18,12 @@
                             </caption>
                             <thead>
                             <tr @if(!$cursillo->activo) class="background-disabled"
-                                @else style="background-color:{{$cursillo->color}};" @endif>
+                                @else style="background-color:{{$cursillo->colorFondo}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('cursillos.show',$cursillo->id)}}">
                                         <i class="glyphicon glyphicon-eye-open">
-                                            <div>Detalles</div>
+                                            <div style>Detalles</div>
                                         </i>
                                     </a>
                                     <a title="Editar"
