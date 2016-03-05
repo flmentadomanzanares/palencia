@@ -65,8 +65,8 @@ $(document).ready(function () {
                     $.each(data, function (key, element) {
                         var fecha = formatoFecha(new Date(element.fecha_inicio));
                         html += "<table class='table-viaoptima table-striped'><thead>" +
-                            "<tr style='Background: " + element.color + ";'>" +
-                            "<th colspan='2' class='text-center'>" + element.comunidad + "</th>" +
+                            "<tr style='Background: " + element.colorFondo + ";'>" +
+                            "<th colspan='2' style='Color: " + element.colorTexto + ";' class='text-center'>" + element.comunidad + "</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
