@@ -106,19 +106,19 @@
 
                         <div class="dropdown-menu" style="padding: 20px">
                             {!! FORM::open(array('url' => 'auth/login')) !!}
-                            {!! FORM::label('email', 'email') !!} <br/>
+                            {!! FORM::label('email', 'email') !!}
                             {!! FORM::text ('email','',array("placeholder"=>"email de usuario",
                             "class"=>"form-control")) !!}
-                            <br/>
-                            {!! FORM::label ('password', 'contraseña') !!} <br/>
+                            {!! FORM::label ('password', 'contraseña') !!}
                             {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"password"))
-                            !!} <br/>
+                            !!}
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
-                            <br/>
-                            @if(config("opciones.verificar.recordarPassword"))
+                            @if(config("opciones.seguridad.recordarPassword"))
+                                <br/>
                                 <span class="btn btn-default btn-block lanzarModal" data-title="RECORDAR"
                                       data-selector-Id="recordar">Recordar password</span>
                             @endif
+                            <br/>
                             <span class="btn btn-default btn-block lanzarModal" data-title="REGISTRO"
                                   data-selector-Id="registro">Registrarse</span>
                             {!! FORM::close() !!}
