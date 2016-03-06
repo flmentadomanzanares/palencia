@@ -7,15 +7,6 @@
     <div class="spinner"></div>
     <div class="hidden">
         @if (Auth::check())
-            <div class="panel-search">
-                <a title="Buscar" href="#" class="lanzarModal pull-right"
-                   data-title="BUSCAR"
-                   data-selector-Id="buscar-calendario">
-                    <i class="glyphicon glyphicon-search">
-                        <div>Buscar</div>
-                    </i>
-                </a>
-            </div>
             @if (!empty($calendar))
                 <div class="row ">
                     @include('auth.parciales.buscar')

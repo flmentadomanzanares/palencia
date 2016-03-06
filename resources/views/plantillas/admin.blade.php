@@ -100,9 +100,14 @@
                         </ul>
                     </li>
                 @else
+                    @if(config("opciones.seguridad.recordarPassword"))
+                        @include ("comun.plantillaRecordarPassword")
+                    @endif
+                    @include ("comun.plantillaRegistro")
                     <li class="dropdown">
                         <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Entrar<strong
                                     class="caret"></strong></a>
+
                         <div class="dropdown-menu" style="padding: 20px">
                             {!! FORM::open(array('url' => 'auth/login')) !!}
                             {!! FORM::label('email', 'email') !!}
@@ -128,8 +133,7 @@
         </div>
     </nav>
 </div>
-@include ("comun.plantillaRecordarPassword")
-@include ("comun.plantillaRegistro")
+
 @if(Session::has('mensaje'))
     <div class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
