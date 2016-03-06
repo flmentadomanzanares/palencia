@@ -1,0 +1,13 @@
+.fc-basic-view .fc-day-header {
+  background-color: $fullcalendar-backGroundColor-day-header;
+  padding: $fullcalendar-padding-day-header;
+  color: $fullcalendar-textColor-day-header;
+  border: 1px solid $fullcalendar-color-border-day-header;
+}
+
+.fc-basic-view .fc-week-number {
+  background-color: $fullcalendar-backGroundColor-day-sem;
+  color: $fullcalendar-textColor-day-sem;
+  border: 1px solid $fullcalendar-color-border-day-sem;
+}
+
