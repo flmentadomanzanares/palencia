@@ -5,13 +5,19 @@ $fullcalendar-color-border-general: rgba(238, 238, 238, 1) !default;
 $fullcalendar-color-border: rgba(255, 255, 255, 1) !default;
 $fullcalendar-backGroundColor: rgba(240, 240, 240, 1) !default;
 $fullcalendar-textColor: rgba(0, 0, 0, 1) !default;
+$fullcalendar-dayNumberColor: rgba(0, 0, 128, 1) !default;
+$fullcalendar-dayNumberColor-textShadow: 1px 1px rgba(255, 255, 255, .8) !default;
+$fullcalendar-dayNumberColor-other-month: rgba(0, 0, 0, 1) !default;
+$fullcalendar-dayNumberColor-other-month-opacity: .3 !default;
+$fullcalendar-dayNumberColor-other-month-textShadow: 1px 1px rgba(255, 255, 255, .8) !default;
 
 //Calendario general
 $fullcalendar-color-border-calendar: $fullcalendar-color-border-general !default;
 $fullcalendar-color-backGround-calendar: rgb(255, 253, 248) !default;
+$fullcalendar-title-shadow: 1px 1px rgba(255, 255, 255, .9) !default;
 
 //Botones de navegación
-$fullcalendar-button-nav-border-radius: '50%' !default;
+$fullcalendar-button-nav-border-radius: 50% !default;
 
 //Header del calendario
 $fullcalendar-backGroundColor-day-header: $fullcalendar-backGroundColor !default;
@@ -27,13 +33,13 @@ $fullcalendar-color-border-day-sem: $fullcalendar-color-border-day-header !defau
 //Día actual
 $fullcalendar-backGroundColor-toDay: rgb(255, 251, 216) !default;
 
-//More para el popOver
+//More para el popOver texto +2mas
 $fullcalendar-more-margin: 1px 3px !default;
 $fullcalendar-more-color: rgba(0, 128, 0, 1) !default;
 $fullcalendar-more-color-hover: rgba(0, 200, 0, 1) !default;
 
-//popOver cuando hay eventos que no caben
-$fullcalendar-popover-border-color: $fullcalendar-backGroundColor-day-header !default;
+//popOver cuando hay eventos que no caben form
+$fullcalendar-popover-border-color: rgba(0, 0, 0, .7) !default;
 $fullcalendar-popover-background-color: rgba(255, 255, 255, 1) !default;
 $fullcalendar-popover-header-backGroundColor: $fullcalendar-backGroundColor-day-header !default;
 $fullcalendar-popover-header-textColor: rgba(0, 128, 0, 1) !default;

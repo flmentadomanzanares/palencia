@@ -171,10 +171,6 @@ NOTE: use percentage font sizes or else old IE chokes
   white-space: nowrap;
   cursor: pointer;
 
-  /*forma redonda */
-  @if $fullcalendar-button-nav-border-radius {
-    border-radius: $fullcalendar-button-nav-border-radius !important;
-  }
   width: 40px;
   height: 40px;
   -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, .3);
@@ -663,18 +659,16 @@ a.fc-more {
 .fc-toolbar {
   text-align: center;
   margin-bottom: 1em;
-}
-
-.fc-toolbar .fc-left {
-  float: left;
-}
-
-.fc-toolbar .fc-right {
-  float: right;
-}
-
-.fc-toolbar .fc-center {
-  display: inline-block;
+  .fc-left {
+    float: left;
+  }
+  .fc-right {
+    float: right;
+  }
+  .fc-center {
+    display: inline-block;
+    text-shadow: $fullcalendar-title-shadow;
+  }
 }
 
 /* the things within each left/right/center section */
@@ -796,16 +790,21 @@ a.fc-more {
 
 .fc-ltr .fc-basic-view .fc-day-number {
   text-align: right;
+  color: $fullcalendar-dayNumberColor;
+  text-shadow: $fullcalendar-dayNumberColor-textShadow;
 }
 
 .fc-rtl .fc-basic-view .fc-day-number {
   text-align: left;
+  color: $fullcalendar-dayNumberColor;
+  text-shadow: $fullcalendar-dayNumberColor-textShadow;
 }
 
 .fc-day-number.fc-other-month {
-
-  opacity: 0.3;
-  filter: alpha(opacity=30); /* for IE */
+  color: $fullcalendar-dayNumberColor-other-month !important;
+  text-shadow: $fullcalendar-dayNumberColor-other-month-textShadow !important;
+  opacity: $fullcalendar-dayNumberColor-other-month-opacity;
+  filter: alpha(opacity=($fullcalendar-dayNumberColor-other-month-opacity * 100)); /* for IE */
   /* opacity with small font can sometimes look too faded
      might want to set the 'color' property instead
      making day-numbers bold also fixes the problem */
