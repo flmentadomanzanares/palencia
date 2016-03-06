@@ -8,9 +8,7 @@
     <div class="hidden">
         @if (Auth::check())
             @if (!empty($calendar))
-                <div class="row ">
-                    @include('auth.parciales.buscar')
-                </div>
+                @include('auth.parciales.buscar')
                 <div class="calendar-container">
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}

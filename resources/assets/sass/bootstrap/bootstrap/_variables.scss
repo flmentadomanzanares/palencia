@@ -310,13 +310,13 @@ $dropdown-header-color: $gray-light !default;
 //** Deprecated `$dropdown-caret-color` as of v3.1.0
 $dropdown-caret-color: #000 !default;
 
-$dropdown-width: 315px !default;
+$dropdown-width: 260px !default;
 $dropdown-height: 311px !default;
 
-$dropdown-padding: 39px !default;
-$dropdown-padding-top: 36px !default;
+$dropdown-padding: 20px !default;
+$dropdown-padding-top: 20px !default;
 
-$dropdown-bottom-height-size: 36px !default;
+$dropdown-bottom-height-size: 20px !default;
 //-- Z-index master list
 //
 // Warning: Avoid customizing these values. They're used for a bird's eye view
@@ -435,12 +435,13 @@ $container-lg: $container-large-desktop !default;
 //##
 
 // Basics of a navbar
-$navbar-height: 50px !default;
+$navbar-height: 40px !default;
 $navbar-margin-bottom: 24px !default;
 $navbar-border-radius: $border-radius-base !default;
 $navbar-padding-horizontal: floor(($grid-gutter-width / 2)) !default;
 $navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2) !default;
 $navbar-collapse-max-height: 340px !default;
+$navbar-noPadding: 0 !default;
 
 $navbar-default-color: $app-color-base !default;
 $navbar-default-bg: #f8f8f8 !default;
@@ -470,6 +471,8 @@ $navbar-default-toggle-border-color: #ddd !default;
 $navbar-inverse-color: lighten($gray-light, 15%) !default;
 $navbar-inverse-bg: #ff7a00 !default;
 $navbar-inverse-border: darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-position: fixed !default;
+$navbar-inverse-zIndex: 10 !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color: $app-color-white !default;
@@ -942,6 +945,12 @@ $margin-app-small: 5px !default;
 $margin-app-large: 15px !default;
 $margin-app-xl: 30px !default;
 
+//Banner
+$banner-background-size: 60% 80% !default;
+$banner-background-color: rgba(255, 255, 255, 1) !default;
+$banner-width: 100% !default;
+$banner-height: 60px !default;
+
 //imagen
 $logo-height-base: 90px !default;
 $logo-img-height: $logo-height-base - $margin-app-base !default;
@@ -952,10 +961,10 @@ $logo-file-margin-left: 4px !default;
 $logo-file-margin-top: 3px !default;
 
 //imagen autenticado
-$imagen-user-width: 40px !default;
+$imagen-user-width: 36px !default;
 $imagen-user-height: $imagen-user-width !default;
 $imagen-user-left: -30px !default;
-$imagen-user-top: 5px !default;
+$imagen-user-top: 2px !default;
 
 //Contenedor Calendar
 $calendar-container-min-width: 400px !default;

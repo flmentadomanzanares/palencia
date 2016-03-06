@@ -1,4 +1,5 @@
 <div id="recordar" class="formularioModal">
+    <div class="modalBackGround"></div>
     <div class="ventanaModal">
         <div class="headerFormularioModal">
             <span></span>

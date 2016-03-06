@@ -24,12 +24,12 @@ return ['campoUser' => [
     ],
     'accion' => [
         'copiaSeguridad' => false,
-        'cerrarAnyo' => false,
+        'cerrarAnyo' => true,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
-        'mostrarModalDeBorrado' => false,
+        'mostrarModalDeBorrado' => true,
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
 
     ],
