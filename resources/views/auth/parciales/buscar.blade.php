@@ -12,7 +12,7 @@
             <div class="scroll">
                 {!!FORM::model(Request::only(['esPropia','semanas','anyos']),
                 ['route'=>'inicio','method'=>'GET','class'=>'','role'=>'search']) !!}
-                {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','1'=>'Propia','0'=>'No Propia'),
+                {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','true'=>'Propia','false'=>'No Propia'),
                null,array("class"=>"select-control"))!!}
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"select-control",'id'=>'select_anyos'))!!}
                 {!! FORM::select('semana', $semanas, null,array("class"=>"select-control",'id'=>'select_semanas'))!!}

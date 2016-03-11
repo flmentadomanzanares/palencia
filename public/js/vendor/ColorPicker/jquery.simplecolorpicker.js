@@ -226,6 +226,7 @@
             }
             if (typeof option === 'string') {
                 data[option].apply(data, args);
+                console.log(data[option]);
             }
         });
     };

@@ -125,7 +125,7 @@ class Cursillos extends Model
             'cursillos.esSolicitud')
             ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')
             ->ComunidadCursillos($comunidad)
-            ->FiltroComunidadCursillosTipo(0)
+            ->FiltroComunidadCursillosTipo(false)
             ->AnyosCursillos($anyo)
             ->FilterEsRespuestaAnterior($incluirRespuestasAnteriores)
             ->Where('cursillos.activo', true)
@@ -260,7 +260,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getFechasInicioCursillos($anyo = 0, $cursillos = 0, $esMia = 0)
+    static public function getFechasInicioCursillos($anyo = 0, $cursillos = 0, $esMia = false)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana')
             , DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'))
@@ -318,25 +318,28 @@ class Cursillos extends Model
         return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
     }
 
-    public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = 0)
+    public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = false)
     {
+        $esSolicitudAnterior = filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN);
         if (is_bool($esSolicitudAnterior) && !$esSolicitudAnterior) {
             $query->where('cursillos.esSolicitud', $esSolicitudAnterior);
         }
         return $query;
     }
 
-    public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = 0)
+    public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = false)
     {
+        $esRespuestaAnterior = filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN);
         if (is_bool($esRespuestaAnterior) && !$esRespuestaAnterior) {
             $query->where('cursillos.esRespuesta', $esRespuestaAnterior);
         }
         return $query;
     }
 
-    public function scopeFiltroComunidadCursillosTipo($query, $tipo = 0)
+    public function scopeFiltroComunidadCursillosTipo($query, $tipo = false)
     {
-        if (is_bool($tipo)) {
+        $tipo = filter_var($tipo, FILTER_VALIDATE_BOOLEAN);
+        if ($tipo) {
             $query->where('comunidades.esPropia', $tipo);
         }
         return $query;

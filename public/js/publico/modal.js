@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var velocidadFade = 500;
-    var velocidadScroll = 800;
     var selector;
+    var VFade = 800;
+    var Vscroll = 600;
     $(window).resize(function () {
         if (selector == undefined)
             return;
@@ -31,6 +31,8 @@ $(document).ready(function () {
         var cancelText = elementoClick.data("cancelText") || "CANCELAR";
         var footer = elementoClick.data("footer") || "false";
         var confirm = elementoClick.data("type") || "confirm";
+        var VFade = elementoClick.data("VFade") || VFade;
+        var VScroll = elementoClick.data("VScroll") || VScroll;
 
         if (descripcion.length > 0) {
             selector.find(".cuerpoFormularioModal .scroll")
@@ -48,9 +50,10 @@ $(document).ready(function () {
             }
             selector.find(".ventanaModal > .footerFormularioModal > div:last-child").html(confirmText);
         }
-        selector.find(".modalBackGround").hide().fadeIn(velocidadFade, function () {
+        selector.find(".modalBackGround").hide().fadeIn(VFade, function () {
                 var animacion = selector.find(".ventanaModal");
-            animacion.animate({"margin-left": '-' + animacion.css("width")}, velocidadScroll, function () {
+            side = elementoClick.hasClass('modal-right') ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": '-' + animacion.css("width")};
+            animacion.animate(side, VScroll, function () {
                 selector.find('.lanzarModal').addClass('closeModal');
                 selector.find('.lanzarModal').removeClass('lanzarModal');
             });
@@ -73,11 +76,11 @@ $(document).ready(function () {
         }
     });
 
-    var cerrarModal = function (selector) {
+    var cerrarModal = function (selector, VFade, Vscroll) {
         var animacion = selector.find(".ventanaModal");
         animacion.animate({"margin-left": "0"},
-            velocidadScroll, function () {
-                selector.find(".modalBackGround").fadeOut(velocidadFade, function () {
+            Vscroll, function () {
+                selector.find(".modalBackGround").fadeOut(VFade, function () {
                     selector.find('.closeModal').addClass('lanzarModal');
                     selector.find('.closeModal').removeClass('closeModal');
                 });

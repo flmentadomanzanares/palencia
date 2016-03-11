@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - palencia@localhost" uuid="e4656e17-cd89-4b32-aa34-fd16208329af">
-    <database-info product="MySQL" version="5.5.5-10.0.17-MariaDB" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+  <data-source name="MySQL - palencia@localhost" uuid="faf88ba1-5648-42f0-aafb-f9671b6cb88d">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.2">
       <schema id="1" name="palencia"/>
-      <table id="2" parent="1" name="colores_fondo"/>
-      <table id="3" parent="1" name="colores_texto"/>
+      <table id="2" parent="1" name="colores_fondos"/>
+      <table id="3" parent="1" name="colores_textos"/>
       <table id="4" parent="1" name="comunidades"/>
       <table id="5" parent="1" name="cursillos"/>
       <table id="6" parent="1" name="localidades"/>
@@ -33,10 +33,12 @@
       <column id="21" parent="2" name="nombre_color">
         <mandatory>1</mandatory>
         <data-type>varchar(25)</data-type>
+        <default-expression>&apos;negro&apos;</default-expression>
       </column>
       <column id="22" parent="2" name="codigo_color">
         <mandatory>1</mandatory>
         <data-type>varchar(7)</data-type>
+        <default-expression>&apos;#000000&apos;</default-expression>
       </column>
       <column id="23" parent="2" name="activo">
         <mandatory>1</mandatory>
@@ -46,12 +48,12 @@
       <column id="24" parent="2" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:58&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:21&apos;</default-expression>
       </column>
       <column id="25" parent="2" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:58&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:21&apos;</default-expression>
       </column>
       <key id="26" parent="2" name="PRIMARY">
         <columns>id</columns>
@@ -64,10 +66,12 @@
       <column id="28" parent="3" name="nombre_color">
         <mandatory>1</mandatory>
         <data-type>varchar(25)</data-type>
+        <default-expression>&apos;blanco&apos;</default-expression>
       </column>
       <column id="29" parent="3" name="codigo_color">
         <mandatory>1</mandatory>
         <data-type>varchar(7)</data-type>
+        <default-expression>&apos;#ffffff&apos;</default-expression>
       </column>
       <column id="30" parent="3" name="activo">
         <mandatory>1</mandatory>
@@ -77,12 +81,12 @@
       <column id="31" parent="3" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
       <column id="32" parent="3" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
       <key id="33" parent="3" name="PRIMARY">
         <columns>id</columns>
@@ -180,686 +184,613 @@
       <column id="57" parent="4" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:29&apos;</default-expression>
       </column>
       <column id="58" parent="4" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:29&apos;</default-expression>
       </column>
-      <index id="59" parent="4" name="comunidades_localidad_id_foreign">
-        <columns>localidad_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="60" parent="4" name="comunidades_pais_id_foreign">
-        <columns>pais_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="61" parent="4" name="comunidades_provincia_id_foreign">
-        <columns>provincia_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="62" parent="4" name="comunidades_tipo_comunicacion_preferida_id_foreign">
-        <columns>tipo_comunicacion_preferida_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="63" parent="4" name="comunidades_tipo_secretariado_id_foreign">
-        <columns>tipo_secretariado_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="64" parent="4" name="pais_id">
-        <columns>comunidad</columns>
-        <desc-columns></desc-columns>
+      <index id="59" parent="4" name="comunidad_pais">
+        <columns>pais_id
+comunidad</columns>
         <unique>1</unique>
       </index>
-      <key id="65" parent="4" name="pais_id">
-        <columns>comunidad</columns>
-        <underlying-index>pais_id</underlying-index>
+      <key id="60" parent="4" name="comunidad_pais">
+        <columns>pais_id
+comunidad</columns>
+        <underlying-index>comunidad_pais</underlying-index>
       </key>
-      <key id="66" parent="4" name="PRIMARY">
+      <key id="61" parent="4" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="67" parent="4" name="comunidades_localidad_id_foreign">
+      <foreign-key id="62" parent="4" name="comunidades_localidad_id_foreign">
         <columns>localidad_id</columns>
-        <ref-key>~.localidades.PRIMARY</ref-key>
+        <ref-key>localidades.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="68" parent="4" name="comunidades_pais_id_foreign">
+      <foreign-key id="63" parent="4" name="comunidades_pais_id_foreign">
         <columns>pais_id</columns>
-        <ref-key>~.paises.PRIMARY</ref-key>
+        <ref-key>paises.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="69" parent="4" name="comunidades_provincia_id_foreign">
+      <foreign-key id="64" parent="4" name="comunidades_provincia_id_foreign">
         <columns>provincia_id</columns>
-        <ref-key>~.provincias.PRIMARY</ref-key>
+        <ref-key>provincias.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="70" parent="4" name="comunidades_tipo_comunicacion_preferida_id_foreign">
+      <foreign-key id="65" parent="4" name="comunidades_tipo_comunicacion_preferida_id_foreign">
         <columns>tipo_comunicacion_preferida_id</columns>
-        <ref-key>~.tipos_comunicaciones_preferidas.PRIMARY</ref-key>
+        <ref-key>tipos_comunicaciones_preferidas.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="71" parent="4" name="comunidades_tipo_secretariado_id_foreign">
+      <foreign-key id="66" parent="4" name="comunidades_tipo_secretariado_id_foreign">
         <columns>tipo_secretariado_id</columns>
-        <ref-key>~.tipos_secretariados.PRIMARY</ref-key>
+        <ref-key>tipos_secretariados.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="72" parent="5" name="id">
+      <column id="67" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="73" parent="5" name="cursillo">
+      <column id="68" parent="5" name="cursillo">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="74" parent="5" name="num_cursillo">
+      <column id="69" parent="5" name="num_cursillo">
         <mandatory>1</mandatory>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="75" parent="5" name="fecha_inicio">
+      <column id="70" parent="5" name="fecha_inicio">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="76" parent="5" name="fecha_final">
+      <column id="71" parent="5" name="fecha_final">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="77" parent="5" name="descripcion">
+      <column id="72" parent="5" name="descripcion">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="78" parent="5" name="comunidad_id">
+      <column id="73" parent="5" name="comunidad_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="79" parent="5" name="tipo_participante_id">
+      <column id="74" parent="5" name="tipo_participante_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="80" parent="5" name="esRespuesta">
+      <column id="75" parent="5" name="esRespuesta">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="81" parent="5" name="esSolicitud">
+      <column id="76" parent="5" name="esSolicitud">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="82" parent="5" name="activo">
+      <column id="77" parent="5" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="83" parent="5" name="created_at">
+      <column id="78" parent="5" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:08&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:34&apos;</default-expression>
       </column>
-      <column id="84" parent="5" name="updated_at">
+      <column id="79" parent="5" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:08&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:34&apos;</default-expression>
       </column>
-      <index id="85" parent="5" name="cursillos_comunidad_id_foreign">
-        <columns>comunidad_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="86" parent="5" name="cursillos_tipo_participante_id_foreign">
-        <columns>tipo_participante_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="87" parent="5" name="PRIMARY">
+      <key id="80" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="88" parent="5" name="cursillos_comunidad_id_foreign">
+      <foreign-key id="81" parent="5" name="cursillos_comunidad_id_foreign">
         <columns>comunidad_id</columns>
-        <ref-key>~.comunidades.PRIMARY</ref-key>
+        <ref-key>comunidades.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="89" parent="5" name="cursillos_tipo_participante_id_foreign">
+      <foreign-key id="82" parent="5" name="cursillos_tipo_participante_id_foreign">
         <columns>tipo_participante_id</columns>
-        <ref-key>~.tipos_participantes.PRIMARY</ref-key>
+        <ref-key>tipos_participantes.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="90" parent="6" name="id">
+      <column id="83" parent="6" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="91" parent="6" name="localidad">
+      <column id="84" parent="6" name="localidad">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="92" parent="6" name="provincia_id">
+      <column id="85" parent="6" name="provincia_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="93" parent="6" name="activo">
+      <column id="86" parent="6" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="94" parent="6" name="created_at">
+      <column id="87" parent="6" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:00&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:23&apos;</default-expression>
       </column>
-      <column id="95" parent="6" name="updated_at">
+      <column id="88" parent="6" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:00&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:23&apos;</default-expression>
       </column>
-      <index id="96" parent="6" name="localidades_provincia_id_foreign">
-        <columns>provincia_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="97" parent="6" name="PRIMARY">
+      <key id="89" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="98" parent="6" name="localidades_provincia_id_foreign">
+      <foreign-key id="90" parent="6" name="localidades_provincia_id_foreign">
         <columns>provincia_id</columns>
-        <ref-key>~.provincias.PRIMARY</ref-key>
+        <ref-key>provincias.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="99" parent="7" name="migration">
+      <column id="91" parent="7" name="migration">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="100" parent="7" name="batch">
+      <column id="92" parent="7" name="batch">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="101" parent="8" name="id">
+      <column id="93" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="102" parent="8" name="pais">
+      <column id="94" parent="8" name="pais">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="103" parent="8" name="activo">
+      <column id="95" parent="8" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="104" parent="8" name="created_at">
+      <column id="96" parent="8" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
-      <column id="105" parent="8" name="updated_at">
+      <column id="97" parent="8" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
-      <index id="106" parent="8" name="paises_pais_unique">
+      <index id="98" parent="8" name="paises_pais_unique">
         <columns>pais</columns>
-        <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="107" parent="8" name="paises_pais_unique">
+      <key id="99" parent="8" name="paises_pais_unique">
         <columns>pais</columns>
         <underlying-index>paises_pais_unique</underlying-index>
       </key>
-      <key id="108" parent="8" name="PRIMARY">
+      <key id="100" parent="8" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="109" parent="9" name="email">
+      <column id="101" parent="9" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="110" parent="9" name="token">
+      <column id="102" parent="9" name="token">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="111" parent="9" name="created_at">
+      <column id="103" parent="9" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
       </column>
-      <index id="112" parent="9" name="password_resets_email_index">
-        <columns>email</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="113" parent="9" name="password_resets_token_index">
-        <columns>token</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <column id="114" parent="10" name="id">
+      <column id="104" parent="10" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="115" parent="10" name="provincia">
+      <column id="105" parent="10" name="provincia">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="116" parent="10" name="pais_id">
+      <column id="106" parent="10" name="pais_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="117" parent="10" name="activo">
+      <column id="107" parent="10" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="118" parent="10" name="created_at">
+      <column id="108" parent="10" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
-      <column id="119" parent="10" name="updated_at">
+      <column id="109" parent="10" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:55:59&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:22&apos;</default-expression>
       </column>
-      <index id="120" parent="10" name="provincias_pais_id_foreign">
-        <columns>pais_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="121" parent="10" name="PRIMARY">
+      <key id="110" parent="10" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="122" parent="10" name="provincias_pais_id_foreign">
+      <foreign-key id="111" parent="10" name="provincias_pais_id_foreign">
         <columns>pais_id</columns>
-        <ref-key>~.paises.PRIMARY</ref-key>
+        <ref-key>paises.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="123" parent="11" name="id">
+      <column id="112" parent="11" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="124" parent="11" name="rol">
+      <column id="113" parent="11" name="rol">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="125" parent="11" name="peso">
+      <column id="114" parent="11" name="peso">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="126" parent="11" name="activo">
+      <column id="115" parent="11" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="127" parent="11" name="created_at">
+      <column id="116" parent="11" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:00&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:26&apos;</default-expression>
       </column>
-      <column id="128" parent="11" name="updated_at">
+      <column id="117" parent="11" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:00&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:26&apos;</default-expression>
       </column>
-      <key id="129" parent="11" name="PRIMARY">
+      <key id="118" parent="11" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="130" parent="12" name="id">
+      <column id="119" parent="12" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="131" parent="12" name="comunidad_id">
+      <column id="120" parent="12" name="comunidad_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="132" parent="12" name="aceptada">
+      <column id="121" parent="12" name="aceptada">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="133" parent="12" name="activo">
+      <column id="122" parent="12" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="134" parent="12" name="created_at">
+      <column id="123" parent="12" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:09&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:36&apos;</default-expression>
       </column>
-      <column id="135" parent="12" name="updated_at">
+      <column id="124" parent="12" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:09&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:36&apos;</default-expression>
       </column>
-      <index id="136" parent="12" name="solicitudes_enviadas_comunidad_id_foreign">
-        <columns>comunidad_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="137" parent="12" name="PRIMARY">
+      <key id="125" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="138" parent="12" name="solicitudes_enviadas_comunidad_id_foreign">
+      <foreign-key id="126" parent="12" name="solicitudes_enviadas_comunidad_id_foreign">
         <columns>comunidad_id</columns>
-        <ref-key>~.comunidades.PRIMARY</ref-key>
+        <ref-key>comunidades.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="139" parent="13" name="id">
+      <column id="127" parent="13" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="140" parent="13" name="solicitud_id">
+      <column id="128" parent="13" name="solicitud_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="141" parent="13" name="comunidad_id">
+      <column id="129" parent="13" name="comunidad_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="142" parent="13" name="cursillo_id">
+      <column id="130" parent="13" name="cursillo_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="143" parent="13" name="activo">
+      <column id="131" parent="13" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="144" parent="13" name="created_at">
+      <column id="132" parent="13" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:11&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:40&apos;</default-expression>
       </column>
-      <column id="145" parent="13" name="updated_at">
+      <column id="133" parent="13" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:11&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:40&apos;</default-expression>
       </column>
-      <index id="146" parent="13" name="solicitudes_enviadas_cursillos_cursillo_id_foreign">
-        <columns>cursillo_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="147" parent="13" name="solicitudes_enviadas_cursillos_solicitud_id_foreign">
-        <columns>solicitud_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="148" parent="13" name="PRIMARY">
+      <key id="134" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="149" parent="13" name="solicitudes_enviadas_cursillos_cursillo_id_foreign">
+      <foreign-key id="135" parent="13" name="solicitudes_enviadas_cursillos_cursillo_id_foreign">
         <columns>cursillo_id</columns>
-        <ref-key>~.cursillos.PRIMARY</ref-key>
+        <ref-key>cursillos.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="150" parent="13" name="solicitudes_enviadas_cursillos_solicitud_id_foreign">
+      <foreign-key id="136" parent="13" name="solicitudes_enviadas_cursillos_solicitud_id_foreign">
         <columns>solicitud_id</columns>
-        <ref-key>~.solicitudes_enviadas.PRIMARY</ref-key>
+        <ref-key>solicitudes_enviadas.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="151" parent="14" name="id">
+      <column id="137" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="152" parent="14" name="comunidad_id">
+      <column id="138" parent="14" name="comunidad_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="153" parent="14" name="aceptada">
+      <column id="139" parent="14" name="aceptada">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="154" parent="14" name="activo">
+      <column id="140" parent="14" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="155" parent="14" name="created_at">
+      <column id="141" parent="14" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:11&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:38&apos;</default-expression>
       </column>
-      <column id="156" parent="14" name="updated_at">
+      <column id="142" parent="14" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:11&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:38&apos;</default-expression>
       </column>
-      <index id="157" parent="14" name="solicitudes_recibidas_comunidad_id_foreign">
-        <columns>comunidad_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="158" parent="14" name="PRIMARY">
+      <key id="143" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="159" parent="14" name="solicitudes_recibidas_comunidad_id_foreign">
+      <foreign-key id="144" parent="14" name="solicitudes_recibidas_comunidad_id_foreign">
         <columns>comunidad_id</columns>
-        <ref-key>~.comunidades.PRIMARY</ref-key>
+        <ref-key>comunidades.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="160" parent="15" name="id">
+      <column id="145" parent="15" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="161" parent="15" name="solicitud_id">
+      <column id="146" parent="15" name="solicitud_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="162" parent="15" name="comunidad_id">
+      <column id="147" parent="15" name="comunidad_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="163" parent="15" name="cursillo_id">
+      <column id="148" parent="15" name="cursillo_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="164" parent="15" name="activo">
+      <column id="149" parent="15" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="165" parent="15" name="created_at">
+      <column id="150" parent="15" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:14&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:41&apos;</default-expression>
       </column>
-      <column id="166" parent="15" name="updated_at">
+      <column id="151" parent="15" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:14&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:41&apos;</default-expression>
       </column>
-      <index id="167" parent="15" name="solicitudes_recibidas_cursillos_cursillo_id_foreign">
-        <columns>cursillo_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="168" parent="15" name="solicitudes_recibidas_cursillos_solicitud_id_foreign">
-        <columns>solicitud_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="169" parent="15" name="PRIMARY">
+      <key id="152" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="170" parent="15" name="solicitudes_recibidas_cursillos_cursillo_id_foreign">
+      <foreign-key id="153" parent="15" name="solicitudes_recibidas_cursillos_cursillo_id_foreign">
         <columns>cursillo_id</columns>
-        <ref-key>~.cursillos.PRIMARY</ref-key>
+        <ref-key>cursillos.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="171" parent="15" name="solicitudes_recibidas_cursillos_solicitud_id_foreign">
+      <foreign-key id="154" parent="15" name="solicitudes_recibidas_cursillos_solicitud_id_foreign">
         <columns>solicitud_id</columns>
-        <ref-key>~.solicitudes_recibidas.PRIMARY</ref-key>
+        <ref-key>solicitudes_recibidas.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="172" parent="16" name="id">
+      <column id="155" parent="16" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="173" parent="16" name="comunicacion_preferida">
+      <column id="156" parent="16" name="comunicacion_preferida">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="174" parent="16" name="activo">
+      <column id="157" parent="16" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="175" parent="16" name="created_at">
+      <column id="158" parent="16" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:28&apos;</default-expression>
       </column>
-      <column id="176" parent="16" name="updated_at">
+      <column id="159" parent="16" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:28&apos;</default-expression>
       </column>
-      <key id="177" parent="16" name="PRIMARY">
+      <key id="160" parent="16" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="178" parent="17" name="id">
+      <column id="161" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="179" parent="17" name="tipo_participante">
+      <column id="162" parent="17" name="tipo_participante">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="180" parent="17" name="activo">
+      <column id="163" parent="17" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="181" parent="17" name="created_at">
+      <column id="164" parent="17" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:28&apos;</default-expression>
       </column>
-      <column id="182" parent="17" name="updated_at">
+      <column id="165" parent="17" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:28&apos;</default-expression>
       </column>
-      <key id="183" parent="17" name="PRIMARY">
+      <key id="166" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="184" parent="18" name="id">
+      <column id="167" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
       </column>
-      <column id="185" parent="18" name="tipo_secretariado">
+      <column id="168" parent="18" name="tipo_secretariado">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="186" parent="18" name="activo">
+      <column id="169" parent="18" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="187" parent="18" name="created_at">
+      <column id="170" parent="18" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:29&apos;</default-expression>
       </column>
-      <column id="188" parent="18" name="updated_at">
+      <column id="171" parent="18" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
-        <default-expression>&apos;2016-03-02 07:56:02&apos;</default-expression>
+        <default-expression>&apos;2016-03-04 19:38:29&apos;</default-expression>
       </column>
-      <key id="189" parent="18" name="PRIMARY">
+      <key id="172" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="190" parent="19" name="id">
+      <column id="173" parent="19" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="191" parent="19" name="fullname">
+      <column id="174" parent="19" name="fullname">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="192" parent="19" name="name">
+      <column id="175" parent="19" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="193" parent="19" name="email">
+      <column id="176" parent="19" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="194" parent="19" name="password">
+      <column id="177" parent="19" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(60)</data-type>
       </column>
-      <column id="195" parent="19" name="foto">
+      <column id="178" parent="19" name="foto">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
         <default-expression>&apos;default.png&apos;</default-expression>
       </column>
-      <column id="196" parent="19" name="rol_id">
+      <column id="179" parent="19" name="rol_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20) unsigned</data-type>
         <default-expression>&apos;2&apos;</default-expression>
       </column>
-      <column id="197" parent="19" name="confirmado">
+      <column id="180" parent="19" name="confirmado">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="198" parent="19" name="codigo_confirmacion">
+      <column id="181" parent="19" name="codigo_confirmacion">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="199" parent="19" name="activo">
+      <column id="182" parent="19" name="activo">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="200" parent="19" name="remember_token">
+      <column id="183" parent="19" name="remember_token">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="201" parent="19" name="created_at">
+      <column id="184" parent="19" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
       </column>
-      <column id="202" parent="19" name="updated_at">
+      <column id="185" parent="19" name="updated_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;0000-00-00 00:00:00&apos;</default-expression>
       </column>
-      <index id="203" parent="19" name="users_email_unique">
+      <index id="186" parent="19" name="users_email_unique">
         <columns>email</columns>
-        <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <index id="204" parent="19" name="users_rol_id_foreign">
-        <columns>rol_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="205" parent="19" name="PRIMARY">
+      <key id="187" parent="19" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="206" parent="19" name="users_email_unique">
+      <key id="188" parent="19" name="users_email_unique">
         <columns>email</columns>
         <underlying-index>users_email_unique</underlying-index>
       </key>
-      <foreign-key id="207" parent="19" name="users_rol_id_foreign">
+      <foreign-key id="189" parent="19" name="users_rol_id_foreign">
         <columns>rol_id</columns>
-        <ref-key>~.roles.PRIMARY</ref-key>
+        <ref-key>roles.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
