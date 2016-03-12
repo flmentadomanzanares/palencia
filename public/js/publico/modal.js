@@ -8,7 +8,6 @@ $(document).ready(function () {
         if (selector.find(".modalBackGround").css("display") == "block") {
             var resizeModal = selector.find(".ventanaModal");
             resizeModal.css("margin-left", '-' + parseInt(resizeModal.css("width")) + "px");
-
         }
     });
     $(document).on('click', '.lanzarModal', function (evt) {
