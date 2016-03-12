@@ -79,6 +79,7 @@ class SolicitudesEnviadasCursillos extends Model {
             ->get();
     }
 
+
     /*****************************************************************************************************************
      *
      * Función que devuelve los datos para el listado "Intendencia para Clausura"
