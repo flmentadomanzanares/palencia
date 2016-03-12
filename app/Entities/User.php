@@ -52,6 +52,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 ->setPath('usuarios');
     }
 
+    public static function getNumberUserWithRol($peso)
+    {
+        return User::leftJoin('roles', 'roles.id', '=', 'users.rol_id')->
+        where('users.activo', true)->
+        where('users.confirmado', true)->
+        where('roles.peso', $peso)->
+        count();
+    }
+
     /**
      * @param $query referencia a nuestra query
      * @param $user
@@ -103,7 +112,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->have_role = $this->getUserRole();
         // Check if the user is a root account
-        if ($this->have_role->rol == 'administrador') {
+        if ($this->have_role->peso >= config('opciones.roles.administrador')) {
             return true;
         }
         if (is_array($roles)) {

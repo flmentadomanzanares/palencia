@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
-class ValidateRulesSolicitudesEnviadas extends Request {
+class ValidateRulesSolicitudesEnviadas extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +21,11 @@ class ValidateRulesSolicitudesEnviadas extends Request {
     public function rules()
     {
         return [
-            "aceptada"    =>    "boolean",
-            "activo"    =>    "boolean"
+            "aceptada" => "boolean",
+            "activo" => "boolean"
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

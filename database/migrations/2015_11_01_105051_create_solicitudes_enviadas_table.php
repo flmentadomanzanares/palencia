@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateSolicitudesEnviadasTable extends Migration {
+class CreateSolicitudesEnviadasTable extends Migration
+{
 
     /**
      * Run the migrations.
@@ -12,8 +13,7 @@ class CreateSolicitudesEnviadasTable extends Migration {
      */
     public function up()
     {
-        Schema::create('solicitudes_enviadas', function(Blueprint $table)
-        {
+        Schema::create('solicitudes_enviadas', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('comunidad_id')->unsigned();
@@ -26,8 +26,6 @@ class CreateSolicitudesEnviadasTable extends Migration {
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
-
-
 
 
         });

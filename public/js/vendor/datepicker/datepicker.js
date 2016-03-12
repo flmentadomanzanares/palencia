@@ -96,12 +96,12 @@
             }
         }
         this.dates = options.dates || {
-            days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
-            daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-        };
+                days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+            };
 
         this.typeOfDay = options.typeOfDay || this.element.data('date-typeOfDay') || '';
         if (typeof this.typeOfDay === 'string') {
@@ -242,7 +242,7 @@
 
         fillMonths: function () {
             var html = '';
-            var i = 0
+            var i = 0;
             while (i < 12) {
                 html += '<span class="month"><month>' + DPGlobal.typeOfMonth[i++] + '</month></span>';
             }
@@ -342,8 +342,8 @@
                         }
                         break;
                     case 'span':
-                        if (target.is('.disable')){
-                           return;
+                        if (target.is('.disable')) {
+                            return;
                         }
 
                         if (target.is('.month')) {
@@ -516,38 +516,38 @@
                 '<tr>';
             if (navegacionActiva == true) {
                 thead += '<th class="prev">&lsaquo;</th>' +
-                '<th colspan="5" class="switch"></th>' +
-                '<th class="next">&rsaquo;</th>';
+                    '<th colspan="5" class="switch"></th>' +
+                    '<th class="next">&rsaquo;</th>';
             } else {
                 thead += '<th></th>' +
-                '<th colspan="5" class="switch"></th>' +
-                '<th></th>';
+                    '<th colspan="5" class="switch"></th>' +
+                    '<th></th>';
             }
             thead += '</tr>' +
-            '</thead>'
+                '</thead>';
             return cabeceraActiva ? thead : '';
         },
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
     };
     DPGlobal.template = '<div class="datepicker dropdown-menu">' +
-    '<div class="datepicker-days">' +
-    '<table>' +
-    DPGlobal.headTemplate(true, true) +
-    '<tbody></tbody>' +
-    '</table>' +
-    '</div>' +
-    '<div class="datepicker-months">' +
-    '<table>' +
-    DPGlobal.headTemplate(false, true) +
-    DPGlobal.contTemplate +
-    '</table>' +
-    '</div>' +
-    '<div class="datepicker-years">' +
-    '<table>' +
-    DPGlobal.headTemplate(true, true) +
-    DPGlobal.contTemplate +
-    '</table>' +
-    '</div>' +
-    '</div>';
+        '<div class="datepicker-days">' +
+        '<table>' +
+        DPGlobal.headTemplate(true, true) +
+        '<tbody></tbody>' +
+        '</table>' +
+        '</div>' +
+        '<div class="datepicker-months">' +
+        '<table>' +
+        DPGlobal.headTemplate(false, true) +
+        DPGlobal.contTemplate +
+        '</table>' +
+        '</div>' +
+        '<div class="datepicker-years">' +
+        '<table>' +
+        DPGlobal.headTemplate(true, true) +
+        DPGlobal.contTemplate +
+        '</table>' +
+        '</div>' +
+        '</div>';
 
 }(window.jQuery);

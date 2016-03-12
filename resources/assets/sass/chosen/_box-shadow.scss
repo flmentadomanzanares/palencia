@@ -1,10 +1,10 @@
 // Box Shadow
 
 @mixin box-shadow($boxShadow) {
-  -ms-box-shadow:$boxShadow;
+  -ms-box-shadow: $boxShadow;
   -moz-box-shadow: $boxShadow;
   -webkit-box-shadow: $boxShadow;
-  -o-box-shadow:$boxShadow ;
+  -o-box-shadow: $boxShadow;
   box-shadow: $boxShadow;
- }
+}
 

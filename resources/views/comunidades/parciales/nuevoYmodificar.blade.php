@@ -49,6 +49,7 @@
     {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
     "maxlength"=>"100") )!!}
     <br/>
+
     <div class="heading-caption">Comunicación</div>
     {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
@@ -82,15 +83,17 @@
     {!! FORM::select('esColaborador',array('1'=>'Si','0'=>'No'), $comunidad->esColaborador
     ,array('class'=>'form-control')) !!}
     <br>
+
     <div class="heading-caption">Color Mis Cursos</div>
     {!! FORM::label ('color', 'Color Cursos') !!}
     <select id="select-color" class="form-control" name="color">
         @foreach ($colores as $color)
-            <option value="{{$color->codigo_color}}"@if($color->codigo_color==$comunidad->color)
-                    selected="selected" @endif>{{$color->nombre_color}}</option>
+            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->color)
+            selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
     </select>
     <br/>
+
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control',

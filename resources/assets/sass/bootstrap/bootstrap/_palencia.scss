@@ -212,12 +212,13 @@ body {
   background-color: rgba(255, 255, 255, .9);
   z-index: 5000;
 }
+
 //Imagen Calendario
 .calendario {
   background-image: url("../img/iconos/calendario.png");
-  background-position: right center;
+  background-position: right 1px;
   background-repeat: no-repeat;
-  background-size: 32px 100%;
+  background-size: 30px 32px;
 }
 
 //BOTONES
@@ -238,7 +239,7 @@ body {
 .btn-action {
   a, button {
     @include btn-viaoptima-button-action();
-    outline:none;
+    outline: none;
   }
 }
 
@@ -270,7 +271,7 @@ body {
 //PANELS
 //*****************************************************
 // Panel contents
-.panel-viaoptima-search {
+.panel-search {
   margin-bottom: $margin-app-small;
   background-color: transparent;
   border: none;
@@ -443,15 +444,11 @@ input[type=file]:hover {
     .headerFormularioModal {
       box-sizing: border-box;
       display: block;
-      position: absolute;
       width: 100%;
       height: 40px;
-      top: 0;
-      left: 0;
       text-align: center;
       background-color: $app-color-base;
       color: $app-color-white;
-      z-index: 2;
       & > span {
         font-size: 2 * $font-size-app-base-content;
         color: white;
@@ -460,20 +457,24 @@ input[type=file]:hover {
     .cuerpoFormularioModal {
       box-sizing: border-box;
       display: block;
-      position: absolute;
       width: 100%;
       height: auto;
-      top: 0;
-      left: 0;
-      padding-top: 40px;
-      z-index: 1;
+      color: $app-color-base;
+      background-color: $app-color-white;
+    }
+    .footerFormularioModal {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 100%;
+      height: auto;
+      padding: $padding-app-base;
       color: $app-color-base;
       background-color: $app-color-white;
     }
     .closeFormModal {
       position: absolute;
       width: 24px;
-      top: 6px;
+      top: 9px;
       right: 3px;
       font-size: $font-size-app-base-content;
       font-weight: bold;
@@ -494,11 +495,11 @@ input[type=file]:hover {
       position: relative;
       width: 100%;
       height: 95%;
-      left: 0;
-      right: 0;
       overflow-x: hidden;
       overflow-y: auto;
       padding: $padding-app-base;
+      font-size: $font-size-app-base-content;
+      font-weight: normal;
     }
     @media screen and (min-width: 400px) {
       max-width: 330px;
@@ -554,9 +555,11 @@ input[type=file]:hover {
 .icon-size-large {
   font-size: $app-font-icon-log-large !important;
 }
+
 .italica {
   font-style: italic;
 }
+
 //Color para los checks-fails
 .foreground-disabled {
   color: $app-color-foreground-disabled !important;

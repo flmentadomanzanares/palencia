@@ -77,7 +77,7 @@
             height: 30px;
             width: 138mm;
             border: 1px solid #4a4949;
-            float:left;
+            float: left;
 
         }
 
@@ -90,7 +90,7 @@
             height: 30px;
             width: 50mm;
             border: 1px solid #4a4949;
-            margin-left:530px;
+            margin-left: 530px;
         }
 
         .contenedor {
@@ -127,7 +127,7 @@
             width: 138mm;
             /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
-            float:left;
+            float: left;
         }
 
         .listDcha {
@@ -139,7 +139,7 @@
             width: 50mm;
             /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
-            margin-left:530px;
+            margin-left: 530px;
         }
 
     </style>
@@ -176,14 +176,14 @@
 
         <?php $i++?>
 
-            <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                Cursillo
-            </div>
-            <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                Fecha Inicio
-            </div>
+        <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Cursillo
+        </div>
+        <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+            Fecha Inicio
+        </div>
 
-            <?php $i++?>
+        <?php $i++?>
 
         @foreach ($solicitudesEnviadas as $index=>$solicitudEnviada)
             @if($index>0 && $i==$lineasPorPagina)
@@ -230,7 +230,7 @@
         <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
             Fecha Inicio
         </div>
-            <?php $i++?>
+        <?php $i++?>
         @foreach ($solicitudesRecibidas as $index=>$solicitudRecibida)
             @if($index>0 && $i==$lineasPorPagina)
                 <?php

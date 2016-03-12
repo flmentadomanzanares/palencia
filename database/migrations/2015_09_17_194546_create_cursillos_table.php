@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCursillosTable extends Migration {
+class CreateCursillosTable extends Migration
+{
 
     /**
      * Run the migrations.
@@ -12,13 +13,12 @@ class CreateCursillosTable extends Migration {
      */
     public function up()
     {
-        Schema::create('cursillos', function(Blueprint $table)
-        {
+        Schema::create('cursillos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('cursillo', 50);
 
-            $table->string('num_cursillo',10);
+            $table->string('num_cursillo', 10);
 
             $table->date('fecha_inicio');
 

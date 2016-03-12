@@ -18,7 +18,7 @@
                             </caption>
                             <thead>
                             <tr @if(!$cursillo->activo) class="background-disabled"
-                                                        @else style="background-color:{{$cursillo->color}};" @endif>
+                                @else style="background-color:{{$cursillo->color}};" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('cursillos.show',$cursillo->id)}}">
@@ -34,12 +34,23 @@
                                     </a>
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                     {!! FORM::open(array('route' => array('cursillos.destroy',
-                                    $cursillo->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                    <button type="submit">
+                                    $cursillo->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
+                                    <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                            class="pull-right lanzarModal"
+                                            data-title="BORRADO"
+                                            data-descripcion="¿Seguro que deseas eliminar este cursillo?
+                                            <h3><strong class='green'>{{$cursillo->comunidad}}</strong></h3>
+                                            <h3><strong class='green'>Nº{{$cursillo->num_cursillo}}</strong></h3>"
+                                            data-footer="true"
+                                            @endif >
                                         <i class='glyphicon glyphicon-trash full-Width'>
                                             <div>Borrar</div>
                                         </i>
                                     </button>
+                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                        @include ("comun.plantillaBorrado")
+                                    @endif
                                     {!! FORM::close() !!}
                                     @endif
                                 </th>

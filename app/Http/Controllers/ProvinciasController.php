@@ -20,7 +20,7 @@ class ProvinciasController extends Controller
     {
         $titulo = "Provincias";
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta provincias
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList(0, true);
         $provincias = Provincias::getProvincias($request);
         return view("provincias.index", compact("provincias", 'paises', "titulo"));
 
@@ -35,12 +35,12 @@ class ProvinciasController extends Controller
     {
         //Título Vista
         $titulo = "Nueva Provincia";
-        $provincias = new Provincias;
-        $paises = Paises::getPaisesList();
+        $provincia = new Provincias;
+        $paises = Paises::getPaisesFromPaisIdToList();
         return view('provincias.nuevo',
             compact(
                 'paises',
-                'provincias',
+                'provincia',
                 'titulo'
             ));
     }
@@ -54,18 +54,17 @@ class ProvinciasController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea provincias vacías. con store()
     public function store(ValidateRulesProvincias $request)
     {
-        $provincias = new Provincias; //Creamos instancia al modelo
-
-        $provincias->pais_id = \Request::input('pais');
-        $provincias->provincia = \Request::input('provincia'); //Asignamos el valor al campo.
+        $provincia = new Provincias; //Creamos instancia al modelo
+        $provincia->pais_id = $request->get('pais');
+        $provincia->provincia = $request->get('provincia'); //Asignamos el valor al campo.
         try {
-            $provincias->save();
+            $provincia->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()
                         ->route('provincias.create')
-                        ->with('mensaje', 'La provincia ' . \Request::input('provincia') . ' está ya dada de alta.');
+                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' está ya dada de alta.');
                     break;
                 default:
                     return redirect()
@@ -74,8 +73,7 @@ class ProvinciasController extends Controller
             }
         }
         return redirect('provincias')
-            ->with('mensaje', 'La provincia ' . $provincias->provincia . ' creada satisfactoriamente.');
-
+            ->with('mensaje', 'La provincia ' . $provincia->provincia . ' ha sido creada satisfactoriamente.');
     }
 
     /**
@@ -88,17 +86,15 @@ class ProvinciasController extends Controller
     {
         //Título Vista
         $titulo = 'Detalles Provincia';
-
         //Nos situamos sobre la provincia.
-        $provincias = Provincias::find($id);
-        if ($provincias == null) {
+        $provincia = Provincias::find($id);
+        if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-
         //Vista
         return view('provincias.mostrar',
             compact(
-                'provincias',
+                'provincia',
                 'titulo'
             ));
 
@@ -114,15 +110,15 @@ class ProvinciasController extends Controller
     {
         //Título Vista
         $titulo = 'Modificar Provincia';
-        $provincias = Provincias::find($id);
-        if ($provincias == null) {
+        $provincia = Provincias::find($id);
+        if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-        $paises = Paises::getPaisesList();
+        $paises = Paises::getPaisesFromPaisIdToList($provincia->pais_id);
         return view('provincias.modificar',
             compact(
                 'paises',
-                'provincias',
+                'provincia',
                 'titulo'
             ));
     }
@@ -135,17 +131,17 @@ class ProvinciasController extends Controller
      */
     public function update($id, ValidateRulesProvincias $request)
     {
-        $provincias = Provincias::find($id);
-        if ($provincias == null) {
+        $provincia = Provincias::find($id);
+        if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-        $provincias->pais_id = \Request::input('pais');
-        $provincias->provincia = \Request::input('provincia');
+        $provincia->pais_id = $request->get('pais');
+        $provincia->provincia = $request->get('provincia');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-            $provincias->activo = \Request::input('activo');
+            $provincia->activo = $request->get('activo');
         }
         try {
-            $provincias->save();
+            $provincia->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -156,7 +152,7 @@ class ProvinciasController extends Controller
         }
         return redirect()
             ->route('provincias.index')
-            ->with('mensaje', 'provincia modificada correctamente.');
+            ->with('mensaje', 'La provincia ' . $provincia->provincia . ' ha sido modificada correctamente.');
     }
 
     /**
@@ -167,19 +163,18 @@ class ProvinciasController extends Controller
      */
     public function destroy($id)
     {
-        $provincias = Provincias::find($id);
-        if ($provincias == null) {
+        $provincia = Provincias::find($id);
+        if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-        $provinciaNombre = $provincias->provincia;
         try {
-            $provincias->delete();
+            $provincia->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()
                         ->route('provincias.index')
-                        ->with('mensaje', 'La provincia ' . $provinciaNombre . ' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' no se puede eliminar al tener localidades asociadas.');
                     break;
                 default:
                     return redirect()
@@ -189,7 +184,7 @@ class ProvinciasController extends Controller
         }
         return redirect()
             ->route('provincias.index')
-            ->with('mensaje', 'La provincia ' . $provinciaNombre . ' eliminada correctamente.');
+            ->with('mensaje', 'La provincia ' . $provincia->provincia . ' ha sido eliminada correctamente.');
     }
 
     //Método de actualizar Provincias por Ajax

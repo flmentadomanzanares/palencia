@@ -41,12 +41,11 @@
                                 <td>Asistentes:</td>
                                 <td>{!!$solicitudRecibidaCursillos->tipo_participante!!}</td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
                 @endforeach
-                <div class="panel-viaoptima-search">
+                <div class="panel-search">
                     <a title="Volver" href="{{route('solicitudesRecibidas.index')}}" class="pull-left">
                         <i class="glyphicon glyphicon-arrow-left">
                             <div>Volver</div>

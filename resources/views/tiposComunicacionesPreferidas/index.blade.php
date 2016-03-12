@@ -9,7 +9,7 @@
             <div class="row ">
                 @include('tiposComunicacionesPreferidas.parciales.buscar')
             </div>
-            @if(!$tipos_comunicaciones_preferidas->isEmpty())
+            @if(!$tiposComunicacionesPreferidas->isEmpty())
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
@@ -18,26 +18,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($tipos_comunicaciones_preferidas as $tipo_comunicacion)
-                            <tr @if(!$tipo_comunicacion->activo) class="foreground-disabled" @endif>
-                                <td>{{ $tipo_comunicacion->comunicacion_preferida }}</td>
+                        @foreach ($tiposComunicacionesPreferidas as $tipoComunicacionPreferida)
+                            <tr @if(!$tipoComunicacionPreferida->activo) class="foreground-disabled" @endif>
+                                <td>{{ $tipoComunicacionPreferida->comunicacion_preferida }}</td>
                                 <td class="table-autenticado-columna-1 text-right">
                                     <div class="btn-action">
                                         <a title="Editar"
-                                           href="{{route('tiposComunicacionesPreferidas.edit', $tipo_comunicacion->id)}}"
+                                           href="{{route('tiposComunicacionesPreferidas.edit', $tipoComunicacionPreferida->id)}}"
                                            class="pull-left">
                                             <i class="glyphicon glyphicon-edit">
                                                 <div>Editar</div>
                                             </i>
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                            {!! FORM::open(array('route' => array('tiposComunicacionesPreferidas.destroy', $tipo_comunicacion->id),
-                                            'method' => 'DELETE','title'=>'Borrar')) !!}
-                                            <button type="submit" class="pull-right">
+                                            {!! FORM::open(array('route' => array('tiposComunicacionesPreferidas.destroy', $tipoComunicacionPreferida->id),
+                                            'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
+                                            <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                    class="pull-right lanzarModal"
+                                                    data-title="BORRADO"
+                                                    data-descripcion="¿Seguro que deseas eliminar este tipo de comunicación preferida?
+                                                    <h3><strong class='green'>{{ $tipoComunicacionPreferida->comunicacion_preferida }}</strong></h3>"
+                                                    data-footer="true"
+                                                    @endif >
                                                 <i class='glyphicon glyphicon-trash full-Width'>
                                                     <div>Borrar</div>
                                                 </i>
                                             </button>
+                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                @include ("comun.plantillaBorrado")
+                                            @endif
                                             {!! FORM::close() !!}
                                         @endif
                                     </div>
@@ -56,7 +66,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $tipos_comunicaciones_preferidas->appends(Request::only(['comunicacion_preferida']))->render()
+                {!! $tiposComunicacionesPreferidas->appends(Request::only(['comunicacion_preferida']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

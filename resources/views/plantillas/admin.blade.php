@@ -6,8 +6,6 @@
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
     {!! HTML::style('css/palencia.css') !!}
-    {!! HTML::style('css/vendor/fullcalendar/fullcalendar.css') !!}
-
     @yield("css")
 </head>
 <body>
@@ -118,12 +116,11 @@
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             <br/>
                             @if(config("opciones.verificar.recordarPassword"))
-                                <a class="mostrarformularioModal btn btn-default btn-block"
-                                   data-selector="password-reset"
-                                   href="">Recordar password</a>
+                                <span class="btn btn-default btn-block lanzarModal" data-title="RECORDAR"
+                                      data-selector-Id="recordar">Recordar password</span>
                             @endif
-                            <a class="mostrarformularioModal btn btn-default btn-block" data-selector="registro"
-                               href="">Registrarse</a>
+                            <span class="btn btn-default btn-block lanzarModal" data-title="REGISTRO"
+                                  data-selector-Id="registro">Registrarse</span>
                             {!! FORM::close() !!}
                         </div>
                     </li>
@@ -132,6 +129,8 @@
         </div>
     </nav>
 </div>
+@include ("comun.plantillaRecordarPassword")
+@include ("comun.plantillaRegistro")
 @if(Session::has('mensaje'))
     <div class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
@@ -154,11 +153,12 @@
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia v1.0.0 | KOALNET - 2015</span>
+    <span>&copy; Palencia v2.0.0 | KOALNET - 2015</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}
+{!! HTML::script('js/publico/modal.js') !!}
 @yield("js")
 </body>
 </html>

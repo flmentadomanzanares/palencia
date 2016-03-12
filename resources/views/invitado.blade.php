@@ -12,61 +12,8 @@
                          background-size:100% 100%;
                          background-image:url("{{asset('img/portada/portada.jpg')}}")'>
             </div>
-            <div id="registro" class="formularioModal">
-                <div class="ventanaModal">
-                    <div class="headerFormularioModal">
-                        <span>REGISTRARSE</span>
-                        <a title="Cerrar" class="closeFormModal">X</a>
-                    </div>
-                    <div class="cuerpoFormularioModal">
-                        <div class="scroll">
-                            {!! FORM::open(array('url' => 'auth/register')) !!}
-
-                            {!! FORM::label('fullname', 'nombre completo') !!} <br/>
-                            {!! FORM::text ('fullname',"",array("class"=>"form-control")) !!} <br/>
-
-                            {!! FORM::label('username', 'nombre usuario') !!} <br/>
-                            {!! FORM::text ('name',"",array("maxlength"=>"20","class"=>"form-control")) !!} <br/>
-
-                            {!! FORM::label ('email', 'email') !!} <br/>
-                            {!! FORM::text('email',"",array("class"=>"form-control")) !!} <br/>
-
-                            {!! FORM::label ('password', 'contraseña') !!} <br/>
-                            {!! FORM::password ('password',array("class"=>"form-control")) !!} <br/>
-
-                            {!! FORM::label ('passwordConfrmation', 'repetir contraseña') !!} <br/>
-                            {!! FORM::password ('password_confirmation',array("class"=>"form-control")) !!}
-
-                            <br/>
-                            {!! FORM::submit('registrarse',array("class"=>"btn btn-success btn-block")) !!}
-                            {!! FORM::close() !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (config("opciones.verificar.recordarPassword"))
-                <div id="password-reset" class="formularioModal">
-                    <div class="ventanaModal">
-                        <div class="headerFormularioModal">
-                            <span>RESETEAR</span>
-                            <a title="Cerrar" class="closeFormModal">X</a>
-                        </div>
-                        <div class="cuerpoFormularioModal">
-                            <div class="scroll">
-                                {!! FORM::open(array('url' => '/password/email','method'=>'post')) !!}
-                                {!! FORM::label ('email', 'email de envío') !!} <br/>
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                                <br/>
-                                {!! FORM::submit('Reset password',array("class"=>"btn btn-success btn-block")) !!}
-                                {!! FORM::close() !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 @stop
 @section('js')
-    {!! HTML::script('js/publico/modal.js') !!}
 @endsection

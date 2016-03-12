@@ -18,8 +18,8 @@ class TiposSecretariadosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Tipos de Secretariados";
-        $tipos_secretariados = TiposSecretariados::getTipoSecretariados($request);
-        return view("tiposSecretariados.index", compact('tipos_secretariados', 'titulo'));
+        $tipoSecretariados = TiposSecretariados::getTipoSecretariados($request);
+        return view("tiposSecretariados.index", compact('tipoSecretariados', 'titulo'));
     }
 
     /**
@@ -30,8 +30,8 @@ class TiposSecretariadosController extends Controller
     public function create()
     {
         $titulo = "Nuevo tipo de secretariado";
-        $tipos_secretariados = new tiposSecretariados();
-        return view('tiposSecretariados.nuevo', compact('tipos_secretariados', 'titulo'));
+        $tipoSecretariado = new tiposSecretariados();
+        return view('tiposSecretariados.nuevo', compact('tipoSecretariado', 'titulo'));
     }
 
     /**
@@ -43,15 +43,15 @@ class TiposSecretariadosController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
     public function store(ValidateRulesTiposSecretariados $request)
     {
-        $tipos_secretariados = new tiposSecretariados(); //Creamos instancia al modelo
-        $tipos_secretariados->tipo_secretariado = \Request::input('tipo_secretariado'); //Asignamos el valor al campo.
+        $tipoSecretariado = new tiposSecretariados(); //Creamos instancia al modelo
+        $tipoSecretariado->tipo_secretariado = $request->get('tipo_secretariado'); //Asignamos el valor al campo.
         try {
-            $tipos_secretariados->save();
+            $tipoSecretariado->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposSecretariados.create')
-                        ->with('mensaje', 'El tipo de secretariado ' . \Request::input('secretariado') . ' está ya dado de alta . ');
+                        ->with('mensaje', 'El tipo de secretariado ' . $tipoSecretariado->tipo_secretariado . ' está ya dado de alta . ');
                     break;
                 default:
                     return redirect()
@@ -60,7 +60,7 @@ class TiposSecretariadosController extends Controller
             }
         }
         return redirect('tiposSecretariados')
-            ->with('mensaje', 'El tipo de secretariado ha sido creado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de secretariado ' . $tipoSecretariado->tipo_secretariado . ' ha sido creado satisfactoriamente . ');
 
     }
 
@@ -74,11 +74,11 @@ class TiposSecretariadosController extends Controller
     public function edit($id)
     {
         $titulo = "Modificar tipo de secretariado";
-        $tipos_secretariados = tiposSecretariados::find($id);
-        if ($tipos_secretariados == null) {
+        $tipoSecretariado = tiposSecretariados::find($id);
+        if ($tipoSecretariado == null) {
             return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
         }
-        return view('tiposSecretariados.modificar', compact('tipos_secretariados', 'titulo'));
+        return view('tiposSecretariados.modificar', compact('tipoSecretariado', 'titulo'));
     }
 
     /**
@@ -89,16 +89,16 @@ class TiposSecretariadosController extends Controller
      */
     public function update($id, ValidateRulesTiposSecretariados $request)
     {
-        $tipos_secretariados = tiposSecretariados::find($id);
-        if ($tipos_secretariados == null) {
+        $tipoSecretariado = tiposSecretariados::find($id);
+        if ($tipoSecretariado == null) {
             return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
         }
-        $tipos_secretariados->tipo_secretariado = \Request::input('tipo_secretariado');
+        $tipoSecretariado->tipo_secretariado = $request->get('tipo_secretariado');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
-            $tipos_secretariados->activo = \Request::input('activo');
+            $tipoSecretariado->activo = $request->get('activo');
         }
         try {
-            $tipos_secretariados->save();
+            $tipoSecretariado->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -108,7 +108,7 @@ class TiposSecretariadosController extends Controller
             }
         }
         return redirect()->route('tiposSecretariados.index')
-            ->with('mensaje', 'El tipo de secretariado se ha modificado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de secretariado ' . $tipoSecretariado->tipo_secretariado . ' se ha modificado satisfactoriamente. ');
     }
 
     /**
@@ -119,18 +119,17 @@ class TiposSecretariadosController extends Controller
      */
     public function destroy($id)
     {
-        $tipos_secretariados = tiposSecretariados::find($id);
-        if ($tipos_secretariados == null) {
+        $tipoSecretariado = tiposSecretariados::find($id);
+        if ($tipoSecretariado == null) {
             return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');
         }
-        $comunidad = $tipos_secretariados->secretariado;
         try {
-            $tipos_secretariados->delete();
+            $tipoSecretariado->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposSecretariados.index')
-                        ->with('mensaje', 'El tipo de secretariado ' . $comunidad . ' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de secretariado ' . $tipoSecretariado->tipo_secretariado . ' no se puede eliminar al tener comunidades asociadas.');
                     break;
                 default:
                     return redirect()->route('tiposSecretariados.index')
@@ -138,6 +137,6 @@ class TiposSecretariadosController extends Controller
             }
         }
         return redirect()->route('tiposSecretariados.index')
-            ->with('mensaje', 'El tipo de secretariado se ha eliminado correctamente.');
+            ->with('mensaje', 'El tipo de secretariado ' . $tipoSecretariado->tipo_secretariado . ' se ha eliminado correctamente.');
     }
 }

@@ -1,8 +1,7 @@
 <?php namespace Palencia\Http\Requests;
 
-use Palencia\Http\Requests\Request;
-
-class ValidateRulesComunidades extends Request {
+class ValidateRulesComunidades extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,14 @@ class ValidateRulesComunidades extends Request {
     public function rules()
     {
         return [
-            "year"    =>    "required|integer|min:1900|max:2050",
-            "fecha_inicio"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
-            "fecha_final"    =>    "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
-            "semana_no"    =>    "required|integer|min:1|max:53",
-            "activo"    =>    "boolean"
+            "year" => "required|integer|min:1900|max:2050",
+            "fecha_inicio" => "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
+            "fecha_final" => "required|date_format:d/m/Y|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/",
+            "semana_no" => "required|integer|min:1|max:53",
+            "activo" => "boolean"
         ];
     }
+
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo

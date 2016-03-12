@@ -1,4 +1,5 @@
 <?php namespace Palencia\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Palencia\Entities\TiposParticipantes;
 use Palencia\Http\Requests;
@@ -17,8 +18,8 @@ class TiposParticipantesController extends Controller
     public function index(Request $request)
     {
         $titulo = "Listado de tipos de participantes";
-        $tipos_participantes = TiposParticipantes::getTiposParticipantes($request);
-        return view("tiposParticipantes.index", compact('tipos_participantes', 'titulo'));
+        $tiposParticipantes = TiposParticipantes::getTiposParticipantes($request);
+        return view("tiposParticipantes.index", compact('tiposParticipantes', 'titulo'));
     }
 
     /**
@@ -29,8 +30,8 @@ class TiposParticipantesController extends Controller
     public function create()
     {
         $titulo = "Nuevo tipo de participante";
-        $tipos_participantes = new TiposParticipantes();
-        return view('tiposParticipantes.nuevo', compact('tipos_participantes', 'titulo'));
+        $tipoParticipante = new TiposParticipantes();
+        return view('tiposParticipantes.nuevo', compact('tipoParticipante', 'titulo'));
     }
 
     /**
@@ -42,15 +43,15 @@ class TiposParticipantesController extends Controller
     //si no se incluye el control de reglas de validación como argumento, el método crea paises vacíos. con store()
     public function store(ValidateRulesTiposParticipantes $request)
     {
-        $tipos_participantes = new TiposParticipantes(); //Creamos instancia al modelo
-        $tipos_participantes->tipo_participante = \Request::input('tipo_participante'); //Asignamos el valor al campo.
+        $tipoParticipante = new TiposParticipantes(); //Creamos instancia al modelo
+        $tipoParticipante->tipo_participante = $request->get('tipo_participante'); //Asignamos el valor al campo.
         try {
-            $tipos_participantes->save();
+            $tipoParticipante->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposParticipantes.create')
-                        ->with('mensaje', 'El tipo de participante ' . \Request::input('tipo_participante') . ' está ya dado de alta . ');
+                        ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' está ya dado de alta.');
                     break;
                 default:
                     return redirect()
@@ -59,7 +60,7 @@ class TiposParticipantesController extends Controller
             }
         }
         return redirect('tiposParticipantes')
-            ->with('mensaje', 'El tipo de participante se ha creado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' ha sido creado satisfactoriamente.');
 
     }
 
@@ -73,12 +74,12 @@ class TiposParticipantesController extends Controller
     public function edit($id)
     {
         $titulo = "Modificar tipo de participante";
-        $tipos_participantes = TiposParticipantes::find($id);
-        if ($tipos_participantes == null) {
+        $tipoParticipante = TiposParticipantes::find($id);
+        if ($tipoParticipante == null) {
             return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
         }
-        return view('tiposParticipantes.modificar', compact('tipos_participantes','titulo'));
-     }
+        return view('tiposParticipantes.modificar', compact('tipoParticipante', 'titulo'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -88,16 +89,16 @@ class TiposParticipantesController extends Controller
      */
     public function update($id, ValidateRulesTiposParticipantes $request)
     {
-        $tipos_participantes = TiposParticipantes::find($id);
-        if ($tipos_participantes == null) {
+        $tipoParticipante = TiposParticipantes::find($id);
+        if ($tipoParticipante == null) {
             return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
         }
-        $tipos_participantes->tipo_participante = \Request::input('tipo_participante');
+        $tipoParticipante->tipo_participante = $request->get('tipo_participante');
         if (\Auth::user()->roles->peso >= config('opciones . roles . administrador')) {
-            $tipos_participantes->activo = \Request::input('activo');
+            $tipoParticipante->activo = $request->get('activo');
         }
         try {
-            $tipos_participantes->save();
+            $tipoParticipante->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 default:
@@ -107,7 +108,7 @@ class TiposParticipantesController extends Controller
             }
         }
         return redirect()->route('tiposParticipantes.index')
-            ->with('mensaje', 'El tipo de participante se ha modificado satisfactoriamente . ');
+            ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' ha sido modificado satisfactoriamente.');
     }
 
     /**
@@ -118,18 +119,17 @@ class TiposParticipantesController extends Controller
      */
     public function destroy($id)
     {
-        $tipos_participantes = TiposParticipantes::find($id);
-        if ($tipos_participantes == null) {
+        $tipoParticipante = TiposParticipantes::find($id);
+        if ($tipoParticipante == null) {
             return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
         }
-        $participante =$tipos_participantes->tipo_participante;
         try {
-            $tipos_participantes->delete();
+            $tipoParticipante->delete();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposParticipantes.index')
-                        ->with('mensaje', 'El tipo de participante '.$participante.' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' no se puede eliminar al tener cursillos asociados.');
                     break;
                 default:
                     return redirect()->route('tiposParticipantes.index')
@@ -137,6 +137,6 @@ class TiposParticipantesController extends Controller
             }
         }
         return redirect()->route('tiposParticipantes.index')
-            ->with('mensaje', 'El tipo de participante se ha eliminado correctamente.');
+            ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' ha sido eliminado correctamente.');
     }
 }

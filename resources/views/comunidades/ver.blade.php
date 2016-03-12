@@ -88,7 +88,9 @@
             </tr>
             <tr>
                 <td>Color Cursos:</td>
-                <td> <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div></td>
+                <td>
+                    <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div>
+                </td>
             </tr>
             <tr>
                 <td>Activo</td>

@@ -6,7 +6,6 @@
 //
 // Submit bugfixes to: http://github.com/alxlit/bootstrap-chosen
 //
-
 @import "chosenVariable";
 @import "gradients";
 @import "border-radius";
@@ -14,8 +13,13 @@
 @import "text-overflow";
 @import "transition";
 
-.chosen-select { width: 100%; }
-.chosen-select-deselect { width: 100%; }
+.chosen-select {
+  width: 100%;
+}
+
+.chosen-select-deselect {
+  width: 100%;
+}
 
 .chosen-container {
   display: inline-block;
@@ -135,8 +139,8 @@
   .chosen-single {
     background-color: $chosen-background;
     -webkit-background-clip: padding-box;
-       -moz-background-clip: padding;
-            background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
     border: $chosen-border;
     @include border-top-radius($chosen-border-radius);
     @include border-bottom-radius($chosen-border-radius);
@@ -220,8 +224,8 @@
     margin-top: -1px;
     @include border-bottom-radius($chosen-border-radius);
     -webkit-background-clip: padding-box;
-       -moz-background-clip: padding;
-            background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
   }
 }
 
@@ -278,8 +282,8 @@
 
     .search-choice {
       -webkit-background-clip: padding-box;
-         -moz-background-clip: padding;
-              background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box;
       background-color: $gray-lighter;
       border: $chosen-border;
       @include border-top-radius($chosen-border-radius);

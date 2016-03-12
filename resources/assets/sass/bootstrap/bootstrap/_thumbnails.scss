@@ -2,13 +2,12 @@
 // Thumbnails
 // --------------------------------------------------
 
-
 // Mixin and adjust the regular image class
 .thumbnail {
   display: inline-block;
   width: $thumbnail-width;
   padding: $thumbnail-padding;
-  margin:10px;
+  margin: 10px;
   line-height: $line-height-base;
   background-color: $thumbnail-bg;
   border: 1px solid $app-color-base;
@@ -18,8 +17,8 @@
     @include img-responsive;
     margin-left: auto;
     margin-right: auto;
-    width:171px;
-    height:156px;
+    width: 171px;
+    height: 156px;
     margin-bottom: $thumbnail-padding;
   }
 

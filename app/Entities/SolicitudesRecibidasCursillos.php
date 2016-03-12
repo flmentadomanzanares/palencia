@@ -1,11 +1,10 @@
 <?php namespace Palencia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
-class SolicitudesRecibidasCursillos extends Model {
+class SolicitudesRecibidasCursillos extends Model
+{
 
     protected $tabla = "solicitudes_recibidas_cursillos";
     protected $fillable = []; //Campos a usar
@@ -13,46 +12,10 @@ class SolicitudesRecibidasCursillos extends Model {
 
     /*****************************************************************************************************************
      *
-     * Relacion many to one: solicitud_id --> solicitudes_recibidas
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function solicitudes_recibidas()
-    {
-        return $this->belongsTo('Palencia\Entities\SolicitudesRecibidas', 'solicitud_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: comunidad_id --> comunidades
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function comunidades()
-    {
-        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
-    }
-
-    /*****************************************************************************************************************
-     *
-     * Relacion many to one: cursillo_id --> cursillos
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     *****************************************************************************************************************/
-    public function cursillos()
-    {
-        return $this->belongsTo('Palencia\Entities\Cursillos', 'cursillo_id');
-    }
-
-    /*****************************************************************************************************************
-     *
      * Función que devuelve una lista de los cursillos de una comunidad y solicitud determinadas
      *
      *****************************************************************************************************************/
-    static public function getCursillosSolicitud($comunidadId=0, $solicitudId=0)
+    static public function getCursillosSolicitud($comunidadId = 0, $solicitudId = 0)
     {
         return SolicitudesRecibidasCursillos::Select('cursillos.*', 'comunidades.comunidad',
             'tipos_participantes.tipo_participante')
@@ -104,6 +67,7 @@ class SolicitudesRecibidasCursillos extends Model {
             ->Lists('Anyos', 'Anyos');
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
+
     static public function getSemanasSolicitudesRecibidasCursillos($anyo = 0)
     {
         return SolicitudesRecibidasCursillos::Select((DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas')))
@@ -129,6 +93,7 @@ class SolicitudesRecibidasCursillos extends Model {
             ->orderBy('semanas', 'ASC')
             ->get();
     }
+
     /*****************************************************************************************************************
      *
      * Función que devuelve los datos para el listado "Secretariado"
@@ -148,5 +113,41 @@ class SolicitudesRecibidasCursillos extends Model {
             ->orderBy('cursillos.cursillo')
             ->get();
 
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: solicitud_id --> solicitudes_recibidas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function solicitudes_recibidas()
+    {
+        return $this->belongsTo('Palencia\Entities\SolicitudesRecibidas', 'solicitud_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: comunidad_id --> comunidades
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function comunidades()
+    {
+        return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
+    }
+
+    /*****************************************************************************************************************
+     *
+     * Relacion many to one: cursillo_id --> cursillos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     *****************************************************************************************************************/
+    public function cursillos()
+    {
+        return $this->belongsTo('Palencia\Entities\Cursillos', 'cursillo_id');
     }
 }

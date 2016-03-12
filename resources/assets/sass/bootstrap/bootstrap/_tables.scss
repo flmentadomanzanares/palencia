@@ -42,11 +42,11 @@ th {
         background-color: $app-color-base;
         padding: $table-cell-padding;
         height: $tabla-invitados-alto-fila;
-        line-height:$tabla-invitados-alto-fila - (2 * $table-cell-padding);
+        line-height: $tabla-invitados-alto-fila - (2 * $table-cell-padding);
         vertical-align: middle;
       }
     }
-}
+  }
 
   // Account for multiple tbody instances
   > tbody + tbody {
@@ -209,7 +209,6 @@ table col[class*="col-"] {
     }
   }
 }
-
 
 .table-border-out {
   border: 1px solid $app-color-base;

@@ -19,15 +19,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        if (!auth()->check())
-            return View("/");
-        if (\Auth::user()->roles->peso < config('opciones.roles.administrador')) {
-            $titulo = "Mi perfil";
-            $users = User::getUser($request);
-        } else {
-            $titulo = "Usuarios";
-            $users = User::getUsers($request);
-        }
+        $titulo = (\Auth::user()->roles->peso < config('opciones.roles.administrador')) ? "Mi perfil" : "Usuarios";
+        $users = User::getUsers($request);
         $roles = Roles::getRolesList();
         return view("usuarios.index", compact('users', 'titulo', 'roles'));
     }
@@ -62,17 +55,18 @@ class UsersController extends Controller
         if ($user == null) {
             return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
         }
-        $user->fullname = \Request::input('fullname');
-        $user->name = \Request::input('name');
-        $user->password = strlen(\Request::input('password')) > 0 ? \Hash::make(\Request::input('password')) : $user->password;
+        $user->fullname = $request->get('fullname');
+        $user->name = $request->get('name');
+        $user->password = strlen($request->get('password')) > 0 ? \Hash::make($request->get('password')) : $user->password;
         if (\Auth::check()) {
             if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
-                $user->rol_id = \Request::input('rol_id');
-                $user->activo = \Request::input('activo');
+                $user->rol_id = $request->get('rol_id');
+                $user->activo = $request->get('activo');
             }
         }
+
         //imagen upload
-        if (\Request::hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $image = \Image::make(\Request::file('foto'));
             $filename = md5($image->filename . date("Y-m-d H:i:s")) . '.png';
             $path = 'uploads' . '/' . 'usuarios' . '/';
@@ -94,10 +88,10 @@ class UsersController extends Controller
         }
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
             return redirect()->route('usuarios.index')
-                ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado.');
+                ->with('mensaje', 'El Perfil ' . $user->name . ' ha sido modificado correctamente.');
         } else {
             return redirect()->route('inicio')
-                ->with('mensaje', 'El Perfil de usuario ha sido modificado.');
+                ->with('mensaje', 'El Perfil de usuario ' . $user->name . ' ha sido modificado correctamente.');
         }
     }
 
@@ -113,24 +107,28 @@ class UsersController extends Controller
         if ($user == null) {
             return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
         }
-        $userNombre = $user->name;
+
         try {
-            $user->delete();
+            if ($user->roles->peso >= config('opciones.roles.administrador') && (User::getNumberUserWithRol(config('opciones.roles.administrador'))) > 1) {
+                $user->delete();
+            } else {
+                return redirect()->route('usuarios.index')
+                    ->with('mensaje', 'No se puede eliminar al usuario ' . $user->name . ' es el último administrador activo.');
+            }
+
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('usuarios.index')
-                        ->with('mensaje', 'El usuario ' . $userNombre . ' no se puede eliminar al tener registros asociados.');
+                        ->with('mensaje', 'El usuario ' . $user->name . ' no se puede eliminar al tener registros asociados.');
                     break;
                 default:
                     return redirect()
                         ->route('usuarios.index')->with('mensaje', 'Eliminar usuario error ' . $e->getCode());
             }
-
         }
-
         return redirect()->route('usuarios.index')
-            ->with('mensaje', 'El usuario ' . $userNombre . ' eliminado correctamente.');
+            ->with('mensaje', 'El usuario ' . $user->name . ' se ha eliminado correctamente.');
     }
 
     public function perfil()

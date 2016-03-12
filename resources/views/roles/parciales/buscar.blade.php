@@ -1,5 +1,5 @@
-<div class="panel-viaoptima-search">
-   <a title="inicio" href="{{route('inicio')}}" class="pull-left">
+<div class="panel-search">
+    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
         <i class="glyphicon glyphicon-home">
             <div>Inicio</div>
         </i>

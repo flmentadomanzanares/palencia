@@ -23,25 +23,26 @@ return ['campoUser' => [
     ],
     'accion' => [
         'copiaSeguridad' => true,
-        'cerrarAnyo' => false,
-        'comprobarCursos' => false,
+        'cerrarAnyo' => true,
+        'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
-        'mostrarModalDeBorrado' => true,
+        'mostrarModalDeBorrado' => false,
+        'cartaCumplimentadaIndividualNuestrasRespuestas' => true,
     ],
     'envios' => [
         'timeout' => 30,
         'seMaxtTimeAt' => 30,
         'comunidadesMax' => 0, //0=todos
     ],
-    'documento' => [
+    'tipo' => [
         'carta' => 'carta',
         'email' => 'email',
     ],
     "emailTestSender" => [
         "active" => true,
-        "email" => 'antonio_sga@yahoo.es',
+        "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 
 ];

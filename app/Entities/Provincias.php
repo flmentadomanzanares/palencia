@@ -4,11 +4,56 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 
-class Provincias extends Model {
+class Provincias extends Model
+{
 
-    protected $tabla="provincias";
-    protected $fillable=['provincia']; //Campos a usar
-    protected $guarded =['id']; //Campos no se usan
+    protected $tabla = "provincias";
+    protected $fillable = ['provincia']; //Campos a usar
+    protected $guarded = ['id']; //Campos no se usan
+
+    public static function getProvinciaDesdeLocalidad($provinciaId = 0)
+    {
+        if (is_numeric($provinciaId) && $provinciaId > 0) {
+            return Provincias::Select('id', 'provincia')
+                ->where('id', $provinciaId)
+                ->Lists('provincia', 'id');
+        }
+        return array();
+    }
+
+    public static function getPaisDesdeProvincia($provinciaId = 0)
+    {
+        if (is_numeric($provinciaId) && $provinciaId > 0) {
+            return Provincias::Select('paises.id', 'paises.pais')
+                ->Where('provincias.id', $provinciaId)
+                ->leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')
+                ->Lists('paises.pais', 'paises.id');
+        }
+        return array();
+    }
+
+    public static function getProvinciasList()
+    {
+        return ['0' => 'Provincia...'] + Provincias::Select('id', 'provincia')
+            ->where('activo', true)
+            ->orderBy('provincia', 'ASC')
+            ->Lists('provincia', 'id');
+    }
+
+    public static function getProvinciaToList($id)
+    {
+        return Provincias::where('id', $id)->
+        lists('provincia', 'id');
+    }
+
+    public static function getProvincias(Request $request)
+    {
+
+        return Provincias::pais($request->get('pais'))
+            ->provincia($request->get('provincia'))
+            ->orderBy('provincia', 'ASC')->paginate()
+            ->setPath('provincias');
+    }
 
     /**
      * @param $query
@@ -23,50 +68,30 @@ class Provincias extends Model {
                 $query->where('pais_id', '>', $pais);
         }
     }
-    public static function getProvinciaDesdeLocalidad($provinciaId=0){
-        if (is_numeric($provinciaId)&& $provinciaId>0){
-            return Provincias::Select('id','provincia')
-                ->where('id',$provinciaId)
-                ->Lists('provincia','id');
-        }
-        return array();
-    }
-    public static function getPaisDesdeProvincia($provinciaId = 0){
-        if (is_numeric($provinciaId) && $provinciaId > 0){
-            return Provincias::Select('paises.id','paises.pais')
-                ->Where('provincias.id',$provinciaId)
-                ->leftJoin('paises','paises.id','=','provincias.pais_id')
-                ->Lists('paises.pais','paises.id');
-        }
-        return array();
-    }
-    public static function getProvinciasList()
-    {
-        return ['0' => 'Provincia...'] + Provincias::Select('id', 'provincia')
-            ->where('activo', true)
-            ->orderBy('provincia', 'ASC')
-            ->Lists('provincia', 'id');
-    }
+
     /**
      * @param $query
      * @param $provincia
      */
-    public function scopeProvincia($query,$provincia){
-        if (trim($provincia)!='')
-            $query->where('provincia','LIKE',"$provincia".'%');
+    public function scopeProvincia($query, $provincia)
+    {
+        if (trim($provincia) != '')
+            $query->where('provincia', 'LIKE', "$provincia" . '%');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function localidades(){
+    public function localidades()
+    {
         return $this->hasMany("Palencia\Entities\Localidades");
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comunidades(){
+    public function comunidades()
+    {
         return $this->hasMany("Palencia\Entities\Comunidades");
     }
 
@@ -76,19 +101,5 @@ class Provincias extends Model {
     public function paises()
     {
         return $this->belongsTo('Palencia\Entities\Paises', 'pais_id');
-    }
-
-    public static function getProvinciaToList($id)
-    {
-        return Provincias::where('id',$id)->
-        lists('provincia','id');
-    }
-
-    public static function getProvincias(Request $request){
-
-        return Provincias::pais($request->get('pais'))
-            ->provincia($request->get('provincia'))
-            ->orderBy('provincia', 'ASC')->paginate()
-            ->setPath('provincias');
     }
 }

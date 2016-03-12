@@ -2,7 +2,6 @@
 // Badges
 // --------------------------------------------------
 
-
 // Base class
 .badge {
   display: inline-block;
@@ -41,7 +40,7 @@
   .list-group-item.active > &,
   .nav-pills > .active > a > & {
     color: $badge-active-color;
-    background-color:$badge-active-bg;
+    background-color: $badge-active-bg;
   }
 
   .list-group-item > & {
