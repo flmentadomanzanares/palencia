@@ -263,6 +263,9 @@ body {
   margin-right: $margin-app-small;
   margin-bottom: $margin-app-small;
   border: 1px solid $app-color-base;
+  :hover {
+
+  }
 }
 
 //BADGE
@@ -626,21 +629,6 @@ input[type=file]:hover {
 //Ponemos todos los títulos a una zona visible
 h1.text-center {
   margin-top: 120px;
-}
-
-//Find
-.fixed-right {
-  position: absolute;
-  left: 0;
-  margin-left: -44px;
-  background-color: $app-color-base;
-  color: $app-color-white;
-  padding: 3px 3px 4px 3px;
-  border-radius: 8px 0 0 8px;
-  z-index: 900;
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 //CALENDARIO

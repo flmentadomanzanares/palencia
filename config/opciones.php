@@ -29,7 +29,7 @@ return ['campoUser' => [
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
-        'mostrarModalDeBorrado' => true,
+        'mostrarModalDeBorrado' => false,
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
 
     ],

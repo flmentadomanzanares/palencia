@@ -6606,7 +6606,6 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    -o-user-select: none;
     user-select: none
 }
 
@@ -7067,21 +7066,6 @@ input[type=file]:hover {
 
 h1.text-center {
     margin-top: 120px
-}
-
-.fixed-right {
-    position: absolute;
-    left: 0;
-    margin-left: -44px;
-    background-color: #400090;
-    color: #fff;
-    padding: 3px 3px 4px 3px;
-    border-radius: 8px 0 0 8px;
-    z-index: 900
-}
-
-.fixed-right:hover {
-    cursor: pointer
 }
 
 .calendar-container {

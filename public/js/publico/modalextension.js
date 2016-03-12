@@ -19,7 +19,7 @@
             var selectorPulsado = this;
             selectorPulsado.selector = $(selector);
             selectorPulsado.opciones = $.extend({}, $.fn.simplemodal.defaults, opciones);
-            if (selectorPulsado.opciones.hideDropDown === true) {
+            if (selectorPulsado.opciones.ocultarMenu === true) {
                 if ($("li.dropdown").hasClass("open")) {
                     $("li.dropdown").removeClass("open");
                 }
@@ -37,7 +37,30 @@
             var cancelText = selectorPulsado.selector.data("cancelText") || "CANCELAR";
             var footer = selectorPulsado.selector.data("footer") || "false";
             var confirm = selectorPulsado.selector.data("type") || "confirm";
-            selectorPulsado.modal.css('top', selectorPulsado.opciones.top + 'px');
+
+            //Aplicamos estilos
+            selectorPulsado.modal.css('top', selectorPulsado.opciones.alto + 'px');
+            selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.anchoMaximo + 'px');
+            selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.enLaDerecha ? '100%' : 0);
+            selectorPulsado.selector.css('position', 'absolute');
+            selectorPulsado.selector.css('text-align', 'center');
+            selectorPulsado.selector.css('z-index', '900');
+            selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
+            //Estilos variables
+            selectorPulsado.selector.css('min-width', selectorPulsado.opciones.anchoEtiqueta + 'px');
+            selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'left' : 'right', 0);
+            selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.selector.css('width'));
+            selectorPulsado.selector.css('background-color', selectorPulsado.opciones.colorFondoEtiqueta);
+            selectorPulsado.selector.css('color', selectorPulsado.opciones.colorTextoEtiqueta);
+            selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.enLaDerecha ? '8px 0 0 8px' : '0 8px 8px 0');
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.colorFondoEtiqueta);
+
+            $(selectorPulsado.selector).mouseenter(function () {
+                $(this).css("cursor", "pointer");
+            }).mouseleave(function () {
+                $(this).css("cursor", "default");
+            });
+
             if (descripcion.length > 0) {
                 selectorPulsado.modal.find(".cuerpoFormularioModal .scroll")
                     .empty()
@@ -54,9 +77,9 @@
                 }
                 selectorPulsado.modal.find(".ventanaModal > .footerFormularioModal > div:last-child").html(confirmText);
             }
-            //Reajustamos la posicion
+            //Reajustamos la posición
             window.onresize = $.proxy(selectorPulsado.resize, selectorPulsado);
-            $(selector).on("click", $.proxy(selectorPulsado.show, selectorPulsado));
+            $(selectorPulsado.selector).on("click", $.proxy(selectorPulsado.show, selectorPulsado));
             $(selectorPulsado.modal).find('.closeFormModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.ventanaModal .footerFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
@@ -70,7 +93,7 @@
             }
             ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.vFade, function () {
                     var animacion = ventana.modal.find(".ventanaModal");
-                    var side = $(ventana).hasClass('modal-right') ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": '-' + animacion.css("width")};
+                var side = (ventana.opciones.enLaDerecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": '-' + animacion.css("width")};
                     animacion.animate(side, ventana.opciones.vScroll, function () {
                         ventana.modal.find('.lanzarModal').addClass('closeModal');
                         ventana.modal.find('.lanzarModal').removeClass('lanzarModal');
@@ -143,13 +166,15 @@
      * Default opciones.
      */
     $.fn.simplemodal.defaults = {
-        top: 120,
-        side: 'right',
-        hideDropDown: true,
+        alto: 120,
+        anchoMaximo: 330,
+        enLaDerecha: true,
+        ocultarMenu: true,
         vFade: 800,
         vScroll: 600,
+        colorFondoEtiqueta: '#400090',
+        colorTextoEtiqueta: '#ffffff',
+        anchoEtiqueta: 60,
     };
 })(jQuery);
-$(document).ready(function () {
-    $(".lanzarModal").simplemodal({top: 350});
-});
+
