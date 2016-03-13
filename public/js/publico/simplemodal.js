@@ -38,9 +38,8 @@
             var confirm = selectorPulsado.selector.data("type") || "confirm";
 
             //Aplicamos estilos
-
             selectorPulsado.modal.css('top', selectorPulsado.opciones.ventanaPosicionY + 'px');
-            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : selectorPulsado.modal.css('z-index') + selectorPulsado.opciones.ventanaPlano);
+            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : parseInt(selectorPulsado.modal.css('z-index')) + selectorPulsado.opciones.ventanaPlano);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.ventanaAnchoMaximo + 'px');
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.enLaDerecha ? '100%' : 0);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiquetaColorFondo);
