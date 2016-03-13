@@ -4,7 +4,6 @@
     /**
      * Constructor.
      */
-
     var SimpleModal = function (selector, opciones) {
         this.init(selector, opciones);
     };
@@ -39,21 +38,27 @@
             var confirm = selectorPulsado.selector.data("type") || "confirm";
 
             //Aplicamos estilos
-            selectorPulsado.modal.css('top', selectorPulsado.opciones.alto + 'px');
-            selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.anchoMaximo + 'px');
+
+            selectorPulsado.modal.css('top', selectorPulsado.opciones.ventanaPosicionY + 'px');
+            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : selectorPulsado.modal.css('z-index') + selectorPulsado.opciones.ventanaPlano);
+            selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.ventanaAnchoMaximo + 'px');
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.enLaDerecha ? '100%' : 0);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiquetaColorFondo);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.ventanaCuerpoColorFondo);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.ventanaCuerpoColorTexto);
+            selectorPulsado.modal.find('.footerFormularioModal').css('background-color', selectorPulsado.opciones.ventanaPieColorFondo);
+            selectorPulsado.modal.find('.footerFormularioModal').css('color', selectorPulsado.opciones.ventanaPieColorTexto);
+            selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.enLaDerecha === true ? 0 : '-' + selectorPulsado.selector.css('width'));
             selectorPulsado.selector.css('position', 'absolute');
             selectorPulsado.selector.css('text-align', 'center');
-            selectorPulsado.selector.css('z-index', '900');
             selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
-            //Estilos variables
-            selectorPulsado.selector.css('min-width', selectorPulsado.opciones.anchoEtiqueta + 'px');
+            selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiquetaAncho + 'px');
             selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'left' : 'right', 0);
             selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.selector.css('width'));
-            selectorPulsado.selector.css('background-color', selectorPulsado.opciones.colorFondoEtiqueta);
-            selectorPulsado.selector.css('color', selectorPulsado.opciones.colorTextoEtiqueta);
+
+            selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiquetaColorFondo);
+            selectorPulsado.selector.css('color', selectorPulsado.opciones.etiquetaColorTexto);
             selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.enLaDerecha ? '8px 0 0 8px' : '0 8px 8px 0');
-            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.colorFondoEtiqueta);
 
             $(selectorPulsado.selector).mouseenter(function () {
                 $(this).css("cursor", "pointer");
@@ -93,7 +98,7 @@
             }
             ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.vFade, function () {
                     var animacion = ventana.modal.find(".ventanaModal");
-                var side = (ventana.opciones.enLaDerecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": '-' + animacion.css("width")};
+                var side = (ventana.opciones.enLaDerecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": animacion.css("width")};
                     animacion.animate(side, ventana.opciones.vScroll, function () {
                         ventana.modal.find('.lanzarModal').addClass('closeModal');
                         ventana.modal.find('.lanzarModal').removeClass('lanzarModal');
@@ -166,15 +171,22 @@
      * Default opciones.
      */
     $.fn.simplemodal.defaults = {
-        alto: 120,
-        anchoMaximo: 330,
         enLaDerecha: true,
         ocultarMenu: true,
         vFade: 800,
         vScroll: 600,
-        colorFondoEtiqueta: '#400090',
-        colorTextoEtiqueta: '#ffffff',
-        anchoEtiqueta: 60,
+        etiquetaColorFondo: 'rgba(120,00,200,.8)',
+        etiquetaColorTexto: '#ffffff',
+        etiquetaAncho: 60,
+        ventanaPlano: 0,
+        ventanaPosicionVertical: 120,
+        ventanaAnchoMaximo: 200,
+        ventanaCabeceraColorFondo: '#400090',
+        ventanaCabeceraColorTexto: '#ffffff',
+        ventanaCuerpoColorFondo: 'rgba(255,255,255,.8)',
+        ventanaCuerpoColorTexto: '#ffffff',
+        ventanaPieColorFondo: '#400090',
+        ventanaPieColorTexto: '#ffffff'
     };
 })(jQuery);
 

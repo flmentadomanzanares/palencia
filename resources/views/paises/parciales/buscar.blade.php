@@ -1,7 +1,7 @@
 <div id="buscar-paises" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
-        <div class="fixed-right lanzarModal" data-title="BUSCAR">
+        <div class="lanzarModal" data-title="BUSCAR">
             <span title="Buscar">
                 <i class="glyphicon glyphicon-search text-center">
                     <div>Buscar</div>
@@ -10,9 +10,9 @@
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">
-                {!!FORM::model(Request::only(['pais']),['route'=>'paises.index','method'=>'GET','class'=>'','role'=>'search']) !!}
+                {!!FORM::model(Request::only(['pais']),['route'=>'paises.index','method'=>'GET','role'=>'search']) !!}
                 {!! FORM::text('pais',null,['class'=>'form-control','placeholder'=>'Buscar país ...'])!!}
-                <br/>
+                <br>
                 <button type="submit" class="btn btn-primary btn-block"><span
                             class='glyphicon glyphicon-search'></span>
                 </button>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-<div id="opciones-paises" class="formularioModal">
+<div id="operaciones-paises" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
         <div class="lanzarModal" data-title="OPCIONES">

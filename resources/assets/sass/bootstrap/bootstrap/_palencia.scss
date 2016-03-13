@@ -157,17 +157,19 @@ textarea {
 //FOOTER
 //***************************************************
 footer {
-  display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   clear: both;
   text-align: center;
   background-color: $panel-footer-bg;
   font-size: $font-size-app-base-footer;
   color: $app-color-white;
   line-height: $footer-line-height;
-  min-height: $footer-height;
+  min-height: $footer-line-height;
   vertical-align: middle;
-  box-shadow: 0 4px -4px rgba(0, 0, 0, 0.3);
-
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  z-index: 10;
   span {
     padding-right: $padding-base-horizontal;
   }
@@ -432,7 +434,6 @@ input[type=file]:hover {
   top: 115px;
   left: 0;
   z-index: 5;
-
   .modalBackGround {
     display: none;
     position: fixed;
@@ -450,7 +451,6 @@ input[type=file]:hover {
     height: 60%;
     max-height: 60%;
     left: 100%;
-
     z-index: 10000;
     .headerFormularioModal {
       box-sizing: border-box;
@@ -629,6 +629,24 @@ input[type=file]:hover {
 //Ponemos todos los títulos a una zona visible
 h1.text-center {
   margin-top: 120px;
+}
+
+//PORTADA INVITADO
+.portada {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  > div {
+    display: table;
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-image: url("../img/portada/portada.jpg");
+  }
 }
 
 //CALENDARIO
