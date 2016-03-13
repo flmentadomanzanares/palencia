@@ -24,19 +24,30 @@ $(document).ready(function () {
         ventanaCuerpoColorFondo: 'green',
         ventanaCuerpoColorTexto: 'blue',
     });
-    $(".pull-right.lanzarModal").simplemodal({
+    $(".pull-right.lanzarModal").last().simplemodal({
+        sinEtiqueta: true,
+        ventanaPosicionY: 250,
+        ventanaAnchoMaximo: 350,
+        etiquetaAncho: 80,
+        enLaDerecha: false,
+        ventanaCabeceraColorFondo: 'gray',
+        ventanaCabeceraColorTexto: 'green',
+        ventanaCuerpoColorFondo: 'black',
+        ventanaCuerpoColorTexto: 'white',
+        ventanaPieColorFondo: 'green',
+        ventanaPieColorTexto: 'blue',
+    });
+    $(".pull-right.lanzarModal").first().simplemodal({
         sinEtiqueta: true,
         ventanaPosicionY: 250,
         ventanaAnchoMaximo: 350,
         etiquetaAncho: 80,
         enLaDerecha: true,
-        etiquetaColorFondo: 'yellow',
-        etiquetaColorTexto: 'black',
         ventanaCabeceraColorFondo: 'gray',
         ventanaCabeceraColorTexto: 'green',
-        ventanaCuerpoColorFondo: 'black',
+        ventanaCuerpoColorFondo: 'rgba(0,0,0,.4)',
         ventanaCuerpoColorTexto: 'white',
-        ventanaCuerpoColorFondo: 'green',
-        ventanaCuerpoColorTexto: 'blue',
+        ventanaPieColorFondo: 'rgba(0,128,0,.4)',
+        ventanaPieColorTexto: 'yellow',
     });
 });
