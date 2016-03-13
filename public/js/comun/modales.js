@@ -14,7 +14,7 @@ $(document).ready(function () {
         ventanaPosicionY: 165,
         ventanaAnchoMaximo: 100,
         etiquetaAncho: 80,
-        enLaDerecha: true,
+        enLaDerecha: false,
         etiquetaColorFondo: 'yellow',
         etiquetaColorTexto: 'black',
         ventanaCabeceraColorFondo: 'gray',
@@ -24,9 +24,10 @@ $(document).ready(function () {
         ventanaCuerpoColorFondo: 'green',
         ventanaCuerpoColorTexto: 'blue',
     });
-    $(".lanzarModal+.formularioModal").simplemodal({
-        ventanaPosicionY: 165,
-        ventanaAnchoMaximo: 100,
+    $(".pull-right.lanzarModal").simplemodal({
+        sinEtiqueta: true,
+        ventanaPosicionY: 250,
+        ventanaAnchoMaximo: 350,
         etiquetaAncho: 80,
         enLaDerecha: true,
         etiquetaColorFondo: 'yellow',

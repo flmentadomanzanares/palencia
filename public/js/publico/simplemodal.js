@@ -29,6 +29,7 @@
                 selectorPulsado.modal = selectorPulsado.selector.closest(".formularioModal");
             else {
                 selectorPulsado.modal = selectorPulsado.selector.next(".formularioModal");
+
             }
             selectorPulsado.modal.find(".headerFormularioModal > span").empty().html(selectorPulsado.selector.data("title"));
             var descripcion = selectorPulsado.selector.data("descripcion") || "";
@@ -47,23 +48,23 @@
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.ventanaCuerpoColorTexto);
             selectorPulsado.modal.find('.footerFormularioModal').css('background-color', selectorPulsado.opciones.ventanaPieColorFondo);
             selectorPulsado.modal.find('.footerFormularioModal').css('color', selectorPulsado.opciones.ventanaPieColorTexto);
-            selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.enLaDerecha === true ? 0 : '-' + selectorPulsado.selector.css('width'));
-            selectorPulsado.selector.css('position', 'absolute');
-            selectorPulsado.selector.css('text-align', 'center');
-            selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
-            selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiquetaAncho + 'px');
-            selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'left' : 'right', 0);
-            selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.selector.css('width'));
-
-            selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiquetaColorFondo);
-            selectorPulsado.selector.css('color', selectorPulsado.opciones.etiquetaColorTexto);
-            selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.enLaDerecha ? '8px 0 0 8px' : '0 8px 8px 0');
-
-            $(selectorPulsado.selector).mouseenter(function () {
-                $(this).css("cursor", "pointer");
-            }).mouseleave(function () {
-                $(this).css("cursor", "default");
-            });
+            selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.enLaDerecha === true ? 0 : '-' + (selectorPulsado.opciones.sinEtiqueta ? selectorPulsado.modal.find('.ventanaModal').css('max-width') : selectorPulsado.selector.css('width')));
+            if (selectorPulsado.opciones.sinEtiqueta === false) {
+                selectorPulsado.selector.css('position', 'absolute');
+                selectorPulsado.selector.css('text-align', 'center');
+                selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
+                selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiquetaAncho + 'px');
+                selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'left' : 'right', 0);
+                selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.selector.css('width'));
+                selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiquetaColorFondo);
+                selectorPulsado.selector.css('color', selectorPulsado.opciones.etiquetaColorTexto);
+                selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.enLaDerecha ? '8px 0 0 8px' : '0 8px 8px 0');
+                $(selectorPulsado.selector).mouseenter(function () {
+                    $(this).css("cursor", "pointer");
+                }).mouseleave(function () {
+                    $(this).css("cursor", "default");
+                });
+            }
 
             if (descripcion.length > 0) {
                 selectorPulsado.modal.find(".cuerpoFormularioModal .scroll")
@@ -170,6 +171,7 @@
      * Default opciones.
      */
     $.fn.simplemodal.defaults = {
+        sinEtiqueta: false,
         enLaDerecha: true,
         ocultarMenu: true,
         vFade: 800,
