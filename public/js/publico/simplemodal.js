@@ -2,6 +2,28 @@
     'use strict';
 
     /**
+     * Default opciones.
+     */
+    var defaults_options_simple_modal = {
+        ocultar_navbar_desplegados: true,
+        etiqueta_color_fondo: 'rgba(120,00,200,.8)',
+        etiqueta_color_texto: '#ffffff',
+        etiqueta_ancho: 70,
+        modal_sin_etiqueta: false,
+        modal_en_la_derecha: true,
+        modal_velocidad_fade: 800,
+        modal_velocidad_scroll: 600,
+        modal_plano_z: 0,
+        modal_posicion_vertical: 120,
+        modal_ancho: 200,
+        modal_cabecera_color_fondo: '#400090',
+        modal_cabecera_color_texto: '#ffffff',
+        modal_cuerpo_color_fondo: 'rgba(255,255,255,.8)',
+        modal_cuerpo_color_texto: '#ffffff',
+        modal_pie_color_fondo: '#400090',
+        modal_pie_color_texto: '#ffffff'
+    };
+    /**
      * Constructor.
      */
     var SimpleModal = function (selector, opciones) {
@@ -18,7 +40,7 @@
             var selectorPulsado = this;
             selectorPulsado.selector = $(selector);
             selectorPulsado.opciones = $.extend({}, $.fn.simplemodal.defaults, opciones);
-            if (selectorPulsado.opciones.ocultarMenu === true) {
+            if (selectorPulsado.opciones.ocultar_navbar_desplegados === true) {
                 if ($("li.dropdown").hasClass("open")) {
                     $("li.dropdown").removeClass("open");
                 }
@@ -35,59 +57,63 @@
             var descripcion = selectorPulsado.selector.data("descripcion") || "";
             var confirmText = selectorPulsado.selector.data("confirmText") || "BORRAR";
             var cancelText = selectorPulsado.selector.data("cancelText") || "CANCELAR";
-            var footer = selectorPulsado.selector.data("footer") || "false";
+            var pieFormularioModal = selectorPulsado.selector.data("pie") || "false";
             var confirm = selectorPulsado.selector.data("type") || "confirm";
+            var etiquetaWidth = selectorPulsado.selector.css('width');
+            var modalWidth = selectorPulsado.modal.css('width');
+
 
             //Aplicamos estilos
-            selectorPulsado.modal.css('top', selectorPulsado.opciones.ventanaPosicionY + 'px');
-            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : parseInt(selectorPulsado.modal.css('z-index')) + selectorPulsado.opciones.ventanaPlano);
-            selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.ventanaAnchoMaximo + 'px');
-            selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.enLaDerecha ? '100%' : 0);
-            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiquetaColorFondo);
-            selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.ventanaCuerpoColorFondo);
-            selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.ventanaCuerpoColorTexto);
-            selectorPulsado.modal.find('.footerFormularioModal').css('background-color', selectorPulsado.opciones.ventanaPieColorFondo);
-            selectorPulsado.modal.find('.footerFormularioModal').css('color', selectorPulsado.opciones.ventanaPieColorTexto);
-            selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.enLaDerecha === true ? 0 : '-' + (selectorPulsado.opciones.sinEtiqueta ? selectorPulsado.modal.find('.ventanaModal').css('max-width') : selectorPulsado.selector.css('width')));
-            if (selectorPulsado.opciones.sinEtiqueta === false) {
+            selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + 'px');
+            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : parseInt(selectorPulsado.modal.css('z-index')) + selectorPulsado.opciones.modal_plano_z);
+            selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
+            selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.modal_en_la_derecha ? '100%' : 0);
+            selectorPulsado.modal.find('.cabeceraFormularioModal').css('background-color', selectorPulsado.opciones.modal_cabecera_color_fondo);
+            selectorPulsado.modal.find('.cabeceraFormularioModal').css('color', selectorPulsado.opciones.modal_cabecera_color_texto);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiqueta_color_fondo);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.modal_cuerpo_color_fondo);
+            selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.modal_cuerpo_color_texto);
+            selectorPulsado.modal.find('.pieFormularioModal').css('background-color', selectorPulsado.opciones.modal_pie_color_fondo);
+            selectorPulsado.modal.find('.pieFormularioModal').css('color', selectorPulsado.opciones.modal_pie_color_texto);
+            selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.modal_en_la_derecha === true ? 0 : '-' + selectorPulsado.opciones.modal_ancho + 'px');
+            if (selectorPulsado.opciones.modal_sin_etiqueta === false) {
                 selectorPulsado.selector.css('position', 'absolute');
                 selectorPulsado.selector.css('text-align', 'center');
                 selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
-                selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiquetaAncho + 'px');
-                selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'left' : 'right', 0);
-                selectorPulsado.selector.css(selectorPulsado.opciones.enLaDerecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.selector.css('width'));
-                selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiquetaColorFondo);
-                selectorPulsado.selector.css('color', selectorPulsado.opciones.etiquetaColorTexto);
-                selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.enLaDerecha ? '8px 0 0 8px' : '0 8px 8px 0');
+                selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiqueta_ancho + 'px');
+                selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'left' : 'right', 0);
+                selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.opciones.etiqueta_ancho + 'px');
+                selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiqueta_color_fondo);
+                selectorPulsado.selector.css('color', selectorPulsado.opciones.etiqueta_color_texto);
+                selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.modal_en_la_derecha ? '8px 0 0 8px' : '0 8px 8px 0');
                 $(selectorPulsado.selector).mouseenter(function () {
                     $(this).css("cursor", "pointer");
                 }).mouseleave(function () {
                     $(this).css("cursor", "default");
                 });
             }
-
             if (descripcion.length > 0) {
                 selectorPulsado.modal.find(".cuerpoFormularioModal .scroll")
                     .empty()
                     .append("<div class='text-center'>" + (selectorPulsado.selector.data('descripcion')) + "</div>")
             }
-            if (footer.toString().toLowerCase() !== "true") {
-                selectorPulsado.modal.find(".ventanaModal > .footerFormularioModal").remove();
+            if (pieFormularioModal.toString().toLowerCase() !== "true") {
+                selectorPulsado.modal.find(".ventanaModal > .pieFormularioModal").remove();
             }
             else {
                 if (confirm.toString().toLowerCase() !== "confirm") {
-                    selectorPulsado.modal.find(".ventanaModal > .footerFormularioModal > div:first-child:not('.actionOkClick')").remove();
+                    selectorPulsado.modal.find(".ventanaModal > .pieFormularioModal > div:first-child:not('.actionOkClick')").remove();
                 } else {
-                    selectorPulsado.modal.find(".ventanaModal > .footerFormularioModal > div:first-child").html(cancelText);
+                    selectorPulsado.modal.find(".ventanaModal > .pieFormularioModal > div:first-child").html(cancelText);
                 }
-                selectorPulsado.modal.find(".ventanaModal > .footerFormularioModal > div:last-child").html(confirmText);
+                selectorPulsado.modal.find(".ventanaModal > .pieFormularioModal > div:last-child").html(confirmText);
             }
             //Reajustamos la posición
             window.onresize = $.proxy(selectorPulsado.resize, selectorPulsado);
             $(selectorPulsado.selector).on("click", $.proxy(selectorPulsado.show, selectorPulsado));
             $(selectorPulsado.modal).find('.closeFormModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
-            $(selectorPulsado.modal).find('.ventanaModal .footerFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
+            $(selectorPulsado.modal).find('.ventanaModal .pieFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
         },
         show: function (evt) {
             evt.preventDefault();
@@ -96,10 +122,10 @@
                 this.hide();
                 return;
             }
-            ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.vFade, function () {
+            ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.modal_velocidad_fade, function () {
                     var animacion = ventana.modal.find(".ventanaModal");
-                var side = (ventana.opciones.enLaDerecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": animacion.css("width")};
-                    animacion.animate(side, ventana.opciones.vScroll, function () {
+                var side = (ventana.opciones.modal_en_la_derecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": animacion.css("width")};
+                animacion.animate(side, ventana.opciones.modal_velocidad_scroll, function () {
                         ventana.modal.find('.lanzarModal').addClass('closeModal');
                         ventana.modal.find('.lanzarModal').removeClass('lanzarModal');
                     });
@@ -112,8 +138,8 @@
             var ventana = this;
             var animacion = ventana.modal.find(".ventanaModal");
             animacion.animate({"margin-left": "0"},
-                ventana.opciones.vScroll, function () {
-                    ventana.modal.find(".modalBackGround").fadeOut(ventana.opciones.vFade, function () {
+                ventana.opciones.modal_velocidad_scroll, function () {
+                    ventana.modal.find(".modalBackGround").fadeOut(ventana.opciones.modal_velocidad_fade, function () {
                         ventana.modal.find('.closeModal').addClass('lanzarModal');
                         ventana.modal.find('.closeModal').removeClass('closeModal');
                     });
@@ -146,7 +172,7 @@
 
     /**
      * Plugin definition.
-     * How to use: $('#id').simplecolorpicker()
+     * How to use: $('#id').simplemodal()
      */
     $.fn.simplemodal = function (option) {
         var args = $.makeArray(arguments);
@@ -162,32 +188,24 @@
             }
             if (typeof option === 'string') {
                 data[option].apply(data, args);
-                console.log(data[option]);
             }
         });
     };
-
-    /**
-     * Default opciones.
-     */
-    $.fn.simplemodal.defaults = {
-        sinEtiqueta: false,
-        enLaDerecha: true,
-        ocultarMenu: true,
-        vFade: 800,
-        vScroll: 600,
-        etiquetaColorFondo: 'rgba(120,00,200,.8)',
-        etiquetaColorTexto: '#ffffff',
-        etiquetaAncho: 60,
-        ventanaPlano: 0,
-        ventanaPosicionVertical: 120,
-        ventanaAnchoMaximo: 200,
-        ventanaCabeceraColorFondo: '#400090',
-        ventanaCabeceraColorTexto: '#ffffff',
-        ventanaCuerpoColorFondo: 'rgba(255,255,255,.8)',
-        ventanaCuerpoColorTexto: '#ffffff',
-        ventanaPieColorFondo: '#400090',
-        ventanaPieColorTexto: '#ffffff'
-    };
+//Obtenemos las modales vía clase + data
+    $(".simpleModal").each(function (idx, elem) {
+        var elemento = elem;
+        var opciones = $(elem).data();
+        $.each(opciones, function (i, e) {
+            defaults_options_simple_modal[i] = e;
+        });
+        var $this = elem,
+            data = $(elem).data('simpleModal'),
+            opciones;
+        $($this).data('simpleModal', (data = new SimpleModal(elem, defaults_options_simple_modal)));
+    });
+    $.fn.simplemodal.defaults = defaults_options_simple_modal;
 })(jQuery);
+$(document).ready(function () {
+
+});
 

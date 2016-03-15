@@ -433,7 +433,7 @@ input[type=file]:hover {
   width: 100%;
   top: 115px;
   left: 0;
-  z-index: 5;
+  z-index: 3;
   .modalBackGround {
     display: none;
     position: fixed;
@@ -452,7 +452,7 @@ input[type=file]:hover {
     max-height: 60%;
     left: 100%;
     z-index: 10000;
-    .headerFormularioModal {
+    .cabeceraFormularioModal {
       box-sizing: border-box;
       display: block;
       width: 100%;
@@ -476,7 +476,7 @@ input[type=file]:hover {
         border: 1px solid $app-color-base;
       }
     }
-    .footerFormularioModal {
+    .pieFormularioModal {
       box-sizing: border-box;
       display: inline-block;
       width: 100%;

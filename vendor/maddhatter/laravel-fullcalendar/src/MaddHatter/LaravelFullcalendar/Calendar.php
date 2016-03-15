@@ -72,7 +72,7 @@ class Calendar
      */
     public static function event($comunidad, $title, $isAllDay, $start, $end, $colorFondo = "#000", $colorTexto = "#fff", $id = null)
     {
-        return new SimpleEvent($comunidad, $title, $isAllDay, $start, $end, $colorFondo, $colorTexto);
+        return new SimpleEvent($comunidad, $title, $isAllDay, $start, $end, $colorFondo, $colorTexto, $id);
     }
 
     /**

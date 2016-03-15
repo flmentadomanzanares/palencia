@@ -22,6 +22,7 @@ class Cursillos extends Model
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->FiltroComunidadCursillosTipo($request->get('esPropia'))
+            ->FiltroNombreComunidad($request->get('comunidad'))
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -420,5 +421,11 @@ class Cursillos extends Model
     {
         if (trim($cursillo) != '')
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
+    }
+
+    public function scopeFiltroNombreComunidad($query, $comunidad = "")
+    {
+        if (trim($comunidad) != '')
+            $query->where('comunidades.comunidad', 'LIKE', "$comunidad" . '%');
     }
 }
