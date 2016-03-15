@@ -5,7 +5,7 @@
              data-etiqueta_color_fondo="rgba(76, 158, 217,.8)"
              data-etiqueta_color_texto="rgba(255,255,255,1)"
              data-modal_posicion_vertical="115"
-             data-modal_plano_z="1"
+             data-modal_plano_z="2"
              data-etiqueta_ancho="80">
             <span title="Buscar">
                 <i class="glyphicon glyphicon-search text-center">
@@ -34,8 +34,8 @@
              data-etiqueta_color_fondo="rgba(76, 158, 217,.8)"
              data-etiqueta_color_texto="rgba(255,255,255,1)"
              data-modal_posicion_vertical="165"
-             data-modal_ancho="98"
-        >
+             data-modal_plano_z="1"
+             data-modal_ancho="98">
             <span title="Operaciones a realizar" class="text-center">
                 <i class="glyphicon glyphicon-briefcase text-center">
                     <div>Operaci&oacuten</div>

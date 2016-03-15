@@ -65,7 +65,7 @@
 
             //Aplicamos estilos
             selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + 'px');
-            selectorPulsado.modal.css('z-index', isNaN(selectorPulsado.modal.css('z-index')) ? 0 : parseInt(selectorPulsado.modal.css('z-index')) + selectorPulsado.opciones.modal_plano_z);
+            selectorPulsado.modal.css('z-index', selectorPulsado.opciones.modal_plano_z);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.modal_en_la_derecha ? '100%' : 0);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('background-color', selectorPulsado.opciones.modal_cabecera_color_fondo);
