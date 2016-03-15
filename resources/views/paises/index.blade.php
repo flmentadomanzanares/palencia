@@ -47,7 +47,8 @@
                                                         data-modal_cuerpo_color_texto='"#ffffff'
                                                         data-modal_pie_color_fondo='#400090'
                                                         data-modal_pie_color_texto='"#ffffff'
-                                                        data-title="BORRAR"
+                                                        data-titulo="BORRAR"
+                                                        data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar este país?
                                                     <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
                                                         data-footer="true"
