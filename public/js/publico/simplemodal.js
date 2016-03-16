@@ -64,7 +64,7 @@
 
 
             //Aplicamos estilos
-            selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + 'px');
+            selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + (opciones.modal_posicion_vertical.toString().indexOf("%") != -1 ? '' : 'px'));
             selectorPulsado.modal.css('z-index', selectorPulsado.opciones.modal_plano_z);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.modal_en_la_derecha ? '100%' : 0);

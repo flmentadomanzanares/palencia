@@ -38,7 +38,6 @@
                                                 <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                                         @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                         class="pull-right lanzarModal simpleModal"
-                                                        data-modal_en_la_derecha="false"
                                                         data-modal_sin_etiqueta="true"
                                                         data-modal_ancho="330"
                                                         data-modal_cabecera_color_fondo='rgba(255,0,0,.8)'
@@ -47,6 +46,7 @@
                                                         data-modal_cuerpo_color_texto='"#ffffff'
                                                         data-modal_pie_color_fondo='#400090'
                                                         data-modal_pie_color_texto='"#ffffff'
+                                                        data-modal_posicion_vertical="220"
                                                         data-titulo="BORRAR"
                                                         data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar este país?
