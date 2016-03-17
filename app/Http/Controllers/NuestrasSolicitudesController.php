@@ -149,7 +149,6 @@ class NuestrasSolicitudesController extends Controller
                     $pdf->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado documento adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                 } catch (\Exception $e) {
-                    dd($e->getMessage());
                     $logEnvios[] = ["Error al crear el documento adjunto para la comunidad" . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
                 }
                 $esCarta = false;

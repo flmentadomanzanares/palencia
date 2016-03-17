@@ -38,7 +38,7 @@
              data-modal_ancho="98">
             <span title="Operaciones a realizar" class="text-center">
                 <i class="glyphicon glyphicon-briefcase text-center">
-                    <div>Operaci&oacuten</div>
+                    <div>Acci&oacuten</div>
                 </i>
             </span>
         </div>

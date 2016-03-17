@@ -6634,6 +6634,10 @@ body {
     background-size: 30px 32px
 }
 
+.btn-normal-width {
+    min-width: 100px
+}
+
 .btn-register {
     font-size: 14px;
     font-family: Arial, sans-serif;

@@ -9,8 +9,8 @@
             <div class="scroll"></div>
         </div>
         <div class="pieFormularioModal">
-            <div class="btn btn-success pull-left"></div>
-            <div class="btn btn-danger pull-right actionOkClick"></div>
+            <div class="btn btn-default btn-normal-width pull-left"></div>
+            <div class="btn btn-danger btn-normal-width pull-right actionOkClick"></div>
         </div>
     </div>
 </div>

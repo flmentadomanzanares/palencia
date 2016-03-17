@@ -20,7 +20,6 @@
         modal_cabecera_color_texto: '#ffffff',
         modal_cuerpo_color_fondo: 'rgba(255,255,255,.8)',
         modal_cuerpo_color_texto: '#ffffff',
-        modal_pie_color_fondo: '#400090',
         modal_pie_color_texto: '#ffffff'
     };
     /**
@@ -53,7 +52,8 @@
                 selectorPulsado.modal = selectorPulsado.selector.next(".formularioModal");
 
             }
-            selectorPulsado.modal.find(".headerFormularioModal > span").empty().html(selectorPulsado.selector.data("title"));
+            var cabecera = selectorPulsado.modal.find(".cabeceraFormularioModal > span");
+            cabecera.empty().html(selectorPulsado.selector.data("titulo"));
             var descripcion = selectorPulsado.selector.data("descripcion") || "";
             var confirmText = selectorPulsado.selector.data("confirmText") || "BORRAR";
             var cancelText = selectorPulsado.selector.data("cancelText") || "CANCELAR";
@@ -70,10 +70,12 @@
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.modal_en_la_derecha ? '100%' : 0);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('background-color', selectorPulsado.opciones.modal_cabecera_color_fondo);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('color', selectorPulsado.opciones.modal_cabecera_color_texto);
+            if (cabecera.length == 0)
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiqueta_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.modal_cuerpo_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.modal_cuerpo_color_texto);
-            selectorPulsado.modal.find('.pieFormularioModal').css('background-color', selectorPulsado.opciones.modal_pie_color_fondo);
+            var pieColorFondo = (selectorPulsado.selector.data("opciones.modal_pie_color_fondo") !== undefined) ? selectorPulsado.selector.data("opciones.modal_pie_color_fondo") : selectorPulsado.opciones.modal_cuerpo_color_fondo;
+            selectorPulsado.modal.find('.pieFormularioModal').css('background-color', pieColorFondo);
             selectorPulsado.modal.find('.pieFormularioModal').css('color', selectorPulsado.opciones.modal_pie_color_texto);
             selectorPulsado.modal.css('margin-left', selectorPulsado.opciones.modal_en_la_derecha === true ? 0 : '-' + selectorPulsado.opciones.modal_ancho + 'px');
             if (selectorPulsado.opciones.modal_sin_etiqueta === false) {

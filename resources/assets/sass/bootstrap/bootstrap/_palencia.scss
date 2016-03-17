@@ -224,6 +224,11 @@ body {
 
 //BOTONES
 //****************************************************
+
+.btn-normal-width {
+  min-width: $btn-normal-width;
+}
+
 // Botón de registros
 .btn-register {
   font-size: $font-size-app-base-register;
