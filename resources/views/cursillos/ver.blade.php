@@ -8,8 +8,9 @@
         <table class="table-viaoptima table-striped">
             <thead>
             <tr @if(!$cursillo->activo) class="background-disabled"
-                @else style="background-color:{{$cursillo->color}};" @endif>
-                <th colspan="2" class="text-center">
+                @else style="background-color:{{$cursillo->colorFondo}};" @endif>
+                <th colspan="2" class="text-center"
+                    @if($cursillo->activo) style="color:{{$cursillo->colorTexto}}" @endif>
                     {!! $cursillo->cursillo !!}
                 </th>
             </tr>
