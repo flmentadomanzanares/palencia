@@ -670,6 +670,9 @@ h1.text-center {
 }
 
 //MENSAJES DE ERROR Y WARNING DE LA PLANTILLA
+.alert-dismissible {
+  margin-top: 120px;
+}
 .errorOnBackGround {
   display: block;
   width: 100%;
