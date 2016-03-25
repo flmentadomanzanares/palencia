@@ -135,22 +135,26 @@
 </div>
 
 @if(Session::has('mensaje'))
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
-                    aria-hidden="true">&times;</span></button>
-        <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
+    <div class="alert-dismissible">
+        <div class="errorOnBackGround"></div>
+        <div class="alert alert-info errorOn" role="alert">
+            <div class="closeErrorModal pull-right">X</div>
+            <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
+        </div>
     </div>
 @endif
 @if($errors->has())
-    <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-        <strong>Errores</strong>
-        <ol>
-            @foreach ($errors->all('<p>:message</p>') as $message)
-                <li>{!! $message !!}</li>
-            @endforeach
-        </ol>
+    <div id="errores" class="alert-dismissible">
+        <div class="errorOnBackGround"></div>
+        <div class="alert alert-danger errorOn" role="alert">
+            <div class="closeErrorModal pull-right">X</div>
+            <strong>Errores</strong>
+            <ol>
+                @foreach ($errors->all('<p>:message</p>') as $message)
+                    <li>{!! $message !!}</li>
+                @endforeach
+            </ol>
+        </div>
     </div>
 @endif
 @yield ('titulo')

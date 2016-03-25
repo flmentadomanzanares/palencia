@@ -76,10 +76,10 @@
                             </div>
                         </div>
                     @endif
-                    <div class="row paginationBlock">
-                        {!! $paises->appends(Request::only(['pais']))->render()
-                        !!}{{-- Poner el paginador --}}
-                    </div>
+
+                    {!! $paises->appends(Request::only(['pais']))->render()
+                    !!}{{-- Poner el paginador --}}
+
                     @else
                         @include('comun.guestGoHome')
                     @endif

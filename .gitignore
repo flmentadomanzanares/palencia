@@ -5,7 +5,7 @@
 /vendor/nikic
 /vendor/laravelcollective
 /vendor/autoload.php
-/vendor/laravel
+!/vendor/laravel
 /vendor/phpdocumentor
 /vendor/intervention
 /vendor/swiftmailer

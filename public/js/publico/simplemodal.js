@@ -1,6 +1,5 @@
 (function ($) {
     'use strict';
-
     /**
      * Default opciones.
      */
@@ -81,7 +80,7 @@
             if (selectorPulsado.opciones.modal_sin_etiqueta === false) {
                 selectorPulsado.selector.css('position', 'absolute');
                 selectorPulsado.selector.css('text-align', 'center');
-                selectorPulsado.selector.css('padding', '3px 3px 4px 3px');
+                selectorPulsado.selector.css('padding', '5px 3px');
                 selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiqueta_ancho + 'px');
                 selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'left' : 'right', 0);
                 selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.opciones.etiqueta_ancho + 'px');
@@ -90,8 +89,10 @@
                 selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.modal_en_la_derecha ? '8px 0 0 8px' : '0 8px 8px 0');
                 $(selectorPulsado.selector).mouseenter(function () {
                     $(this).css("cursor", "pointer");
+                    $(this).find("i").css("transform", "scale(1.04");
                 }).mouseleave(function () {
                     $(this).css("cursor", "default");
+                    $(this).find("i").css("transform", "scale(1.0");
                 });
             }
             if (descripcion.length > 0) {
@@ -208,6 +209,13 @@
     $.fn.simplemodal.defaults = defaults_options_simple_modal;
 })(jQuery);
 $(document).ready(function () {
-
+    $(document).on("click", ".closeErrorModal", function (evt) {
+        evt.preventDefault();
+        var elementContent = $(evt.target).closest(".alert-dismissible");
+        var element = elementContent.find(".errorOn");
+        var desplazamiento = parseInt($(".errorOn").css("margin-top")) - parseInt($(".errorOn").outerHeight() + 1) + "px";
+        element.animate({'margin-top': desplazamiento}, 1000, function () {
+            elementContent.find(".errorOnBackGround").fadeOut(1000);
+        });
+    });
 });
-

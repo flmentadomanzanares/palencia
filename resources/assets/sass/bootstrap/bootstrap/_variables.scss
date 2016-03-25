@@ -197,7 +197,6 @@ $btn-min-width: 60px !default;
 $btn-normal-width: 100px !default;
 $btn-max-width: 150px !default;
 
-
 $btn-default-color: #333 !default;
 $btn-default-bg: #fff !default;
 $btn-default-border: #ccc !default;
@@ -376,7 +375,6 @@ $screen-md-max: ($screen-lg-min - 1) !default;
 
 //Vía óptima cálculo tamaño de la tabla página invitados
 $tabla-invitados-ancho: 900px !default;
-
 $tabla-invitados-alto-fila: 46px !default;
 $tabla-invitados-columna-1: 230px !default;
 $tabla-invitados-columna-2: 208px !default;
@@ -531,7 +529,7 @@ $nav-pills-active-link-hover-color: $component-active-color !default;
 
 $pagination-color: $app-color-base !default;
 $pagination-bg: $app-color-white !default;
-$pagination-border: $app-color-base !default;
+$pagination-border: $app-color-warning !default;
 
 $pagination-hover-color: $app-color-white !default;
 $pagination-hover-bg: $app-color-hover !default;
@@ -548,16 +546,20 @@ $pagination-disabled-border: $app-color-base !default;
 //== Pager
 //
 //##
-
+$pager-width: 40px !default;
+$pager-active-bg: rgba(228, 168, 36, .8) !default;
+$pager-color: $pager-active-bg !default;
+$pager-line-height: 1.8 !default;
+$pager-height: $pager-width !default;
+$pager-padding: 5px !default;
+$pager-margin: 0 0 8px 0 !default;
 $pager-bg: $pagination-bg !default;
 $pager-border: $pagination-border !default;
-$pager-border-radius: 15px !default;
-
+$pager-border-radius: 50% !default;
 $pager-hover-bg: $pagination-hover-bg !default;
+$pager-hover-color: $pagination-hover-color !default;
 
-$pager-active-bg: $pagination-active-bg !default;
 $pager-active-color: $pagination-active-color !default;
-
 $pager-disabled-color: $pagination-disabled-color !default;
 
 //== Jumbotron
