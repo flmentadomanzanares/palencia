@@ -1,7 +1,7 @@
 <div id="registro" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
-        <div class="headerFormularioModal">
+        <div class="cabeceraFormularioModal">
             <span></span>
 
             <div title="Cerrar" class="closeFormModal">X</div>

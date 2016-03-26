@@ -119,12 +119,28 @@
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             @if(config("opciones.seguridad.recordarPassword"))
                                 <br/>
-                                <span class="btn btn-default btn-block lanzarModal" data-title="RECORDAR"
-                                      data-selector-Id="recordar">Recordar password</span>
+                                <span class="btn btn-default btn-block lanzarModal simpleModal" data-title="RECORDAR"
+                                      data-selector-Id="recordar"
+                                      data-modal_sin_etiqueta="true"
+                                      data-modal_ancho="330"
+                                      data-modal_cabecera_color_fondo='rgba(255,125,0,.9)'
+                                      data-modal_cabecera_color_texto='#ffffff'
+                                      data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
+                                      data-modal_cuerpo_color_texto='"#ffffff'
+                                      data-modal_posicion_vertical="115"
+                                      data-titulo="PASSWORD">Recordar password</span>
                             @endif
                             <br/>
-                            <span class="btn btn-default btn-block lanzarModal" data-title="REGISTRO"
-                                  data-selector-Id="registro">Registrarse</span>
+                            <span class="btn btn-default btn-block lanzarModal simpleModal" data-title="REGISTRO"
+                                  data-selector-Id="registro"
+                                  data-modal_sin_etiqueta="true"
+                                  data-modal_ancho="330"
+                                  data-modal_cabecera_color_fondo='rgba(255,125,0,.9)'
+                                  data-modal_cabecera_color_texto='#ffffff'
+                                  data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
+                                  data-modal_cuerpo_color_texto='"#ffffff'
+                                  data-modal_posicion_vertical="115"
+                                  data-titulo="REGISTRO">Registrarse</span>
                             {!! FORM::close() !!}
                         </div>
                     </li>
