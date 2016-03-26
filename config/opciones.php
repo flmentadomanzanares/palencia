@@ -19,16 +19,16 @@ return ['campoUser' => [
     ],
     'seguridad' => [
         'Email' => true,
-        'recordarPassword' => false,
+        'recordarPassword' => true,
         'captcha' => false,
     ],
     'accion' => [
         'copiaSeguridad' => false,
         'cerrarAnyo' => true,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
-        'roles' => false,
-        'tiposParticipantes' => false,
-        'tipoComunicacionesPreferidas' => false,
+        'roles' => true,
+        'tiposParticipantes' => true,
+        'tipoComunicacionesPreferidas' => true,
         'mostrarModalDeBorrado' => true,
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
 

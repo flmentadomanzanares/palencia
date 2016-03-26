@@ -43,12 +43,7 @@
             </span>
         </div>
         <div class="cuerpoFormularioModal">
-            <div class="panel-search" style="padding:5px 5px 5px 7px;">
-                <a title="inicio" href="{{route('inicio')}}">
-                    <i class="glyphicon glyphicon-home">
-                        <div>Inicio</div>
-                    </i>
-                </a>
+            <div class="panel-search">
                 <a title="nuevo" href="{{route('paises.create')}}">
                     <i class="glyphicon glyphicon-plus">
                         <div>Nuevo</div>
