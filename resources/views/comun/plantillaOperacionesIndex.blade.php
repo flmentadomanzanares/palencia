@@ -18,7 +18,7 @@
             <div class="panel-search">
                 <a title="nuevo" href="{{route($tabla.'.create')}}">
                     <i class="glyphicon glyphicon-plus">
-                        <div>Nuevo</div>
+                        <div>{{$accion}}</div>
                     </i>
                 </a>
                 <a title="Listar" href="{{route($tabla.'.index')}}">
