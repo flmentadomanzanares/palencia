@@ -7,7 +7,8 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('paises.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'paises.parciales.buscar'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'paises'])
             </div>
             @if(!$paises->isEmpty())
                 <div class="full-Width">
@@ -76,10 +77,7 @@
                             </div>
                         </div>
                     @endif
-
-                    {!! $paises->appends(Request::only(['pais']))->render()
-                    !!}{{-- Poner el paginador --}}
-
+                    {!! $paises->appends(Request::only(['pais']))->render()!!}
                     @else
                         @include('comun.guestGoHome')
                     @endif

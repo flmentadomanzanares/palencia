@@ -8,7 +8,7 @@
         <div class="row table-size-optima">
             {!! FORM::open(['route' => 'paises.store']) !!}
             @include('paises.parciales.nuevoYmodificar')
-            @include('comun.volverModificarGuardar',['index'=>"paises.index",'accion'=>"Crear"])
+            @include('comun.plantillaVolverModificarGuardar',['index'=>"paises.index",'accion'=>"Crear"])
             {!! FORM::close() !!}
         </div>
     </div>

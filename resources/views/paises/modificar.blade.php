@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($pais, ['route' => ['paises.update', $pais->id], 'method' => 'patch']) !!}
         @include('paises.parciales.nuevoYmodificar')
-        @include('comun.volverModificarGuardar',['index'=>"paises.index",'accion'=>"Guardar"])
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"paises.index",'accion'=>"Guardar"])
         {!! FORM::close() !!}
     </div>
 @endsection
