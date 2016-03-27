@@ -8,7 +8,7 @@
     <div class="hidden">
         @if (Auth::check())
             @if (!empty($calendar))
-                @include('auth.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'auth.parciales.buscar'])
                 <div class="calendar-container">
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}

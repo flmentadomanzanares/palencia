@@ -73,7 +73,7 @@
             @endif
             </tbody>
         </table>
-        @include('comun.volverModificarGuardar',['index'=>"inicio",'accion'=>""])
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"inicio",'accion'=>""])
     </div>
 @endsection
 @section("css")
