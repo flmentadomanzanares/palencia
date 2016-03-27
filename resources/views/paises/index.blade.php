@@ -8,7 +8,7 @@
         @if (Auth::check())
             <div class="row ">
                 @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'paises.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'paises'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'paises','accion'=>'Nuevo'])
             </div>
             @if(!$paises->isEmpty())
                 <div class="full-Width">
