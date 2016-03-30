@@ -16,7 +16,7 @@
         </div>
         <div class="cuerpoFormularioModal">
             <div class="panel-search">
-                <a title="nuevo" href="{{route($tabla.'.create')}}">
+                <a title="{{$accion}}" href="{{route($tabla.'.create')}}">
                     <i class="glyphicon glyphicon-plus">
                         <div>{{$accion}}</div>
                     </i>

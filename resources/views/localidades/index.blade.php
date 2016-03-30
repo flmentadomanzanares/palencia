@@ -7,7 +7,8 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('localidades.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'localidades.parciales.buscar'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'localidades','accion'=>'Nueva'])
                 @if(!$localidades->isEmpty())
                     @foreach ($localidades as $localidad)
                         <div class="full-Width">

@@ -23,7 +23,7 @@
                         </i>
                     </a>
                     @if(strlen($accion)>0)
-                        <button type="submit" title="Guardar">
+                        <button type="submit" title="{{$accion}}">
                             <i class='glyphicon glyphicon-floppy-disk full-Width'>
                                 <div>{!! $accion !!}</div>
                             </i>

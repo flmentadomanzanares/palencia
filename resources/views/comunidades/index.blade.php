@@ -7,7 +7,8 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('comunidades.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'comunidades.parciales.buscar'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'comunidades','accion'=>'Nueva'])
             </div>
             @if(!$comunidades->isEmpty())
                 @foreach ($comunidades as $comunidad)
