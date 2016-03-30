@@ -110,16 +110,38 @@ class CursillosController extends Controller
     {
         //Título de la vista.
         $titulo = "Detalles del cursillo";
+        $esInicio = false;
+        $cursillo = Cursillos::getCursillo($id);
+        if (count($cursillo) == 0) {
+            return redirect()->
+            route('cursillos')->
+            with('mensaje', 'El cursillo no está dado de alta.');
+        }
+        return view('cursillos.ver',
+            compact(
+                'cursillo',
+                'titulo',
+                "esInicio"
+            ));
+    }
+
+    public function verCursilloInicio($id)
+    {
+        //Título de la vista.
+        $titulo = "Detalles del cursillo";
+        $esInicio = true;
         $cursillo = Cursillos::getCursillo($id);
         if (count($cursillo) == 0) {
             return redirect()->
             route('inicio')->
             with('mensaje', 'El cursillo no está dado de alta.');
         }
+
         return view('cursillos.ver',
             compact(
                 'cursillo',
-                'titulo'
+                'titulo',
+                "esInicio"
             ));
     }
 

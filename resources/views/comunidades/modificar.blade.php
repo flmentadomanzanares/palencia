@@ -7,18 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($comunidad, ['route' => ['comunidades.update', $comunidad->id], 'method' => 'patch']) !!}
         @include('comunidades.parciales.nuevoYmodificar')
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('comunidades.index')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-            <button type="submit" title="Guardar" class="pull-right">
-                <i class='glyphicon glyphicon-floppy-disk full-Width'>
-                    <div>Guardar</div>
-                </i>
-            </button>
-        </div>
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Crear"])
         {!! FORM::close() !!}
     </div>
 @endsection

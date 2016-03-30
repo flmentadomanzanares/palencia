@@ -19,7 +19,7 @@ Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 Route::resource('usuarios', 'UsersController');
-Route::get('cursillos/{id}', ['before' => 'csrf', 'uses' => 'CursillosController@show']);
+Route::get('curso/{id}', ['before' => 'csrf', 'uses' => 'CursillosController@verCursilloInicio']);
 Route::get('miPerfil', array('as' => 'miPerfil', 'before' => 'csrf', 'uses' => 'UsersController@perfil'));
 Route::get('register/verify/{codigoConfirmacion}', ['before' => 'csrf', 'uses' => 'InvitadoController@confirmar']);
 

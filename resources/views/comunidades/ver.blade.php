@@ -98,13 +98,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{URL::previous()}}" class="pull-right">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-        </div>
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index"])
     </div>
 @endsection
 @section("css")

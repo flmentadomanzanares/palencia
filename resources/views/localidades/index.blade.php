@@ -32,11 +32,20 @@
                                         $localidad->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
                                         <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                                 @if(config('opciones.accion.mostrarModalDeBorrado'))
-                                                class="pull-right lanzarModal"
-                                                data-title="BORRADO"
+                                                class="pull-right lanzarModal simpleModal"
+                                                data-modal_sin_etiqueta="true"
+                                                data-modal_ancho="330"
+                                                data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
+                                                data-modal_cabecera_color_texto='#ffffff'
+                                                data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
+                                                data-modal_cuerpo_color_texto='"#ffffff'
+                                                data-modal_pie_color_fondo='#400090'
+                                                data-modal_pie_color_texto='"#ffffff'
+                                                data-modal_posicion_vertical="220"
+                                                data-titulo="BORRAR"
                                                 data-descripcion="¿Seguro que deseas eliminar esta localidad?
                                                 <h3><strong class='green'>{{$localidad->localidad}}</strong></h3>"
-                                                data-footer="true"
+                                                data-pie="true"
                                                 @endif >
                                             <i class='glyphicon glyphicon-trash full-Width'>
                                                 <div>Borrar</div>

@@ -74,7 +74,7 @@ class AutenticadoController extends Controller
                     'header' => array('left' => 'next , prev', 'center' => 'title', 'right' => 'prev , next')
                 ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                     'eventClick' => 'function(calEvent, jsEvent, view) {
-                    $(this).attr("href","cursillos/"+calEvent.id);
+                    $(this).attr("href","curso/"+calEvent.id);
                 }'
                 ]);
         }

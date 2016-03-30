@@ -7,7 +7,8 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                @include('cursillos.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'cursillos.parciales.buscar'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'cursillos','accion'=>'Nuevo'])
             </div>
             @if(!$cursillos->isEmpty())
                 @foreach ($cursillos as $cursillo)
@@ -37,12 +38,21 @@
                                     $cursillo->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
                                     <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                             @if(config('opciones.accion.mostrarModalDeBorrado'))
-                                            class="pull-right lanzarModal"
-                                            data-title="BORRADO"
+                                            class="pull-right lanzarModal simpleModal"
+                                            data-modal_sin_etiqueta="true"
+                                            data-modal_ancho="330"
+                                            data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
+                                            data-modal_cabecera_color_texto='#ffffff'
+                                            data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
+                                            data-modal_cuerpo_color_texto='"#ffffff'
+                                            data-modal_pie_color_fondo='#400090'
+                                            data-modal_pie_color_texto='"#ffffff'
+                                            data-modal_posicion_vertical="220"
+                                            data-titulo="BORRAR"
+                                            data-pie="true"
                                             data-descripcion="¿Seguro que deseas eliminar este cursillo?
                                             <h3><strong class='green'>{{$cursillo->comunidad}}</strong></h3>
                                             <h3><strong class='green'>Nº{{$cursillo->num_cursillo}}</strong></h3>"
-                                            data-footer="true"
                                             @endif >
                                         <i class='glyphicon glyphicon-trash full-Width'>
                                             <div>Borrar</div>
