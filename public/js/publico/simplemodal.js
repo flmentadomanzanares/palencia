@@ -18,7 +18,7 @@
         modal_cabecera_color_fondo: '#400090',
         modal_cabecera_color_texto: '#ffffff',
         modal_cuerpo_color_fondo: 'rgba(255,255,255,.8)',
-        modal_cuerpo_color_texto: '#ffffff',
+        modal_cuerpo_color_texto: 'rgba(0,0,0,1)',
         modal_pie_color_texto: '#ffffff'
     };
     /**
