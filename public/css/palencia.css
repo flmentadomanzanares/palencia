@@ -2939,7 +2939,7 @@ input[type="search"] {
 }
 
 .form-group {
-    margin-bottom: 15px
+    margin-bottom: 10px
 }
 
 .radio, .checkbox {
@@ -6485,7 +6485,7 @@ button.close {
 .table-viaoptima {
     display: table;
     min-width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding: 2px;
     border: 1px solid #400090;
     border-collapse: separate;
@@ -6634,7 +6634,7 @@ body {
     background-repeat: no-repeat;
     background-size: 200px 200px;
     background-color: rgba(255, 255, 255, 0.9);
-    z-index: 5000
+    z-index: 15000
 }
 
 .calendario {

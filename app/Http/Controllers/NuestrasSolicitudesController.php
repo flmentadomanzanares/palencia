@@ -41,11 +41,12 @@ class NuestrasSolicitudesController extends Controller
     public function comprobarSolicitudes(Request $request)
     {
         $tipoComunicacion = $request->get('modalidad');
+
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $tipoComunicacion);
         if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_solicitud) == 0)) {
+                if (strtolower($destinatario->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) && (strlen($destinatario->email_solicitud) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras solicitudes";
                 }
             }

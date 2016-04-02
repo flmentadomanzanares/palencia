@@ -46,7 +46,7 @@ class NuestrasRespuestasController extends Controller
         if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_envio) == 0)) {
+                if (strtolower($destinatario->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) && (strlen($destinatario->email_envio) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras respuestas";
                 }
             }

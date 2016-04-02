@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima altoMaximo">
         {!! FORM::model($comunidad, ['route' => ['comunidades.update', $comunidad->id], 'method' => 'patch']) !!}
         @include('comunidades.parciales.nuevoYmodificar')
-        @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Crear"])
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Guardar"])
         {!! FORM::close() !!}
     </div>
 @endsection
