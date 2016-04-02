@@ -30,7 +30,7 @@ class TiposComunicacionesPreferidasController extends Controller
      */
     public function create()
     {
-        $titulo = "Nuevo tipo de comunicacion_preferida";
+        $titulo = "Nuevo Tipo Comunicación Preferida";
         $tipoComunicacionPreferida = new TiposComunicacionesPreferidas();
         return view('tiposComunicacionesPreferidas.nuevo', compact('tipoComunicacionPreferida', 'titulo'));
     }
@@ -74,7 +74,7 @@ class TiposComunicacionesPreferidasController extends Controller
      */
     public function edit($id)
     {
-        $titulo = "Modificar tipo de comunicacion preferida";
+        $titulo = "Modificar Tipo Comunicación Preferida";
         $tipoComunicacionPreferida = TiposComunicacionesPreferidas::find($id);
         if ($tipoComunicacionPreferida == null) {
             return Redirect('tiposComunicacionesPreferidas')->with('mensaje', 'No se encuentra el tipo de comunicación preferida seleccionada.');
