@@ -8,7 +8,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
             @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesEnviadas.parciales.buscar'])
-            @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesEnviadas','accion'=>'Crear'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesEnviadas'])
             @if(!$solicitudesEnviadas->isEmpty())
                 @foreach ($solicitudesEnviadas as $solicitudEnviada)
                     <div>
