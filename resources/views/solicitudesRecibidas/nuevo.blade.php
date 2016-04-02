@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::open(['route' => 'solicitudesRecibidas.store']) !!}
         @include('solicitudesRecibidas.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesRecibidas.index",'accion'=>"Crear"])
@@ -14,5 +14,4 @@
 @section("css")
 @stop
 @section('js')
-
 @endsection

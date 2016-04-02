@@ -4,9 +4,8 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         @if (Auth::check())
-
             @if(!$solicitudesRecibidasCursillos->isEmpty())
                 @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesRecibidas.index"])
                 <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
@@ -53,11 +52,9 @@
                     </div>
                 </div>
             @endif
-
         @else
             @include('comun.guestGoHome')
         @endif
-    </div>
     </div>
 @endsection
 @section("css")
