@@ -4,9 +4,9 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         @if (Auth::check())
-
+            @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesEnviadas.index"])
             @if(!$solicitudesEnviadasCursillos->isEmpty())
                 <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
                     Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
@@ -45,13 +45,6 @@
                         </table>
                     </div>
                 @endforeach
-                <div class="panel-search">
-                    <a title="Volver" href="{{route('solicitudesEnviadas.index')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-arrow-left">
-                            <div>Volver</div>
-                        </i>
-                    </a>
-                </div>
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -62,7 +55,6 @@
         @else
             @include('comun.guestGoHome')
         @endif
-    </div>
     </div>
 @endsection
 @section("css")

@@ -4,12 +4,11 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
-            <div class="row ">
-                @include('solicitudesEnviadas.parciales.buscar')
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesEnviadas.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesEnviadas','accion'=>'Crear'])
             @if(!$solicitudesEnviadas->isEmpty())
                 @foreach ($solicitudesEnviadas as $solicitudEnviada)
                     <div>
@@ -28,11 +27,11 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
+                                    @if($solicitudEnviada->activo && $solicitudEnviada->aceptada)
                                     {!! FORM::open(array('route' => 'cursillosSolicitudEnviada','method' =>
                                     'POST','title'=>'Mostrar Cursillos')) !!}
                                     {!! FORM::hidden('comunidad_id', $solicitudEnviada->comunidad_id) !!}
                                     {!! FORM::hidden('solicitud_id', $solicitudEnviada->id) !!}
-                                    @if ($solicitudEnviada->aceptada==1)
                                         <button type="submit">
                                             <i class='glyphicon glyphicon-education full-Width'>
                                                 <div>Cursillos</div>
@@ -66,7 +65,6 @@
                                 <td>Activo:</td>
                                 <td> @if ($solicitudEnviada->activo ) Si @else No @endif </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -78,15 +76,11 @@
                     </div>
                 </div>
             @endif
-            <div class="row paginationBlock">
-                {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada']))->render()
-                !!}{{-- Poner el paginador --}}
-            </div>
+            {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif
     </div>
 @endsection
 @section('js')
-
 @endsection

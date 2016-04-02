@@ -105,12 +105,12 @@ class SolicitudesEnviadasController extends Controller
         if ($solicitudEnviada == null) {
             return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $comunidad = Comunidades::getNombreComunidad($solicitudEnviada->comunidad_id);
+        $comunidades = Comunidades::getComunidadToList($solicitudEnviada->comunidad_id);
         //Vista
         return view('solicitudesEnviadas.modificar',
             compact(
                 'solicitudEnviada',
-                'comunidad',
+                'comunidades',
                 'titulo'
             ));
     }
