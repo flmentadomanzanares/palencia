@@ -4,13 +4,11 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden">
-        <div class="row table-size-optima">
-            {!! FORM::open(['route' => 'paises.store']) !!}
-            @include('paises.parciales.nuevoYmodificar')
-            @include('comun.plantillaVolverModificarGuardar',['index'=>"paises.index",'accion'=>"Crear"])
-            {!! FORM::close() !!}
-        </div>
+    <div class="hidden table-size-optima">
+        {!! FORM::open(['route' => 'paises.store']) !!}
+        @include('paises.parciales.nuevoYmodificar')
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"paises.index",'accion'=>"Crear"])
+        {!! FORM::close() !!}
     </div>
 @endsection
 @section("css")

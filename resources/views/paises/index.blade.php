@@ -50,7 +50,6 @@
                                                         data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar este país?
                                                         <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
-                                                        data-footer="true"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>
                                                         <div>Borrar</div>
