@@ -6,8 +6,8 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         @if (Auth::check())
+            @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesEnviadas.index"])
             @if(!$solicitudesRecibidasCursillos->isEmpty())
-                @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesRecibidas.index"])
                 <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
                     Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
                 </div>
