@@ -1,3 +1,4 @@
+//Desarrollado por Francisco Luis Mentado Manzanares
 (function ($) {
     'use strict';
     /**
@@ -10,8 +11,8 @@
         etiqueta_ancho: 70,
         modal_sin_etiqueta: false,
         modal_en_la_derecha: true,
-        modal_velocidad_fade: 800,
-        modal_velocidad_scroll: 600,
+        modal_velocidad_fade: 400,
+        modal_velocidad_scroll: 500,
         modal_plano_z: 0,
         modal_posicion_vertical: 120,
         modal_ancho: 200,
