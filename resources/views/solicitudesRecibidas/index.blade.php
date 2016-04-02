@@ -4,11 +4,12 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
             <div class="row ">
-                @include('solicitudesRecibidas.parciales.buscar')
+                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesRecibidas.parciales.buscar'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesRecibidas'])
             </div>
             @if(!$solicitudesRecibidas->isEmpty())
                 @foreach ($solicitudesRecibidas as $solicitudRecibida)
@@ -28,11 +29,11 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
-                                    {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
-                                    'POST','title'=>'Mostrar Cursillos')) !!}
-                                    {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
-                                    {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
-                                    @if ($solicitudRecibida->aceptada==1)
+                                    @if($solicitudRecibida->activo && $solicitudRecibida->aceptada)
+                                        {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
+                                        'POST','title'=>'Mostrar Cursillos')) !!}
+                                        {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
+                                        {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
                                         <button type="submit">
                                             <i class='glyphicon glyphicon-education full-Width'>
                                                 <div>Cursillos</div>

@@ -8,6 +8,7 @@
         @if (Auth::check())
 
             @if(!$solicitudesRecibidasCursillos->isEmpty())
+                @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesRecibidas.index"])
                 <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
                     Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
                 </div>
@@ -45,13 +46,6 @@
                         </table>
                     </div>
                 @endforeach
-                <div class="panel-search">
-                    <a title="Volver" href="{{route('solicitudesRecibidas.index')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-arrow-left">
-                            <div>Volver</div>
-                        </i>
-                    </a>
-                </div>
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
