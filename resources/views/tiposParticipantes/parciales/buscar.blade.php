@@ -1,24 +1,10 @@
-<div class="panel-search">
-    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
-        <i class="glyphicon glyphicon-home">
-            <div>Inicio</div>
-        </i>
-    </a>
-    <a title="nuevo" href="{{route('tiposParticipantes.create')}}" class="pull-left">
-        <i class="glyphicon glyphicon-plus">
-            <div>Nuevo</div>
-        </i>
-    </a>
-    <a title="Listar" href="{{route('tiposParticipantes.index')}}" class="pull-left">
-        <i class="glyphicon glyphicon-list">
-            <div>Listar</div>
-        </i>
-    </a>
+{{-- Formulario de busqueda --}}
+{!!FORM::model(Request::only(['tipo_participante']),['route'=>'tiposParticipantes.index','method'=>'GET','role'=>'search']) !!}
+<div class="form-group">
+    {!! FORM::text('tipo_participante',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}
 </div>
-<div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['tipo_participante']),['route'=>'tiposParticipantes.index','method'=>'GET','class'=>'navbar-form
-    navbar-right','role'=>'search']) !!}
-    {!! FORM::text('tipo_participante',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
-    <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
-    {!! FORM::close() !!}
-</div>
+<br/>
+<button type="submit" class="btn btn-primary btn-block">
+    <span class='glyphicon glyphicon-search'></span>
+</button>
+{!! FORM::close() !!}
