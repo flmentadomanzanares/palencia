@@ -69,10 +69,7 @@
                     </div>
                 </div>
             @endif
-            <div class="row paginationBlock">
-                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()
-                !!}{{-- Poner el paginador --}}
-            </div>
+            {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif
