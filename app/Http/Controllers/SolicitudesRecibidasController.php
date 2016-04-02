@@ -94,13 +94,12 @@ class SolicitudesRecibidasController extends Controller
         if ($solicitudRecibida == null) {
             return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $comunidad = Comunidades::getNombreComunidad($solicitudRecibida->comunidad_id);
-
+        $comunidades = Comunidades::getComunidadToList($solicitudRecibida->comunidad_id);
         //Vista
         return view('solicitudesRecibidas.modificar',
             compact(
                 'solicitudRecibida',
-                'comunidad',
+                'comunidades',
                 'titulo'
             ));
     }

@@ -160,6 +160,15 @@ class Comunidades extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    public static function getComunidadToList($idComunidad = 0)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+            ->where('comunidades.activo', true)
+            ->where('comunidades.id', $idComunidad)
+            ->Lists('comunidades.comunidad', 'id');
+    }
+
+
     static public function imprimirSecretariadosPais($pais = 0)
     {
 
