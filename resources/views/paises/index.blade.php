@@ -4,12 +4,10 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         @if (Auth::check())
-            <div class="row ">
-                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'paises.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'paises','accion'=>'Nuevo'])
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'paises.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'paises','accion'=>'Nuevo'])
             @if(!$paises->isEmpty())
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
@@ -51,7 +49,7 @@
                                                         data-titulo="BORRAR"
                                                         data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar este país?
-                                                    <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
+                                                        <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
                                                         data-footer="true"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>
@@ -70,18 +68,18 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @else
-                        <div class="clearfix">
-                            <div class="alert alert-info" role="alert">
-                                <p><strong>¡Aviso!</strong> No se ha encontrado ningun pais que listar.</p>
-                            </div>
-                        </div>
-                    @endif
-                    {!! $paises->appends(Request::only(['pais']))->render()!!}
-                    @else
-                        @include('comun.guestGoHome')
-                    @endif
                 </div>
+            @else
+                <div class="clearfix">
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>¡Aviso!</strong> No se ha encontrado ning&uacute;n pa&iacute;s que listar.</p>
+                    </div>
+                </div>
+            @endif
+            {!! $paises->appends(Request::only(['pais']))->render()!!}
+        @else
+            @include('comun.guestGoHome')
+        @endif
     </div>
 @endsection
 @section('js')
