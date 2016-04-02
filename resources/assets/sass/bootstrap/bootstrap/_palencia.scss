@@ -243,6 +243,8 @@ body {
 }
 
 .btn-action {
+  text-align: center;
+  padding: $padding-base-vertical 0;
   a, button {
     @include btn-viaoptima-button-action();
     outline: none;
@@ -285,7 +287,8 @@ body {
   background-color: transparent;
   border: none;
   border-radius: 0;
-  padding: 5px 5px 5px 7px;
+  text-align: center;
+  padding: $padding-base-vertical 0;
   @include clearfix;
   a {
     @include btn-viaoptima-button-action(rgba(104, 196, 96, 0.2));

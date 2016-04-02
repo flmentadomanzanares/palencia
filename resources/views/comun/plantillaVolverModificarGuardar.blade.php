@@ -14,7 +14,7 @@
                 </i>
             </span>
         </div>
-        <div class="cuerpoFormularioModal text-center">
+        <div class="cuerpoFormularioModal">
             <div class="btn-action">
                 @if(isset($index))
                     <a title="Volver" href="{{route($index)}}">
