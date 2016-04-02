@@ -5,6 +5,7 @@
 <div class="form-group">
     {!! FORM::select('provincia',$provincias ,null,array('id'=>'select_provincia',"class"=>"form-control"))!!}
 </div>
+<br/>
 <button type="submit" class="btn btn-primary btn-block"><span class='glyphicon glyphicon-search'></span></button>
 {!! FORM::close() !!}
 

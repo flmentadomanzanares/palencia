@@ -6,10 +6,8 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         @if (Auth::check())
-            <div class="row ">
-                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'provincias.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'provincias','accion'=>'Nueva'])
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'provincias.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'provincias','accion'=>'Nueva'])
             @if(!$provincias->isEmpty())
                 <div class="full-Width">
                     @foreach ($provincias as $provincia)
@@ -52,7 +50,6 @@
                                                         data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar esta provincia?
                                                         <h3><strong class='green'>{{$provincia->provincia}}</strong></h3>"
-                                                        data-footer="true"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>
                                                         <div>Borrar</div>
@@ -71,6 +68,7 @@
                         </table>
                     @endforeach
                 </div>
+                {!! $provincias->appends(Request::only(['provincia']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -79,10 +77,6 @@
                     </div>
                 </div>
             @endif
-            <div class="row paginationBlock">
-                {!! $provincias->appends(Request::only(['provincia']))->render()!!}
-            </div>
-
         @else
             @include('comun.guestGoHome')
         @endif

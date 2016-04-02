@@ -12,5 +12,6 @@
 <div class="form-group">
     {!! FORM::text('cursillo',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}
 </div>
+<br/>
 <button type="submit" class="btn btn-success btn-block"><span class='glyphicon glyphicon-search'></span></button>
 {!! FORM::close() !!}

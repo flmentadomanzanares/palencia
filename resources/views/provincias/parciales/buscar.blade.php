@@ -6,6 +6,7 @@
 <div class="form-group">
     {!! FORM::text('provincia',null,['class'=>'form-control','placeholder'=>'Provincia....'])!!}
 </div>
+<br/>
 <button type="submit" class="btn btn-primary btn-block">
     <span class='glyphicon glyphicon-search'></span>
 </button>

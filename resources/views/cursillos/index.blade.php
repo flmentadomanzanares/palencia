@@ -4,36 +4,34 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         @if (Auth::check())
-            <div class="row ">
-                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'cursillos.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'cursillos','accion'=>'Nuevo'])
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'cursillos.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'cursillos','accion'=>'Nuevo'])
             @if(!$cursillos->isEmpty())
                 @foreach ($cursillos as $cursillo)
-                    <div>
-                        <table class="table-viaoptima table-striped">
-                            <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
-                                {!! $cursillo->cursillo !!}
-                            </caption>
-                            <thead>
-                            <tr @if(!$cursillo->activo) class="background-disabled"
-                                @else style="background-color:{{$cursillo->colorFondo}};" @endif>
-                                <th colspan="2" class="text-right">
-                                    <a title="Mostrar"
-                                       href="{{route('cursillos.show',$cursillo->id)}}">
-                                        <i class="glyphicon glyphicon-eye-open">
-                                            <div style>Detalles</div>
-                                        </i>
-                                    </a>
-                                    <a title="Editar"
-                                       href="{{route('cursillos.edit',$cursillo->id)}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
-                                    </a>
-                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
+                    <table class="table-viaoptima table-striped">
+                        <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
+                            {!! $cursillo->cursillo !!}
+                        </caption>
+                        <thead>
+                        <tr @if(!$cursillo->activo) class="background-disabled"
+                            @else style="background-color:{{$cursillo->colorFondo}};" @endif>
+                            <th colspan="2" class="text-right">
+                                <a title="Mostrar"
+                                   href="{{route('cursillos.show',$cursillo->id)}}">
+                                    <i class="glyphicon glyphicon-eye-open">
+                                        <div style>Detalles</div>
+                                    </i>
+                                </a>
+                                <a title="Editar"
+                                   href="{{route('cursillos.edit',$cursillo->id)}}">
+                                    <i class="glyphicon glyphicon-edit">
+                                        <div>Editar</div>
+                                    </i>
+                                </a>
+                                @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
+                                @if($cursillo->activo)
                                     {!! FORM::open(array('route' => array('cursillos.destroy',
                                     $cursillo->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
                                     <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
@@ -62,52 +60,53 @@
                                         @include ("comun.plantillaBorrado")
                                     @endif
                                     {!! FORM::close() !!}
-                                    @endif
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody @if(!$cursillo->activo) class="foreground-disabled" @endif>
+                                @endif
+                                @endif
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody @if(!$cursillo->activo) class="foreground-disabled" @endif>
+                        <tr>
+                            <td class="table-autenticado-columna-1">Comunidad:</td>
+                            <td>
+                                {!! $cursillo->comunidad !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Número:</td>
+                            <td>{!!$cursillo->num_cursillo!!}</td>
+                        </tr>
+                        <tr>
+                            <td>Año ISO-8601:</td>
+                            <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
+                        </tr>
+                        <tr>
+                            <td>Semana ISO-8601:</td>
+                            <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
+                        </tr>
+                        <tr>
+                            <td>Asistentes:</td>
+                            <td>{!!$cursillo->tipo_participante!!}</td>
+                        </tr>
+                        @if($cursillo->esPropia)
                             <tr>
-                                <td class="table-autenticado-columna-1">Comunidad:</td>
-                                <td>
-                                    {!! $cursillo->comunidad !!}
-                                </td>
+                                <td>Emitida Solicitud:</td>
+                                <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
                             </tr>
+                        @else
                             <tr>
-                                <td>Número:</td>
-                                <td>{!!$cursillo->num_cursillo!!}</td>
+                                <td>Emitida Respuesta:</td>
+                                <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
                             </tr>
-                            <tr>
-                                <td>Año ISO-8601:</td>
-                                <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Semana ISO-8601:</td>
-                                <td>{!! Date("W" , strtotime($cursillo->fecha_inicio) )!!}</td>
-                            </tr>
-                            <tr>
-                                <td>Asistentes:</td>
-                                <td>{!!$cursillo->tipo_participante!!}</td>
-                            </tr>
-                            @if($cursillo->esPropia)
-                                <tr>
-                                    <td>Emitida Solicitud:</td>
-                                    <td> @if ($cursillo->esSolicitud ) Si @else No @endif </td>
-                                </tr>
-                            @else
-                                <tr>
-                                    <td>Emitida Respuesta:</td>
-                                    <td> @if ($cursillo->esRespuesta ) Si @else No @endif </td>
-                                </tr>
-                            @endif
-                            <tr>
-                                <td>Activo:</td>
-                                <td> @if ($cursillo->activo ) Si @else No @endif </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        @endif
+                        <tr>
+                            <td>Activo:</td>
+                            <td> @if ($cursillo->activo ) Si @else No @endif </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 @endforeach
+                {!! $cursillos->appends(Request::only(['comunidad','cursillo','semanas','anyos']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -115,10 +114,6 @@
                     </div>
                 </div>
             @endif
-            <div class="row paginationBlock">
-                {!! $cursillos->appends(Request::only(['comunidad','cursillo','semanas','anyos']))->render()
-                !!}{{-- Poner el paginador --}}
-            </div>
         @else
             @include('comun.guestGoHome')
         @endif

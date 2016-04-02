@@ -68,6 +68,7 @@
                         </tbody>
                     </table>
                 </div>
+                {!! $paises->appends(Request::only(['pais']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -75,7 +76,6 @@
                     </div>
                 </div>
             @endif
-            {!! $paises->appends(Request::only(['pais']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif

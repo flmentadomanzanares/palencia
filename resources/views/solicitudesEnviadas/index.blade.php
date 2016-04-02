@@ -69,6 +69,7 @@
                         </table>
                     </div>
                 @endforeach
+                {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -76,7 +77,6 @@
                     </div>
                 </div>
             @endif
-            {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif

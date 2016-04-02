@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::model($provincia, ['route' => ['provincias.update', $provincia->id], 'method' => 'patch']) !!}
         @include('provincias.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>"provincias.index",'accion'=>"Guardar"])

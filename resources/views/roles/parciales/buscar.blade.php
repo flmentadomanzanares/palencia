@@ -3,6 +3,7 @@
 <div class="form-group">
     {!! FORM::text('rol',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}
 </div>
+<br/>
 <button type="submit" class="btn btn-primary btn-block">
     <span class='glyphicon glyphicon-search'></span>
 </button>

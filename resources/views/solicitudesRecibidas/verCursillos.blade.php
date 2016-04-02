@@ -48,7 +48,7 @@
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
-                        <p><strong>¡Aviso!</strong> No se ha encontrado ningun cursillo que listar.</p>
+                        <p><strong>¡Aviso!</strong> No se ha encontrado ning&uacute;n cursillo que listar.</p>
                     </div>
                 </div>
             @endif

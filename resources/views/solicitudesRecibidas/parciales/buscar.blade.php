@@ -7,6 +7,7 @@
     {!! FORM::select('aceptada', array(''=>'Solicitud Aceptada...','1'=>'Aceptada','0'=>'No Aceptada'),
     null,array("class"=>"form-control"))!!}
 </div>
+<br/>
 <button type="submit" class="btn btn-primary btn-block">
     <span class='glyphicon glyphicon-search'></span>
 </button>

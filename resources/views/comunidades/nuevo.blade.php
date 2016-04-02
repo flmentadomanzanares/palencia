@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::open(['route' => 'comunidades.store']) !!}
         @include('comunidades.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Guardar"])

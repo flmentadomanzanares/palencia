@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::open(['route' => 'cursillos.store']) !!}
         @include('cursillos.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Crear"])

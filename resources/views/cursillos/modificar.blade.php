@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::model($cursillo, ['route' => ['cursillos.update', $cursillo->id], 'method' => 'patch']) !!}
         @include('cursillos.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>"cursillos.index",'accion'=>"Guardar"])

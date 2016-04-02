@@ -7,10 +7,8 @@
     <div class="hidden table-size-optima">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
-            <div class="row ">
-                @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesRecibidas.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesRecibidas'])
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesRecibidas.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesRecibidas'])
             @if(!$solicitudesRecibidas->isEmpty())
                 @foreach ($solicitudesRecibidas as $solicitudRecibida)
                     <div>
@@ -62,6 +60,7 @@
                         </table>
                     </div>
                 @endforeach
+                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -69,7 +68,6 @@
                     </div>
                 </div>
             @endif
-            {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif
