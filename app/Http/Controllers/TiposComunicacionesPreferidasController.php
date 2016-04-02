@@ -17,7 +17,7 @@ class TiposComunicacionesPreferidasController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de tipos de comunicaciones preferidas";
+        $titulo = "Listado Ttipos Comunicaciones Preferidas";
         $tiposComunicacionesPreferidas =
             TiposComunicacionesPreferidas::getTiposComunicacionesPreferidas($request);
         return view("tiposComunicacionesPreferidas.index", compact('tiposComunicacionesPreferidas', 'titulo'));
