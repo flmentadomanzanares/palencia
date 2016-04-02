@@ -9,7 +9,7 @@
         @if (Auth::check())
             @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                 @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'usuarios.parciales.buscar'])
-                @include('comun.plantillaOperacionesIndex',['tabla'=>'usuarios','accion'=>'Nuevo'])
+                @include('comun.plantillaOperacionesIndex',['tabla'=>'usuarios'])
             @endif
             @if(!$users->isEmpty())
                 @foreach ($users as $usuario)
