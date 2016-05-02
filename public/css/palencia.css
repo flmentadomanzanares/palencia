@@ -7073,13 +7073,19 @@ input[type=file]:hover {
 .img-header > div {
     float: none;
     margin: 0 auto;
-    background-image: url("../img/header/cabecera.png");
+    background-image: url("../img/header/cabecera.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 60% 80%;
     background-color: #fff;
     width: 100%;
     height: 60px
+}
+
+@media screen and (max-width: 480px) {
+    .img-header > div {
+        background-image: url("../img/header/cabeceraMovil.jpg")
+    }
 }
 
 .altoMaximo {
