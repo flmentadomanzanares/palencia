@@ -20,7 +20,7 @@
             <div class="scroll">
                 {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
                 <div class="form-group">
-                    {!! FORM::label('modalidad', 'Tipo Envío') !!}
+                    {!! FORM::label('modalidad', 'Medio de comunicación') !!}
                     {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
                 </div>
 

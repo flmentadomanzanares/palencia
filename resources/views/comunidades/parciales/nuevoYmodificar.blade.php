@@ -20,23 +20,14 @@
     {!! FORM::label ('pais_id', 'Pais:') !!} <br/>
     {!! FORM::select('pais_id',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
     !!} <br/>
-    {!! FORM::label ('provincia_id', 'Provincia:') !!} <br/>
-    @if(!$comunidad->id)
-        {!! FORM::select('provincia_id',$provincias, $comunidad->provincia_id, ["class" =>
-        "form-control",'id'=>'select_provincia']) !!} <br/>
-    @else
-        {!! FORM::select('provincia_id',$provincias, $comunidad->provincia_id, ["class" =>
-        "form-control"])!!} <br/>
-    @endif
-    {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
-    @if(!$comunidad->id)
-        {!! FORM::select('localidad_id',$localidades, $comunidad->localidad_id, ["class" =>
-        "form-control",'id'=>'select_localidad']) !!} <br/>
-    @else
-        {!! FORM::select('localidad_id',$localidades, $comunidad->localidad_id, ["class" =>
-        "form-control"]) !!} <br/>
-    @endif
+    {!! FORM::label ('select_provincia', 'Provincia:') !!} <br/>
 
+    {!! FORM::select('select_provincia',$provincias, $comunidad->provincia_id, ["class" =>
+    "form-control",'id'=>'select_provincia']) !!} <br/>
+
+    {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
+    {!! FORM::select('select_localidad',$localidades, $comunidad->localidad_id, ["class" =>
+    "form-control",'id'=>'select_localidad']) !!} <br/>
     {!! FORM::label('cp', 'Código Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"9"]) !!}
     <br/>

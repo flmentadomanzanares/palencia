@@ -135,6 +135,18 @@ class Comunidades extends Model
         return array("placeholder" => $conPlaceHolder ? $placeHolder : "", "comunidades" => $sql);
     }
 
+    public static function getComunidadesColaboradoras($conPlaceHolder = true, $placeHolder = "Comunidad...")
+    {
+        $placeHolder = ['0' => $placeHolder];
+
+        $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+            ->where('comunidades.activo', true)
+            ->where('comunidades.esColaborador', true)
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->Lists('comunidades.comunidad', 'id');
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
     public static function getComunidadesList($propia = 0, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
     {
         $placeHolder = ['0' => $placeHolder];

@@ -66,7 +66,6 @@ class ComunidadesController extends Controller
                 'titulo'
             ));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -84,8 +83,8 @@ class ComunidadesController extends Controller
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
         $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('provincia_id');
-        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->provincia_id = $request->get('select_provincia');
+        $comunidad->localidad_id = $request->get('select_localidad');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');
@@ -159,7 +158,7 @@ class ComunidadesController extends Controller
         }
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisFromProvinciaIdToList($comunidad->provincia_id);
-        $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
+        $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         $coloresFondo = ColoresFondos::getColoresFondos();
@@ -199,8 +198,8 @@ class ComunidadesController extends Controller
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
         $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('provincia_id');
-        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->provincia_id = $request->get('select_provincia');
+        $comunidad->localidad_id = $request->get('select_localidad');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');

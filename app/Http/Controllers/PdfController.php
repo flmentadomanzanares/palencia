@@ -24,7 +24,7 @@ class PdfController extends Controller
     {
         $titulo = "Cursillos en el Mundo";
 
-        $anyos = SolicitudesRecibidasCursillos::getAnyoSolicitudesRecibidasList();
+        $anyos = SolicitudesRecibidasCursillos::getAnyoSolicitudesRecibidasList(false);
         $semanas = Array();
 
         return view("pdf.listarCursillos",
@@ -158,7 +158,7 @@ class PdfController extends Controller
      *******************************************************************/
     public function getSecretariado()
     {
-        $titulo = "Secretariado";
+        $titulo = "Actividad con un Secretariado";
         $comunidad = new Comunidades();
         $comunidades = Comunidades::getComunidadesAll();
         return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo'));
@@ -176,9 +176,7 @@ class PdfController extends Controller
     {
 
         $titulo = "Secretariado ";
-
         $comunidad = new Comunidades();
-
         $idComunidad = \Request::input('comunidad');
 
         $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);

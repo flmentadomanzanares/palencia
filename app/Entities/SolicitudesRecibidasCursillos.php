@@ -61,7 +61,7 @@ class SolicitudesRecibidasCursillos extends Model
         $sql = SolicitudesRecibidasCursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->groupBy('Anyos')
-            ->orderBy('Anyos')
+            ->orderBy('Anyos',"DESC")
             ->where('cursillos.activo', true)
             ->where('solicitudes_recibidas_cursillos.activo', true)
             ->Lists('Anyos', 'Anyos');
@@ -77,7 +77,7 @@ class SolicitudesRecibidasCursillos extends Model
             ->where('cursillos.activo', true)
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->groupBy('semanas')
-            ->orderBy('semanas', 'ASC')
+            ->orderBy('semanas', 'DESC')
             ->get();
 
     }

@@ -11,5 +11,6 @@ class TiposParticipantesTableSeeder extends Seeder
         DB::table('tipos_participantes')->insert(Array('tipo_participante' => 'Hombre'));
         DB::table('tipos_participantes')->insert(Array('tipo_participante' => 'Mujer'));
         DB::table('tipos_participantes')->insert(Array('tipo_participante' => 'Mixto'));
+        DB::table('tipos_participantes')->insert(Array('tipo_participante' => 'Jovenes'));
     }
 }

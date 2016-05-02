@@ -9,7 +9,6 @@ use Palencia\Entities\TiposComunicacionesPreferidas;
 
 class NuestrasRespuestasController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +21,7 @@ class NuestrasRespuestasController extends Controller
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Todos");
         $modalidad = $request->get("modalidad");
         $anyos = Array();
         $cursillos = Array();

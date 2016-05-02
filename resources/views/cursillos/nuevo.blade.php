@@ -7,7 +7,7 @@
     <div class="hidden table-size-optima">
         {!! FORM::open(['route' => 'cursillos.store']) !!}
         @include('cursillos.parciales.nuevoYmodificar')
-        @include('comun.plantillaVolverModificarGuardar',['index'=>"comunidades.index",'accion'=>"Crear"])
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"cursillos.index",'accion'=>"Crear"])
         {!! FORM::close() !!}
     </div>
 @endsection

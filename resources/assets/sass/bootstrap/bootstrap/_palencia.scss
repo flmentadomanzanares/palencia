@@ -157,6 +157,7 @@ textarea {
 //FOOTER
 //***************************************************
 footer {
+  display: block;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -170,6 +171,10 @@ footer {
   vertical-align: middle;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   z-index: 10;
+  transition: visibility 1s linear;
+  &:hover {
+    visibility: hidden;
+  }
   span {
     padding-right: $padding-base-horizontal;
   }

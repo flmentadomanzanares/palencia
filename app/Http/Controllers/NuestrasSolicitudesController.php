@@ -24,7 +24,7 @@ class NuestrasSolicitudesController extends Controller
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Todos");
         $anyos = array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',
