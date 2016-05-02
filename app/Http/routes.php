@@ -12,7 +12,6 @@
 */
 //Verificación de email
 
-
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
 
