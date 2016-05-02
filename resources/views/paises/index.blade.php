@@ -55,7 +55,9 @@
                                                         <div>Borrar</div>
                                                     </i>
                                                 </button>
-
+                                                @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                                    @include ("comun.plantillaBorrado")
+                                                @endif
                                                 {!! FORM::close() !!}
                                             @endif
                                         @endif

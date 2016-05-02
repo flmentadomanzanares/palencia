@@ -51,7 +51,6 @@
                                                         data-pie="true"
                                                         data-descripcion="¿Seguro que deseas eliminar este tipo de secretariado?
                                                     <h3><strong class='green'>{{ $tipo_secretariado->tipo_secretariado}}</strong></h3>"
-                                                        data-pie="true"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>
                                                         <div>Borrar</div>
