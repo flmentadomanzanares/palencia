@@ -21,6 +21,16 @@ class Provincias extends Model
         return array();
     }
 
+    public static function getProvinciasDesdePais($pais = 0)
+    {
+        if (is_numeric($pais) && $pais > 0) {
+            return Provincias::Select('id', 'provincia')
+                ->where('pais_id', $pais)
+                ->Lists('provincia', 'id');
+        }
+        return array();
+    }
+
     public static function getPaisDesdeProvincia($provinciaId = 0)
     {
         if (is_numeric($provinciaId) && $provinciaId > 0) {

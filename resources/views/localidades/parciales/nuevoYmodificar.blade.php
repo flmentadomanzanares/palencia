@@ -3,7 +3,7 @@
     {!! FORM::label('pais', 'Nombre País') !!} <br/>
     {!! FORM::select('pais', $paises, null,["class" => "form-control",'id'=>'select_pais']) !!}
     {!! FORM::label('provincia', 'Nombre Provincia') !!} <br/>
-    {!! FORM::select('provincia',$provincias, null, ["class" => "form-control",'id'=>'select_provincia']) !!}
+    {!! FORM::select('provincia',$provincias, $localidad->provincia_id, ["class" => "form-control",'id'=>'select_provincia']) !!}
     {!! FORM::label('localidad', 'Nombre Localidad') !!} <br/>
     {!! FORM::text('localidad', null, ["class" => "form-control"]) !!}
     <br/>
