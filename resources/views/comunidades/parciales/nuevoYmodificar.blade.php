@@ -45,10 +45,10 @@
     $comunidad->tipo_comunicacion_preferida_id, ["class" =>
     "form-control"]) !!} <br/>
     {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
-    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>
     {!! FORM::label('email_envio', 'Email para enviar nuestras respuestas:') !!} <br/>
-    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
     {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Dirección WEB", "maxlength"=>"50"]) !!}

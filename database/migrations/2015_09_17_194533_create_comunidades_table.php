@@ -40,9 +40,9 @@ class CreateComunidadesTable extends Migration
             $table->bigInteger('localidad_id')->unsigned();
             $table->foreign('localidad_id')->references('id')->on('localidades')->onUpdate("cascade");
 
-            $table->string('email_solicitud', 50)->nullable();;
+            $table->string('email_solicitud', 60)->nullable();;
 
-            $table->string('email_envio', 50)->nullable();;
+            $table->string('email_envio', 60)->nullable();;
 
             $table->string('web', 50)->nullable();
 
