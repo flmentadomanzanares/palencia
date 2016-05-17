@@ -15,19 +15,7 @@
                 {!! FORM::label('semana', 'Semana') !!} <br/>
                 {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
                 <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Descargar" class="pull-right">
-                        <i class='glyphicon glyphicon-save full-Width'>
-                            <div>Descargar</div>
-                        </i>
-                    </button>
-                </div>
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
                 {!! FORM::close() !!}
             </div>
         @else

@@ -23,12 +23,12 @@ return ['campoUser' => [
         'captcha' => false,
     ],
     'accion' => [
-        'copiaSeguridad' => false,
+        'copiaSeguridad' => true,
         'cerrarAnyo' => true,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
-        'roles' => true,
-        'tiposParticipantes' => true,
-        'tipoComunicacionesPreferidas' => true,
+        'roles' => false,
+        'tiposParticipantes' => false,
+        'tipoComunicacionesPreferidas' => false,
         'mostrarModalDeBorrado' => true,
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
 

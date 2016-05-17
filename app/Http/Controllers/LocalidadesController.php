@@ -91,8 +91,9 @@ class LocalidadesController extends Controller
         if ($localidad == null) {
             return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
         }
-        $provincias = Provincias::getProvinciaToList($localidad->provincia_id);
+
         $paises = Paises::getPaisFromProvinciaIdToList($localidad->provincia_id);
+        $provincias = Provincias::getProvinciasDesdePais(key($paises));
         return view('localidades.modificar',
             compact(
                 'localidad',

@@ -15,22 +15,7 @@
                 <br/>
                 {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
                 {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillos->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
-                <br/>
-                <br/>
-                <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Descargar" class="pull-right">
-                        <i class='glyphicon glyphicon-save full-Width'>
-                            <div>Descargar</div>
-                        </i>
-                    </button>
-                </div>
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
                 {!! FORM::close() !!}
             </div>
         @else

@@ -11,20 +11,7 @@
                 <div class="heading-caption">Seleccione el país para imprimir los secretariados ...</div>
                 {!! FORM::label('pais', 'País') !!} <br/>
                 {!! FORM::select('pais', $paises, null,array("class"=>"form-control",'id'=>'select_paises'))!!}
-                <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Descargar" class="pull-right">
-                        <i class='glyphicon glyphicon-save full-Width'>
-                            <div>Descargar</div>
-                        </i>
-                    </button>
-                </div>
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
                 {!! FORM::close() !!}
             </div>
         @else
