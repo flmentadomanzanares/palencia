@@ -161,7 +161,9 @@ class PdfController extends Controller
         $titulo = "Actividad con un Secretariado";
         $comunidad = new Comunidades();
         $comunidades = Comunidades::getComunidadesAll();
-        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo'));
+        $anyos = Cursillos::getTodosMisAnyosCursillosList(false);
+
+        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo','anyos'));
     }
 
     /*******************************************************************
@@ -178,12 +180,13 @@ class PdfController extends Controller
         $titulo = "Secretariado ";
         $comunidad = new Comunidades();
         $idComunidad = \Request::input('comunidad');
+        $anyo = \Request::input('anyo');
 
         $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
         $date = date('d-m-Y');
         $fichero = 'secretariado' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-        $solicitudesRecibidas = SolicitudesRecibidasCursillos::getSolicitudesComunidad($idComunidad);
-        $solicitudesEnviadas = SolicitudesEnviadasCursillos::getSolicitudesComunidad($idComunidad);
+        $solicitudesRecibidas = SolicitudesRecibidasCursillos::getSolicitudesComunidad($anyo, $idComunidad);
+        $solicitudesEnviadas = SolicitudesEnviadasCursillos::getSolicitudesComunidad($anyo, $idComunidad);
 
         //Configuración del listado html
         $listadoPosicionInicial = 8;
@@ -227,7 +230,6 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados por Pais";
         $comunidades = new Comunidades();
-        //$paises = Paises::getPaisesList();
         $paises = Paises::getPaisesColaboradores();
 
 

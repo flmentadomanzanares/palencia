@@ -61,13 +61,14 @@ class SolicitudesEnviadasCursillos extends Model
      * Función que devuelve los datos para el listado "Secretariado"
      *
      *****************************************************************************************************************/
-    static public function getSolicitudesComunidad($comunidadId = 0)
+    static public function getSolicitudesComunidad($anyo = 0, $comunidadId = 0)
     {
 
         return SolicitudesEnviadasCursillos::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%x")'), '=', $anyo)
             ->where('solicitudes_enviadas.aceptada', true)
             ->where('solicitudes_enviadas_cursillos.activo', true)
             ->where('comunidades.id', '=', $comunidadId)
