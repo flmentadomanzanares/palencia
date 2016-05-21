@@ -9,7 +9,7 @@ class Paises extends Model
     protected $fillable = ['pais']; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = false, $placeholderText = "País...")
+    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = true, $placeholderText = "País...")
     {
         $sql = Paises::Select('id', 'pais')
             ->where('activo', true)
