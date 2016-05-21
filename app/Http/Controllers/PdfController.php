@@ -194,10 +194,10 @@ class PdfController extends Controller
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
-        if ($idComunidad == 0) {
+        if ($idComunidad == 0 || $anyo == 0) {
 
             return redirect('secretariado')->
-            with('mensaje', 'Debe seleccionar un secretariado.');
+            with('mensaje', 'Debe seleccionar un año y un secretariado.');
 
         } else {
 
