@@ -159,7 +159,7 @@
     ?>
 
     <div class=" cabecera1 text-center">
-        {{ $titulo }} {!! $secretariado->comunidad !!}<br/>
+        {{ $titulo }} {!! $secretariado->comunidad !!} - {{ $anyo }}<br/>
     </div>
 
     <div class=" cabecera2">

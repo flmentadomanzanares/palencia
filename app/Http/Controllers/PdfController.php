@@ -208,6 +208,7 @@ class PdfController extends Controller
                     'solicitudesRecibidas',
                     'date',
                     'titulo',
+                    'anyo',
                     'listadoPosicionInicial',
                     'listadoTotal',
                     'listadoTotalRestoPagina',
