@@ -163,7 +163,7 @@ class PdfController extends Controller
         $comunidades = Comunidades::getComunidadesAll();
         $anyos = Cursillos::getTodosMisAnyosCursillosList(false);
 
-        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo','anyos'));
+        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo', 'anyos'));
     }
 
     /*******************************************************************
@@ -249,8 +249,6 @@ class PdfController extends Controller
     public function imprimirSecretariadosPais()
     {
 
-        $titulo = "Secretariados de ";
-
         $idPais = \Request::input('pais');
 
         $pais = Paises::getNombrePais((int)$idPais);
@@ -259,33 +257,35 @@ class PdfController extends Controller
         $comunidades = Comunidades::imprimirSecretariadosPais($idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 15;
-        $listadoTotal = 19;
+        $listadoPosicionInicial = 13;
+        $listadoTotal = 20;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
         if ($idPais == 0) {
 
-            return redirect('secretariadosPais')->
-            with('mensaje', 'Debe seleccionar un país.');
+            $titulo = "Secretariados Colaboradores de Todos los Países";
 
         } else {
 
-            $pdf = \App::make('dompdf.wrapper');
-            return $pdf->loadView('pdf.imprimirSecretariadosPais',
-                compact(
-                    'comunidades',
-                    'pais',
-                    'date',
-                    'titulo',
-                    'listadoPosicionInicial',
-                    'listadoTotal',
-                    'separacionLinea',
-                    'listadoTotalRestoPagina'
-                ))
-                ->download($fichero . '.pdf');
+            $titulo = "Secretariados Colaboradores de " . $pais->pais;
 
         }
+
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirSecretariadosPais',
+            compact(
+                'comunidades',
+                'pais',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
+            ->download($fichero . '.pdf');
+
 
     }
 

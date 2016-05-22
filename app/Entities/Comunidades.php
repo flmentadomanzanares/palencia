@@ -184,12 +184,26 @@ class Comunidades extends Model
     static public function imprimirSecretariadosPais($pais = 0)
     {
 
-        return Comunidades::Select('comunidades.comunidad')
-            ->where('comunidades.pais_id', '=', $pais)
-            ->where('comunidades.esColaborador', true)
-            ->where('comunidades.activo', true)
-            ->orderBy('comunidades.comunidad')
-            ->get();
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
 
     }
 

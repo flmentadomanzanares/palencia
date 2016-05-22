@@ -32,46 +32,48 @@
         }
 
         .text-center {
-
             text-align: center;
         }
 
         .cabecera1 {
-
             font-size: 25px;
             font-weight: bold;
             margin-bottom: 20px;
             color: #000000;
-
         }
 
         .cabecera2 {
-
             font-weight: bold;
             font-size: 18px;
             margin-bottom: 20px;
             color: #000000;
+        }
 
+        .cabecera3 {
+            color: #000000;
+            font-weight: bold;
+            border: 1px solid #4a4949;
+            text-align: center;
         }
 
         .cabecera4 {
-
-            background-color: #FF7A00;
-            color: #FFFFFF;
+            color: #000000;
+            position: fixed;
+            text-align: center;
+            line-height: 1.6em;
             font-weight: bold;
-            font-size: 16px;
-
+            height: 30px;
+            min-width: 190mm;
+            border: 1px solid #4a4949;
         }
 
         .cabecera5 {
-
             color: #000000;
             font-weight: bold;
             font-size: 20px;
             padding-top: 20px;
             padding-bottom: 20px;
             border: 1px solid #4a4949;
-
         }
 
         .contenedor {
@@ -116,8 +118,20 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <div class="contenedor">
+
+    <?php
+    $pais = null;
+    $i = 0;
+    $pagina = 0;
+    $lineasPorPagina = $listadoTotal;
+    $saltoPagina = $lineasPorPagina - 3;
+
+    ?>
+
     <div class=" cabecera1 text-center">
-        {{ $titulo }} {!! $pais->pais !!}<br/>
+
+        {{ $titulo }}<br/>
+
     </div>
 
     <div class=" cabecera2">
@@ -128,36 +142,56 @@
 
         <div class="cabecera5 text-center">Secretariados</div><br/>
 
-        <?php
-        $i = 0;
-        $pagina = 0
-        ?>
-
         @foreach ($comunidades as $index=>$comunidad)
-            @if($index > 0 && $i == $listadoTotal)
+
+            @if($index>0 && $i==$lineasPorPagina)
                 <?php
-                $listadoTotal = $listadoTotalRestoPagina;
+                $lineasPorPagina = $listadoTotalRestoPagina;
+                $saltoPagina = $lineasPorPagina - 3;
                 $listadoPosicionInicial = 0;
                 $i = 0;
                 ?>
-                <div class="pagina">P&aacute;g. {{$pagina=$pagina +1}}</div>
+                <div class="pagina">Pag. {{$pagina += 1}}</div>
                 <div class="saltoPagina"></div>
+
             @endif
 
-            <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                {!! $comunidad->comunidad !!}
-            </div>
+            @if($comunidad->pais != $pais)
+
+                @if($index>0 && $i>=$saltoPagina)
+                    <?php
+                    $lineasPorPagina = $listadoTotalRestoPagina;
+                    $saltoPagina = $lineasPorPagina - 3;
+                    $listadoPosicionInicial = 0;
+                    $i = 0;
+                    ?>
+                    <div class="pagina">Pag. {{$pagina += 1}}</div>
+                    <div class="saltoPagina"></div>
+                @endif
+                <?php $i++?>
+                <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    País: {!! $comunidad->pais!!}
+                </div>
+                <?php $i++?>
+                <?php $pais = $comunidad->pais; ?>
+                <?php $i++?>
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $comunidad->comunidad !!}
+                </div>
+            @else
+                <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
+                    {!! $comunidad->comunidad !!}
+                </div>
+            @endif
+
             <?php $i++?>
 
         @endforeach
 
         <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
-
     @else
-        <div>
-            <div class="cabecera4 text-center">
-                <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
-            </div>
+        <div class="cabecera3">
+            <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
         </div>
     @endif
 
