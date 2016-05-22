@@ -115,13 +115,21 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::get('secretariado', 'PdfController@getSecretariado');
     Route::post('imprimirSecretariado', array('as' => 'imprimirSecretariado', 'uses' => 'PdfController@imprimirSecretariado'));
 
-    // Listado Secretariados por Pais
+    // Listado Secretariados Activos por Pais
     Route::get('secretariadosPais', 'PdfController@getSecretariadosPais');
     Route::post('imprimirSecretariadosPais', array('as' => 'imprimirSecretariadosPais', 'uses' => 'PdfController@imprimirSecretariadosPais'));
 
-    // Listado Secretariados no colaboradores
+    // Listado Secretariados Inactivos por Pais
+    Route::get('secretariadosPaisInactivos', 'PdfController@getSecretariadosPaisInactivos');
+    Route::post('imprimirSecretariadosPaisInactivos', array('as' => 'imprimirSecretariadosPaisInactivos', 'uses' => 'PdfController@imprimirSecretariadosPaisInactivos'));
+
+    // Listado Secretariados Activos no colaboradores
     Route::get('noColaboradores', 'PdfController@getNoColaboradores');
     Route::post('imprimirNoColaboradores', array('as' => 'imprimirNoColaboradores', 'uses' => 'PdfController@imprimirNoColaboradores'));
+
+    // Listado Secretariados Inactivos no colaboradores
+    Route::get('noColaboradoresInactivos', 'PdfController@getNoColaboradoresInactivos');
+    Route::post('imprimirNoColaboradoresInactivos', array('as' => 'imprimirNoColaboradoresInactivos', 'uses' => 'PdfController@imprimirNoColaboradoresInactivos'));
 
     //Obtener relación de cursillos de una comunidad de una solicitud enviada
     Route::post('cursillosSolicitudEnviada', array('as' => 'cursillosSolicitudEnviada', 'uses' => 'SolicitudesEnviadasController@getCursillosSolicitudEnviada'));

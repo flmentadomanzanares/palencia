@@ -233,6 +233,59 @@ class Comunidades extends Model
 
     }
 
+    static public function imprimirSecretariadosPaisInactivos($pais = 0)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', false)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', false)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
+    }
+
+    static public function imprimirSecretariadosNoColaboradoresInactivos($pais)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', false)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', false)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
+    }
+
+
     public static function getComunidadesAll()
     {
         return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')

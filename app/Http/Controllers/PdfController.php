@@ -222,14 +222,14 @@ class PdfController extends Controller
 
     /*******************************************************************
      *
-     *  Listado "Secretariados por Paises"
+     *  Listado "Secretariados Activos por Paises"
      *
      *  Función para recabar la informacion necesaria para el listado
      *
      *******************************************************************/
     public function getSecretariadosPais()
     {
-        $titulo = "Secretariados por Pais";
+        $titulo = "Secretariados Colaboradores Activos por Pais";
         $comunidades = new Comunidades();
         $paises = Paises::getPaisesColaboradores();
 
@@ -240,7 +240,7 @@ class PdfController extends Controller
 
     /*******************************************************************
      *
-     *  Listado "Secretariados por Paises"
+     *  Listado "Secretariados Activos por Paises"
      *
      *  Función para imprimir el listado con los parametros
      *  seleccionados
@@ -264,11 +264,11 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados Colaboradores de Todos los Países";
+            $titulo = "Secretariados Colaboradores Activos de Todos los Países";
 
         } else {
 
-            $titulo = "Secretariados Colaboradores de " . $pais->pais;
+            $titulo = "Secretariados Colaboradores Activos de " . $pais->pais;
 
         }
 
@@ -291,14 +291,83 @@ class PdfController extends Controller
 
     /*******************************************************************
      *
-     *  Listado "Secretariados no colaboradores"
+     *  Listado "Secretariados Inactivos por Paises"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariadosPaisInactivos()
+    {
+        $titulo = "Secretariados Colaboradores Inactivos por Pais";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesColaboradores();
+
+
+        return view("pdf.listarSecretariadosPaisInactivos", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados Inactivos por Paises"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariadosPaisInactivos()
+    {
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+        $date = date('d-m-Y');
+        $fichero = 'secretariadosInactivosPais' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $comunidades = Comunidades::imprimirSecretariadosPaisInactivos($idPais);
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 13;
+        $listadoTotal = 20;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
+        if ($idPais == 0) {
+
+            $titulo = "Secretariados Colaboradores Inactivos de Todos los Países";
+
+        } else {
+
+            $titulo = "Secretariados Colaboradores Inactivos de " . $pais->pais;
+
+        }
+
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirSecretariadosPaisInactivos',
+            compact(
+                'comunidades',
+                'pais',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
+            ->download($fichero . '.pdf');
+
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados no colaboradores activos"
      *
      *  Función para recabar la informacion necesaria para el listado
      *
      *******************************************************************/
     public function getNoColaboradores()
     {
-        $titulo = "Secretariados No Colaboradores";
+        $titulo = "Secretariados No Colaboradores Activos";
         $comunidades = new Comunidades();
         $paises = Paises::getPaisesFromPaisIdToList();
 
@@ -330,11 +399,11 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados No Colaboradores de Todos los Países";
+            $titulo = "Secretariados No Colaboradores Activos de Todos los Países";
 
         } else {
 
-            $titulo = "Secretariados No Colaboradores de " . $pais->pais;
+            $titulo = "Secretariados No Colaboradores Activos de " . $pais->pais;
 
         }
 
@@ -344,6 +413,75 @@ class PdfController extends Controller
 
         $pdf = \App::make('dompdf.wrapper');
         return $pdf->loadView('pdf.imprimirNoColaboradores',
+            compact(
+                'comunidades',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
+            ->download($fichero . '.pdf');
+
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados no colaboradores inactivos"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getNoColaboradoresInactivos()
+    {
+        $titulo = "Secretariados No Colaboradores Inactivos";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesFromPaisIdToList();
+
+
+        return view("pdf.listarNoColaboradoresInactivos", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados no colaboradores inactivos"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirNoColaboradoresInactivos()
+    {
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 13;
+        $listadoTotal = 20;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
+        if ($idPais == 0) {
+
+            $titulo = "Secretariados No Colaboradores Inactivos de Todos los Países";
+
+        } else {
+
+            $titulo = "Secretariados No Colaboradores Inactivos de " . $pais->pais;
+
+        }
+
+        $date = date('d-m-Y');
+        $fichero = 'secretariadosNoColaboradoresInactivos' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $comunidades = Comunidades::imprimirSecretariadosNoColaboradoresInactivos($idPais);
+
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirNoColaboradoresInactivos',
             compact(
                 'comunidades',
                 'date',
