@@ -104,7 +104,7 @@ class ComunidadesController extends Controller
 
         } catch (\Exception $e) {
             switch ($e->getCode()) {
-                case 230000:
+                case 23000:
                     return redirect()->
                     route('comunidades.index')->
                     with('mensaje', 'la comunidad está ya dada de alta.');

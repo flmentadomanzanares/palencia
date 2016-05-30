@@ -14,12 +14,16 @@ class CreateLocalidadesTable extends Migration
     public function up()
     {
         Schema::create('localidades', function (Blueprint $table) {
+
             $table->bigIncrements('id');
 
             $table->string('localidad', 50);
 
             $table->bigInteger('provincia_id')
                 ->unsigned();
+
+            $table->unique(['provincia_id', 'localidad'], 'provincia_localidad');
+
 
             $table->boolean('activo')
                 ->default(true);
