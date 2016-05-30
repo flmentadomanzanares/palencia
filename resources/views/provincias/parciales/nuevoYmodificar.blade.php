@@ -3,7 +3,7 @@
     {!! FORM::label ('pais', 'Nombre del País') !!}
     {!! FORM::select('pais',$paises, $provincia->pais_id ,array("class"=>"form-control")) !!}
     {!! FORM::label('provincia', 'Nombre de la Provincia') !!} <br/>
-    {!! FORM::text('provincia', null, ["class" => "form-control", "title"=>"Nombre de la Provincia"]) !!}
+    {!! FORM::text('provincia', null, ["class" => "form-control text-uppercase", "title"=>"Nombre de la Provincia"]) !!}
     <br/>
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))

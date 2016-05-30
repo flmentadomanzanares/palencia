@@ -9,7 +9,7 @@
     @endif
     <div class="heading-caption">Datos Generales</div>
     {!! FORM::label('cursillo', 'Nombre del Cursillo') !!} <br/>
-    {!! FORM::text('cursillo', $cursillo->cursillo, ["class" => "form-control", "title"=>"Nombre del Cursillo"]) !!}
+    {!! FORM::text('cursillo', $cursillo->cursillo, ["class" => "form-control text-uppercase", "title"=>"Nombre del Cursillo"]) !!}
     <br/>
     {!! FORM::label('numCursillo', 'Número del Cursillo') !!} <br/>
     {!! FORM::text('num_cursillo', $cursillo->num_cursillo, ["class" => "form-control", "title"=>"Número de Cursillo"]) !!}

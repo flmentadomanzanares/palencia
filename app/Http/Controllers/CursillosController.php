@@ -68,7 +68,7 @@ class CursillosController extends Controller
         //Creamos una nueva instancia al modelo.
         $cursillo = new Cursillos();
         //Asignamos valores traidos del formulario.
-        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->cursillo = strtoupper($request->get('cursillo'));
         $cursillo->num_cursillo = $request->get('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
         $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));
@@ -181,7 +181,7 @@ class CursillosController extends Controller
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
             return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
-        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->cursillo = strtoupper($request->get('cursillo'));
         $cursillo->num_cursillo = $request->get('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
         $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));

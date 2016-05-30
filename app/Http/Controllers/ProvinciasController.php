@@ -56,7 +56,7 @@ class ProvinciasController extends Controller
     {
         $provincia = new Provincias; //Creamos instancia al modelo
         $provincia->pais_id = $request->get('pais');
-        $provincia->provincia = $request->get('provincia'); //Asignamos el valor al campo.
+        $provincia->provincia = strtoupper($request->get('provincia')); //Asignamos el valor al campo.
         try {
             $provincia->save();
         } catch (\Exception $e) {
@@ -136,7 +136,7 @@ class ProvinciasController extends Controller
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
         $provincia->pais_id = $request->get('pais');
-        $provincia->provincia = $request->get('provincia');
+        $provincia->provincia = strtoupper($request->get('provincia'));
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
             $provincia->activo = $request->get('activo');
         }

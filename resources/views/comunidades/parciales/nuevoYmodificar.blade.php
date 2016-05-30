@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
     {!! FORM::label('comunidad', 'Nombre Comunidad:') !!} <br/>
-    {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control", "title"=>"Nombre de la Comunidad",
+    {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control text-uppercase", "title"=>"Nombre de la Comunidad",
     "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>

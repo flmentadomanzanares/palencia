@@ -75,7 +75,7 @@ class ComunidadesController extends Controller
     {
         //Creamos una nueva instancia al modelo.
         $comunidad = new Comunidades();
-        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->comunidad = strtoupper($request->get('comunidad'));
         $comunidad->esPropia = $request->get('esPropia');
         $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
         $comunidad->responsable = $request->get('responsable');
@@ -190,7 +190,7 @@ class ComunidadesController extends Controller
         if ($comunidad == null) {
             return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
         }
-        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->comunidad = strtoupper($request->get('comunidad'));
         $comunidad->esPropia = $request->get('esPropia');
         $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
         $comunidad->responsable = $request->get('responsable');

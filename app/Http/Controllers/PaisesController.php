@@ -48,7 +48,7 @@ class PaisesController extends Controller
     public function store(ValidateRulesPaises $request)
     {
         $pais = new Paises; //Creamos instancia al modelo
-        $pais->pais = $request->get("pais"); //Asignamos el valor al campo.
+        $pais->pais = strtoupper($request->get("pais")); //Asignamos el valor al campo.
         try {
             $pais->save();
         } catch (\Exception $e) {
@@ -95,7 +95,7 @@ class PaisesController extends Controller
         if ($pais == null) {
             return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
         }
-        $pais->pais = $request->get("pais");
+        $pais->pais = strtoupper($request->get("pais"));
         if (\Auth::user()->roles->peso >= config("opciones.roles.administrador")) {
             $pais->activo = $request->get("activo");
         }
