@@ -106,7 +106,7 @@
                         </tbody>
                     </table>
                 @endforeach
-                {!! $cursillos->appends(Request::only(['comunidad','cursillo','semanas','anyos']))->render()!!}
+                {!! $cursillos->appends(Request::only(['comunidad','cursillo','semanas','anyos','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

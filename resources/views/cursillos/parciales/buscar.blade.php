@@ -1,5 +1,5 @@
 {{-- Formulario de busqueda --}}
-{!!FORM::model(Request::only(['cursillo','semanas','anyos','comunidad']),['route'=>'cursillos.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['cursillo','semanas','anyos','comunidad','esActivo']),['route'=>'cursillos.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
     {!! FORM::select('comunidad', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
@@ -8,6 +8,10 @@
 </div>
 <div class="form-group">
     {!! FORM::select('semanas', $semanas, null,array("class"=>"form-control", 'id'=>'select_semanas'))!!}
+</div>
+<div class="form-group">
+    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activo','0'=>'No Activo'),
+    null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
     {!! FORM::text('cursillo',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}

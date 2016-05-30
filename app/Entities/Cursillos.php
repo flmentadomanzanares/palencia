@@ -49,6 +49,7 @@ class Cursillos extends Model
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->Cursillo($request->get('cursillo'))
+            ->CursilloEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
@@ -421,6 +422,13 @@ class Cursillos extends Model
     {
         if (trim($cursillo) != '')
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
+    }
+
+    public function scopeCursilloEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('cursillos.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
     public function scopeFiltroNombreComunidad($query, $comunidad = "")
