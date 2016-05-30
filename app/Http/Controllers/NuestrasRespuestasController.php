@@ -21,7 +21,7 @@ class NuestrasRespuestasController extends Controller
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar las respuestas pendientes", true);
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Todos");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta");
         $modalidad = $request->get("modalidad");
         $anyos = Array();
         $cursillos = Array();

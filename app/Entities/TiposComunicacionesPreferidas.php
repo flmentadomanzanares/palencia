@@ -12,10 +12,10 @@ class TiposComunicacionesPreferidas extends Model
 
     public static function getTipoComunicacionesPreferidasList($placeholder = "Comunicación...")
     {
-        return ['0' => $placeholder] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
+        return TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
             ->where('activo', true)
-            ->orderBy('comunicacion_preferida', 'ASC')
-            ->Lists('comunicacion_preferida', 'id');
+            ->orderBy('comunicacion_preferida', 'DESC')
+            ->Lists('comunicacion_preferida', 'id') + ['0' => $placeholder];
     }
 
     static public function getTiposComunicacionesPreferidas(Request $request)
