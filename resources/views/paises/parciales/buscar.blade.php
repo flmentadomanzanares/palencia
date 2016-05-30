@@ -1,5 +1,9 @@
 {{-- Formulario de busqueda --}}
-{!!FORM::model(Request::only(['pais']),['route'=>'paises.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['pais','esActivo']),['route'=>'paises.index','method'=>'GET','role'=>'search']) !!}
+<div class="form-group">
+    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activo','0'=>'No Activo'),
+    null,array("class"=>"form-control"))!!}
+</div>
 <div class="form-group">
     {!! FORM::text('pais',null,['class'=>'form-control','placeholder'=>'Buscar país ...'])!!}
 </div>

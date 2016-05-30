@@ -31,6 +31,7 @@ class Paises extends Model
     public static function getPaises(Request $request, $porPagina = 20)
     {
         return Paises::pais($request->get('pais'))
+            ->PaisEsActivo($request->get('esActivo'))
             ->orderBy('pais', 'ASC')
             ->paginate($porPagina)
             ->setPath('paises');
@@ -84,8 +85,15 @@ class Paises extends Model
 
     public function scopePaisId($query, $id)
     {
-        if (is_int($id) && $id > 0)
+        if (is_numeric($id) && $id > 0)
             $query->where('id', $id);
+    }
+
+    public function scopePaisEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
 

@@ -68,7 +68,7 @@
                         </tbody>
                     </table>
                 </div>
-                {!! $paises->appends(Request::only(['pais']))->render()!!}
+                {!! $paises->appends(Request::only(['pais','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
