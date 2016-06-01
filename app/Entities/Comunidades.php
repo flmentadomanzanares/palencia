@@ -25,6 +25,7 @@ class Comunidades extends Model
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
             ->Comunidades($request->get('comunidad'))
+            ->ComunidadEsActivo($request->get('esActivo'))
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id', '=', 'tipos_comunicaciones_preferidas.id')
             ->orderBy('comunidad', 'ASC')
             ->paginate(5)
@@ -515,6 +516,13 @@ class Comunidades extends Model
             }
         }
         return $query;
+    }
+
+    public function scopeComunidadEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('comunidades.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }
 

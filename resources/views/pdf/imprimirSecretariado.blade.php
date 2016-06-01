@@ -3,147 +3,147 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Secretariados por país</title>
 
-    <style>
 
-        a {
-            color: #0087C3;
-            text-decoration: none;
-        }
+</head><style>
 
-        body {
-            position: relative;
-            width: 19cm;
-            height: 29.7cm;
-            margin: 0 auto;
-            color: #555555;
-            background: #FFFFFF;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
+    a {
+        color: #0087C3;
+        text-decoration: none;
+    }
 
-        header {
-            padding: 10px 0;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #AAAAAA;
-        }
+    body {
+        position: relative;
+        width: 19cm;
+        height: 29.7cm;
+        margin: 0 auto;
+        color: #555555;
+        background: #FFFFFF;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
 
-        .text-center {
+    header {
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #AAAAAA;
+    }
 
-            text-align: center;
-        }
+    .text-center {
 
-        .cabecera1 {
+        text-align: center;
+    }
 
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #000000;
+    .cabecera1 {
 
-        }
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #000000;
 
-        .cabecera2 {
+    }
 
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #000000;
+    .cabecera2 {
 
-        }
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #000000;
 
-        .cabecera3 {
-            color: #000000;
-            font-weight: bold;
-            border: 1px solid #4a4949;
-            text-align: center;
-        }
+    }
 
-        .cabecera4 {
-            color: #000000;
-            position: fixed;
-            text-align: center;
-            line-height: 1.6em;
-            font-weight: bold;
-            height: 30px;
-            min-width: 190mm;
-            border: 1px solid #4a4949;
-        }
+    .cabecera3 {
+        color: #000000;
+        font-weight: bold;
+        border: 1px solid #4a4949;
+        text-align: center;
+    }
 
-        .cabeceraIzda {
-            color: #000000;
-            position: fixed;
-            text-align: center;
-            line-height: 1.6em;
-            font-weight: bold;
-            height: 30px;
-            width: 138mm;
-            border: 1px solid #4a4949;
-            float: left;
+    .cabecera4 {
+        color: #000000;
+        position: fixed;
+        text-align: center;
+        line-height: 1.6em;
+        font-weight: bold;
+        height: 30px;
+        min-width: 190mm;
+        border: 1px solid #4a4949;
+    }
 
-        }
+    .cabeceraIzda {
+        color: #000000;
+        position: fixed;
+        text-align: center;
+        line-height: 1.6em;
+        font-weight: bold;
+        height: 30px;
+        width: 138mm;
+        border: 1px solid #4a4949;
+        float: left;
 
-        .cabeceraDcha {
-            color: #000000;
-            position: fixed;
-            text-align: center;
-            line-height: 1.6em;
-            font-weight: bold;
-            height: 30px;
-            width: 50mm;
-            border: 1px solid #4a4949;
-            margin-left: 530px;
-        }
+    }
 
-        .contenedor {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 12pt;
-            line-height: 1.5em;
-        }
+    .cabeceraDcha {
+        color: #000000;
+        position: fixed;
+        text-align: center;
+        line-height: 1.6em;
+        font-weight: bold;
+        height: 30px;
+        width: 50mm;
+        border: 1px solid #4a4949;
+        margin-left: 530px;
+    }
 
-        @page {
-            margin: 1.2cm;
-        }
+    .contenedor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 12pt;
+        line-height: 1.5em;
+    }
 
-        .pagina {
-            position: fixed;
-            top: 265mm;
-            text-align: center;
-            height: 30px;
-            color: #000000;
-        }
+    @page {
+        margin: 1.2cm;
+    }
 
-        .saltoPagina {
-            position: fixed;
-            page-break-before: left;
-        }
+    .pagina {
+        position: fixed;
+        top: 265mm;
+        text-align: center;
+        height: 30px;
+        color: #000000;
+    }
 
-        .listIzda {
-            color: #000000;
-            position: fixed;
-            text-align: center;
-            line-height: 1.6em;
-            height: 30px;
-            width: 138mm;
-            /*border-bottom: 1px solid #4a4949;*/
-            vertical-align: -15px;
-            float: left;
-        }
+    .saltoPagina {
+        position: fixed;
+        page-break-before: left;
+    }
 
-        .listDcha {
-            color: #000000;
-            position: fixed;
-            text-align: center;
-            line-height: 1.6em;
-            height: 30px;
-            width: 50mm;
-            /*border-bottom: 1px solid #4a4949;*/
-            vertical-align: -15px;
-            margin-left: 530px;
-        }
+    .listIzda {
+        color: #000000;
+        position: fixed;
+        text-align: center;
+        line-height: 1.6em;
+        height: 30px;
+        width: 138mm;
+        /*border-bottom: 1px solid #4a4949;*/
+        vertical-align: -15px;
+        float: left;
+    }
 
-    </style>
-</head>
+    .listDcha {
+        color: #000000;
+        position: fixed;
+        text-align: center;
+        line-height: 1.6em;
+        height: 30px;
+        width: 50mm;
+        /*border-bottom: 1px solid #4a4949;*/
+        vertical-align: -15px;
+        margin-left: 530px;
+    }
+
+</style>
 <body>
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -167,8 +167,6 @@
     </div>
 
     @if(!$solicitudesRecibidas->isEmpty() || !$solicitudesEnviadas->isEmpty())
-
-
 
         <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
             Solicitudes Enviadas

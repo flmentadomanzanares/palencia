@@ -188,12 +188,12 @@
 
         @endforeach
 
-        <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
-    @else
-        <div class="cabecera3">
-            <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
-        </div>
-    @endif
+            <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
+        @else
+            <div class="cabecera3">
+                <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
+            </div>
+        @endif
 
 </div>
 </body>

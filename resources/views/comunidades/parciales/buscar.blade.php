@@ -1,5 +1,5 @@
 {{-- Formulario de busqueda --}}
-{!!FORM::model(Request::only(['comunidad','esPropia','secretariado','pais']),['route'=>'comunidades.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['comunidad','esPropia','secretariado','pais','esActivo']),['route'=>'comunidades.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
     {!! FORM::select('pais', $paises, null,array("class"=>"form-control"))!!}
 </div>
@@ -8,6 +8,10 @@
 </div>
 <div class="form-group">
     {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','1'=>'Propia','0'=>'No Propia'),
+    null,array("class"=>"form-control"))!!}
+</div>
+<div class="form-group">
+    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activa','0'=>'No Activa'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

@@ -135,7 +135,7 @@
                         </table>
                     </div>
                 @endforeach
-                {!! $comunidades->appends(Request::only(['comunidad','pais']))->render()!!}
+                {!! $comunidades->appends(Request::only(['comunidad','pais','esActivo']))->render()!!}
             @else
                 <div class="">
                     <div class="alert alert-info" role="alert">
