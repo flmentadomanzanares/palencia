@@ -69,6 +69,7 @@
                                 <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pais')!!}</li>
                                 <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
                                 <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
+                                <li>{!!link_to('imprimirPaisesActivos', 'Paises activos')!!}</li>
 
                             </ul>
                         </li>

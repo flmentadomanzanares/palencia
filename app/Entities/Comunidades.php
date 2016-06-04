@@ -285,6 +285,18 @@ class Comunidades extends Model
 
     }
 
+    static public function imprimirPaisesActivos()
+    {
+
+        return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->where('paises.activo', true)
+            //->where('comunidades.activo', true)
+            ->orderBy('paises.pais')
+            ->orderBy('comunidades.comunidad')
+            ->get();
+
+    }
 
     public static function getComunidadesAll()
     {
@@ -302,6 +314,36 @@ class Comunidades extends Model
         return Comunidades::Select('comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto')
             ->where('comunidades.id', $id)
             ->first();
+    }
+
+    static public function imprimirSecretariadosPaisConSolicitudesSinResponder($pais = 0)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
     }
 
     /*****************************************************************************************************************
