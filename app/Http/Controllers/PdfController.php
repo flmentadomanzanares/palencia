@@ -568,32 +568,36 @@ class PdfController extends Controller
 
         $pais = Paises::getNombrePais((int)$idPais);
         $date = date('d-m-Y');
-        $fichero = 'secretariadosPais' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $fichero = 'secretariadosColaboradoresSinResponder' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $comunidades = Comunidades::imprimirSecretariadosPaisConSolicitudesSinResponder($idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 13;
-        $listadoTotal = 20;
-        $listadoTotalRestoPagina = 25;
+        $listadoPosicionInicial = 15;
+        $listadoTotal = 18;
+        $listadoTotalRestoPagina = 23;
         $separacionLinea = 2.5;
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados Colaboradores Sin Responder de Todos los Países";
+            $titulo1 = "Secretariados Colaboradores Sin Responder";
+            $titulo2 = "de Todos los Países";
 
         } else {
 
-            $titulo = "Secretariados Colaboradores Sin Responder de " . $pais->pais;
+            $titulo1 = "Secretariados Colaboradores Sin Responder";
+            $titulo2 = "de " . $pais->pais;
+
 
         }
 
         $pdf = \App::make('dompdf.wrapper');
-        return $pdf->loadView('pdf.imprimirSecretariadosPais',
+        return $pdf->loadView('pdf.imprimirSecretariadosColaboradoresSinResponder',
             compact(
                 'comunidades',
                 'pais',
                 'date',
-                'titulo',
+                'titulo1',
+                'titulo2',
                 'listadoPosicionInicial',
                 'listadoTotal',
                 'separacionLinea',

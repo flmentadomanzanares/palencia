@@ -70,6 +70,7 @@
                                 <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
                                 <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
                                 <li>{!!link_to('imprimirPaisesActivos', 'Paises activos')!!}</li>
+                                <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
 
                             </ul>
                         </li>

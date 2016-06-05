@@ -291,7 +291,7 @@ class Comunidades extends Model
         return Comunidades::Select('comunidades.comunidad', 'paises.pais')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('paises.activo', true)
-            //->where('comunidades.activo', true)
+            ->where('comunidades.activo', true)
             ->orderBy('paises.pais')
             ->orderBy('comunidades.comunidad')
             ->get();
@@ -323,7 +323,7 @@ class Comunidades extends Model
 
             return Comunidades::Select('comunidades.comunidad', 'paises.pais')
                 ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
                 ->where('solicitudes_enviadas.aceptada', false)
                 ->where('comunidades.esColaborador', true)
                 ->where('comunidades.activo', true)
@@ -335,7 +335,7 @@ class Comunidades extends Model
 
             return Comunidades::Select('comunidades.comunidad')
                 ->where('comunidades.pais_id', '=', $pais)
-                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
                 ->where('solicitudes_enviadas.aceptada', false)
                 ->where('comunidades.esColaborador', true)
                 ->where('comunidades.activo', true)
