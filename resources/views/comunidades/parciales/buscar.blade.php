@@ -11,7 +11,7 @@
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activa','0'=>'No Activa'),
+    {!! FORM::select('esActivo', array(''=>'Todas...','1'=>'Activa','0'=>'No Activa'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
