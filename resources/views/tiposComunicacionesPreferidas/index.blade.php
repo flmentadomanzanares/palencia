@@ -67,7 +67,7 @@
                         </tbody>
                     </table>
                 </div>
-                {!! $tiposComunicacionesPreferidas->appends(Request::only(['comunicacion_preferida']))->render()!!}
+                {!! $tiposComunicacionesPreferidas->appends(Request::only(['comunicacion_preferida','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
