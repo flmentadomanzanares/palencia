@@ -573,8 +573,8 @@ class PdfController extends Controller
 
         //Configuración del listado html
         $listadoPosicionInicial = 15;
-        $listadoTotal = 18;
-        $listadoTotalRestoPagina = 23;
+        $listadoTotal = 19;
+        $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
         if ($idPais == 0) {
