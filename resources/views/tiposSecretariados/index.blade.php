@@ -77,7 +77,7 @@
                     </div>
                 </div>
             @endif
-            {!! $tipoSecretariados->appends(Request::only(['tipo_secretariado']))->render()!!}
+            {!! $tipoSecretariados->appends(Request::only(['tipo_secretariado','esActivo']))->render()!!}
         @else
             @include('comun.guestGoHome')
         @endif
