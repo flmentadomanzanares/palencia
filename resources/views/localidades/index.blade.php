@@ -73,7 +73,7 @@
                         </table>
                     </div>
                 @endforeach
-                {!! $localidades->appends(Request::only(['localidad']))->render()!!}
+                {!! $localidades->appends(Request::only(['localidad','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

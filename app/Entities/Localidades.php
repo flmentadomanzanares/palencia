@@ -31,6 +31,7 @@ class Localidades extends Model
         pais($request->get('pais'))->
         provincia($request->get('provincia'))->
         localidad($request->get('localidad'))->
+        LocalidadEsActivo($request->get('esActivo'))->
         orderBy('pais', 'ASC')->
         orderBy('provincia', 'ASC')->
         orderBy('localidad', 'ASC')->
@@ -84,6 +85,13 @@ class Localidades extends Model
     {
         if (trim($localidad) != '')
             $query->where('localidad', 'LIKE', "$localidad" . '%');
+    }
+
+    public function scopeLocalidadEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('localidades.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
     /**
