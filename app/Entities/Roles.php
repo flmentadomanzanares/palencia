@@ -14,6 +14,7 @@ class Roles extends Model
     {
 
         return Roles::rol($request->get('rol'))
+            ->RolEsActivo($request->get('esActivo'))
             ->orderBy('rol', 'ASC')
             ->paginate(3)
             ->setPath('roles');
@@ -30,6 +31,13 @@ class Roles extends Model
     {
         if (trim($rol) != '')
             $query->where('rol', 'LIKE', "$rol" . '%');
+    }
+
+    public function scopeRolEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('roles.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
     /**
