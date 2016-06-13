@@ -46,15 +46,15 @@
                                 <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
                                 <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                                 <li role="separator" class="divider"></li>
-                                <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
+                                <li>{!!link_to('tiposSecretariados', 'Tipos de Secretariados')!!}</li>
                                 @if (config("opciones.accion.roles"))
                                     <li>{!!link_to('roles', 'Roles')!!}</li>
                                 @endif
                                 @if (config("opciones.accion.tiposParticipantes"))
-                                    <li>{!!link_to('tiposParticipantes', 'Tipo de Participantes')!!}</li>
+                                    <li>{!!link_to('tiposParticipantes', 'Tipos de Participantes')!!}</li>
                                 @endif
                                 @if (config("opciones.accion.tipoComunicacionesPreferidas"))
-                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipo de Comunicación')!!}</li>
+                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos de Comunicación')!!}</li>
                                 @endif
                             </ul>
                         </li>
