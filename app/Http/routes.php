@@ -138,5 +138,13 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     //Obtener relación de cursillos de una comunidad de una solicitud recibida
     Route::post('cursillosSolicitudRecibida', array('as' => 'cursillosSolicitudRecibida', 'uses' => 'SolicitudesRecibidasController@getCursillosSolicitudRecibida'));
 
+    // Listado Secretariados Activos por Pais
+    Route::get('imprimirPaisesActivos', 'PdfController@imprimirPaisesActivos');
+
+    // Listado Secretariados Colaboradores Sin Responder
+    Route::get('secretariadosColaboradoresSinResponder', 'PdfController@getSecretariadosColaboradoresSinResponder');
+    Route::post('imprimirSecretariadosColaboradoresSinResponder', array('as' => 'imprimirSecretariadosColaboradoresSinResponder', 'uses' => 'PdfController@imprimirSecretariadosColaboradoresSinResponder'));
+
+
 });
 

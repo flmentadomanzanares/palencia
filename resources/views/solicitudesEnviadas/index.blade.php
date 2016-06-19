@@ -69,7 +69,7 @@
                         </table>
                     </div>
                 @endforeach
-                {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada']))->render()!!}
+                {!! $solicitudesEnviadas->appends(Request::only(['comunidades', 'aceptada','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

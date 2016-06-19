@@ -68,7 +68,7 @@
                         </table>
                     @endforeach
                 </div>
-                {!! $provincias->appends(Request::only(['provincia']))->render()!!}
+                {!! $provincias->appends(Request::only(['provincia','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

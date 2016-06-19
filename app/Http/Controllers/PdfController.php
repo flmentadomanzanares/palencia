@@ -498,6 +498,118 @@ class PdfController extends Controller
 
     }
 
+    /*******************************************************************
+     *
+     *  Listado "Paises Activos"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirPaisesActivos()
+    {
+
+        $date = date('d-m-Y');
+        $fichero = 'paisesActivos' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $comunidades = Comunidades::imprimirPaisesActivos();
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 10;
+        $listadoTotal = 23;
+        $listadoTotalRestoPagina = 27;
+        $separacionLinea = 2.5;
+        $titulo = "Paises Activos";
+
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirPaisesActivos',
+            compact(
+                'comunidades',
+                'pais',
+                'date',
+                'titulo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
+            ->download($fichero . '.pdf');
+
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados Colaboradores Sin Responder"
+     *
+     *  Función para recabar la informacion necesaria para el listado
+     *
+     *******************************************************************/
+    public function getSecretariadosColaboradoresSinResponder()
+    {
+        $titulo = "Secretariados Colaboradores Sin Responder";
+        $comunidades = new Comunidades();
+        $paises = Paises::getPaisesColaboradores();
+
+
+        return view("pdf.listarSecretariadosColaboradoresSinResponder", compact('comunidades', 'paises', 'titulo'));
+
+    }
+
+    /*******************************************************************
+     *
+     *  Listado "Secretariados Colaboradores Sin Responder"
+     *
+     *  Función para imprimir el listado con los parametros
+     *  seleccionados
+     *
+     *******************************************************************/
+    public function imprimirSecretariadosColaboradoresSinResponder()
+    {
+
+        $idPais = \Request::input('pais');
+
+        $pais = Paises::getNombrePais((int)$idPais);
+        $date = date('d-m-Y');
+        $fichero = 'secretariadosColaboradoresSinResponder' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $comunidades = Comunidades::imprimirSecretariadosPaisConSolicitudesSinResponder($idPais);
+
+        //Configuración del listado html
+        $listadoPosicionInicial = 15;
+        $listadoTotal = 19;
+        $listadoTotalRestoPagina = 25;
+        $separacionLinea = 2.5;
+
+        if ($idPais == 0) {
+
+            $titulo1 = "Secretariados Colaboradores Sin Responder";
+            $titulo2 = "de Todos los Países";
+
+        } else {
+
+            $titulo1 = "Secretariados Colaboradores Sin Responder";
+            $titulo2 = "de " . $pais->pais;
+
+
+        }
+
+        $pdf = \App::make('dompdf.wrapper');
+        return $pdf->loadView('pdf.imprimirSecretariadosColaboradoresSinResponder',
+            compact(
+                'comunidades',
+                'pais',
+                'date',
+                'titulo1',
+                'titulo2',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'separacionLinea',
+                'listadoTotalRestoPagina'
+            ))
+            ->download($fichero . '.pdf');
+
+
+    }
+
     public function semanasSolicitudesRecibidasCursillos(Request $request)
     {
         if (\Request::ajax()) {

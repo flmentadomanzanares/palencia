@@ -25,6 +25,7 @@ class Comunidades extends Model
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
             ->Comunidades($request->get('comunidad'))
+            ->ComunidadEsActivo($request->get('esActivo'))
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id', '=', 'tipos_comunicaciones_preferidas.id')
             ->orderBy('comunidad', 'ASC')
             ->paginate(5)
@@ -285,6 +286,18 @@ class Comunidades extends Model
 
     }
 
+    static public function imprimirPaisesActivos()
+    {
+
+        return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->where('paises.activo', true)
+            ->where('comunidades.activo', true)
+            ->orderBy('paises.pais')
+            ->orderBy('comunidades.comunidad')
+            ->get();
+
+    }
 
     public static function getComunidadesAll()
     {
@@ -302,6 +315,36 @@ class Comunidades extends Model
         return Comunidades::Select('comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto')
             ->where('comunidades.id', $id)
             ->first();
+    }
+
+    static public function imprimirSecretariadosPaisConSolicitudesSinResponder($pais = 0)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
     }
 
     /*****************************************************************************************************************
@@ -473,6 +516,13 @@ class Comunidades extends Model
             }
         }
         return $query;
+    }
+
+    public function scopeComunidadEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('comunidades.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }
 

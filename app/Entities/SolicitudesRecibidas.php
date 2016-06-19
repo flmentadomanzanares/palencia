@@ -29,6 +29,7 @@ class SolicitudesRecibidas extends Model
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
+            ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.id', 'ASC')
             ->paginate(5)
@@ -230,5 +231,12 @@ class SolicitudesRecibidas extends Model
             $query->where('solicitudes_recibidas.aceptada', $aceptada == 1 ? true : false);
         }
         return $query;
+    }
+
+    public function scopeSolicitudRecibidaEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }

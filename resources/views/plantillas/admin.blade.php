@@ -46,15 +46,15 @@
                                 <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
                                 <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                                 <li role="separator" class="divider"></li>
-                                <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
+                                <li>{!!link_to('tiposSecretariados', 'Tipos de Secretariados')!!}</li>
                                 @if (config("opciones.accion.roles"))
                                     <li>{!!link_to('roles', 'Roles')!!}</li>
                                 @endif
                                 @if (config("opciones.accion.tiposParticipantes"))
-                                    <li>{!!link_to('tiposParticipantes', 'Tipo de Participantes')!!}</li>
+                                    <li>{!!link_to('tiposParticipantes', 'Tipos de Participantes')!!}</li>
                                 @endif
                                 @if (config("opciones.accion.tipoComunicacionesPreferidas"))
-                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipo de Comunicación')!!}</li>
+                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos de Comunicación')!!}</li>
                                 @endif
                             </ul>
                         </li>
@@ -69,6 +69,8 @@
                                 <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pais')!!}</li>
                                 <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
                                 <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
+                                <li>{!!link_to('imprimirPaisesActivos', 'Paises activos')!!}</li>
+                                <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
 
                             </ul>
                         </li>
@@ -178,7 +180,7 @@
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia v2.0.0 | KOALNET - 2015</span>
+    <span>&copy; Palencia v2.0.0 | KOALNET - 2016</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}

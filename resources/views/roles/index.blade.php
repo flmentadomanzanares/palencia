@@ -73,7 +73,7 @@
                 </div>
             @endif
             <div class="row paginationBlock">
-                {!! $roles->appends(Request::only(['rol']))->render()
+                {!! $roles->appends(Request::only(['rol','esActivo']))->render()
                 !!}{{-- Poner el paginador --}}
             </div>
         @else

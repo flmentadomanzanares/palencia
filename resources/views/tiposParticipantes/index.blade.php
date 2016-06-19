@@ -67,7 +67,7 @@
                         </tbody>
                     </table>
                 </div>
-                {!! $tiposParticipantes->appends(Request::only(['tipo_participante']))->render()!!}
+                {!! $tiposParticipantes->appends(Request::only(['tipo_participante','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

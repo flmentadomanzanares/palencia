@@ -13,6 +13,7 @@ class TiposSecretariados extends Model
     {
         return TiposSecretariados::Select('id', 'tipo_secretariado', 'activo')
             ->tipoSecretariado($request->get('tipo_secretariado'))
+            ->TipoSecretariadoEsActivo($request->get('esActivo'))
             ->orderBy('tipo_secretariado', 'ASC')
             ->paginate()
             ->setPath('tiposSecretariados');
@@ -43,6 +44,13 @@ class TiposSecretariados extends Model
         if ($tipoSecretariado != null && trim($tipoSecretariado) != '')
             $query->where('tipo_secretariado', 'LIKE', "$tipoSecretariado" . '%');
         return $query;
+    }
+
+    public function scopeTipoSecretariadoEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
 }

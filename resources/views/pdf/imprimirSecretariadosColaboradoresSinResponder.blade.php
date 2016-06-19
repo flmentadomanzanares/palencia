@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Secretariados por país</title>
+    <title>Secretariados Colaboradores Sin Responder</title>
 
     <style>
 
@@ -130,7 +130,8 @@
 
     <div class=" cabecera1 text-center">
 
-        {{ $titulo }}<br/>
+        {{ $titulo1 }}<br/>
+        {{ $titulo2 }}<br/>
 
     </div>
 

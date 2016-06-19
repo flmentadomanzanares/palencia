@@ -43,6 +43,7 @@ class SolicitudesEnviadas extends Model
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
+            ->SolicitudEnviadaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_enviadas.id', 'ASC')
             ->paginate(5)
@@ -231,5 +232,12 @@ class SolicitudesEnviadas extends Model
             $query->where('solicitudes_enviadas.cursillo_id', $cursilloId);
         }
         return $query;
+    }
+
+    public function scopeSolicitudEnviadaEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('solicitudes_enviadas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }
