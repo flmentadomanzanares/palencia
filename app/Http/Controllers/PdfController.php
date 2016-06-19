@@ -202,7 +202,7 @@ class PdfController extends Controller
         } else {
 
             $pdf = \App::make('dompdf.wrapper');
-            return $pdf->loadView('pdf.imprimirSecretariado',
+            $view = \View::make('pdf.imprimirSecretariado',
                 compact('secretariado',
                     'solicitudesEnviadas',
                     'solicitudesRecibidas',
@@ -213,10 +213,12 @@ class PdfController extends Controller
                     'listadoTotal',
                     'listadoTotalRestoPagina',
                     'separacionLinea'
-                ))
-                ->download($fichero . '.pdf');
-
+                ))->render();
+            $pdf->loadHTML($view);
+            $pdf->output();
+            return $pdf->download($fichero . '.pdf');
         }
+
 
     }
 

@@ -13,6 +13,7 @@
 //Verificación de email
 
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
+
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
 
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
@@ -112,7 +113,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('imprimirComunidades', array('as' => 'imprimirComunidades', 'uses' => 'PdfController@imprimirComunidades'));
 
     // Listado Secretariado
-    Route::get('secretariado', 'PdfController@getSecretariado');
+    Route::get('secretariado', array('as' => 'secretariado', 'uses' => 'PdfController@getSecretariado'));
     Route::post('imprimirSecretariado', array('as' => 'imprimirSecretariado', 'uses' => 'PdfController@imprimirSecretariado'));
 
     // Listado Secretariados Activos por Pais
