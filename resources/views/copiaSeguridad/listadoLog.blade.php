@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima altoMaximo" style="margin-top:110px">
         <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
@@ -35,21 +35,9 @@
                             </div>
                         @endif
                     </td>
-
                 </tr>
             @endforeach
             </tbody>
         </table>
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('copiaSeguridad')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-        </div>
     </div>
-@endsection
-@section("css")
-@stop
-@section('js')
 @endsection

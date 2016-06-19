@@ -12,19 +12,7 @@
                 <div class="heading-caption">Comunidad</div>
                 {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control"))!!}
                 <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Enviar" class="pull-right">
-                        <i class='glyphicon glyphicon-floppy-disk full-Width'>
-                            <div>Copia</div>
-                        </i>
-                    </button>
-                </div>
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Copia"])
                 {!! FORM::close() !!}
             </div>
         @else
