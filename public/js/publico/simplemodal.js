@@ -15,7 +15,7 @@
         modal_velocidad_fade: 400,
         modal_velocidad_scroll: 500,
         modal_plano_z: 0,
-        modal_posicion_vertical: 120,
+        modal_posicion_vertical: 115,
         modal_ancho: 200,
         modal_cabecera_color_fondo: '#400090',
         modal_cabecera_color_texto: '#ffffff',

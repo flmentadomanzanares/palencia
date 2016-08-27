@@ -43,10 +43,32 @@ class BootstrapThreePresenter implements PresenterContract
     public function render()
     {
         if ($this->hasPages()) {
-            $html = "<div id='paginacion' class='formularioModal'><div class='modalBackGround'></div><div class='ventanaModal'><div class='lanzarModal simpleModal' data-etiqueta_ancho='80'
-             data-etiqueta_color_fondo='rgba(240, 165, 0,.8)' data-etiqueta_color_texto='rgba(255,255,255,1)' data-modal_posicion_vertical='215' data-modal_plano_z='1'
-             data-modal_ancho='80' data-modal_sin_etiqueta='false'><span title='Paginación'><i class='glyphicon glyphicon-search text-center'><div>Paginaci&oacute;n</div></i></span></div><div class='cuerpoFormularioModal'>
-             <div class='scroll'><ul class='pager'>%s %s %s</ul></div></div></div></div>";
+            $html = "<div id='paginacion' class='formularioModal'>
+                        <div class='modalBackGround'></div>
+                        <div class='ventanaModal'>
+                            <div class='lanzarModal simpleModal'
+                                data-etiqueta_ancho='80'
+                                data-modal_centro_pantalla='false'
+                                data-modal_en_la_derecha='false'
+                                data-etiqueta_color_fondo='rgba(240, 165, 0,.8)'
+                                data-etiqueta_color_texto='rgba(255,255,255,1)'
+                                data-modal_posicion_vertical='115'
+                                data-modal_plano_z='1'
+                                data-modal_ancho='80'
+                                data-modal_sin_etiqueta='false'>
+                                <span title='Paginación'>
+                                    <i class='glyphicon glyphicon-search text-center'>
+                                        <div>Paginaci&oacute;n</div>
+                                    </i>
+                                </span>
+                            </div>
+                            <div class='cuerpoFormularioModal'>
+                                <div class='scroll'>
+                                    <ul class='pager'>%s %s %s</ul>
+                                </div>
+                            </div>
+                        </div>
+                     </div>";
             return sprintf(
                 $html,
                 $this->getPreviousButton(),
