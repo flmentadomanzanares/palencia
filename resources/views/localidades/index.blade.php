@@ -33,6 +33,8 @@
                                         <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                                 @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                 class="pull-right lanzarModal simpleModal"
+                                                data-modal_centro_pantalla="true"
+                                                data-modal_en_la_derecha="false"
                                                 data-modal_sin_etiqueta="true"
                                                 data-modal_ancho="330"
                                                 data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'

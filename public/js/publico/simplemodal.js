@@ -9,6 +9,7 @@
         etiqueta_color_fondo: 'rgba(120,00,200,.8)',
         etiqueta_color_texto: '#ffffff',
         etiqueta_ancho: 70,
+        modal_centro_pantalla: false,
         modal_sin_etiqueta: false,
         modal_en_la_derecha: true,
         modal_velocidad_fade: 400,
@@ -126,9 +127,10 @@
                 return;
             }
             ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.modal_velocidad_fade, function () {
-                    var animacion = ventana.modal.find(".ventanaModal");
-                var side = (ventana.opciones.modal_en_la_derecha === true) ? {"margin-left": '-' + animacion.css("width")} : {"margin-left": animacion.css("width")};
-                animacion.animate(side, ventana.opciones.modal_velocidad_scroll, function () {
+                var modal = ventana.modal.find(".ventanaModal");
+                var recorrido = ventana.opciones.modal_centro_pantalla ? (window.innerWidth / 2) + (modal.innerWidth() / 2) + "px" : modal.css("width");
+                var side = (ventana.opciones.modal_en_la_derecha === true) ? {"margin-left": '-' + recorrido} : {"margin-left": recorrido};
+                modal.animate(side, ventana.opciones.modal_velocidad_scroll, function () {
                         ventana.modal.find('.lanzarModal').addClass('closeModal');
                         ventana.modal.find('.lanzarModal').removeClass('lanzarModal');
                     });
