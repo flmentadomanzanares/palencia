@@ -19,6 +19,7 @@
                 <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                         @if(config('opciones.accion.mostrarModalDeBorrado'))
                         class="pull-right lanzarModal simpleModal"
+                        data-selector-id="modal-borrar"
                         data-modal_sin_etiqueta="true"
                         data-modal_ancho="330"
                         data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
@@ -37,10 +38,7 @@
                         <div>Borrar</div>
                     </i>
                 </button>
-                @if(config('opciones.accion.mostrarModalDeBorrado'))
-                    @include ("comun.plantillaBorrado")
-                @endif
             </div>
         </div>
     </div>
-
+</div>
