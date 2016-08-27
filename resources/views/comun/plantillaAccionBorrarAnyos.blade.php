@@ -18,7 +18,7 @@
             <div class="btn-action">
                 <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                         @if(config('opciones.accion.mostrarModalDeBorrado'))
-                        class="pull-right lanzarModal simpleModal"
+                        class="simpleModal"
                         data-selector-id="modal-borrar"
                         data-modal_sin_etiqueta="true"
                         data-modal_ancho="330"
