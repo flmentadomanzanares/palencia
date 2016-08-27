@@ -43,7 +43,7 @@
                                             data-modal_ancho="330"
                                             data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
                                             data-modal_cabecera_color_texto='#ffffff'
-                                            data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
+                                            data-modal_cuerpo_color_fondo='rgba(255,255,255,1)'
                                             data-modal_cuerpo_color_texto='"#ffffff'
                                             data-modal_pie_color_fondo='#400090'
                                             data-modal_pie_color_texto='"#ffffff'
