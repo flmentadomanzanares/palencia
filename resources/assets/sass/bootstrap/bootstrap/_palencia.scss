@@ -4,6 +4,13 @@
   src: url($fontPath);
 }
 
+//margin all de 5 en 5 desde el cero al 20
+//***********************************************
+@for $i from 0 through 4 {
+  .m-#{$i*5} {
+    margin: 0px + $i*5 !important;
+  }
+}
 //Thumbnail
 //***********************************************
 .thumbnail {
