@@ -186,7 +186,6 @@
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}
 {!! HTML::script('js/publico/simplemodal.js') !!}
-{!! HTML::script("js/comun/modales.js")!!}
 @yield("js")
 </body>
 </html>
