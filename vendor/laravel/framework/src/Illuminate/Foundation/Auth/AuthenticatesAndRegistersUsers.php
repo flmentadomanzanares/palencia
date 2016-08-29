@@ -57,7 +57,7 @@ trait AuthenticatesAndRegistersUsers
                 $envio = 0;
             }
             if ($envio == 0) {
-                return Redirect('/')->with('mensaje', 'No se ha podido enviar el email de confirmación a tu cuenta de correos.');
+                return Redirect('/')->with('mensaje', 'No se ha podido enviar el email de confirmación a tu cuenta de correos.Comprueba cortafuegos y/o antivirus.');
             }
             $this->registrar->create($request->all());
             return Redirect('/')->with('mensaje', 'Gracias por darte de alta, Por favor verifica tu cuenta de correos.');
@@ -79,7 +79,7 @@ trait AuthenticatesAndRegistersUsers
             return $this->redirectPath;
         }
 
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : 'inicio';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/inicio';
     }
 
     /**
