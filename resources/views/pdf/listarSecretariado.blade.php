@@ -8,8 +8,8 @@
         @if (Auth::check())
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirSecretariado','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione año y secretariado para imprimir ...</div>
-                {!! FORM::label('anyo', 'Año') !!} <br/>
+                <div class="heading-caption">Seleccione a&ntilde;o y secretariado para imprimir ...</div>
+                {!! FORM::label('anyo', 'A&ntilde;o') !!} <br/>
                 {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 <br/>
                 {!! FORM::label('comunidad', 'Secretariado') !!} <br/>

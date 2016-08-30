@@ -13,10 +13,10 @@
     {!! FORM::label('name', 'Usuario') !!} <br/>
     {!! FORM::text ('name',$usuario->name,array("class"=>"form-control")) !!} <br/>
 
-    {!! FORM::label ('password', 'Contraseña') !!} <br/>
+    {!! FORM::label ('password', 'Contrase&ntilde;a') !!} <br/>
     {!! FORM::password ('password',array("class"=>"form-control")) !!} <br/>
 
-    {!! FORM::label ('repass', 'Repetir Contraseña') !!} <br/>
+    {!! FORM::label ('repass', 'Repetir Contrase&ntilde;a') !!} <br/>
     {!! FORM::password ('password_confirmation',array("class"=>"form-control")) !!}<br/>
     @if (Auth::check())
         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))

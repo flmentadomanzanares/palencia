@@ -171,7 +171,7 @@
                 @endif
                 <?php $i++?>
                 <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    País: {!! $comunidad->pais!!}
+                    Pa&iacute;s: {!! $comunidad->pais!!}
                 </div>
                 <?php $i++?>
                 <?php $pais = $comunidad->pais; ?>
@@ -192,7 +192,7 @@
             <?php if ($pagina > 0) echo '<div class="pagina">P&aacute;g. ' . ($pagina = $pagina + 1) . '</div>' ?>
         @else
             <div class="cabecera3">
-                <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el país solicitado.</p>
+                <p>¡Aviso! - No se ha encontrado ningun secretariado que listar para el pa&iacute;s solicitado.</p>
             </div>
         @endif
 

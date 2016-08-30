@@ -10,7 +10,7 @@
                 @if(count($anyos)>0)
                     {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
                     <div class="heading-caption">Seleccione a&ntilde;o y semana para imprimir los cursillos ...</div>
-                    {!! FORM::label('anyo', 'Año') !!} <br/>
+                    {!! FORM::label('anyo', 'A&ntilde;o') !!} <br/>
                     {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                     <br/>
                     {!! FORM::label('semana', 'Semana') !!} <br/>

@@ -24,13 +24,13 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="table-autenticado-columna-1">Número:</td>
+                                <td class="table-autenticado-columna-1">N&uacute;mero:</td>
                                 <td>
                                     {!!$solicitudEnviadaCursillos->num_cursillo!!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Año ISO-8601:</td>
+                                <td>A&ntilde;o ISO-8601:</td>
                                 <td>{!! Date("o" , strtotime($solicitudEnviadaCursillos->fecha_inicio) )!!}</td>
                             </tr>
                             <tr>

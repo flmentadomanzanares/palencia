@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
-    {!! FORM::label ('pais', 'Nombre del País') !!}
+    {!! FORM::label ('pais', 'Nombre del Pa&iacute;s') !!}
     {!! FORM::select('pais',$paises, $provincia->pais_id ,array("class"=>"form-control")) !!}
     {!! FORM::label('provincia', 'Nombre de la Provincia') !!} <br/>
     {!! FORM::text('provincia', null, ["class" => "form-control text-uppercase", "title"=>"Nombre de la Provincia"]) !!}

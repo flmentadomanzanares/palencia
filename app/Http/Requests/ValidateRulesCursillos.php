@@ -36,13 +36,13 @@ class ValidateRulesCursillos extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
 
-            'cursillo.max' => 'Longitud máxima del cursillo :max caracteres.',
-            'num_cursillo.numeric' => 'El número del cursillo debe de ser numérico.',
+            'cursillo.max' => 'Longitud m&aacute;xima del cursillo :max caracteres.',
+            'num_cursillo.numeric' => 'El n&uacute;mero del cursillo debe de ser num&eacute;rico.',
             'fecha_inicio.required' => 'La fecha de inicio es obligatoria!',
-            'fecha_inicio.date_format' => 'La fecha de inicio debe ser una fecha del tipo día/mes/año',
+            'fecha_inicio.date_format' => 'La fecha de inicio debe ser una fecha del tipo d&iacute;a/mes/a&ntilde;o',
             'fecha_final.required' => 'La fecha final es obligatoria!',
-            'fecha_final.date_format' => 'La fecha final debe ser una fecha del tipo día/mes/año',
-            'descripcion.min' => 'Longitud mínima de la descripción :min caracteres.',
+            'fecha_final.date_format' => 'La fecha final debe ser una fecha del tipo d&iacute;a/mes/a&ntilde;o',
+            'descripcion.min' => 'Longitud m&iacute;nima de la descripci&oacute;n :min caracteres.',
             'comunidad_id.required' => "La comunidad es obligatoria.",
             'comunidad_id.min' => "Debes de elegir una comunidad.",
             'tipo_participante_id.required' => "El tipo de asistente es obligatorio.",

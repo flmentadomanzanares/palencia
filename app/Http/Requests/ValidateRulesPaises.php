@@ -28,9 +28,9 @@ class ValidateRulesPaises extends Request
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'pais.required' => 'El pais es obligatorio!',
-            'pais.min' => 'Longitud mínima del pais :min caracteres.',
-            'pais.max' => 'Longitud máxima del pais :max caracteres.'
+            'pais.required' => 'El pa&iacute;s es obligatorio!',
+            'pais.min' => 'Longitud m&iacute;nima del pa&iacute;s :min caracteres.',
+            'pais.max' => 'Longitud m&aacute;xima del pa&iacute;s :max caracteres.'
         ];
     }
 

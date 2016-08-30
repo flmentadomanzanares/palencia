@@ -16,7 +16,7 @@
                 <div class="heading-caption">Seleccione a&ntilde;o a cerrar ...</div>
                 {!! FORM::open(['route'=>'borrarTablas','method'=>'POST']) !!}
                 <div class="form-group">
-                    {!! FORM::label('anyo', 'Año') !!}
+                    {!! FORM::label('anyo', 'A&ntilde;o') !!}
                     {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 </div>
                 @include('comun.plantillaAccionBorrarAnyos')

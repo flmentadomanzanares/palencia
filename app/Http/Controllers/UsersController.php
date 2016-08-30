@@ -113,7 +113,7 @@ class UsersController extends Controller
                 $user->delete();
             } else {
                 return redirect()->route('usuarios.index')
-                    ->with('mensaje', 'No se puede eliminar al usuario ' . $user->name . ' es el último administrador activo.');
+                    ->with('mensaje', 'No se puede eliminar al usuario ' . $user->name . ' es el &uacute;ltimo administrador activo.');
             }
 
         } catch (\Exception $e) {

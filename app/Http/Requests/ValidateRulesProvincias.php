@@ -31,9 +31,9 @@ class ValidateRulesProvincias extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'provincia.required' => 'La provincia es obligatoria!',
-            'provincia.min' => 'Longitud mínima de la provincia :min caracteres.',
-            'provincia.max' => 'Longitud máxima de la provincia :max caracteres.',
-            'pais.min' => 'Debes de seleccionar un país.',
+            'provincia.min' => 'Longitud m&iacute;nima de la provincia :min caracteres.',
+            'provincia.max' => 'Longitud m&aacute;xima de la provincia :max caracteres.',
+            'pais.min' => 'Debes de seleccionar un pa&iacute;s.',
 
 
         ];

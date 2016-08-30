@@ -32,14 +32,14 @@ class ValidateRulesUsers extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'fullname.required' => 'El Nombre Completo es obligatorio.',
-            'fullname.min' => 'Longitud mínima del Nombre Completo :min caracteres.',
-            'fullname.max' => 'Longitud máxima del Nombre Completo :max caracteres.',
+            'fullname.min' => 'Longitud m&iacute;nima del Nombre Completo :min caracteres.',
+            'fullname.max' => 'Longitud m&aacute;xima del Nombre Completo :max caracteres.',
             'name.required' => 'El Nombre de Usuario es obligatorio.',
-            'name.min' => 'Longitud mínima del Nombre de Usuario :min caracteres.',
-            'name.max' => 'Longitud máxima del Nombre de Usuario :max caracteres.',
-            'foto.mimes' => 'Formato de imagen no válido. usa formato jpeg, png y/o jpg.',
-            'password.min' => 'Longitud mínima del Password :min caracteres.',
-            'password.max' => 'Longitud máxima del Password :max caracteres.',
+            'name.min' => 'Longitud m&iacute;nima del Nombre de Usuario :min caracteres.',
+            'name.max' => 'Longitud m&aacute;xima del Nombre de Usuario :max caracteres.',
+            'foto.mimes' => 'Formato de imagen no v&aacute;lido. usa formato jpeg, png y/o jpg.',
+            'password.min' => 'Longitud m&iacute;nima del Password :min caracteres.',
+            'password.max' => 'Longitud m&aacute;xima del Password :max caracteres.',
             'password.confirmed' => 'Password no coincidente.',
         ];
     }

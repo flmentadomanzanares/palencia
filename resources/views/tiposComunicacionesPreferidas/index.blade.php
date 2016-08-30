@@ -49,7 +49,7 @@
                                                         data-modal_posicion_vertical="220"
                                                         data-titulo="BORRAR"
                                                         data-pie="true"
-                                                        data-descripcion="¿Seguro que deseas eliminar este tipo de comunicación preferida?
+                                                        data-descripcion="¿Seguro que deseas eliminar este tipo de comunicaci&oacute;n preferida?
                                                     <h3><strong class='green'>{{ $tipoComunicacionPreferida->comunicacion_preferida }}</strong></h3>"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>

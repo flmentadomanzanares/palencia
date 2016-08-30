@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Secretariados por país</title>
+    <title>Secretariados por pa&iacute;s</title>
 
     <style>
 
@@ -186,7 +186,7 @@
     @if(!$comunidades->isEmpty())
 
         <div class="cabeceraIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-            País
+            Pa&iacute;s
         </div>
         <div class="cabeceraDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
             Total Secretariados
@@ -279,7 +279,7 @@
     @else
 
         <div class="cabecera3">
-            <p>¡Aviso! - No se ha encontrado ningun país activo que listar.</p>
+            <p>¡Aviso! - No se ha encontrado ningun pa&iacute;s activo que listar.</p>
         </div>
 
     @endif

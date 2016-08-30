@@ -33,7 +33,7 @@
                                aria-haspopup="true" aria-expanded="false">Administrador<span
                                         class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li>{!!link_to('paises', 'Países')!!}</li>
+                                <li>{!!link_to('paises', 'Pa&iacute;ses')!!}</li>
                                 <li>{!!link_to('provincias', 'Provincias')!!}</li>
                                 <li>{!!link_to('localidades', 'Localidades')!!}</li>
                                 <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
@@ -54,7 +54,7 @@
                                     <li>{!!link_to('tiposParticipantes', 'Tipos de Participantes')!!}</li>
                                 @endif
                                 @if (config("opciones.accion.tipoComunicacionesPreferidas"))
-                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos de Comunicación')!!}</li>
+                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos de Comunicaci&oacute;n')!!}</li>
                                 @endif
                             </ul>
                         </li>
@@ -65,11 +65,11 @@
                                 <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
                                 <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
                                 <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
-                                <li>{!!link_to('secretariadosPais', 'Secretariados activos por país')!!}</li>
-                                <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por país')!!}</li>
+                                <li>{!!link_to('secretariadosPais', 'Secretariados activos por pa&iacute;s')!!}</li>
+                                <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pa&iacute;s')!!}</li>
                                 <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
                                 <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
-                                <li>{!!link_to('imprimirPaisesActivos', 'Países activos')!!}</li>
+                                <li>{!!link_to('imprimirPaisesActivos', 'Pa&iacute;ses activos')!!}</li>
                                 <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
 
                             </ul>
@@ -117,8 +117,8 @@
                             {!! FORM::label('email', 'Email') !!}
                             {!! FORM::text ('email','',array("placeholder"=>"Email de usuario",
                             "class"=>"form-control")) !!}
-                            {!! FORM::label ('password', 'Contraseña') !!}
-                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"Contraseña"))
+                            {!! FORM::label ('password', 'Contrase&ntilde;a') !!}
+                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"Contrase&ntilde;a"))
                             !!}
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             @if(config("opciones.seguridad.recordarPassword"))
@@ -132,7 +132,7 @@
                                       data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
                                       data-modal_cuerpo_color_texto='"#ffffff'
                                       data-modal_posicion_vertical="115"
-                                      data-titulo="CONTRASEÑA">Contraseña olvidada</span>
+                                      data-titulo="CONTRASE&Ntilde;A">Contrase&ntilde;a olvidada</span>
                             @endif
                             <br/>
                             <span class="btn btn-default btn-block lanzarModal simpleModal"

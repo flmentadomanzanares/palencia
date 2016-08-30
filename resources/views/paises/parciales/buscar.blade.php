@@ -5,7 +5,7 @@
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::text('pais',null,['class'=>'form-control','placeholder'=>'Buscar país ...'])!!}
+    {!! FORM::text('pais',null,['class'=>'form-control','placeholder'=>'Buscar pa&iacute;s ...'])!!}
 </div>
 <br/>
 <button type="submit" class="btn btn-primary btn-block">

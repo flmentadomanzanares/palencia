@@ -107,7 +107,7 @@ class ComunidadesController extends Controller
                 case 23000:
                     return redirect()->
                     route('comunidades.index')->
-                    with('mensaje', 'la comunidad está ya dada de alta.');
+                    with('mensaje', 'la comunidad est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -221,7 +221,7 @@ class ComunidadesController extends Controller
                 case 23000:
                     return redirect()->
                     route('comunidades.index')->
-                    with('mensaje', 'la comunidad ' . $comunidad->comunidad . ' está ya dada de alta.');
+                    with('mensaje', 'la comunidad ' . $comunidad->comunidad . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->

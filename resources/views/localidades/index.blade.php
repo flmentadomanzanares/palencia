@@ -64,7 +64,7 @@
                             </thead>
                             <tbody>
                             <tr @if(!$localidad->activo) class="foreground-disabled" @endif>
-                                <td class="table-autenticado-columna-1">País:</td>
+                                <td class="table-autenticado-columna-1">Pa&iacute;s:</td>
                                 <td>{{ $localidad->pais }}</td>
                             </tr>
                             <tr @if(!$localidad->activo) class="foreground-disabled" @endif>

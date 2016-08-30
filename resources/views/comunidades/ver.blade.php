@@ -39,15 +39,15 @@
                 <td>{{ $comunidad->localidad }}</td>
             </tr>
             <tr>
-                <td>Código Postal</td>
+                <td>C&oacute;digo Postal</td>
                 <td>{{ $comunidad->cp }}</td>
             </tr>
             <tr>
-                <td>Dirección Postal</td>
+                <td>Direcci&oacute;n Postal</td>
                 <td>{{ $comunidad->direccion_postal }}</td>
             </tr>
             <tr>
-                <td>Dirección</td>
+                <td>Direcci&oacute;n</td>
                 <td>{{ $comunidad->direccion }}</td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
                 <td>{{ $comunidad->email_solicitud }}</td>
             </tr>
             <tr>
-                <td>Email Envío</td>
+                <td>Email Env&iacute;o</td>
                 <td>{{ $comunidad->email_envio }}</td>
             </tr>
             <tr>
@@ -67,15 +67,15 @@
                 <td>{{ $comunidad->facebook }}</td>
             </tr>
             <tr>
-                <td>Teléfono 1</td>
+                <td>Tel&eacute;fono 1</td>
                 <td>{{ $comunidad->telefono1 }}</td>
             </tr>
             <tr>
-                <td>Teléfono 2</td>
+                <td>Tel&eacute;fono 2</td>
                 <td>{{ $comunidad->telefono2 }}</td>
             </tr>
             <tr>
-                <td>Comunicación Preferida</td>
+                <td>Comunicaci&oacute;n Preferida</td>
                 <td>{{ $comunidad->comunicacion_preferida }}</td>
             </tr>
             <tr>

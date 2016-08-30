@@ -8,10 +8,10 @@
         <div class="cuerpoFormularioModal">
             <div class="scroll">
                 {!! FORM::open(array('url' => '/password/email','method'=>'post')) !!}
-                {!! FORM::label ('email', 'Email de envío') !!} <br/>
+                {!! FORM::label ('email', 'Email de env&iacute;o') !!} <br/>
                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                 <br/>
-                {!! FORM::submit('Recuperar contraseña',array("class"=>"btn btn-success btn-block actionOkClick")) !!}
+                {!! FORM::submit('Recuperar contrase&ntilde;a',array("class"=>"btn btn-success btn-block actionOkClick")) !!}
                 {!! FORM::close() !!}
             </div>
         </div>

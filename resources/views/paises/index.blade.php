@@ -50,7 +50,7 @@
                                                         data-modal_posicion_vertical="220"
                                                         data-titulo="BORRAR"
                                                         data-pie="true"
-                                                        data-descripcion="¿Seguro que deseas eliminar este país?
+                                                        data-descripcion="¿Seguro que deseas eliminar este pa&iacute;s?
                                                         <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
                                                         @endif >
                                                     <i class='glyphicon glyphicon-trash full-Width'>

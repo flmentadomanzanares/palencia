@@ -8,11 +8,11 @@
     <span style="font-size:16px;line-height:1.6;text-align: justify">Queridos hermanos:</span>
     <br/>
     <span style="font-size:16px;line-height:1.6;;padding-left: 2em;text-align: justify">Les adjuntamos carta solicitando intendencia para
-        los Cursillos de nuestra Diócesis, en la que encontrarán las fechas en que tendrán lugar. Les rogamos nos comuniquen
-        los suyos para que nuestra Comunidad ore también por ellos. Por favor tengan en cuenta las direcciones de
-        correo electrónico  que figuran al pie de dicha carta.</span>
+        los Cursillos de nuestra Di&oacute;cesis, en la que encontrar&aacute;n las fechas en que tendr&aacute;n lugar. Les rogamos nos comuniquen
+        los suyos para que nuestra Comunidad ore tambi&eacute;n por ellos. Por favor tengan en cuenta las direcciones de
+        correo electr&oacute;nico  que figuran al pie de dicha carta.</span>
     <br/>
-    <span style="font-size:16px;line-height:1.6;;padding-left: 2em;text-align: justify">Un fuerte abrazo. MCC Diócesis de Canarias, Espa&ntilde;a.</span>
+    <span style="font-size:16px;line-height:1.6;;padding-left: 2em;text-align: justify">Un fuerte abrazo. MCC Di&oacute;cesis de Canarias, Espa&ntilde;a.</span>
     <br/>
 
     <div style="text-align: right;font-size:20px;line-height:1.6">

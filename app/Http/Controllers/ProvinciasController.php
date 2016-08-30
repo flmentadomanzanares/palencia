@@ -64,7 +64,7 @@ class ProvinciasController extends Controller
                 case 23000:
                     return redirect()
                         ->route('provincias.create')
-                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' está ya dada de alta.');
+                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()

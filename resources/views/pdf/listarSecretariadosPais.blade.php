@@ -8,8 +8,8 @@
         @if (Auth::check())
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirSecretariadosPais','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione el país para imprimir los secretariados ...</div>
-                {!! FORM::label('pais', 'País') !!} <br/>
+                <div class="heading-caption">Seleccione el pa&iacute;s para imprimir los secretariados ...</div>
+                {!! FORM::label('pais', 'Pa&iacute;s') !!} <br/>
                 {!! FORM::select('pais', $paises, null,array("class"=>"form-control",'id'=>'select_paises'))!!}
                 @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
                 {!! FORM::close() !!}

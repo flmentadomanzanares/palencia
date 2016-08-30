@@ -75,11 +75,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Número:</td>
+                            <td>N&uacute;mero:</td>
                             <td>{!!$cursillo->num_cursillo!!}</td>
                         </tr>
                         <tr>
-                            <td>Año ISO-8601:</td>
+                            <td>A&ntilde;o ISO-8601:</td>
                             <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
                         </tr>
                         <tr>

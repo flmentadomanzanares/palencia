@@ -64,7 +64,7 @@ class LocalidadesController extends Controller
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('localidades.create')
-                        ->with('mensaje', 'La localidad ' . $localidad->localidad . ' está ya dada de alta.');
+                        ->with('mensaje', 'La localidad ' . $localidad->localidad . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()

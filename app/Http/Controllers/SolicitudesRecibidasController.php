@@ -67,7 +67,7 @@ class SolicitudesRecibidasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesRecibidas.create')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -130,7 +130,7 @@ class SolicitudesRecibidasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesRecibidas.index')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->

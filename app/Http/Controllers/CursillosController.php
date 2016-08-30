@@ -87,7 +87,7 @@ class CursillosController extends Controller
                 case 23000:
                     return redirect()->
                     route('cursillos.create')->
-                    with('mensaje', 'El cursillo nº' . $cursillo->num_cursillo . ' está ya dado de alta.');
+                    with('mensaje', 'El cursillo nº' . $cursillo->num_cursillo . ' est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()->
@@ -115,7 +115,7 @@ class CursillosController extends Controller
         if (count($cursillo) == 0) {
             return redirect()->
             route('cursillos')->
-            with('mensaje', 'El cursillo no está dado de alta.');
+            with('mensaje', 'El cursillo no est&aacute; dado de alta.');
         }
         return view('cursillos.ver',
             compact(
@@ -134,7 +134,7 @@ class CursillosController extends Controller
         if (count($cursillo) == 0) {
             return redirect()->
             route('inicio')->
-            with('mensaje', 'El cursillo no está dado de alta.');
+            with('mensaje', 'El cursillo no est&aacute; dado de alta.');
         }
 
         return view('cursillos.ver',
@@ -201,7 +201,7 @@ class CursillosController extends Controller
                 case 23000:
                     return redirect()->
                     route('cursillos.index')->
-                    with('mensaje', 'El cursillo está ya dado de alta.');
+                    with('mensaje', 'El cursillo est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()->

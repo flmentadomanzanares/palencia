@@ -16,8 +16,8 @@
     Responsable", "maxlength"=>"100"]) !!}
     <br/>
 
-    <div class="heading-caption">Localización</div>
-    {!! FORM::label ('pais_id', 'País:') !!} <br/>
+    <div class="heading-caption">Localizaci&oacute;n</div>
+    {!! FORM::label ('pais_id', 'Pa&iacute;s:') !!} <br/>
     {!! FORM::select('pais_id',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
     !!} <br/>
     {!! FORM::label ('select_provincia', 'Provincia:') !!} <br/>
@@ -28,19 +28,19 @@
     {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
     {!! FORM::select('select_localidad',$localidades, $comunidad->localidad_id, ["class" =>
     "form-control",'id'=>'select_localidad']) !!} <br/>
-    {!! FORM::label('cp', 'Código Postal:') !!} <br/>
-    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"9"]) !!}
+    {!! FORM::label('cp', 'C&oacute;digo Postal:') !!} <br/>
+    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"C&oacute;digo Postal", "maxlength"=>"9"]) !!}
     <br/>
     {!! FORM::label('direccion_postal', 'Apartado de Correos:') !!} <br/>
     {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('direccion', 'Dirección:') !!} <br/>
-    {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
+    {!! FORM::label('direccion', 'Direcci&oacute;n:') !!} <br/>
+    {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Direcci&oacute;n",
     "maxlength"=>"100") )!!}
     <br/>
 
-    <div class="heading-caption">Comunicación</div>
-    {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
+    <div class="heading-caption">Comunicaci&oacute;n</div>
+    {!! FORM::label ('comunicacion_preferida', 'Comunicaci&oacute;n Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
     $comunidad->tipo_comunicacion_preferida_id, ["class" =>
     "form-control"]) !!} <br/>
@@ -51,18 +51,18 @@
     {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
-    {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Dirección WEB", "maxlength"=>"50"]) !!}
+    {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Direcci&oacute;n WEB", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('facebook', 'FaceBook:') !!} <br/>
     {!! FORM::text('facebook',$comunidad->facebook, ["class" => "form-control", "title"=>"FaceBook", "maxlength"=>"50"])
     !!}
     <br/>
-    {!! FORM::label('telefono1', 'Telefono 1:') !!} <br/>
-    {!! FORM::text('telefono1',$comunidad->telefono1, ["class" => "form-control", "title"=>"Teléfono",
+    {!! FORM::label('telefono1', 'Tel&eacute;fono 1:') !!} <br/>
+    {!! FORM::text('telefono1',$comunidad->telefono1, ["class" => "form-control", "title"=>"Tel&eacute;fono",
     "maxlength"=>"13"]) !!}
     <br/>
-    {!! FORM::label('telefono2', 'Telefono 2:') !!} <br/>
-    {!! FORM::text('telefono2',$comunidad->telefono2, ["class" => "form-control", "title"=>"Teléfono",
+    {!! FORM::label('telefono2', 'Tel&eacute;fono 2:') !!} <br/>
+    {!! FORM::text('telefono2',$comunidad->telefono2, ["class" => "form-control", "title"=>"Tel&eacute;fono",
     "maxlength"=>"13"]) !!}
     <br/>
 

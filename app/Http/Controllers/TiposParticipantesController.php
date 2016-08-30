@@ -51,7 +51,7 @@ class TiposParticipantesController extends Controller
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('tiposParticipantes.create')
-                        ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' está ya dado de alta.');
+                        ->with('mensaje', 'El tipo de participante ' . $tipoParticipante->tipo_participante . ' est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()

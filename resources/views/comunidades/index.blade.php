@@ -78,7 +78,7 @@
                                 <td> @if ($comunidad->esPropia) Si @else No @endif </td>
                             </tr>
                             <tr>
-                                <td>País:</td>
+                                <td>Pa&iacute;s:</td>
                                 <td>
                                     {!! $comunidad->pais !!}
                                 </td>
@@ -102,13 +102,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Dirección:</td>
+                                <td>Direcci&oacute;n:</td>
                                 <td>
                                     {!! $comunidad->direccion !!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Comunicación preferida:</td>
+                                <td>Comunicaci&oacute;n preferida:</td>
                                 <td>{{$comunidad->comunicacion_preferida}}</td>
                             </tr>
                             <tr>

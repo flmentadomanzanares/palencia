@@ -20,7 +20,7 @@
             <div class="scroll">
                 {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
                 <div class="form-group">
-                    {!! FORM::label('modalidad', 'Medio de comunicación') !!}
+                    {!! FORM::label('modalidad', 'Medio de comunicaci&oacute;n') !!}
                     {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
                 </div>
 
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    {!! FORM::label('anyo', 'Año Cursillos') !!}
+                    {!! FORM::label('anyo', 'A&ntilde;o Cursillos') !!}
                     {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 </div>
 

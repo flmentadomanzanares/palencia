@@ -62,7 +62,7 @@ class PdfController extends Controller
         if ($anyo == 0 || $semana == 0) {
 
             return redirect('cursillosPaises')->
-            with('mensaje', 'Debe seleccionar un año y una semana.');
+            with('mensaje', 'Debe seleccionar un a&ntilde;o y una semana.');
 
         } else {
 
@@ -196,7 +196,7 @@ class PdfController extends Controller
         if ($idComunidad == 0 || $anyo == 0) {
 
             return redirect('secretariado')->
-            with('mensaje', 'Debe seleccionar un año y un secretariado.');
+            with('mensaje', 'Debe seleccionar un a&ntilde;o y un secretariado.');
 
         } else {
 
@@ -230,7 +230,7 @@ class PdfController extends Controller
      *******************************************************************/
     public function getSecretariadosPais()
     {
-        $titulo = "Secretariados Colaboradores Activos por Pais";
+        $titulo = "Secretariados Colaboradores Activos por Pa&iacute;s";
         $comunidades = new Comunidades();
         $paises = Paises::getPaisesColaboradores();
 
@@ -265,7 +265,7 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados Colaboradores Activos de Todos los Países";
+            $titulo = "Secretariados Colaboradores Activos de Todos los Pa&iacute;ses";
 
         } else {
 
@@ -299,7 +299,7 @@ class PdfController extends Controller
      *******************************************************************/
     public function getSecretariadosPaisInactivos()
     {
-        $titulo = "Secretariados Colaboradores Inactivos por Pais";
+        $titulo = "Secretariados Colaboradores Inactivos por Pa&iacute;s";
         $comunidades = new Comunidades();
         $paises = Paises::getPaisesColaboradores();
 
@@ -334,7 +334,7 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados Colaboradores Inactivos de Todos los Países";
+            $titulo = "Secretariados Colaboradores Inactivos de Todos los Pa&iacute;ses";
 
         } else {
 
@@ -400,7 +400,7 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados No Colaboradores Activos de Todos los Países";
+            $titulo = "Secretariados No Colaboradores Activos de Todos los Pa&iacute;ses";
 
         } else {
 
@@ -469,7 +469,7 @@ class PdfController extends Controller
 
         if ($idPais == 0) {
 
-            $titulo = "Secretariados No Colaboradores Inactivos de Todos los Países";
+            $titulo = "Secretariados No Colaboradores Inactivos de Todos los Pa&iacute;ses";
 
         } else {
 
@@ -581,7 +581,7 @@ class PdfController extends Controller
         if ($idPais == 0) {
 
             $titulo1 = "Secretariados Colaboradores Sin Responder";
-            $titulo2 = "de Todos los Países";
+            $titulo2 = "de Todos los Pa&iacute;ses";
 
         } else {
 

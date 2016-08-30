@@ -39,7 +39,7 @@ class CerrarAnyoController extends Controller
         $anyo = $request->get('anyo');
         if ($anyo == 0) {
             return redirect('cerrarAnyo')->
-            with('mensaje', 'Debe seleccionar un año.');
+            with('mensaje', 'Debe seleccionar un a&ntilde;o.');
         } else {
             try {
                 DB::transaction(function () use ($anyo) {

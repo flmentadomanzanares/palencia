@@ -15,9 +15,9 @@
                 {!! FORM::text ('name',"",array("maxlength"=>"20","class"=>"form-control")) !!}
                 {!! FORM::label ('email', 'Email') !!}
                 {!! FORM::text('email',"",array("class"=>"form-control")) !!}
-                {!! FORM::label ('password', 'Contraseña') !!}
+                {!! FORM::label ('password', 'Contrase&ntilde;a') !!}
                 {!! FORM::password ('password',array("class"=>"form-control")) !!}
-                {!! FORM::label ('passwordConfrmation', 'Repetir contraseña') !!}
+                {!! FORM::label ('passwordConfrmation', 'Repetir contrase&ntilde;a') !!}
                 {!! FORM::password ('password_confirmation',array("class"=>"form-control")) !!}
                 <br/>
                 {!! FORM::submit('Registrarse',array("class"=>"btn btn-success btn-block")) !!}

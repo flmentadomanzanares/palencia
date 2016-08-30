@@ -46,7 +46,7 @@ class NuestrasRespuestasController extends Controller
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
                 if (strtolower($destinatario->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) && (strlen($destinatario->email_envio) == 0)) {
-                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras respuestas";
+                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el env&iacute;o de nuestras respuestas";
                 }
             }
             if (count($incidencias) > 0) {
@@ -55,7 +55,7 @@ class NuestrasRespuestasController extends Controller
                 $anyos = $request->get('anyo');
                 $incluirRespuestasAnteriores = $incluirRespuestasAnteriores;
                 $restoComunidades = $request->get('restoComunidades');
-                $titulo = "Comunidades sin email de envío de respuestas";
+                $titulo = "Comunidades sin email de env&iacute;o de respuestas";
                 return view('nuestrasRespuestas.comprobacion',
                     compact('titulo',
                         'incidencias',
@@ -83,7 +83,7 @@ class NuestrasRespuestasController extends Controller
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasRespuestas')->
-            with('mensaje', 'No se puede realizar la operación, debe de existir remitente y/o destinatario/s  y/o curso/s');
+            with('mensaje', 'No se puede realizar la operaci&oacute;n, debe de existir remitente y/o destinatario/s  y/o curso/s');
         }
         //Configuración del listado html
         $listadoPosicionInicial = 40.5;
@@ -203,7 +203,7 @@ class NuestrasRespuestasController extends Controller
                     }
 
                     if ($contador > 0) {
-                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " est&aacute;"
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
 
@@ -239,7 +239,7 @@ class NuestrasRespuestasController extends Controller
                         $totalCursosActualizadosIds[] .= $id;
                     }
                     if ($contador > 0) {
-                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " está"
+                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $destinatario->comunidad . " est&aacute;"
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
                 } catch (\Exception $e) {
