@@ -8,18 +8,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default m-20">
                     <div class="panel-body">
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <strong>Errores</strong><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <form class="" role="form" method="POST" action="/auth/password/reset">
+                        <form class="" role="form" method="POST" action="/password/reset">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="token" value="{{ $token }}">
 

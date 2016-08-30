@@ -35,4 +35,6 @@
 /vendor/danielstjules
 /vendor/phpunit
 /tests
+/.idea
 
+/.gitignore
