@@ -65,11 +65,11 @@
                                 <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
                                 <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
                                 <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
-                                <li>{!!link_to('secretariadosPais', 'Secretariados activos por pais')!!}</li>
-                                <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pais')!!}</li>
+                                <li>{!!link_to('secretariadosPais', 'Secretariados activos por país')!!}</li>
+                                <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por país')!!}</li>
                                 <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
                                 <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
-                                <li>{!!link_to('imprimirPaisesActivos', 'Paises activos')!!}</li>
+                                <li>{!!link_to('imprimirPaisesActivos', 'Países activos')!!}</li>
                                 <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
 
                             </ul>

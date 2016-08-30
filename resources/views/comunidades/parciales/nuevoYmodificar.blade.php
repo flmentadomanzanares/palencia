@@ -17,7 +17,7 @@
     <br/>
 
     <div class="heading-caption">Localización</div>
-    {!! FORM::label ('pais_id', 'Pais:') !!} <br/>
+    {!! FORM::label ('pais_id', 'País:') !!} <br/>
     {!! FORM::select('pais_id',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
     !!} <br/>
     {!! FORM::label ('select_provincia', 'Provincia:') !!} <br/>
