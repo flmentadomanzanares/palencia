@@ -323,7 +323,7 @@ class Cursillos extends Model
     public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = false)
     {
         $esSolicitudAnterior = filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN);
-        if (is_bool($esSolicitudAnterior) && !$esSolicitudAnterior) {
+        if (filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN) && !$esSolicitudAnterior) {
             $query->where('cursillos.esSolicitud', $esSolicitudAnterior);
         }
         return $query;
@@ -332,7 +332,7 @@ class Cursillos extends Model
     public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = false)
     {
         $esRespuestaAnterior = filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN);
-        if (is_bool($esRespuestaAnterior) && !$esRespuestaAnterior) {
+        if (filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN) && !$esRespuestaAnterior) {
             $query->where('cursillos.esRespuesta', $esRespuestaAnterior);
         }
         return $query;

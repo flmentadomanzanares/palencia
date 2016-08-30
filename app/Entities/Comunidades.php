@@ -467,23 +467,22 @@ class Comunidades extends Model
 
     public function scopeEsColaborador($query, $esColaborador = null)
     {
-        if (is_bool($esColaborador)) {
-            $query->where('comunidades.esColaborador', $esColaborador);
-        }
+
+        $query->where('comunidades.esColaborador', filter_var($esColaborador, FILTER_VALIDATE_BOOLEAN));
+
         return $query;
     }
 
-    public function scopeEsPropia($query, $esPropia = 0)
+    public function scopeEsPropia($query, $esPropia = false)
     {
-        if (is_bool($esPropia)) {
-            $query->where('comunidades.esPropia', $esPropia);
-        }
+        $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
+
         return $query;
     }
 
-    public function scopeExcluirSinCursillos($query, $excluirSinCursillos = 0)
+    public function scopeExcluirSinCursillos($query, $excluirSinCursillos = false)
     {
-        if (is_bool($excluirSinCursillos)) {
+        if (filter_var($excluirSinCursillos, FILTER_VALIDATE_BOOLEAN)) {
             $query->where('cursillosTotales', '>', 0);
         }
         return $query;
