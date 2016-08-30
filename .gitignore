@@ -37,6 +37,5 @@
 /tests
 /.idea
 
-/.gitignore
-/composer.phar
-/composer.json
+
+
