@@ -44,7 +44,7 @@ trait AuthenticatesAndRegistersUsers
                 $request, $validator
             );
         }
-        if (config('opciones.verificar.Email')) {
+        if (config('opciones.seguridad.Email')) {
             //Añadimos a la request nuevos parámetros a incluir en el usuario a crear
             $codigoConfirmacion = str_random(30);
             $request->request->add(['activo' => "1", 'confirmado' => "0", "codigo_confirmacion" => $codigoConfirmacion]);
