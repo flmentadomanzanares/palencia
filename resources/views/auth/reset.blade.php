@@ -8,7 +8,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default m-20">
                     <div class="panel-body">
-                        <form class="" role="form" method="POST" action="/password/reset">
+                        <form class="" role="form" method="POST" action="password/reset">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="token" value="{{ $token }}">
 
