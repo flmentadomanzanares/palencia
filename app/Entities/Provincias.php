@@ -58,11 +58,12 @@ class Provincias extends Model
 
     public static function getProvincias(Request $request)
     {
-
-        return Provincias::pais($request->get('pais'))
-            ->provincia($request->get('provincia'))
-            ->orderBy('provincia', 'ASC')->paginate()
-            ->setPath('provincias');
+        return Provincias::pais($request->get('pais'))->
+        provincia($request->get('provincia'))->
+        ProvinciaEsActivo($request->get('esActivo'))->
+        orderBy('provincia', 'ASC')->
+        paginate()->
+        setPath('provincias');
     }
 
     /**
@@ -111,5 +112,12 @@ class Provincias extends Model
     public function paises()
     {
         return $this->belongsTo('Palencia\Entities\Paises', 'pais_id');
+    }
+
+    public function scopeProvinciaEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('provincias.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }
