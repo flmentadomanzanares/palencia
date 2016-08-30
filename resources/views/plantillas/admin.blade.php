@@ -114,16 +114,16 @@
 
                         <div class="dropdown-menu" style="padding: 20px">
                             {!! FORM::open(array('url' => 'auth/login')) !!}
-                            {!! FORM::label('email', 'email') !!}
-                            {!! FORM::text ('email','',array("placeholder"=>"email de usuario",
+                            {!! FORM::label('email', 'Email') !!}
+                            {!! FORM::text ('email','',array("placeholder"=>"Email de usuario",
                             "class"=>"form-control")) !!}
-                            {!! FORM::label ('password', 'contraseña') !!}
-                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"password"))
+                            {!! FORM::label ('password', 'Contraseña') !!}
+                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"Contraseña"))
                             !!}
                             {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
                             @if(config("opciones.seguridad.recordarPassword"))
                                 <br/>
-                                <span class="btn btn-default btn-block lanzarModal simpleModal" data-title="RECORDAR"
+                                <span class="btn btn-default btn-block lanzarModal simpleModal"
                                       data-selector-Id="recordar"
                                       data-modal_sin_etiqueta="true"
                                       data-modal_ancho="330"
@@ -132,10 +132,10 @@
                                       data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
                                       data-modal_cuerpo_color_texto='"#ffffff'
                                       data-modal_posicion_vertical="115"
-                                      data-titulo="PASSWORD">Recordar password</span>
+                                      data-titulo="CONTRASEÑA">Contraseña olvidada</span>
                             @endif
                             <br/>
-                            <span class="btn btn-default btn-block lanzarModal simpleModal" data-title="REGISTRO"
+                            <span class="btn btn-default btn-block lanzarModal simpleModal"
                                   data-selector-Id="registro"
                                   data-modal_sin_etiqueta="true"
                                   data-modal_ancho="330"

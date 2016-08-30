@@ -9,18 +9,18 @@
         <div class="cuerpoFormularioModal">
             <div class="scroll">
                 {!! FORM::open(array('url' => 'auth/register')) !!}
-                {!! FORM::label('fullname', 'nombre completo') !!}
+                {!! FORM::label('fullname', 'Nombre completo') !!}
                 {!! FORM::text ('fullname',"",array("class"=>"form-control")) !!}
-                {!! FORM::label('username', 'nombre usuario') !!}
+                {!! FORM::label('username', 'Nombre usuario') !!}
                 {!! FORM::text ('name',"",array("maxlength"=>"20","class"=>"form-control")) !!}
-                {!! FORM::label ('email', 'email') !!}
+                {!! FORM::label ('email', 'Email') !!}
                 {!! FORM::text('email',"",array("class"=>"form-control")) !!}
-                {!! FORM::label ('password', 'contraseña') !!}
+                {!! FORM::label ('password', 'Contraseña') !!}
                 {!! FORM::password ('password',array("class"=>"form-control")) !!}
-                {!! FORM::label ('passwordConfrmation', 'repetir contraseña') !!}
+                {!! FORM::label ('passwordConfrmation', 'Repetir contraseña') !!}
                 {!! FORM::password ('password_confirmation',array("class"=>"form-control")) !!}
                 <br/>
-                {!! FORM::submit('registrarse',array("class"=>"btn btn-success btn-block")) !!}
+                {!! FORM::submit('Registrarse',array("class"=>"btn btn-success btn-block")) !!}
                 {!! FORM::close() !!}
             </div>
         </div>
