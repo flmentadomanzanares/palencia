@@ -26,7 +26,6 @@ class PdfController extends Controller
 
         $anyos = SolicitudesRecibidasCursillos::getAnyoSolicitudesRecibidasList(false);
         $semanas = Array();
-
         return view("pdf.listarCursillos",
             compact('titulo',
                 'anyos',

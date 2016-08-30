@@ -7,16 +7,21 @@
     <div class="hidden table-size-optima altoMaximo">
         @if (Auth::check())
             <div class="row ">
-                {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione año y semana para imprimir los cursillos ...</div>
-                {!! FORM::label('anyo', 'Año') !!} <br/>
-                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
-                <br/>
-                {!! FORM::label('semana', 'Semana') !!} <br/>
-                {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
-                <br/>
-                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
-                {!! FORM::close() !!}
+                @if(count($anyos)>0)
+                    {!! FORM::open(['route'=>'imprimirCursillos','method'=>'POST']) !!}
+                    <div class="heading-caption">Seleccione a&ntilde;o y semana para imprimir los cursillos ...</div>
+                    {!! FORM::label('anyo', 'Año') !!} <br/>
+                    {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
+                    <br/>
+                    {!! FORM::label('semana', 'Semana') !!} <br/>
+                    {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
+                    <br/>
+                    @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
+                    {!! FORM::close() !!}
+                @else
+                    <div class="heading-caption">No existen solicitudes recibidas</div>
+                    @include('comun.plantillaVolverModificarGuardar',['index'=>"inicio"])
+                @endif
             </div>
         @else
             @include('comun.guestGoHome')
@@ -24,5 +29,7 @@
     </div>
 @endsection
 @section('js')
+    @if(count($anyos)>0)
     {!! HTML::script('js/comun/semanasSolicitudesRecibidasCursillos.js') !!}
+    @endif
 @endsection
