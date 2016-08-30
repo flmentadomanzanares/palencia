@@ -26,18 +26,18 @@
     <span><strong style="font-size:16px;line-height:1.6;text-align: justify">Por correo
             electr&oacute;nico:</strong></span>
     <br/>
-    <span style="padding-left: 2em;font-size:16px;line-height:1.6;text-align: justify">Para solicitar nuestra intendencia: <a
+    {{--<span style="padding-left: 2em;font-size:16px;line-height:1.6;text-align: justify">Para solicitar nuestra intendencia: <a
                 href="{{$remitente->email_solicitud}}">{{$remitente->email_solicitud}}</a></span>
-    <br/>
+    <br/>--}}
     <span style="padding-left: 2em;font-size:16px;line-height:1.6;text-align: justify">Para enviarnos la vuestra: <a
                 href="{{$remitente->email_envio}}">{{$remitente->email_envio}}</a></span>
     <br/>
-    <span><strong style="font-size:16px;line-height:1.6;text-align: justify">Por correo postal:</strong></span>
-    <br/>
-    <span style="padding-left: 2em; font-size:16px;line-height:1.6;text-align: justify">{{$remitente->direccion_postal}} {{$remitente->localidad}}
-        -{{$remitente->cp}}
-        -{{$remitente->pais}}</span>
-    <br/>
+    {{-- <span><strong style="font-size:16px;line-height:1.6;text-align: justify">Por correo postal:</strong></span>
+     <br/>
+     <span style="padding-left: 2em; font-size:16px;line-height:1.6;text-align: justify">{{$remitente->direccion_postal}} {{$remitente->localidad}}
+         -{{$remitente->cp}}
+         -{{$remitente->pais}}</span>
+     <br/>--}}
     <br/>
     <span style="font-size:16px;line-height:1.6;text-align: justify">Un fuerte abrazo:</span>
     <br/>
