@@ -31,7 +31,7 @@
                                         </i>
                                     </a>
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    @if($comunidad->activa)
+                                    @if($comunidad->activo)
                                         {!! FORM::open(array('route' => array('comunidades.destroy',
                                         $comunidad->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
                                         <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
