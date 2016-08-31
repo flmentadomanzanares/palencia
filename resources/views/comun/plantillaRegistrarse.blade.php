@@ -1,10 +1,18 @@
 <div id="registro" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
-        <div class="cabeceraFormularioModal">
-            <span></span>
-
-            <div title="Cerrar" class="closeFormModal">X</div>
+        <div class="lanzarModal simpleModal"
+             data-etiqueta_color_fondo="rgba(76, 158, 217,.8)"
+             data-etiqueta_color_texto="rgba(255,255,255,1)"
+             data-modal_posicion_vertical="165"
+             data-modal_plano_z="2"
+             data-modal_ancho="275"
+             data-etiqueta_ancho="80">
+            <span title="Nueva alta">
+                <i class="glyphicon glyphicon-plus-sign text-center">
+                    <div>Alta</div>
+                </i>
+            </span>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

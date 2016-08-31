@@ -1,9 +1,18 @@
 <div id="recordar" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
-        <div class="cabeceraFormularioModal">
-            <span></span>
-            <a title="Cerrar" class="closeFormModal">X</a>
+        <div class="lanzarModal simpleModal"
+             data-etiqueta_color_fondo="rgba(76, 158, 217,.8)"
+             data-etiqueta_color_texto="rgba(255,255,255,1)"
+             data-modal_posicion_vertical="215"
+             data-modal_plano_z="1"
+             data-modal_ancho="275"
+             data-etiqueta_ancho="80">
+            <span title="Nueva alta">
+                <i class="glyphicon glyphicon-question-sign text-center">
+                    <div>Contrase&ntilde;a</div>
+                </i>
+            </span>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

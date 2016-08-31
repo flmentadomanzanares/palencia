@@ -104,50 +104,13 @@
                         </ul>
                     </li>
                 @else
+                    @include ("comun.plantillaLogin")
                     @if(config("opciones.seguridad.recordarPassword"))
                         @include ("comun.plantillaRecordarPassword")
                     @endif
-                    @include ("comun.plantillaRegistro")
-                    <li class="dropdown">
-                        <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Entrar<strong
-                                    class="caret"></strong></a>
-
-                        <div class="dropdown-menu" style="padding: 20px">
-                            {!! FORM::open(array('url' => 'auth/login')) !!}
-                            {!! FORM::label('email', 'Email') !!}
-                            {!! FORM::text ('email','',array("placeholder"=>"Email de usuario",
-                            "class"=>"form-control")) !!}
-                            {!! FORM::label ('password', 'Contrase&ntilde;a') !!}
-                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"Contrase&ntilde;a"))
-                            !!}
-                            {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
-                            @if(config("opciones.seguridad.recordarPassword"))
-                                <br/>
-                                <span class="btn btn-default btn-block lanzarModal simpleModal"
-                                      data-selector-Id="recordar"
-                                      data-modal_sin_etiqueta="true"
-                                      data-modal_ancho="330"
-                                      data-modal_cabecera_color_fondo='rgba(255,125,0,.9)'
-                                      data-modal_cabecera_color_texto='#ffffff'
-                                      data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
-                                      data-modal_cuerpo_color_texto='"#ffffff'
-                                      data-modal_posicion_vertical="115"
-                                      data-titulo="CONTRASE&Ntilde;A">Contrase&ntilde;a olvidada</span>
-                            @endif
-                            <br/>
-                            <span class="btn btn-default btn-block lanzarModal simpleModal"
-                                  data-selector-Id="registro"
-                                  data-modal_sin_etiqueta="true"
-                                  data-modal_ancho="330"
-                                  data-modal_cabecera_color_fondo='rgba(255,125,0,.9)'
-                                  data-modal_cabecera_color_texto='#ffffff'
-                                  data-modal_cuerpo_color_fondo='rgba(255,255,255,.9)'
-                                  data-modal_cuerpo_color_texto='"#ffffff'
-                                  data-modal_posicion_vertical="115"
-                                  data-titulo="REGISTRO">Registrarse</span>
-                            {!! FORM::close() !!}
-                        </div>
-                    </li>
+                    @if(config("opciones.seguridad.recordarPassword"))
+                        @include('comun.plantillaRegistrarse')
+                    @endif
                 @endif
             </ul>
         </div>
