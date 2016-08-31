@@ -1,5 +1,5 @@
 {{-- Formulario de busqueda --}}
-{!!FORM::model(Request::only(['comunidades','esActivo']),['route'=>'solicitudesEnviadas.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['comunidades','aceptada','esActivo']),['route'=>'solicitudesEnviadas.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
