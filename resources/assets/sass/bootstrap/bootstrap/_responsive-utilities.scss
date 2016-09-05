@@ -134,6 +134,10 @@
   }
 }
 
+@media (max-width: $screen-xs) {
+  @include responsive-invisibility('.hidden-xxs');
+}
+
 @media (max-width: $screen-xs-max) {
   @include responsive-invisibility('.hidden-xs');
 }

@@ -934,9 +934,10 @@ $page-header-border-color: $gray-lighter !default;
 $dl-horizontal-offset: $component-offset-horizontal !default;
 //** Horizontal line color.
 $hr-border: $gray-lighter !default;
+
 //** Footer line-height
-$footer-line-height: 36px !default;
-$footer-height: 35px !default;
+$footer-line-height: 28px !default;
+$footer-height: 28px !default;
 $footer-margin-top: 1em !default;
 
 //Column
@@ -959,6 +960,9 @@ $banner-background-color: rgba(255, 255, 255, 1) !default;
 $banner-width: 100% !default;
 $banner-height: 60px !default;
 
+//Titulos
+$title-top: 100px !default;
+
 //imagen
 $logo-height-base: 90px !default;
 $logo-img-height: $logo-height-base - $margin-app-base !default;
@@ -972,7 +976,7 @@ $logo-file-margin-top: 3px !default;
 $imagen-user-width: 32px !default;
 $imagen-user-height: $imagen-user-width !default;
 $imagen-user-left: -24px !default;
-$imagen-user-top: 2px !default;
+$imagen-user-top: -2px !default;
 
 //Contenedor Calendar
 $calendar-container-min-width: 400px !default;

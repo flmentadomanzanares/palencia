@@ -210,12 +210,14 @@
     });
     $.fn.simplemodal.defaults = defaults_options_simple_modal;
 })(jQuery);
+
+
 $(document).ready(function () {
     $(document).on("click", ".closeErrorModal", function (evt) {
         evt.preventDefault();
         var elementContent = $(evt.target).closest(".alert-dismissible");
         var element = elementContent.find(".errorOn");
-        var desplazamiento = parseInt($(".errorOn").css("margin-top")) - parseInt($(".errorOn").outerHeight() + 1) + "px";
+        var desplazamiento = parseInt($(".errorOn").css("margin-top")) - (1.5 * parseInt($(".errorOn").outerHeight())) + "px";
         element.animate({'margin-top': desplazamiento}, 1000, function () {
             elementContent.find(".errorOnBackGround").fadeOut(1000);
         });

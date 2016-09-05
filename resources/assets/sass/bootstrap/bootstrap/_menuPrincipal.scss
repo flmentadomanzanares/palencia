@@ -1,0 +1,102 @@
+//Menu Principal para sustituir al nav bar collapse
+[data-role='menu'] {
+  position: fixed;
+  height: $footer-line-height;
+  top: $banner-height;
+  width: $banner-width;
+  min-width: 320px;
+  background-color: $panel-footer-bg;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, .3);
+  z-index: 11;
+}
+
+[data-role='menu'] ul {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+[data-role='menu'] ul:first-child {
+  display: block;
+  width: 100%;
+}
+
+[data-role='menu'] ul.right {
+  right: 0;
+}
+
+[data-role='menu'] ul > li {
+  display: block;
+  float: left;
+  padding: 5px 0;
+  min-width: 20px;
+  white-space: nowrap;
+}
+
+[data-role='menu'] ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 0 10px;
+  color: #333;
+}
+
+[data-role='menu'] ul.active {
+  display: block;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, .3);
+  position: absolute;
+  margin: 5px 0;
+  padding: 10px;
+  width: auto;
+  z-index: 200;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radiuss: 0 0 4px 4px;
+}
+
+[data-role='menu'] ul li {
+  position: relative;
+  width: auto;
+}
+
+[data-role='menu'] li.active {
+  background-color: #cc6200;
+  color: #e1d0f9;
+}
+
+[data-role='menu'] li.not[role="menu-separator"]:hover, [data-role='menu'] span {
+  cursor: pointer;
+}
+
+[data-role='menu'] span {
+  color: $app-color-white;
+}
+
+[data-role='menu'] li > ul > li a:not(:last-child):after {
+  font-family: "Glyphicons Halflings";
+  display: inline-block;
+  float: right;
+  margin: 0 .5em;
+  color: $app-color-info;
+  content: "\e080";
+}
+
+[data-role='menu'] ul > li > ul > li {
+  width: 100%;
+}
+
+[data-role='menu'] ul > li > ul > li:hover {
+  width: 100%;
+  background-color: #f5e9b4;
+}
+
+[data-role='menu'] ul li ul {
+  z-index: 11;
+}
+
+ul.active > li.menu-separator {
+  height: 1px;
+  margin: 5px 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
