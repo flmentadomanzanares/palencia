@@ -18,13 +18,13 @@ return ['campoUser' => [
         'administrador' => '400',
     ],
     'seguridad' => [
-        'Email' => true,
-        'recordarPassword' => true,
+        'Email' => false,
+        'recordarPassword' => false,
         'captcha' => false,
     ],
     'accion' => [
         'copiaSeguridad' => true,
-        'cerrarAnyo' => true,
+        'cerrarAnyo' => false,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
@@ -43,7 +43,7 @@ return ['campoUser' => [
         'email' => 'email',
     ],
     "emailTestSender" => [
-        "active" => true,
+        "active" => false,
         "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 
