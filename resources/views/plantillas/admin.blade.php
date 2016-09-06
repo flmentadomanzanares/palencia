@@ -90,11 +90,9 @@
         </ul>
     @else
         @include ("comun.plantillaLogin")
+        @include('comun.plantillaRegistrarse')
         @if(config("opciones.seguridad.recordarPassword"))
             @include ("comun.plantillaRecordarPassword")
-        @endif
-        @if(config("opciones.seguridad.recordarPassword"))
-            @include('comun.plantillaRegistrarse')
         @endif
     @endif
 </div>
