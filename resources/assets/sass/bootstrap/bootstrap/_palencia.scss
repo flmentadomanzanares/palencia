@@ -81,10 +81,6 @@
 //Tables
 //*********************************************************************
 .table-viaoptima {
-  //para hacerlo tipo instagram
-  //float:right;
-  //display:inline-block;
-  // margin:3px;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -118,9 +114,9 @@
       background-color: $app-color-base;
       th {
         &.cabecera {
-          line-height: $tabla-invitados-alto-fila;
           background-color: $app-color-white;
           color: $app-color-base;
+          line-height: $index-imagen-user-size;
         }
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
@@ -128,8 +124,8 @@
         background-color: transparent;
         img {
           position: absolute;
-          width: 42px;
-          height: 42px;
+          width: $index-imagen-user-size;
+          height: $index-imagen-user-size;
           border-radius: $margin-app-small;
         }
         div.ellipsis {
@@ -137,7 +133,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           max-width: 100%;
-          padding: 0 0 0 48px;
+          padding: 0 0 0 $index-imagen-user-size + $margin-app-base;
         }
         form {
           float: right;
@@ -178,29 +174,30 @@
           max-width: 1px;
           word-wrap: break-word;
         }
+        &.padding-right {
+          padding: 0 $padding-app-large 0 0;
+        }
+        &.padding-left {
+          padding: 0 0 0 $padding-app-large;
+        }
       }
     }
   }
 }
 
 .table-size-optima {
-  width: percentage($tabla-invitados-ancho/$screen-lg);
-  margin-left: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/2;
+  width: percentage($screen-md*1.1/$screen-lg);
+  margin-left: (100% -  percentage($screen-md *1.1 /$screen-lg))/2;
   margin-bottom: $footer-height + $margin-app-xl;
-}
-
-.tabla-ancho-columna-1 {
-  width: percentage($tabla-invitados-columna-1/$tabla-invitados-ancho);
 }
 
 .tabla-ancho-columna-125 {
   width: $columna-ancho-125;
 }
-.table-autenticado-columna-1 {
-  width: $tabla-autenticado-columna-1;
-  max-width: $tabla-autenticado-columna-1;
-}
 
+.tabla-ancho-columna-130 {
+  width: $columna-ancho-130;
+}
 //TEXTAREA
 //**************************************************
 textarea {
@@ -301,10 +298,8 @@ body {
 }
 
 .btn-action {
-  text-align: center;
-  padding: $padding-base-vertical 0;
   a, button {
-    @include btn-viaoptima-button-action();
+    @include btn-button-action();
     outline: none;
   }
 }
@@ -349,7 +344,7 @@ body {
   padding: $padding-base-vertical 0;
   @include clearfix;
   a {
-    @include btn-viaoptima-button-action(rgba(104, 196, 96, 0.2));
+    @include btn-button-action(rgba(104, 196, 96, 0.2));
   }
 
 }
@@ -364,10 +359,6 @@ body {
 //Ocultar con overflow
 .overflow-hidden {
   overflow: hidden;
-}
-
-.column-margin-top {
-  margin-top: $tab-invitados-margen-top-columna-texto;
 }
 
 // Ancho total
@@ -408,10 +399,6 @@ body {
       width: 100%;
     }
   }
-}
-
-.margin-left-via-optima {
-  margin-left: $tabla-invitados-padding;
 }
 
 //Pading para todas las páginas insertada en platillas

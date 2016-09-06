@@ -188,6 +188,12 @@ $table-bg-active: $table-bg-hover !default;
 //** Border color for table and cell borders.
 $table-border-color: #ddd !default;
 
+//Alto de la fila
+$tabla-alto-fila: 26px !default;
+
+//Ancho columnas
+$columna-ancho-125: 125px !default;
+$columna-ancho-130: 130px !default;
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
@@ -374,30 +380,6 @@ $screen-sm-max: ($screen-md-min - 1) !default;
 $screen-md-max: ($screen-lg-min - 1) !default;
 //***************************************************************************************
 
-//Vía óptima cálculo tamaño de la tabla página invitados
-$tabla-invitados-ancho: $screen-md !default;
-$tabla-invitados-alto-fila: 46px !default;
-$tabla-invitados-columna-1: 230px !default;
-
-$columna-ancho-125: 125px !default;
-$tabla-autenticado-columna-1: 160px !default;
-
-$tabla-invitados-padding: percentage(((2*$table-cell-padding)) / $tabla-invitados-ancho) !default;
-
-//Ancho de las columnas del tab
-$tab-invitados-ancho-columna: 440px !default;
-$tab-invitados-alto-columna: 293px !default;
-$tab-invitados-alto-enlace-registrate: 43px !default;
-$tab-invitados-alto-columna-texto: $tab-invitados-alto-columna - $tab-invitados-alto-enlace-registrate !default;
-$tab-invitados-margen-top-columna-texto: 26px !default;
-$tab-invitados-porciento-ancho-columna: percentage($tab-invitados-ancho-columna / $tabla-invitados-ancho) !default;
-
-//Dimensiones para la tabla de ver más en invitados
-
-$tabla-invitados-vermas-ancho: $tabla-invitados-ancho !default;
-$tabla-invitados-vermas-ancho-columna-1: 200px !default;
-$tabla-invitados-vermas-ancho-columna-2: $tabla-invitados-vermas-ancho - $tabla-invitados-vermas-ancho-columna-1;
-
 //== Grid system
 //
 //## Define your custom responsive grid.
@@ -430,7 +412,6 @@ $container-md: $container-desktop !default;
 $container-large-desktop: (1140px + $grid-gutter-width) !default;
 //** For `$screen-lg-min` and up.
 $container-lg: $container-large-desktop !default;
-
 //== Navbar
 //
 //##
@@ -972,11 +953,15 @@ $logo-file-width: $logo-img-width !default;
 $logo-file-margin-left: 4px !default;
 $logo-file-margin-top: 3px !default;
 
-//imagen autenticado
+//imagen autenticado navbar
 $imagen-user-width: 32px !default;
 $imagen-user-height: $imagen-user-width !default;
 $imagen-user-left: -24px !default;
 $imagen-user-top: -2px !default;
+
+//imagen-usuario vista index
+$index-imagen-user-size: 42px;
+
 
 //Contenedor Calendar
 $calendar-container-min-width: 400px !default;
