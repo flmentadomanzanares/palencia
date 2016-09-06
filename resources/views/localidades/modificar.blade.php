@@ -14,4 +14,5 @@
 @section("css")
 @stop
 @section('js')
+    {!! HTML::script("js/comun/direccion.js")!!}
 @endsection

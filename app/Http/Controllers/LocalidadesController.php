@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
-use Palencia\Entities\Provincias;
 use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesLocalidades;
 
@@ -93,7 +92,7 @@ class LocalidadesController extends Controller
         }
 
         $paises = Paises::getPaisFromProvinciaIdToList($localidad->provincia_id);
-        $provincias = Provincias::getProvinciasDesdePais(key($paises));
+        $provincias = [];
         return view('localidades.modificar',
             compact(
                 'localidad',
