@@ -13,6 +13,10 @@
                     @foreach ($provincias as $provincia)
                         <table class="table-viaoptima table-striped pull-left">
                             <thead>
+                            <tr class="row-fixed">
+                                <th></th>
+                                <th class="tabla-ancho-columna-130"></th>
+                            </tr>
                             <tr @if(!$provincia->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-left">
                                     {{$provincia->paises->pais}}
@@ -22,7 +26,7 @@
                             <tbody>
                             <tr>
                                 <td @if(!$provincia->activo) class="foreground-disabled" @endif>{{ $provincia->provincia }}</td>
-                                <td class="table-autenticado-columna-1 text-right">
+                                <td class="padding-right text-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
                                            class="@if($provincia->activo) pull-left @else pull-right @endif">
