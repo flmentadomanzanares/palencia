@@ -7,7 +7,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         {!! FORM::model($usuario, ['route' => ['usuarios.update', $usuario->id], 'method' => 'PUT', 'files'=>'true'])!!}
-        @include('usuarios.Parciales.nuevoYmodificar')
+        @include('usuarios.parciales.nuevoYmodificar')
         @include('comun.plantillaVolverModificarGuardar',['index'=>(Auth::user()->roles->peso<config('opciones.roles.administrador'))?'inicio': 'usuarios.index' ,'accion'=>"Guardar"])
         {!! FORM::close() !!}
     </div>
