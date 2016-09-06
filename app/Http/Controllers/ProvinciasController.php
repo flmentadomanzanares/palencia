@@ -114,7 +114,7 @@ class ProvinciasController extends Controller
         if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-        $paises = Paises::getPaisesFromPaisIdToList($provincia->pais_id);
+        $paises = Paises::getPaisesFromPaisIdToList($provincia->pais_id, false);
         return view('provincias.modificar',
             compact(
                 'paises',
