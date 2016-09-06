@@ -33,7 +33,7 @@ class SimpleBootstrapThreePresenter extends BootstrapThreePresenter
                                 data-modal_en_la_derecha='false'
                                 data-etiqueta_color_fondo='rgba(76, 158, 217,.8)'
                                 data-etiqueta_color_texto='rgba(255,255,255,1)'
-                                data-modal_posicion_vertical='115'
+                                data-modal_posicion_vertical='100'
                                 data-modal_plano_z='2'
                                 data-modal_en_la_derecha='false'
                                 data-modal_ancho='50'>

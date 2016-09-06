@@ -5,7 +5,7 @@
              data-etiqueta_ancho="80"
              data-etiqueta_color_fondo="rgba(85, 200, 75,.8)"
              data-etiqueta_color_texto="rgba(255,255,255,1)"
-             data-modal_posicion_vertical="165"
+             data-modal_posicion_vertical="150"
              data-modal_plano_z="2"
              data-modal_ancho="80">
             <span title="Operaciones a realizar" class="text-center">

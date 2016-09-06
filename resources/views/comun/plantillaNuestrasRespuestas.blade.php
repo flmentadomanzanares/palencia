@@ -7,7 +7,7 @@
              data-etiqueta_color_texto="rgba(255,255,255,1)"
              data-modal_cuerpo_color_fondo="rgba(255,255,255,.9)"
              data-modal_cuerpo_color_texto="#400090"
-             data-modal_posicion_vertical="115"
+             data-modal_posicion_vertical="100"
              data-modal_plano_z="2"
              data-modal_ancho="320">
             <span title="Filtros" class="text-center">
