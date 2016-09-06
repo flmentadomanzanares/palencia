@@ -298,6 +298,7 @@ body {
 }
 
 .btn-action {
+  text-align: center;
   a, button {
     @include btn-button-action();
     outline: none;
