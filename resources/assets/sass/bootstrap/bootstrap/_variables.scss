@@ -23,6 +23,7 @@ $gray-lighter: lighten($gray-base, 93.5%) !default;
 
 //== Colores de la aplicación
 $app-color-base: #400090 !default;
+$app-color-texto-base: #400090 !default;
 $app-color-hover: #ff7a00 !default;
 $app-color-white: #ffffff !default;
 $app-color-success: #009900 !default;
@@ -374,12 +375,11 @@ $screen-md-max: ($screen-lg-min - 1) !default;
 //***************************************************************************************
 
 //Vía óptima cálculo tamaño de la tabla página invitados
-$tabla-invitados-ancho: 900px !default;
+$tabla-invitados-ancho: $screen-md !default;
 $tabla-invitados-alto-fila: 46px !default;
 $tabla-invitados-columna-1: 230px !default;
-$tabla-invitados-columna-2: 208px !default;
-$tabla-invitados-columna-3: 402px !default;
-$tabla-invitados-columna-4: 60px !default;
+
+$columna-ancho-125: 125px !default;
 $tabla-autenticado-columna-1: 160px !default;
 
 $tabla-invitados-padding: percentage(((2*$table-cell-padding)) / $tabla-invitados-ancho) !default;

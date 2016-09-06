@@ -86,41 +86,58 @@
   //display:inline-block;
   // margin:3px;
   display: table;
-  min-width: 100%;
+  table-layout: fixed;
+  width: 100%;
   margin-bottom: $form-group-margin-bottom;
   padding: $padding-app-small;
   border: 1px solid $app-color-base;
-  border-collapse: separate;
-  border-spacing: 2px;
   caption {
     text-align: left;
     color: $app-color-base;
     font-size: (2 * $font-size-app-base-register);
     background-color: transparent;
     padding: 0;
-    line-height: $tabla-invitados-alto-fila;
+    line-height: 1.4;
     vertical-align: middle;
     margin-top: $margin-app-base;
     img {
-      float: left;
+      position: absolute;
       width: 42px;
       height: 42px;
-      margin-right: $margin-app-base;
+      border-radius: $margin-app-base;
+    }
+    div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 48px;
     }
   }
   thead {
     tr {
       background-color: $app-color-base;
       th {
+        &.cabecera {
+          line-height: $tabla-invitados-alto-fila;
+          background-color: $app-color-white;
+          color: $app-color-base;
+        }
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
-        //padding: $padding-app-small !important;
-        padding: $padding-app-base $padding-large-horizontal;
+        padding: $padding-app-base;
         background-color: transparent;
         img {
-          float: left;
-          width: 48px;
-          height: 48px;
+          position: absolute;
+          width: 42px;
+          height: 42px;
+          border-radius: $margin-app-small;
+        }
+        div.ellipsis {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+          padding: 0 0 0 48px;
         }
         form {
           float: right;
@@ -142,6 +159,12 @@
         }
         a {
           text-align: center;
+        }
+      }
+      &.row-fixed {
+        max-height: 0;
+        & th {
+          padding: 0;
         }
       }
     }
@@ -170,6 +193,9 @@
   width: percentage($tabla-invitados-columna-1/$tabla-invitados-ancho);
 }
 
+.tabla-ancho-columna-125 {
+  width: $columna-ancho-125;
+}
 .table-autenticado-columna-1 {
   width: $tabla-autenticado-columna-1;
   max-width: $tabla-autenticado-columna-1;
@@ -650,7 +676,7 @@ input[type=file]:hover {
     background-color: $banner-background-color;
     width: $banner-width;
     height: $banner-height;
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: $screen-xs) {
       background-image: url("../img/header/cabeceraMovil.jpg");
     }
   }
@@ -743,5 +769,48 @@ h1.text-center {
   &:hover {
     cursor: pointer;
     color: $app-color-info;
+  }
+}
+
+//******************************************************************************//
+//                               MEDIA                                          //
+//******************************************************************************//
+@media (max-width: $screen-sm) {
+  h1 {
+    font-size: $font-size-h1 * .8;
+  }
+  .table-size-optima {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .table-viaoptima {
+    caption {
+      font-size: (1.8 * $font-size-app-base-register);
+    }
+    thead {
+      tr {
+        th {
+          font-size: (1.8 * $font-size-app-base-header);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  h1 {
+    font-size: $font-size-h1 * .65;
+  }
+  .table-viaoptima {
+    caption {
+      font-size: (1.2 * $font-size-app-base-register);
+    }
+    thead {
+      tr {
+        th {
+          font-size: (1.2 * $font-size-app-base-header);
+        }
+      }
+    }
   }
 }

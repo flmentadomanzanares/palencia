@@ -14,14 +14,11 @@
             @if(!$users->isEmpty())
                 @foreach ($users as $usuario)
                     <table class="table-viaoptima table-striped">
-                        <caption>
-                            <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt=""/>
-
-                            <div class="pull-left @if(!$usuario->activo) foreground-disabled @endif ">
-                                {!! $usuario->fullname!!}
-                            </div>
-                        </caption>
                         <thead>
+                        <tr class="row-fixed">
+                            <th class="tabla-ancho-columna-125"></th>
+                            <th></th>
+                        </tr>
                         <tr @if(!$usuario->activo) class="background-disabled" @endif>
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
@@ -65,10 +62,18 @@
                                 @endif
                             </th>
                         </tr>
+                        <tr>
+                            <th colspan="2" class="cabecera">
+                                <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt=""/>
+                                <div class="ellipsis @if(!$usuario->activo) foreground-disabled @endif ">
+                                    {!! $usuario->fullname!!}
+                                </div>
+                            </th>
+                        </tr>
                         </thead>
                         <tbody @if(!$usuario->activo) class="foreground-disabled" @endif>
                         <tr>
-                            <td class="table-autenticado-columna-1">Usuario:</td>
+                            <td>Usuario:</td>
                             <td>{!! $usuario->name !!}</td>
                         </tr>
                         <tr>
