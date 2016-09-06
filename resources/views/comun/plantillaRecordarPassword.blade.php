@@ -4,7 +4,7 @@
         <div class="lanzarModal simpleModal"
              data-etiqueta_color_fondo="rgba(76, 158, 217,.8)"
              data-etiqueta_color_texto="rgba(255,255,255,1)"
-             data-modal_posicion_vertical="215"
+             data-modal_posicion_vertical="200"
              data-modal_plano_z="1"
              data-modal_ancho="275"
              data-etiqueta_ancho="80">
