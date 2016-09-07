@@ -18,6 +18,10 @@
   }
 }
 
+.margin-left-imagen-text {
+  margin-left: $index-imagen-user-margin-left;
+}
+
 //padding total ,padding horizontal y padding vertical
 @for $i from 0 through 4 {
   .p-h-#{$i*5} {
@@ -84,6 +88,7 @@
   display: table;
   table-layout: fixed;
   width: 100%;
+  min-width: $tabla-ancho-minimo;
   margin-bottom: $form-group-margin-bottom;
   padding: $padding-app-small;
   border: 1px solid $app-color-base;
@@ -129,11 +134,7 @@
           border-radius: $margin-app-small;
         }
         div.ellipsis {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 100%;
-          padding: 0 0 0 $index-imagen-user-size + $margin-app-base;
+          padding: 0;
         }
         form {
           float: right;
@@ -191,13 +192,24 @@
   margin-bottom: $footer-height + $margin-app-xl;
 }
 
-.tabla-ancho-columna-125 {
-  width: $columna-ancho-125;
+//Ancho de las celdas en las tablas para los botones
+.tabla-ancho-columna-botones {
+  width: $tabla-columna-ancho-botones;
 }
 
-.tabla-ancho-columna-130 {
-  width: $columna-ancho-130;
+//Ancho de las celdas en las tablas para los textos
+.tabla-ancho-columna-texto {
+  width: $tabla-columna-ancho-texto;
 }
+
+//ELLIPSIS
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 //TEXTAREA
 //**************************************************
 textarea {
@@ -783,6 +795,9 @@ h1.text-center {
       }
     }
   }
+  .tabla-ancho-columna-texto {
+    width: $tabla-columna-ancho-texto-sm;
+  }
 }
 
 @media (max-width: $screen-xs) {
@@ -800,5 +815,8 @@ h1.text-center {
         }
       }
     }
+  }
+  .tabla-ancho-columna-texto {
+    width: $tabla-columna-ancho-texto-xs;
   }
 }

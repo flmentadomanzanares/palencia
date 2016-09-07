@@ -190,10 +190,15 @@ $table-border-color: #ddd !default;
 
 //Alto de la fila
 $tabla-alto-fila: 26px !default;
+$tabla-ancho-minimo: 240px !default;
+
 
 //Ancho columnas
-$columna-ancho-125: 125px !default;
-$columna-ancho-130: 130px !default;
+$tabla-columna-ancho-botones: 130px !default; //Botones
+$tabla-columna-ancho-texto: 160px !default; //Texto
+$tabla-columna-ancho-texto-md: 150px !default;
+$tabla-columna-ancho-texto-sm: 140px !default;
+$tabla-columna-ancho-texto-xs: 100px !default;
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
@@ -960,7 +965,8 @@ $imagen-user-left: -24px !default;
 $imagen-user-top: -2px !default;
 
 //imagen-usuario vista index
-$index-imagen-user-size: 42px;
+$index-imagen-user-size: 42px !default;
+$index-imagen-user-margin-left: $index-imagen-user-size + $margin-app-base;
 
 
 //Contenedor Calendar
