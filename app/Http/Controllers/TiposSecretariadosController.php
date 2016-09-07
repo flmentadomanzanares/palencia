@@ -17,7 +17,7 @@ class TiposSecretariadosController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Tipos de Secretariados";
+        $titulo = "Secretariados";
         $tipoSecretariados = TiposSecretariados::getTipoSecretariados($request);
         return view("tiposSecretariados.index", compact('tipoSecretariados', 'titulo'));
     }
@@ -29,7 +29,7 @@ class TiposSecretariadosController extends Controller
      */
     public function create()
     {
-        $titulo = "Nuevo tipo de secretariado";
+        $titulo = "Nuevo Secretariado";
         $tipoSecretariado = new tiposSecretariados();
         return view('tiposSecretariados.nuevo', compact('tipoSecretariado', 'titulo'));
     }
@@ -73,7 +73,7 @@ class TiposSecretariadosController extends Controller
      */
     public function edit($id)
     {
-        $titulo = "Modificar tipo de secretariado";
+        $titulo = "Modificar Secretariado";
         $tipoSecretariado = tiposSecretariados::find($id);
         if ($tipoSecretariado == null) {
             return Redirect('tiposSecretariados')->with('mensaje', 'No se encuentra el tipo de secretariado seleccionado.');

@@ -17,7 +17,7 @@ class TiposParticipantesController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Listado de tipos de participantes";
+        $titulo = "Participantes";
         $tiposParticipantes = TiposParticipantes::getTiposParticipantes($request);
         return view("tiposParticipantes.index", compact('tiposParticipantes', 'titulo'));
     }
@@ -29,7 +29,7 @@ class TiposParticipantesController extends Controller
      */
     public function create()
     {
-        $titulo = "Nuevo tipo de participante";
+        $titulo = "Nuevo Participante";
         $tipoParticipante = new TiposParticipantes();
         return view('tiposParticipantes.nuevo', compact('tipoParticipante', 'titulo'));
     }
@@ -73,7 +73,7 @@ class TiposParticipantesController extends Controller
      */
     public function edit($id)
     {
-        $titulo = "Modificar tipo de participante";
+        $titulo = "Modificar Participante";
         $tipoParticipante = TiposParticipantes::find($id);
         if ($tipoParticipante == null) {
             return Redirect('tiposParticipantes')->with('mensaje', 'No se encuentra el tipo de participante seleccionado.');
