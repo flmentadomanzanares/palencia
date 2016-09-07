@@ -18,7 +18,7 @@ class SolicitudesEnviadasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Sus Respuestas";
-        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
+        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request, config("opciones.pagination"));
         $comunidades = SolicitudesEnviadas::getComunidadesSolicitudesEnviadasList();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'comunidades'));
     }

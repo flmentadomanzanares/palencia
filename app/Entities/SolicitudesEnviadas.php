@@ -35,7 +35,7 @@ class SolicitudesEnviadas extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    static public function getSolicitudesEnviadas(Request $request)
+    static public function getSolicitudesEnviadas(Request $request, $paginateNumber = 25)
     {
         return SolicitudesEnviadas::Select('solicitudes_enviadas.id', 'comunidades.comunidad', 'comunidades.colorFondo',
             'comunidades.colorTexto', 'solicitudes_enviadas.aceptada', 'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at',
@@ -46,7 +46,7 @@ class SolicitudesEnviadas extends Model
             ->SolicitudEnviadaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_enviadas.id', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('solicitudesEnviadas');
 
     }

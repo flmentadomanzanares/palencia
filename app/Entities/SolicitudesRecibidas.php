@@ -21,7 +21,7 @@ class SolicitudesRecibidas extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    static public function getSolicitudesRecibidas(Request $request)
+    static public function getSolicitudesRecibidas(Request $request, $paginateNumber = 25)
     {
         return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'comunidades.colorFondo',
             'comunidades.colorTexto', 'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at',
@@ -32,7 +32,7 @@ class SolicitudesRecibidas extends Model
             ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.id', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('solicitudesRecibidas');
 
     }

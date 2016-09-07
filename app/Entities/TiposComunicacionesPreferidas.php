@@ -18,13 +18,13 @@ class TiposComunicacionesPreferidas extends Model
             ->Lists('comunicacion_preferida', 'id') + ['0' => $placeholder];
     }
 
-    static public function getTiposComunicacionesPreferidas(Request $request)
+    static public function getTiposComunicacionesPreferidas(Request $request, $paginateNumber = 25)
     {
         return TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida', 'tipos_comunicaciones_preferidas.activo')
             ->tipoComunicacionesPreferidas($request->get('comunicacion_preferida'))
             ->TipoComunicacionEsActivo($request->get('esActivo'))
             ->orderBy('comunicacion_preferida', 'ASC')
-            ->paginate()
+            ->paginate($paginateNumber)
             ->setPath('tiposComunicacionesPreferidas');
     }
 

@@ -12,7 +12,7 @@ class Comunidades extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    static public function getComunidades(Request $request)
+    static public function getComunidades(Request $request, $paginateNumber = 25)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
             'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
@@ -28,7 +28,7 @@ class Comunidades extends Model
             ->ComunidadEsActivo($request->get('esActivo'))
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id', '=', 'tipos_comunicaciones_preferidas.id')
             ->orderBy('comunidad', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('comunidades');
     }
 

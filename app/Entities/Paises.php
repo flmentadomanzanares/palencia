@@ -28,12 +28,12 @@ class Paises extends Model
         lists('pais', 'id');
     }
 
-    public static function getPaises(Request $request, $porPagina = 20)
+    public static function getPaises(Request $request, $paginateNumber = 25)
     {
         return Paises::pais($request->get('pais'))
             ->PaisEsActivo($request->get('esActivo'))
             ->orderBy('pais', 'ASC')
-            ->paginate($porPagina)
+            ->paginate($paginateNumber)
             ->setPath('paises');
     }
 

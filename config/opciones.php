@@ -14,6 +14,7 @@ return ['campoUser' => [
     'confirmado' => 'Confirmado',
     'nconfirmado' => 'No Confirmado',
 ],
+    'paginacion' => '500',
     'roles' => [
         'administrador' => '400',
     ],

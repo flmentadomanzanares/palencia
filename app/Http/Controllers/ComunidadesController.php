@@ -22,7 +22,7 @@ class ComunidadesController extends Controller
     public function index(Request $request)
     {
         $titulo = "Comunidades";
-        $comunidades = Comunidades::getComunidades($request);
+        $comunidades = Comunidades::getComunidades($request, config("opciones.paginacion"));
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisesFromPaisIdToList(0, true);
         $provincias = Provincias::getProvinciasList();

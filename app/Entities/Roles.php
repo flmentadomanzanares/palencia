@@ -10,13 +10,13 @@ class Roles extends Model
     protected $fillable = ['rol', 'peso']; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    public static function getRoles(Request $request)
+    public static function getRoles(Request $request, $paginateNumber = 25)
     {
 
         return Roles::rol($request->get('rol'))
             ->RolEsActivo($request->get('esActivo'))
             ->orderBy('rol', 'ASC')
-            ->paginate(3)
+            ->paginate($paginateNumber)
             ->setPath('roles');
     }
 

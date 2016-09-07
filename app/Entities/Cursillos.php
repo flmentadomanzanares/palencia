@@ -38,7 +38,7 @@ class Cursillos extends Model
             ->Lists('cursillo', 'id');
     }
 
-    static public function getCursillos(Request $request)
+    static public function getCursillos(Request $request, $paginateNumber = 25)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'comunidades.colorFondo',
             'comunidades.colorTexto', 'cursillos.activo', 'comunidades.comunidad', 'comunidades.esPropia', 'cursillos.num_cursillo',
@@ -53,7 +53,7 @@ class Cursillos extends Model
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('cursillos');
     }
 
