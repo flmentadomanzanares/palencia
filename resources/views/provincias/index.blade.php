@@ -15,7 +15,7 @@
                             <thead>
                             <tr class="row-fixed">
                                 <th></th>
-                                <th class="tabla-ancho-columna-130"></th>
+                                <th class="tabla-ancho-columna-botones"></th>
                             </tr>
                             <tr @if(!$provincia->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-left">

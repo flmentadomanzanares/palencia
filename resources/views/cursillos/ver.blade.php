@@ -7,6 +7,10 @@
     <div class="hidden table-size-optima">
         <table class="table-viaoptima table-striped">
             <thead>
+            <tr class="row-fixed">
+                <th class="tabla-ancho-columna-texto"></th>
+                <th></th>
+            </tr>
             <tr @if(!$cursillo->activo) class="background-disabled"
                 @else style="background-color:{{$cursillo->colorFondo}};" @endif>
                 <th colspan="2" class="text-center"
@@ -17,7 +21,7 @@
             </thead>
             <tbody>
             <tr>
-                <td class="table-autenticado-columna-1">Comunidad:</td>
+                <td>Comunidad:</td>
                 <td>
                     {!! $cursillo->comunidad !!}
                 </td>

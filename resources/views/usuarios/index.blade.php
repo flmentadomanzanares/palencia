@@ -16,7 +16,7 @@
                     <table class="table-viaoptima table-striped">
                         <thead>
                         <tr class="row-fixed">
-                            <th class="tabla-ancho-columna-125"></th>
+                            <th class="tabla-ancho-columna-texto"></th>
                             <th></th>
                         </tr>
                         <tr @if(!$usuario->activo) class="background-disabled" @endif>
@@ -65,7 +65,7 @@
                         <tr>
                             <th colspan="2" class="cabecera">
                                 <img src="{!! asset('uploads/usuarios/'.$usuario->foto) !!}" alt=""/>
-                                <div class="ellipsis @if(!$usuario->activo) foreground-disabled @endif ">
+                                <div class="ellipsis  margin-left-imagen-text @if(!$usuario->activo) foreground-disabled @endif ">
                                     {!! $usuario->fullname!!}
                                 </div>
                             </th>

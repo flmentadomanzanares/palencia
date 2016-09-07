@@ -11,10 +11,11 @@
             @if(!$cursillos->isEmpty())
                 @foreach ($cursillos as $cursillo)
                     <table class="table-viaoptima table-striped">
-                        <caption class="@if(!$cursillo->activo) foreground-disabled @endif">
-                            {!! $cursillo->cursillo !!}
-                        </caption>
                         <thead>
+                        <tr class="row-fixed">
+                            <th class="tabla-ancho-columna-texto"></th>
+                            <th></th>
+                        </tr>
                         <tr @if(!$cursillo->activo) class="background-disabled"
                             @else style="background-color:{{$cursillo->colorFondo}};" @endif>
                             <th colspan="2" class="text-right">
@@ -66,10 +67,17 @@
                                 @endif
                             </th>
                         </tr>
+                        <tr>
+                            <th colspan="2" class="cabecera">
+                                <div class="ellipsis text-center @if(!$cursillo->activo) foreground-disabled @endif">
+                                    {!! $cursillo->cursillo !!}
+                                </div>
+                            </th>
+                        </tr>
                         </thead>
                         <tbody @if(!$cursillo->activo) class="foreground-disabled" @endif>
                         <tr>
-                            <td class="table-autenticado-columna-1">Comunidad:</td>
+                            <td>Comunidad:</td>
                             <td>
                                 {!! $cursillo->comunidad !!}
                             </td>

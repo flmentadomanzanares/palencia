@@ -12,10 +12,11 @@
                 @foreach ($comunidades as $comunidad)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption class="@if(!$comunidad->activo) foreground-disabled @endif">
-                                {!! $comunidad->comunidad !!}
-                            </caption>
                             <thead>
+                            <tr class="row-fixed">
+                                <th class="tabla-ancho-columna-texto"></th>
+                                <th></th>
+                            </tr>
                             <tr @if(!$comunidad->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
@@ -65,10 +66,19 @@
                                     @endif
                                 </th>
                             </tr>
+                            <tr>
+                                <th colspan="2" class="cabecera">
+                                    <div class="ellipsis text-center @if(!$comunidad->activo) foreground-disabled @endif"
+                                         @if($comunidad->activo==1) style="background-color:
+                                         {{$comunidad->colorFondo}} !important; color:{{$comunidad->colorTexto}} !important; @endif ">
+                                        {!! $comunidad->comunidad !!}
+                                    </div>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody @if(!$comunidad->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Secretariado:</td>
+                                <td>Secretariado:</td>
                                 <td>
                                     {!! $comunidad->tipo_secretariado !!}
                                 </td>
@@ -114,20 +124,6 @@
                             <tr>
                                 <td>Colabora:</td>
                                 <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
-                            </tr>
-                            <tr>
-                                <td>Color Fondo Cursos:</td>
-                                <td>
-                                    <div class="ponerCirculoColor"
-                                         style="background-color:{{$comunidad->colorFondo}}"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Color Texto Cursos:</td>
-                                <td>
-                                    <div class="ponerCirculoColor"
-                                         style="background-color:{{$comunidad->colorTexto}}"></div>
-                                </td>
                             </tr>
                             <tr>
                                 <td>Activo:</td>

@@ -13,11 +13,11 @@
                 @foreach ($solicitudesRecibidas as $solicitudRecibida)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption
-                                    class="@if(!$solicitudRecibida->activo) foreground-disabled @endif">
-                                {!! $solicitudRecibida->comunidad !!}
-                            </caption>
                             <thead>
+                            <tr class="row-fixed">
+                                <th class="tabla-ancho-columna-texto"></th>
+                                <th></th>
+                            </tr>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled"
                                 @else style="background-color:{{$solicitudRecibida->color}};" @endif>
                                 <th colspan="2" class="text-right">
@@ -41,10 +41,19 @@
                                     {!! FORM::close() !!}
                                 </th>
                             </tr>
+                            <tr>
+                                <th colspan="2" class="cabecera">
+                                    <div class="ellipsis text-center @if(!$solicitudRecibida->activo) foreground-disabled @endif"
+                                         @if($solicitudRecibida->activo==1) style="background-color:
+                                         {{$solicitudRecibida->colorFondo}} !important; color:{{$solicitudRecibida->colorTexto}} !important; @endif ">
+                                        {!! $solicitudRecibida->comunidad !!}
+                                    </div>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody @if(!$solicitudRecibida->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Fecha de Envio:</td>
+                                <td>Fecha de Envio:</td>
                                 <td>{!! Date("d/m/Y - H:i:s" , strtotime($solicitudRecibida->created_at) )!!}</td>
                             </tr>
                             <tr>

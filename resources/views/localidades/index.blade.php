@@ -18,6 +18,10 @@
                                 {{ $localidad->localidad }}
                             </caption>
                             <thead>
+                            <tr class="row-fixed">
+                                <th class="tabla-ancho-columna-texto"></th>
+                                <th></th>
+                            </tr>
                             <tr @if(!$localidad->activo) class="background-disabled" @endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
@@ -64,7 +68,7 @@
                             </thead>
                             <tbody>
                             <tr @if(!$localidad->activo) class="foreground-disabled" @endif>
-                                <td class="table-autenticado-columna-1">Pa&iacute;s:</td>
+                                <td>Pa&iacute;s:</td>
                                 <td>{{ $localidad->pais }}</td>
                             </tr>
                             <tr @if(!$localidad->activo) class="foreground-disabled" @endif>

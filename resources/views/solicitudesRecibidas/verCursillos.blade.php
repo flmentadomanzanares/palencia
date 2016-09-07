@@ -8,23 +8,26 @@
         @if (Auth::check())
             @include('comun.plantillaVolverModificarGuardar',['index'=>"solicitudesEnviadas.index"])
             @if(!$solicitudesRecibidasCursillos->isEmpty())
-                <div class="heading-caption-bold" style="background-color:{{$comunidad->color}};">
+                <div class="heading-caption-bold">
                     Solicitud: {{ $solicitudId }} - Comunidad: {{ $comunidad->comunidad }}
                 </div>
                 @foreach ($solicitudesRecibidasCursillos as $solicitudRecibidaCursillos)
                     <div>
                         <table class="table-viaoptima table-striped">
-
                             <thead>
-                            <tr style="background-color:{{$comunidad->color}};">
-                                <th colspan="2">
+                            <tr class="row-fixed">
+                                <th class="tabla-ancho-columna-texto"></th>
+                                <th></th>
+                            </tr>
+                            <tr style="background-color:{{$comunidad->colorFondo}} ; color :{{$comunidad->colorTexto}}">
+                                <th colspan="2" class="ellipsis">
                                     {!! $solicitudRecibidaCursillos->cursillo !!}
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="table-autenticado-columna-1">N&uacute;mero:</td>
+                                <td>N&uacute;mero:</td>
                                 <td>
                                     {!!$solicitudRecibidaCursillos->num_cursillo!!}
                                 </td>

@@ -49,9 +49,6 @@
                         <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
                         <li class="menu-separator"></li>
                         <li>{!!link_to('tiposSecretariados', 'Tipos de Secretariados')!!}</li>
-                        @if (config("opciones.accion.roles"))
-                            <li>{!!link_to('roles', 'Roles')!!}</li>
-                        @endif
                         @if (config("opciones.accion.tiposParticipantes"))
                             <li>{!!link_to('tiposParticipantes', 'Tipos de Participantes')!!}</li>
                         @endif
@@ -72,6 +69,9 @@
                 <ul class="right">
                     @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                         <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
+                        @if (config("opciones.accion.roles"))
+                            <li>{!!link_to('roles', 'Roles')!!}</li>
+                        @endif
                         @if (config("opciones.accion.copiaSeguridad"))
                             <li class="menu-separator"></li>
                             <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>

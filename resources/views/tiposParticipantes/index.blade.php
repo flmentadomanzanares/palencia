@@ -12,15 +12,19 @@
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
+                        <tr class="row-fixed">
+                            <th></th>
+                            <th class="tabla-ancho-columna-botones"></th>
+                        </tr>
                         <tr>
-                            <th colspan="2">Tipos de participantes</th>
+                            <th colspan="2" class="text-center">Listado</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($tiposParticipantes as $tipoParticipante)
                             <tr @if(!$tipoParticipante->activo) class="foreground-disabled" @endif >
                                 <td>{{ $tipoParticipante->tipo_participante }}</td>
-                                <td class="table-autenticado-columna-1 text-right">
+                                <td class="padding-right">
                                     <div class="btn-action">
                                         <a title="Editar"
                                            href="{{route('tiposParticipantes.edit', $tipoParticipante->id)}}"

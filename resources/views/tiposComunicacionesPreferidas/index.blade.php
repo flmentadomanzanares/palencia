@@ -12,15 +12,19 @@
                 <div class="full-Width">
                     <table class="table-viaoptima table-striped">
                         <thead>
+                        <tr class="row-fixed">
+                            <th></th>
+                            <th class="tabla-ancho-columna-botones"></th>
+                        </tr>
                         <tr>
-                            <th colspan="2">Comunicaciones preferidas</th>
+                            <th colspan="2" class="text-center">Listado</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($tiposComunicacionesPreferidas as $tipoComunicacionPreferida)
                             <tr @if(!$tipoComunicacionPreferida->activo) class="foreground-disabled" @endif>
                                 <td>{{ $tipoComunicacionPreferida->comunicacion_preferida }}</td>
-                                <td class="table-autenticado-columna-1 text-right">
+                                <td class="padding-right">
                                     <div class="btn-action">
                                         <a title="Editar"
                                            href="{{route('tiposComunicacionesPreferidas.edit', $tipoComunicacionPreferida->id)}}"

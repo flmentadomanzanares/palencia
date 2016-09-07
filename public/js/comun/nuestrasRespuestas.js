@@ -71,12 +71,16 @@ $(document).ready(function () {
                     $.each(data, function (key, element) {
                         var fecha = new Date(element.fecha_inicio);
                         html += "<table class='table-viaoptima table-striped'><thead>" +
+                            "<tr class='row-fixed'>" +
+                            "<th class='tabla-ancho-columna-texto'></th>" +
+                            "<th></th>" +
+                            "</tr>" +
                             "<tr style='Background: " + element.colorFondo + ";'>" +
                             "<th colspan='2' style='Color: " + element.colorTexto + ";' class='text-center'>" + element.comunidad + "</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
-                            "<tr>" + "<td class='table-autenticado-columna-1'>Curso</td><td>" + element.cursillo + "</td></tr>" +
+                            "<tr>" + "<td>Curso</td><td>" + element.cursillo + "</td></tr>" +
                             "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
                             "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
                             "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +

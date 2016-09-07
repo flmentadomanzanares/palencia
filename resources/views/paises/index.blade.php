@@ -14,7 +14,7 @@
                         <thead>
                         <tr class="row-fixed">
                             <th></th>
-                            <th class="tabla-ancho-columna-130"></th>
+                            <th class="tabla-ancho-columna-botones"></th>
                         </tr>
                         <tr>
                             <th colspan="2">
@@ -26,7 +26,7 @@
                         @foreach ($paises as $pais)
                             <tr @if(!$pais->activo) class="foreground-disabled" @endif>
                                 <td>{{ $pais->pais }}</td>
-                                <td class="padding-right text-center">
+                                <td class="padding-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('paises.edit', $pais->id)}}"
                                            class="@if($pais->activo) pull-left @else pull-right @endif">

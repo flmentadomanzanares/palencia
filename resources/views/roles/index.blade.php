@@ -11,10 +11,11 @@
             @if(!$roles->isEmpty())
                 @foreach ($roles as $rol)
                     <table class="table-viaoptima table-striped">
-                        <caption class="@if(!$rol->activo) foreground-disabled @endif">
-                            {!! $rol->rol !!}
-                        </caption>
                         <thead>
+                        <tr class="row-fixed">
+                            <th class="tabla-ancho-columna-texto"></th>
+                            <th></th>
+                        </tr>
                         <tr @if(!$rol->activo) class="background-disabled" @endif>
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
@@ -44,7 +45,7 @@
                                             data-titulo="BORRAR"
                                             data-pie="true"
                                             data-descripcion="¿Seguro que deseas eliminar este rol?
-                                                        <h3><strong class='green'>{{ $rol->rol}}</strong></h3>"
+                                                            <h3><strong class='green'>{{ $rol->rol}}</strong></h3>"
                                             @endif >
                                         <i class='glyphicon glyphicon-trash full-Width'>
                                             <div>Borrar</div>
@@ -54,14 +55,14 @@
                                         @include ("comun.plantillaBorrado")
                                     @endif
                                     {!! FORM::close() !!}
-                                @endif
+                                    @endif
                                 @endif
                             </th>
                         </tr>
                         </thead>
                         <tbody @if(!$rol->activo) class="foreground-disabled" @endif>
                         <tr>
-                            <td class="table-autenticado-columna-1">Peso:</td>
+                            <td class="p-15">{!! $rol->rol !!}:</td>
                             <td>{!! ($rol->peso )!!}</td>
                         </tr>
                         </tbody>

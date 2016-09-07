@@ -7,7 +7,15 @@
     <div class="hidden table-size-optima">
         <table class="table-viaoptima table-striped">
             <thead>
-            <tr style="@if($comunidad->activo==0)background: red !important; @endif">
+            <tr class="row-fixed">
+                <th class="tabla-ancho-columna-texto"></th>
+                <th></th>
+            </tr>
+            <tr style="background-color:@if($comunidad->activo==0)red !important;
+            @else{{$comunidad->colorFondo}} !important; @endif
+            @if($comunidad->activo==1)
+                    color:{{$comunidad->color}} !important;
+            @endif">
                 <th colspan="2" class="text-center">
                     {!! $comunidad->comunidad !!}
                 </th>
@@ -15,7 +23,7 @@
             </thead>
             <tbody>
             <tr>
-                <td class="table-autenticado-columna-1">Secretariado</td>
+                <td>Secretariado:</td>
                 <td>{{ $comunidad->tipo_secretariado }}</td>
             </tr>
             <tr>
@@ -23,63 +31,63 @@
                 <td> @if ($comunidad->esPropia) Si @else No @endif </td>
             </tr>
             <tr>
-                <td>Responsable</td>
+                <td>Responsable:</td>
                 <td> {!! $comunidad->responsable !!}</td>
             </tr>
             <tr>
-                <td>Pais</td>
+                <td>Pais:</td>
                 <td> {{ $comunidad->pais }} </td>
             </tr>
             <tr>
-                <td>Provincia</td>
+                <td>Provincia:</td>
                 <td> {{ $comunidad->provincia}} </td>
             </tr>
             <tr>
-                <td>Localidad</td>
+                <td>Localidad:</td>
                 <td>{{ $comunidad->localidad }}</td>
             </tr>
             <tr>
-                <td>C&oacute;digo Postal</td>
+                <td>C&oacute;digo Postal:</td>
                 <td>{{ $comunidad->cp }}</td>
             </tr>
             <tr>
-                <td>Direcci&oacute;n Postal</td>
+                <td>Direcci&oacute;n Postal:</td>
                 <td>{{ $comunidad->direccion_postal }}</td>
             </tr>
             <tr>
-                <td>Direcci&oacute;n</td>
+                <td>Direcci&oacute;n:</td>
                 <td>{{ $comunidad->direccion }}</td>
             </tr>
             <tr>
-                <td>Email Solicitud</td>
+                <td>Email Solicitud:</td>
                 <td>{{ $comunidad->email_solicitud }}</td>
             </tr>
             <tr>
-                <td>Email Env&iacute;o</td>
+                <td>Email Env&iacute;o:</td>
                 <td>{{ $comunidad->email_envio }}</td>
             </tr>
             <tr>
-                <td>WEB</td>
+                <td>WEB:</td>
                 <td>{{ $comunidad->web }}</td>
             </tr>
             <tr>
-                <td>Facebook</td>
+                <td>Facebook:</td>
                 <td>{{ $comunidad->facebook }}</td>
             </tr>
             <tr>
-                <td>Tel&eacute;fono 1</td>
+                <td>Tel&eacute;fono 1:</td>
                 <td>{{ $comunidad->telefono1 }}</td>
             </tr>
             <tr>
-                <td>Tel&eacute;fono 2</td>
+                <td>Tel&eacute;fono 2:</td>
                 <td>{{ $comunidad->telefono2 }}</td>
             </tr>
             <tr>
-                <td>Comunicaci&oacute;n Preferida</td>
+                <td>Comunicaci&oacute;n Preferida:</td>
                 <td>{{ $comunidad->comunicacion_preferida }}</td>
             </tr>
             <tr>
-                <td>Observaciones</td>
+                <td>Observaciones:</td>
                 <td>{{ $comunidad->observaciones }}</td>
             </tr>
             <tr>
@@ -87,13 +95,19 @@
                 <td> @if ($comunidad->esColaborador) Si @else No @endif </td>
             </tr>
             <tr>
-                <td>Color Cursos:</td>
+                <td>Color Texto Cursos:</td>
                 <td>
                     <div class="ponerCirculoColor" style="background-color:{{$comunidad->color}}"></div>
                 </td>
             </tr>
             <tr>
-                <td>Activo</td>
+                <td>Color Fondo Cursos:</td>
+                <td>
+                    <div class="ponerCirculoColor" style="background-color:{{$comunidad->colorFondo}}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Activo:</td>
                 <td>@if ($comunidad->activo == 0)No @else Si @endif</td>
             </tr>
             </tbody>
