@@ -7383,12 +7383,12 @@ h1.text-center {
 .calendar-container {
     display: table;
     float: none;
-    max-width: 800px;
-    min-width: 400px;
+    max-width: 860px;
+    min-width: 300px;
     background-color: #fff8e4;
     color: #2a6806;
     margin: 0 auto 46px;
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
     border: 1px solid #759b98;
     box-sizing: border-box
