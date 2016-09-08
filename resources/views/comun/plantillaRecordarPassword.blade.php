@@ -6,7 +6,7 @@
              data-etiqueta_color_texto="rgba(255,255,255,1)"
              data-modal_posicion_vertical="200"
              data-modal_plano_z="1"
-             data-modal_ancho="275"
+             data-modal_ancho="240"
              data-etiqueta_ancho="80">
             <span title="Nueva alta">
                 <i class="glyphicon glyphicon-question-sign text-center">

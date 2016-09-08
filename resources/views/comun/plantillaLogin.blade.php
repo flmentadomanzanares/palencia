@@ -6,7 +6,7 @@
              data-etiqueta_color_texto="rgba(255,255,255,1)"
              data-modal_posicion_vertical="100"
              data-modal_plano_z="3"
-             data-modal_ancho="275"
+             data-modal_ancho="240"
              data-etiqueta_ancho="80">
             <span title="Entrar en la aplicaci&oacute;n">
                 <i class="glyphicon glyphicon-log-in text-center">
