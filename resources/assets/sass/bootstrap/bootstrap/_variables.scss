@@ -941,7 +941,9 @@ $margin-app-xl: 30px !default;
 $portada-imagen-height: 600px !default;
 
 //Banner
-$banner-background-size: 60% 80% !default;
+$banner-background-size-lg: 60% 90% !default;
+$banner-background-size-md: 95% 100% !default;
+$banner-background-size-xs: 120% 100% !default;
 $banner-background-color: rgba(255, 255, 255, 1) !default;
 $banner-width: 100% !default;
 $banner-height: 60px !default;

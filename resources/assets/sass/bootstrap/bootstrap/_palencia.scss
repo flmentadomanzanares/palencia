@@ -673,12 +673,16 @@ input[type=file]:hover {
     background-image: url("../img/header/cabecera.jpg");
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: $banner-background-size;
+    background-size: $banner-background-size-lg;
     background-color: $banner-background-color;
     width: $banner-width;
     height: $banner-height;
+    @media (max-width: $screen-sm) {
+      background-size: $banner-background-size-md;
+    }
     @media screen and (max-width: $screen-xs) {
       background-image: url("../img/header/cabeceraMovil.jpg");
+      background-size: $banner-background-size-xs;
     }
   }
 }
