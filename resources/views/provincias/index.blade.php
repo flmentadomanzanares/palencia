@@ -18,14 +18,14 @@
                                 <th class="tabla-ancho-columna-botones"></th>
                             </tr>
                             <tr @if(!$provincia->activo) class="background-disabled" @endif>
-                                <th colspan="2" class="text-left">
-                                    {{$provincia->paises->pais}}
+                                <th colspan="2" class="ellipsis text-left">
+                                    {{ $provincia->provincia }}
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td @if(!$provincia->activo) class="foreground-disabled" @endif>{{ $provincia->provincia }}</td>
+                                <td @if(!$provincia->activo) class="foreground-disabled" @endif>{{$provincia->paises->pais}}</td>
                                 <td class="padding-right text-right">
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
