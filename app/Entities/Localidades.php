@@ -32,9 +32,9 @@ class Localidades extends Model
         provincia($request->get('provincia'))->
         localidad($request->get('localidad'))->
         LocalidadEsActivo($request->get('esActivo'))->
+        orderBy('localidad', 'ASC')->
         orderBy('pais', 'ASC')->
         orderBy('provincia', 'ASC')->
-        orderBy('localidad', 'ASC')->
         paginate($paginateNumber)->
         setPath('localidades');
     }

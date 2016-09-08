@@ -12,10 +12,6 @@
             @if(!$localidades->isEmpty())
                 @foreach ($localidades as $localidad)
                     <table class="table-viaoptima table-striped">
-                        <caption
-                                class="label-default text-center  @if(!$localidad->activo) foreground-disabled @else alert-warning @endif">
-                            {{ $localidad->localidad }}
-                        </caption>
                         <thead>
                         <tr class="row-fixed">
                             <th class="tabla-ancho-columna-texto"></th>
@@ -62,6 +58,13 @@
                                     {!! FORM::close() !!}
                                 @endif
                                 @endif
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="cabecera">
+                                <div class="ellipsis text-left @if(!$localidad->activo) foreground-disabled @endif">
+                                    {!! $localidad->localidad !!}
+                                </div>
                             </th>
                         </tr>
                         </thead>
