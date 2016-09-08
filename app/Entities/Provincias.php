@@ -56,13 +56,13 @@ class Provincias extends Model
         lists('provincia', 'id');
     }
 
-    public static function getProvincias(Request $request)
+    public static function getProvincias(Request $request, $paginateNumber = 25)
     {
         return Provincias::pais($request->get('pais'))->
         provincia($request->get('provincia'))->
         ProvinciaEsActivo($request->get('esActivo'))->
         orderBy('provincia', 'ASC')->
-        paginate()->
+        paginate($paginateNumber)->
         setPath('provincias');
     }
 

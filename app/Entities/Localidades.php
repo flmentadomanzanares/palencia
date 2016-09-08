@@ -23,7 +23,7 @@ class Localidades extends Model
         lists('localidad', 'id');
     }
 
-    public static function getLocalidades(Request $request)
+    public static function getLocalidades(Request $request, $paginateNumber = 25)
     {
         return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id', 'localidades.activo')->
         leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
@@ -35,7 +35,7 @@ class Localidades extends Model
         orderBy('pais', 'ASC')->
         orderBy('provincia', 'ASC')->
         orderBy('localidad', 'ASC')->
-        paginate()->
+        paginate($paginateNumber)->
         setPath('localidades');
     }
 

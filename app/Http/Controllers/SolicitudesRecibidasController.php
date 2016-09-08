@@ -18,7 +18,7 @@ class SolicitudesRecibidasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Consultar sus Solicitudes";
-        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request, config("opciones.pagination"));
+        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request, config("opciones.paginacion"));
         $comunidades = SolicitudesRecibidas::getComunidadesSolicitudesRecibidasList();
         return view("solicitudesRecibidas.index", compact('solicitudesRecibidas', 'titulo', 'comunidades'));
     }

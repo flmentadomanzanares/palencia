@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $titulo = (\Auth::user()->roles->peso < config('opciones.roles.administrador')) ? "Mi perfil" : "Usuarios";
-        $users = User::getUsers($request, config("opciones.pagination"));
+        $users = User::getUsers($request, config("opciones.paginacion"));
         $roles = Roles::getRolesList();
         return view("usuarios.index", compact('users', 'titulo', 'roles'));
     }

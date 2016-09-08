@@ -20,7 +20,7 @@ class CursillosController extends Controller
     {
         $titulo = "Cursillos";
         $comunidades = Comunidades::getComunidadesList(0, true, "Comunidad...", true);
-        $cursillos = Cursillos::getCursillos($request, config("opciones.pagination"));
+        $cursillos = Cursillos::getCursillos($request, config("opciones.paginacion"));
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
         return view("cursillos.index", compact('comunidades', 'cursillos', 'titulo', 'anyos', 'semanas'));
