@@ -71,8 +71,8 @@
   color: $app-color-white;
 }
 
-[data-role='menu'] span:hover {
-  color: $app-color-base;
+[data-role='menu'] li:not(.active) span:hover {
+  color: $gray-dark;
 }
 
 [data-role='menu'] li > ul > li a:not(:last-child):after {

@@ -3781,8 +3781,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     color: #fff
 }
 
-[data-role='menu'] span:hover {
-    color: #400090
+[data-role='menu'] li:not(.active) span:hover {
+    color: #333
 }
 
 [data-role='menu'] li > ul > li a:not(:last-child):after {
