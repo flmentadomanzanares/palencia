@@ -71,6 +71,10 @@
   color: $app-color-white;
 }
 
+[data-role='menu'] span:hover {
+  color: $app-color-base;
+}
+
 [data-role='menu'] li > ul > li a:not(:last-child):after {
   font-family: "Glyphicons Halflings";
   display: inline-block;

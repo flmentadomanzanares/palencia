@@ -62,8 +62,8 @@
                 <span class="p-h-10"><img
                             class="user-image"
                             src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
-                    <span class="hidden-xxs"><strong>{!!Auth::user()->name!!}</strong>
-                    <b class="caret"></b>
+                    <span class="hidden-xxs">{!!Auth::user()->name!!}
+                        <b class="caret"></b>
                         </span>
                 </span>
                 <ul class="right">
