@@ -22,9 +22,8 @@ class LocalidadesController extends Controller
         $titulo = "Localidades";
         //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
         $paises = Paises::getPaisesFromPaisIdToList(0, true);
-        $provincias = array();
         $localidades = Localidades::getLocalidades($request, config("opciones.paginacion"));
-        return view("localidades.index", compact('localidades', 'paises', 'provincias', 'titulo'));
+        return view("localidades.index", compact('localidades', 'paises', 'titulo'));
     }
 
     /**
