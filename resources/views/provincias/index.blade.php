@@ -9,7 +9,6 @@
             @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'provincias.parciales.buscar'])
             @include('comun.plantillaOperacionesIndex',['tabla'=>'provincias','accion'=>'Nueva'])
             @if(!$provincias->isEmpty())
-                <div class="full-Width">
                     @foreach ($provincias as $provincia)
                         <table class="table-viaoptima table-striped pull-left">
                             <thead>
@@ -73,7 +72,6 @@
                             </tbody>
                         </table>
                     @endforeach
-                </div>
                 {!! $provincias->appends(Request::only(['provincia','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
