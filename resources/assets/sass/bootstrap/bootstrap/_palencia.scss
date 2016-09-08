@@ -665,7 +665,7 @@ input[type=file]:hover {
   position: $navbar-inverse-position;
   top: 0;
   width: $banner-width;
-  z-index: $navbar-inverse-zIndex;
+  z-index: $navbar-inverse-zIndex+2;
   & > div {
     float: none;
     margin: 0 auto;
@@ -747,13 +747,13 @@ h1.text-center {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, .1);
-  z-index: 9
+  z-index: $navbar-inverse-zIndex+2;
 }
 
 .errorOn {
-  z-index: 9;
+  z-index: $navbar-inverse-zIndex+2;
   position: fixed;
-  height: 100%;
+  width: 100%;
 }
 
 .closeErrorModal {

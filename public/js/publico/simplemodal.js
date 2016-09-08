@@ -12,7 +12,7 @@
         modal_centro_pantalla: false,
         modal_sin_etiqueta: false,
         modal_en_la_derecha: true,
-        modal_velocidad_fade: 400,
+        modal_velocidad_fade: 200,
         modal_velocidad_scroll: 500,
         modal_plano_z: 0,
         modal_posicion_vertical: 115,
@@ -217,9 +217,9 @@ $(document).ready(function () {
         evt.preventDefault();
         var elementContent = $(evt.target).closest(".alert-dismissible");
         var element = elementContent.find(".errorOn");
-        var desplazamiento = parseInt($(".errorOn").css("margin-top")) - (1.5 * parseInt($(".errorOn").outerHeight())) + "px";
-        element.animate({'margin-top': desplazamiento}, 1000, function () {
-            elementContent.find(".errorOnBackGround").fadeOut(1000);
+        var desplazamiento = -1.2 * parseInt($(".errorOn").outerWidth()) + "px";
+        element.animate({'margin-left': desplazamiento}, $.fn.simplemodal.defaults.modal_velocidad_scroll, function () {
+            elementContent.find(".errorOnBackGround").fadeOut($.fn.simplemodal.defaults.modal_velocidad_fade);
         });
     });
 });
