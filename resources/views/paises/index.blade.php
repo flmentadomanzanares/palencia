@@ -9,8 +9,8 @@
             @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'paises.parciales.buscar'])
             @include('comun.plantillaOperacionesIndex',['tabla'=>'paises','accion'=>'Nuevo'])
             @if(!$paises->isEmpty())
-                <div class="full-Width">
-                    <table class="table-viaoptima table-striped">
+
+                <table class="table-viaoptima table-striped">
                         <thead>
                         <tr class="row-fixed">
                             <th></th>
@@ -73,7 +73,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                </div>
+
                 {!! $paises->appends(Request::only(['pais','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
