@@ -190,6 +190,7 @@
   width: percentage($screen-md*1.1/$screen-lg);
   margin-left: (100% -  percentage($screen-md *1.1 /$screen-lg))/2;
   margin-bottom: $footer-height + $margin-app-xl;
+  display: inline-block;
 }
 
 //Ancho de las celdas en las tablas para los botones
