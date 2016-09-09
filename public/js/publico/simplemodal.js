@@ -21,7 +21,8 @@
         modal_cabecera_color_texto: '#ffffff',
         modal_cuerpo_color_fondo: 'rgba(255,255,255,.8)',
         modal_cuerpo_color_texto: 'rgba(0,0,0,1)',
-        modal_pie_color_texto: '#ffffff'
+        modal_pie_color_texto: '#ffffff',
+        modal_distancia_minima_scroll: 40
     };
     /**
      * Constructor.
@@ -66,7 +67,7 @@
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('background-color', selectorPulsado.opciones.modal_cabecera_color_fondo);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('color', selectorPulsado.opciones.modal_cabecera_color_texto);
             if (cabecera.length == 0)
-            selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiqueta_color_fondo);
+                selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiqueta_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.modal_cuerpo_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.modal_cuerpo_color_texto);
             var pieColorFondo = (selectorPulsado.selector.data("opciones.modal_pie_color_fondo") !== undefined) ? selectorPulsado.selector.data("opciones.modal_pie_color_fondo") : selectorPulsado.opciones.modal_cuerpo_color_fondo;
@@ -85,7 +86,7 @@
                 selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.modal_en_la_derecha ? '8px 0 0 8px' : '0 8px 8px 0');
                 $(selectorPulsado.selector).mouseenter(function () {
                     $(this).css("cursor", "pointer");
-                    $(this).find("i").css("transform", "scale(1.04");
+                    $(this).find("i").css("transform", "scale(1.02");
                 }).mouseleave(function () {
                     $(this).css("cursor", "default");
                     $(this).find("i").css("transform", "scale(1.0");
@@ -113,6 +114,7 @@
             $(selectorPulsado.modal).find('.closeFormModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.ventanaModal .pieFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
+            this.setScroll();
         },
         show: function (evt) {
             evt.preventDefault();
@@ -160,6 +162,7 @@
                 var resizeModal = ventana.modal.find(".ventanaModal");
                 resizeModal.css("margin-left", '-' + parseInt(resizeModal.css("width")) + "px");
             }
+            this.setScroll(evt);
         },
         submit: function (evt) {
             evt.preventDefault();
@@ -171,6 +174,20 @@
                 if (form.length > 0) {
                     form.submit();
                 }
+            }
+        }
+        , setScroll: function (evt) {
+            if (evt)
+                evt.preventDefault();
+            var ventana = this;
+            var offset = 40;
+            var scrollCuerpoFormulario = ventana.modal.find(".cuerpoFormularioModal .scroll");
+            var altoNavegador = window.innerHeight;
+            scrollCuerpoFormulario.css("height", "auto");
+            var altoCuerpoVentanaModal = scrollCuerpoFormulario.offset().top + scrollCuerpoFormulario.outerHeight();
+            if (altoCuerpoVentanaModal > altoNavegador - offset) {
+                var nuevaAlturaCuerpoVentanaModal = +scrollCuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador) - offset;
+                scrollCuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
             }
         }
     };
