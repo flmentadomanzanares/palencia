@@ -4,6 +4,9 @@
   padding: $fullcalendar-padding-day-header;
   color: $fullcalendar-textColor-day-header;
   border: 1px solid $fullcalendar-color-border-day-header;
+  @media (max-width: $screen-xs) {
+    font-weight: normal;
+  }
 }
 
 //Columnas de días de la semana

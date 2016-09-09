@@ -9,6 +9,15 @@
 
 body .fc { /* extra precedence to overcome jqui */
   font-size: 1em;
+  float: none;
+  margin: $fullcalendar-container-margin;
+  padding: $fullcalendar-container-padding;
+  background-color: $fullcalendar-container-backGroundColor;
+  border: 1px solid $fullcalendar-container-borderColor;
+  border-radius: $fullcalendar-container-borderRadius;
+  min-width: $fullcalendar-container-min-width;
+  max-width: $fullcalendar-container-max-width;
+  overflow: hidden;
 }
 
 .fc-unthemed {
@@ -480,6 +489,7 @@ temporary rendered events).
 .fc-scroller { /* this class goes on elements for guaranteed vertical scrollbars */
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
 }
 
 .fc-scroller > * { /* we expect an immediate inner element */
@@ -647,9 +657,16 @@ a.fc-more {
 
 .fc-more-popover {
   z-index: 2;
-  width: 220px;
+  min-width: 220px;
   .fc-event-container {
     padding: $fullcalendar-popover-padding;
+    a {
+      margin-bottom: 3px;
+    }
+    a:hover {
+      cursor: pointer;
+      background-color: green;
+    }
   }
 }
 
@@ -668,6 +685,7 @@ a.fc-more {
   .fc-center {
     display: inline-block;
     text-shadow: $fullcalendar-title-shadow;
+    margin-top: 8px;
   }
 }
 
@@ -684,8 +702,17 @@ a.fc-more {
 
 /* title text */
 
-.fc-toolbar h2 {
-  margin: 0;
+.fc-toolbar {
+  h2 {
+    margin: 0;
+  }
+  .fc-center {
+    h2 {
+      @media (max-width: $screen-xs) {
+        font-size: $fullcalendar-fuente-cabecera-mes-xs;
+      }
+    }
+  }
 }
 
 /* button layering (for border precedence) */
@@ -715,8 +742,7 @@ a.fc-more {
 /* View Structure
 --------------------------------------------------------------------------------------------------*/
 .fc-view-container {
-  display: block;
-  float: left;
+  display: inline-block;
   background-color: $fullcalendar-color-backGround-calendar;
 }
 
@@ -749,7 +775,7 @@ a.fc-more {
 }
 
 .fc-basic-view .fc-body .fc-row {
-  min-height: 4em; /* ensure that all rows are at least this tall */
+  min-height: 4.5em; /* ensure that all rows are at least this tall */
 }
 
 /* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */

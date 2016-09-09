@@ -5739,6 +5739,7 @@
             // Determine horizontal coordinate.
             // We use the moreWrap instead of the <td> to avoid border confusion.
             if (this.isRTL) {
+                var right = moreWrap.offset().left + moreWrap.outerWidth() + 1;
                 options.right = moreWrap.offset().left + moreWrap.outerWidth() + 1; // +1 to be over cell border
             }
             else {

@@ -971,12 +971,3 @@ $index-imagen-user-size: 42px !default;
 $index-imagen-user-margin-left: $index-imagen-user-size + $margin-app-base;
 
 
-//Contenedor Calendar
-$calendar-container-min-width: 300px !default;
-$calendar-container-max-width: 860px !default;
-$calendar-container-margin: 0 auto ($navbar-height + $margin-app-base) !default;
-$calendar-container-padding: $padding-app-base !default;
-$calendar-container-backGroundColor: rgb(255, 248, 228) !default;
-$calendar-container-textColor: rgb(42, 104, 6) !default;
-$calendar-container-borderRadius: 10px !default;
-$calendar-container-borderColor: rgb(117, 155, 152) !default;

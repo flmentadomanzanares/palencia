@@ -9,12 +9,8 @@
         @if (Auth::check())
             @if (!empty($calendar))
                 @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'auth.parciales.buscar'])
-                <div class="m-10">
-                    <div class="calendar-container">
                         {!! $calendar->calendar() !!}
                         {!! $calendar->script() !!}
-                    </div>
-                </div>
             @else
                 <h1 class="alert alert-info text-center">No existen cursillos programados</h1>
             @endif
