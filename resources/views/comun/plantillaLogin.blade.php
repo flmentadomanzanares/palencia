@@ -1,4 +1,4 @@
-<div id="registro" class="formularioModal">
+<div id="login" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
         <div class="lanzarModal simpleModal"
