@@ -21,12 +21,12 @@
     </div>
 @endsection
 @section('css')
-    @if (!Auth::check())
+    @if (Auth::check())
         {!! HTML::style('css/vendor/fullCalendar/fullcalendar.css') !!}
     @endif
 @endsection
 @section('js')
-    @if (!Auth::check())
+    @if (Auth::check())
         {!! HTML::script('js/comun/semanas.js') !!}
         {!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
         {!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
