@@ -131,6 +131,7 @@ $(document).ready(function () {
                 var cuerpoFormularioConScroll = this.modal.find(".cuerpoFormularioModal .scroll");
                 if (cuerpoFormularioConScroll.length > 0) {
                     modalObjects.push(cuerpoFormularioConScroll);
+                    createScroll(modalObjects.length - 1);
                 }
             }
         },
@@ -217,9 +218,8 @@ $(document).ready(function () {
         });
     };
 //Obtenemos las modales vía clase + data
-    $.fn.simplemodal.defaults = defaults_options_simple_modal;
-    //VAriable para almacenar la última modal
-    var ultimaModal = null;
+
+    //Variable para almacenar la última modal
     $(".simpleModal").each(function (idx, elem) {
         var elemento = $(elem);
         var opciones = elemento.data();
@@ -230,11 +230,9 @@ $(document).ready(function () {
             data = elemento.data('simpleModal'),
             opciones;
         $(modal).data('simpleModal', (data = new SimpleModal(elem, defaults_options_simple_modal)));
-        ultimaModal = elemento;
     });
-    //Realizamos el resize sobre la última modal si la ubiera
-    if (ultimaModal != null)
-        ultimaModal.resize();
+
+    $.fn.simplemodal.defaults = defaults_options_simple_modal;
 });
 
 
