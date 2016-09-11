@@ -660,6 +660,8 @@ a.fc-more {
   min-width: 220px;
   .fc-event-container {
     padding: $fullcalendar-popover-padding;
+    height: auto;
+    overflow-y: auto;
     a {
       margin-bottom: 3px;
     }

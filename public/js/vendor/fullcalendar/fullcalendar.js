@@ -1828,7 +1828,22 @@
                     this.render();
                 }
                 this.el.show();
+                //Comprobamos si el popover sobrepasa la tabla para asignarle scroll
+                var contenedorPopover = this.options.parentEl;
+                var contenedorCalendar = contenedorPopover.parent();
+                var posYSrollCalendar = contenedorCalendar.scrollTop();
+                var contenedorCalendarAltura = contenedorPopover.outerHeight();
+                var alturaPopover = this.el.outerHeight();
+                var posYPopover = this.options.top;
+                var positionY = posYSrollCalendar + posYPopover + alturaPopover;
+                if (positionY > contenedorCalendarAltura) {
+                    var alturaCabeceraPopover = this.el.find(".fc-header").outerHeight();
+                    var alturaResultante = alturaPopover - alturaCabeceraPopover - (positionY - contenedorCalendarAltura);
+                    this.el.find(".fc-event-container").css("height", alturaResultante + 'px')
+                }
+
                 this.position();
+                this.el.offset().top = posYPopover;
                 this.isHidden = false;
                 this.trigger('show');
             }
@@ -5726,11 +5741,12 @@
                 content: this.renderSegPopoverContent(cell, segs),
                 parentEl: this.el,
                 top: topEl.offset().top,
-                autoHide: true, // when the user clicks elsewhere, hide the popover
+                autoHide: false, // when the user clicks elsewhere, hide the popover
                 viewportConstrain: view.opt('popoverViewportConstrain'),
                 hide: function () {
                     // kill everything when the popover is hidden
-                    _this.segPopover.removeElement();
+                    //Lo quito porque genera error al poner autohide=false
+                    // _this.segPopover.removeElement();
                     _this.segPopover = null;
                     _this.popoverSegs = null;
                 }
@@ -5745,7 +5761,6 @@
             else {
                 options.left = moreWrap.offset().left - 1; // -1 to be over cell border
             }
-
             this.segPopover = new Popover(options);
             this.segPopover.show();
         },
