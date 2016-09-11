@@ -1,11 +1,24 @@
 //Desarrollado por Francisco Luis Mentado Manzanares
-(function ($) {
+$(document).ready(function () {
     'use strict';
+    //Colección de modales
+    var modalObjects = [];
+
+    function createScroll(idx) {
+        var offset = 40;
+        var cuerpoFormulario = modalObjects[idx];
+        var altoNavegador = window.innerHeight;
+        cuerpoFormulario.css("height", "auto");
+        var altoCuerpoVentanaModal = cuerpoFormulario.offset().top + cuerpoFormulario.outerHeight();
+        if (altoCuerpoVentanaModal > altoNavegador - offset) {
+            var nuevaAlturaCuerpoVentanaModal = +cuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador) - offset;
+            cuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
+        }
+    }
     /**
      * Default opciones.
      */
     var defaults_options_simple_modal = {
-        ocultar_navbar_desplegados: true,
         etiqueta_color_fondo: 'rgba(120,00,200,.8)',
         etiqueta_color_texto: '#ffffff',
         etiqueta_ancho: 70,
@@ -114,16 +127,16 @@
             $(selectorPulsado.modal).find('.closeFormModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.ventanaModal .pieFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
-            this.setScroll();
+            if (cabecera.length == 0) {
+                var cuerpoFormularioConScroll = this.modal.find(".cuerpoFormularioModal .scroll");
+                if (cuerpoFormularioConScroll.length > 0) {
+                    modalObjects.push(cuerpoFormularioConScroll);
+                }
+            }
         },
         show: function (evt) {
             evt.preventDefault();
             var ventana = this;
-            if (ventana.opciones.ocultar_navbar_desplegados === true) {
-                if ($("li.dropdown").hasClass("open")) {
-                    $("li.dropdown").removeClass("open");
-                }
-            }
             if ($(ventana.selector).hasClass('closeModal')) {
                 this.hide();
                 return;
@@ -162,7 +175,10 @@
                 var resizeModal = ventana.modal.find(".ventanaModal");
                 resizeModal.css("margin-left", '-' + parseInt(resizeModal.css("width")) + "px");
             }
-            this.setScroll(evt);
+            //Obtenemos todas las modales de la vista
+            for (var i = 0; i < modalObjects.length; i += 1) {
+                createScroll(i);
+            }
         },
         submit: function (evt) {
             evt.preventDefault();
@@ -176,21 +192,8 @@
                 }
             }
         }
-        , setScroll: function (evt) {
-            if (evt)
-                evt.preventDefault();
-            var ventana = this;
-            var offset = 40;
-            var scrollCuerpoFormulario = ventana.modal.find(".cuerpoFormularioModal .scroll");
-            var altoNavegador = window.innerHeight;
-            scrollCuerpoFormulario.css("height", "auto");
-            var altoCuerpoVentanaModal = scrollCuerpoFormulario.offset().top + scrollCuerpoFormulario.outerHeight();
-            if (altoCuerpoVentanaModal > altoNavegador - offset) {
-                var nuevaAlturaCuerpoVentanaModal = +scrollCuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador) - offset;
-                scrollCuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
-            }
-        }
     };
+
 
     /**
      * Plugin definition.
@@ -214,19 +217,25 @@
         });
     };
 //Obtenemos las modales vía clase + data
+    $.fn.simplemodal.defaults = defaults_options_simple_modal;
+    //VAriable para almacenar la última modal
+    var ultimaModal = null;
     $(".simpleModal").each(function (idx, elem) {
-        var elemento = elem;
-        var opciones = $(elem).data();
+        var elemento = $(elem);
+        var opciones = elemento.data();
         $.each(opciones, function (i, e) {
             defaults_options_simple_modal[i] = e;
         });
-        var $this = elem,
-            data = $(elem).data('simpleModal'),
+        var modal = elem,
+            data = elemento.data('simpleModal'),
             opciones;
-        $($this).data('simpleModal', (data = new SimpleModal(elem, defaults_options_simple_modal)));
+        $(modal).data('simpleModal', (data = new SimpleModal(elem, defaults_options_simple_modal)));
+        ultimaModal = elemento;
     });
-    $.fn.simplemodal.defaults = defaults_options_simple_modal;
-})(jQuery);
+    //Realizamos el resize sobre la última modal si la ubiera
+    if (ultimaModal != null)
+        ultimaModal.resize();
+});
 
 
 $(document).ready(function () {
