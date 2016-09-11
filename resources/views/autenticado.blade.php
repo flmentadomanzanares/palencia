@@ -6,7 +6,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="spinner"></div>
     <div class="hidden">
-        @if (!Auth::check())
+        @if (Auth::check())
             @if (!empty($calendar))
                 @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'auth.parciales.buscar'])
                 {!! $calendar->calendar() !!}
