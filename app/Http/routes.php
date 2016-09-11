@@ -15,6 +15,7 @@
 Route::pattern('id', '\d+'); // Los id solo pueden ser numeros
 
 Route::get('/', ['as' => 'invitado', 'uses' => 'InvitadoController@index']);
+Route::get('/', ['as' => '/', 'uses' => 'InvitadoController@index']);
 
 Route::get('/inicio', ['as' => 'inicio', 'before' => 'csrf', 'uses' => 'AutenticadoController@index']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
