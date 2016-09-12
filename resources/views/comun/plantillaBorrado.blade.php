@@ -1,4 +1,4 @@
-<div class="formularioModal">
+<div role="borrar" class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
         <div class="cabeceraFormularioModal">

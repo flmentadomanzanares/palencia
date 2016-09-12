@@ -15,6 +15,7 @@ $(document).ready(function () {
             cuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
         }
     }
+
     /**
      * Default opciones.
      */
@@ -56,6 +57,8 @@ $(document).ready(function () {
             selectorPulsado.opciones = $.extend({}, $.fn.simplemodal.defaults, opciones);
             if (selectorPulsado.selector.data('selectorId')) {
                 selectorPulsado.modal = $("#" + selectorPulsado.selector.data("selectorId"));
+            } else if (selectorPulsado.selector.data('role')) {
+                selectorPulsado.modal = $("[role='" + selectorPulsado.selector.data("role") + "']");
             } else if (selectorPulsado.selector.closest(".formularioModal").length > 0)
                 selectorPulsado.modal = selectorPulsado.selector.closest(".formularioModal");
             else {

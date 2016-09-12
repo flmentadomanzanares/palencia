@@ -1,4 +1,4 @@
-<div id="borrar" class="formularioModal">
+<div class="formularioModal">
     <div class="modalBackGround"></div>
     <div class="ventanaModal">
         <div class="lanzarModal simpleModal"
@@ -21,7 +21,7 @@
                         class="simpleModal"
                         data-modal_centro_pantalla="true"
                         data-modal_en_la_derecha="false"
-                        data-selector-id="modal-borrar"
+                        data-role="borrar"
                         data-modal_sin_etiqueta="true"
                         data-modal_ancho="330"
                         data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
