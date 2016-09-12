@@ -130,5 +130,7 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/semanas.js') !!}
+    @if (Auth::check())
+        {!! HTML::script('js/comun/semanas.js') !!}
+    @endif
 @endsection

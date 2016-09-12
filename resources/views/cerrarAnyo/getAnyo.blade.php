@@ -33,6 +33,4 @@
     </div>
 @endsection
 @section('js')
-    @if(!config('opciones.accion.mostrarModalDeBorrado'))
-    @endif
 @endsection

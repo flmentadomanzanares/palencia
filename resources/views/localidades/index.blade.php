@@ -6,7 +6,6 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima">
         @if (Auth::check())
-
             @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'localidades.parciales.buscar'])
             @include('comun.plantillaOperacionesIndex',['tabla'=>'localidades','accion'=>'Nueva'])
             @if(!$localidades->isEmpty())

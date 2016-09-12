@@ -16,5 +16,7 @@
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/nuestrasRespuestas.js') !!}
+    @if (Auth::check())
+        {!! HTML::script('js/comun/nuestrasRespuestas.js') !!}
+    @endif
 @endsection
