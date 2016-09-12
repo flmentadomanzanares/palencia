@@ -71,7 +71,7 @@ class AutenticadoController extends Controller
                     'editable' => false,
                     'weekNumbers' => true,
                     'eventLimit' => true, // allow "more" link when too many events
-                    'header' => array('left' => 'next , prev', 'center' => 'title', 'right' => 'prev , next')
+                    'header' => array('left' => 'prev', 'center' => 'title', 'right' => 'next')
                 ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                     'eventClick' => 'function(calEvent, jsEvent, view) {
                     $(this).attr("href","curso/"+calEvent.id);
