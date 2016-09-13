@@ -40,7 +40,7 @@
                                                 'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))  !!}
                                                 <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
                                                         @if(config('opciones.accion.mostrarModalDeBorrado'))
-                                                        class="pull-right lanzarModal simpleModal"
+                                                        class="pull-right simpleModal"
                                                         data-modal_centro_pantalla="true"
                                                         data-modal_en_la_derecha="false"
                                                         data-modal_sin_etiqueta="true"
