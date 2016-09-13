@@ -2,7 +2,7 @@
 //medias bootstrap
 $screen-xs: 480px !default;
 $screen-sm: 768px !default;
-$screen-md: 992px !default;
+$screen-md: 900px !default;
 $screen-lg: 1360px !default;
 
 $fullcalendar-fuente-cabecera-mes-xs: 24px !default;
@@ -21,8 +21,9 @@ $fullcalendar-dayNumberColor-other-month-textShadow: 1px 1px rgba(255, 255, 255,
 
 //Contenedor
 $fullcalendar-container-min-width: 290px !default;
-$fullcalendar-container-max-width: 860px !default;
-$fullcalendar-container-margin: 0 auto 50px !default;
+$fullcalendar-container-max-width: 880px !default;
+$fullcalendar-container-margin-lg: 0 auto 50px !default;
+$fullcalendar-container-margin-sm: 0 10px 50px !default;
 $fullcalendar-container-padding: 5px !default;
 $fullcalendar-container-backGroundColor: rgb(255, 248, 228) !default;
 $fullcalendar-container-textColor: rgb(42, 104, 6) !default;
