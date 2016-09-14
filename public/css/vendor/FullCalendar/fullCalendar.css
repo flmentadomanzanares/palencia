@@ -18,40 +18,40 @@ body .fc {
   border: 1px solid #759b98;
   border-radius: 10px;
   min-width: 290px;
-  max-width: 860px;
+  max-width: 880px;
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  body .fc {
+    margin: 0 10px 50px;
+  }
 }
 
 .fc-unthemed th, .fc-unthemed td, .fc-unthemed thead, .fc-unthemed tbody {
   border-color: #eeeeee;
 }
-
 .fc-unthemed .fc-today {
   background: #fffbd8;
 }
-
 .fc-unthemed .fc-divider {
   background: #eee;
 }
-
 .fc-unthemed .fc-popover {
   border-color: rgba(0, 0, 0, 0.7);
   background-color: white;
   border-width: 1px;
   border-style: solid;
 }
-
 .fc-unthemed .fc-popover .fc-header {
   background: #f0f0f0;
   color: green;
 }
-
 .fc-unthemed .fc-popover .fc-header .fc-close {
   color: maroon;
   font-size: .9em;
   margin-top: 2px;
 }
-
 .fc-unthemed .fc-popover .fc-header .fc-close:hover {
   color: red;
 }
@@ -177,7 +177,7 @@ NOTE: use percentage font sizes or else old IE chokes
   /* dimensions */
   margin: 0;
   height: 2.1em;
-  padding: 0 0.6em;
+  padding: 0 .6em;
   /* text & cursor */
   font-size: 1em;
   /* normalize */
@@ -220,7 +220,7 @@ NOTE: use percentage font sizes or else old IE chokes
   position: relative;
   top: -0.05em;
   /* seems to be a good adjustment across browsers */
-  margin: 0 0.2em;
+  margin: 0 .2em;
   vertical-align: middle;
 }
 
@@ -485,7 +485,8 @@ temporary rendered events).
   border-bottom: 0;
 }
 
-.fc-row .fc-content-skeleton tbody td, .fc-row .fc-helper-skeleton tbody td {
+.fc-row .fc-content-skeleton tbody td,
+.fc-row .fc-helper-skeleton tbody td {
   /* don't put a border between event cells */
   border-top: 0;
 }
@@ -543,7 +544,8 @@ temporary rendered events).
   /* give events with links and draggable events a hand mouse pointer */
 }
 
-.fc-not-allowed, .fc-not-allowed .fc-event {
+.fc-not-allowed,
+.fc-not-allowed .fc-event {
   /* to override an event's custom cursor */
   cursor: not-allowed;
 }
@@ -660,7 +662,6 @@ a.fc-more {
   cursor: pointer;
   text-decoration: none;
 }
-
 a.fc-more:hover {
   text-decoration: underline;
   color: #00c800;
@@ -672,6 +673,12 @@ a.fc-more:hover {
 }
 
 /* popover that appears when "more" link is clicked */
+.fc-day-grid {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 .fc-day-grid .fc-row {
   z-index: 1;
   /* make the "more" popover one higher than this */
@@ -681,17 +688,14 @@ a.fc-more:hover {
   z-index: 2;
   min-width: 220px;
 }
-
 .fc-more-popover .fc-event-container {
   padding: 5px;
   height: auto;
   overflow-y: auto;
 }
-
 .fc-more-popover .fc-event-container a {
   margin-bottom: 3px;
 }
-
 .fc-more-popover .fc-event-container a:hover {
   cursor: pointer;
   background-color: green;
@@ -703,15 +707,12 @@ a.fc-more:hover {
   text-align: center;
   margin-bottom: 1em;
 }
-
 .fc-toolbar .fc-left {
   float: left;
 }
-
 .fc-toolbar .fc-right {
   float: right;
 }
-
 .fc-toolbar .fc-center {
   display: inline-block;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.9);
@@ -735,7 +736,6 @@ a.fc-more:hover {
 .fc-toolbar h2 {
   margin: 0;
 }
-
 @media (max-width: 480px) {
   .fc-toolbar .fc-center h2 {
     font-size: 24px;
@@ -782,7 +782,8 @@ a.fc-more:hover {
   box-sizing: content-box;
 }
 
-.fc-view, .fc-view > table {
+.fc-view,
+.fc-view > table {
   /* so dragged elements can be above the view's main element */
   position: relative;
   z-index: 1;
@@ -910,7 +911,8 @@ a.fc-more:hover {
 
 /* TimeGrid Structure
 --------------------------------------------------------------------------------------------------*/
-.fc-time-grid-container, .fc-time-grid {
+.fc-time-grid-container,
+.fc-time-grid {
   /* so slats/bg/content/etc positions get scoped within here */
   position: relative;
   z-index: 1;
@@ -1000,7 +1002,8 @@ td.fc-event-container:hover {
   cursor: pointer;
 }
 
-.fc-time-grid .fc-event-container, .fc-time-grid .fc-bgevent-container {
+.fc-time-grid .fc-event-container,
+.fc-time-grid .fc-bgevent-container {
   /* a div within a cell within the fc-bgevent-skeleton */
   position: relative;
 }
@@ -1132,7 +1135,6 @@ be a descendant of the grid when it is being dragged.
   color: black;
   border: 1px solid white;
 }
-
 @media (max-width: 480px) {
   .fc-basic-view .fc-day-header {
     font-weight: normal;

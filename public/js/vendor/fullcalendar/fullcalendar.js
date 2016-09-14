@@ -1955,7 +1955,7 @@
             }
             console.log(left + popoverWidth + '>' + (contenedorCalendar.offset().left + contenedorCalendar.outerWidth()));
 //Left nuevo
-            left = (left + popoverWidth > (contenedorCalendar.offset().left + contenedorCalendar.outerWidth())) ? left - ((left + popoverWidth) - contenedorCalendar.outerWidth()) - this.margin : left;
+            left = (left + popoverWidth + this.margin > (contenedorCalendar.offset().left + contenedorCalendar.outerWidth())) ? left - ((left + popoverWidth) - contenedorCalendar.outerWidth()) - this.margin : left;
 
             this.el.css({
                 top: (top - contenedorCalendar.offset().top) + calendarScrollTop,
@@ -5758,7 +5758,7 @@
                 options.right = moreWrap.offset().left + moreWrap.outerWidth() + 1; // +1 to be over cell border
             }
             else {
-                options.left = moreWrap.offset().left - 1; // -1 to be over cell border
+                options.left = moreWrap.offset().left + 1; // -1 to be over cell border
             }
             //Borramos los poppups si los hay
             if (!options.autoHide) {
