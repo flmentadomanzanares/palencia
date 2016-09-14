@@ -1891,13 +1891,6 @@
         position: function () {
             var options = this.options;
             var origin = this.el.offsetParent().offset();
-            var width = this.el.outerWidth();
-            var height = this.el.outerHeight();
-            var windowEl = $(window);
-            var viewportEl = getScrollParent(this.el);
-            var viewportTop;
-            var viewportLeft;
-            var viewportOffset;
             var top; // the "position" (not "offset") values for the popover
             var left; //
 
@@ -1912,30 +1905,6 @@
             else {
                 left = 0;
             }
-
-            if (viewportEl.is(window) || viewportEl.is(document)) { // normalize getScrollParent's result
-                viewportEl = windowEl;
-                viewportTop = 0; // the window is always at the top left
-                viewportLeft = 0; // (and .offset() won't work if called here)
-            }
-            else {
-                viewportOffset = viewportEl.offset();
-                viewportTop = viewportOffset.top;
-                viewportLeft = viewportOffset.left;
-            }
-
-            // if the window is scrolled, it causes the visible area to be further down
-            viewportTop += windowEl.scrollTop();
-            viewportLeft += windowEl.scrollLeft();
-
-            /* constrain to the view port. if constrained by two edges, give precedence to top/left
-             if (options.viewportConstrain !== false) {
-             top = Math.min(top, viewportTop + viewportEl.outerHeight() - height - this.margin);
-             top = Math.max(top, viewportTop + this.margin);
-             left = Math.min(left, viewportLeft + viewportEl.outerWidth() - width - this.margin);
-             left = Math.max(left, viewportLeft + this.margin);
-             }
-             */
 
             //Comprobamos si el popover sobrepasa la tabla para asignarle scroll
             var contenedorPopover = this.options.parentEl;
@@ -1953,9 +1922,10 @@
                 var alturaResultante = contenedorCalendarHeight - (popoverTop + popoverHeight - popoverHeaderHeight);
                 this.el.find(".fc-event-container").css("height", alturaResultante + 'px')
             }
-            console.log(left + popoverWidth + '>' + (contenedorCalendar.offset().left + contenedorCalendar.outerWidth()));
-//Left nuevo
-            left = (left + popoverWidth + this.margin > (contenedorCalendar.offset().left + contenedorCalendar.outerWidth())) ? left - ((left + popoverWidth) - contenedorCalendar.outerWidth()) - this.margin : left;
+            //Posición izquierda
+            left = (left + popoverWidth + this.margin > (contenedorCalendar.offset().left + contenedorCalendar.outerWidth()))
+                ? left - ((left + popoverWidth) - contenedorCalendar.outerWidth()) - this.margin
+                : left - contenedorCalendar.offset().left;
 
             this.el.css({
                 top: (top - contenedorCalendar.offset().top) + calendarScrollTop,
