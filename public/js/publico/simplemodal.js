@@ -76,6 +76,7 @@ $(document).ready(function () {
 
 
             //Aplicamos estilos
+
             selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + (opciones.modal_posicion_vertical.toString().indexOf("%") != -1 ? '' : 'px'));
             selectorPulsado.modal.css('z-index', selectorPulsado.opciones.modal_plano_z);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
@@ -124,6 +125,7 @@ $(document).ready(function () {
                 }
                 selectorPulsado.modal.find(".ventanaModal > .pieFormularioModal > div:last-child").html(confirmText);
             }
+
             //Reajustamos la posición
             window.onresize = $.proxy(selectorPulsado.resize, selectorPulsado);
             $(selectorPulsado.selector).on("click", $.proxy(selectorPulsado.show, selectorPulsado));
@@ -147,6 +149,12 @@ $(document).ready(function () {
             }
             ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.modal_velocidad_fade, function () {
                 var modal = ventana.modal.find(".ventanaModal");
+                //Posicionamos las modales verticalmente si tiene la opcion de centrado horizontal
+                if (ventana.opciones.modal_centro_pantalla == true) {
+                    var height = Math.round(modal.outerHeight() / 2);
+                    var windowHeight = window.innerHeight / 2;
+                    ventana.modal.css('top', (windowHeight - height) + 'px');
+                }
                 var recorrido = ventana.opciones.modal_centro_pantalla ? (window.innerWidth / 2) + (modal.innerWidth() / 2) + "px" : modal.css("width");
                 var side = (ventana.opciones.modal_en_la_derecha === true) ? {"margin-left": '-' + recorrido} : {"margin-left": recorrido};
                 modal.animate(side, ventana.opciones.modal_velocidad_scroll, function () {
