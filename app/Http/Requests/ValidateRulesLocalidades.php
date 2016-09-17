@@ -31,9 +31,9 @@ class ValidateRulesLocalidades extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'localidad.required' => 'La localidad es obligatoria.',
-            'localidad.min' => 'Longitud mínima de la localidad :min caracteres.',
-            'localidad.max' => 'Longitud máxima de la localidad :max caracteres.',
-            "pais.required" => 'El país es obligatorio.',
+            'localidad.min' => 'Longitud m&iacute;nima de la localidad :min caracteres.',
+            'localidad.max' => 'Longitud m&aacute;xima de la localidad :max caracteres.',
+            "pais.required" => 'El pa&iacute;s es obligatorio.',
             "provincia.required" => 'La provincia es obligatoria.',
         ];
     }

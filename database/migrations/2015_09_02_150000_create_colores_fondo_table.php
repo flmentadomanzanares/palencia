@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateColoresTable extends Migration
+class CreateColoresFondoTable extends Migration
 {
 
     /**
@@ -13,19 +13,13 @@ class CreateColoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('colores', function (Blueprint $table) {
+        Schema::create('colores_fondos', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->string('nombre_color', 25);
-
-            $table->string('codigo_color', 7);
-
+            $table->string('nombre_color', 25)->default('negro');
+            $table->string('codigo_color', 7)->default('#000000');
             $table->boolean('activo')->default(true);
-
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
-
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
-
         });
     }
 
@@ -36,7 +30,7 @@ class CreateColoresTable extends Migration
      */
     public function down()
     {
-        Schema::drop('colores');
+        Schema::drop('colores_fondos');
     }
 
 }

@@ -59,7 +59,7 @@
         dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
         dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
         dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-        weekHeader: "Sm",
+        weekHeader: "S",
         dateFormat: "dd/mm/yy",
         firstDay: 1,
         isRTL: !1,

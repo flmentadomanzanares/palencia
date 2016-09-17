@@ -1,7 +1,8 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Palencia\Entities\Colores;
+use Palencia\Entities\ColoresFondos;
+use Palencia\Entities\ColoresTextos;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
@@ -21,7 +22,7 @@ class ComunidadesController extends Controller
     public function index(Request $request)
     {
         $titulo = "Comunidades";
-        $comunidades = Comunidades::getComunidades($request);
+        $comunidades = Comunidades::getComunidades($request, config("opciones.paginacion"));
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisesFromPaisIdToList(0, true);
         $provincias = Provincias::getProvinciasList();
@@ -43,12 +44,15 @@ class ComunidadesController extends Controller
         //Título Vista
         $titulo = "Nueva Comunidad";
         $comunidad = new Comunidades();
+        $comunidad->colorFondo = '#000000';
+        $comunidad->colorTexto = '#ffffff';
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisesFromPaisIdToList();
         $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $colores = Colores::getColores();
+        $coloresFondo = ColoresFondos::getColoresFondos();
+        $coloresTexto = ColoresTextos::getColoresTextos();
         return view('comunidades.nuevo',
             compact(
                 'comunidad',
@@ -57,11 +61,11 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
-                'colores',
+                'coloresFondo',
+                'coloresTexto',
                 'titulo'
             ));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -71,7 +75,7 @@ class ComunidadesController extends Controller
     {
         //Creamos una nueva instancia al modelo.
         $comunidad = new Comunidades();
-        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->comunidad = strtoupper($request->get('comunidad'));
         $comunidad->esPropia = $request->get('esPropia');
         $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
         $comunidad->responsable = $request->get('responsable');
@@ -79,8 +83,8 @@ class ComunidadesController extends Controller
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
         $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('provincia_id');
-        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->provincia_id = $request->get('select_provincia');
+        $comunidad->localidad_id = $request->get('select_localidad');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');
@@ -90,7 +94,8 @@ class ComunidadesController extends Controller
         $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = $request->get('observaciones');
         $comunidad->esColaborador = $request->get('esColaborador');
-        $comunidad->color = $request->get('color');
+        $comunidad->colorFondo = $request->get('colorFondo');
+        $comunidad->colorTexto = $request->get('colorTexto');
         $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {
@@ -99,10 +104,10 @@ class ComunidadesController extends Controller
 
         } catch (\Exception $e) {
             switch ($e->getCode()) {
-                case 230000:
+                case 23000:
                     return redirect()->
                     route('comunidades.index')->
-                    with('mensaje', 'la comunidad está ya dada de alta.');
+                    with('mensaje', 'la comunidad est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -153,10 +158,11 @@ class ComunidadesController extends Controller
         }
         $secretariados = TiposSecretariados::getTiposSecretariadosList();
         $paises = Paises::getPaisFromProvinciaIdToList($comunidad->provincia_id);
-        $provincias = Provincias::getProvinciaToList($comunidad->provincia_id);
+        $provincias = Provincias::getProvinciasList();
         $localidades = Localidades::getLocalidadesList();
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
-        $colores = Colores::getColores();
+        $coloresFondo = ColoresFondos::getColoresFondos();
+        $coloresTexto = ColoresTextos::getColoresTextos();
         return view('comunidades.modificar',
             compact(
                 'comunidad',
@@ -165,7 +171,8 @@ class ComunidadesController extends Controller
                 'provincias',
                 'localidades',
                 'comunicaciones_preferidas',
-                'colores',
+                'coloresFondo',
+                'coloresTexto',
                 'titulo'
             ));
     }
@@ -183,7 +190,7 @@ class ComunidadesController extends Controller
         if ($comunidad == null) {
             return Redirect('comunidades')->with('mensaje', 'No se encuentra la comunidad seleccionada.');
         }
-        $comunidad->comunidad = $request->get('comunidad');
+        $comunidad->comunidad = strtoupper($request->get('comunidad'));
         $comunidad->esPropia = $request->get('esPropia');
         $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
         $comunidad->responsable = $request->get('responsable');
@@ -191,8 +198,8 @@ class ComunidadesController extends Controller
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
         $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('provincia_id');
-        $comunidad->localidad_id = $request->get('localidad_id');
+        $comunidad->provincia_id = $request->get('select_provincia');
+        $comunidad->localidad_id = $request->get('select_localidad');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');
@@ -202,7 +209,8 @@ class ComunidadesController extends Controller
         $comunidad->tipo_comunicacion_preferida_id = $request->get('tipo_comunicacion_preferida_id');
         $comunidad->observaciones = $request->get('observaciones');
         $comunidad->esColaborador = $request->get('esColaborador');
-        $comunidad->color = $request->get('color');
+        $comunidad->colorFondo = $request->get('colorFondo');
+        $comunidad->colorTexto = $request->get('colorTexto');
         $comunidad->activo = $request->get('activo');
         //Intercepción de errores
         try {
@@ -213,7 +221,7 @@ class ComunidadesController extends Controller
                 case 23000:
                     return redirect()->
                     route('comunidades.index')->
-                    with('mensaje', 'la comunidad ' . $comunidad->comunidad . ' está ya dada de alta.');
+                    with('mensaje', 'la comunidad ' . $comunidad->comunidad . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->

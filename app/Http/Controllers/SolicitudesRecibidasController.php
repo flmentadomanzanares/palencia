@@ -18,7 +18,7 @@ class SolicitudesRecibidasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Consultar sus Solicitudes";
-        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request);
+        $solicitudesRecibidas = SolicitudesRecibidas::getSolicitudesRecibidas($request, config("opciones.paginacion"));
         $comunidades = SolicitudesRecibidas::getComunidadesSolicitudesRecibidasList();
         return view("solicitudesRecibidas.index", compact('solicitudesRecibidas', 'titulo', 'comunidades'));
     }
@@ -67,7 +67,7 @@ class SolicitudesRecibidasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesRecibidas.create')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -94,13 +94,12 @@ class SolicitudesRecibidasController extends Controller
         if ($solicitudRecibida == null) {
             return Redirect('solicitudesRecibidas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $comunidad = Comunidades::getNombreComunidad($solicitudRecibida->comunidad_id);
-
+        $comunidades = Comunidades::getComunidadToList($solicitudRecibida->comunidad_id);
         //Vista
         return view('solicitudesRecibidas.modificar',
             compact(
                 'solicitudRecibida',
-                'comunidad',
+                'comunidades',
                 'titulo'
             ));
     }
@@ -131,7 +130,7 @@ class SolicitudesRecibidasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesRecibidas.index')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->

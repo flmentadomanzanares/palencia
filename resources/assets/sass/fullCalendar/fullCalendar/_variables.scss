@@ -1,0 +1,67 @@
+//Variables generales//
+//medias bootstrap
+$screen-xs: 480px !default;
+$screen-sm: 768px !default;
+$screen-md: 900px !default;
+$screen-lg: 1360px !default;
+
+$fullcalendar-fuente-cabecera-mes-xs: 24px !default;
+
+$fullcalendar-mormal-padding: 2px !default;
+$fullcalendar-extra-padding: 5px !default;
+$fullcalendar-color-border-general: rgba(238, 238, 238, 1) !default;
+$fullcalendar-color-border: rgba(255, 255, 255, 1) !default;
+$fullcalendar-backGroundColor: rgba(240, 240, 240, 1) !default;
+$fullcalendar-textColor: rgba(0, 0, 0, 1) !default;
+$fullcalendar-dayNumberColor: rgba(0, 0, 128, 1) !default;
+$fullcalendar-dayNumberColor-textShadow: 1px 1px rgba(255, 255, 255, .8) !default;
+$fullcalendar-dayNumberColor-other-month: rgba(0, 0, 0, 1) !default;
+$fullcalendar-dayNumberColor-other-month-opacity: .3 !default;
+$fullcalendar-dayNumberColor-other-month-textShadow: 1px 1px rgba(255, 255, 255, .8) !default;
+
+//Contenedor
+$fullcalendar-container-min-width: 290px !default;
+$fullcalendar-container-max-width: 880px !default;
+$fullcalendar-container-margin-lg: 0 auto 50px !default;
+$fullcalendar-container-margin-sm: 0 10px 50px !default;
+$fullcalendar-container-padding: 5px !default;
+$fullcalendar-container-backGroundColor: rgb(255, 248, 228) !default;
+$fullcalendar-container-textColor: rgb(42, 104, 6) !default;
+$fullcalendar-container-borderRadius: 10px !default;
+$fullcalendar-container-borderColor: rgb(117, 155, 152) !default;
+
+//Calendario general
+$fullcalendar-color-border-calendar: $fullcalendar-color-border-general !default;
+$fullcalendar-color-backGround-calendar: rgb(255, 253, 248) !default;
+$fullcalendar-title-shadow: 1px 1px rgba(255, 255, 255, .9) !default;
+
+//Botones de navegación
+$fullcalendar-button-nav-border-radius: 50% !default;
+
+//Header del calendario
+$fullcalendar-backGroundColor-day-header: $fullcalendar-backGroundColor !default;
+$fullcalendar-textColor-day-header: rgba(0, 0, 0, 1) !default;
+$fullcalendar-padding-day-header: $fullcalendar-mormal-padding 0 !default;
+$fullcalendar-color-border-day-header: $fullcalendar-color-border !default;
+
+//Columna semana
+$fullcalendar-backGroundColor-day-sem: $fullcalendar-backGroundColor-day-header !default;
+$fullcalendar-textColor-day-sem: $fullcalendar-textColor-day-header !default;
+$fullcalendar-color-border-day-sem: $fullcalendar-color-border-day-header !default;
+
+//Día actual
+$fullcalendar-backGroundColor-toDay: rgb(255, 251, 216) !default;
+
+//More para el popOver texto +2mas
+$fullcalendar-more-margin: 1px 3px !default;
+$fullcalendar-more-color: rgba(0, 128, 0, 1) !default;
+$fullcalendar-more-color-hover: rgba(0, 200, 0, 1) !default;
+
+//popOver cuando hay eventos que no caben form
+$fullcalendar-popover-border-color: rgba(0, 0, 0, .7) !default;
+$fullcalendar-popover-background-color: rgba(255, 255, 255, 1) !default;
+$fullcalendar-popover-header-backGroundColor: $fullcalendar-backGroundColor-day-header !default;
+$fullcalendar-popover-header-textColor: rgba(0, 128, 0, 1) !default;
+$fullcalendar-popover-header-close-color: rgba(128, 0, 0, 1) !default;
+$fullcalendar-popover-header-close-color-hover: rgba(255, 0, 0, 1) !default;
+$fullcalendar-popover-padding: $fullcalendar-extra-padding !default;

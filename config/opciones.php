@@ -14,22 +14,25 @@ return ['campoUser' => [
     'confirmado' => 'Confirmado',
     'nconfirmado' => 'No Confirmado',
 ],
+    'paginacion' => '500',
     'roles' => [
         'administrador' => '400',
     ],
-    'verificar' => [
+    'seguridad' => [
         'Email' => false,
         'recordarPassword' => false,
+        'captcha' => false,
     ],
     'accion' => [
         'copiaSeguridad' => true,
-        'cerrarAnyo' => true,
+        'cerrarAnyo' => false,
         'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
-        'mostrarModalDeBorrado' => false,
-        'cartaCumplimentadaIndividualNuestrasRespuestas' => true,
+        'mostrarModalDeBorrado' => true,
+        'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
+
     ],
     'envios' => [
         'timeout' => 30,
@@ -41,7 +44,7 @@ return ['campoUser' => [
         'email' => 'email',
     ],
     "emailTestSender" => [
-        "active" => true,
+        "active" => false,
         "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 

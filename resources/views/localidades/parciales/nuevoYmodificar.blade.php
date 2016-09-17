@@ -1,11 +1,11 @@
 <div class="form-group">
     <div class="heading-caption">Datos Generales</div>
-    {!! FORM::label('pais', 'Nombre País') !!} <br/>
+    {!! FORM::label('pais', 'Nombre Pa&iacute;s') !!} <br/>
     {!! FORM::select('pais', $paises, null,["class" => "form-control",'id'=>'select_pais']) !!}
     {!! FORM::label('provincia', 'Nombre Provincia') !!} <br/>
-    {!! FORM::select('provincia',$provincias, null, ["class" => "form-control",'id'=>'select_provincia']) !!}
+    {!! FORM::select('provincia',$provincias, $localidad->provincia_id, ["class" => "form-control",'id'=>'select_provincia']) !!}
     {!! FORM::label('localidad', 'Nombre Localidad') !!} <br/>
-    {!! FORM::text('localidad', null, ["class" => "form-control"]) !!}
+    {!! FORM::text('localidad', null, ["class" => "form-control text-uppercase"]) !!}
     <br/>
     @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
@@ -15,5 +15,4 @@
             !!}
         @endif
     @endif
-
 </div>

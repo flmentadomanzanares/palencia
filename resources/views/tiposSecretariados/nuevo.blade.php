@@ -8,18 +8,7 @@
         <div class="row table-size-optima">
             {!! FORM::open(['route' => 'tiposSecretariados.store']) !!}
             @include('tiposSecretariados.parciales.nuevoYmodificar')
-            <div class="btn-action margin-bottom">
-                <a title="Volver" href="{{route('tiposSecretariados.index')}}" class="pull-left">
-                    <i class="glyphicon glyphicon-arrow-left">
-                        <div>Volver</div>
-                    </i>
-                </a>
-                <button type="submit" title="Crear" class="pull-right">
-                    <i class='glyphicon glyphicon-plus full-Width'>
-                        <div>Crear</div>
-                    </i>
-                </button>
-            </div>
+            @include('comun.plantillaVolverModificarGuardar',['index'=>"tiposSecretariados.index",'accion'=>"Crear"])
             {!! FORM::close() !!}
         </div>
     </div>

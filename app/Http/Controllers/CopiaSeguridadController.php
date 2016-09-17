@@ -29,7 +29,7 @@ class CopiaSeguridadController extends Controller
         if (count($remitente) == 0) {
             return redirect()->
             route('copiaSeguridad')->
-            with('mensaje', 'No se puede realizar el envío, selecciona comunidad.');
+            with('mensaje', 'No se puede realizar el env&iacute;o, selecciona comunidad.');
         }
         $logEnvios = [];
         //Ruta para linux

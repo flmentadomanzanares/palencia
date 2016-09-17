@@ -155,7 +155,7 @@
             @if ($anyo == 0)
             </br>
             @elseif($semana == 0)
-                Año: {{ $anyo }}
+                A&ntilde;o: {{ $anyo }}
             @else
                 Semana: {{ $semana }} - {{ $anyo }}
             @endif
@@ -196,7 +196,7 @@
 
                 <?php $i++?>
                 <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    País: {!! $cursillo->pais!!}
+                    Pa&iacute;s: {!! $cursillo->pais!!}
                 </div>
 
                 <?php $pais = $cursillo->pais; ?>

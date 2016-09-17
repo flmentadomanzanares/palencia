@@ -4,24 +4,11 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
-        <div class="row">
-            {!! FORM::model($rol, ['route' => ['roles.update', $rol->id], 'method' => 'patch']) !!}
-            @include('roles.parciales.nuevoYmodificar')
-            <div class="btn-action margin-bottom">
-                <a title="Volver" href="{{route('roles.index')}}" class="pull-left">
-                    <i class="glyphicon glyphicon-arrow-left">
-                        <div>Volver</div>
-                    </i>
-                </a>
-                <button type="submit" title="Guardar" class="pull-right">
-                    <i class='glyphicon glyphicon-floppy-disk full-Width'>
-                        <div>Guardar</div>
-                    </i>
-                </button>
-            </div>
-            {!! FORM::close() !!}
-        </div>
+    <div class="hidden table-size-optima">
+        {!! FORM::model($rol, ['route' => ['roles.update', $rol->id], 'method' => 'patch']) !!}
+        @include('roles.parciales.nuevoYmodificar')
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"roles.index",'accion'=>"Guardar"])
+        {!! FORM::close() !!}
     </div>
 @endsection
 @section("css")

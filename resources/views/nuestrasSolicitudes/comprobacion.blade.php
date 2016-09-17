@@ -1,7 +1,7 @@
 @extends('plantillas.admin')
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima" style="margin-top: 110px">
         <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
@@ -26,26 +26,15 @@
             @endforeach
             </tbody>
         </table>
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('nuestrasSolicitudes')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-            {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','incluirSolicitudesAnteriores','anyos']),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
-            {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
-            {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
-            {!! FORM::hidden('anyo', $anyos)!!}
-            {!! FORM::hidden('generarSusRespuestas', $generarSusRespuestas)!!}
-            {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
-            {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
-            <button type="submit" title="Enviar" class="pull-right">
-                <i class='glyphicon glyphicon-envelope full-Width'>
-                    <div>Enviar</div>
-                </i>
-            </button>
-            {!! FORM::close() !!}
-        </div>
+        {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','incluirSolicitudesAnteriores','anyos']),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
+        {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
+        {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
+        {!! FORM::hidden('anyo', $anyos)!!}
+        {!! FORM::hidden('generarSusRespuestas', $generarSusRespuestas)!!}
+        {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
+        {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"nuestrasSolicitudes",'accion'=>"Enviar", 'icon'=>'glyphicon-envelope'])
+        {!! FORM::close() !!}
     </div>
 @endsection
 @section("css")

@@ -12,18 +12,19 @@ class TiposComunicacionesPreferidas extends Model
 
     public static function getTipoComunicacionesPreferidasList($placeholder = "Comunicación...")
     {
-        return ['0' => $placeholder] + TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
+        return TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
             ->where('activo', true)
-            ->orderBy('comunicacion_preferida', 'ASC')
-            ->Lists('comunicacion_preferida', 'id');
+            ->orderBy('comunicacion_preferida', 'DESC')
+            ->Lists('comunicacion_preferida', 'id') + ['0' => $placeholder];
     }
 
-    static public function getTiposComunicacionesPreferidas(Request $request)
+    static public function getTiposComunicacionesPreferidas(Request $request, $paginateNumber = 25)
     {
         return TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida', 'tipos_comunicaciones_preferidas.activo')
             ->tipoComunicacionesPreferidas($request->get('comunicacion_preferida'))
+            ->TipoComunicacionEsActivo($request->get('esActivo'))
             ->orderBy('comunicacion_preferida', 'ASC')
-            ->paginate()
+            ->paginate($paginateNumber)
             ->setPath('tiposComunicacionesPreferidas');
     }
 
@@ -43,6 +44,13 @@ class TiposComunicacionesPreferidas extends Model
     {
         if (trim($comunicacion_preferida) != '')
             $query->where('comunicacion_preferida', 'LIKE', "$comunicacion_preferida" . '%');
+    }
+
+    public function scopeTipoComunicacionEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('tipos_comunicaciones_preferidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
 }

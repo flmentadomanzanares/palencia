@@ -61,7 +61,7 @@ class SolicitudesRecibidasCursillos extends Model
         $sql = SolicitudesRecibidasCursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->groupBy('Anyos')
-            ->orderBy('Anyos')
+            ->orderBy('Anyos',"DESC")
             ->where('cursillos.activo', true)
             ->where('solicitudes_recibidas_cursillos.activo', true)
             ->Lists('Anyos', 'Anyos');
@@ -77,7 +77,7 @@ class SolicitudesRecibidasCursillos extends Model
             ->where('cursillos.activo', true)
             ->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x")'), '=', $anyo)
             ->groupBy('semanas')
-            ->orderBy('semanas', 'ASC')
+            ->orderBy('semanas', 'DESC')
             ->get();
 
     }
@@ -99,13 +99,14 @@ class SolicitudesRecibidasCursillos extends Model
      * Función que devuelve los datos para el listado "Secretariado"
      *
      *****************************************************************************************************************/
-    static public function getSolicitudesComunidad($comunidadId = 0)
+    static public function getSolicitudesComunidad($anyo = 0, $comunidadId = 0)
     {
 
         return SolicitudesRecibidasCursillos::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
+            ->where(DB::raw('DATE_FORMAT(solicitudes_recibidas_cursillos.created_at,"%x")'), '=', $anyo)
             ->where('solicitudes_recibidas.aceptada', true)
             ->where('solicitudes_recibidas_cursillos.activo', true)
             ->where('comunidades.id', '=', $comunidadId)

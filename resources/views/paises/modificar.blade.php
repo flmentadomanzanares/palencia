@@ -4,21 +4,10 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         {!! FORM::model($pais, ['route' => ['paises.update', $pais->id], 'method' => 'patch']) !!}
         @include('paises.parciales.nuevoYmodificar')
-        <div class="btn-action margin-bottom ">
-            <a title="Volver" href="{{route('paises.index')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-            <button type="submit" title="Guardar" class="pull-right">
-                <i class='glyphicon glyphicon-floppy-disk full-Width'>
-                    <div>Guardar</div>
-                </i>
-            </button>
-        </div>
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"paises.index",'accion'=>"Guardar"])
         {!! FORM::close() !!}
     </div>
 @endsection

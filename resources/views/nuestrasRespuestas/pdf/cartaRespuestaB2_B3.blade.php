@@ -152,15 +152,15 @@
     <span>Queridos hermanos:</span>
     <br/>
     <br/>
-        <span class="tab">Recibimos vuestra petición de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
+        <span class="tab">Recibimos vuestra petici&oacute;n de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
             ........ a celebrar desde el ............ de ................................................... del 20.........</span>
     <br/>
     <br/>
-    <span class="tab">Esta Iglesia de Canarias ha rogado al Señor en sus Ultreyas, Reuniones de Grupo y oraciones
-        personales por el éxito espiritual y apostólico de ese Cursillo.</span>
+    <span class="tab">Esta Iglesia de Canarias ha rogado al Se&ntilde;or en sus Ultreyas, Reuniones de Grupo y oraciones
+        personales por el &eacute;xito espiritual y apost&oacute;lico de ese Cursillo.</span>
     <br/>
     <br/>
-    <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
+    <span class="tab">Que la Gracia del Se&ntilde;or les acompa&ntilde;e siempre. Les abrazamos en Cristo.</span>
     <br/>
     <br/>
     <span class="tab">{{$remitente->localidad}},&nbsp;{{$fecha_emision}}</span>
@@ -180,7 +180,8 @@
     </span>
     <br>
     @if($esCarta)
-        <div class="listado"><strong class="subrayado">CURSILLOS POR LOS QUE ORARÁ NUESTRA COMUNIDAD</strong></div>
+        <div class="listado"><strong class="subrayado">CURSILLOS POR LOS QUE ORAR&Aacute; NUESTRA COMUNIDAD</strong>
+        </div>
         <?php $i = 0?>
         <?php $pagina = 0 ?>
         @foreach($cursos as $index=>$curso)

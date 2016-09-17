@@ -17,10 +17,10 @@ class PaisesController extends Controller
      */
     public function index(Request $request)
     {
-        $titulo = "Países";
+        $titulo = "Pa&iacute;ses";
 
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta categorias
-        $paises = Paises::getPaises($request);
+        $paises = Paises::getPaises($request, config("opciones.paginacion"));
         return view("paises.index", compact("paises", "titulo"));
     }
 
@@ -32,7 +32,7 @@ class PaisesController extends Controller
      */
     public function create()
     {
-        $titulo = "Nuevo País";
+        $titulo = "Nuevo Pa&iacute;s";
         $pais = new Paises;
         return view("paises.nuevo", compact("pais", "titulo"));
 
@@ -48,22 +48,22 @@ class PaisesController extends Controller
     public function store(ValidateRulesPaises $request)
     {
         $pais = new Paises; //Creamos instancia al modelo
-        $pais->pais = $request->get("pais"); //Asignamos el valor al campo.
+        $pais->pais = strtoupper($request->get("pais")); //Asignamos el valor al campo.
         try {
             $pais->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route("paises.create")
-                        ->with("mensaje", "El país " . $pais->pais . " está ya dado de alta.");
+                        ->with("mensaje", "El pa&iacute;s " . $pais->pais . " est&aacute; ya dado de alta.");
                     break;
                 default:
                     return redirect()->route("paises.index")
-                        ->with("mensaje", "Nuevo país error " . $e->getCode());
+                        ->with("mensaje", "Nuevo pa&iacute;s error " . $e->getCode());
             }
         }
         return redirect("paises")
-            ->with("mensaje", "El país " . $pais->pais . " se ha creado satisfactoriamente.");
+            ->with("mensaje", "El pa&iacute;s " . $pais->pais . " se ha creado satisfactoriamente.");
 
     }
 
@@ -75,10 +75,10 @@ class PaisesController extends Controller
      */
     public function edit($id)
     {
-        $titulo = "Modificar País";
+        $titulo = "Modificar Pa&iacute;s";
         $pais = Paises::find($id);
         if ($pais == null) {
-            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+            return Redirect('paises')->with('mensaje', 'No se encuentra el pa&iacute;s seleccionado.');
         }
         return view('paises.modificar', compact('pais', 'titulo'));
     }
@@ -93,9 +93,9 @@ class PaisesController extends Controller
     {
         $pais = Paises::find($id);
         if ($pais == null) {
-            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+            return Redirect('paises')->with('mensaje', 'No se encuentra el pa&iacute;s seleccionado.');
         }
-        $pais->pais = $request->get("pais");
+        $pais->pais = strtoupper($request->get("pais"));
         if (\Auth::user()->roles->peso >= config("opciones.roles.administrador")) {
             $pais->activo = $request->get("activo");
         }
@@ -105,7 +105,7 @@ class PaisesController extends Controller
             switch ($e->getCode()) {
                 default:
                     return redirect()->route("paises.index")
-                        ->with("mensaje", "Modificar país error " . $e->getCode());
+                        ->with("mensaje", "Modificar pa&iacute;s error " . $e->getCode());
             }
         }
         return redirect()->route("paises.index")
@@ -122,7 +122,7 @@ class PaisesController extends Controller
     {
         $pais = Paises::find($id);
         if ($pais == null) {
-            return Redirect('paises')->with('mensaje', 'No se encuentra el país seleccionado.');
+            return Redirect('paises')->with('mensaje', 'No se encuentra el pa&iacute;s seleccionado.');
         }
         try {
             $pais->delete();
@@ -134,7 +134,7 @@ class PaisesController extends Controller
                     break;
                 default:
                     return redirect()->route("paises.index")
-                        ->with("mensaje", "Eliminar país error " . $e->getCode());
+                        ->with("mensaje", "Eliminar pa&iacute;s error " . $e->getCode());
             }
         }
         return redirect()->route("paises.index")
