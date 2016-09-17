@@ -4,6 +4,37 @@
   src: url($fontPath);
 }
 
+//margin all de 5 en 5 desde el cero al 20
+//***********************************************
+@for $i from 0 through 4 {
+  .m-#{$i*5} {
+    margin: 0px + $i*5 !important;
+  }
+  .m-l-#{$i*5} {
+    margin-left: 0px + $i*5 !important;
+  }
+  .m-r-#{$i*5} {
+    margin-right: 0px + $i*5 !important;
+  }
+}
+
+.margin-left-imagen-text {
+  margin-left: $index-imagen-user-margin-left;
+}
+
+//padding total ,padding horizontal y padding vertical
+@for $i from 0 through 4 {
+  .p-h-#{$i*5} {
+    padding: 0 (0px + $i*5) !important;
+  }
+  .p-v-#{$i*5} {
+    padding: (0px + $i*5) 0 !important;
+  }
+  .p-#{$i*5} {
+    padding: (0px + $i*5) !important;
+  }
+}
+
 //Thumbnail
 //***********************************************
 .thumbnail {
@@ -43,6 +74,41 @@
   }
 }
 
+//Modal show/hide label
+.hideShowSimpleModal {
+  display: block;
+  position: fixed;
+  bottom: $button_show_modal_label_bottom;
+  left: $margin-app-small;
+  background-color: $state-success-bg;
+  border-radius: $border-circle;
+  border: 1px solid $state-success-border;
+  box-shadow: $app-default-box-shadow;
+  z-index: $zindex-button_show_modal_label;
+  &:after {
+    font-family: $font-family-plyphicons-regular;
+    font-size: $button_show_modal_label_font_size;
+    display: block;
+    position: relative;
+    background-color: transparent;
+    color: $state-success-text;
+    width: $button_show_modal_label_width;
+    line-height: $button_show_modal_label_height;
+    vertical-align: middle;
+    text-align: center;
+    content: "\e106";
+    cursor: pointer;
+  }
+  &.labelHide {
+    background-color: $state-info-bg;
+    border-color: $state-info-border;
+    &:after {
+      color: $state-info-text;
+      content: "\e105";
+    }
+  }
+}
+
 //NavBar
 
 .navbar-default .navbar-nav > .open > a:focus,
@@ -54,46 +120,56 @@
 //Tables
 //*********************************************************************
 .table-viaoptima {
-  //para hacerlo tipo instagram
-  //float:right;
-  //display:inline-block;
-  // margin:3px;
   display: table;
-  min-width: 100%;
+  table-layout: fixed;
+  width: 100%;
+  min-width: $tabla-ancho-minimo;
   margin-bottom: $form-group-margin-bottom;
   padding: $padding-app-small;
   border: 1px solid $app-color-base;
-  border-collapse: separate;
-  border-spacing: 2px;
   caption {
     text-align: left;
     color: $app-color-base;
     font-size: (2 * $font-size-app-base-register);
     background-color: transparent;
     padding: 0;
-    line-height: $tabla-invitados-alto-fila;
+    line-height: 1.4;
     vertical-align: middle;
     margin-top: $margin-app-base;
     img {
-      float: left;
+      position: absolute;
       width: 42px;
       height: 42px;
-      margin-right: $margin-app-base;
+      border-radius: $margin-app-base;
+    }
+    div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 48px;
     }
   }
   thead {
     tr {
       background-color: $app-color-base;
       th {
+        &.cabecera {
+          background-color: $app-color-white;
+          color: $app-color-base;
+          line-height: $index-imagen-user-size;
+        }
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
-        //padding: $padding-app-small !important;
-        padding: $padding-app-base $padding-large-horizontal;
+        padding: $padding-app-base;
         background-color: transparent;
         img {
-          float: left;
-          width: 48px;
-          height: 48px;
+          position: absolute;
+          width: $index-imagen-user-size;
+          height: $index-imagen-user-size;
+          border-radius: $margin-app-small;
+        }
+        div.ellipsis {
+          padding: 0;
         }
         form {
           float: right;
@@ -117,6 +193,12 @@
           text-align: center;
         }
       }
+      &.row-fixed {
+        max-height: 0;
+        & th {
+          padding: 0;
+        }
+      }
     }
   }
   tbody {
@@ -128,24 +210,40 @@
           max-width: 1px;
           word-wrap: break-word;
         }
+        &.padding-right {
+          padding: 0 $padding-app-large 0 0;
+        }
+        &.padding-left {
+          padding: 0 0 0 $padding-app-large;
+        }
       }
     }
   }
 }
 
 .table-size-optima {
-  width: percentage($tabla-invitados-ancho/$screen-lg);
-  margin-left: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/2;
-  margin-bottom: (100% -  percentage($tabla-invitados-ancho/$screen-lg))/8;
+  width: percentage($screen-md*1.1/$screen-lg);
+  margin-left: (100% -  percentage($screen-md *1.1 /$screen-lg))/2;
+  margin-bottom: $footer-height + $margin-app-xl;
+  display: inline-block;
 }
 
-.tabla-ancho-columna-1 {
-  width: percentage($tabla-invitados-columna-1/$tabla-invitados-ancho);
+//Ancho de las celdas en las tablas para los botones
+.tabla-ancho-columna-botones {
+  width: $tabla-columna-ancho-botones;
 }
 
-.table-autenticado-columna-1 {
-  width: $tabla-autenticado-columna-1;
-  max-width: $tabla-autenticado-columna-1;
+//Ancho de las celdas en las tablas para los textos
+.tabla-ancho-columna-texto {
+  width: $tabla-columna-ancho-texto;
+}
+
+//ELLIPSIS
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 //TEXTAREA
@@ -158,16 +256,23 @@ textarea {
 //***************************************************
 footer {
   display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   clear: both;
   text-align: center;
   background-color: $panel-footer-bg;
   font-size: $font-size-app-base-footer;
   color: $app-color-white;
   line-height: $footer-line-height;
-  min-height: $footer-height;
+  min-height: $footer-line-height;
   vertical-align: middle;
-  box-shadow: 0 4px -4px rgba(0, 0, 0, 0.3);
-
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  transition: visibility 1s linear;
+  &:hover {
+    visibility: hidden;
+  }
   span {
     padding-right: $padding-base-horizontal;
   }
@@ -192,7 +297,6 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  -o-user-select: none;
   user-select: none
 }
 
@@ -210,7 +314,7 @@ body {
   background-repeat: no-repeat;
   background-size: 200px 200px;
   background-color: rgba(255, 255, 255, .9);
-  z-index: 5000;
+  z-index: 15000;
 }
 
 //Imagen Calendario
@@ -223,6 +327,11 @@ body {
 
 //BOTONES
 //****************************************************
+
+.btn-normal-width {
+  min-width: $btn-normal-width;
+}
+
 // Botón de registros
 .btn-register {
   font-size: $font-size-app-base-register;
@@ -237,8 +346,9 @@ body {
 }
 
 .btn-action {
+  text-align: center;
   a, button {
-    @include btn-viaoptima-button-action();
+    @include btn-button-action();
     outline: none;
   }
 }
@@ -257,12 +367,16 @@ body {
 //********************************************
 .select-control {
   min-width: 160px;
+  width: 100%;
   background-color: $app-color-white;
   color: $app-color-base;
   padding: $padding-base-vertical 0;
   margin-right: $margin-app-small;
   margin-bottom: $margin-app-small;
   border: 1px solid $app-color-base;
+  :hover {
+
+  }
 }
 
 //BADGE
@@ -272,13 +386,14 @@ body {
 //*****************************************************
 // Panel contents
 .panel-search {
-  margin-bottom: $margin-app-small;
   background-color: transparent;
   border: none;
   border-radius: 0;
+  text-align: center;
+  padding: $padding-base-vertical 0;
   @include clearfix;
   a {
-    @include btn-viaoptima-button-action();
+    @include btn-button-action(rgba(104, 196, 96, 0.2));
   }
 
 }
@@ -293,10 +408,6 @@ body {
 //Ocultar con overflow
 .overflow-hidden {
   overflow: hidden;
-}
-
-.column-margin-top {
-  margin-top: $tab-invitados-margen-top-columna-texto;
 }
 
 // Ancho total
@@ -337,10 +448,6 @@ body {
       width: 100%;
     }
   }
-}
-
-.margin-left-via-optima {
-  margin-left: $tabla-invitados-padding;
 }
 
 //Pading para todas las páginas insertada en platillas
@@ -420,28 +527,33 @@ input[type=file]:hover {
   cursor: pointer;
 }
 
-//Formulario Registro
+//Modales
 //*************************************************************************
 .formularioModal {
-  display: none;
+  display: block;
   position: fixed;
   width: 100%;
-  height: 100%;
-  top: 0;
+  top: 115px;
   left: 0;
-  padding-right: 30px;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
+  z-index: 3;
+  .modalBackGround {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
   .ventanaModal {
     display: block;
     position: absolute;
     width: 100%;
-    height: 60%;
-    max-height: 60%;
-    top: 5%;
+    height: auto;
     left: 100%;
-    z-index: 1;
-    .headerFormularioModal {
+    z-index: 10000;
+    .cabeceraFormularioModal {
       box-sizing: border-box;
       display: block;
       width: 100%;
@@ -461,8 +573,11 @@ input[type=file]:hover {
       height: auto;
       color: $app-color-base;
       background-color: $app-color-white;
+      &.withBorder {
+        border: 1px solid $app-color-base;
+      }
     }
-    .footerFormularioModal {
+    .pieFormularioModal {
       box-sizing: border-box;
       display: inline-block;
       width: 100%;
@@ -494,7 +609,6 @@ input[type=file]:hover {
       display: block;
       position: relative;
       width: 100%;
-      height: 95%;
       overflow-x: hidden;
       overflow-y: auto;
       padding: $padding-app-base;
@@ -516,6 +630,7 @@ input[type=file]:hover {
   min-height: 1.2em;
   border-radius: 50%;
   margin-right: 5px;
+  border: 1px solid #666;
 }
 
 // Color para los checks-ok
@@ -581,19 +696,150 @@ input[type=file]:hover {
 
 //IMAGEN HEADER
 .img-header {
+  position: $navbar-inverse-position;
+  top: 0;
+  width: $banner-width;
+  z-index: $navbar-inverse-zIndex+2;
   & > div {
     float: none;
     margin: 0 auto;
-    background-image: url("../img/header/cabecera.png");
+    background-image: url("../img/header/cabecera.jpg");
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 60%;
-    height: 120px;
+    background-size: $banner-background-size-lg;
+    background-color: $banner-background-color;
+    width: $banner-width;
+    height: $banner-height;
+    @media (max-width: $screen-sm) {
+      background-size: $banner-background-size-md;
+    }
+    @media screen and (max-width: $screen-xs) {
+      background-image: url("../img/header/cabeceraMovil.jpg");
+      background-size: $banner-background-size-xs;
+    }
   }
 }
 
 //ALTO 100%
 .altoMaximo {
   min-height: 100%;
+}
+
+//Fijamos la barra de navegación
+.navbar-inverse {
+  position: $navbar-inverse-position;
+  top: $banner-height;
+  width: $banner-width;
+  z-index: $navbar-inverse-zIndex;
+}
+
+//Ponemos todos los títulos a una zona visible
+h1.text-center {
+  margin-top: $title-top;
+}
+
+//PORTADA INVITADO
+.portada {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  > div {
+    position: fixed;
+    width: 100%;
+    height: 90%;
+    bottom: $footer-line-height - 1;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-image: url("../img/portada/portada.jpg");
+  }
+}
+
+//MENSAJES DE ERROR Y WARNING DE LA PLANTILLA
+.alert-dismissible {
+  margin-top: $banner-height+ $margin-app-base+ $footer-line-height;
+}
+
+.errorOnBackGround {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .1);
+  z-index: $navbar-inverse-zIndex+2;
+}
+
+.errorOn {
+  z-index: $navbar-inverse-zIndex+2;
+  position: fixed;
+  width: 100%;
+}
+
+.closeErrorModal {
+  width: 25px;
+  padding: 5px 7px;
+  text-align: center;
+  border: 1px solid $gray-lighter;
+  border-radius: 50%;
+  background-color: $app-color-white;
+  line-height: 1;
+  margin-top: -$margin-app-base;
+  margin-right: -$margin-app-base;
+  &:hover {
+    cursor: pointer;
+    color: $app-color-info;
+  }
+}
+
+//******************************************************************************//
+//                               MEDIA                                          //
+//******************************************************************************//
+@media (max-width: $screen-sm) {
+  h1 {
+    font-size: $font-size-h1 * .8;
+  }
+  .table-size-optima {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .table-viaoptima {
+    caption {
+      font-size: (1.8 * $font-size-app-base-register);
+    }
+    thead {
+      tr {
+        th {
+          font-size: (1.8 * $font-size-app-base-header);
+        }
+      }
+    }
+  }
+  .tabla-ancho-columna-texto {
+    width: $tabla-columna-ancho-texto-sm;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  h1 {
+    font-size: $font-size-h1 * .65;
+  }
+  .table-viaoptima {
+    caption {
+      font-size: (1.4 * $font-size-app-base-register);
+    }
+    thead {
+      tr {
+        th {
+          font-size: (1.4 * $font-size-app-base-header);
+        }
+      }
+    }
+  }
+  .tabla-ancho-columna-texto {
+    width: $tabla-columna-ancho-texto-xs;
+  }
 }

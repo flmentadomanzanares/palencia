@@ -40,15 +40,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->get();                                    //Obtiene un único registro
     }
 
-    public static function getUsers(Request $request)
+    public static function getUsers(Request $request, $paginateNumber = 25)
     {
 
         return $request->get('campo') != null || $request->get('rol') != null ?
             User::fields($request->get('campo'), $request->get('value'))
-                ->roles($request->get('rol'), $request->get('campo'))->paginate(5)->setPath('usuarios')
+                ->roles($request->get('rol'), $request->get('campo'))->paginate($paginateNumber)->setPath('usuarios')
             :
             User::orderBy('fullname', 'ASC')
-                ->paginate(5)
+                ->paginate($paginateNumber)
                 ->setPath('usuarios');
     }
 

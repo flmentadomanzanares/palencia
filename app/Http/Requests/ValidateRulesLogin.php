@@ -31,7 +31,7 @@ class ValidateRulesLogin extends Request
         return [//Asignamos un texto por cada regla sobre cada campo
             'email.required' => 'El email es abligatorio.',
             'email.email' => 'El email no tiene el formato adecauado.',
-            'password.required' => 'La password es obligatoria.'
+            'password.required' => 'La contrase&ntilde;a es obligatoria.'
         ];
     }
 

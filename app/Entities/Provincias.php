@@ -21,6 +21,16 @@ class Provincias extends Model
         return array();
     }
 
+    public static function getProvinciasDesdePais($pais = 0)
+    {
+        if (is_numeric($pais) && $pais > 0) {
+            return Provincias::Select('id', 'provincia')
+                ->where('pais_id', $pais)
+                ->Lists('provincia', 'id');
+        }
+        return array();
+    }
+
     public static function getPaisDesdeProvincia($provinciaId = 0)
     {
         if (is_numeric($provinciaId) && $provinciaId > 0) {
@@ -46,13 +56,14 @@ class Provincias extends Model
         lists('provincia', 'id');
     }
 
-    public static function getProvincias(Request $request)
+    public static function getProvincias(Request $request, $paginateNumber = 25)
     {
-
-        return Provincias::pais($request->get('pais'))
-            ->provincia($request->get('provincia'))
-            ->orderBy('provincia', 'ASC')->paginate()
-            ->setPath('provincias');
+        return Provincias::pais($request->get('pais'))->
+        provincia($request->get('provincia'))->
+        ProvinciaEsActivo($request->get('esActivo'))->
+        orderBy('provincia', 'ASC')->
+        paginate($paginateNumber)->
+        setPath('provincias');
     }
 
     /**
@@ -101,5 +112,12 @@ class Provincias extends Model
     public function paises()
     {
         return $this->belongsTo('Palencia\Entities\Paises', 'pais_id');
+    }
+
+    public function scopeProvinciaEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('provincias.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }

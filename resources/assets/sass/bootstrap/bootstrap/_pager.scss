@@ -13,15 +13,20 @@
     > a,
     > span {
       display: inline-block;
-      padding: 5px 14px;
+      padding: $pager-padding;
       background-color: $pager-bg;
+      color: $pager-color;
       border: 1px solid $pager-border;
       border-radius: $pager-border-radius;
+      width: $pager-width;
+      height: $pager-height;
+      margin: $pager-margin;
+      line-height: $pager-line-height;
     }
-
     > a:hover,
     > a:focus {
       text-decoration: none;
+      color: $pager-hover-color;
       background-color: $pager-hover-bg;
     }
   }
@@ -39,14 +44,19 @@
       float: left;
     }
   }
-
+  .active {
+    > span {
+      color: $pager-active-color;
+      background-color: $pager-active-bg;
+    }
+  }
   .disabled {
     > a,
     > a:hover,
     > a:focus,
     > span {
-      color: $pager-disabled-color;
-      background-color: $pager-bg;
+      color: $gray-lighter-medium;
+      background-color: $gray-lighter;
       cursor: $cursor-disabled;
     }
   }

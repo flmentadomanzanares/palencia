@@ -1,28 +1,21 @@
-<div class="panel-search">
-
-    <a title="inicio" href="{{route('inicio')}}" class="pull-left">
-        <i class="glyphicon glyphicon-home">
-            <div>Inicio</div>
-        </i>
-    </a>
-    <a title="nuevo" href="{{route('cursillos.create')}}" class="pull-left">
-        <i class="glyphicon glyphicon-plus">
-            <div>Nuevo</div>
-        </i>
-    </a>
-    <a title="Listar" href="{{route('cursillos.index')}}" class="pull-left">
-        <i class="glyphicon glyphicon-list">
-            <div>Listar</div>
-        </i>
-    </a>
+{{-- Formulario de busqueda --}}
+{!!FORM::model(Request::only(['cursillo','semanas','anyos','comunidad','esActivo']),['route'=>'cursillos.index','method'=>'GET','role'=>'search']) !!}
+<div class="form-group">
+    {!! FORM::select('comunidad', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
-<div class="inline-block pull-right">
-    {!!FORM::model(Request::only(['cursillo','semanas','anyos','comunidad']),['route'=>'cursillos.index','method'=>'GET','class'=>'navbar-form
-    navbar-right','role'=>'search']) !!}
-    {!! FORM::select('comunidad', $comunidades, null,array("class"=>"select-control pull-left"))!!}
-    {!! FORM::select('anyos', $anyos, null,array("class"=>"select-control pull-left",'id'=>'select_anyos'))!!}
-    {!! FORM::select('semanas', $semanas, null,array("class"=>"select-control pull-left", 'id'=>'select_semanas'))!!}
-    {!! FORM::text('cursillo',null,['class'=>'select-control pull-left','placeholder'=>'Buscar....'])!!}
-    <button type="submit" class="btn-register pull-right"><span class='glyphicon glyphicon-search'></span></button>
-    {!! FORM::close() !!}
+<div class="form-group">
+    {!! FORM::select('anyos', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
 </div>
+<div class="form-group">
+    {!! FORM::select('semanas', $semanas, null,array("class"=>"form-control", 'id'=>'select_semanas'))!!}
+</div>
+<div class="form-group">
+    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activo','0'=>'No Activo'),
+    null,array("class"=>"form-control"))!!}
+</div>
+<div class="form-group">
+    {!! FORM::text('cursillo',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}
+</div>
+<br/>
+<button type="submit" class="btn btn-success btn-block"><span class='glyphicon glyphicon-search'></span></button>
+{!! FORM::close() !!}

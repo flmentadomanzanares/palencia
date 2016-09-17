@@ -151,17 +151,17 @@
     <span>Queridos hermanos:</span>
     <br/>
     <br/>
-        <span class="tab">Necesitamos vuestra intendencia para los Cursillos de nuestra Diócesis de
-            Canarias-Islas Canarias, España, que más abajo detallamos. Quedamos a vuestra disposición para orar
-            también nosotros por los Cursillos que Uds. puedan celebrar, para lo cual pueden enviarnos sus mensajes a
-            las direcciones mencionadas más abajo.</span>
+        <span class="tab">Necesitamos vuestra intendencia para los Cursillos de nuestra Di&oacute;cesis de
+            Canarias-Islas Canarias, Espa&ntilde;a, que m&aacute;s abajo detallamos. Quedamos a vuestra disposici&oacute;n para orar
+            tambi&eacute;n nosotros por los Cursillos que Uds. puedan celebrar, para lo cual pueden enviarnos sus mensajes a
+            las direcciones mencionadas m&aacute;s abajo.</span>
     <br/>
     <br/>
-    <span class="tab">Desde nuestra Iglesia de Canarias, unidos en la Comunión de los Santos, reciban nuestro
-        agradecimiento y nuestros mejores deseos por el éxito espiritual y apostólico de esa Comunidad.</span>
+    <span class="tab">Desde nuestra Iglesia de Canarias, unidos en la Comuni&oacute;n de los Santos, reciban nuestro
+        agradecimiento y nuestros mejores deseos por el &eacute;xito espiritual y apost&oacute;lico de esa Comunidad.</span>
     <br/>
     <br/>
-    <span class="tab">Que la Gracia del Señor les acompañe siempre. Les abrazamos en Cristo.</span>
+    <span class="tab">Que la Gracia del Se&ntilde;or les acompa&ntilde;e siempre. Les abrazamos en Cristo.</span>
     <br/>
     <br/>
     <span class="tab">{{$remitente->localidad}},&nbsp;{{$fecha_emision}}</span>

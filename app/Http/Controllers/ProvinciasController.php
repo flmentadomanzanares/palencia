@@ -21,7 +21,7 @@ class ProvinciasController extends Controller
         $titulo = "Provincias";
         //Vamos al indice y creamos una paginación de 8 elementos y con ruta provincias
         $paises = Paises::getPaisesFromPaisIdToList(0, true);
-        $provincias = Provincias::getProvincias($request);
+        $provincias = Provincias::getProvincias($request, config("opciones.paginacion"));
         return view("provincias.index", compact("provincias", 'paises', "titulo"));
 
     }
@@ -56,7 +56,7 @@ class ProvinciasController extends Controller
     {
         $provincia = new Provincias; //Creamos instancia al modelo
         $provincia->pais_id = $request->get('pais');
-        $provincia->provincia = $request->get('provincia'); //Asignamos el valor al campo.
+        $provincia->provincia = strtoupper($request->get('provincia')); //Asignamos el valor al campo.
         try {
             $provincia->save();
         } catch (\Exception $e) {
@@ -64,7 +64,7 @@ class ProvinciasController extends Controller
                 case 23000:
                     return redirect()
                         ->route('provincias.create')
-                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' está ya dada de alta.');
+                        ->with('mensaje', 'La provincia ' . $provincia->provincia . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()
@@ -114,7 +114,7 @@ class ProvinciasController extends Controller
         if ($provincia == null) {
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
-        $paises = Paises::getPaisesFromPaisIdToList($provincia->pais_id);
+        $paises = Paises::getPaisesFromPaisIdToList($provincia->pais_id, false);
         return view('provincias.modificar',
             compact(
                 'paises',
@@ -136,7 +136,7 @@ class ProvinciasController extends Controller
             return Redirect('provincias')->with('mensaje', 'No se encuentra la provincia seleccionada.');
         }
         $provincia->pais_id = $request->get('pais');
-        $provincia->provincia = $request->get('provincia');
+        $provincia->provincia = strtoupper($request->get('provincia'));
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
             $provincia->activo = $request->get('activo');
         }

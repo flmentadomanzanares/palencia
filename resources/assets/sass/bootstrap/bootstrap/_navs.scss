@@ -240,22 +240,3 @@
   // Remove the top rounded corners here since there is a hard edge above the menu
   @include border-top-radius(0);
 }
-
-.tab-size-columna {
-  width: $tab-invitados-porciento-ancho-columna;
-  height: $tab-invitados-alto-columna;
-  overflow: hidden;
-}
-
-.tab-size-column-text {
-  max-height: $tab-invitados-alto-columna-texto;
-  height: $tab-invitados-alto-columna-texto;
-  text-overflow: ellipsis;
-
-}
-
-.tab-size-columna-caption {
-  font-family: $column-caption-font-family;
-  font-size: $column-caption-font-size;
-  padding-bottom: $column-caption-padding-bottom;
-}

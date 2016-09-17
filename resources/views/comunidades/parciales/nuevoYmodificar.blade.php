@@ -1,9 +1,7 @@
 <div class="form-group">
-
     <div class="heading-caption">Datos Generales</div>
-
     {!! FORM::label('comunidad', 'Nombre Comunidad:') !!} <br/>
-    {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control", "title"=>"Nombre de la Comunidad",
+    {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control text-uppercase", "title"=>"Nombre de la Comunidad",
     "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>
@@ -18,62 +16,53 @@
     Responsable", "maxlength"=>"100"]) !!}
     <br/>
 
-    <div class="heading-caption">Localización</div>
-    {!! FORM::label ('pais_id', 'Pais:') !!} <br/>
+    <div class="heading-caption">Localizaci&oacute;n</div>
+    {!! FORM::label ('pais_id', 'Pa&iacute;s:') !!} <br/>
     {!! FORM::select('pais_id',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
     !!} <br/>
-    {!! FORM::label ('provincia_id', 'Provincia:') !!} <br/>
-    @if(!$comunidad->id)
-        {!! FORM::select('provincia_id',$provincias, $comunidad->provincia_id, ["class" =>
-        "form-control",'id'=>'select_provincia']) !!} <br/>
-    @else
-        {!! FORM::select('provincia_id',$provincias, $comunidad->provincia_id, ["class" =>
-        "form-control"])!!} <br/>
-    @endif
-    {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
-    @if(!$comunidad->id)
-        {!! FORM::select('localidad_id',$localidades, $comunidad->localidad_id, ["class" =>
-        "form-control",'id'=>'select_localidad']) !!} <br/>
-    @else
-        {!! FORM::select('localidad_id',$localidades, $comunidad->localidad_id, ["class" =>
-        "form-control"]) !!} <br/>
-    @endif
+    {!! FORM::label ('select_provincia', 'Provincia:') !!} <br/>
 
-    {!! FORM::label('cp', 'Código Postal:') !!} <br/>
-    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"Código Postal", "maxlength"=>"9"]) !!}
+    {!! FORM::select('select_provincia',$provincias, $comunidad->provincia_id, ["class" =>
+    "form-control",'id'=>'select_provincia']) !!} <br/>
+
+    {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
+    {!! FORM::select('select_localidad',$localidades, $comunidad->localidad_id, ["class" =>
+    "form-control",'id'=>'select_localidad']) !!} <br/>
+    {!! FORM::label('cp', 'C&oacute;digo Postal:') !!} <br/>
+    {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"C&oacute;digo Postal", "maxlength"=>"9"]) !!}
     <br/>
     {!! FORM::label('direccion_postal', 'Apartado de Correos:') !!} <br/>
     {!! FORM::text('direccion_postal',$comunidad->direccion_postal, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
     <br/>
-    {!! FORM::label('direccion', 'Dirección:') !!} <br/>
-    {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Dirección",
+    {!! FORM::label('direccion', 'Direcci&oacute;n:') !!} <br/>
+    {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Direcci&oacute;n",
     "maxlength"=>"100") )!!}
     <br/>
 
-    <div class="heading-caption">Comunicación</div>
-    {!! FORM::label ('comunicacion_preferida', 'Comunicación Preferida:') !!} <br/>
+    <div class="heading-caption">Comunicaci&oacute;n</div>
+    {!! FORM::label ('comunicacion_preferida', 'Comunicaci&oacute;n Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
     $comunidad->tipo_comunicacion_preferida_id, ["class" =>
     "form-control"]) !!} <br/>
     {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
-    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>
     {!! FORM::label('email_envio', 'Email para enviar nuestras respuestas:') !!} <br/>
-    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"50"]) !!}
+    {!! FORM::text('email_envio',$comunidad->email_envio, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>
     {!! FORM::label('web', 'WEB:') !!} <br/>
-    {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Dirección WEB", "maxlength"=>"50"]) !!}
+    {!! FORM::text('web',$comunidad->web, ["class" => "form-control", "title"=>"Direcci&oacute;n WEB", "maxlength"=>"50"]) !!}
     <br/>
     {!! FORM::label('facebook', 'FaceBook:') !!} <br/>
     {!! FORM::text('facebook',$comunidad->facebook, ["class" => "form-control", "title"=>"FaceBook", "maxlength"=>"50"])
     !!}
     <br/>
-    {!! FORM::label('telefono1', 'Telefono 1:') !!} <br/>
-    {!! FORM::text('telefono1',$comunidad->telefono1, ["class" => "form-control", "title"=>"Teléfono",
+    {!! FORM::label('telefono1', 'Tel&eacute;fono 1:') !!} <br/>
+    {!! FORM::text('telefono1',$comunidad->telefono1, ["class" => "form-control", "title"=>"Tel&eacute;fono",
     "maxlength"=>"13"]) !!}
     <br/>
-    {!! FORM::label('telefono2', 'Telefono 2:') !!} <br/>
-    {!! FORM::text('telefono2',$comunidad->telefono2, ["class" => "form-control", "title"=>"Teléfono",
+    {!! FORM::label('telefono2', 'Tel&eacute;fono 2:') !!} <br/>
+    {!! FORM::text('telefono2',$comunidad->telefono2, ["class" => "form-control", "title"=>"Tel&eacute;fono",
     "maxlength"=>"13"]) !!}
     <br/>
 
@@ -85,15 +74,24 @@
     <br>
 
     <div class="heading-caption">Color Mis Cursos</div>
-    {!! FORM::label ('color', 'Color Cursos') !!}
-    <select id="select-color" class="form-control" name="color">
-        @foreach ($colores as $color)
-            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->color)
+    {!! FORM::label ('colorFondo', 'Color Fondo Cursos') !!}
+    <select id="select-color-fondo" class="form-control" name="colorFondo">
+        @foreach ($coloresFondo as $color)
+            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->colorFondo)
+            selected="selected" @endif>{{$color->nombre_color}}</option>
+        @endforeach
+    </select>
+    {!! FORM::label ('colorTexto', 'Color Texto Cursos') !!}
+    <select id="select-color-texto" class="form-control" name="colorTexto">
+        @foreach ($coloresTexto as $color)
+            <option value="{{$color->codigo_color}}" @if($color->codigo_color==$comunidad->colorTexto)
             selected="selected" @endif>{{$color->nombre_color}}</option>
         @endforeach
     </select>
     <br/>
-
+    <div class="panel panel-default panel-body text-center">
+        <div id="muestraColoresComunidad" class="icon-size-large">Resultado Color Fondo + Color Texto</div>
+    </div>
     <div class="heading-caption">Otros</div>
     {!! FORM::label('observaciones', 'Observaciones:') !!} <br/>
     {!! FORM::textarea ('observaciones',$comunidad->observaciones,array('class'=> 'form-control',

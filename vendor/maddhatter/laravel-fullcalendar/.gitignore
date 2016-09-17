@@ -1,0 +1,9 @@
+/composer.json
+/readme.md
+/.travis.yml
+/phpunit.xml
+/tests
+/src/views
+/src/MaddHatter/LaravelFullcalendar/Facades
+/src/MaddHatter/LaravelFullcalendar/IdentifiableEvent.php
+/src/MaddHatter/LaravelFullcalendar/ServiceProvider.php

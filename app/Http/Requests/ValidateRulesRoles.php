@@ -30,8 +30,8 @@ class ValidateRulesRoles extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'rol.required' => 'El rol es obligatorio!',
-            'rol.min' => 'Longitud mínima del rol :min caracteres.',
-            'rol.max' => 'Longitud máxima del rol :max caracteres.',
+            'rol.min' => 'Longitud m&iacute;nima del rol :min caracteres.',
+            'rol.max' => 'Longitud m&aacute;xima del rol :max caracteres.',
             'peso.required' => 'El peso es obligatorio!',
             'rol.integer' => 'El rol debe ser un numero entero.'
         ];

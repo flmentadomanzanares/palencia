@@ -12,20 +12,10 @@ class Comunidades extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = false, $placeholderText = "País...")
-    {
-        $sql = Paises::Select('id', 'pais')
-            ->where('activo', true)
-            ->PaisId($id)
-            ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
-        return $placeholder ? ['0' => $placeholderText] + $sql : $sql;
-    }
-
-    static public function getComunidades(Request $request)
+    static public function getComunidades(Request $request, $paginateNumber = 25)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.color', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
             ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
@@ -35,9 +25,10 @@ class Comunidades extends Model
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
             ->Comunidades($request->get('comunidad'))
+            ->ComunidadEsActivo($request->get('esActivo'))
             ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id', '=', 'tipos_comunicaciones_preferidas.id')
             ->orderBy('comunidad', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('comunidades');
     }
 
@@ -91,9 +82,9 @@ class Comunidades extends Model
     {
         if (!is_numeric($id))
             return null;
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.color',
-            'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion', 'paises.pais',
-            'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email_solicitud',
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.esPropia', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'tipos_secretariados.tipo_secretariado', 'comunidades.responsable', 'comunidades.direccion',
+            'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp', 'comunidades.email_solicitud',
             'comunidades.direccion_postal', 'comunidades.email_envio', 'comunidades.web', 'comunidades.facebook',
             'comunidades.telefono1', 'comunidades.telefono2', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'comunidades.observaciones', 'comunidades.esColaborador', 'comunidades.activo')
@@ -145,6 +136,18 @@ class Comunidades extends Model
         return array("placeholder" => $conPlaceHolder ? $placeHolder : "", "comunidades" => $sql);
     }
 
+    public static function getComunidadesColaboradoras($conPlaceHolder = true, $placeHolder = "Comunidad...")
+    {
+        $placeHolder = ['0' => $placeHolder];
+
+        $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+            ->where('comunidades.activo', true)
+            ->where('comunidades.esColaborador', true)
+            ->orderBy('comunidades.comunidad', 'ASC')
+            ->Lists('comunidades.comunidad', 'id');
+        return $conPlaceHolder ? $placeHolder + $sql : $sql;
+    }
+
     public static function getComunidadesList($propia = 0, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
     {
         $placeHolder = ['0' => $placeHolder];
@@ -170,15 +173,38 @@ class Comunidades extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
+    public static function getComunidadToList($idComunidad = 0)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad')
+            ->where('comunidades.activo', true)
+            ->where('comunidades.id', $idComunidad)
+            ->Lists('comunidades.comunidad', 'id');
+    }
+
+
     static public function imprimirSecretariadosPais($pais = 0)
     {
 
-        return Comunidades::Select('comunidades.comunidad')
-            ->where('comunidades.pais_id', '=', $pais)
-            ->where('comunidades.esColaborador', true)
-            ->where('comunidades.activo', true)
-            ->orderBy('comunidades.comunidad')
-            ->get();
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
 
     }
 
@@ -208,6 +234,71 @@ class Comunidades extends Model
 
     }
 
+    static public function imprimirSecretariadosPaisInactivos($pais = 0)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', false)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', false)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
+    }
+
+    static public function imprimirSecretariadosNoColaboradoresInactivos($pais)
+    {
+
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', false)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->where('comunidades.esColaborador', false)
+                ->where('comunidades.activo', false)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
+    }
+
+    static public function imprimirPaisesActivos()
+    {
+
+        return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+            ->where('paises.activo', true)
+            ->where('comunidades.activo', true)
+            ->orderBy('paises.pais')
+            ->orderBy('comunidades.comunidad')
+            ->get();
+
+    }
+
     public static function getComunidadesAll()
     {
         return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')
@@ -221,18 +312,39 @@ class Comunidades extends Model
         if (!is_numeric($id))
             return null;
         //Obtenemos la comunidad
-        return Comunidades::Select('comunidades.comunidad', 'comunidades.color')
+        return Comunidades::Select('comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto')
             ->where('comunidades.id', $id)
             ->first();
     }
 
-    static public function getNombreComunidadPropia()
+    static public function imprimirSecretariadosPaisConSolicitudesSinResponder($pais = 0)
     {
 
-        //Obtenemos la comunidad
-        return Comunidades::Select('comunidades.comunidad')
-            ->where('comunidades.esPropia', true)
-            ->first();
+        if ($pais == 0) {
+
+            return Comunidades::Select('comunidades.comunidad', 'paises.pais')
+                ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('paises.pais')
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        } else {
+
+            return Comunidades::Select('comunidades.comunidad')
+                ->where('comunidades.pais_id', '=', $pais)
+                ->leftJoin('solicitudes_enviadas', 'comunidad_id', '=', 'comunidades.id')
+                ->where('solicitudes_enviadas.aceptada', false)
+                ->where('comunidades.esColaborador', true)
+                ->where('comunidades.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->get();
+
+        }
+
     }
 
     /*****************************************************************************************************************
@@ -355,23 +467,22 @@ class Comunidades extends Model
 
     public function scopeEsColaborador($query, $esColaborador = null)
     {
-        if (is_bool($esColaborador)) {
-            $query->where('comunidades.esColaborador', $esColaborador);
-        }
+
+        $query->where('comunidades.esColaborador', filter_var($esColaborador, FILTER_VALIDATE_BOOLEAN));
+
         return $query;
     }
 
-    public function scopeEsPropia($query, $esPropia = 0)
+    public function scopeEsPropia($query, $esPropia = false)
     {
-        if (is_bool($esPropia)) {
-            $query->where('comunidades.esPropia', $esPropia);
-        }
+        $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
+
         return $query;
     }
 
-    public function scopeExcluirSinCursillos($query, $excluirSinCursillos = 0)
+    public function scopeExcluirSinCursillos($query, $excluirSinCursillos = false)
     {
-        if (is_bool($excluirSinCursillos)) {
+        if (filter_var($excluirSinCursillos, FILTER_VALIDATE_BOOLEAN)) {
             $query->where('cursillosTotales', '>', 0);
         }
         return $query;
@@ -404,6 +515,13 @@ class Comunidades extends Model
             }
         }
         return $query;
+    }
+
+    public function scopeComunidadEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('comunidades.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }
 

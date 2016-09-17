@@ -1,0 +1,22 @@
+//Fila de los días de la semana del calendario
+.fc-basic-view .fc-day-header {
+  background-color: $fullcalendar-backGroundColor-day-header;
+  padding: $fullcalendar-padding-day-header;
+  color: $fullcalendar-textColor-day-header;
+  border: 1px solid $fullcalendar-color-border-day-header;
+  @media (max-width: $screen-xs) {
+    font-weight: normal;
+  }
+}
+
+//Columnas de días de la semana
+.fc-basic-view .fc-week-number {
+  background-color: $fullcalendar-backGroundColor-day-sem;
+  color: $fullcalendar-textColor-day-sem;
+  border: 1px solid $fullcalendar-color-border-day-sem;
+}
+
+/*forma redonda de los botones de navegación*/
+.fc button {
+  border-radius: $fullcalendar-button-nav-border-radius !important;
+}

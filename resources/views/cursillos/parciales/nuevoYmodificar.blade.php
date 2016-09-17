@@ -9,10 +9,10 @@
     @endif
     <div class="heading-caption">Datos Generales</div>
     {!! FORM::label('cursillo', 'Nombre del Cursillo') !!} <br/>
-    {!! FORM::text('cursillo', $cursillo->cursillo, ["class" => "form-control", "title"=>"Nombre del Cursillo"]) !!}
+    {!! FORM::text('cursillo', $cursillo->cursillo, ["class" => "form-control text-uppercase", "title"=>"Nombre del Cursillo"]) !!}
     <br/>
-    {!! FORM::label('numCursillo', 'Número del Cursillo') !!} <br/>
-    {!! FORM::text('num_cursillo', $cursillo->num_cursillo, ["class" => "form-control", "title"=>"Número de Cursillo"]) !!}
+    {!! FORM::label('numCursillo', 'N&uacute;mero del Cursillo') !!} <br/>
+    {!! FORM::text('num_cursillo', $cursillo->num_cursillo, ["class" => "form-control", "title"=>"N&uacute;mero de Cursillo"]) !!}
     <br/>
     {!! FORM::label('fecha_inicio', 'Fecha Inicio') !!} <br/>
     {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillo->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control calendario', 'readonly'=>''])!!}
@@ -20,8 +20,8 @@
     {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
     {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillo->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
     <br/>
-    {!! FORM::label('descripcion', 'Descripción') !!} <br/>
-    {!! FORM::textarea('descripcion',$cursillo->descripcion,array('class'=>'form-control', 'title'=> 'Descripción')) !!}
+    {!! FORM::label('descripcion', 'Descripci&oacute;n') !!} <br/>
+    {!! FORM::textarea('descripcion',$cursillo->descripcion,array('class'=>'form-control', 'title'=> 'Descripci&oacute;n')) !!}
     <br/>
 
     <div class="heading-caption">Asistentes</div>

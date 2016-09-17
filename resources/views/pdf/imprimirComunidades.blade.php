@@ -159,7 +159,7 @@
 
                 <?php $i++?>
                 <div class="cabecera4" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
-                    País: {!! $comunidad->pais!!}
+                    Pa&iacute;s: {!! $comunidad->pais!!}
                 </div>
 
                 <?php $pais = $comunidad->pais; ?>

@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $titulo = (\Auth::user()->roles->peso < config('opciones.roles.administrador')) ? "Mi perfil" : "Usuarios";
-        $users = User::getUsers($request);
+        $users = User::getUsers($request, config("opciones.paginacion"));
         $roles = Roles::getRolesList();
         return view("usuarios.index", compact('users', 'titulo', 'roles'));
     }
@@ -107,13 +107,12 @@ class UsersController extends Controller
         if ($user == null) {
             return Redirect('usuarios')->with('mensaje', 'No se encuentra el usuario seleccionado.');
         }
-
         try {
-            if ($user->roles->peso >= config('opciones.roles.administrador') && (User::getNumberUserWithRol(config('opciones.roles.administrador'))) > 1) {
+            if (\Auth::User()->id != $id && \Auth::User()->roles->peso >= config('opciones.roles.administrador')) {
                 $user->delete();
             } else {
                 return redirect()->route('usuarios.index')
-                    ->with('mensaje', 'No se puede eliminar al usuario ' . $user->name . ' es el último administrador activo.');
+                    ->with('mensaje', 'No se puede eliminar');
             }
 
         } catch (\Exception $e) {

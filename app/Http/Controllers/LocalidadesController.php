@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Palencia\Entities\Localidades;
 use Palencia\Entities\Paises;
-use Palencia\Entities\Provincias;
 use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesLocalidades;
 
@@ -23,9 +22,9 @@ class LocalidadesController extends Controller
         $titulo = "Localidades";
         //Vamos al indice y creamos una paginación de 4 elementos y con ruta localidades
         $paises = Paises::getPaisesFromPaisIdToList(0, true);
-        $provincias = array();
-        $localidades = Localidades::getLocalidades($request);;
-        return view("localidades.index", compact('localidades', 'paises', 'provincias', 'titulo'));
+        $provincias = Array();
+        $localidades = Localidades::getLocalidades($request, config("opciones.paginacion"));
+        return view("localidades.index", compact('localidades', 'provincias', 'paises', 'titulo'));
     }
 
     /**
@@ -57,14 +56,14 @@ class LocalidadesController extends Controller
     {
         $localidad = new Localidades; //Creamos instancia al modelo
         $localidad->provincia_id = $request->get('provincia');
-        $localidad->localidad = $request->get('localidad'); //Asignamos el valor al campo.
+        $localidad->localidad = strtoupper($request->get('localidad')); //Asignamos el valor al campo.
         try {
             $localidad->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('localidades.create')
-                        ->with('mensaje', 'La localidad ' . $localidad->localidad . ' está ya dada de alta.');
+                        ->with('mensaje', 'La localidad ' . $localidad->localidad . ' est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()
@@ -91,8 +90,9 @@ class LocalidadesController extends Controller
         if ($localidad == null) {
             return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
         }
-        $provincias = Provincias::getProvinciaToList($localidad->provincia_id);
+
         $paises = Paises::getPaisFromProvinciaIdToList($localidad->provincia_id);
+        $provincias = [];
         return view('localidades.modificar',
             compact(
                 'localidad',
@@ -113,7 +113,7 @@ class LocalidadesController extends Controller
         if ($localidad == null) {
             return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
         }
-        $localidad->localidad = $request->get('localidad');
+        $localidad->localidad = strtoupper($request->get('localidad'));
         $localidad->provincia_id = $request->get('provincia');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
             $localidad->activo = $request->get('activo');

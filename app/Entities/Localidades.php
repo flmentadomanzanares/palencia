@@ -23,18 +23,19 @@ class Localidades extends Model
         lists('localidad', 'id');
     }
 
-    public static function getLocalidades(Request $request)
+    public static function getLocalidades(Request $request, $paginateNumber = 25)
     {
         return Localidades::select('paises.pais', 'provincias.provincia', 'localidades.localidad', 'localidades.id', 'localidades.activo')->
         leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
         leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')->
         pais($request->get('pais'))->
-        provincia($request->get('provincia'))->
+        provincia($request->get('provincias'))->
         localidad($request->get('localidad'))->
+        LocalidadEsActivo($request->get('esActivo'))->
+        orderBy('localidad', 'ASC')->
         orderBy('pais', 'ASC')->
         orderBy('provincia', 'ASC')->
-        orderBy('localidad', 'ASC')->
-        paginate()->
+        paginate($paginateNumber)->
         setPath('localidades');
     }
 
@@ -84,6 +85,13 @@ class Localidades extends Model
     {
         if (trim($localidad) != '')
             $query->where('localidad', 'LIKE', "$localidad" . '%');
+    }
+
+    public function scopeLocalidadEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('localidades.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
     /**

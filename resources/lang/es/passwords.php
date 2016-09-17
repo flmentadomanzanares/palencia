@@ -15,8 +15,8 @@ return [
 
     "password" => "La contraseña debe de tener al menos 6 caracteres..",
     "user" => "No puedo encontrar al usuario con dicho email.",
-    "token" => "El Token de la password no es válida.",
-    "sent" => "Tienes en Lik para resetear la password.",
+    "token" => "El Token de la contraseña no es válida.",
+    "sent" => "Tienes en Lik para resetear la contraseña.",
     "reset" => "Tu contraseña ha sido reseteada!",
 
 ];

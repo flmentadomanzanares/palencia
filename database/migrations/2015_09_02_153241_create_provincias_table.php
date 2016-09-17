@@ -27,6 +27,7 @@ class CreateProvinciasTable extends Migration
 
             $table->timestamp('updated_at')->default(date('Y-m-d H:i:s'));
 
+            $table->unique(['pais_id', 'provincia'], 'provincia_pais');
         });
     }
 

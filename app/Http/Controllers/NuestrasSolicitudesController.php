@@ -24,7 +24,7 @@ class NuestrasSolicitudesController extends Controller
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Cualquiera");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta");
         $anyos = array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',
@@ -41,12 +41,13 @@ class NuestrasSolicitudesController extends Controller
     public function comprobarSolicitudes(Request $request)
     {
         $tipoComunicacion = $request->get('modalidad');
+
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $tipoComunicacion);
         if ($tipoComunicacion != 1) {
             $incidencias = array();
             foreach ($destinatarios as $idx => $destinatario) {
-                if ($destinatario->comunicacion_preferida == config("opciones.tipo.email") && (strlen($destinatario->email_solicitud) == 0)) {
-                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el envío de nuestras solicitudes";
+                if (strtolower($destinatario->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) && (strlen($destinatario->email_solicitud) == 0)) {
+                    $incidencias[] = "La comunidad destinataria " . $destinatario->comunidad . " carece de email para el env&iacute;o de nuestras solicitudes";
                 }
             }
             if (count($incidencias) > 0) {
@@ -56,7 +57,7 @@ class NuestrasSolicitudesController extends Controller
                 $generarSusRespuestas = $request->get('generarSusRespuestas');
                 $incluirSolicitudesAnteriores = $request->get('incluirSolicitudesAnteriores');
                 $restoComunidades = $request->get('restoComunidades');
-                $titulo = "Comunidades sin email de envío de solicitud";
+                $titulo = "Comunidades sin email de env&iacute;o de solicitud";
                 return view('nuestrasSolicitudes.comprobacion',
                     compact('titulo',
                         'incidencias',
@@ -83,7 +84,7 @@ class NuestrasSolicitudesController extends Controller
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
-            with('mensaje', 'No se puede realizar la operación, comprueba que exista remitente y/o destinatario/s  y/o curso/s');
+            with('mensaje', 'No se puede realizar la operaci&oacute;n, comprueba que exista remitente y/o destinatario/s  y/o curso/s');
         }
         //Configuración del listado html
         $listadoPosicionInicial = 43.5; //primera linea

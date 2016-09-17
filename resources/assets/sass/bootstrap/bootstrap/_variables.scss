@@ -23,6 +23,7 @@ $gray-lighter: lighten($gray-base, 93.5%) !default;
 
 //== Colores de la aplicación
 $app-color-base: #400090 !default;
+$app-color-texto-base: #400090 !default;
 $app-color-hover: #ff7a00 !default;
 $app-color-white: #ffffff !default;
 $app-color-success: #009900 !default;
@@ -128,10 +129,14 @@ $icon-font-name: "glyphicons-halflings-regular" !default;
 //** Element ID within SVG icon file.
 $icon-font-svg-id: "glyphicons_halflingsregular" !default;
 
+//Box-Shadow
+$app-default-box-shadow: 4px 4px 4px rgba(0, 0, 0, .3) !default;
+
+
 //== Components
 //
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
-//Vía óptima
+
 $padding-app-small: 2px !default;
 $padding-app-base: 5px !default;
 $padding-app-large: 10px !default;
@@ -156,6 +161,7 @@ $line-height-small: 1.5 !default;
 $border-radius-base: 4px !default;
 $border-radius-large: 6px !default;
 $border-radius-small: 3px !default;
+$border-circle: 50% !default;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color: #fff !default;
@@ -187,13 +193,26 @@ $table-bg-active: $table-bg-hover !default;
 //** Border color for table and cell borders.
 $table-border-color: #ddd !default;
 
+//Alto de la fila
+$tabla-alto-fila: 26px !default;
+$tabla-ancho-minimo: 240px !default;
+
+
+//Ancho columnas
+$tabla-columna-ancho-botones: 130px !default; //Botones
+$tabla-columna-ancho-texto: 160px !default; //Texto
+$tabla-columna-ancho-texto-md: 150px !default;
+$tabla-columna-ancho-texto-sm: 140px !default;
+$tabla-columna-ancho-texto-xs: 100px !default;
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
 $btn-font-weight: normal !default;
 
-$btn-min-width: 120px !default;
+$btn-min-width: 60px !default;
+$btn-normal-width: 100px !default;
+$btn-max-width: 150px !default;
 
 $btn-default-color: #333 !default;
 $btn-default-bg: #fff !default;
@@ -263,7 +282,7 @@ $input-height-large: (ceil($font-size-large * $line-height-large) + ($padding-la
 $input-height-small: (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
 
 //** `.form-group` margin
-$form-group-margin-bottom: 15px !default;
+$form-group-margin-bottom: 10px !default;
 
 $legend-color: $gray-dark !default;
 $legend-border-color: #e5e5e5 !default;
@@ -310,13 +329,13 @@ $dropdown-header-color: $gray-light !default;
 //** Deprecated `$dropdown-caret-color` as of v3.1.0
 $dropdown-caret-color: #000 !default;
 
-$dropdown-width: 315px !default;
+$dropdown-width: 260px !default;
 $dropdown-height: 311px !default;
 
-$dropdown-padding: 39px !default;
-$dropdown-padding-top: 36px !default;
+$dropdown-padding: 20px !default;
+$dropdown-padding-top: 20px !default;
 
-$dropdown-bottom-height-size: 36px !default;
+$dropdown-bottom-height-size: 20px !default;
 //-- Z-index master list
 //
 // Warning: Avoid customizing these values. They're used for a bird's eye view
@@ -331,6 +350,7 @@ $zindex-tooltip: 1070 !default;
 $zindex-navbar-fixed: 1030 !default;
 $zindex-modal-background: 1040 !default;
 $zindex-modal: 1050 !default;
+$zindex-button_show_modal_label: 500 !default;
 
 //== Media queries breakpoints
 //
@@ -371,32 +391,6 @@ $screen-sm-max: ($screen-md-min - 1) !default;
 $screen-md-max: ($screen-lg-min - 1) !default;
 //***************************************************************************************
 
-//Vía óptima cálculo tamaño de la tabla página invitados
-$tabla-invitados-ancho: 900px !default;
-
-$tabla-invitados-alto-fila: 46px !default;
-$tabla-invitados-columna-1: 230px !default;
-$tabla-invitados-columna-2: 208px !default;
-$tabla-invitados-columna-3: 402px !default;
-$tabla-invitados-columna-4: 60px !default;
-$tabla-autenticado-columna-1: 160px !default;
-
-$tabla-invitados-padding: percentage(((2*$table-cell-padding)) / $tabla-invitados-ancho) !default;
-
-//Ancho de las columnas del tab
-$tab-invitados-ancho-columna: 440px !default;
-$tab-invitados-alto-columna: 293px !default;
-$tab-invitados-alto-enlace-registrate: 43px !default;
-$tab-invitados-alto-columna-texto: $tab-invitados-alto-columna - $tab-invitados-alto-enlace-registrate !default;
-$tab-invitados-margen-top-columna-texto: 26px !default;
-$tab-invitados-porciento-ancho-columna: percentage($tab-invitados-ancho-columna / $tabla-invitados-ancho) !default;
-
-//Dimensiones para la tabla de ver más en invitados
-
-$tabla-invitados-vermas-ancho: $tabla-invitados-ancho !default;
-$tabla-invitados-vermas-ancho-columna-1: 200px !default;
-$tabla-invitados-vermas-ancho-columna-2: $tabla-invitados-vermas-ancho - $tabla-invitados-vermas-ancho-columna-1;
-
 //== Grid system
 //
 //## Define your custom responsive grid.
@@ -429,18 +423,18 @@ $container-md: $container-desktop !default;
 $container-large-desktop: (1140px + $grid-gutter-width) !default;
 //** For `$screen-lg-min` and up.
 $container-lg: $container-large-desktop !default;
-
 //== Navbar
 //
 //##
 
 // Basics of a navbar
-$navbar-height: 50px !default;
+$navbar-height: 36px !default;
 $navbar-margin-bottom: 24px !default;
 $navbar-border-radius: $border-radius-base !default;
 $navbar-padding-horizontal: floor(($grid-gutter-width / 2)) !default;
 $navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2) !default;
 $navbar-collapse-max-height: 340px !default;
+$navbar-noPadding: 0 !default;
 
 $navbar-default-color: $app-color-base !default;
 $navbar-default-bg: #f8f8f8 !default;
@@ -470,6 +464,8 @@ $navbar-default-toggle-border-color: #ddd !default;
 $navbar-inverse-color: lighten($gray-light, 15%) !default;
 $navbar-inverse-bg: #ff7a00 !default;
 $navbar-inverse-border: darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-position: fixed !default;
+$navbar-inverse-zIndex: 10 !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color: $app-color-white !default;
@@ -525,7 +521,7 @@ $nav-pills-active-link-hover-color: $component-active-color !default;
 
 $pagination-color: $app-color-base !default;
 $pagination-bg: $app-color-white !default;
-$pagination-border: $app-color-base !default;
+$pagination-border: $app-color-warning !default;
 
 $pagination-hover-color: $app-color-white !default;
 $pagination-hover-bg: $app-color-hover !default;
@@ -542,16 +538,20 @@ $pagination-disabled-border: $app-color-base !default;
 //== Pager
 //
 //##
-
+$pager-width: 40px !default;
+$pager-active-bg: rgba(228, 168, 36, .8) !default;
+$pager-color: $pager-active-bg !default;
+$pager-line-height: 1.8 !default;
+$pager-height: $pager-width !default;
+$pager-padding: 5px !default;
+$pager-margin: 0 0 8px 0 !default;
 $pager-bg: $pagination-bg !default;
 $pager-border: $pagination-border !default;
-$pager-border-radius: 15px !default;
-
+$pager-border-radius: 50% !default;
 $pager-hover-bg: $pagination-hover-bg !default;
+$pager-hover-color: $pagination-hover-color !default;
 
-$pager-active-bg: $pagination-active-bg !default;
 $pager-active-color: $pagination-active-color !default;
-
 $pager-disabled-color: $pagination-disabled-color !default;
 
 //== Jumbotron
@@ -926,20 +926,36 @@ $page-header-border-color: $gray-lighter !default;
 $dl-horizontal-offset: $component-offset-horizontal !default;
 //** Horizontal line color.
 $hr-border: $gray-lighter !default;
+
 //** Footer line-height
-$footer-line-height: 38px !default;
-$footer-height: 35px !default;
+$footer-line-height: 28px !default;
+$footer-height: 28px !default;
 $footer-margin-top: 1em !default;
 
 //Column
 $column-caption-padding-bottom: 43px !default;
 $column-caption-font-size: $font-size-app-base-pill !default;
 $column-caption-font-family: $font-family !default;
+
 //Márgenes
 $margin-app-base: 10px !default;
 $margin-app-small: 5px !default;
 $margin-app-large: 15px !default;
 $margin-app-xl: 30px !default;
+
+//Portada
+$portada-imagen-height: 600px !default;
+
+//Banner
+$banner-background-size-lg: 60% 90% !default;
+$banner-background-size-md: 95% 100% !default;
+$banner-background-size-xs: 100% 100% !default;
+$banner-background-color: rgba(255, 255, 255, 1) !default;
+$banner-width: 100% !default;
+$banner-height: 60px !default;
+
+//Titulos
+$title-top: 100px !default;
 
 //imagen
 $logo-height-base: 90px !default;
@@ -949,9 +965,19 @@ $logo-file-height: $logo-img-height !default;
 $logo-file-width: $logo-img-width !default;
 $logo-file-margin-left: 4px !default;
 $logo-file-margin-top: 3px !default;
-//imagen autenticado
-$imagen-user-width: 40px !default;
-$imagen-user-height: $imagen-user-width !default;
-$imagen-user-left: -30px !default;
-$imagen-user-top: 5px !default;
 
+//imagen autenticado navbar
+$imagen-user-width: 32px !default;
+$imagen-user-height: $imagen-user-width !default;
+$imagen-user-left: -24px !default;
+$imagen-user-top: -2px !default;
+
+//imagen-usuario vista index
+$index-imagen-user-size: 42px !default;
+$index-imagen-user-margin-left: $index-imagen-user-size + $margin-app-base;
+
+//Ver ocultar etiquetas modales
+$button_show_modal_label_width: 36px !default;
+$button_show_modal_label_height: $button_show_modal_label_width !default;
+$button_show_modal_label_font_size: 1.4em !default;
+$button_show_modal_label_bottom: $footer-height + $margin-app-small;

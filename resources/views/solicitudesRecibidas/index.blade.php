@@ -4,21 +4,20 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if (Auth::check())
-            <div class="row ">
-                @include('solicitudesRecibidas.parciales.buscar')
-            </div>
+            @include('comun.plantillaBuscarIndex',['htmlTemplate'=>'solicitudesRecibidas.parciales.buscar'])
+            @include('comun.plantillaOperacionesIndex',['tabla'=>'solicitudesRecibidas'])
             @if(!$solicitudesRecibidas->isEmpty())
                 @foreach ($solicitudesRecibidas as $solicitudRecibida)
                     <div>
                         <table class="table-viaoptima table-striped">
-                            <caption
-                                    class="@if(!$solicitudRecibida->activo) foreground-disabled @endif">
-                                {!! $solicitudRecibida->comunidad !!}
-                            </caption>
                             <thead>
+                            <tr class="row-fixed">
+                                <th class="tabla-ancho-columna-texto"></th>
+                                <th></th>
+                            </tr>
                             <tr @if(!$solicitudRecibida->activo) class="background-disabled"
                                 @else style="background-color:{{$solicitudRecibida->color}};" @endif>
                                 <th colspan="2" class="text-right">
@@ -28,11 +27,11 @@
                                             <div>Editar</div>
                                         </i>
                                     </a>
-                                    {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
-                                    'POST','title'=>'Mostrar Cursillos')) !!}
-                                    {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
-                                    {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
-                                    @if ($solicitudRecibida->aceptada==1)
+                                    @if($solicitudRecibida->activo && $solicitudRecibida->aceptada)
+                                        {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
+                                        'POST','title'=>'Mostrar Cursillos')) !!}
+                                        {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
+                                        {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
                                         <button type="submit">
                                             <i class='glyphicon glyphicon-education full-Width'>
                                                 <div>Cursillos</div>
@@ -42,10 +41,19 @@
                                     {!! FORM::close() !!}
                                 </th>
                             </tr>
+                            <tr>
+                                <th colspan="2" class="cabecera">
+                                    <div class="ellipsis text-center @if(!$solicitudRecibida->activo) foreground-disabled @endif"
+                                         @if($solicitudRecibida->activo==1) style="background-color:
+                                         {{$solicitudRecibida->colorFondo}} !important; color:{{$solicitudRecibida->colorTexto}} !important; @endif ">
+                                        {!! $solicitudRecibida->comunidad !!}
+                                    </div>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody @if(!$solicitudRecibida->activo) class="foreground-disabled" @endif>
                             <tr>
-                                <td class="table-autenticado-columna-1">Fecha de Envio:</td>
+                                <td>Fecha de Envio:</td>
                                 <td>{!! Date("d/m/Y - H:i:s" , strtotime($solicitudRecibida->created_at) )!!}</td>
                             </tr>
                             <tr>
@@ -61,6 +69,7 @@
                         </table>
                     </div>
                 @endforeach
+                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -68,10 +77,6 @@
                     </div>
                 </div>
             @endif
-            <div class="row paginationBlock">
-                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada']))->render()
-                !!}{{-- Poner el paginador --}}
-            </div>
         @else
             @include('comun.guestGoHome')
         @endif

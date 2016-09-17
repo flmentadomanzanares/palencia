@@ -13,8 +13,10 @@
     /**
      * Constructor.
      */
+    var SimpleColorPickerCollection = Array();
     var SimpleColorPicker = function (select, options) {
         this.init('simplecolorpicker', select, options);
+        SimpleColorPickerCollection.push(this);
     };
 
     /**
@@ -39,12 +41,14 @@
                 var selectText = self.$select.find('> option:selected').text();
                 self.$icon = $('<span class="simplecolorpicker icon"'
                     + ' title="' + selectText + '"'
-                    + ' style="color:white;background-color: ' + self.$select.val() + ';"'
+                    + ' style="'
+                    + (self.options.applyForeGroundColor ? "color:" + self.$select.val() : (self.options.applyBackGroundColor) ? "background-color:" + self.$select.val() : "white")
+                    + ';"'
                     + ' role="button" tabindex="0">'
-                    + 'Texto</span>').insertAfter(self.$select);
+                    + '</span>').insertAfter(self.$select);
                 self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
 
-                self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
+                self.$picker = $('<span style="background-color: ' + self.options.backgroundColor + '" class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
                 self.$colorList = self.$picker;
 
                 //Reajustamos la posicion del ColorPicker en los resize
@@ -132,11 +136,13 @@
         },
 
         resizePicker: function () {
-            var pos = this.$icon.offset();
-            this.$picker.css({
-                // posicionamos a la derecha del selectable
-                left: pos.left + this.$icon.outerWidth() - this.$picker.outerWidth(),
-                top: pos.top + this.$icon.outerHeight()
+            $.each(SimpleColorPickerCollection, function (idx, elm) {
+                var pos = elm.$icon.offset();
+                this.$picker.css({
+                    // posicionamos a la derecha del selectable
+                    left: pos.left + elm.$icon.outerWidth() - elm.$picker.outerWidth(),
+                    top: pos.top + elm.$icon.outerHeight()
+                });
             });
         },
 
@@ -220,6 +226,7 @@
             }
             if (typeof option === 'string') {
                 data[option].apply(data, args);
+                console.log(data[option]);
             }
         });
     };
@@ -235,7 +242,16 @@
         picker: false,
 
         // Animation delay in milliseconds
-        pickerDelay: 0
+        pickerDelay: 0,
+
+        //BackgroundColor for picker contain
+        backgroundColor: '#fff',
+
+        //apply for select text
+        applyForeGroundColor: false,
+
+        //apply for select backGround
+        applyBackGroundColor: true,
     };
 
 })(jQuery);
