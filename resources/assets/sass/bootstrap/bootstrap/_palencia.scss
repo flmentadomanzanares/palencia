@@ -79,11 +79,12 @@
   display: block;
   position: fixed;
   bottom: $button_show_modal_label_bottom;
-  left: 2 *$margin-app-base;
+  left: $margin-app-base;
   background-color: $state-success-bg;
   border-radius: $border-circle;
   border: 1px solid $state-success-border;
   box-shadow: $app-default-box-shadow;
+  z-index: $zindex-button_show_modal_label;
   &:after {
     font-family: $font-family-plyphicons-regular;
     font-size: $button_show_modal_label_font_size;

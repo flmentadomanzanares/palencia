@@ -6692,11 +6692,12 @@ button.close {
     display: block;
     position: fixed;
     bottom: 38px;
-    left: 20px;
+    left: 10px;
     background-color: #dff0d8;
     border-radius: 50%;
     border: 1px solid #d6e9c6;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3)
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    z-index: 500
 }
 
 .hideShowSimpleModal:after {
