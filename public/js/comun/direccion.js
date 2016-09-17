@@ -8,7 +8,6 @@
             var pais = $('#select_pais').val();
             var provincia = $('#select_provincia').val();
             var localidad = $('#select_localidad').val();
-            //Rellenamos los selects
             listarProvincias(pais, provincia);
             listarLocalidades(provincia, localidad);
         };
@@ -20,9 +19,14 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/cambiarProvincias',
+                url: '/palencia/public/cambiarProvincias',
                 success: function (data) {
+                    var placeHolderProvincia = $('#select_provincia[data-placeholder]');
                     $('#select_provincia').empty();
+                    //Rellenamos los selects
+                    if (placeHolderProvincia.length > 0) {
+                        $('#select_provincia').append("<option selected value='0'>" + placeHolderProvincia.data("placeholder") + "</option>");
+                    }
                     $.each(data, function (key, element) {
                         if (element.id == provincia)
                             $('#select_provincia').append("<option selected value='" + element.id + "'>" + element.provincia + "</option>");
