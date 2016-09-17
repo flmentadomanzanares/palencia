@@ -1907,21 +1907,24 @@
             }
 
             //Comprobamos si el popover sobrepasa la tabla para asignarle scroll
+            var windowEl = $(window);
+            var windowElScrollTop = windowEl.scrollTop();
             var contenedorPopover = this.options.parentEl;
             var contenedorCalendar = contenedorPopover.parent();
             var contenedorCalendarTop = contenedorCalendar.offset().top;
             var calendarScrollTop = contenedorCalendar.scrollTop();
             var contenedorCalendarHeight = contenedorPopover.outerHeight();
             var popover = this.el;
-            var popoverHeight = this.el.outerHeight();
-            var popoverWidth = this.el.outerWidth();
+            var popoverHeight = popover.outerHeight();
+            var popoverWidth = popover.outerWidth();
             var popoverTop = top - contenedorCalendarTop + calendarScrollTop;
-            var actualPositionY = contenedorCalendarTop + calendarScrollTop + popoverTop;
-            if (actualPositionY + popoverHeight > (contenedorCalendarTop + contenedorCalendarHeight)) {
+            var posicion = contenedorCalendarTop + calendarScrollTop + popoverTop + windowElScrollTop;
+            if (posicion + popoverHeight > (contenedorCalendarTop + contenedorCalendarHeight + windowElScrollTop)) {
                 var popoverHeaderHeight = this.el.find(".fc-header").outerHeight();
-                var alturaResultante = contenedorCalendarHeight - (popoverTop + popoverHeight - popoverHeaderHeight);
-                this.el.find(".fc-event-container").css("height", alturaResultante + 'px')
+                var alturaResultantePopover = (contenedorCalendarTop + contenedorCalendarHeight + calendarScrollTop + windowElScrollTop) - (posicion + popoverHeaderHeight + this.margin);
+                this.el.find(".fc-event-container").css("height", alturaResultantePopover + 'px')
             }
+
             //Posición izquierda
             left = (left + popoverWidth + this.margin > (contenedorCalendar.offset().left + contenedorCalendar.outerWidth()))
                 ? left - ((left + popoverWidth) - contenedorCalendar.outerWidth()) - this.margin
