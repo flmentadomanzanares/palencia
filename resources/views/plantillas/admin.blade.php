@@ -14,9 +14,9 @@
 <div class="row img-header">
     <div></div>
 </div>
-<div class="hideShowSimpleModal"></div>
 <div data-role="menu">
     @if (Auth::check())
+        <div class="hideShowSimpleModal"></div>
         <ul>
             <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span></a></li>
             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
