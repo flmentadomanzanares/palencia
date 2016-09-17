@@ -6,7 +6,7 @@
     {!! FORM::select('provincias',$provincias ,null,array('id'=>'select_provincia',"class"=>"form-control", "data-placeholder"=>"Provincias...."))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Activa + No Activa','1'=>'Activa','0'=>'No Activa'),
+    {!! FORM::select('esActivo', array(''=>'Activas + No Activas','1'=>'Activas','0'=>'No Activas'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

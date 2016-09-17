@@ -7,7 +7,7 @@
     {!! FORM::select('aceptada', array(''=>'Solicitud Aceptada...','1'=>'Aceptada','0'=>'No Aceptada'),null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Todas...','1'=>'Activa','0'=>'No Activa'),
+    {!! FORM::select('esActivo', array(''=>'Activas + No Activas','1'=>'Activas','0'=>'No Activas'),
     null,array("class"=>"form-control"))!!}
 </div>
 <br/>
