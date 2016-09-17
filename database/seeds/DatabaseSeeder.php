@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
 
         // Borramos todos los registros de las tablas antes de cargarlos de nuevo
         $this->truncateTables(array(
+            'colores_fondos',
+            'colores_textos',
             'roles',
             'users',
             'password_resets',
@@ -35,7 +37,8 @@ class DatabaseSeeder extends Seeder
             'solicitudes_enviadas_cursillos',
             'solicitudes_recibidas_cursillos'
         ));
-        $this->call('ColoresTableSeeder');
+        $this->call('ColoresFondoTableSeeder');
+        $this->call('ColoresTextoTableSeeder');
         $this->call('RolesTableSeeder');
         $this->call('UserTableSeeder');
         $this->call('PaisesTableSeeder');

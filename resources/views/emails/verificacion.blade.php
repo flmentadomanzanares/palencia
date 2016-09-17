@@ -4,12 +4,12 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>Verificación de la cuenta PALENCIA</h2>
+<h2>Verificaci&oacute;n de la cuenta PALENCIA</h2>
 
 <div>
     Gracias por crear una cuenta en nuestra comunidad
     Por favor, haz clic en el enlace para activar la cuenta.
-    <a href="{{ URL::to('register/verify/' .  $codigoConfirmacion) }}">Haz clic aquí para validar la cuenta de
+    <a href="{{ URL::to('register/verify/' .  $codigoConfirmacion) }}">Haz clic aqu&iacute; para validar la cuenta de
         usuario</a>.<br/>
 </div>
 <div style="text-align: right;font-size:20px;line-height:1.6">

@@ -4,161 +4,133 @@
     <title>Palencia</title>
     <meta charset="UTF-8">
     <meta name=description content="">
-    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=viewport content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     {!! HTML::style('css/palencia.css') !!}
     @yield("css")
 </head>
 <body>
 
-<div>
-    <div class="row img-header">
-        <div></div>
-    </div>
-    <nav role="navigation" class="navbar navbar-inverse block-center">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            @if (Auth::check())
-                @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span> <span
-                                        class="sr-only">(current)</span></a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">Administrador<span
-                                        class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>{!!link_to('paises', 'Países')!!}</li>
-                                <li>{!!link_to('provincias', 'Provincias')!!}</li>
-                                <li>{!!link_to('localidades', 'Localidades')!!}</li>
-                                <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
-                                <li>{!!link_to('solicitudesEnviadas', 'Sus Respuestas')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
-                                <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
-                                <li role="separator" class="divider"></li>
-                                <li>{!!link_to('tiposSecretariados', 'Tipos Secretariados')!!}</li>
-                                @if (config("opciones.accion.roles"))
-                                    <li>{!!link_to('roles', 'Roles')!!}</li>
-                                @endif
-                                @if (config("opciones.accion.tiposParticipantes"))
-                                    <li>{!!link_to('tiposParticipantes', 'Tipo de Participantes')!!}</li>
-                                @endif
-                                @if (config("opciones.accion.tipoComunicacionesPreferidas"))
-                                    <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipo de Comunicación')!!}</li>
-                                @endif
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
-                                <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
-                                <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
-                                <li>{!!link_to('secretariadosPais', 'Secretariados por pais')!!}</li>
-                                <li>{!!link_to('noColaboradores', 'Secretariados no colaboradores')!!}</li>
 
-                            </ul>
-                        </li>
-                    </ul>
-                @endif
-            @endif
-            <ul class="nav navbar-nav navbar-right">
-                @if (Auth::check())
-                    <li class="">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href=""><img
-                                    class="user-image"
-                                    src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
-                            <strong>{!!Auth::user()->name!!}</strong>
-                            <b class="caret"></b></a>
-                        <ul role="menu" class="dropdown-menu">
-                            @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
-                                <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
-                                @if (config("opciones.accion.copiaSeguridad"))
-                                    <li role="separator" class="divider"></li>
-                                    <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
-                                @endif
-                                @if (config("opciones.accion.cerrarAnyo"))
-                                    <li role="separator" class="divider"></li>
-                                    <li>{!!link_to('cerrarAnyo','Cerrar A&ntilde;o')!!}</li>
-                                @endif
-                            @else
-                                <li>{!!link_to('miPerfil', 'Mi perfil')!!}</li>
-                            @endif
-                            <li role="separator" class="divider"></li>
-                            <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
-                        </ul>
-                    </li>
-                @else
-                    <li class="dropdown">
-                        <a class="dropdown-toggle login" href="login" data-toggle="dropdown">Entrar<strong
-                                    class="caret"></strong></a>
-
-                        <div class="dropdown-menu" style="padding: 20px">
-                            {!! FORM::open(array('url' => 'auth/login')) !!}
-                            {!! FORM::label('email', 'email') !!} <br/>
-                            {!! FORM::text ('email','',array("placeholder"=>"email de usuario",
-                            "class"=>"form-control")) !!}
-                            <br/>
-                            {!! FORM::label ('password', 'contraseña') !!} <br/>
-                            {!! FORM::password ('password',array("class"=>"form-control","placeholder"=>"password"))
-                            !!} <br/>
-                            {!! FORM::submit('Entrar',array("class"=>"btn btn-success btn-block")) !!}
-                            <br/>
-                            @if(config("opciones.verificar.recordarPassword"))
-                                <span class="btn btn-default btn-block lanzarModal" data-title="RECORDAR"
-                                      data-selector-Id="recordar">Recordar password</span>
-                            @endif
-                            <span class="btn btn-default btn-block lanzarModal" data-title="REGISTRO"
-                                  data-selector-Id="registro">Registrarse</span>
-                            {!! FORM::close() !!}
-                        </div>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    </nav>
+<div class="row img-header">
+    <div></div>
 </div>
-@include ("comun.plantillaRecordarPassword")
-@include ("comun.plantillaRegistro")
+<div class="hideShowSimpleModal"></div>
+<div data-role="menu">
+    @if (Auth::check())
+        <ul>
+            <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span></a></li>
+            @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                <li>
+                    <span class="p-h-10">Listados<span class="caret"></span></span>
+                    <ul>
+                        <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
+                        <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
+                        <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
+                        <li>{!!link_to('secretariadosPais', 'Secretariados activos por pa&iacute;s')!!}</li>
+                        <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pa&iacute;s')!!}</li>
+                        <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
+                        <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
+                        <li>{!!link_to('imprimirPaisesActivos', 'Pa&iacute;ses activos')!!}</li>
+                        <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
+                    </ul>
+                </li>
+                <li><span class="p-h-10">Administrador<span class="caret"></span></span>
+                    <ul>
+                        <li>{!!link_to('paises', 'Pa&iacute;ses')!!}</li>
+                        <li>{!!link_to('provincias', 'Provincias')!!}</li>
+                        <li>{!!link_to('localidades', 'Localidades')!!}</li>
+                        <li>{!!link_to('comunidades', 'Comunidades')!!}</li>
+                        <li class="menu-separator"></li>
+                        <li>{!!link_to('cursillos', 'Cursillos')!!}</li>
+                        <li class="menu-separator"></li>
+                        <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
+                        <li>{!!link_to('solicitudesEnviadas', 'Sus Respuestas')!!}</li>
+                        <li class="menu-separator"></li>
+                        <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
+                        <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
+                        <li class="menu-separator"></li>
+                        <li>{!!link_to('tiposSecretariados', 'Tipos de Secretariados')!!}</li>
+                        @if (config("opciones.accion.tiposParticipantes"))
+                            <li>{!!link_to('tiposParticipantes', 'Tipos de Participantes')!!}</li>
+                        @endif
+                        @if (config("opciones.accion.tipoComunicacionesPreferidas"))
+                            <li>{!!link_to('tiposComunicacionesPreferidas', 'Tipos de Comunicaci&oacute;n')!!}</li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+            <li class="pull-right">
+                <span class="p-h-10"><img
+                            class="user-image"
+                            src=" {!!asset('uploads/usuarios/'.Auth::user()->foto) !!}">
+                    <span class="hidden-xxs">{!!Auth::user()->name!!}
+                        <b class="caret"></b>
+                        </span>
+                </span>
+                <ul class="right">
+                    @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                        <li>{!!link_to('usuarios', 'Usuarios')!!}</li>
+                        @if (config("opciones.accion.roles"))
+                            <li>{!!link_to('roles', 'Roles')!!}</li>
+                        @endif
+                        @if (config("opciones.accion.copiaSeguridad"))
+                            <li class="menu-separator"></li>
+                            <li>{!!link_to('copiaSeguridad','Copia de Seguridad')!!}</li>
+                        @endif
+                        @if (config("opciones.accion.cerrarAnyo"))
+                            <li class="menu-separator"></li>
+                            <li>{!!link_to('cerrarAnyo','Cerrar A&ntilde;o')!!}</li>
+                        @endif
+                    @else
+                        <li>{!!link_to('miPerfil', 'Mi perfil')!!}</li>
+                    @endif
+                    <li class="menu-separator"></li>
+                    <li><a class="" href="{{ url('/auth/logout') }}">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    @else
+        @include ("comun.plantillaLogin")
+        @include('comun.plantillaRegistrarse')
+        @if(config("opciones.seguridad.recordarPassword"))
+            @include ("comun.plantillaRecordarPassword")
+        @endif
+    @endif
+</div>
+
 @if(Session::has('mensaje'))
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span
-                    aria-hidden="true">&times;</span></button>
-        <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
+    <div class="alert-dismissible">
+        <div class="errorOnBackGround"></div>
+        <div class="alert alert-info errorOn" role="alert">
+            <div class="closeErrorModal pull-right">X</div>
+            <strong>¡Aviso!</strong> {!! Session::get('mensaje') !!}
+        </div>
     </div>
 @endif
 @if($errors->has())
-    <div id="errores" class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-        <strong>Errores</strong>
-        <ol>
-            @foreach ($errors->all('<p>:message</p>') as $message)
-                <li>{!! $message !!}</li>
-            @endforeach
-        </ol>
+    <div id="errores" class="alert-dismissible">
+        <div class="errorOnBackGround"></div>
+        <div class="alert alert-danger errorOn" role="alert">
+            <div class="closeErrorModal pull-right">X</div>
+            <strong>Errores</strong>
+            <ol>
+                @foreach ($errors->all('<p>:message</p>') as $message)
+                    <li>{!! $message !!}</li>
+                @endforeach
+            </ol>
+        </div>
     </div>
 @endif
 @yield ('titulo')
 @yield("contenido")
 <footer>
-    <span>&copy; Palencia v2.0.0 | KOALNET - 2015</span>
+    <span>&copy; Palencia v2.0.0 | KOALNET - 2016</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
 {!! HTML::script("js/comun/spinner.js")!!}
-{!! HTML::script('js/publico/modal.js') !!}
+{!! HTML::script('js/publico/simplemodal.js') !!}
+{!! HTML::script('js/publico/menu.js') !!}
 @yield("js")
 </body>
 </html>

@@ -37,7 +37,6 @@ class AutenticadoController extends Controller
         $titulo = "Calendario";
         $cursillos = Cursillos::getCalendarCursillos($request);
         $anyos = Cursillos::getAnyoCursillosList();
-
         //Obtenemos los parámetros de la respuesta
         $year = $request->input('anyo');
         $week = $request->input('semana') > 0 ? $request->input('semana') : 1;
@@ -58,8 +57,9 @@ class AutenticadoController extends Controller
                 true, //full day event?
                 $cursillo->fecha_inicio, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
                 date('Y-m-d', strtotime($cursillo->fecha_final) + 86400), //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
-                $cursillo->color,
-                $cursillo->id //optional event ID
+                $cursillo->colorFondo,
+                $cursillo->colorTexto,
+                $cursillo->id
             );
         }
         if (count($cursillos) > 0) {
@@ -71,10 +71,10 @@ class AutenticadoController extends Controller
                     'editable' => false,
                     'weekNumbers' => true,
                     'eventLimit' => true, // allow "more" link when too many events
-                    'header' => array('left' => 'next , prev', 'center' => 'title', 'right' => 'prev , next')
+                    'header' => array('left' => 'prev', 'center' => 'title', 'right' => 'next')
                 ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                     'eventClick' => 'function(calEvent, jsEvent, view) {
-                    $(this).attr("href","cursillos/"+calEvent.id);
+                    $(this).attr("href","curso/"+calEvent.id);
                 }'
                 ]);
         }

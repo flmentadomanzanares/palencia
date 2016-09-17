@@ -2,17 +2,15 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Colores extends Model
+class ColoresFondos extends Model
 {
-
-    protected $tabla = "colores";
+    protected $tabla = "colores_fondos";
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-
-    static public function getColores()
+    static public function getColoresFondos()
     {
-        return Colores::Select('nombre_color', 'codigo_color')
+        return ColoresFondos::Select('nombre_color', 'codigo_color')
             ->orderBy('codigo_color', 'ASC')
             ->get();
     }

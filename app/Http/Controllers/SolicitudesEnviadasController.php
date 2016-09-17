@@ -18,7 +18,7 @@ class SolicitudesEnviadasController extends Controller
     public function index(Request $request)
     {
         $titulo = "Sus Respuestas";
-        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request);
+        $solicitudesEnviadas = SolicitudesEnviadas::getSolicitudesEnviadas($request, config("opciones.paginacion"));
         $comunidades = SolicitudesEnviadas::getComunidadesSolicitudesEnviadasList();
         return view("solicitudesEnviadas.index", compact('solicitudesEnviadas', 'titulo', 'comunidades'));
     }
@@ -67,7 +67,7 @@ class SolicitudesEnviadasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesEnviadas.create')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->
@@ -105,12 +105,12 @@ class SolicitudesEnviadasController extends Controller
         if ($solicitudEnviada == null) {
             return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
-        $comunidad = Comunidades::getNombreComunidad($solicitudEnviada->comunidad_id);
+        $comunidades = Comunidades::getComunidadToList($solicitudEnviada->comunidad_id);
         //Vista
         return view('solicitudesEnviadas.modificar',
             compact(
                 'solicitudEnviada',
-                'comunidad',
+                'comunidades',
                 'titulo'
             ));
     }
@@ -141,7 +141,7 @@ class SolicitudesEnviadasController extends Controller
                 case 23000:
                     return redirect()->
                     route('solicitudesEnviadas.index')->
-                    with('mensaje', 'La solicitud está ya dada de alta.');
+                    with('mensaje', 'La solicitud est&aacute; ya dada de alta.');
                     break;
                 default:
                     return redirect()->

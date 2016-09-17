@@ -54,7 +54,7 @@ class InvitadoController extends Controller
         $user->save();
         return redirect()->
         route('invitado')->
-        with('mensaje', 'La verificación de cuenta se ha realizado con éxito.');
+        with('mensaje', 'La verificaci&oacute;n de cuenta se ha realizado con &eacute;xito.');
 
     }
 }

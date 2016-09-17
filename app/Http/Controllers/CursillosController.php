@@ -20,7 +20,7 @@ class CursillosController extends Controller
     {
         $titulo = "Cursillos";
         $comunidades = Comunidades::getComunidadesList(0, true, "Comunidad...", true);
-        $cursillos = Cursillos::getCursillos($request);
+        $cursillos = Cursillos::getCursillos($request, config("opciones.paginacion"));
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
         return view("cursillos.index", compact('comunidades', 'cursillos', 'titulo', 'anyos', 'semanas'));
@@ -40,7 +40,7 @@ class CursillosController extends Controller
         $cursillo->fecha_inicio = $this->ponerFecha(date("d-m-Y"));
         $cursillo->fecha_final = $this->ponerFecha(date("d-m-Y"));
         $tipos_participantes = TiposParticipantes::getTiposParticipantesList();
-        $comunidades = Comunidades::getComunidadesList();
+        $comunidades = Comunidades::getComunidadesColaboradoras();
         //Vista
         return view('cursillos.nuevo',
             compact(
@@ -68,7 +68,7 @@ class CursillosController extends Controller
         //Creamos una nueva instancia al modelo.
         $cursillo = new Cursillos();
         //Asignamos valores traidos del formulario.
-        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->cursillo = strtoupper($request->get('cursillo'));
         $cursillo->num_cursillo = $request->get('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
         $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));
@@ -87,7 +87,7 @@ class CursillosController extends Controller
                 case 23000:
                     return redirect()->
                     route('cursillos.create')->
-                    with('mensaje', 'El cursillo nº' . $cursillo->num_cursillo . ' está ya dado de alta.');
+                    with('mensaje', 'El cursillo nº' . $cursillo->num_cursillo . ' est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()->
@@ -110,16 +110,38 @@ class CursillosController extends Controller
     {
         //Título de la vista.
         $titulo = "Detalles del cursillo";
+        $esInicio = false;
         $cursillo = Cursillos::getCursillo($id);
         if (count($cursillo) == 0) {
             return redirect()->
-            route('inicio')->
-            with('mensaje', 'El cursillo no está dado de alta.');
+            route('cursillos')->
+            with('mensaje', 'El cursillo no est&aacute; dado de alta.');
         }
         return view('cursillos.ver',
             compact(
                 'cursillo',
-                'titulo'
+                'titulo',
+                "esInicio"
+            ));
+    }
+
+    public function verCursilloInicio($id)
+    {
+        //Título de la vista.
+        $titulo = "Detalles del cursillo";
+        $esInicio = true;
+        $cursillo = Cursillos::getCursillo($id);
+        if (count($cursillo) == 0) {
+            return redirect()->
+            route('inicio')->
+            with('mensaje', 'El cursillo no est&aacute; dado de alta.');
+        }
+
+        return view('cursillos.ver',
+            compact(
+                'cursillo',
+                'titulo',
+                "esInicio"
             ));
     }
 
@@ -159,7 +181,7 @@ class CursillosController extends Controller
         $cursillo = Cursillos::find($id);
         if ($cursillo == null)
             return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
-        $cursillo->cursillo = $request->get('cursillo');
+        $cursillo->cursillo = strtoupper($request->get('cursillo'));
         $cursillo->num_cursillo = $request->get('num_cursillo');
         $cursillo->fecha_inicio = $this->ponerFecha($request->get('fecha_inicio'));
         $cursillo->fecha_final = $this->ponerFecha($request->get('fecha_final'));
@@ -179,7 +201,7 @@ class CursillosController extends Controller
                 case 23000:
                     return redirect()->
                     route('cursillos.index')->
-                    with('mensaje', 'El cursillo está ya dado de alta.');
+                    with('mensaje', 'El cursillo est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()->

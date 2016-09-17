@@ -8,23 +8,14 @@
         @if (Auth::check())
             <div class="row ">
                 {!! FORM::open(['route'=>'imprimirComunidades','method'=>'POST']) !!}
-                <div class="heading-caption">Seleccione el numero del cursillo para imprimir ...</div>
-                {!! FORM::label('num_cursillo', 'Cursillo') !!} <br/>
-                {!! FORM::select('num_cursillo', $cursillos, null,array("class"=>"form-control"))!!}
+                <div class="heading-caption">Seleccione rango de fechas para imprimir las comunidades ...</div>
+                {!! FORM::label('fecha_inicio', 'Fecha Inicio') !!} <br/>
+                {!! FORM::text('fecha_inicio',  date("d/m/Y",strtotime($cursillos->fecha_inicio)), ['id' => 'datepicker1', 'class' => 'form-control calendario', 'readonly'=>''])!!}
                 <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Descargar" class="pull-right">
-                        <i class='glyphicon glyphicon-save full-Width'>
-                            <div>Descargar</div>
-                        </i>
-                    </button>
-                </div>
+                <br/>
+                {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
+                {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillos->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
                 {!! FORM::close() !!}
             </div>
         @else

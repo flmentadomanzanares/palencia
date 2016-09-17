@@ -29,8 +29,8 @@ class ValidateRulesTiposSecretariados extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'tipo_secretariado.required' => 'El tipo de secretariado es obligatorio!',
-            'tipo_secretariado.min' => 'Longitud mínima del tipo de secretariado :min caracteres.',
-            'tipo_secretariado.max' => 'Longitud máxima del tipo de secretariado :max caracteres.'
+            'tipo_secretariado.min' => 'Longitud m&iacute;nima del tipo de secretariado :min caracteres.',
+            'tipo_secretariado.max' => 'Longitud m&aacute;xima del tipo de secretariado :max caracteres.'
         ];
     }
 

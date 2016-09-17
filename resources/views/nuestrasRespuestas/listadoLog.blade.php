@@ -1,7 +1,7 @@
 @extends('plantillas.admin')
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima" style="margin-top:110px">
         <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
@@ -37,13 +37,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{route('nuestrasRespuestas')}}" class="pull-left">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-        </div>
+        @include('comun.plantillaVolverModificarGuardar',['index'=>"nuestrasRespuestas"])
     </div>
 @endsection
 @section("css")

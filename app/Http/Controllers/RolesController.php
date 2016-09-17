@@ -57,7 +57,7 @@ class RolesController extends Controller
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('roles.create')
-                        ->with('mensaje', 'El rol ' . $rol->rol . ' está ya dado de alta.');
+                        ->with('mensaje', 'El rol ' . $rol->rol . ' est&aacute; ya dado de alta.');
                     break;
                 default:
                     return redirect()->route('roles.index')

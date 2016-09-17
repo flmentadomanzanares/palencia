@@ -14,7 +14,6 @@ $(document).ready(function () {
             success: function (data) {
                 var semanas = $('#select_semanas');
                 semanas.empty();
-                semanas.append("<option value='0'>--</option>");
                 $.each(data, function (key, element) {
                     semanas.append("<option value='" + element.semanas + "'>" + element.semanas + "</option>");
                 });

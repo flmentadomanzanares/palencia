@@ -26,11 +26,11 @@ html {
 
 body {
   float: none;
-  max-width: 100%;
+  min-width: 100%;
   margin: 0 auto;
-  padding-left: $padding-large-horizontal;
-  padding-right: $padding-large-horizontal;
-  height: 100%;
+  //padding-left: $padding-large-horizontal;
+  //padding-right: $padding-large-horizontal;
+  //height: 100%;
 }
 
 // HTML5 display definitions

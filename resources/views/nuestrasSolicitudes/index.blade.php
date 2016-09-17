@@ -5,59 +5,18 @@
 @section('contenido')
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         @if (Auth::check())
-            <div class="row ">
-                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
-                <div class="heading-caption">Modalidad</div>
-                {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
-                <br/>
-
-                <div class="heading-caption">Remitente</div>
-                {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}
-                <br/>
-
-                <div class="heading-caption">Año Cursillos</div>
-                {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
-                <br/>
-
-                <div class="heading-caption">Incluir Solicitudes Anteriores</div>
-                {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), 0,array("class"=>"form-control",'id'=>'select_boolean'))!!}
-                <br/>
-
-                @if(config("opciones.accion.crearSusRespuestasConSolicitudesAnterioresRealizadas"))
-                    <div class="heading-caption">Generar Sus Respuestas</div>
-                    {!! FORM::select('generarSusRespuestas', Array('0'=>'No','1'=>'Si'), 0,array("class"=>"form-control",'id'=>'select_generar_sus_respuestas'))!!}
-                    <br/>
-                @endif
-
-                <div class="heading-caption">Destinatario/s</div>
-                {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_resto_comunidades'))!!}
-                <br/>
-
-                <div class="heading-caption">Cursillos</div>
-                <div id="listado_cursillos" class="text-left" style="max-height:250px;overflow-y: auto "></div>
-                <br/>
-
-                <div class="btn-action margin-bottom">
-                    <a title="Inicio" href="{{route('inicio')}}" class="pull-left">
-                        <i class="glyphicon glyphicon-home">
-                            <div>Inicio</div>
-                        </i>
-                    </a>
-                    <button type="submit" title="Enviar" class="pull-right">
-                        <i class='glyphicon glyphicon-envelope full-Width'>
-                            <div>Enviar</div>
-                        </i>
-                    </button>
-                </div>
-                {!! FORM::close() !!}
-            </div>
+            @include('comun.plantillaNuestrasSolicitudes')
+            <div class="heading-caption">Cursillos</div>
+            <div id="listado_cursillos" class="text-left"></div>
         @else
             @include('comun.guestGoHome')
         @endif
     </div>
 @endsection
 @section('js')
-    {!! HTML::script('js/comun/nuestrasSolicitudes.js') !!}
+    @if (Auth::check())
+        {!! HTML::script('js/comun/nuestrasSolicitudes.js') !!}
+    @endif
 @endsection

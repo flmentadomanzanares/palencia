@@ -4,29 +4,34 @@
 @endsection
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima altoMaximo">
+    <div class="hidden table-size-optima">
         <table class="table-viaoptima table-striped">
             <thead>
+            <tr class="row-fixed">
+                <th class="tabla-ancho-columna-texto"></th>
+                <th></th>
+            </tr>
             <tr @if(!$cursillo->activo) class="background-disabled"
-                @else style="background-color:{{$cursillo->color}};" @endif>
-                <th colspan="2" class="text-center">
+                @else style="background-color:{{$cursillo->colorFondo}};" @endif>
+                <th colspan="2" class="text-center"
+                    @if($cursillo->activo) style="color:{{$cursillo->colorTexto}}" @endif>
                     {!! $cursillo->cursillo !!}
                 </th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="table-autenticado-columna-1">Comunidad:</td>
+                <td>Comunidad:</td>
                 <td>
                     {!! $cursillo->comunidad !!}
                 </td>
             </tr>
             <tr>
-                <td>Número:</td>
+                <td>N&uacute;mero:</td>
                 <td>{!!$cursillo->num_cursillo!!}</td>
             </tr>
             <tr>
-                <td>Año ISO-8601:</td>
+                <td>A&ntilde;o ISO-8601:</td>
                 <td>{!! Date("o" , strtotime($cursillo->fecha_inicio) )!!}</td>
             </tr>
             <tr>
@@ -42,7 +47,7 @@
                 <td>{!! Date("d/m/Y" , strtotime($cursillo->fecha_final) )!!}</td>
             </tr>
             <tr>
-                <td>Descripción:</td>
+                <td>Descripci&oacute;n:</td>
                 <td>
                     {!! $cursillo->descripcion !!}
                 </td>
@@ -72,13 +77,7 @@
             @endif
             </tbody>
         </table>
-        <div class="btn-action margin-bottom">
-            <a title="Volver" href="{{URL::previous()}}" class="pull-right">
-                <i class="glyphicon glyphicon-arrow-left">
-                    <div>Volver</div>
-                </i>
-            </a>
-        </div>
+        @include('comun.plantillaVolverModificarGuardar',['index'=>($esInicio)?"inicio":"cursillos.index",'accion'=>""])
     </div>
 @endsection
 @section("css")

@@ -9,7 +9,7 @@ class Paises extends Model
     protected $fillable = ['pais']; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = false, $placeholderText = "País...")
+    public static function getPaisesFromPaisIdToList($id = 0, $placeholder = true, $placeholderText = "País...")
     {
         $sql = Paises::Select('id', 'pais')
             ->where('activo', true)
@@ -28,11 +28,12 @@ class Paises extends Model
         lists('pais', 'id');
     }
 
-    public static function getPaises(Request $request)
+    public static function getPaises(Request $request, $paginateNumber = 25)
     {
         return Paises::pais($request->get('pais'))
+            ->PaisEsActivo($request->get('esActivo'))
             ->orderBy('pais', 'ASC')
-            ->paginate(4)
+            ->paginate($paginateNumber)
             ->setPath('paises');
     }
 
@@ -84,8 +85,15 @@ class Paises extends Model
 
     public function scopePaisId($query, $id)
     {
-        if (is_int($id) && $id > 0)
+        if (is_numeric($id) && $id > 0)
             $query->where('id', $id);
+    }
+
+    public function scopePaisEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
 

@@ -29,8 +29,8 @@ class ValidateRulesTiposParticipantes extends Request
     {
         return [//Asignamos un texto por cada regla sobre cada campo
             'tipo_participante.required' => 'El tipo de participante es obligatorio!',
-            'tipo_participante.min' => 'Longitud mínima del tipo de participante :min caracteres.',
-            'tipo_participante.max' => 'Longitud máxima del tipo de participante :max caracteres.'
+            'tipo_participante.min' => 'Longitud m&iacute;nima del tipo de participante :min caracteres.',
+            'tipo_participante.max' => 'Longitud m&aacute;xima del tipo de participante :max caracteres.'
         ];
     }
 

@@ -21,16 +21,18 @@ class SolicitudesRecibidas extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    static public function getSolicitudesRecibidas(Request $request)
+    static public function getSolicitudesRecibidas(Request $request, $paginateNumber = 25)
     {
-        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'comunidades.color',
-            'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at', 'solicitudes_recibidas.comunidad_id')
+        return SolicitudesRecibidas::Select('solicitudes_recibidas.id', 'comunidades.comunidad', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at',
+            'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
+            ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.id', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('solicitudesRecibidas');
 
     }
@@ -229,5 +231,12 @@ class SolicitudesRecibidas extends Model
             $query->where('solicitudes_recibidas.aceptada', $aceptada == 1 ? true : false);
         }
         return $query;
+    }
+
+    public function scopeSolicitudRecibidaEsActivo($query, $esActivo)
+    {
+        if (is_numeric($esActivo)) {
+            $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
     }
 }

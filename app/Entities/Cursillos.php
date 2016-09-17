@@ -18,12 +18,13 @@ class Cursillos extends Model
     static public function getCalendarCursillos(Request $request)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio',
-            'cursillos.fecha_final', 'comunidades.comunidad', 'comunidades.color')
+            'cursillos.fecha_final', 'comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->FiltroComunidadCursillosTipo($request->get('esPropia'))
-            ->AnyosCursillos($request->get('anyos'))
-            ->SemanasCursillos($request->get('semanas'))
+            ->FiltroNombreComunidad($request->get('comunidad'))
+            ->AnyosCursillos($request->get('anyo'))
+            ->SemanasCursillos($request->get('semana'))
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
@@ -37,30 +38,22 @@ class Cursillos extends Model
             ->Lists('cursillo', 'id');
     }
 
-
-    public static function getNumeroCursillosList()
+    static public function getCursillos(Request $request, $paginateNumber = 25)
     {
-        return ['0' => 'Cursillo...'] + Cursillos::Select('cursillos.id', 'cursillos.num_cursillo')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
-            ->orderBy('cursillos.num_cursillo', 'ASC')
-            ->Lists('cursillos.num_cursillo', 'cursillos.id');
-    }
-
-    static public function getCursillos(Request $request)
-    {
-        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'comunidades.color',
-            'cursillos.activo', 'comunidades.comunidad', 'comunidades.esPropia', 'cursillos.num_cursillo', 'cursillos.esRespuesta',
-            'cursillos.esSolicitud', 'tipos_participantes.tipo_participante')
+        return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'cursillos.activo', 'comunidades.comunidad', 'comunidades.esPropia', 'cursillos.num_cursillo',
+            'cursillos.esRespuesta', 'cursillos.esSolicitud', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->ComunidadCursillos($request->get('comunidad'))
             ->AnyosCursillos($request->get('anyos'))
             ->SemanasCursillos($request->get('semanas'))
             ->Cursillo($request->get('cursillo'))
+            ->CursilloEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
-            ->paginate(5)
+            ->paginate($paginateNumber)
             ->setPath('cursillos');
     }
 
@@ -134,7 +127,7 @@ class Cursillos extends Model
             'cursillos.esSolicitud')
             ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')
             ->ComunidadCursillos($comunidad)
-            ->FiltroComunidadCursillosTipo(0)
+            ->FiltroComunidadCursillosTipo(false)
             ->AnyosCursillos($anyo)
             ->FilterEsRespuestaAnterior($incluirRespuestasAnteriores)
             ->Where('cursillos.activo', true)
@@ -145,7 +138,8 @@ class Cursillos extends Model
     static public function getTodosMisCursillos($comunidad = 0, $anyo = 0, $esSolicitudAnterior = 0)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
-            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.color', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->ComunidadCursillos($comunidad)
@@ -158,17 +152,18 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $esRespuestaAnterior = 0)
+    static public function getTodosLosCursillosMenosLosMios($comunidad = 0, $anyo = 0, $esRespuestaAnterior = 0, $tipoComunicacion = 0)
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
-            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.color',
-            'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('comunidades.activo', true)
             ->ComunidadCursillosResto($comunidad)
             ->AnyosCursillos($anyo)
             ->FilterEsRespuestaAnterior($esRespuestaAnterior)
+            ->FiltroComunidadCursillosTipoComunicacion($tipoComunicacion)
             ->where('cursillos.activo', true)
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('cursillos.fecha_inicio', 'ASC')
@@ -180,8 +175,8 @@ class Cursillos extends Model
     static public function getTodosLosCursillosMenosLosMiosDobleComunidad($comunidadPropia = 0, $comunidadNoPropia = 0, $anyo = 0, $semana = 0)
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
-            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.color',
-            'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.colorFondo',
+            'comunidades.colorTexto', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('comunidades.activo', true)
@@ -238,7 +233,8 @@ class Cursillos extends Model
         //Obtenemos el cursillo
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'cursillos.fecha_final',
             'cursillos.descripcion', 'cursillos.activo', 'cursillos.num_cursillo', 'cursillos.esRespuesta', 'cursillos.esSolicitud',
-            'comunidades.comunidad', 'comunidades.color', 'tipos_participantes.tipo_participante')
+            'comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.esPropia',
+            'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('cursillos.id', $id)
@@ -266,7 +262,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getFechasInicioCursillos($anyo = 0, $cursillos = 0, $esMia = 0)
+    static public function getFechasInicioCursillos($anyo = 0, $cursillos = 0, $esMia = false)
     {
         return Cursillos::Select('cursillos.id', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana')
             , DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'))
@@ -289,25 +285,14 @@ class Cursillos extends Model
             ->first();
     }
 
-    static public function getCursilloParaIntendencia($id = null)
-    {
-        if (!is_numeric($id))
-            return null;
-        //Obtenemos el cursillo
-        return Cursillos::Select('cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
-            ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
-            ->where('cursillos.id', $id)
-            ->first();
-    }
-
-    /*static public function borrarTablaCursillos($anyo = 0)
+    static public function borrarTablaCursillos($anyo = 0)
     {
         DB::transaction(function ($anyo) {
 
             DB::table('cursillos')->delete()
                 ->where(DB::raw('DATE_FORMAT(_cursillos.fecha_final,"%Y")'), '=', $anyo);
         });
-    }*/
+    }
 
     public function comunidades()
     {
@@ -335,26 +320,37 @@ class Cursillos extends Model
         return $this->hasMany("Palencia\Entities\SolicitudesRecibidasCursillos");
     }
 
-    public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = 0)
+    public function scopeFilterEsSolicitudAnterior($query, $esSolicitudAnterior = false)
     {
-        if (is_numeric($esSolicitudAnterior) && $esSolicitudAnterior == 1) {
-            $query->where('cursillos.esSolicitud', !$esSolicitudAnterior);
+        $esSolicitudAnterior = filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN);
+        if (filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN) && !$esSolicitudAnterior) {
+            $query->where('cursillos.esSolicitud', $esSolicitudAnterior);
         }
         return $query;
     }
 
-    public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = 0)
+    public function scopeFilterEsRespuestaAnterior($query, $esRespuestaAnterior = false)
     {
-        if (is_numeric($esRespuestaAnterior) && $esRespuestaAnterior == 1) {
-            $query->where('cursillos.esRespuesta', !$esRespuestaAnterior);
+        $esRespuestaAnterior = filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN);
+        if (filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN) && !$esRespuestaAnterior) {
+            $query->where('cursillos.esRespuesta', $esRespuestaAnterior);
         }
         return $query;
     }
 
-    public function scopeFiltroComunidadCursillosTipo($query, $tipo = 0)
+    public function scopeFiltroComunidadCursillosTipo($query, $tipo = false)
     {
-        if (is_numeric($tipo)) {
+        $tipo = filter_var($tipo, FILTER_VALIDATE_BOOLEAN);
+        if ($tipo) {
             $query->where('comunidades.esPropia', $tipo);
+        }
+        return $query;
+    }
+
+    public function scopeFiltroComunidadCursillosTipoComunicacion($query, $tipo = 0)
+    {
+        if (is_numeric($tipo) && $tipo > 0) {
+            $query->where('comunidades.tipo_comunicacion_preferida_id', $tipo);
         }
         return $query;
     }
@@ -428,12 +424,16 @@ class Cursillos extends Model
             $query->where('cursillo', 'LIKE', "$cursillo" . '%');
     }
 
-    static public function borrarTablaCursillos($anyo = 0)
+    public function scopeCursilloEsActivo($query, $esActivo)
     {
-        DB::transaction(function($anyo) {
+        if (is_numeric($esActivo)) {
+            $query->where('cursillos.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
+    }
 
-            DB::table('cursillos')->delete()
-                ->where(DB::raw('DATE_FORMAT(_cursillos.fecha_final,"%Y")'), '=', $anyo);
-        });
+    public function scopeFiltroNombreComunidad($query, $comunidad = "")
+    {
+        if (trim($comunidad) != '')
+            $query->where('comunidades.comunidad', 'LIKE', "$comunidad" . '%');
     }
 }

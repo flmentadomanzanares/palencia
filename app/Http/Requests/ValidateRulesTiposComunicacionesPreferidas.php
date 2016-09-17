@@ -28,9 +28,9 @@ class ValidateRulesTiposComunicacionesPreferidas extends Request
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'comunicacion_preferida.required' => 'El tipo de comunicación preferida es obligatoria!',
-            'comunicacion_preferida.min' => 'Longitud mínima del tipo de comunicación preferida :min caracteres.',
-            'comunicacion_preferida.max' => 'Longitud máxima del tipo de comunicación preferida :max caracteres.'
+            'comunicacion_preferida.required' => 'El tipo de comunicaci&oacute;n preferida es obligatoria!',
+            'comunicacion_preferida.min' => 'Longitud m&iacute;nima del tipo de comunicaci&oacute;n preferida :min caracteres.',
+            'comunicacion_preferida.max' => 'Longitud m&aacute;xima del tipo de comunicaci&oacute;n preferida :max caracteres.'
         ];
     }
 

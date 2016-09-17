@@ -14,7 +14,6 @@ th {
 
 .table {
   width: 100%;
-  max-width: 100%;
   margin-bottom: $line-height-computed;
   font-size: $font-size-app-base-content;
   // Cells
@@ -24,7 +23,7 @@ th {
       > th,
       > td {
         padding: $table-cell-padding;
-        height: $tabla-invitados-alto-fila;
+        height: $tabla-alto-fila;
         vertical-align: middle;
         word-break: break-all;
       }
@@ -41,8 +40,8 @@ th {
         color: $app-color-white;
         background-color: $app-color-base;
         padding: $table-cell-padding;
-        height: $tabla-invitados-alto-fila;
-        line-height: $tabla-invitados-alto-fila - (2 * $table-cell-padding);
+        height: $tabla-alto-fila;
+        line-height: $tabla-alto-fila - (2 * $table-cell-padding);
         vertical-align: middle;
       }
     }

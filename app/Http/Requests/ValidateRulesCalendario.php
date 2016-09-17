@@ -32,18 +32,18 @@ class ValidateRulesComunidades extends Request
     public function messages()
     {
         return [//Asignamos un texto por cada regla sobre cada campo
-            'year.required' => 'El año es obligatorio!',
-            'year.integer' => 'El año debe ser un numero entero!',
-            'year.min' => 'El valor mínimo del año es :min',
-            'year.max' => 'El valor máximo del año es :max',
+            'year.required' => 'El a&ntilde;o es obligatorio!',
+            'year.integer' => 'El a&ntilde;o debe ser un numero entero!',
+            'year.min' => 'El valor m&iacute;nimo del a&ntilde;o es :min',
+            'year.max' => 'El valor m&aacute;ximo del a&ntilde;o es :max',
             'fecha_inicio.required' => 'La fecha de inicio es obligatoria!',
-            'fecha_inicio.date_format' => 'La fecha de inicio debe ser una fecha del tipo día/mes/año',
+            'fecha_inicio.date_format' => 'La fecha de inicio debe ser una fecha del tipo d&iacute;a/mes/a&ntilde;o',
             'fecha_final.required' => 'La fecha final es obligatoria!',
-            'fecha_final.date_format' => 'La fecha final debe ser una fecha del tipo día/mes/año',
+            'fecha_final.date_format' => 'La fecha final debe ser una fecha del tipo d&iacute;a/mes/a&ntilde;o',
             'semana_no.required' => 'El campo semana nº es obligatorio!',
             'semana_no.integer' => 'El campo semana nº debe ser un numero entero!',
-            'semana_no.min' => 'El valor mínimo del campo semana nº es :min',
-            'semana_no.max' => 'El valor máximo del campo semana nº es :max',
+            'semana_no.min' => 'El valor m&iacute;nimo del campo semana nº es :min',
+            'semana_no.max' => 'El valor m&aacute;ximo del campo semana nº es :max',
             'activo.required' => 'El campo tutor es obligatorio!',
             'activo.boolean' => 'El valor del campo tutor debe ser No o Si'
         ];
