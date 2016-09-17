@@ -79,7 +79,7 @@
                         </tbody>
                     </table>
                 @endforeach
-                {!! $localidades->appends(Request::only(['pais','localidad','esActivo']))->render()!!}
+                {!! $localidades->appends(Request::only(['pais','localidad','provincias','esActivo']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
@@ -94,4 +94,7 @@
     </div>
 @endsection
 @section('js')
+    @if (Auth::check())
+        {!! HTML::script("js/comun/direccion.js")!!}
+    @endif
 @endsection

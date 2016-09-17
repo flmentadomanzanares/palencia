@@ -29,7 +29,7 @@ class Localidades extends Model
         leftJoin('provincias', 'provincias.id', '=', 'localidades.provincia_id')->
         leftJoin('paises', 'paises.id', '=', 'provincias.pais_id')->
         pais($request->get('pais'))->
-        provincia($request->get('provincia'))->
+        provincia($request->get('provincias'))->
         localidad($request->get('localidad'))->
         LocalidadEsActivo($request->get('esActivo'))->
         orderBy('localidad', 'ASC')->

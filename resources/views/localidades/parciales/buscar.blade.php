@@ -1,9 +1,12 @@
-{!!FORM::model(Request::only(['pais','localidad','esActivo']),['route'=>'localidades.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['pais','provincias','localidad','esActivo']),['route'=>'localidades.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
     {!! FORM::select('pais',$paises ,null,array('id'=>'select_pais',"class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Todas...','1'=>'Activa','0'=>'No Activa'),
+    {!! FORM::select('provincias',$provincias ,null,array('id'=>'select_provincia',"class"=>"form-control", "data-placeholder"=>"Provincias...."))!!}
+</div>
+<div class="form-group">
+    {!! FORM::select('esActivo', array(''=>'Activa + No Activa','1'=>'Activa','0'=>'No Activa'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
