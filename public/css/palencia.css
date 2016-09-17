@@ -6691,8 +6691,8 @@ button.close {
 .hideShowSimpleModal {
     display: block;
     position: fixed;
-    bottom: 38px;
-    left: 10px;
+    bottom: 33px;
+    left: 5px;
     background-color: #dff0d8;
     border-radius: 50%;
     border: 1px solid #d6e9c6;
