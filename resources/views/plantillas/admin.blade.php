@@ -16,7 +16,6 @@
 </div>
 <div data-role="menu">
     @if (Auth::check())
-        <div class="hideShowSimpleModal"></div>
         <ul>
             <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span></a></li>
             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
@@ -89,6 +88,7 @@
                 </ul>
             </li>
         </ul>
+        <div class="hideShowSimpleModal"></div>
     @else
         @include ("comun.plantillaLogin")
         @include('comun.plantillaRegistrarse')
