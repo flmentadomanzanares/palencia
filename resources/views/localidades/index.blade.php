@@ -83,6 +83,7 @@
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <p><strong>¡Aviso!</strong> No se ha encontrado ninguna localidad que
                             listar.</p>
                     </div>
