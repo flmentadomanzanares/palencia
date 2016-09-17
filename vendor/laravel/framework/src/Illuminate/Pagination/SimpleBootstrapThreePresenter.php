@@ -38,7 +38,7 @@ class SimpleBootstrapThreePresenter extends BootstrapThreePresenter
                                 data-modal_en_la_derecha='false'
                                 data-modal_ancho='50'>
                                     <span title='Paginacion'>
-                                        <i class='glyphicon glyphicon-search text-center'>
+                                        <i class='glyphicon glyphicon-book text-center'>
                                             <div>Paginacion</div>
                                         </i>
                                     </span>

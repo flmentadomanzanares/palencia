@@ -57,7 +57,7 @@ class BootstrapThreePresenter implements PresenterContract
                                 data-modal_ancho='80'
                                 data-modal_sin_etiqueta='false'>
                                 <span title='Paginación'>
-                                    <i class='glyphicon glyphicon-search text-center'>
+                                    <i class='glyphicon glyphicon-book text-center'>
                                         <div>Paginaci&oacute;n</div>
                                     </i>
                                 </span>
