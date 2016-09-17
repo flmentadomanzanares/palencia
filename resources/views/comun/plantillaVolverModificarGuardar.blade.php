@@ -16,21 +16,23 @@
             </span>
         </div>
         <div class="cuerpoFormularioModal">
-            <div class="btn-action">
-                @if(isset($index))
-                    <a title="Volver" href="{{route($index)}}">
-                        <i class="glyphicon glyphicon-arrow-left">
-                            <div>Volver</div>
-                        </i>
-                    </a>
-                @endif
-                @if(isset($accion) && strlen($accion)>0)
-                    <button type="submit" title="{{$accion}}">
-                        <i class='glyphicon  @if(isset($icon) && strlen($icon)>0) {{$icon}} @else glyphicon-floppy-disk full-Width @endif'>
-                            <div>{!! $accion !!}</div>
-                        </i>
-                    </button>
-                @endif
+            <div class="scroll">
+                <div class="btn-action">
+                    @if(isset($index))
+                        <a title="Volver" href="{{route($index)}}">
+                            <i class="glyphicon glyphicon-arrow-left">
+                                <div>Volver</div>
+                            </i>
+                        </a>
+                    @endif
+                    @if(isset($accion) && strlen($accion)>0)
+                        <button type="submit" title="{{$accion}}">
+                            <i class='glyphicon  @if(isset($icon) && strlen($icon)>0) {{$icon}} @else glyphicon-floppy-disk full-Width @endif'>
+                                <div>{!! $accion !!}</div>
+                            </i>
+                        </button>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

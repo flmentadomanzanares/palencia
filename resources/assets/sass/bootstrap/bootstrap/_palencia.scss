@@ -74,6 +74,40 @@
   }
 }
 
+//Modal show/hide label
+.hideShowSimpleModal {
+  display: block;
+  position: fixed;
+  bottom: $button_show_modal_label_bottom;
+  left: 2 *$margin-app-base;
+  background-color: $state-success-bg;
+  border-radius: $border-circle;
+  border: 1px solid $state-success-border;
+  box-shadow: $app-default-box-shadow;
+  &:after {
+    font-family: $font-family-plyphicons-regular;
+    font-size: $button_show_modal_label_font_size;
+    display: block;
+    position: relative;
+    background-color: transparent;
+    color: $state-success-text;
+    width: $button_show_modal_label_width;
+    line-height: $button_show_modal_label_height;
+    vertical-align: middle;
+    text-align: center;
+    content: "\e106";
+    cursor: pointer;
+  }
+  &.labelHide {
+    background-color: $state-info-bg;
+    border-color: $state-info-border;
+    &:after {
+      color: $state-info-text;
+      content: "\e105";
+    }
+  }
+}
+
 //NavBar
 
 .navbar-default .navbar-nav > .open > a:focus,

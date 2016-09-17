@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     function createScroll(idx) {
         var offset = 40;
-        var cuerpoFormulario = modalObjects[idx];
+        var cuerpoFormulario = modalObjects[idx].modal.find(".cuerpoFormularioModal .scroll");
         var altoNavegador = window.innerHeight;
         cuerpoFormulario.css("height", "auto");
         var altoCuerpoVentanaModal = cuerpoFormulario.offset().top + cuerpoFormulario.outerHeight();
@@ -71,12 +71,8 @@ $(document).ready(function () {
             var cancelText = selectorPulsado.selector.data("cancelText") || "CANCELAR";
             var pieFormularioModal = selectorPulsado.selector.data("pie") || "false";
             var confirm = selectorPulsado.selector.data("type") || "confirm";
-            var etiquetaWidth = selectorPulsado.selector.css('width');
-            var modalWidth = selectorPulsado.modal.css('width');
-
 
             //Aplicamos estilos
-
             selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + (opciones.modal_posicion_vertical.toString().indexOf("%") != -1 ? '' : 'px'));
             selectorPulsado.modal.css('z-index', selectorPulsado.opciones.modal_plano_z);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
@@ -133,9 +129,9 @@ $(document).ready(function () {
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.ventanaModal .pieFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
             if (cabecera.length == 0) {
-                var cuerpoFormularioConScroll = this.modal.find(".cuerpoFormularioModal .scroll");
+                var cuerpoFormularioConScroll = selectorPulsado.modal.find(".cuerpoFormularioModal .scroll");
                 if (cuerpoFormularioConScroll.length > 0) {
-                    modalObjects.push(cuerpoFormularioConScroll);
+                    modalObjects.push(selectorPulsado);
                     createScroll(modalObjects.length - 1);
                 }
             }
@@ -170,6 +166,23 @@ $(document).ready(function () {
             var ventana = this;
             var animacion = ventana.modal.find(".ventanaModal");
             animacion.animate({"margin-left": "0"},
+                ventana.opciones.modal_velocidad_scroll, function () {
+                    ventana.modal.find(".modalBackGround").fadeOut(ventana.opciones.modal_velocidad_fade, function () {
+                        ventana.modal.find('.closeModal').addClass('lanzarModal');
+                        ventana.modal.find('.closeModal').removeClass('closeModal');
+                    });
+                }
+            );
+        },
+        labelHide: function (isHide) {
+            var isHide = typeof isHide !== 'undefined' ? isHide : true;
+            var ventana = this;
+            var animacion = ventana.modal.find(".ventanaModal");
+            //Obtenemos el cálculo de pixels a razón del sentido y ancho de la etiqueta;
+            var side = (ventana.opciones.modal_en_la_derecha === false)
+                ? {"margin-left": (isHide ? '-' + ventana.opciones.etiqueta_ancho + "px" : '0')}
+                : {"margin-left": (isHide ? ventana.opciones.etiqueta_ancho + "px" : '0')};
+            animacion.animate(side,
                 ventana.opciones.modal_velocidad_scroll, function () {
                     ventana.modal.find(".modalBackGround").fadeOut(ventana.opciones.modal_velocidad_fade, function () {
                         ventana.modal.find('.closeModal').addClass('lanzarModal');
@@ -242,11 +255,31 @@ $(document).ready(function () {
             opciones;
         $(modal).data('simpleModal', (data = new SimpleModal(elem, defaults_options_simple_modal)));
     });
+//Ocultamos/Mostramos las etiquetas de los modales
+    $(document).on("click", ".hideShowSimpleModal", function () {
+        var target = $(this);
+        //Obtenemos todas las modales de la vista
+        modalObjects.forEach(function (modal) {
+            //Aplicamos sólo a los que tienen etiquetas
+            if (modal.opciones.modal_sin_etiqueta === false) {
+                if (modal.selector.hasClass("off")) {
+                    target.removeClass("labelHide");
+                    modal.selector.removeClass("off");
+                    modal.labelHide(false);
+                } else {
+                    modal.selector.addClass("off");
+                    target.addClass("labelHide");
+                    modal.labelHide(true);
+                }
+            }
+        });
+    });
+
 
     $.fn.simplemodal.defaults = defaults_options_simple_modal;
 });
 
-
+//Notificaciones de errores y acciones
 $(document).ready(function () {
     $(document).on("click", ".closeErrorModal", function (evt) {
         evt.preventDefault();

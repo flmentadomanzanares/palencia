@@ -14,6 +14,7 @@
 <div class="row img-header">
     <div></div>
 </div>
+<div class="hideShowSimpleModal"></div>
 <div data-role="menu">
     @if (Auth::check())
         <ul>

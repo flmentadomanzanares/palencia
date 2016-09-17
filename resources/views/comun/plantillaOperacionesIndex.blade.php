@@ -16,19 +16,21 @@
             </span>
         </div>
         <div class="cuerpoFormularioModal">
-            <div class="panel-search">
-                @if(isset($accion))
-                    <a title="{{$accion}}" href="{{route($tabla.'.create')}}">
-                        <i class="glyphicon glyphicon-plus">
-                            <div>{{$accion}}</div>
+            <div class="scroll">
+                <div class="panel-search">
+                    @if(isset($accion))
+                        <a title="{{$accion}}" href="{{route($tabla.'.create')}}">
+                            <i class="glyphicon glyphicon-plus">
+                                <div>{{$accion}}</div>
+                            </i>
+                        </a>
+                    @endif
+                    <a title="Listar" href="{{route($tabla.'.index')}}">
+                        <i class="glyphicon glyphicon-list">
+                            <div>Listar</div>
                         </i>
                     </a>
-                @endif
-                <a title="Listar" href="{{route($tabla.'.index')}}">
-                    <i class="glyphicon glyphicon-list">
-                        <div>Listar</div>
-                    </i>
-                </a>
+                </div>
             </div>
         </div>
     </div>
