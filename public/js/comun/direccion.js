@@ -19,7 +19,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/palencia/public/cambiarProvincias',
+                url: '/cambiarProvincias',
                 success: function (data) {
                     var placeHolderProvincia = $('#select_provincia[data-placeholder]');
                     $('#select_provincia').empty();
