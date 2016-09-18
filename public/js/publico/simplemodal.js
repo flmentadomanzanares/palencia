@@ -9,9 +9,9 @@ $(document).ready(function () {
         var cuerpoFormulario = modalObjects[idx].modal.find(".cuerpoFormularioModal .scroll");
         var altoNavegador = window.innerHeight;
         cuerpoFormulario.css("height", "auto");
-        var altoCuerpoVentanaModal = cuerpoFormulario.offset().top + cuerpoFormulario.outerHeight();
-        if (altoCuerpoVentanaModal > altoNavegador - offset) {
-            var nuevaAlturaCuerpoVentanaModal = +cuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador) - offset;
+        var altoCuerpoVentanaModal = (cuerpoFormulario.offset().top + cuerpoFormulario.outerHeight()) - window.scrollY;
+        if (altoCuerpoVentanaModal > (altoNavegador - offset)) {
+            var nuevaAlturaCuerpoVentanaModal = cuerpoFormulario.outerHeight() - ( altoCuerpoVentanaModal - (altoNavegador - offset));
             cuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
         }
     }
