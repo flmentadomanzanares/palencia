@@ -16,7 +16,7 @@ class CreateTiposSecretariadosTable extends Migration
         Schema::create('tipos_secretariados', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('tipo_secretariado', 50);
+            $table->string('tipo_secretariado', 50)->unique();
 
             $table->boolean('activo')->default(true);
 

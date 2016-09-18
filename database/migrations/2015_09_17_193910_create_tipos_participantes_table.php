@@ -16,7 +16,7 @@ class CreateTiposParticipantesTable extends Migration
         Schema::create('tipos_participantes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('tipo_participante', 50);
+            $table->string('tipo_participante', 50)->unique();
 
             $table->boolean('activo')->default(true);
 
