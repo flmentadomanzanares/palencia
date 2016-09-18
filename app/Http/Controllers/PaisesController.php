@@ -103,6 +103,10 @@ class PaisesController extends Controller
             $pais->save();
         } catch (\Exception $e) {
             switch ($e->getCode()) {
+                case 23000:
+                    return redirect()->route("paises.index")
+                        ->with("mensaje", $pais->pais . " no se ha podido modificar.");
+                    break;
                 default:
                     return redirect()->route("paises.index")
                         ->with("mensaje", "Modificar pa&iacute;s error " . $e->getCode());
