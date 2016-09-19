@@ -88,7 +88,7 @@
                 </ul>
             </li>
         </ul>
-        <div class="hideShowSimpleModal"></div>
+        <div class="hideShowSimpleModal hidden-md hidden-lg"></div>
     @else
         @include ("comun.plantillaLogin")
         @include('comun.plantillaRegistrarse')
