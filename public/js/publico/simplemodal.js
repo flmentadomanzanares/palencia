@@ -11,8 +11,8 @@ $(document).ready(function () {
         cuerpoFormulario.css("height", "auto");
         var altoCuerpoVentanaModal = cuerpoFormulario.offset().top + cuerpoFormulario.outerHeight();
         if (altoCuerpoVentanaModal > altoNavegador - offset) {
-            var nuevaAlturaCuerpoVentanaModal = +cuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador) - offset;
-            cuerpoFormulario.css("height", nuevaAlturaCuerpoVentanaModal + 'px');
+            var nuevaAlturaCuerpoVentanaModal = altoCuerpoVentanaModal - altoNavegador;
+            cuerpoFormulario.css("height", cuerpoFormulario.outerHeight() - (altoCuerpoVentanaModal - altoNavegador - offset) + 'px');
         }
     }
 

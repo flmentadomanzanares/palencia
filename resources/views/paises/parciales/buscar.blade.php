@@ -1,7 +1,7 @@
 {{-- Formulario de busqueda --}}
 {!!FORM::model(Request::only(['pais','esActivo']),['route'=>'paises.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activo','0'=>'No Activo'),
+    {!! FORM::select('esActivo', array(''=>'Activos + No Activos','1'=>'Activos','0'=>'No Activos'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

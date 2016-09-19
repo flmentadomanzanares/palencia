@@ -44,7 +44,7 @@ return ['campoUser' => [
         'email' => 'email',
     ],
     "emailTestSender" => [
-        "active" => false,
+        "active" => true,
         "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 

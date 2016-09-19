@@ -4,7 +4,7 @@
     {!! FORM::text('rol',null,['class'=>'form-control','placeholder'=>'Buscar....'])!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array(''=>'Todos...','1'=>'Activo','0'=>'No Activo'),
+    {!! FORM::select('esActivo', array(''=>'Activos + No Activos','1'=>'Activos','0'=>'No Activos'),
     null,array("class"=>"form-control"))!!}
 </div>
 <br/>
