@@ -15,7 +15,7 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('rol', 50);
+            $table->string('rol', 50)->unique();
             $table->integer('peso');
             $table->boolean('activo')->default(true);
             $table->timestamp('created_at')->default(date("Y-m-d H:i:s"));

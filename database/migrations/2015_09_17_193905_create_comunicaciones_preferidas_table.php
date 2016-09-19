@@ -16,7 +16,7 @@ class CreateComunicacionesPreferidasTable extends Migration
         Schema::create('tipos_comunicaciones_preferidas', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('comunicacion_preferida', 50);
+            $table->string('comunicacion_preferida', 50)->unique();
 
             $table->boolean('activo')->default(true);
 
