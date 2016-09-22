@@ -104,7 +104,7 @@ class TiposParticipantesController extends Controller
                 default:
                     return redirect()
                         ->route('tiposParticipantes.index')
-                        ->with('mensaje', 'Modificar tipo participante error ' . $e->getMessage());
+                        ->with('mensaje', 'Modificar tipo participante error ' . $e->getCode());
             }
         }
         return redirect()->route('tiposParticipantes.index')
