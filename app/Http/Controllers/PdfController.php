@@ -370,7 +370,8 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados No Colaboradores Activos";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesFromPaisIdToList();
+       // $paises = Paises::getPaisesFromPaisIdToList();
+        $paises = Paises::getPaisesNoColaboradores();
 
 
         return view("pdf.listarNoColaboradores", compact('comunidades', 'paises', 'titulo'));
@@ -393,8 +394,8 @@ class PdfController extends Controller
         $pais = Paises::getNombrePais((int)$idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 13;
-        $listadoTotal = 20;
+        $listadoPosicionInicial = 16;
+        $listadoTotal = 19;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
@@ -439,7 +440,7 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados No Colaboradores Inactivos";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesFromPaisIdToList();
+        $paises = Paises::getPaisesNoColaboradoresSecretariadosInactivos();
 
 
         return view("pdf.listarNoColaboradoresInactivos", compact('comunidades', 'paises', 'titulo'));
@@ -462,8 +463,8 @@ class PdfController extends Controller
         $pais = Paises::getNombrePais((int)$idPais);
 
         //Configuración del listado html
-        $listadoPosicionInicial = 13;
-        $listadoTotal = 20;
+        $listadoPosicionInicial = 16;
+        $listadoTotal = 19;
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
