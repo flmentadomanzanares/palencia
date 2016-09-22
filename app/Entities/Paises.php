@@ -58,6 +58,17 @@ class Paises extends Model
             ->Lists('pais', 'id');
     }
 
+    public static function getPaisesColaboradoresSecretariadosInactivos()
+    {
+        return ['0' => 'País...'] + Paises::Select('paises.id', 'pais')
+            ->leftJoin('comunidades', 'comunidades.pais_id', '=', 'paises.id')
+            ->where('paises.activo', true)
+            ->where('comunidades.activo', false)
+            ->where('comunidades.esColaborador', true)
+            ->orderBy('pais', 'ASC')
+            ->Lists('pais', 'id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

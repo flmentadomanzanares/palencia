@@ -301,7 +301,7 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados Colaboradores Inactivos por Pa&iacute;s";
         $comunidades = new Comunidades();
-        $paises = Paises::getPaisesColaboradores();
+        $paises = Paises::getPaisesColaboradoresSecretariadosInactivos();
 
 
         return view("pdf.listarSecretariadosPaisInactivos", compact('comunidades', 'paises', 'titulo'));
