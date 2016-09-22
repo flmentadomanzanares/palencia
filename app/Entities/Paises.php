@@ -52,6 +52,7 @@ class Paises extends Model
         return ['0' => 'País...'] + Paises::Select('paises.id', 'pais')
             ->leftJoin('comunidades', 'comunidades.pais_id', '=', 'paises.id')
             ->where('paises.activo', true)
+            ->where('comunidades.activo', true)
             ->where('comunidades.esColaborador', true)
             ->orderBy('pais', 'ASC')
             ->Lists('pais', 'id');
