@@ -4,7 +4,8 @@
         <br/>--}}
         {{-- <span>Direcci&oacute;n para sus solicitudes:<span class="email"> {{$remitente->email_solicitud}}</span></span>
         <br/> --}}
-        <span>Direcci&oacute;n para sus env&iacute;os:<span class="email"> {{$remitente->email_envio}}</span></span>
+        <span>Por favor utilice nuestro correo electr&oacute;nico:<span class="email"> {{$remitente->email_envio}}</span></span>
+        {{--<span>Direcci&oacute;n para sus env&iacute;os:<span class="email"> {{$remitente->email_envio}}</span></span>--}}
         {{--<br/>
         <span>Direcci&oacute;n para pedir por carta: {{$remitente->direccion_postal}}  {{$remitente->localidad}}
             -{{$remitente->pais}}</span>--}}
