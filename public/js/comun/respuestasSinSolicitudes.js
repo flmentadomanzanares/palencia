@@ -11,10 +11,11 @@ $(document).ready(function () {
             url: 'totalAnyos',
             success: function (data) {
                 var anyos = $('#select_anyos');
-                anyos.empty();
+                var options = "";
                 $.each(data, function (key, element) {
-                    anyos.append("<option value='" + element + "'>" + element + "</option>");
+                    options += "<option " + (anyos.val() == key ? 'selected ' : '' ) + "value='" + element + "'>" + element + "</option>";
                 });
+                anyos.html(options);
             },
             error: function () {
             }
