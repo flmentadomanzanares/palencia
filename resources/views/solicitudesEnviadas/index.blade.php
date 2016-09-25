@@ -39,15 +39,37 @@
                                         </button>
                                     @endif
                                     {!! FORM::close() !!}
-                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                    {{--{!! FORM::open(array('route' => array('solicitudesEnviadas.destroy',
+                                    @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador') && $solicitudEnviada->esManual == true) {{--Administrador --}}
+                                    {!! FORM::open(array('route' => array('solicitudesEnviadas.destroy',
                                     $solicitudEnviada->id),'method' => 'DELETE','title'=>'Borrar')) !!}
-                                    <button type="submit">
+                                    <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
+                                            @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                            class="pull-right simpleModal"
+                                            data-modal_centro_pantalla="true"
+                                            data-modal_en_la_derecha="false"
+                                            data-modal_sin_etiqueta="true"
+                                            data-modal_ancho="330"
+                                            data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
+                                            data-modal_cabecera_color_texto='#ffffff'
+                                            data-modal_cuerpo_color_fondo='rgba(255,255,255,1)'
+                                            data-modal_cuerpo_color_texto='"#ffffff'
+                                            data-modal_pie_color_fondo='#400090'
+                                            data-modal_pie_color_texto='"#ffffff'
+                                            data-modal_posicion_vertical="220"
+                                            data-titulo="BORRAR"
+                                            data-pie="true"
+                                            data-descripcion="¿Seguro que deseas eliminar esta respuesta?
+                                                        <h3><strong class='green'>{!! $solicitudEnviada->comunidad !!}</strong></h3>
+                                                        <h4>Fecha : {!! Date("d/m/Y - H:i:s" , strtotime($solicitudEnviada->created_at) )!!}</h4>"
+                                            @endif >
                                         <i class='glyphicon glyphicon-trash full-Width'>
                                             <div>Borrar</div>
                                         </i>
                                     </button>
-                                    {!! FORM::close() !!}--}}
+                                    @if(config('opciones.accion.mostrarModalDeBorrado'))
+                                        @include ("comun.plantillaBorrado")
+                                    @endif
+                                    {!! FORM::close() !!}
                                     @endif
                                 </th>
                             </tr>

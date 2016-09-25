@@ -342,6 +342,7 @@ class NuestrasRespuestasController extends Controller
         //Asignamos valores traidos del formulario.
         $solicitudEnviada->comunidad_id = $comunidadDestino;
         $solicitudEnviada->aceptada = true;
+        $solicitudEnviada->esManual = true;
         $solicitudEnviada->activo = true;
         try {
             DB::transaction(function () use ($cursos, $solicitudEnviada, $comunidadRemitente) {

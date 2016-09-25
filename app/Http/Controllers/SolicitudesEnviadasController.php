@@ -1,6 +1,7 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
@@ -167,7 +168,11 @@ class SolicitudesEnviadasController extends Controller
             return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
         try {
-            $solicitudEnviada->delete();
+            DB::transaction(function () use ($solicitudEnviada, $id) {
+                SolicitudesEnviadasCursillos::where('solicitud_id', '=', $id)->delete();
+                $solicitudEnviada->delete();
+            });
+            return redirect()->route('solicitudesEnviadas.index')->with('mensaje', 'La respuesta y sus cursos asociados han sido eliminados.');
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:

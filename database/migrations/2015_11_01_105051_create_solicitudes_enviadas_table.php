@@ -21,6 +21,8 @@ class CreateSolicitudesEnviadasTable extends Migration
 
             $table->boolean('aceptada')->default(false);
 
+            $table->boolean('esManual')->default(false);
+
             $table->boolean('activo')->default(true);
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
