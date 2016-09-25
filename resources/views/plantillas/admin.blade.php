@@ -19,20 +19,40 @@
         <ul>
             <li><a href="{{ url('inicio') }}"><span class="glyphicon glyphicon-home"></span></a></li>
             @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
+                @if (config("opciones.listados.mostrarListados"))
                 <li>
                     <span class="p-h-10">Listados<span class="caret"></span></span>
                     <ul>
-                        <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
-                        <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
-                        <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
-                        <li>{!!link_to('secretariadosPais', 'Secretariados activos por pa&iacute;s')!!}</li>
-                        <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pa&iacute;s')!!}</li>
-                        <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
-                        <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
-                        <li>{!!link_to('imprimirPaisesActivos', 'Pa&iacute;ses activos')!!}</li>
-                        <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
+                        @if (config("opciones.listados.cursillosPaises"))
+                            <li>{!!link_to('cursillosPaises', 'Cursillos en el mundo')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.intendenciaClausura"))
+                            <li>{!!link_to('intendenciaClausura', 'Intendencia para clausura')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.secretariado"))
+                            <li>{!!link_to('secretariado', 'Secretariado')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.secretariadosPais"))
+                            <li>{!!link_to('secretariadosPais', 'Secretariados activos por pa&iacute;s')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.secretariadosPaisInactivos"))
+                            <li>{!!link_to('secretariadosPaisInactivos', 'Secretariados inactivos por pa&iacute;s')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.noColaboradores"))
+                            <li>{!!link_to('noColaboradores', 'Secretariados activos no colaboradores')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.noColaboradoresInactivos"))
+                            <li>{!!link_to('noColaboradoresInactivos', 'Secretariados inactivos no colaboradores')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.imprimirPaisesActivos"))
+                            <li>{!!link_to('imprimirPaisesActivos', 'Pa&iacute;ses activos')!!}</li>
+                        @endif
+                        @if (config("opciones.listados.secretariadosColaboradoresSinResponder"))
+                            <li>{!!link_to('secretariadosColaboradoresSinResponder', 'Secretariados colaboradores sin responder')!!}</li>
+                        @endif
                     </ul>
                 </li>
+                @endif
                 <li><span class="p-h-10">Administrador<span class="caret"></span></span>
                     <ul>
                         <li>{!!link_to('paises', 'Pa&iacute;ses')!!}</li>
