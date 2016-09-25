@@ -76,8 +76,8 @@
                             <tr>
                                 <th colspan="2" class="cabecera">
                                     <div class="ellipsis text-center @if(!$solicitudEnviada->activo) foreground-disabled @endif"
-                                         @if($solicitudEnviada->activo==1) style="background-color:
-                                         {{$solicitudEnviada->colorFondo}} !important; color:{{$solicitudEnviada->colorTexto}} !important; @endif ">
+                                         @if($solicitudEnviada->activo==1) style="background-color:{{$solicitudEnviada->colorFondo}} !important;
+                                                 color:{{$solicitudEnviada->colorTexto}} !important; @endif ">
                                         {!! $solicitudEnviada->comunidad !!}
                                     </div>
                                 </th>
