@@ -71,6 +71,7 @@ $(document).ready(function () {
                 totalAnyos(comunidadPropiaId);
             },
             error: function () {
+                totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val());
             }
         });
     };
@@ -99,5 +100,6 @@ $(document).ready(function () {
             $("form[name='formularioRespuestasSinSolicitudes'] .contenedor").find("[data-id='" + id + "']").remove();
         }
     });
+
     totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val());
 });

@@ -1,9 +1,12 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
+use Palencia\Entities\SolicitudesEnviadas;
+use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\TiposComunicacionesPreferidas;
 
@@ -328,18 +331,32 @@ class NuestrasRespuestasController extends Controller
     public function enviarRespuestasSinSolicitudes(Request $request)
     {
         $comunidadDestino = $request->get('restoComunidades');
+        $comunidadRemitente = $request->get('nuestrasComunidades');
         $cursos = $request->get('cursos');
         if (count($cursos) == 0) {
             return redirect()->route("respuestasSinSolicitudes")
                 ->with("mensaje", "No hay cursos seleccionados.");
         }
-        dd($request);
         //Creamos una nueva instancia al modelo.
         $solicitudEnviada = new SolicitudesEnviadas();
         //Asignamos valores traidos del formulario.
-        $solicitudEnviada->comunidad_id = $request->get('nuestrasComunidades');
+        $solicitudEnviada->comunidad_id = $comunidadDestino;
         $solicitudEnviada->aceptada = true;
-        $solicitudEnviada->activo = true;;
-
+        $solicitudEnviada->activo = true;
+        try {
+            DB::transaction(function () use ($cursos, $solicitudEnviada, $comunidadRemitente) {
+                $solicitudEnviada->save();
+                foreach ($cursos as $curso) {
+                    $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso, 'comunidad_id' => $comunidadRemitente]);
+                }
+                $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
+            });
+            return redirect()->action("SolicitudesEnviadasController@index", ['comunidades' => $comunidadDestino])
+                ->with("mensaje", "Se ha creado la respuesta con sus cursos asociados.");
+        } catch (\Exception $e) {
+            return redirect('respuestasSinSolicitudes')->
+            with('mensaje', 'No se ha podido crear la respuesta');
+        }
     }
 }
+
