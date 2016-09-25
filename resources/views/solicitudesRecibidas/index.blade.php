@@ -44,8 +44,8 @@
                             <tr>
                                 <th colspan="2" class="cabecera">
                                     <div class="ellipsis text-center @if(!$solicitudRecibida->activo) foreground-disabled @endif"
-                                         @if($solicitudRecibida->activo==1) style="background-color:
-                                         {{$solicitudRecibida->colorFondo}} !important; color:{{$solicitudRecibida->colorTexto}} !important; @endif ">
+                                         @if($solicitudRecibida->activo==1) style="background-color:{{$solicitudRecibida->colorFondo}} !important;
+                                                 color:{{$solicitudRecibida->colorTexto}} !important; @endif ">
                                         {!! $solicitudRecibida->comunidad !!}
                                     </div>
                                 </th>
