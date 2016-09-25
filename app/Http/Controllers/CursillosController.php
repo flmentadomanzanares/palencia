@@ -19,7 +19,7 @@ class CursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Cursillos";
-        $comunidades = Comunidades::getComunidadesList(0, true, "Comunidad...", true);
+        $comunidades = Comunidades::getComunidadesList(false, true, "Comunidad...", true);
         $cursillos = Cursillos::getCursillos($request, config("opciones.paginacion"));
         $anyos = Cursillos::getAnyoCursillosList();
         $semanas = Array();
@@ -276,7 +276,7 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $esSolicitudAnterior = $request->get('esSolicitudAnterior');
+            $esSolicitudAnterior = $request->get('esSolicitudAnterior') ? $request->get('esSolicitudAnterior') : true;
             return Cursillos::getTodosMisCursillos($comunidad, $anyo, filter_var($esSolicitudAnterior, FILTER_VALIDATE_BOOLEAN));
         }
     }

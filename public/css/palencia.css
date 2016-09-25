@@ -7006,6 +7006,15 @@ body {
     border: 1px solid #400090
 }
 
+input[type="radio"].lg, input[type="checkbox"].lg {
+    width: 20px;
+    height: 20px
+}
+
+.fixed-checkBoxLgContainer {
+    width: 40px
+}
+
 .panel-search {
     background-color: transparent;
     border: none;

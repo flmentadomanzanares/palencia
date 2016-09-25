@@ -309,4 +309,37 @@ class NuestrasRespuestasController extends Controller
         return view('nuestrasRespuestas.listadoLog',
             compact('titulo', 'logEnvios'));
     }
+
+    public function respuestasSinSolicitudes(Request $request)
+    {
+        $titulo = "Respuesta sin Solicitud";
+        $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
+        $restoComunidades = Comunidades::getComunidadesList(false, false);
+        $anyos = array(0 => "Año...");
+        $cursillos = array();
+        return view("respuestasSinSolicitudes.index", compact(
+            'titulo',
+            'nuestrasComunidades',
+            'restoComunidades',
+            'anyos',
+            'cursillos'));
+    }
+
+    public function enviarRespuestasSinSolicitudes(Request $request)
+    {
+        $comunidadDestino = $request->get('restoComunidades');
+        $cursos = $request->get('cursos');
+        if (count($cursos) == 0) {
+            return redirect()->route("respuestasSinSolicitudes")
+                ->with("mensaje", "No hay cursos seleccionados.");
+        }
+        dd($request);
+        //Creamos una nueva instancia al modelo.
+        $solicitudEnviada = new SolicitudesEnviadas();
+        //Asignamos valores traidos del formulario.
+        $solicitudEnviada->comunidad_id = $request->get('nuestrasComunidades');
+        $solicitudEnviada->aceptada = true;
+        $solicitudEnviada->activo = true;;
+
+    }
 }

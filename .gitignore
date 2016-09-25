@@ -1,5 +1,6 @@
 .env
 /storage
+/vendor
 /vendor/phpspec
 /vendor/ircmaxell
 /vendor/nikic

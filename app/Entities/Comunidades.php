@@ -148,7 +148,7 @@ class Comunidades extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    public static function getComunidadesList($propia = 0, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
+    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
     {
         $placeHolder = ['0' => $placeHolder];
         if (!$excluirSinCursillos) {
