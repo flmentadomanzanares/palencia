@@ -183,7 +183,6 @@ class SolicitudesEnviadasController extends Controller
 
     public function getCursillosSolicitudEnviada(Request $request)
     {
-
         $titulo = "Listado de Cursillos";
         $comunidadId = $request->comunidad_id;
         $solicitudId = $request->solicitud_id;
