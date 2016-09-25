@@ -13,8 +13,7 @@ return ['campoUser' => [
     'nactivo' => 'No Activo',
     'confirmado' => 'Confirmado',
     'nconfirmado' => 'No Confirmado',
-],
-    'paginacion' => '500',
+], 'paginacion' => 400,
     'roles' => [
         'administrador' => '400',
     ],
@@ -34,6 +33,19 @@ return ['campoUser' => [
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
 
     ],
+    'listados' => [
+        'mostrarListados' => true,
+        'cursillosPaises' => true,
+        'intendenciaClausura' => true,
+        'secretariado' => true,
+        'secretariadosPais' => true,
+        'secretariadosPaisInactivos' => true,
+        'noColaboradores' => true,
+        'noColaboradoresInactivos' => true,
+        'imprimirPaisesActivos' => true,
+        'secretariadosColaboradoresSinResponder' => true,
+
+    ],
     'envios' => [
         'timeout' => 30,
         'seMaxtTimeAt' => 30,
@@ -44,7 +56,7 @@ return ['campoUser' => [
         'email' => 'email',
     ],
     "emailTestSender" => [
-        "active" => true,
+        "active" => false,
         "email" => 'franciscomentadomanzanares@gmail.com',
     ],
 
