@@ -19,7 +19,7 @@
                                 <th class="tabla-ancho-columna-texto"></th>
                                 <th></th>
                             </tr>
-                            <tr style="background-color:{{$comunidad->colorFondo}} ; color :{{$comunidad->colorTexto}}">
+                            <tr style="background-color:{{$solicitudEnviadaCursillos->colorFondo}} ; color :{{$solicitudEnviadaCursillos->colorTexto}}">
                                 <th colspan="2" class="ellipsis">
                                     {!! $solicitudEnviadaCursillos->cursillo !!}
                                 </th>
