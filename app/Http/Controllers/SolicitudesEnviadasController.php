@@ -170,9 +170,11 @@ class SolicitudesEnviadasController extends Controller
         try {
             DB::transaction(function () use ($solicitudEnviada, $id) {
                 SolicitudesEnviadasCursillos::where('solicitud_id', '=', $id)->delete();
-                $solicitudEnviada->delete();
+                SolicitudesEnviadas::where('id', '=', $id)->delete();
             });
-            return redirect()->route('solicitudesEnviadas.index')->with('mensaje', 'La respuesta y sus cursos asociados han sido eliminados.');
+
+            return redirect()->action("SolicitudesEnviadasController@index", ['comunidades' => $solicitudEnviada->comunidad_id])
+                ->with('mensaje', 'La respuesta y sus cursos asociados han sido eliminados.');
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:

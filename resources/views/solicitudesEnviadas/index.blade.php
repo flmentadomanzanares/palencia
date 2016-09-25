@@ -92,10 +92,6 @@
                                 <td>Aceptada:</td>
                                 <td> @if ($solicitudEnviada->aceptada ) Si @else No @endif </td>
                             </tr>
-                            <tr>
-                                <td>Activo:</td>
-                                <td> @if ($solicitudEnviada->activo ) Si @else No @endif </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

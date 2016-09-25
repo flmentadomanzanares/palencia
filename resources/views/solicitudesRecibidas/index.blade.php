@@ -60,11 +60,6 @@
                                 <td>Respondida:</td>
                                 <td> @if ($solicitudRecibida->aceptada ) Si @else No @endif </td>
                             </tr>
-                            <tr>
-                                <td>Activo:</td>
-                                <td> @if ($solicitudRecibida->activo ) Si @else No @endif </td>
-                            </tr>
-
                             </tbody>
                         </table>
                     </div>
