@@ -44,6 +44,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::resource('solicitudesEnviadas', 'SolicitudesEnviadasController');
     Route::resource('solicitudesRecibidas', 'SolicitudesRecibidasController');
     Route::get('nuestrasRespuestas', array('as' => 'nuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@index'));
+    Route::get('respuestasSinSolicitudes', array('as' => 'respuestasSinSolicitudes', 'uses' => 'NuestrasRespuestasController@respuestasSinSolicitudes'));
     Route::get('nuestrasSolicitudes', array('as' => 'nuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@index'));
 //Copia de seguridad
     if (config("opciones.accion.copiaSeguridad")) {
@@ -59,7 +60,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
     Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
     Route::post('comprobarNuestrasRespuestas', array('as' => 'comprobarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@comprobarRespuestas'));
     Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviar'));
-
+    Route::post('enviarRespuestasSinSolicitudes', array('as' => 'enviarRespuestasSinSolicitudes', 'uses' => 'NuestrasRespuestasController@enviarRespuestasSinSolicitudes'));
 
     //Cambio de Provincias y localidades vía ajax.
     Route::post('cambiarProvincias', array('as' => 'cambiarProvincias', 'uses' => 'ProvinciasController@cambiarProvincias'));
@@ -91,7 +92,6 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
 
     //Obtener relación de cursos excepto los míos vía Ajax (ModoTabla)
     Route::post('listadoCursillosRespuestas', array('as' => 'listadoCursillosRespuestas', 'uses' => 'CursillosController@listadoCursillosRespuestas'));
-
 
     //Obtener relación de cursos vía Ajax (ModoSelect)
     Route::post('cursillosTotales', array('as' => 'ponerCursillosTotales', 'uses' => 'CursillosController@cursillosTotales'));
