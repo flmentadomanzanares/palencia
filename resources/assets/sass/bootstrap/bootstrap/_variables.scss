@@ -980,4 +980,7 @@ $index-imagen-user-margin-left: $index-imagen-user-size + $margin-app-base;
 $button_show_modal_label_width: 36px !default;
 $button_show_modal_label_height: $button_show_modal_label_width !default;
 $button_show_modal_label_font_size: 1.4em !default;
-$button_show_modal_label_bottom: $footer-height + $margin-app-small;
+$button_show_modal_label_bottom: $footer-height + $margin-app-small !default;
+
+//Checkbox
+$checkBoxLgSize: 20px !default;

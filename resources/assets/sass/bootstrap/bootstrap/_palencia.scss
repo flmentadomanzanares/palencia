@@ -379,6 +379,19 @@ body {
   }
 }
 
+//CHECKBOX AND RADIO BUTTON
+input[type="radio"],
+input[type="checkbox"] {
+  &.lg {
+    width: $checkBoxLgSize;
+    height: $checkBoxLgSize;
+  }
+}
+
+.fixed-checkBoxLgContainer {
+  width: $checkBoxLgSize + (2*$margin-app-base);
+}
+
 //BADGE
 //*****************************************************
 
