@@ -21,6 +21,12 @@
             </thead>
             <tbody>
             <tr>
+                <td>Pa&iacute;s:</td>
+                <td>
+                    {!! $cursillo->pais !!}
+                </td>
+            </tr>
+            <tr>
                 <td>Comunidad:</td>
                 <td>
                     {!! $cursillo->comunidad !!}

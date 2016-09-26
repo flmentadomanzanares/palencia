@@ -136,7 +136,6 @@ class CursillosController extends Controller
             route('inicio')->
             with('mensaje', 'El cursillo no est&aacute; dado de alta.');
         }
-
         return view('cursillos.ver',
             compact(
                 'cursillo',

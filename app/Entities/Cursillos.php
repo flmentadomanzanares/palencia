@@ -234,9 +234,10 @@ class Cursillos extends Model
         return Cursillos::Select('cursillos.id', 'cursillos.cursillo', 'cursillos.fecha_inicio', 'cursillos.fecha_final',
             'cursillos.descripcion', 'cursillos.activo', 'cursillos.num_cursillo', 'cursillos.esRespuesta', 'cursillos.esSolicitud',
             'comunidades.comunidad', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.esPropia',
-            'tipos_participantes.tipo_participante')
+            'tipos_participantes.tipo_participante', 'paises.pais')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('cursillos.id', $id)
             ->first();
     }
