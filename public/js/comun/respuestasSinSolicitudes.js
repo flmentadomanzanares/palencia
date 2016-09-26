@@ -82,7 +82,7 @@ $(document).ready(function () {
         return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
     }
 
-    $(document).on("change", "#select_comunidad", function (evt) {
+    $(document).on("change", "#select_comunidad_propia", function (evt) {
         evt.preventDefault();
         totalCursillos($(this).val(), $('#select_anyos option:selected').val());
     });
