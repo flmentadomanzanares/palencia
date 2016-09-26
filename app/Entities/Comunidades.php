@@ -473,10 +473,11 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopeEsPropia($query, $esPropia = false)
+    public function scopeEsPropia($query, $esPropia = null)
     {
-        $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
-
+        if ($esPropia != null) {
+            $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
+        }
         return $query;
     }
 
