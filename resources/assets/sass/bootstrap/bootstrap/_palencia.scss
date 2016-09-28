@@ -16,6 +16,12 @@
   .m-r-#{$i*5} {
     margin-right: 0px + $i*5 !important;
   }
+  .m-t-#{$i*5} {
+    margin-top: 0px + $i*5 !important;
+  }
+  .m-b-#{$i*5} {
+    margin-bottom: 0px + $i*5 !important;
+  }
 }
 
 .margin-left-imagen-text {
@@ -34,6 +40,20 @@
     padding: (0px + $i*5) !important;
   }
 }
+
+//TEXT ALIGN
+.txt-center {
+  text-align: center !important;
+}
+
+.txt-left {
+  text-align: left !important;
+}
+
+.txt-right {
+  text-align: right !important;
+}
+
 
 //Thumbnail
 //***********************************************

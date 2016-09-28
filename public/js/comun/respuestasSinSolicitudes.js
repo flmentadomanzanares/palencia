@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    $(document).on("click", ".marcarTodos", function (evt) {
+        evt.preventDefault();
+        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
+            $(elem).prop("checked", true)
+        });
+    });
+    $(document).on("click", ".desmarcarTodos", function (evt) {
+        evt.preventDefault();
+        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
+            $(elem).prop("checked", false)
+        });
+    });
 
     var totalAnyos = function (comunidadPropiaId) {
         $.ajax({

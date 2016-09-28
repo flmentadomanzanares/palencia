@@ -8,6 +8,7 @@
     <div class="hidden table-size-optima">
         @if (Auth::check())
             @include('comun.plantillaRespuestaSinSolicitud')
+            @include('comun.plantillaRespuestaSinSolicitudAcciones')
             <div class="heading-caption">Selecciona</div>
             <div id="listado_cursillos" class="text-left"></div>
         @else
