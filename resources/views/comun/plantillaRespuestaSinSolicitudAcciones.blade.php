@@ -18,14 +18,14 @@
         <div class="cuerpoFormularioModal">
             <div class="scroll">
                 <button class=" txt-left btn btn-primary m-b-10 full-Width marcarTodos" type="button"
-                        title="Marcar todos">
+                        title="Marcar todos los cursillos">
                     <i class='glyphicon  glyphicon-check'></i>
-                    Marcar todas
+                    Marcar todos los cursillos
                 </button>
                 <button class=" txt-left btn btn-warning full-Width desmarcarTodos" type="button"
-                        title="Desmarcar todos">
+                        title="Desmarcar todos los cursillos">
                     <i class='glyphicon glyphicon-unchecked'></i>
-                    Desmarcar todas
+                    Desmarcar todos los cursillos
                 </button>
             </div>
         </div>
