@@ -34,7 +34,16 @@
                     {!! FORM::label('destinatario', 'Comunidad Destinataria') !!}
                     {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad_no_propia'))!!}
                 </div>
-
+                <button class=" txt-left btn btn-primary m-b-10 full-Width marcarTodos" type="button"
+                        title="Marcar todos">
+                    <i class='glyphicon  glyphicon-check'></i>
+                    Marcar todas
+                </button>
+                <button class=" txt-left btn btn-warning m-b-10 full-Width desmarcarTodos" type="button"
+                        title="Desmarcar todos">
+                    <i class='glyphicon glyphicon-unchecked'></i>
+                    Desmarcar todas
+                </button>
                 <br/>
                 <div class="contenedor"></div>
                 {!! FORM::submit('Responder',array("class"=>"btn btn-success btn-block")) !!}

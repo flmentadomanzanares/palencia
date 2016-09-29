@@ -1,15 +1,41 @@
 $(document).ready(function () {
+
+    var inputsContainer = $("form .contenedor");
+    var elimimarTodosCursosFormulario = function (elem) {
+        var target = $(elem);
+        target.closest("form").find(".contenedor").empty();
+    };
+
+    var quitarPonerUnCursoFormulario = function (elem) {
+        var elem = $(elem);
+        var id = elem.closest("tr").data("id");
+        if (elem.prop("checked")) {
+            inputsContainer.append("<input type='hidden' name='cursos[]' data-id='" + id + "' value='" + id + "'>");
+        } else {
+            inputsContainer.find("[data-id='" + id + "']").remove();
+        }
+    };
+
     $(document).on("click", ".marcarTodos", function (evt) {
         evt.preventDefault();
+        elimimarTodosCursosFormulario(evt.target);
         $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
-            $(elem).prop("checked", true)
+            $(elem).prop("checked", true);
+            quitarPonerUnCursoFormulario(this);
         });
     });
+
     $(document).on("click", ".desmarcarTodos", function (evt) {
         evt.preventDefault();
+        elimimarTodosCursosFormulario(evt.target);
         $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
             $(elem).prop("checked", false)
         });
+    });
+
+    $(document).on("change", "input[type='checkbox'][name='curso']", function (evt) {
+        evt.preventDefault();
+        quitarPonerUnCursoFormulario(this);
     });
 
     var totalAnyos = function (comunidadPropiaId) {
@@ -48,7 +74,7 @@ $(document).ready(function () {
             url: 'listadoCursillosSolicitudes',
             success: function (data) {
                 var html = "";
-                $("form[name='formularioRespuestasSinSolicitudes'] .contenedor").empty();
+                elimimarTodosCursosFormulario();
                 if (data.length > 0) {
                     $.each(data, function (key, element) {
                         var fecha = formatoFecha(new Date(element.fecha_inicio));
@@ -96,22 +122,13 @@ $(document).ready(function () {
 
     $(document).on("change", "#select_comunidad_propia", function (evt) {
         evt.preventDefault();
+        elimimarTodosCursosFormulario(this);
         totalCursillos($(this).val(), $('#select_anyos option:selected').val());
     });
 
     $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
         totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val());
-    });
-
-    $(document).on("click", "input[type='checkbox'][name='curso']", function (evt) {
-        var target = $(this);
-        var id = target.closest("tr").data("id");
-        if (target.prop("checked")) {
-            $("form[name='formularioRespuestasSinSolicitudes'] .contenedor").append("<input type='hidden' name='cursos[]' data-id='" + id + "' value='" + id + "'>");
-        } else {
-            $("form[name='formularioRespuestasSinSolicitudes'] .contenedor").find("[data-id='" + id + "']").remove();
-        }
     });
 
     totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val());
