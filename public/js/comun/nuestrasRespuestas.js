@@ -84,6 +84,7 @@ $(document).ready(function () {
                             "<tr>" + "<td>Nº Curso</td><td>" + element.num_cursillo + "</td></tr>" +
                             "<tr>" + "<td>Inicio</td><td>" + fecha.toLocaleDateString() + "  [Sem:" + element.semana + "-" + element.anyo + "]</td></tr>" +
                             "<tr>" + "<td>Participante</td><td>" + element.tipo_participante + "</td></tr>" +
+                            "<tr>" + "<td>Email Env&iacute;o</td><td>" + element.email_envio + "</td></tr>" +
                             "</tbody>" +
                             "</table>";
 

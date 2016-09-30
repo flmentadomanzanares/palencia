@@ -156,7 +156,7 @@ class Cursillos extends Model
     {
         return Cursillos::Select('cursillos.cursillo', 'cursillos.fecha_inicio', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
             DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as anyo'), 'comunidades.comunidad', 'comunidades.colorFondo',
-            'comunidades.colorTexto', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
+            'comunidades.colorTexto', 'comunidades.email_envio', 'cursillos.num_cursillo', 'tipos_participantes.tipo_participante')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->leftJoin('tipos_participantes', 'tipos_participantes.id', '=', 'cursillos.tipo_participante_id')
             ->where('comunidades.activo', true)
