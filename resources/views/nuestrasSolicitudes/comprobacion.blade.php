@@ -5,10 +5,9 @@
         <br/>
         <table class="table-viaoptima table-striped table-hover">
             <thead>
-            <tr>
-                <th colspan="2">
-                    {!! $titulo !!}
-                </th>
+            <tr class="row-fixed">
+                <th>{!! $titulo !!}</th>
+                <th class="tabla-ancho-columna-botones"></th>
             </tr>
             </thead>
             <tbody>
@@ -17,7 +16,7 @@
                     <td>{{$incidencia}}</td>
                     <td width=1px class="text-right">
                         <div class="btn-action text-center">
-                            <span title="realizado">
+                            <span title="">
                                 <i class="glyphicon glyphicon-envelope red icon-size-large"></i>
                             </span>
                         </div>

@@ -18,7 +18,7 @@
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">
-                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST']) !!}
+                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST','name'=>'formularioNuestrasSolicitudes']) !!}
                 <div class="form-group">
                     {!! FORM::label('modalidad', 'Medio de comunicaci&oacute;n') !!}
                     {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     {!! FORM::label('remitente', 'Comunidad Remitente') !!}
-                    {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}
+                    {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad_propia'))!!}
                 </div>
 
                 <div class="form-group">
@@ -35,21 +35,21 @@
                 </div>
 
                 <div class="form-group">
-                    {!! FORM::label('solicitudesAnteriores', 'Incluir Solicitudes Anteriores') !!}
-                    {!! FORM::select('incluirSolicitudesAnteriores', Array('1'=>'Si','0'=>'No'), 0,array("class"=>"form-control",'id'=>'select_boolean'))!!}
-                </div>
-
-                @if(config("opciones.accion.crearSusRespuestasConSolicitudesAnterioresRealizadas"))
-                    <div class="form-group">
-                        {!! FORM::label('generearSusRespuestas', 'Generar Sus Respuestas') !!}
-                        {!! FORM::select('generarSusRespuestas', Array('0'=>'No','1'=>'Si'), 0,array("class"=>"form-control",'id'=>'select_generar_sus_respuestas'))!!}
-                    </div>
-                @endif
-                <div class="form-group">
                     {!! FORM::label('restosComunidades', 'Comunidades Destinatarias') !!}
                     {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_resto_comunidades'))!!}
                 </div>
+                <button class=" txt-left btn btn-primary m-b-10 full-Width marcarTodos" type="button"
+                        title="Marcar todos los cursillos">
+                    <i class='glyphicon  glyphicon-check'></i>
+                    Marcar todos los cursillos
+                </button>
+                <button class=" txt-left btn btn-warning m-b-10 full-Width desmarcarTodos" type="button"
+                        title="Desmarcar todos los cursiliios">
+                    <i class='glyphicon glyphicon-unchecked'></i>
+                    Desmarcar todos los cursillos
+                </button>
                 <br/>
+                <div class="contenedor"></div>
                 {!! FORM::submit('Enviar',array("class"=>"btn btn-success btn-block")) !!}
                 {!! FORM::close() !!}
             </div>
