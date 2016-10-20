@@ -400,11 +400,12 @@ body {
 }
 
 //CHECKBOX AND RADIO BUTTON
-input[type="radio"],
-input[type="checkbox"] {
+input[type="radio"], input[type="radio"]:focus,
+input[type="checkbox"], input[type="checkbox"]:focus {
   &.lg {
     width: $checkBoxLgSize;
     height: $checkBoxLgSize;
+    outline: none;
   }
 }
 
