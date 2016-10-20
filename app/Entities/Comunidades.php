@@ -12,6 +12,11 @@ class Comunidades extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
+    static public function getNumeroComunidadesPropias()
+    {
+        return Comunidades::EsPropia(true)->count();
+    }
+
     static public function getComunidades(Request $request, $paginateNumber = 25)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',

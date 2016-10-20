@@ -53,9 +53,12 @@ class ComunidadesController extends Controller
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         $coloresFondo = ColoresFondos::getColoresFondos();
         $coloresTexto = ColoresTextos::getColoresTextos();
+        $numeroComunidadesPropias = Comunidades::getNumeroComunidadesPropias();
+
         return view('comunidades.nuevo',
             compact(
                 'comunidad',
+                'numeroComunidadesPropias',
                 'secretariados',
                 'paises',
                 'provincias',
@@ -163,9 +166,11 @@ class ComunidadesController extends Controller
         $comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList();
         $coloresFondo = ColoresFondos::getColoresFondos();
         $coloresTexto = ColoresTextos::getColoresTextos();
+        $numeroComunidadesPropias = Comunidades::getNumeroComunidadesPropias();
         return view('comunidades.modificar',
             compact(
                 'comunidad',
+                'numeroComunidadesPropias',
                 'secretariados',
                 'paises',
                 'provincias',

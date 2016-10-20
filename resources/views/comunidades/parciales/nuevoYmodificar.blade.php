@@ -3,9 +3,13 @@
     {!! FORM::label('comunidad', 'Nombre Comunidad:') !!} <br/>
     {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control text-uppercase", "title"=>"Nombre de la Comunidad",
     "maxlength"=>"50"]) !!}
-    <br/>
-    {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>
-    {!! FORM::select('esPropia',array('0'=>'No','1'=>'Si'), $comunidad->esPropia ,array('class'=>'form-control')) !!}
+    @if($numeroComunidadesPropias>0)
+        {!! FORM::hidden('esPropia',false) !!}
+    @else
+        <br/>
+        {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>
+        {!! FORM::select('esPropia',array('0'=>'No','1'=>'Si'), $comunidad->esPropia ,array('class'=>'form-control')) !!}
+    @endif
     <br>
     {!! FORM::label ('secretariado', 'Secretariado:') !!} <br/>
     {!! FORM::select('tipo_secretariado_id',$secretariados, $comunidad->tipo_secretariado_id, ["class" =>
