@@ -78,7 +78,7 @@ class NuestrasSolicitudesController extends Controller
         $modalidadComunicacion = $request->get("modalidad");
         $remitente = Comunidades::getComunidad($request->get('nuestrasComunidades'));
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $modalidadComunicacion);
-        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), filter_var($request->get('incluirSolicitudesAnteriores'), FILTER_VALIDATE_BOOLEAN));
+        $cursillos = Cursillos::getCursillosPDFSolicitud($request->get('nuestrasComunidades'), $request->get('anyo'), $request->get('cursos'));
         $numeroDestinatarios = count($destinatarios);
         //Verificación
         if (count($remitente) == 0 || $numeroDestinatarios == 0 || count($cursillos) == 0) {

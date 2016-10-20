@@ -106,7 +106,7 @@ class Cursillos extends Model
      * @param int $incluirSolicitudesAnteriores
      * @return mixed
      */
-    static public function getCursillosPDFSolicitud($comunidad = 0, $anyo = 0, $incluirSolicitudesAnteriores = 0)
+    static public function getCursillosPDFSolicitud($comunidad = 0, $anyo = 0, $cursillos = [])
     {
         return Cursillos::select('cursillos.id', 'cursillos.comunidad_id', 'cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.esRespuesta',
             'cursillos.fecha_inicio', 'cursillos.fecha_final', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
@@ -114,7 +114,7 @@ class Cursillos extends Model
             ->leftJoin('comunidades', 'cursillos.comunidad_id', '=', 'comunidades.id')
             ->ComunidadCursillos($comunidad)
             ->AnyosCursillos($anyo)
-            ->FilterEsSolicitudAnterior($incluirSolicitudesAnteriores)
+            ->WhereIn("cursillos.id", $cursillos)
             ->Where('cursillos.activo', true)
             ->orderBy('cursillos.fecha_inicio', 'ASC')
             ->get();
