@@ -1,42 +1,32 @@
 $(document).ready(function () {
 
-    var inputsContainer = $("form .contenedor");
-    var elimimarTodosCursosFormulario = function (elem) {
-        var target = $(elem);
-        target.closest("form").find(".contenedor").empty();
+    var inputsContainer = $("form [data-role='contenedor_imputs']");
+    var cursillosInputs = inputsContainer.find("[data-role='cursillos']");
+    var destinatarioInputs = inputsContainer.find("[data-role='destinatarios']");
+
+    var scrollAlFinal = function () {
+        window.scrollTo(0, document.body.scrollHeight);
     };
 
     var quitarPonerUnCursoFormulario = function (elem) {
         var elem = $(elem);
         var id = elem.closest("tr").data("id");
         if (elem.prop("checked")) {
-            inputsContainer.append("<input type='hidden' name='cursos[]' data-id='" + id + "' value='" + id + "'>");
+            cursillosInputs.append("<input type='hidden' name='cursos[]' value='" + id + "'>");
         } else {
-            inputsContainer.find("[data-id='" + id + "']").remove();
+            cursillosInputs.find("[value='" + id + "']").remove();
         }
     };
 
-    $(document).on("click", ".marcarTodos", function (evt) {
-        evt.preventDefault();
-        elimimarTodosCursosFormulario(evt.target);
-        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
-            $(elem).prop("checked", true);
-            quitarPonerUnCursoFormulario(this);
-        });
-    });
-
-    $(document).on("click", ".desmarcarTodos", function (evt) {
-        evt.preventDefault();
-        elimimarTodosCursosFormulario(evt.target);
-        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
-            $(elem).prop("checked", false)
-        });
-    });
-
-    $(document).on("change", "input[type='checkbox'][name='curso']", function (evt) {
-        evt.preventDefault();
-        quitarPonerUnCursoFormulario(this);
-    });
+    var ponerDestinatario = function (elem) {
+        destinatarioInputs.append("<input type='hidden' name='restoComunidades[]' value='" + elem.val() + "'>");
+        elem.closest(".table-size-optima")
+            .find("[data-role='comunidades_destinatarias']")
+            .append("<div data-role='destinatario' data-val='" + elem.val() + "' class='alert alert-info'>" + elem.text() + "<span class='badge pointer pull-right'>Quitar</span></div>");
+    };
+    var eliminarDestinatario = function (val) {
+        destinatarioInputs.find("[value='" + val + "']").remove();
+    };
 
     var poner_comunicacion = function (modalidadComunicacion) {
         $.ajax({
@@ -48,6 +38,8 @@ $(document).ready(function () {
             type: 'post',
             url: 'cambiarComunidadesNoPropiasSolicitudes',
             success: function (data) {
+                destinatarioInputs.empty();
+                $("[data-role='comunidades_destinatarias']").empty();
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
                 if (data.placeholder.length > 0) {
@@ -96,7 +88,7 @@ $(document).ready(function () {
             url: 'listadoCursillosSolicitudes',
             success: function (data) {
                 var html = "";
-                elimimarTodosCursosFormulario();
+                cursillosInputs.empty();
                 if (data.length > 0) {
                     $.each(data, function (key, element) {
                         var fecha = formatoFecha(new Date(element.fecha_inicio));
@@ -128,7 +120,8 @@ $(document).ready(function () {
                         "</tbody>" +
                         "</table>";
                 }
-                $('#listado_cursillos').empty().append(html);
+                $('[data-role="lista_cursillos"]').empty().append(html);
+                cursillosInputs.empty();
             },
             error: function () {
                 totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
@@ -152,7 +145,85 @@ $(document).ready(function () {
     $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
         totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
-});
+    });
+
+    $(document).on("click", ".marcarTodos", function (evt) {
+        evt.preventDefault();
+        cursillosInputs.empty();
+        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
+            $(elem).prop("checked", true);
+            quitarPonerUnCursoFormulario(this);
+        });
+    });
+
+    $(document).on("click", ".desmarcarTodos", function (evt) {
+        evt.preventDefault();
+        cursillosInputs.empty();
+        $("input[type='checkbox'][name='curso']").each(function (idx, elem) {
+            $(elem).prop("checked", false)
+        });
+    });
+
+    $(document).on("change", "input[type='checkbox'][name='curso']", function (evt) {
+        evt.preventDefault();
+        quitarPonerUnCursoFormulario(this);
+    });
+
+
+    $(document).on("change", "#select_resto_comunidades", function (evt) {
+        evt.preventDefault();
+        var option = $(this).find("option:selected");
+        option.hide();
+        ponerDestinatario(option);
+        scrollAlFinal();
+    });
+
+    $(document).on("click", "[data-role='destinatario'] .badge", function (evt) {
+        evt.preventDefault();
+        var $this = $(this).closest("[data-role='destinatario']");
+        var val = $this.data("val");
+        $("#select_resto_comunidades").find("option[value='" + val + "']").show();
+        eliminarDestinatario(val);
+        $this.remove();
+    });
+
+    $(document).on("click", "[data-role='seleccion_destinatarios'] [data-role='marcarTodos']", function (evt) {
+        evt.preventDefault();
+        destinatarioInputs.empty();
+        $("[data-role='comunidades_destinatarias']").empty();
+        $("#select_resto_comunidades option").each(function (idx, elem) {
+            var elem = $(elem);
+            elem.hide();
+            ponerDestinatario(elem);
+        });
+        scrollAlFinal();
+    });
+
+    $(document).on("click", "[data-role='seleccion_destinatarios'] [data-role='eliminarTodos']", function (evt) {
+        evt.preventDefault();
+        destinatarioInputs.empty();
+        $("[data-role='comunidades_destinatarias']").empty();
+        $("#select_resto_comunidades option").each(function (idx, elem) {
+            var elem = $(elem);
+            elem.show();
+        });
+    });
+
+    $(document).on("click", "[data-role='seleccion_destinatarios'] [data-role='ordenar']", function (evt) {
+        evt.preventDefault();
+        var destinatarios = $("[data-role='comunidades_destinatarias']");
+        var elementos = destinatarios.children("div").get();
+        elementos.sort(function (a, b) {
+            var A = $(a).text().toUpperCase();
+            var B = $(b).text().toUpperCase();
+            return (A < B) ? -1 : (A > B) ? 1 : 0;
+        });
+        $.each(elementos, function (id, elemento) {
+            destinatarios.append(elemento);
+        });
+
+    });
+
     poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad_propia option:selected').val());
 });

@@ -4,6 +4,12 @@
   src: url($fontPath);
 }
 
+//pointer for any tag
+//********************************************************
+*.pointer:hover {
+  cursor: pointer;
+}
+
 //margin all de 5 en 5 desde el cero al 20
 //***********************************************
 @for $i from 0 through 4 {

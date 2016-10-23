@@ -6543,6 +6543,10 @@ button.close {
   src: url("fonts/calibri.ttf");
 }
 
+*.pointer:hover {
+  cursor: pointer;
+}
+
 .m-0 {
   margin: 0px !important;
 }

@@ -63,7 +63,7 @@ class Comunidades extends Model
             ->get();
     }
 
-    static public function getComunidadPDFSolicitudes($comunidad = 0, $modalidad = 0)
+    static public function getComunidadPDFSolicitudes($comunidad = array(), $modalidad = 0)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -462,10 +462,10 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopeComunidadesId($query, $comunidadId = 0)
+    public function scopeComunidadesId($query, $comunidadesId = array())
     {
-        if (is_numeric($comunidadId) && $comunidadId > 0) {
-            $query->where('comunidades.id', $comunidadId);
+        if (count($comunidadesId) > 0) {
+            $query->whereIn('comunidades.id', $comunidadesId);
         }
         return $query;
     }

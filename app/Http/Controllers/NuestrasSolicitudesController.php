@@ -41,7 +41,6 @@ class NuestrasSolicitudesController extends Controller
     public function comprobarSolicitudes(Request $request)
     {
         $tipoComunicacion = $request->get('modalidad');
-
         $destinatarios = Comunidades::getComunidadPDFSolicitudes($request->get('restoComunidades'), $tipoComunicacion);
         if ($tipoComunicacion != 1) {
             $incidencias = array();

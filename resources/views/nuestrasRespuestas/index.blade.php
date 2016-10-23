@@ -8,8 +8,13 @@
     <div class="hidden table-size-optima">
         @if (Auth::check())
             @include('comun.plantillaNuestrasRespuestas')
+            <div data-role="cursullos">
             <div class="heading-caption">Cursillos</div>
             <div id="listado_cursillos" class="text-left"></div>
+            </div>
+            <div data-role="Destinatarios">
+                <div class="heading-caption">Comunidades Destinatarias</div>
+            </div>
         @else
             @include('comun.guestGoHome')
         @endif
