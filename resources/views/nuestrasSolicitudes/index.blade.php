@@ -8,6 +8,27 @@
     <div class="hidden table-size-optima">
         @if (Auth::check())
             @include('comun.plantillaNuestrasSolicitudes')
+            <div data-role="modalMensaje">
+                <span
+                        class="pull-right simpleModal"
+                        data-modal_centro_pantalla="true"
+                        data-modal_en_la_derecha="false"
+                        data-modal_sin_etiqueta="true"
+                        data-modal_ancho="330"
+                        data-modal_cabecera_color_fondo='rgba(255,0,0,.9)'
+                        data-modal_cabecera_color_texto='#ffffff'
+                        data-modal_cuerpo_color_fondo='rgba(255,255,255,1)'
+                        data-modal_cuerpo_color_texto='"#ffffff'
+                        data-modal_pie_color_fondo='#400090'
+                        data-modal_pie_color_texto='"#ffffff'
+                        data-modal_posicion_vertical="220"
+                        data-titulo="VERIFICADO"
+                        data-pie="false"
+                        data-descripcion=""
+                >
+                </span>
+                @include ("comun.plantillaMensaje")
+            </div>
             <div class="heading-caption">Cursillos</div>
             <div data-role="lista_cursillos"></div>
             <hr>

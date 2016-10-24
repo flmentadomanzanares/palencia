@@ -50,6 +50,7 @@ class NuestrasSolicitudesController extends Controller
                 }
             }
             if (count($incidencias) > 0) {
+                $cursos = $request->get('cursos');
                 $tipos_comunicaciones_preferidas = $tipoComunicacion;
                 $nuestrasComunidades = $request->get('nuestrasComunidades');
                 $anyos = $request->get('anyo');
@@ -65,7 +66,8 @@ class NuestrasSolicitudesController extends Controller
                         'generarSusRespuestas',
                         'anyos',
                         'incluirSolicitudesAnteriores',
-                        'restoComunidades'
+                        'restoComunidades',
+                        'cursos'
                     ));
             }
         }
@@ -149,7 +151,7 @@ class NuestrasSolicitudesController extends Controller
                     $pdf->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado documento adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-saved green icon-size-large"];
                 } catch (\Exception $e) {
-                    $logEnvios[] = ["Error al crear el documento adjunto para la comunidad" . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
+                    $logEnvios[] = ["Error al crear el documento adjunto para la comunidad " . $destinatario->comunidad, "", "floppy-remove red icon-size-large"];
                 }
                 $esCarta = false;
                 try {

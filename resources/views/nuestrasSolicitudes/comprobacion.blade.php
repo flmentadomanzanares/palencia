@@ -31,7 +31,12 @@
         {!! FORM::hidden('anyo', $anyos)!!}
         {!! FORM::hidden('generarSusRespuestas', $generarSusRespuestas)!!}
         {!! FORM::hidden('incluirSolicitudesAnteriores', $incluirSolicitudesAnteriores)!!}
-        {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
+        @foreach($restoComunidades as $comunidad)
+            {!! FORM::hidden('restoComunidades[]', $comunidad)!!}
+        @endforeach
+        @foreach($cursos as $curso)
+            {!! FORM::hidden('cursos[]', $curso)!!}
+        @endforeach
         @include('comun.plantillaVolverModificarGuardar',['index'=>"nuestrasSolicitudes",'accion'=>"Enviar", 'icon'=>'glyphicon-envelope'])
         {!! FORM::close() !!}
     </div>

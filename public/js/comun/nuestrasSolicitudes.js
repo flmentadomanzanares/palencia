@@ -218,10 +218,30 @@ $(document).ready(function () {
             var B = $(b).text().toUpperCase();
             return (A < B) ? -1 : (A > B) ? 1 : 0;
         });
+        destinatarios.empty();
         $.each(elementos, function (id, elemento) {
             destinatarios.append(elemento);
         });
 
+    });
+
+    $(document).on("submit", "form[name='formularioNuestrasSolicitudes']", function (evt) {
+        evt.preventDefault();
+        var $this = $(this);
+        var contenedorModalMensaje = $("[data-role='modalMensaje']");
+        var datosModalMensaje = contenedorModalMensaje.find("span.simpleModal");
+        if (cursillosInputs.find("input").length == 0) {
+            contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos un cursillo seleccionado.</span>");
+            datosModalMensaje.trigger("click");
+            return false;
+        }
+        if (destinatarioInputs.find("input").length == 0) {
+            contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos una comunidad destinataria.</span>");
+            datosModalMensaje.trigger("click");
+            return false;
+        }
+        $this.removeAttr("data-role");
+        $this[0].submit();
     });
 
     poner_comunicacion($('#select_comunicacion').val());

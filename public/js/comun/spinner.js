@@ -5,6 +5,6 @@ $(document).ready(function () {
     $('.spinner').css('display', 'none');
     $('.hidden').removeClass('hidden');
 });
-$(document).on("submit", "Form", function (evt) {
+$(document).on("submit", "Form:not([data-role='conVerificado'])", function (evt) {
     $("div.spinner").css("display", 'block');
 });
