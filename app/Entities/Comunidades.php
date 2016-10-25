@@ -121,7 +121,7 @@ class Comunidades extends Model
             ->ModalidadComunicacion($modalidadComunicacion)
             ->orderBy('comunidades.comunidad', 'ASC')
             ->get();
-        return array("placeholder" => $conPlaceHolder ? $placeHolder : "", "comunidades" => $sql);
+        return array("comunidades" => $sql);
     }
 
     public static function getComunidadesModalidadComunicacionListRespuestas($modalidadComunicacion = 0, $conPlaceHolder = true, $placeHolder = "Comunidades...")
@@ -153,19 +153,19 @@ class Comunidades extends Model
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
-    public static function getComunidadesList($propia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
+    public static function getComunidadesList($esPropia = false, $conPlaceHolder = true, $placeHolder = "Comunidad...", $excluirSinCursillos = false, $modalidadComunicacion = 0)
     {
         $placeHolder = ['0' => $placeHolder];
         if (!$excluirSinCursillos) {
             $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
                 ->where('comunidades.activo', true)
-                ->EsPropia($propia)
+                ->EsPropia($esPropia)
                 ->orderBy('comunidades.comunidad', 'ASC')
                 ->Lists('comunidades.comunidad', 'id');
         } else {
             $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
                 ->where('comunidades.activo', true)
-                ->EsPropia($propia)
+                ->EsPropia($esPropia)
                 ->leftJoin(DB::raw("(SELECT COUNT(cursillos.comunidad_id) as cursillosTotales ,cursillos.comunidad_id as cursilloId
                         FROM cursillos, comunidades
                         WHERE comunidades.id = cursillos.comunidad_id
@@ -480,7 +480,7 @@ class Comunidades extends Model
 
     public function scopeEsPropia($query, $esPropia = null)
     {
-        if ($esPropia != null) {
+        if (!is_null($esPropia)) {
             $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
         }
         return $query;

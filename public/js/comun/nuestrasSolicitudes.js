@@ -42,9 +42,6 @@ $(document).ready(function () {
                 $("[data-role='comunidades_destinatarias']").empty();
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
-                if (data.placeholder.length > 0) {
-                    comunidadesNoPropias.append("<option value='0'>" + data.placeholder + "</option>");
-                }
                 $.each(data.comunidades, function (key, element) {
                     comunidadesNoPropias.append("<option value='" + element.id + "'>" + element.comunidad + "</option>");
                 });

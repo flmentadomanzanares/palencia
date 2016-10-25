@@ -23,7 +23,7 @@ class NuestrasSolicitudesController extends Controller
         //Comprobamos si el server permite modificar el tiempo de ejecución del script.
         $comprobarModoSeguro = set_time_limit(config('opciones.envios.seMaxtTimeAt'));
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(false, $comprobarModoSeguro, "Enviar a todas las comunidades", false, $modalidad);
+        $restoComunidades = Comunidades::getComunidadesList(false, false, "", false, $modalidad);
         $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta");
         $anyos = array();
         $cursillos = array();
