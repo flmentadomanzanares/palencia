@@ -42,6 +42,7 @@ $(document).ready(function () {
                 $("[data-role='comunidades_destinatarias']").empty();
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
+                comunidadesNoPropias.append("<option>----------</option>");
                 $.each(data.comunidades, function (key, element) {
                     comunidadesNoPropias.append("<option value='" + element.id + "'>" + element.comunidad + "</option>");
                 });
@@ -170,6 +171,8 @@ $(document).ready(function () {
     $(document).on("change", "#select_resto_comunidades", function (evt) {
         evt.preventDefault();
         var option = $(this).find("option:selected");
+        if (option.attr("value") == undefined)
+            return;
         option.hide();
         ponerDestinatario(option);
         scrollAlFinal();
@@ -190,8 +193,10 @@ $(document).ready(function () {
         $("[data-role='comunidades_destinatarias']").empty();
         $("#select_resto_comunidades option").each(function (idx, elem) {
             var elem = $(elem);
-            elem.hide();
-            ponerDestinatario(elem);
+            if (elem.attr("value") != undefined) {
+                elem.hide();
+                ponerDestinatario(elem);
+            }
         });
         scrollAlFinal();
     });
