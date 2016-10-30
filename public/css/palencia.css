@@ -6942,6 +6942,19 @@ button.close {
   max-width: 100%;
 }
 
+.asterisco:after {
+  position: absolute;
+  color: #009900;
+  font-family: "Glyphicons Halflings", Verdana, Arial, sans-serif;
+  font-size: 14px;
+  content: "\002a";
+  margin-left: -1.6em;
+  margin-top: .2em;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 0 2px 0 3px;
+}
+
 textarea {
   resize: none;
 }

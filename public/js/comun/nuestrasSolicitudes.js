@@ -67,7 +67,9 @@ $(document).ready(function () {
                 $.each(data, function (key, element) {
                     anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
-                totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+                totalCursillos($('#select_comunidad_propia option:selected').val(),
+                    $('#select_anyos option:selected').val(),
+                    $('#select_boolean option:selected').val());
             },
             error: function () {
             }
@@ -87,6 +89,7 @@ $(document).ready(function () {
             success: function (data) {
                 var html = "";
                 cursillosInputs.empty();
+                var anyoActual = (new Date).getFullYear();
                 if (data.length > 0) {
                     $.each(data, function (key, element) {
                         var fecha = formatoFecha(new Date(element.fecha_inicio));
@@ -94,7 +97,7 @@ $(document).ready(function () {
                             "<tr class='row-fixed'>" +
                             "<th class='fixed-checkBoxLgContainer'></th>" +
                             "<th class='tabla-ancho-columna-texto'></th>" +
-                            "<th></th>" +
+                            "<th class='" + (element.anyo != anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
                             "</tr>" +
                             "<tr style='Background: " + element.colorFondo + ";'>" +
                             "<th colspan='3' style='Color: " + element.colorTexto + ";' class='text-center'>" + element.comunidad + "</th>" +
@@ -111,7 +114,7 @@ $(document).ready(function () {
                 else {
                     html += "<table class='table-viaoptima'><thead>" +
                         "<tr style='Background: #000;'>" +
-                        "<th colspan='2' class='text-center'>Sin cursillos</th>" +
+                        "<th colspan='2' class='text-center'>Sin cursillos a procesar</th>" +
                         "</tr>" +
                         "</thead>" +
                         "<tbody>" +
@@ -122,7 +125,9 @@ $(document).ready(function () {
                 cursillosInputs.empty();
             },
             error: function () {
-                totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+                totalCursillos($('#select_comunidad_propia option:selected').val(),
+                    $('#select_anyos option:selected').val(),
+                    $('#select_boolean option:selected').val());
             }
         });
     };
@@ -142,7 +147,9 @@ $(document).ready(function () {
     });
     $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
-        totalCursillos($('#select_comunidad_propia option:selected').val(), $('#select_anyos option:selected').val(), $('#select_boolean option:selected').val());
+        totalCursillos($('#select_comunidad_propia option:selected').val(),
+            $('#select_anyos option:selected').val(),
+            $('#select_boolean option:selected').val());
     });
 
     $(document).on("click", ".marcarTodos", function (evt) {
@@ -245,7 +252,6 @@ $(document).ready(function () {
         $this.removeAttr("data-role");
         $this[0].submit();
     });
-
     poner_comunicacion($('#select_comunicacion').val());
     totalAnyos($('#select_comunidad_propia option:selected').val());
 });

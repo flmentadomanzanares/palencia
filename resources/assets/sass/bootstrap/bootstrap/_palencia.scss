@@ -272,11 +272,27 @@
   max-width: 100%;
 }
 
+//ASTERISCO
+.asterisco:after {
+  position: absolute;
+  color: $app-color-success;
+  font-family: "Glyphicons Halflings", Verdana, Arial, sans-serif;
+  font-size: 14px;
+  content: "\002a";
+  margin-left: -1.6em;
+  margin-top: .2em;;
+  background-color: $app-color-white;
+  border-radius: 50%;
+  padding: 0 2px 0 3px;
+}
+
 //TEXTAREA
 //**************************************************
 textarea {
   resize: none;
 }
+
+//
 
 //FOOTER
 //***************************************************
@@ -883,3 +899,4 @@ h1.text-center {
     width: $tabla-columna-ancho-texto-xs;
   }
 }
+
