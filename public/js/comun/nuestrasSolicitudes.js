@@ -39,6 +39,7 @@ $(document).ready(function () {
             url: 'cambiarComunidadesNoPropiasSolicitudes',
             success: function (data) {
                 destinatarioInputs.empty();
+                $("[data-role='seleccion_destinatarios'] div.panel-heading").text("Medio de comunicación :" + $("#select_comunicacion option:selected").text());
                 $("[data-role='comunidades_destinatarias']").empty();
                 var comunidadesNoPropias = $('#select_resto_comunidades');
                 comunidadesNoPropias.empty();
