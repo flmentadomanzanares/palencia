@@ -96,7 +96,7 @@ class NuestrasRespuestasController extends Controller
 
         //Array contenedor de logs.
         $logEnvios = [];
-        $logEnvios[] = ["Comienzo: " . date("d/m/Y h:m:i", strtotime('now')), "", "time green icon-size-large"];
+        $logEnvios[] = ["Comienzo: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
 
         //Colección de cursos que van a ser actualizados y sus correspondiente mensajes.
         $comunidadesDestinatarias = [];
@@ -123,7 +123,7 @@ class NuestrasRespuestasController extends Controller
             //Ruta para linux
             $separatorPath = "/";
             $path = "respuestasCursillos";
-            $archivo = $path . $separatorPath . "NR-" . date("d_m_Y_h_m_i", strtotime('now')) . '-' . $cursosPorComunidad[0]->pais . '-' . $cursosPorComunidad[0]->comunidad . '-Cursos.pdf';
+            $archivo = $path . $separatorPath . "NR-" . date("d_m_Y_H_i_s", strtotime('now')) . '-' . $cursosPorComunidad[0]->pais . '-' . $cursosPorComunidad[0]->comunidad . '-Cursos.pdf';
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursosActualizados = [];
@@ -293,7 +293,7 @@ class NuestrasRespuestasController extends Controller
 
             }
             //Finalizamos las respuestas
-            $logEnvios[] = ["Finalizaci&oacute;n: " . date("d/m/Y h:m:i", strtotime('now')), "", "time green icon-size-large"];
+            $logEnvios[] = ["Finalizaci&oacute;n: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
             //Creamos la cabecera del Log
             $logArchivo = array();
             $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
