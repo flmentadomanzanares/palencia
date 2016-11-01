@@ -3,7 +3,7 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima" style="margin-top: 130px">
         <table class="table-viaoptima table-striped table-hover">
-            <caption style="text-align: center">{!! $titulo !!}</caption>
+            <caption>{!! $titulo !!}</caption>
             <thead>
             <tr class="row-fixed">
                 <th class="text-center"></th>

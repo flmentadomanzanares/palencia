@@ -6814,14 +6814,14 @@ button.close {
 }
 
 .table-viaoptima caption {
-  text-align: left;
   color: #400090;
   font-size: 28px;
-  background-color: transparent;
-  padding: 0;
+  padding: 5px;
   line-height: 1.4;
   vertical-align: middle;
-  margin-top: 10px;
+  background-color: #400090;
+  color: #ffffff;
+  text-align: center;
 }
 
 .table-viaoptima caption img {
