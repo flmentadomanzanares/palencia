@@ -47,7 +47,7 @@ return ['campoUser' => [
 
     ],
     'envios' => [
-        'timeout' => 30,
+        'timeout' => 0,
         'seMaxtTimeAt' => 30,
         'comunidadesMax' => 0, //0=todos
     ],

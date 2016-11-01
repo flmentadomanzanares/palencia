@@ -283,11 +283,11 @@ class CursillosController extends Controller
     public function listadoCursillosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidadNoPropia = $request->get('comunidadNoPropia');
+            $comunidadesDestinatiras = $request->get('comunidadesDestinatarias');
             $anyo = $request->get('anyo');
             $esRespuestaAnterior = $request->get('esRespuestaAnterior');
             $tipoComunicacion = $request->get("tipoComunicacion");
-            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadNoPropia,
+            return Cursillos::getTodosLosCursillosMenosLosMios($comunidadesDestinatiras,
                 $anyo,
                 filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN),
                 $tipoComunicacion
@@ -314,8 +314,9 @@ class CursillosController extends Controller
     public function totalAnyosRespuestas(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidad = $request->get('comunidadPropia');
-            return Cursillos::getTodosMisAnyosCursillosList($comunidad);
+            $comunidadesIds = $request->get('comunidadesIds');
+            $incluirRespuestasAnteriores = $request->get('esRespuestaAnterior');
+            return Cursillos::ObtenerAnyosCursillosList($comunidadesIds, $incluirRespuestasAnteriores);
         }
     }
 

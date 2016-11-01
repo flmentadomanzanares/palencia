@@ -37,6 +37,30 @@ class Comunidades extends Model
             ->setPath('comunidades');
     }
 
+    /**
+     * Obtenemos la comunidad remitente para los PDf
+     * @param int $comunidadId Identificador de la comunidad
+     * @return mixed La cominidad
+     */
+
+    static public function getComunidadPDF($comunidadId = 0)
+    {
+        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
+            'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
+            'comunidades.email_solicitud', 'comunidades.email_envio', 'comunidades.direccion_postal', 'tipos_comunicaciones_preferidas.comunicacion_preferida')
+            ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')
+            ->leftJoin('tipos_comunicaciones_preferidas', 'comunidades.tipo_comunicacion_preferida_id',
+                '=', 'tipos_comunicaciones_preferidas.id')
+            ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
+            ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
+            ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
+            ->FilterComunidadId($comunidadId)
+            ->where("comunidades.activo", true)
+            ->orderBy("comunidades.comunidad")
+            ->first();
+    }
+
+
     static public function getComunidadPDFRespuestas($comunidad = 0, $esPropia = false, $excluirSinCursillos = false, $excluirRespuestasAnteriores = true, $modalidad = 0)
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
@@ -54,7 +78,7 @@ class Comunidades extends Model
                         GROUP BY cursillos.comunidad_id
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
             ->ExcluirSinCursillos($excluirSinCursillos)
-            ->ComunidadesId($comunidad)
+            ->ComunidadesIds($comunidad)
             ->esPropia($esPropia)
             ->ModalidadComunicacion($modalidad)
             ->where("comunidades.activo", true)
@@ -74,7 +98,7 @@ class Comunidades extends Model
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
-            ->ComunidadesId($comunidad)
+            ->ComunidadesIds($comunidad)
             ->ModalidadComunicacion($modalidad)
             ->esPropia(false)
             ->where("comunidades.activo", true)
@@ -462,10 +486,18 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopeComunidadesId($query, $comunidadesId = array())
+    public function scopeComunidadesIds($query, $comunidadesIds = array())
     {
-        if (count($comunidadesId) > 0) {
-            $query->whereIn('comunidades.id', $comunidadesId);
+        if (count($comunidadesIds) > 0) {
+            $query->whereIn('comunidades.id', $comunidadesIds);
+        }
+        return $query;
+    }
+
+    public function scopeFilterComunidadId($query, $comunidadId = 0)
+    {
+        if (is_numeric($comunidadId) && $comunidadId > 0) {
+            $query->where('comunidades.id', $comunidadId);
         }
         return $query;
     }

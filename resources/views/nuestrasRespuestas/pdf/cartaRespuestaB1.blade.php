@@ -17,7 +17,7 @@
     <br/>
     <ul>
         @foreach($cursos as $curso)
-            <li style="font-size:16px;padding-left: 1.5em;line-height:1.6;">{{ $curso }}</li>
+            <li style="font-size:16px;padding-left: 1.5em;line-height:1.6;">{{ sprintf("Nº %'06s de fecha %10s al %10s", $curso->num_cursillo, date('d/m/Y', strtotime($curso->fecha_inicio)), date('d/m/Y', strtotime($curso->fecha_final))) }}</li>
         @endforeach
     </ul>
     <br/>

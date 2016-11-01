@@ -1,14 +1,13 @@
 @extends('plantillas.admin')
 @section('contenido')
     <div class="spinner"></div>
-    <div class="hidden table-size-optima" style="margin-top: 110px">
-        <br/>
+    <div class="hidden table-size-optima" style="margin-top: 130px">
         <table class="table-viaoptima table-striped table-hover">
+            <caption style="text-align: center">{!! $titulo !!}</caption>
             <thead>
-            <tr>
-                <th colspan="2">
-                    {!! $titulo !!}
-                </th>
+            <tr class="row-fixed">
+                <th class="text-center"></th>
+                <th class="tabla-ancho-columna-botones"></th>
             </tr>
             </thead>
             <tbody>
@@ -16,7 +15,7 @@
                 <tr>
                     <td>{{$incidencia}}</td>
                     <td width=1px class="text-right">
-                        <div class="btn-action text-center">
+                        <div class="btn-action text-center tabla-ancho-columna-botones">
                             <span title="realizado">
                                 <i class="glyphicon glyphicon-envelope red icon-size-large"></i>
                             </span>
@@ -26,12 +25,11 @@
             @endforeach
             </tbody>
         </table>
-        {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','restoComunidades','incluirRespuestasAnteriores','anyos']),['route'=>'enviarNuestrasRespuestas','method'=>'POST']) !!}
-        {!! FORM::hidden('modalidad', $tipos_comunicaciones_preferidas)!!}
+        {!!FORM::model(Request::only([]),['route'=>'enviarNuestrasRespuestas','method'=>'POST']) !!}
+        @foreach($cursosIds as $cursoId )
+            {!! FORM::hidden('cursos[]', $cursoId)!!}
+        @endforeach
         {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
-        {!! FORM::hidden('anyos', $anyos)!!}
-        {!! FORM::hidden('incluirRespuestasAnteriores', $incluirRespuestasAnteriores)!!}
-        {!! FORM::hidden('restoComunidades', $restoComunidades)!!}
         @include('comun.plantillaVolverModificarGuardar',['index'=>"nuestrasRespuestas",'accion'=>"Enviar", 'icon'=>'glyphicon-envelope'])
         {!! FORM::close() !!}
     </div>
