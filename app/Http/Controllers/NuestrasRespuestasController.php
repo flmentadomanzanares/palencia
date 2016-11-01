@@ -104,9 +104,13 @@ class NuestrasRespuestasController extends Controller
         $totalCursosActualizados = [];
         $totalContadorCursosActualizados = 0;
         $totalContadorCursos = 0;
-        //PDF en múltiples páginas
+        //Cartas
         $comunidadesConCarta = 0;
+        $comunidadesConCartaCreada = 0;
+        //Email
         $comunidadesConEmail = 0;
+        $comunidadesConEmailEnviado = 0;
+        //PDF en múltiples páginas
         $multiplesPdf = \App::make('dompdf.wrapper');
         $multiplesPdfBegin = '<html lang="es">';
         $multiplesPdfContain = "";
@@ -129,6 +133,8 @@ class NuestrasRespuestasController extends Controller
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
             foreach ($cursosPorComunidad as $idx => $curso) {
+
+                //todo ver esto
                 if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
                     $curso[] = ['num' => $curso->num_cursillo,
                         'dia' => date('d', strtotime($curso->fecha_inicio)),
@@ -187,7 +193,7 @@ class NuestrasRespuestasController extends Controller
                         $cursoActual->email_solicitud = config("opciones.emailTestSender.email");
                         $cursoActual->email_envio = config("opciones.emailTestSender.email");
                     }
-
+                    $comunidadesConEmail += 1;
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursosPorComunidad, 'remitente' => $remitente, 'destinatario' => $cursoActual, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $cursoActual, $nombreArchivoAdjuntoEmail, $fecha_emision, $esCarta) {
@@ -196,7 +202,7 @@ class NuestrasRespuestasController extends Controller
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
 
-                    $comunidadesConEmail += 1;
+                    $comunidadesConEmailEnviado += 1;
                     $comunidadesDestinatarias[] = [$curso->comunidad_id, $comunidad];
                     $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
@@ -226,6 +232,7 @@ class NuestrasRespuestasController extends Controller
                 $logEnvios[] = ["La comunidad destinataria " . $comunidad . " no dispone de email de respuesta", "", "envelope red icon-size-large"];
             } elseif (strtolower($cursoActual->comunicacion_preferida) != "email" && (strcasecmp($cursoActual->comunicacion_preferida, config("opciones.tipo.email")) != 0)) {
                 $contador = count($cursosActualizados);
+                $comunidadesConCarta += 1;
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                         compact('cursosPorComunidad', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
@@ -233,7 +240,7 @@ class NuestrasRespuestasController extends Controller
                         ))->render();
                     $multiplesPdfContain .= $view;
                     $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $comunidad, "", "align-justify green icon-size-large"];
-                    $comunidadesConCarta += 1;
+                    $comunidadesConCartaCreada += 1;
                     $comunidadesDestinatarias[] = [$curso->comunidad_id, $comunidad]; //Mal
                     $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
@@ -256,22 +263,18 @@ class NuestrasRespuestasController extends Controller
         }
         //Fin del bucle de comunidades
 
-        if ($comunidadesConCarta > 0) {
+        if ($comunidadesConCartaCreada > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NR-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Creada cartas de respuesta.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
+            $logEnvios[] = ["Cartas de respuesta.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign red icon-size-large"];
         } else {
-            if ($comunidadesConEmail > 0) {
-                $logEnvios[] = [$comunidadesConEmail . ($comunidadesConEmail > 1 ? " emails enviados." : " email enviado"), "", "info-sign info icon-size-large"];
-            }
-            if ($comunidadesConCarta > 0) {
-                $logEnvios[] = [$comunidadesConCarta . ($comunidadesConCarta > 1 ? " cartas creadas." : " carta creada."), "", "info-sign info icon-size-large"];
-            }
+            $logEnvios[] = ["[" . $comunidadesConEmailEnviado . "/" . $comunidadesConEmail . "]" . " correos enviados.", "", "info-sign info icon-size-large"];
+            $logEnvios[] = ["[" . $comunidadesConCartaCreada . "/" . $comunidadesConCarta . "]" . " cartas creadas.", "", "info-sign info icon-size-large"];
 
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($totalContadorCursosActualizados > 0) {
