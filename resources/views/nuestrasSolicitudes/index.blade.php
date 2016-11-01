@@ -34,24 +34,27 @@
             <hr>
             <div class="heading-caption">Comunidades Destinatarias</div>
             <div data-role="comunidades_destinatarias"></div>
-            <div data-role="seleccion_destinatarios" class="panel panel-default panel-body">
-                <button data-role="marcarTodos" class="txt-left btn btn-primary m-b-10" type="button"
-                        title="A&ntilde;adir todos los destinatarios">
-                    <i class='glyphicon  glyphicon-plus-sign'></i>
-                    A&ntilde;adir todas
-                </button>
-                <button data-role="eliminarTodos" class="txt-left btn btn-warning m-b-10" type="button"
-                        title="Eliminar todos los destinatarios">
-                    <i class='glyphicon glyphicon-remove-sign'></i>
-                    Eliminar todas
-                </button>
-                <button data-role="ordenar" class="pull-right txt-left btn btn-info m-b-10" type="button"
-                        title="Ordenar los destinatarios">
-                    <i class='glyphicon  glyphicon-sort-by-alphabet'></i>
-                    Ordenar
-                </button>
-                <div class="form-group">
-                    {!! FORM::select('comunidadesDestinatarias', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_resto_comunidades'))!!}
+            <div data-role="seleccion_destinatarios" class="panel panel-default">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    <button data-role="marcarTodos" class="txt-left btn btn-primary m-b-10" type="button"
+                            title="A&ntilde;adir todos los destinatarios">
+                        <i class='glyphicon  glyphicon-plus-sign'></i>
+                        A&ntilde;adir todas
+                    </button>
+                    <button data-role="eliminarTodos" class="txt-left btn btn-warning m-b-10" type="button"
+                            title="Eliminar todos los destinatarios">
+                        <i class='glyphicon glyphicon-remove-sign'></i>
+                        Eliminar todas
+                    </button>
+                    <button data-role="ordenar" class="pull-right txt-left btn btn-info m-b-10" type="button"
+                            title="Ordenar los destinatarios">
+                        <i class='glyphicon  glyphicon-sort-by-alphabet'></i>
+                        Ordenar
+                    </button>
+                    <div class="form-group">
+                        {!! FORM::select('comunidadesDestinatarias', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_resto_comunidades'))!!}
+                    </div>
                 </div>
             </div>
         @else
