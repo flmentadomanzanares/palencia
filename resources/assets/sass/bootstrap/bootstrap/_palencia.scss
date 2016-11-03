@@ -154,14 +154,14 @@
   padding: $padding-app-small;
   border: 1px solid $app-color-base;
   caption {
-    text-align: left;
     color: $app-color-base;
     font-size: (2 * $font-size-app-base-register);
-    background-color: transparent;
-    padding: 0;
+    padding: 5px;
     line-height: 1.4;
     vertical-align: middle;
-    margin-top: $margin-app-base;
+    background-color: $app-color-base;
+    color: $app-color-white;
+    text-align: center;
     img {
       position: absolute;
       width: 42px;

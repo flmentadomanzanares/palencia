@@ -77,8 +77,9 @@ class NuestrasRespuestasController extends Controller
 
         //Nos traemos los cursillos
         $cursillos = Cursillos::obtenerComunidadesCursillosPDFRespuesta($cursillosIds);
-        //Obtenemos los nombres de lo
-        $comunidades = $cursillos->keyby("comunidad")->keys();
+        //Obtenemos los nombres de las comnunidades con sus correspondientes cursos
+        $comunidades = $cursillos->groupBy("comunidad");
+
 
         if (count($cursillos) == 0) {
             return redirect()->
@@ -104,6 +105,7 @@ class NuestrasRespuestasController extends Controller
         $totalCursosActualizados = [];
         $totalContadorCursosActualizados = 0;
         $totalContadorCursos = 0;
+        $cursos = [];
         //Cartas
         $comunidadesConCarta = 0;
         $comunidadesConCartaCreada = 0;
@@ -113,17 +115,15 @@ class NuestrasRespuestasController extends Controller
         //PDF en múltiples páginas
         $multiplesPdf = \App::make('dompdf.wrapper');
         $multiplesPdfBegin = '<html lang="es">';
-        $multiplesPdfContain = "";
+
+        $multiplesPdfCarta = "";
         $multiplesPdfEnd = '</html>';
 
         //Ampliamos el tiempo de ejecución del servidor a 60 minutos.
         ini_set("max_execution_time", config('opciones.envios.timeout'));
 
-
-        foreach ($comunidades as $idx => $comunidad) {
-            $cursosPorComunidad = $cursillos->filter(function ($item) use ($comunidad) {
-                return $item->comunidad == $comunidad;
-            })->values();
+        foreach ($comunidades as $idx => $cursosPorComunidad) {
+            $comunidad = $idx;
             //Ruta para linux
             $separatorPath = "/";
             $path = "respuestasCursillos";
@@ -132,19 +132,12 @@ class NuestrasRespuestasController extends Controller
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
-            foreach ($cursosPorComunidad as $idx => $curso) {
 
-                //todo ver esto
-                if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
-                    $curso[] = ['num' => $curso->num_cursillo,
-                        'dia' => date('d', strtotime($curso->fecha_inicio)),
-                        'mes' => $meses[date('n', strtotime($curso->fecha_inicio)) - 1],
-                        'anyo' => date('Y', strtotime($curso->fecha_inicio))];
-                }
+            foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
 
-                if (!$curso->esRespuesta) {
-                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $curso->num_cursillo, $comunidad);
-                    $cursosActualizadosIds[] = $curso->curso_id;
+                if (!$cursoComunidad->esRespuesta) {
+                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
+                    $cursosActualizadosIds[] = $cursoComunidad->curso_id;
                     $totalContadorCursos += 1;
                 }
             }
@@ -162,26 +155,30 @@ class NuestrasRespuestasController extends Controller
                 try {
                     $pdf = \App::make('dompdf.wrapper');
                     if (config("opciones.accion.cartaCumplimentadaIndividualNuestrasRespuestas")) {
-                        $multiplesPdfContain = "";
-                        foreach ($cursosPorComunidad as $curso) {
+                        $multiplesPdfEmail = "";
+                        foreach ($cursosPorComunidad as $cursoComunidad) {
+                            $curso = ['num' => $cursoComunidad->num_cursillo,
+                                'dia' => date('d', strtotime($cursoComunidad->fecha_inicio)),
+                                'mes' => $meses[date('n', strtotime($cursoComunidad->fecha_inicio)) - 1],
+                                'anyo' => date('Y', strtotime($cursoComunidad->fecha_inicio))];
+
                             $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3_CumplimentadaPorCurso',
                                 compact('curso', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                     , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                                 ))->render();
-                            $multiplesPdfContain .= $view;
+                            $multiplesPdfEmail .= $view;
                         }
-                        $view = $multiplesPdfContain;
                     } else {
-                        $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
+                        $multiplesPdfEmail = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
                             compact('cursosPorComunidad', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
                     }
-                    $pdf->loadHTML($multiplesPdfBegin . $view . $multiplesPdfEnd);
+                    $pdf->loadHTML($multiplesPdfBegin . $multiplesPdfEmail . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);
                     $logEnvios[] = ["Creado documento adjunto para el email de respuesta a la comunidad " . $comunidad, "", "floppy-saved green icon-size-large"];
-                } catch (\Exception $e) {
+                } catch (\Exception $ex) {
                     $logEnvios[] = ["Error al crear el documento adjunto para email de " . $comunidad, "", "floppy-remove red icon-size-large"];
                 }
 
@@ -203,7 +200,7 @@ class NuestrasRespuestasController extends Controller
                         });
 
                     $comunidadesConEmailEnviado += 1;
-                    $comunidadesDestinatarias[] = [$curso->comunidad_id, $comunidad];
+                    $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
                     $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
                         $totalCursosActualizados[] .= $actualizados;
@@ -216,11 +213,12 @@ class NuestrasRespuestasController extends Controller
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " est&aacute;"
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
-
                     unlink($nombreArchivoAdjuntoEmail);
 
                 } catch (\Exception $ex) {
-                    if (count($cursosActualizados) > 0) {
+                    if ($ex->getCode() == 535) {
+                        $logEnvios[] = ["Petición rechazada por " . env("HOST") . " comunidad afectada: " . $comunidad, "", "envelope red icon-size-large"];
+                    } elseif (count($cursosActualizados) > 0) {
                         $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                             . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
                     }
@@ -230,6 +228,7 @@ class NuestrasRespuestasController extends Controller
                     ["No se pudo enviar la respuesta a la comunidad " . $comunidad . " al email " . $cursoActual->email_envio, "", "envelope red icon-size-large"];
             } elseif (strtolower($cursoActual->comunicacion_preferida) != "carta" && (strcasecmp($cursoActual->comunicacion_preferida, config("opciones.tipo.email")) == 0) && (strlen($cursoActual->email_envio) == 0)) {
                 $logEnvios[] = ["La comunidad destinataria " . $comunidad . " no dispone de email de respuesta", "", "envelope red icon-size-large"];
+                $comunidadesConEmail += 1;
             } elseif (strtolower($cursoActual->comunicacion_preferida) != "email" && (strcasecmp($cursoActual->comunicacion_preferida, config("opciones.tipo.email")) != 0)) {
                 $contador = count($cursosActualizados);
                 $comunidadesConCarta += 1;
@@ -238,10 +237,10 @@ class NuestrasRespuestasController extends Controller
                         compact('cursosPorComunidad', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
                             , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                         ))->render();
-                    $multiplesPdfContain .= $view;
+                    $multiplesPdfCarta .= $view;
                     $logEnvios[] = ["Creada carta de respuesta para la comunidad " . $comunidad, "", "align-justify green icon-size-large"];
                     $comunidadesConCartaCreada += 1;
-                    $comunidadesDestinatarias[] = [$curso->comunidad_id, $comunidad]; //Mal
+                    $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
                     $totalContadorCursosActualizados += $contador;
                     foreach ($cursosActualizados as $actualizados) {
                         $totalCursosActualizados[] .= $actualizados;
@@ -253,8 +252,7 @@ class NuestrasRespuestasController extends Controller
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " est&aacute;"
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
-                } catch (\Exception $e) {
-                    dd($e);
+                } catch (\Exception $ex) {
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $comunidad, "", "align-justify red icon-size-large"];
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                         . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
@@ -265,7 +263,7 @@ class NuestrasRespuestasController extends Controller
 
         if ($comunidadesConCartaCreada > 0) {
             $pathTotalComunidadesCarta = $path . $separatorPath . "NR-" . date("d_m_Y", strtotime('now')) . '-' . "TotalComunidadesCarta.pdf";
-            $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
+            $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfCarta . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
             $logEnvios[] = ["Cartas de respuesta.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];

@@ -153,7 +153,7 @@
     <br/>
     <br/>
         <span class="tab">Recibimos vuestra petici&oacute;n de apoyo espiritual para vuestro Cursillos de Cristiandad Nº
-            {{$cur['num']}} a celebrar desde el {{$cur['dia']}} de {{$cur['mes']}} del {{$cur['anyo']}}</span>
+            {{$curso['num']}} a celebrar desde el {{$curso['dia']}} de {{$curso['mes']}} del {{$curso['anyo']}}</span>
     <br/>
     <br/>
     <span class="tab">Esta Iglesia de Canarias ha rogado al Se&ntilde;or en sus Ultreyas, Reuniones de Grupo y oraciones
