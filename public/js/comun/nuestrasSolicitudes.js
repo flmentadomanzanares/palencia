@@ -251,6 +251,7 @@ $(document).ready(function () {
             return false;
         }
         $this.removeAttr("data-role");
+        $("div.spinner").css("display", 'block');
         $this[0].submit();
     });
     poner_comunicacion($('#select_comunicacion').val());

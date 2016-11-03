@@ -8,15 +8,15 @@
 </div>
 <div class="destinatario">
     <span>CURSILLOS DE CRISTIANDAD DE</span><br>
-    @if(strlen($destinatario->comunidad)>0){{strtoupper($destinatario->comunidad)}}<br/>@endif
-    @if(strlen($destinatario->direccion_postal)>0){{$destinatario->direccion_postal}}<br/>
+    @if(strlen($comunidadDestinataria->comunidad)>0){{strtoupper($comunidadDestinataria->comunidad)}}<br/>@endif
+    @if(strlen($comunidadDestinataria->direccion_postal)>0){{$comunidadDestinataria->direccion_postal}}<br/>
     @else
-        @if(strlen($destinatario->direccion)>0){{$destinatario->direccion}}<br/>@endif
+        @if(strlen($comunidadDestinataria->direccion)>0){{$comunidadDestinataria->direccion}}<br/>@endif
     @endif
-    @if(strlen($destinatario->cp)>0){{$destinatario->cp}}- @endif
-    @if(strlen($destinatario->localidad)>0){{$destinatario->localidad}} @endif
-    @if(strlen($destinatario->cp)>0 || strlen($destinatario->localidad)>0)<br/> @endif
-    @if(strlen($destinatario->provincia)>0){{$destinatario->provincia}}
-    @if(strlen($destinatario->pais)>0)-{{$destinatario->pais}}@endif
+    @if(strlen($comunidadDestinataria->cp)>0){{$comunidadDestinataria->cp}}- @endif
+    @if(strlen($comunidadDestinataria->localidad)>0){{$comunidadDestinataria->localidad}} @endif
+    @if(strlen($comunidadDestinataria->cp)>0 || strlen($comunidadDestinataria->localidad)>0)<br/> @endif
+    @if(strlen($comunidadDestinataria->provincia)>0){{$comunidadDestinataria->provincia}}
+    @if(strlen($comunidadDestinataria->pais)>0)-{{$comunidadDestinataria->pais}}@endif
     @endif
 </div>

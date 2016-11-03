@@ -3,9 +3,10 @@
     <div class="spinner"></div>
     <div class="hidden table-size-optima" style="margin-top:110px">
         <table class="table-viaoptima table-striped table-hover">
+            <caption>{!! $titulo !!}</caption>
             <thead>
             <tr class="row-fixed">
-                <th>{!! $titulo !!}</th>
+                <th></th>
                 <th class="tabla-ancho-columna-botones"></th>
             </tr>
             </thead>

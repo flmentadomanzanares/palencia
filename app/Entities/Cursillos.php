@@ -135,7 +135,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function obtenerComunidadesCursillosPDFRespuesta($cursillos = Array())
+    static public function obtenerComunidadesCursillosPDF($cursillos = Array())
     {
         return Cursillos::select('comunidades.id AS comunidad_id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',

@@ -87,7 +87,7 @@ class Comunidades extends Model
             ->get();
     }
 
-    static public function getComunidadPDFSolicitudes($comunidad = array(), $modalidad = 0)
+    static public function obtenerComunidadesPDF($comunidad = array())
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -99,8 +99,6 @@ class Comunidades extends Model
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
             ->ComunidadesIds($comunidad)
-            ->ModalidadComunicacion($modalidad)
-            ->esPropia(false)
             ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
             ->take(config('opciones.envios.comunidadesMax'))

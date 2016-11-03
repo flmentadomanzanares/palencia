@@ -1,4 +1,4 @@
-@if($esCarta)
+@if(strtolower($comunidadDestinataria->comunicacion_preferida)!="carta")
     <div class="footer">
         <strong>NOTA.</strong><span> Les rogamos rellenen los datos para cada Cursillo en las fotocopias que sean necesarias.</span>
         <br/>

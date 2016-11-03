@@ -148,7 +148,7 @@
 <body>
 @include("pdf.Template.carta.header")
 <div class="mensaje">
-    @if (!$esCarta) <br/> @endif
+    @if (strtolower($comunidadDestinataria->comunicacion_preferida)!="carta") <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
     <br/>
