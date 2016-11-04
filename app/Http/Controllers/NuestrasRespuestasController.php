@@ -293,8 +293,6 @@ class NuestrasRespuestasController extends Controller
             }
             //Path dónde se guarda el log de nuestras solicitudes
             $logPath = 'logs/NR/NR_log_' . date('d_m_Y_H_i_s');
-            //Ponemos un download para el log en la vista
-            $logEnvios[] = ["Log de operaciones.", $logPath, "", "Log"];
             //Creamos la cabecera del Log
             $logArchivo = array();
             $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
@@ -315,6 +313,8 @@ class NuestrasRespuestasController extends Controller
             //Guardamos a archivo
             file_put_contents($logPath, $logArchivo, true);
         }
+        //Ponemos un download para el log en la vista
+        $logEnvios[] = ["Log de nuestras respuestas.", $logPath, "", "Log"];
         //Finalizamos las respuestas
         $logEnvios[] = ["Finalización: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
 
