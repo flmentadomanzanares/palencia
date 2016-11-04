@@ -64,10 +64,10 @@
                         <li class="menu-separator"></li>
                         <li>{!!link_to('nuestrasSolicitudes', 'Nuestras Solicitudes')!!}</li>
                         <li>{!!link_to('solicitudesEnviadas', 'Sus Respuestas')!!}</li>
+                        <li>{!!link_to('respuestasSinSolicitudes', 'Respuesta sin nuestra Solicitud')!!}</li>
                         <li class="menu-separator"></li>
                         <li>{!!link_to('solicitudesRecibidas', 'Consultar sus Solicitudes')!!}</li>
                         <li>{!!link_to('nuestrasRespuestas', 'Responder')!!}</li>
-                        <li>{!!link_to('respuestasSinSolicitudes', 'Responder sin Solicitud')!!}</li>
                         <li class="menu-separator"></li>
                         <li>{!!link_to('tiposSecretariados', 'Tipos de Secretariados')!!}</li>
                         @if (config("opciones.accion.tiposParticipantes"))
