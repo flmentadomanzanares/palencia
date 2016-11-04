@@ -201,13 +201,14 @@ class NuestrasSolicitudesController extends Controller
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfContain . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Cartas creadas de solicitud.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
+            $logEnvios[] = ["Cartas creadas de nuestras solicitudes.", $pathTotalComunidadesCarta, "list-alt green icon-size-large", "Cartas"];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign red icon-size-large"];
         } else {
             $logEnvios[] = ["[" . $destinatariosConEmailEnviado . "/" . $destinatariosConEmail . "]" . " correos enviados.", "", "info-sign info icon-size-large"];
             $logEnvios[] = ["[" . $destinatariosConCartaCreada . "/" . $destinatariosConCarta . "]" . " cartas creadas.", "", "info-sign info icon-size-large"];
+            $logEnvios[] = ["Solicitudes procesadas de " . count($cursillos) . " curso" . (count($cursillos) > 1 ? "s" : "") . " de la comunidad " . $remitente->comunidad, "", "info-sign info icon-size-large"];
         }
         //Cambiamos de estado las solicitudes que no están como esSolicitud
         if (count($comunidadesDestinatariasIncluidas) > 0 && count($cursosActualizadosIds) > 0) {
@@ -225,8 +226,11 @@ class NuestrasSolicitudesController extends Controller
         if (count($logSolicitudesEnviadas) > 0) {
             $logEnvios[] = $logSolicitudesEnviadas[count($logSolicitudesEnviadas) - 1];
         }
-        //Finalizamos las respuestas
-        $logEnvios[] = ["Finalizaci&oacute;n: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
+
+        //Path dónde se guarda el log de nuestras solicitudes
+        $logPath = 'logs/NS/NS_log_' . date('d_m_Y_H_i_s');
+        //Ponemos un download para el log en la vista
+        $logEnvios[] = ["Log de operaciones.", $logPath, "", "Log"];
         //Creamos la cabecera del Log de archivo
         $logArchivo = array();
         $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
@@ -246,8 +250,9 @@ class NuestrasSolicitudesController extends Controller
             }
         }
         //Guardamos a archivo
-        file_put_contents('logs/NS/NS_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
-
+        file_put_contents($logPath, $logArchivo, true);
+        //Finalizamos las respuestas
+        $logEnvios[] = ["Finalización: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
             compact('titulo', 'logEnvios'));

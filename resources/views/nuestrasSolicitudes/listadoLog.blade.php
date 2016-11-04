@@ -19,7 +19,7 @@
                             <div class="btn-action">
                                 <a title="Descargar" href="{{$log[1]}}" download="{{$log[1]}}">
                                     <i class="glyphicon glyphicon-save">
-                                        <div>Guardar</div>
+                                        <div>{{isset($log[3])?$log[3]:"Guardar"}}</div>
                                     </i>
                                 </a>
                             </div>

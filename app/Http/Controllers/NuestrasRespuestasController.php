@@ -265,7 +265,7 @@ class NuestrasRespuestasController extends Controller
             $multiplesPdf->loadHTML($multiplesPdfBegin . $multiplesPdfCarta . $multiplesPdfEnd);
             $multiplesPdf->output();
             $multiplesPdf->save($pathTotalComunidadesCarta);
-            $logEnvios[] = ["Cartas de respuesta.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
+            $logEnvios[] = ["Cartas creadas de nuestras respuestas.", $pathTotalComunidadesCarta, "list-alt green icon-size-large"];
         }
         if (count($logEnvios) == 0) {
             $logEnvios[] = ["No hay operaciones que realizar.", "", "remove-sign red icon-size-large"];
@@ -291,8 +291,10 @@ class NuestrasRespuestasController extends Controller
             if (count($logSolicitudesRecibidas) > 0) {
                 $logEnvios[] = $logSolicitudesRecibidas[count($logSolicitudesRecibidas) - 1];
             }
-            //Finalizamos las respuestas
-            $logEnvios[] = ["Finalizaci&oacute;n: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
+            //Path dónde se guarda el log de nuestras solicitudes
+            $logPath = 'logs/NR/NR_log_' . date('d_m_Y_H_i_s');
+            //Ponemos un download para el log en la vista
+            $logEnvios[] = ["Log de operaciones.", $logPath, "", "Log"];
             //Creamos la cabecera del Log
             $logArchivo = array();
             $logArchivo[] = 'Fecha->' . date('d/m/Y H:i:s') . "\n";
@@ -311,8 +313,11 @@ class NuestrasRespuestasController extends Controller
                 }
             }
             //Guardamos a archivo
-            file_put_contents('logs/NR/NR_log_' . date('d_m_Y_H_i_s'), $logArchivo, true);
+            file_put_contents($logPath, $logArchivo, true);
         }
+        //Finalizamos las respuestas
+        $logEnvios[] = ["Finalización: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
+
         $titulo = "Operaciones Realizadas";
         return view('nuestrasRespuestas.listadoLog',
             compact('titulo', 'logEnvios'));
