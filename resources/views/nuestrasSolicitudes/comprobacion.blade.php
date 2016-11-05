@@ -27,8 +27,9 @@
             </tbody>
         </table>
         {!!FORM::model(Request::only([]),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
-        @foreach($cursosIds as $cursoId )
-            {!! FORM::hidden('cursos[]', $cursoId)!!}
+        {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
+        @foreach($cursos as $curso )
+            {!! FORM::hidden('cursos[]', $curso)!!}
         @endforeach
         @foreach($comunidadesDestinatarias as $comunidadDestinataria )
             {!! FORM::hidden('comunidadesDestinatarias[]', $comunidadDestinataria)!!}

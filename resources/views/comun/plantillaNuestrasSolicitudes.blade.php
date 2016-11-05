@@ -18,7 +18,6 @@
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">
-                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST','name'=>'formularioNuestrasSolicitudes','data-role'=>'conVerificado']) !!}
                 <div class="form-group">
                     {!! FORM::label('modalidad', 'Medio de comunicaci&oacute;n') !!}
                     {!! FORM::select('modalidad', $tipos_comunicaciones_preferidas, null,array("class"=>"form-control",'id'=>'select_comunicacion'))!!}
@@ -28,6 +27,7 @@
                     {!! FORM::label('anyo', 'A&ntilde;o Cursillos') !!}
                     {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
                 </div>
+                {!!FORM::model(Request::only(['modalidad','nuestrasComunidades','tipos_comunicaciones_preferidas','anyos']),['route'=>'comprobarNuestrasSolicitudes','method'=>'POST','name'=>'formularioNuestrasSolicitudes','data-role'=>'conVerificado']) !!}
                 <button class=" txt-left btn btn-primary m-b-10 full-Width marcarTodos" type="button"
                         title="Marcar todos los cursillos">
                     <i class='glyphicon  glyphicon-check'></i>

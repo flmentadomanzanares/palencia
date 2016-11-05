@@ -40,12 +40,13 @@ class NuestrasSolicitudesController extends Controller
     public function comprobarSolicitudes(Request $request)
     {
         $incidencias = array();
-        $cursosIds = $request->get('cursos');
-        $comunidadesDestinatarias = $request->get('restoComunidades');
-        $cursos = Cursillos::obtenerComunidadesCursillosPDF($cursosIds);
-        if (count($cursos) > 0) {
-            foreach ($cursos as $idx => $curso) {
-                $comunidad = $curso;
+        $comunidadesDestinatarias = $request->get('comunidadesDestinatarias');
+        $comunidades = Comunidades::obtenerComunidadesPDF($comunidadesDestinatarias);
+        $nuestrasComunidades = $request->get('nuestrasComunidades');
+        $cursos = $request->get('cursos');
+
+        if (count($comunidades) > 0) {
+            foreach ($comunidades as $idx => $comunidad) {
                 if (strtolower($comunidad->comunicacion_preferida) == "email" && (strlen($comunidad->email_envio) == 0)) {
                     $incidencias[] = "La comunidad destinataria " . $comunidad->comunidad . " carece de email para el env&iacute;o de nuestras solicitudes";
                 }
@@ -56,8 +57,9 @@ class NuestrasSolicitudesController extends Controller
             return view('nuestrasSolicitudes.comprobacion',
                 compact('titulo',
                     'incidencias',
+                    'nuestrasComunidades',
                     'comunidadesDestinatarias',
-                    'cursosIds'
+                    'cursos'
                 ));
         }
         return $this->enviarCursillos($request);
@@ -65,12 +67,10 @@ class NuestrasSolicitudesController extends Controller
 
     public function enviarCursillos(Request $request)
     {
-
         $cursillosIds = $request->get("cursos");
         $comunidadesDestinatariasIds = $request->get('comunidadesDestinatarias');
         $comunidadesDestinatarias = Comunidades::obtenerComunidadesPDF($comunidadesDestinatariasIds);
         $cursillos = Cursillos::obtenerComunidadesCursillosPDF($cursillosIds);
-
         //Verificación
         if (count($comunidadesDestinatarias) == 0 || count($cursillos) == 0) {
             return redirect()->

@@ -57,7 +57,7 @@ Route::group(['middleware' => array('roles'), 'roles' => array('administrador'),
         Route::post('borrarTablas', array('as' => 'borrarTablas', 'uses' => 'CerrarAnyoController@borrarTablas'));
     }
     Route::post('comprobarNuestrasSolicitudes', array('as' => 'comprobarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@comprobarSolicitudes'));
-    Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviar'));
+    Route::post('enviarNuestrasSolicitudes', array('as' => 'enviarNuestrasSolicitudes', 'uses' => 'NuestrasSolicitudesController@enviarCursillos'));
     Route::post('comprobarNuestrasRespuestas', array('as' => 'comprobarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@comprobarRespuestas'));
     Route::post('enviarNuestrasRespuestas', array('as' => 'enviarNuestrasRespuestas', 'uses' => 'NuestrasRespuestasController@enviarCursillos'));
     Route::post('enviarRespuestasSinSolicitudes', array('as' => 'enviarRespuestasSinSolicitudes', 'uses' => 'NuestrasRespuestasController@enviarRespuestasSinSolicitudes'));

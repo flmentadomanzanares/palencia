@@ -21,7 +21,7 @@ $(document).ready(function () {
     var ponerDestinatario = function (elem) {
         if (isNaN(parseInt($(elem).val())))
             return false;
-        destinatarioInputs.append("<input type='hidden' name='restoComunidades[]' value='" + elem.val() + "'>");
+        destinatarioInputs.append("<input type='hidden' name='comunidadesDestinatarias[]' value='" + elem.val() + "'>");
         elem.closest(".table-size-optima")
             .find("[data-role='comunidades_destinatarias']")
             .append("<div data-role='destinatario' data-val='" + elem.val() + "' class='alert alert-info'>" + elem.text() + "<span class='badge pointer pull-right'>Quitar</span></div>");
