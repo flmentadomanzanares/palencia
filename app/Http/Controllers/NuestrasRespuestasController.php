@@ -332,7 +332,7 @@ class NuestrasRespuestasController extends Controller
         $titulo = "Respuestas sin Solicitud";
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = ["" => "----------"] + Comunidades::getComunidadesList(false, false);
-        $anyos = array(0 => "Año...");
+        $anyos = array();
         $cursillos = array();
         return view("respuestasSinSolicitudes.index", compact(
             'titulo',
