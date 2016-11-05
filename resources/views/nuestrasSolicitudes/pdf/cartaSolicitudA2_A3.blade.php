@@ -147,7 +147,6 @@
 <body>
 @include("pdf.Template.carta.header")
 <div class="mensaje">
-    @if (strtolower($comunidadDestinataria->comunicacion_preferida)!="carta") <br/> @endif
     <span>Queridos hermanos:</span>
     <br/>
     <br/>
@@ -180,18 +179,17 @@
         !
     </span>
     <br>
+    <div class="listado"><strong class="subrayado">CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></div>
+    <?php $i = 0?>
     <?php $pagina = 0 ?>
-    @if(strtolower($comunidadDestinataria->comunicacion_preferida)=="carta")
-        <div class="listado"><strong class="subrayado">CURSILLOS PARA LOS QUE NECESITAMOS INTENDENCIA</strong></div>
-        <?php $i = 0?>
-        @foreach($cursos as $index=>$curso)
-            @if($index>0 && $i==$listadoTotal)<?php $listadoTotal = $listadoTotalRestoPagina;$listadoPosicionInicial = 0;$i = 0; ?>
-            <div class="pagina">Pg {{$pagina=$pagina +1}}</div>
-            <div class="saltoPagina"></div>@endif
-            <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">{{ $curso }}</div>
-            <?php $i++?>
-        @endforeach
-    @endif
+    @foreach($cursos as $index=>$curso)
+        @if($index>0 && $i==$listadoTotal)<?php $listadoTotal = $listadoTotalRestoPagina;$listadoPosicionInicial = 0;$i = 0; ?>
+        <div class="pagina">Pg {{$pagina+= 1}}</div>
+        <div class="saltoPagina"></div>@endif
+        <div class="list" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">{{ $curso }}</div>
+        <?php $i++?>
+    @endforeach
+
 </div>
 @include("pdf.Template.carta.footer")
 <?php if ($pagina > 0) echo '<div class="pagina">Pg ' . ($pagina += 1) . '</div>' ?>

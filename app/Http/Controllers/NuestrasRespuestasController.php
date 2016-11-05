@@ -46,7 +46,9 @@ class NuestrasRespuestasController extends Controller
         if (count($cursos) > 0) {
             foreach ($cursos as $idx => $curso) {
                 $comunidad = $curso[0];
-                if (strtolower($comunidad->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) && (strlen($comunidad->email_envio) == 0)) {
+                if (strtolower($comunidad->comunicacion_preferida) == strtolower(config("opciones.tipo.email")) &&
+                    !preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $comunidad->email_envio)
+                ) {
                     $incidencias[] = "La comunidad destinataria " . $comunidad->comunidad . " carece de email para el env&iacute;o de nuestras respuestas";
                 }
             }

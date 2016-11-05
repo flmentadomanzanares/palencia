@@ -47,7 +47,9 @@ class NuestrasSolicitudesController extends Controller
 
         if (count($comunidades) > 0) {
             foreach ($comunidades as $idx => $comunidad) {
-                if (strtolower($comunidad->comunicacion_preferida) == "email" && (strlen($comunidad->email_envio) == 0)) {
+                if (strtolower($comunidad->comunicacion_preferida) == "email" &&
+                    !preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $comunidad->email_envio)
+                ) {
                     $incidencias[] = "La comunidad destinataria " . $comunidad->comunidad . " carece de email para el env&iacute;o de nuestras solicitudes";
                 }
             }
@@ -71,12 +73,21 @@ class NuestrasSolicitudesController extends Controller
         $comunidadesDestinatariasIds = $request->get('comunidadesDestinatarias');
         $comunidadesDestinatarias = Comunidades::obtenerComunidadesPDF($comunidadesDestinatariasIds);
         $cursillos = Cursillos::obtenerComunidadesCursillosPDF($cursillosIds);
+
         //Verificación
         if (count($comunidadesDestinatarias) == 0 || count($cursillos) == 0) {
             return redirect()->
             route('nuestrasSolicitudes')->
             with('mensaje', 'No se puede realizar la operaci&oacute;n, comprueba que exista destinatarios  y/o cursos');
         }
+        //Datos del remitente por medio de su curso
+        $remitente = $cursillos[0];
+
+        //Si no tuviera correo de envío le creamos un correo ficticio
+        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $remitente->email_envio)) {
+            $remitente->email_solicitud = $remitente->comunidad . '@noTengoCorreo.com';
+        }
+
         //Configuración del listado html
         $listadoPosicionInicial = 43.5; //primera linea
         $listadoTotal = 9;  // nº lineas cursillo max primera pagina
@@ -102,8 +113,6 @@ class NuestrasSolicitudesController extends Controller
         $cursosActualizadosIds = [];
         $contadorCursosActualizados = 0;
         $comunidadesDestinatariasIncluidas = [];
-
-        $remitente = $cursillos[0];
 
         $destinatariosConCarta = 0;
         $destinatariosConCartaCreada = 0;
@@ -160,7 +169,7 @@ class NuestrasSolicitudesController extends Controller
                     $envio = Mail::send('nuestrasSolicitudes.pdf.cartaSolicitudA1',
                         compact('cursos', 'remitente', 'comunidadDestinataria', 'fecha_emision'),
                         function ($message) use ($remitente, $comunidadDestinataria, $nombreArchivoAdjuntoEmail) {
-                            $message->from($remitente->email_solicitud, $remitente->comunidad);
+                            $message->from($remitente->email_solicitud);
                             $message->to($comunidadDestinataria->email_solicitud)->subject("Nuestra Solicitud");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
@@ -169,6 +178,7 @@ class NuestrasSolicitudesController extends Controller
                     unlink($nombreArchivoAdjuntoEmail);
 
                 } catch (\Exception $ex) {
+                    dd($ex);
                     if ($ex->getCode() == 535) {
                         $logEnvios[] = ["Petición rechazada por " . env("HOST") . " comunidad afectada: " . $comunidadDestinataria->comunidad, "", "envelope red icon-size-large"];
                     }
