@@ -199,20 +199,21 @@ class NuestrasRespuestasController extends Controller
                             $message->to($cursoActual->email_envio)->subject("Nuestra Respuesta");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
+                    if ($envio > 0) {
+                        $comunidadesConEmailEnviado += 1;
+                        $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
+                        $totalContadorCursosActualizados += $contador;
+                        foreach ($cursosActualizados as $actualizados) {
+                            $totalCursosActualizados[] .= $actualizados;
+                        }
+                        foreach ($cursosActualizadosIds as $cursoId) {
+                            $totalCursosActualizadosIds[] .= $cursoId;
+                        }
 
-                    $comunidadesConEmailEnviado += 1;
-                    $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
-                    $totalContadorCursosActualizados += $contador;
-                    foreach ($cursosActualizados as $actualizados) {
-                        $totalCursosActualizados[] .= $actualizados;
-                    }
-                    foreach ($cursosActualizadosIds as $cursoId) {
-                        $totalCursosActualizadosIds[] .= $cursoId;
-                    }
-
-                    if ($contador > 0) {
-                        $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " est&aacute;"
-                            . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
+                        if ($contador > 0) {
+                            $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " est&aacute;"
+                                . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
+                        }
                     }
                     unlink($nombreArchivoAdjuntoEmail);
 

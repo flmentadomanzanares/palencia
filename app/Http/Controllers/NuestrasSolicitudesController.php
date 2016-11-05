@@ -173,12 +173,14 @@ class NuestrasSolicitudesController extends Controller
                             $message->to($comunidadDestinataria->email_solicitud)->subject("Nuestra Solicitud");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
-                    $destinatariosConEmailEnviado += 1;
-                    $comunidadesDestinatariasIncluidas[] = [$comunidadDestinataria->id, $comunidadDestinataria->comunidad];
+                    if ($envio > 0) {
+                        $destinatariosConEmailEnviado += 1;
+                        $comunidadesDestinatariasIncluidas[] = [$comunidadDestinataria->id, $comunidadDestinataria->comunidad];
+                    }
                     unlink($nombreArchivoAdjuntoEmail);
 
+
                 } catch (\Exception $ex) {
-                    dd($ex);
                     if ($ex->getCode() == 535) {
                         $logEnvios[] = ["Petición rechazada por " . env("HOST") . " comunidad afectada: " . $comunidadDestinataria->comunidad, "", "envelope red icon-size-large"];
                     }
