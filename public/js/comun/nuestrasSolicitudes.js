@@ -19,10 +19,13 @@ $(document).ready(function () {
     };
 
     var ponerDestinatario = function (elem) {
+        if (isNaN(parseInt($(elem).val())))
+            return false;
         destinatarioInputs.append("<input type='hidden' name='restoComunidades[]' value='" + elem.val() + "'>");
         elem.closest(".table-size-optima")
             .find("[data-role='comunidades_destinatarias']")
             .append("<div data-role='destinatario' data-val='" + elem.val() + "' class='alert alert-info'>" + elem.text() + "<span class='badge pointer pull-right'>Quitar</span></div>");
+        return true;
     };
     var eliminarDestinatario = function (val) {
         destinatarioInputs.find("[value='" + val + "']").remove();
@@ -179,10 +182,9 @@ $(document).ready(function () {
     $(document).on("change", "#select_resto_comunidades", function (evt) {
         evt.preventDefault();
         var option = $(this).find("option:selected");
-        if (option.attr("value") == undefined)
+        if (!ponerDestinatario(option))
             return;
         option.hide();
-        ponerDestinatario(option);
         scrollAlFinal();
     });
 
