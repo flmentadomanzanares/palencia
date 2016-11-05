@@ -42,6 +42,7 @@ class SolicitudesEnviadas extends Model
             'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->Aceptada($request->aceptada)
+            ->FiltroRespuestaCreada($request->get('esManual'))
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
             ->SolicitudEnviadaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
@@ -196,6 +197,14 @@ class SolicitudesEnviadas extends Model
     {
         if (is_numeric($aceptada)) {
             $query->where('solicitudes_enviadas.aceptada', $aceptada == 1 ? true : false);
+        }
+        return $query;
+    }
+
+    public function scopeFiltroRespuestaCreada($query, $esManual = null)
+    {
+        if (is_numeric($esManual)) {
+            $query->where('solicitudes_enviadas.esManual', $esManual == 1 ? true : false);
         }
         return $query;
     }

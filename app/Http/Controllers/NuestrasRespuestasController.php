@@ -329,9 +329,9 @@ class NuestrasRespuestasController extends Controller
      */
     public function respuestasSinSolicitudes(Request $request)
     {
-        $titulo = "Respuesta sin Solicitud";
+        $titulo = "Respuestas sin Solicitud";
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
-        $restoComunidades = Comunidades::getComunidadesList(false, false);
+        $restoComunidades = ["" => "----------"] + Comunidades::getComunidadesList(false, false);
         $anyos = array(0 => "Año...");
         $cursillos = array();
         return view("respuestasSinSolicitudes.index", compact(
@@ -344,34 +344,37 @@ class NuestrasRespuestasController extends Controller
 
     public function enviarRespuestasSinSolicitudes(Request $request)
     {
-        $comunidadDestino = $request->get('restoComunidades');
+        $comunidadesDestinatarias = $request->get('comunidadesDestinatarias');
         $comunidadRemitente = $request->get('nuestrasComunidades');
         $cursos = $request->get('cursos');
         if (count($cursos) == 0) {
             return redirect()->route("respuestasSinSolicitudes")
                 ->with("mensaje", "No hay cursos seleccionados.");
         }
-        //Creamos una nueva instancia al modelo.
-        $solicitudEnviada = new SolicitudesEnviadas();
-        //Asignamos valores traidos del formulario.
-        $solicitudEnviada->comunidad_id = $comunidadDestino;
-        $solicitudEnviada->aceptada = true;
-        $solicitudEnviada->esManual = true;
-        $solicitudEnviada->activo = true;
-        try {
-            DB::transaction(function () use ($cursos, $solicitudEnviada, $comunidadRemitente) {
-                $solicitudEnviada->save();
-                foreach ($cursos as $curso) {
-                    $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso, 'comunidad_id' => $comunidadRemitente]);
-                }
-                $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
-            });
-            return redirect()->action("SolicitudesEnviadasController@index", ['comunidades' => $comunidadDestino])
-                ->with("mensaje", "Se ha creado la respuesta con sus cursos asociados.");
-        } catch (\Exception $e) {
-            return redirect('respuestasSinSolicitudes')->
-            with('mensaje', 'No se ha podido crear la respuesta');
+        foreach ($comunidadesDestinatarias as $idx => $comunidadesDestinataria) {
+            try {
+                DB::transaction(function () use ($cursos, $comunidadRemitente, $comunidadesDestinataria) {
+                    //Creamos una nueva instancia al modelo.
+                    $solicitudEnviada = new SolicitudesEnviadas();
+                    //Asignamos valores traidos del formulario.
+                    $solicitudEnviada->comunidad_id = $comunidadesDestinataria;
+                    $solicitudEnviada->aceptada = true;
+                    $solicitudEnviada->esManual = true;
+                    $solicitudEnviada->activo = true;
+
+                    $solicitudEnviada->save();
+                    foreach ($cursos as $curso) {
+                        $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso, 'comunidad_id' => $comunidadRemitente]);
+                    }
+                    $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
+                });
+            } catch (\Exception $e) {
+                return redirect('respuestasSinSolicitudes')->
+                with('mensaje', 'No se ha podido crear las respuestas');
+            }
         }
+        return redirect()->action("SolicitudesEnviadasController@index")
+            ->with("mensaje", "Se han creado las respuesta con sus cursos asociados.");
     }
 }
 

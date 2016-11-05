@@ -18,21 +18,19 @@
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">
-                {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades']),['route'=>'enviarRespuestasSinSolicitudes','method'=>'POST', 'name'=>'formularioRespuestasSinSolicitudes']) !!}
-                {!! FORM::hidden('esSolicitudAnterior', true) !!}
+                {!!FORM::model(Request::only(['nuestrasComunidades','restoComunidades'])
+                    ,['route'=>'enviarRespuestasSinSolicitudes'
+                    ,'method'=>'POST'
+                    , 'name'=>'formularioRespuestasSinSolicitudes'
+                    ,'data-role'=>'conVerificado'
+                    ]) !!}
                 <div class="form-group">
                     {!! FORM::label('remitente', 'Nuestra Comunidad') !!}
                     {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control","id"=>"select_comunidad_propia"))!!}
                 </div>
-
                 <div class="form-group">
                     {!! FORM::label('anyo', 'A&ntilde;o Cursillos') !!}
                     {!! FORM::select('anyo', $anyos, null,array("class"=>"form-control",'id'=>'select_anyos'))!!}
-                </div>
-
-                <div class="form-group">
-                    {!! FORM::label('destinatario', 'Comunidad Destinataria') !!}
-                    {!! FORM::select('restoComunidades', $restoComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad_no_propia'))!!}
                 </div>
                 <button class=" txt-left btn btn-primary m-b-10 full-Width marcarTodos" type="button"
                         title="Marcar todos los cursillos">
@@ -45,7 +43,10 @@
                     Desmarcar todos los cursillos
                 </button>
                 <br/>
-                <div class="contenedor"></div>
+                <div data-role="contenedor_imputs">
+                    <div data-role="cursillos"></div>
+                    <div data-role="destinatarios"></div>
+                </div>
                 {!! FORM::submit('Responder',array("class"=>"btn btn-success btn-block")) !!}
                 {!! FORM::close() !!}
             </div>
