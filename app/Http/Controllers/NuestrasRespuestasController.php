@@ -165,7 +165,7 @@ class NuestrasRespuestasController extends Controller
                         }
                     } else {
                         $multiplesPdfEmail = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                            compact('cursosPorComunidad', 'remitente', 'comunidadDestinataria', 'fecha_emision', 'esCarta'
+                            compact('cursosPorComunidad', 'remitente', 'comunidadDestinataria', 'fecha_emision'
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
                     }
@@ -189,8 +189,8 @@ class NuestrasRespuestasController extends Controller
                     $comunidadesConEmail += 1;
 
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
-                        ['cursos' => $cursosPorComunidad, 'remitente' => $remitente, 'destinatario' => $cursoActual, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
-                        , function ($message) use ($remitente, $cursoActual, $nombreArchivoAdjuntoEmail, $fecha_emision, $esCarta) {
+                        ['cursos' => $cursosPorComunidad, 'remitente' => $remitente, 'destinatario' => $cursoActual, 'fecha_emision' => $fecha_emision,]
+                        , function ($message) use ($remitente, $cursoActual, $nombreArchivoAdjuntoEmail, $fecha_emision) {
                             $message->from($remitente->email_envio);
                             $message->to($cursoActual->email_envio)->subject("Nuestra Respuesta");
                             $message->attach($nombreArchivoAdjuntoEmail);
@@ -225,7 +225,7 @@ class NuestrasRespuestasController extends Controller
                     $envio = 0;
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $comunidad . " al email " . $cursoActual->email_envio, "", "envelope green icon-size-large"] :
-                    ["No se pudo enviar la respuesta a la comunidad " . $comunidad . " al email " . $cursoActual->email_envio, "", "envelope red icon-size-large"];
+                    ["No se pudo enviar la respuesta a la comunidad " . $comunidad . " con email " . $cursoActual->email_envio, "", "envelope red icon-size-large"];
             } elseif (strtolower($cursoActual->comunicacion_preferida) == "email") {
                 $logEnvios[] = ["La comunidad destinataria " . $comunidad . " no dispone de un formato correcto de email", "", "envelope red icon-size-large"];
                 $comunidadesConEmail += 1;
@@ -234,7 +234,7 @@ class NuestrasRespuestasController extends Controller
                 $comunidadesConCarta += 1;
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                        compact('cursosPorComunidad', 'remitente', 'comunidadDestinataria', 'fecha_emision', 'esCarta'
+                        compact('cursosPorComunidad', 'remitente', 'comunidadDestinataria', 'fecha_emision'
                             , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                         ))->render();
                     $multiplesPdfCarta .= $view;
@@ -253,7 +253,6 @@ class NuestrasRespuestasController extends Controller
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
                 } catch (\Exception $ex) {
-                    dd($ex);
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $comunidad, "", "align-justify red icon-size-large"];
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                         . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
@@ -277,7 +276,7 @@ class NuestrasRespuestasController extends Controller
 
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($totalContadorCursosActualizados > 0) {
-                if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
+                if (Cursillos::setCursillosEsRespuesta($cursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
                     $logEnvios[] = ["[" . $totalContadorCursosActualizados . "/" . $totalContadorCursos . "] Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " ha"
                         . ($totalContadorCursosActualizados > 1 ? "n" : "") . " cambiado al estado de respuesta realizada.", "", "info-sign info icon-size-large"];
                 } elseif ($totalContadorCursosActualizados > 0) {
@@ -287,7 +286,7 @@ class NuestrasRespuestasController extends Controller
                 }
             }
             //Actualizamos las tablas de forma automática y añadimos los logs
-            $logSolicitudesRecibidas = SolicitudesRecibidas::crearComunidadesCursillos($comunidadesDestinatarias, $totalCursosActualizadosIds);
+            $logSolicitudesRecibidas = SolicitudesRecibidas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
             //Obtenemos el último registro del log generado.
 
             if (count($logSolicitudesRecibidas) > 0) {

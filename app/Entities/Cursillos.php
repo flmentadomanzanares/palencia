@@ -82,21 +82,25 @@ class Cursillos extends Model
     static public function setCursillosEsSolicitud($cursillosIds = array())
     {
         $recordsCount = 0;
-        DB::transaction(function () use (&$recordsCount, $cursillosIds) {
-            $ids = implode(",", $cursillosIds);
-            $recordsCount = DB::update("update cursillos set esSolicitud=true  where (esSolicitud = false and activo = true and id in ($ids))");
-        });
+        if (count($cursillosIds) > 0) {
+            DB::transaction(function () use (&$recordsCount, $cursillosIds) {
+                $ids = implode(",", $cursillosIds);
+                $recordsCount = DB::update("update cursillos set esSolicitud=true  where (esSolicitud = false and activo = true and id in ($ids))");
+            });
+        }
         return $recordsCount;
     }
 
     static public function setCursillosEsRespuesta($cursillosIds = array())
     {
         $recordsCount = 0;
-        DB::transaction(function () use (&$recordsCount, $cursillosIds) {
-            $ids = implode(",", $cursillosIds);
-            $recordsCount = DB::update("update cursillos set esRespuesta=true  where (esRespuesta = false and activo = true and id in ($ids))");
+        if (count($cursillosIds) > 0) {
+            DB::transaction(function () use (&$recordsCount, $cursillosIds) {
+                $ids = implode(",", $cursillosIds);
+                $recordsCount = DB::update("update cursillos set esRespuesta=true  where (esRespuesta = false and activo = true and id in ($ids))");
 
-        });
+            });
+        }
         return $recordsCount;
     }
 
