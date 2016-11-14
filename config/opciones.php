@@ -25,13 +25,11 @@ return ['campoUser' => [
     'accion' => [
         'copiaSeguridad' => true,
         'cerrarAnyo' => false,
-        'crearSusRespuestasConSolicitudesAnterioresRealizadas' => false,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
         'mostrarModalDeBorrado' => true,
         'cartaCumplimentadaIndividualNuestrasRespuestas' => false,
-
     ],
     'listados' => [
         'mostrarListados' => true,
@@ -48,7 +46,7 @@ return ['campoUser' => [
     ],
     'envios' => [
         'timeout' => 0,
-        'seMaxtTimeAt' => 30,
+        'seMaxtTimeAt' => 45,
         'comunidadesMax' => 0, //0=todos
     ],
     'tipo' => [
