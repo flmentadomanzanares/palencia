@@ -234,7 +234,7 @@ class NuestrasRespuestasController extends Controller
                 $comunidadesConCarta += 1;
                 try {
                     $view = \View::make('nuestrasRespuestas.pdf.cartaRespuestaB2_B3',
-                        compact('cursosPorComunidad', 'remitente', 'destinatario', 'fecha_emision', 'esCarta'
+                        compact('cursosPorComunidad', 'remitente', 'comunidadDestinataria', 'fecha_emision', 'esCarta'
                             , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                         ))->render();
                     $multiplesPdfCarta .= $view;
@@ -253,6 +253,7 @@ class NuestrasRespuestasController extends Controller
                             . ($contador > 1 ? "n" : "") . " preparado" . ($contador > 1 ? "s" : "") . " para cambiar al estado de respuesta realizada.", "", "dashboard warning icon-size-normal"];
                     }
                 } catch (\Exception $ex) {
+                    dd($ex);
                     $logEnvios[] = ["No se ha podido crear la carta de respuesta para la comunidad " . $comunidad, "", "align-justify red icon-size-large"];
                     $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                         . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
