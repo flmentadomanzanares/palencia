@@ -135,11 +135,8 @@ class NuestrasRespuestasController extends Controller
             //Conversión a UTF
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursosActualizados = [];
-            $cursosActualizadosIds = [];
-
             $cursoActual = $cursosPorComunidad[0];
             $comunidadDestinataria = $cursoActual;
-
 
             if (strtolower($cursoActual->comunicacion_preferida) == "email" && preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $cursoActual->email_envio)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $comunidad . '.pdf';
@@ -204,7 +201,7 @@ class NuestrasRespuestasController extends Controller
                         foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
                             if (!$cursoComunidad->esRespuesta) {
                                 $totalCursosActualizados[] .= sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
-                                $cursosActualizadosIds[] = $cursoComunidad->curso_id;
+                                $totalCursosActualizadosIds[] = $cursoComunidad->curso_id;
                             }
                         }
 
@@ -245,7 +242,7 @@ class NuestrasRespuestasController extends Controller
                     foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
                         if (!$cursoComunidad->esRespuesta) {
                             $totalCursosActualizados[] .= sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
-                            $cursosActualizadosIds[] = $cursoComunidad->curso_id;
+                            $totalCursosActualizadosIds[] = $cursoComunidad->curso_id;
                         }
                     }
                     if ($contador > 0) {
@@ -276,17 +273,17 @@ class NuestrasRespuestasController extends Controller
 
             //Cambiamos de estado las respuestas que no están como esRespuesta
             if ($totalContadorCursosActualizados > 0) {
-                if (Cursillos::setCursillosEsRespuesta($cursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
+                if (Cursillos::setCursillosEsRespuesta($totalCursosActualizadosIds) == $totalContadorCursosActualizados && $totalContadorCursosActualizados > 0) {
                     $logEnvios[] = ["[" . $totalContadorCursosActualizados . "/" . $totalContadorCursos . "] Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") . " ha"
                         . ($totalContadorCursosActualizados > 1 ? "n" : "") . " cambiado al estado de respuesta realizada.", "", "info-sign info icon-size-large"];
                 } elseif ($totalContadorCursosActualizados > 0) {
                     $logEnvios[] = [$totalContadorCursosActualizados . " Curso" . ($totalContadorCursosActualizados > 1 ? "s" : "") .
                         " no se ha" . ($totalContadorCursosActualizados > 1 ? "n" : "") .
-                        " actualizado como Respuesta.", "", "exclamation-sign info icon-size-large"];
+                        " actualizado como respuesta realizada.", "", "exclamation-sign info icon-size-large"];
                 }
             }
             //Actualizamos las tablas de forma automática y añadimos los logs
-            $logSolicitudesRecibidas = SolicitudesRecibidas::crearComunidadesCursillos($comunidadesDestinatarias, $cursosActualizadosIds);
+            $logSolicitudesRecibidas = SolicitudesRecibidas::crearComunidadesCursillos($comunidadesDestinatarias, $totalCursosActualizadosIds);
             //Obtenemos el último registro del log generado.
 
             if (count($logSolicitudesRecibidas) > 0) {
