@@ -377,9 +377,7 @@ class Cursillos extends Model
     public function scopeFiltroComunidadCursillosTipo($query, $tipo = false)
     {
         $tipo = filter_var($tipo, FILTER_VALIDATE_BOOLEAN);
-        if ($tipo) {
             $query->where('comunidades.esPropia', $tipo);
-        }
         return $query;
     }
 

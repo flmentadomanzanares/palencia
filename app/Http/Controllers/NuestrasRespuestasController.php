@@ -136,13 +136,7 @@ class NuestrasRespuestasController extends Controller
             $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
             $cursosActualizados = [];
             $cursosActualizadosIds = [];
-            foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
-                if (!$cursoComunidad->esRespuesta) {
-                    $cursosActualizados[] = sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
-                    $cursosActualizadosIds[] = $cursoComunidad->curso_id;
-                    $totalContadorCursos += 1;
-                }
-            }
+
             $cursoActual = $cursosPorComunidad[0];
             $comunidadDestinataria = $cursoActual;
 
@@ -184,14 +178,16 @@ class NuestrasRespuestasController extends Controller
                 }
 
                 //Obtenemos el número de cursillos a procesar
-                $contador = count($cursosActualizados);
+
 
                 try {
                     if (config("opciones.emailTestSender.active")) {
                         $cursoActual->email_solicitud = config("opciones.emailTestSender.email");
                         $cursoActual->email_envio = config("opciones.emailTestSender.email");
                     }
+                    $contador = 0;
                     $comunidadesConEmail += 1;
+
                     $envio = Mail::send("nuestrasRespuestas.pdf.cartaRespuestaB1",
                         ['cursos' => $cursosPorComunidad, 'remitente' => $remitente, 'destinatario' => $cursoActual, 'fecha_emision' => $fecha_emision, 'esCarta' => $esCarta]
                         , function ($message) use ($remitente, $cursoActual, $nombreArchivoAdjuntoEmail, $fecha_emision, $esCarta) {
@@ -199,15 +195,17 @@ class NuestrasRespuestasController extends Controller
                             $message->to($cursoActual->email_envio)->subject("Nuestra Respuesta");
                             $message->attach($nombreArchivoAdjuntoEmail);
                         });
+
                     if ($envio > 0) {
+                        $contador = count($cursosPorComunidad);
                         $comunidadesConEmailEnviado += 1;
                         $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
                         $totalContadorCursosActualizados += $contador;
-                        foreach ($cursosActualizados as $actualizados) {
-                            $totalCursosActualizados[] .= $actualizados;
-                        }
-                        foreach ($cursosActualizadosIds as $cursoId) {
-                            $totalCursosActualizadosIds[] .= $cursoId;
+                        foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
+                            if (!$cursoComunidad->esRespuesta) {
+                                $totalCursosActualizados[] .= sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
+                                $cursosActualizadosIds[] = $cursoComunidad->curso_id;
+                            }
                         }
 
                         if ($contador > 0) {
@@ -244,11 +242,11 @@ class NuestrasRespuestasController extends Controller
                     $comunidadesConCartaCreada += 1;
                     $comunidadesDestinatarias[] = [$cursoActual->comunidad_id, $comunidad];
                     $totalContadorCursosActualizados += $contador;
-                    foreach ($cursosActualizados as $actualizados) {
-                        $totalCursosActualizados[] .= $actualizados;
-                    }
-                    foreach ($cursosActualizadosIds as $id) {
-                        $totalCursosActualizadosIds[] .= $id;
+                    foreach ($cursosPorComunidad as $idx => $cursoComunidad) {
+                        if (!$cursoComunidad->esRespuesta) {
+                            $totalCursosActualizados[] .= sprintf("Cuso Nº %'06s de la comunidad %10s cambiado a estado de respuesta realizada.", $cursoComunidad->num_cursillo, $comunidad);
+                            $cursosActualizadosIds[] = $cursoComunidad->curso_id;
+                        }
                     }
                     if ($contador > 0) {
                         $logEnvios[] = [$contador . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " est&aacute;"
