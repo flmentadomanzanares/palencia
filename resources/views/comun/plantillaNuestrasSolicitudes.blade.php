@@ -47,7 +47,7 @@
                         {!! FORM::checkbox('incluirEnSusRespuestas', 1, false, array("class"=>"lg","id"=>"incluirEnSusRespuestas")) !!}
                     </div>
                     <div class="col-md-11 col-sm-11 col-lg-11 col-xs-11 p-h-5">
-                        {!! FORM::label('incluirEnSusRespuestas', 'No enviar, sólo incluir solicitudes pendientes de respuesta',array("for"=>"incluirEnSusRespuestas")) !!}
+                        {!! FORM::label('incluirEnSusRespuestas', 'Realizar sólo las solicitudes pendientes de respuesta',array("for"=>"incluirEnSusRespuestas")) !!}
                     </div>
                 </div>
                 <div data-role="contenedor_imputs">
