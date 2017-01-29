@@ -28,6 +28,7 @@
         </table>
         {!!FORM::model(Request::only([]),['route'=>'enviarNuestrasSolicitudes','method'=>'POST']) !!}
         {!! FORM::hidden('nuestrasComunidades', $nuestrasComunidades)!!}
+        {!! FORM::hidden('incluirEnSusRespuestas', $conSusRespuestas)!!}
         @foreach($cursos as $curso )
             {!! FORM::hidden('cursos[]', $curso)!!}
         @endforeach

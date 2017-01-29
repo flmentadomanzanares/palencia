@@ -42,6 +42,14 @@
                     {!! FORM::label('remitente', 'Comunidad Remitente') !!}
                     {!! FORM::select('nuestrasComunidades', $nuestrasComunidades, null,array("class"=>"form-control",'id'=>'select_comunidad_propia'))!!}
                 </div>
+                <div class="form-group">
+                    <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1 p-v-5">
+                        {!! FORM::checkbox('incluirEnSusRespuestas', 1, false, array("class"=>"lg","id"=>"incluirEnSusRespuestas")) !!}
+                    </div>
+                    <div class="col-md-11 col-sm-11 col-lg-11 col-xs-11 p-h-5">
+                        {!! FORM::label('incluirEnSusRespuestas', 'No enviar, sólo incluir solicitudes pendientes de respuesta',array("for"=>"incluirEnSusRespuestas")) !!}
+                    </div>
+                </div>
                 <div data-role="contenedor_imputs">
                     <div data-role="cursillos"></div>
                     <div data-role="destinatarios"></div>
@@ -51,4 +59,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>i
