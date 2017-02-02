@@ -281,7 +281,7 @@ class Cursillos extends Model
             ->first();
     }
 
-    static public function getAnyoCursillosList($comunidad = array(), $conPlaceHolder = true, $placeHolder = "Año...")
+    static public function getAnyoCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
     {
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->where('cursillos.activo', true)
@@ -290,6 +290,19 @@ class Cursillos extends Model
             ->Lists('Anyos', 'Anyos');
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
+
+    static public function getAnyosAnterioresCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
+    {
+        $date = date("Y-m-d", mktime(0, 0, 0, 1, 1, date("Y")));
+        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
+            ->where('cursillos.activo', true)
+            ->Where('cursillos.fecha_inicio', '<', $date)
+            ->groupBy('Anyos')
+            ->orderBy('Anyos')
+            ->Lists('Anyos', 'Anyos');
+        return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
+    }
+
 
     static public function getSemanasCursillos($anyo = 0, $cursillos = 0)
     {

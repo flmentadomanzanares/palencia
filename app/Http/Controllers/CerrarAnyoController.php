@@ -21,7 +21,7 @@ class CerrarAnyoController extends Controller
     public function getAnyo()
     {
         $titulo = "Cerrar A&ntilde;o";
-        $anyos = Cursillos::getAnyoCursillosList();
+        $anyos = Cursillos::getAnyosAnterioresCursillosList();
         return view("cerrarAnyo.getAnyo",
             compact('titulo',
                 'anyos'));
@@ -51,7 +51,7 @@ class CerrarAnyoController extends Controller
                 });
             } catch (\Exception $e) {
                 return redirect('cerrarAnyo')->
-                with('mensaje', 'Las tablas no se han podido borrar.');
+                with('mensaje', 'Los datos no se han podido borrar.');
             }
         }
         return redirect('cerrarAnyo')->
