@@ -696,6 +696,11 @@ input[type=file]:hover {
   border: 1px solid #666;
 }
 
+//Color
+.c-white {
+  color: $app-color-white !important;
+}
+
 // Color para los checks-ok
 .green {
   color: $app-color-success !important;

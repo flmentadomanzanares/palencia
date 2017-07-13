@@ -18,8 +18,7 @@
                                 <th class="tabla-ancho-columna-texto"></th>
                                 <th></th>
                             </tr>
-                            <tr @if(!$solicitudRecibida->activo) class="background-disabled"
-                                @else style="background-color:{{$solicitudRecibida->color}};" @endif>
+                            <tr @if(!$solicitudRecibida->activo) class="background-disabled"@endif>
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">
@@ -43,9 +42,9 @@
                             </tr>
                             <tr>
                                 <th colspan="2" class="cabecera">
-                                    <div class="ellipsis text-center @if(!$solicitudRecibida->activo) foreground-disabled @endif"
-                                         @if($solicitudRecibida->activo==1) style="background-color:{{$solicitudRecibida->colorFondo}} !important;
-                                                 color:{{$solicitudRecibida->colorTexto}} !important; @endif ">
+                                    <div class="ellipsis text-center @if(!$solicitudRecibida->activo) c-white background-disabled @endif"
+                                         style="@if($solicitudRecibida->activo) background-color:{{$solicitudRecibida->colorFondo}} !important;
+                                                 color:{{$solicitudRecibida->colorTexto}}@endif ">
                                         {!! $solicitudRecibida->comunidad !!}
                                     </div>
                                 </th>
@@ -64,7 +63,7 @@
                         </table>
                     </div>
                 @endforeach
-                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada','esActivo']))->render()!!}
+                {!! $solicitudesRecibidas->appends(Request::only(['comunidades', 'aceptada','esActivo','esActual']))->render()!!}
             @else
                 <div class="clearfix">
                     <div class="alert alert-info" role="alert">

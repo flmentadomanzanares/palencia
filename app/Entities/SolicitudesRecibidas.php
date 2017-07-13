@@ -31,7 +31,7 @@ class SolicitudesRecibidas extends Model
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
             ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('solicitudes_recibidas.id', 'ASC')
+            ->orderBy('solicitudes_recibidas.created_at', 'DESC')
             ->paginate($paginateNumber)
             ->setPath('solicitudesRecibidas');
 

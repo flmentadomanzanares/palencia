@@ -13,6 +13,7 @@
     {!! FORM::select('esActivo', array(''=>'Activas + No Activas','1'=>'Activas','0'=>'No Activas'),
     null,array("class"=>"form-control"))!!}
 </div>
+
 <br/>
 <button type="submit" class="btn btn-primary btn-block">
     <span class='glyphicon glyphicon-search'></span>
