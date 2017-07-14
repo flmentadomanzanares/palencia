@@ -10,11 +10,10 @@
              data-modal_posicion_vertical="100"
              data-modal_plano_z="2"
              data-modal_ancho="320">
-            <span title="Filtros" class="text-center">
-                <i class="glyphicon glyphicon-filter text-center">
-                    <div>Filtros</div>
-                </i>
-            </span>
+            <div title="Filtros" class="text-center">
+                <i class="glyphicon glyphicon-filter text-center"></i>
+                <div>Filtros</div>
+            </div>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

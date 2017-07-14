@@ -8,11 +8,10 @@
              data-modal_plano_z="2"
              data-modal_ancho="240"
              data-etiqueta_ancho="80">
-            <span title="Nueva alta">
-                <i class="glyphicon glyphicon-plus-sign text-center">
-                    <div>Alta</div>
-                </i>
-            </span>
+            <div title="Nueva alta">
+                <i class="glyphicon glyphicon-plus-sign text-center"></i>
+                <div>Alta</div>
+            </div>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

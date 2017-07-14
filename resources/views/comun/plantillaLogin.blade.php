@@ -8,11 +8,10 @@
              data-modal_plano_z="3"
              data-modal_ancho="240"
              data-etiqueta_ancho="80">
-            <span title="Entrar en la aplicaci&oacute;n">
-                <i class="glyphicon glyphicon-log-in text-center">
-                    <div>Entrar</div>
-                </i>
-            </span>
+            <div title="Entrar en la aplicaci&oacute;n">
+                <i class="glyphicon glyphicon-log-in text-center"></i>
+                <div>Entrar</div>
+            </div>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

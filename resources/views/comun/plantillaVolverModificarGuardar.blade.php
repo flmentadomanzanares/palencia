@@ -9,11 +9,10 @@
              data-modal_posicion_vertical="100"
              data-modal_plano_z="2"
              data-modal_ancho="80">
-            <span title="Operaciones a realizar" class="text-center">
-                <i class="glyphicon glyphicon-briefcase text-center">
-                    <div>Acci&oacuten</div>
-                </i>
-            </span>
+            <div title="Operaciones a realizar" class="text-center">
+                <i class="glyphicon glyphicon-briefcase text-center"></i>
+                <div>Acci&oacuten</div>
+            </div>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">

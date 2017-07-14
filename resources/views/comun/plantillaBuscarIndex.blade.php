@@ -7,11 +7,10 @@
              data-modal_posicion_vertical="100"
              data-modal_plano_z="3"
              data-etiqueta_ancho="80">
-            <span title="Buscar">
-                <i class="glyphicon glyphicon-search text-center">
-                    <div>Buscar</div>
-                </i>
-            </span>
+            <div title="Buscar">
+                <i class="glyphicon glyphicon-search text-center"></i>
+                <div>Buscar</div>
+            </div>
         </div>
         <div class="cuerpoFormularioModal">
             <div class="scroll">
