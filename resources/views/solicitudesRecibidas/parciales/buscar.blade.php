@@ -1,10 +1,10 @@
 {{-- Formulario de busqueda --}}
-{!!FORM::model(Request::only(['comunidades','aceptada','esActivo','esActual']),['route'=>'solicitudesRecibidas.index','method'=>'GET','role'=>'search']) !!}
+{!!FORM::model(Request::only(['comunidades','respondida','esActivo','esActual']),['route'=>'solicitudesRecibidas.index','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('aceptada', array('1'=>'Aceptada','0'=>'No Aceptada'),
+    {!! FORM::select('respondida', array('1'=>'Respondida','0'=>'No Respondida'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

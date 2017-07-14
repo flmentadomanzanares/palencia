@@ -27,7 +27,7 @@ class SolicitudesRecibidas extends Model
             'comunidades.colorTexto', 'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at',
             'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-            ->Aceptada($request->aceptada)
+            ->SolicitudRespondida($request->get('respondida'))
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
             ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->AnyoEnCurso($request->get('esActual'))
@@ -233,10 +233,10 @@ class SolicitudesRecibidas extends Model
         }
     }
 
-    public function scopeAceptada($query, $aceptada = null)
+    public function scopeSolicitudRespondida($query, $respondida)
     {
-        if (is_numeric($aceptada)) {
-            $query->where('solicitudes_recibidas.aceptada', $aceptada == 1 ? true : false);
+        if (is_numeric($respondida)) {
+            $query->where('solicitudes_recibidas.aceptada', filter_var($respondida, FILTER_VALIDATE_BOOLEAN));
         }
         return $query;
     }
