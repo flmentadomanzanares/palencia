@@ -41,12 +41,13 @@ class SolicitudesEnviadas extends Model
             'comunidades.colorTexto', 'solicitudes_enviadas.esManual', 'solicitudes_enviadas.aceptada', 'solicitudes_enviadas.activo', 'solicitudes_enviadas.created_at',
             'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
-            ->Aceptada($request->aceptada)
-            ->FiltroRespuestaCreada($request->get('esManual'))
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
+            ->SolicitudesAceptadas($request->get('aceptada'))
+            ->FiltroRespuestaEsManual($request->get('esManual'))
             ->SolicitudEnviadaEsActivo($request->get('esActivo'))
+            ->AnyoEnCurso($request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('solicitudes_enviadas.id', 'ASC')
+            ->orderBy('solicitudes_enviadas.created_at', 'DESC')
             ->paginate($paginateNumber)
             ->setPath('solicitudesEnviadas');
 
@@ -91,22 +92,22 @@ class SolicitudesEnviadas extends Model
     {
 
         return ['0' => $placeHolder] + SolicitudesEnviadas::Select('comunidades.id', 'comunidades.comunidad')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
-            ->where('comunidades.activo', true)
-            ->where('solicitudes_enviadas.activo', true)
-            ->orderBy('comunidades.comunidad')
-            ->Lists('comunidades.comunidad', 'comunidades.id');
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+                ->where('comunidades.activo', true)
+                ->where('solicitudes_enviadas.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->Lists('comunidades.comunidad', 'comunidades.id');
 
     }
 
     static public function getCursillosSolicitudesEnviadasList($placeHolder = "Cursillos...")
     {
         return ['0' => $placeHolder] + SolicitudesEnviadas::Select('cursillos.id', 'cursillos.cursillo')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
-            ->orderBy('cursillos.cursillo')
-            ->where('cursillos.activo', true)
-            ->where('solicitudes_enviadas.activo', true)
-            ->Lists('cursillos.cursillo', 'cursillos.id');
+                ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas.cursillo_id')
+                ->orderBy('cursillos.cursillo')
+                ->where('cursillos.activo', true)
+                ->where('solicitudes_enviadas.activo', true)
+                ->Lists('cursillos.cursillo', 'cursillos.id');
     }
 
     static public function getSemanasSolicitudesEnviadas($anyo = 0)
@@ -193,20 +194,21 @@ class SolicitudesEnviadas extends Model
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
 
-    public function scopeAceptada($query, $aceptada = null)
+    public function scopeSolicitudesAceptadas($query, $aceptada = true)
     {
-        if (is_numeric($aceptada)) {
-            $query->where('solicitudes_enviadas.aceptada', $aceptada == 1 ? true : false);
-        }
-        return $query;
+        return $query->where('solicitudes_enviadas.aceptada', filter_var($aceptada, FILTER_VALIDATE_BOOLEAN));
     }
 
-    public function scopeFiltroRespuestaCreada($query, $esManual = null)
+    public function scopeFiltroRespuestaEsManual($query, $esManual = 0)
     {
-        if (is_numeric($esManual)) {
-            $query->where('solicitudes_enviadas.esManual', $esManual == 1 ? true : false);
+        return $query->where('solicitudes_enviadas.esManual', filter_var($esManual, FILTER_VALIDATE_BOOLEAN));
+    }
+
+    public function scopeAnyoEnCurso($query, $esAnyoActual = true)
+    {
+        if (filter_var($esAnyoActual, FILTER_VALIDATE_BOOLEAN)) {
+            $query->where(DB::raw('DATE_FORMAT(solicitudes_enviadas.created_at,"%x")'), '=', date("Y"));
         }
-        return $query;
     }
 
     public function scopeAnyosCursillos($query, $anyo = 0)
@@ -243,10 +245,8 @@ class SolicitudesEnviadas extends Model
         return $query;
     }
 
-    public function scopeSolicitudEnviadaEsActivo($query, $esActivo)
+    public function scopeSolicitudEnviadaEsActivo($query, $esActivo = true)
     {
-        if (is_numeric($esActivo)) {
-            $query->where('solicitudes_enviadas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
-        }
+        return $query->where('solicitudes_enviadas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
     }
 }

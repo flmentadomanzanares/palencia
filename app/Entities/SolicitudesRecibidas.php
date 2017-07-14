@@ -226,25 +226,20 @@ class SolicitudesRecibidas extends Model
         return $query;
     }
 
-    public function scopeAnyoEnCurso($query, $esAnyoActual)
+    public function scopeAnyoEnCurso($query, $esAnyoActual = true)
     {
         if (filter_var($esAnyoActual, FILTER_VALIDATE_BOOLEAN)) {
             $query->where(DB::raw('DATE_FORMAT(solicitudes_recibidas.created_at,"%x")'), '=', date("Y"));
         }
     }
 
-    public function scopeSolicitudRespondida($query, $respondida)
+    public function scopeSolicitudRespondida($query, $respondida = true)
     {
-        if (is_numeric($respondida)) {
-            $query->where('solicitudes_recibidas.aceptada', filter_var($respondida, FILTER_VALIDATE_BOOLEAN));
-        }
-        return $query;
+        return $query->where('solicitudes_recibidas.aceptada', filter_var($respondida, FILTER_VALIDATE_BOOLEAN));
     }
 
-    public function scopeSolicitudRecibidaEsActivo($query, $esActivo)
+    public function scopeSolicitudRecibidaEsActivo($query, $esActivo = true)
     {
-        if (is_numeric($esActivo)) {
-            $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
-        }
+        return $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
     }
 }
