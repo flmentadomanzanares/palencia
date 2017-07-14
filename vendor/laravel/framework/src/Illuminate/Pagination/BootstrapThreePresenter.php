@@ -47,7 +47,7 @@ class BootstrapThreePresenter implements PresenterContract
                         <div class='modalBackGround'></div>
                         <div class='ventanaModal'>
                             <div class='lanzarModal simpleModal'
-                                data-etiqueta_ancho='80'
+                                data-etiqueta_ancho='85'
                                 data-modal_centro_pantalla='false'
                                 data-modal_en_la_derecha='false'
                                 data-etiqueta_color_fondo='rgba(240, 165, 0,.8)'
@@ -56,11 +56,10 @@ class BootstrapThreePresenter implements PresenterContract
                                 data-modal_plano_z='1'
                                 data-modal_ancho='80'
                                 data-modal_sin_etiqueta='false'>
-                                <span title='Paginación'>
-                                    <i class='glyphicon glyphicon-book text-center'>
-                                        <div>Paginaci&oacute;n</div>
-                                    </i>
-                                </span>
+                                <div title='Paginación'>
+                                    <i class='glyphicon glyphicon-book text-center'></i>
+                                    <div>Paginaci&oacute;n</div>
+                                </div>
                             </div>
                             <div class='cuerpoFormularioModal'>
                                 <div class='scroll'>

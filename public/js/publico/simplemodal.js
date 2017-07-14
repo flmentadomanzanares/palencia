@@ -90,20 +90,13 @@ $(document).ready(function () {
             if (selectorPulsado.opciones.modal_sin_etiqueta === false) {
                 selectorPulsado.selector.css('position', 'absolute');
                 selectorPulsado.selector.css('text-align', 'center');
-                selectorPulsado.selector.css('padding', '5px 3px');
+                selectorPulsado.selector.css('padding', '5px 2px');
                 selectorPulsado.selector.css('min-width', selectorPulsado.opciones.etiqueta_ancho + 'px');
                 selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'left' : 'right', 0);
                 selectorPulsado.selector.css(selectorPulsado.opciones.modal_en_la_derecha ? 'margin-left' : 'margin-right', '-' + selectorPulsado.opciones.etiqueta_ancho + 'px');
                 selectorPulsado.selector.css('background-color', selectorPulsado.opciones.etiqueta_color_fondo);
                 selectorPulsado.selector.css('color', selectorPulsado.opciones.etiqueta_color_texto);
                 selectorPulsado.selector.css('border-radius', selectorPulsado.opciones.modal_en_la_derecha ? '8px 0 0 8px' : '0 8px 8px 0');
-                $(selectorPulsado.selector).mouseenter(function () {
-                    $(this).css("cursor", "pointer");
-                    $(this).find("i").css("transform", "scale(1.02");
-                }).mouseleave(function () {
-                    $(this).css("cursor", "default");
-                    $(this).find("i").css("transform", "scale(1.0");
-                });
             }
             if (descripcion.length > 0) {
                 selectorPulsado.modal.find(".cuerpoFormularioModal .scroll")

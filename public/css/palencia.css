@@ -5515,6 +5515,15 @@ button.close {
       color: #31708f;
       content: "\e105"; }
 
+.simpleModal > div:hover {
+    cursor: pointer;
+}
+
+.simpleModal > div > i + div {
+    font-size: .8rem;
+    text-transform: uppercase;
+}
+
 .navbar-default .navbar-nav > .open > a:focus,
 .navbar-default .navbar-nav > .open > a {
   background-color: #ff7a00;
@@ -5529,7 +5538,6 @@ button.close {
   padding: 2px;
   border: 1px solid #400090; }
   .table-viaoptima caption {
-    color: #400090;
     font-size: 28px;
     padding: 5px;
     line-height: 1.4;
