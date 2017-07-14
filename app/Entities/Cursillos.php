@@ -173,7 +173,7 @@ class Cursillos extends Model
             ->FilterEsSolicitudAnterior($esSolicitudAnterior)
             ->where('cursillos.activo', true)
             ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
     }
@@ -193,7 +193,7 @@ class Cursillos extends Model
             ->FiltroComunidadCursillosTipoComunicacion($tipoComunicacion)
             ->where('cursillos.activo', true)
             ->orderBy('comunidades.comunidad', 'ASC')
-            ->orderBy('cursillos.fecha_inicio', 'ASC')
+            ->orderBy('cursillos.fecha_inicio', 'DESC')
             ->orderBy('cursillos.cursillo', 'ASC')
             ->get();
     }
@@ -228,14 +228,14 @@ class Cursillos extends Model
             $result = Cursillos::Select('cursillos.cursillo', 'cursillos.id')
                 ->ComunidadCursillos($comunidad)
                 ->where('cursillos.activo', true)
-                ->orderBy('cursillos.fecha_inicio')
+                ->orderBy('cursillos.fecha_inicio', 'DESC')
                 ->orderBy('cursillos.cursillo', 'ASC')
                 ->get();
         } else {
             $result = Cursillos::Select('cursillos.cursillo', 'cursillos.id')
                 ->ComunidadCursillos($comunidad)
                 ->where('cursillos.activo', true)
-                ->orderBy('cursillos.fecha_inicio')
+                ->orderBy('cursillos.fecha_inicio', 'DESC')
                 ->orderBy('cursillos.cursillo', 'ASC')
                 ->Lists('cursillos.cursillo', 'cursillos.id');
         }
