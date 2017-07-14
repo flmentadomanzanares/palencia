@@ -18,7 +18,7 @@ class CreateCursillosTable extends Migration
 
             $table->string('cursillo', 50);
 
-            $table->string('num_cursillo', 10);
+            $table->Integer('num_cursillo')->unsigned()->default(0);
 
             $table->date('fecha_inicio');
 
@@ -37,6 +37,8 @@ class CreateCursillosTable extends Migration
             $table->boolean('esSolicitud')->default(false);
 
             $table->boolean('activo')->default(true);
+
+            $table->unique(['comunidad_id', 'num_cursillo', 'fecha_inicio'], 'cursillo_numero');
 
             $table->timestamp('created_at')->default(date('Y-m-d H:i:s'));
 
