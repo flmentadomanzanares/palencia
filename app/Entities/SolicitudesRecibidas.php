@@ -30,6 +30,7 @@ class SolicitudesRecibidas extends Model
             ->Aceptada($request->aceptada)
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
             ->SolicitudRecibidaEsActivo($request->get('esActivo'))
+            ->AnyoEnCurso($request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.created_at', 'DESC')
             ->paginate($paginateNumber)
@@ -98,22 +99,22 @@ class SolicitudesRecibidas extends Model
     {
 
         return ['0' => $placeHolder] + SolicitudesRecibidas::Select('comunidades.id', 'comunidades.comunidad')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-            ->where('comunidades.activo', true)
-            ->where('solicitudes_recibidas.activo', true)
-            ->orderBy('comunidades.comunidad')
-            ->Lists('comunidades.comunidad', 'comunidades.id');
+                ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+                ->where('comunidades.activo', true)
+                ->where('solicitudes_recibidas.activo', true)
+                ->orderBy('comunidades.comunidad')
+                ->Lists('comunidades.comunidad', 'comunidades.id');
 
     }
 
     static public function getCursillosSolicitudesRecibidasList($placeHolder = "Cursillos...")
     {
         return ['0' => $placeHolder] + SolicitudesRecibidas::Select('cursillos.id', 'cursillos.cursillo')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
-            ->orderBy('cursillos.cursillo')
-            ->where('cursillos.activo', true)
-            ->where('solicitudes_recibidas.activo', true)
-            ->Lists('cursillos.cursillo', 'cursillos.id');
+                ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
+                ->orderBy('cursillos.cursillo')
+                ->where('cursillos.activo', true)
+                ->where('solicitudes_recibidas.activo', true)
+                ->Lists('cursillos.cursillo', 'cursillos.id');
     }
 
     static public function crearComunidadesCursillos($comunidades = array(), $cursillosIds = array())
@@ -223,6 +224,13 @@ class SolicitudesRecibidas extends Model
             $query->where('solicitudes_recibidas.cursillo_id', $cursilloId);
         }
         return $query;
+    }
+
+    public function scopeAnyoEnCurso($query, $esAnyoActual)
+    {
+        if (filter_var($esAnyoActual, FILTER_VALIDATE_BOOLEAN)) {
+            $query->where(DB::raw('DATE_FORMAT(solicitudes_recibidas.created_at,"%x")'), '=', date("Y"));
+        }
     }
 
     public function scopeAceptada($query, $aceptada = null)
