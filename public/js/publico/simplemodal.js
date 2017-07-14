@@ -73,13 +73,13 @@ $(document).ready(function () {
             var confirm = selectorPulsado.selector.data("type") || "confirm";
 
             //Aplicamos estilos
-            selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + (opciones.modal_posicion_vertical.toString().indexOf("%") != -1 ? '' : 'px'));
+            selectorPulsado.modal.css('top', selectorPulsado.opciones.modal_posicion_vertical + (opciones.modal_posicion_vertical.toString().indexOf("%") !== -1 ? '' : 'px'));
             selectorPulsado.modal.css('z-index', selectorPulsado.opciones.modal_plano_z);
             selectorPulsado.modal.find('.ventanaModal').css('max-width', selectorPulsado.opciones.modal_ancho + 'px');
             selectorPulsado.modal.find('.ventanaModal').css('left', selectorPulsado.opciones.modal_en_la_derecha ? '100%' : 0);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('background-color', selectorPulsado.opciones.modal_cabecera_color_fondo);
             selectorPulsado.modal.find('.cabeceraFormularioModal').css('color', selectorPulsado.opciones.modal_cabecera_color_texto);
-            if (cabecera.length == 0)
+            if (cabecera.length === 0)
                 selectorPulsado.modal.find('.cuerpoFormularioModal').css('border', '1px solid ' + selectorPulsado.opciones.etiqueta_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('background-color', selectorPulsado.opciones.modal_cuerpo_color_fondo);
             selectorPulsado.modal.find('.cuerpoFormularioModal').css('color', selectorPulsado.opciones.modal_cuerpo_color_texto);
@@ -128,7 +128,7 @@ $(document).ready(function () {
             $(selectorPulsado.modal).find('.closeFormModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.closeModal').on("click", $.proxy(selectorPulsado.hide, selectorPulsado));
             $(selectorPulsado.modal).find('.ventanaModal .pieFormularioModal .btn').on("click", $.proxy(selectorPulsado.submit, selectorPulsado));
-            if (cabecera.length == 0) {
+            if (cabecera.length === 0) {
                 var cuerpoFormularioConScroll = selectorPulsado.modal.find(".cuerpoFormularioModal .scroll");
                 if (cuerpoFormularioConScroll.length > 0) {
                     modalObjects.push(selectorPulsado);
@@ -146,7 +146,7 @@ $(document).ready(function () {
             ventana.modal.find(".modalBackGround").hide().fadeIn(ventana.opciones.modal_velocidad_fade, function () {
                 var modal = ventana.modal.find(".ventanaModal");
                 //Posicionamos las modales verticalmente si tiene la opcion de centrado horizontal
-                if (ventana.opciones.modal_centro_pantalla == true) {
+                if (ventana.opciones.modal_centro_pantalla === true) {
                     var height = Math.round(modal.outerHeight() / 2);
                     var windowHeight = window.innerHeight / 2;
                     ventana.modal.css('top', (windowHeight - height) + 'px');
@@ -194,9 +194,9 @@ $(document).ready(function () {
         resize: function (evt) {
             evt.preventDefault();
             var ventana = this;
-            if (ventana.modal == undefined)
+            if (ventana.modal === undefined)
                 return;
-            if (ventana.modal.find(".modalBackGround").css("display") == "block") {
+            if (ventana.modal.find(".modalBackGround").css("display") === "block") {
                 var resizeModal = ventana.modal.find(".ventanaModal");
                 resizeModal.css("margin-left", '-' + parseInt(resizeModal.css("width")) + "px");
             }
