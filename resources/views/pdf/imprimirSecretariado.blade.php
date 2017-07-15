@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Imprimir secretariado</title>
+    <title>Imprimir secretariado {!! $secretariado->comunidad !!}</title>
 </head>
 <style>
 
