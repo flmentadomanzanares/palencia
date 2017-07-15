@@ -1,10 +1,9 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Secretariados por pa&iacute;s</title>
-
-
-</head><style>
+    <title>Imprimir secretariado</title>
+</head>
+<style>
 
     a {
         color: #0087C3;
@@ -122,7 +121,7 @@
     .listIzda {
         color: #000000;
         position: fixed;
-        text-align: center;
+        text-align: left;
         line-height: 1.6em;
         height: 30px;
         width: 138mm;
@@ -197,7 +196,7 @@
 
             <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 
-                {!! $solicitudEnviada->cursillo !!}
+                {!! sprintf("%'.05d\n",$solicitudEnviada->num_cursillo) !!} - {!! $solicitudEnviada->cursillo !!}
             </div>
             <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 
@@ -243,7 +242,7 @@
 
             <div class="listIzda" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 
-                {!! $solicitudRecibida->cursillo !!}
+                {!! sprintf("%'.05d\n",$solicitudRecibida->num_cursillo) !!} - {!! $solicitudRecibida->cursillo !!}
             </div>
             <div class="listDcha" style="top:{{($listadoPosicionInicial + ($i*$separacionLinea))}}em">
 

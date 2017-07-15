@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\DB;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
-use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesEnviadas;
 
 class SolicitudesEnviadasController extends Controller
@@ -193,7 +192,7 @@ class SolicitudesEnviadasController extends Controller
         $titulo = "Listado de Cursillos";
         $comunidadId = $request->comunidad_id;
         $solicitudId = $request->solicitud_id;
-        $comunidad = Comunidades::getNombreComunidad($comunidadId);
+        $comunidad = Comunidades::getNombreYColoresComunidad($comunidadId);
         $solicitudesEnviadasCursillos = SolicitudesEnviadasCursillos::getCursillosSolicitud($comunidadId, $solicitudId, $request);
 
         return view("solicitudesEnviadas.verCursillos", compact('solicitudesEnviadasCursillos', 'titulo', 'comunidad', 'solicitudId'));

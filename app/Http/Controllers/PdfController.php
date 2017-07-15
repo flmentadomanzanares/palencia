@@ -172,15 +172,18 @@ class PdfController extends Controller
      *******************************************************************/
     public function imprimirSecretariado()
     {
-
         $titulo = "Secretariado ";
-        $comunidad = new Comunidades();
-        $idComunidad = \Request::input('comunidad');
-        $anyo = \Request::input('anyo');
+        $idComunidad = \Request::get('comunidad');
+        $anyo = \Request::get('anyo');
 
-        $secretariado = Comunidades::getNombreComunidad((int)$idComunidad);
+        if ($idComunidad == 0 || $anyo == 0) {
+            return redirect('secretariado')->
+            with('mensaje', 'Debe seleccionar un a&ntilde;o y un secretariado.');
+        }
+
+        $secretariado = Comunidades::getNombreYColoresComunidad((int)$idComunidad);
         $date = date('d-m-Y');
-        $fichero = 'secretariado' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+        $fichero = 'secretariado_' . $secretariado->comunidad . '_' . $anyo . '-' . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
         $solicitudesRecibidas = SolicitudesRecibidasCursillos::getSolicitudesComunidad($anyo, $idComunidad);
         $solicitudesEnviadas = SolicitudesEnviadasCursillos::getSolicitudesComunidad($anyo, $idComunidad);
 
@@ -190,33 +193,25 @@ class PdfController extends Controller
         $listadoTotalRestoPagina = 25;
         $separacionLinea = 2.5;
 
-        if ($idComunidad == 0 || $anyo == 0) {
 
-            return redirect('secretariado')->
-            with('mensaje', 'Debe seleccionar un a&ntilde;o y un secretariado.');
-
-        } else {
-
-            $pdf = \App::make('dompdf.wrapper');
-            $view = \View::make('pdf.imprimirSecretariado',
-                compact('secretariado',
-                    'solicitudesEnviadas',
-                    'solicitudesRecibidas',
-                    'date',
-                    'titulo',
-                    'anyo',
-                    'listadoPosicionInicial',
-                    'listadoTotal',
-                    'listadoTotalRestoPagina',
-                    'separacionLinea'
-                ))->render();
-            $pdf->loadHTML($view);
-            $pdf->output();
-            return $pdf->download($fichero . '.pdf');
-        }
-
-
+        $pdf = \App::make('dompdf.wrapper');
+        $view = \View::make('pdf.imprimirSecretariado',
+            compact('secretariado',
+                'solicitudesEnviadas',
+                'solicitudesRecibidas',
+                'date',
+                'titulo',
+                'anyo',
+                'listadoPosicionInicial',
+                'listadoTotal',
+                'listadoTotalRestoPagina',
+                'separacionLinea'
+            ))->render();
+        $pdf->loadHTML($view);
+        $pdf->output();
+        return $pdf->download($fichero . '.pdf');
     }
+
 
     /*******************************************************************
      *
@@ -367,7 +362,7 @@ class PdfController extends Controller
     {
         $titulo = "Secretariados No Colaboradores Activos";
         $comunidades = new Comunidades();
-       // $paises = Paises::getPaisesFromPaisIdToList();
+        // $paises = Paises::getPaisesFromPaisIdToList();
         $paises = Paises::getPaisesNoColaboradores();
 
 

@@ -70,7 +70,7 @@ class SolicitudesEnviadasCursillos extends Model
     static public function getSolicitudesComunidad($anyo = 0, $comunidadId = 0)
     {
 
-        return SolicitudesEnviadasCursillos::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
+        return SolicitudesEnviadasCursillos::Select('cursillos.fecha_inicio', 'cursillos.num_cursillo', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
@@ -79,7 +79,7 @@ class SolicitudesEnviadasCursillos extends Model
             ->where('solicitudes_enviadas_cursillos.activo', true)
             ->where('comunidades.id', '=', $comunidadId)
             ->orderBy('comunidades.comunidad')
-            ->orderBy('cursillos.cursillo')
+            ->orderBy('cursillos.num_cursillo')
             ->get();
 
     }

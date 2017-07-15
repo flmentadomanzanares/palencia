@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\SolicitudesRecibidasCursillos;
-use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesSolicitudesRecibidas;
 
 class SolicitudesRecibidasController extends Controller
@@ -176,7 +175,7 @@ class SolicitudesRecibidasController extends Controller
         $titulo = "Listado de Cursillos";
         $comunidadId = $request->comunidad_id;
         $solicitudId = $request->solicitud_id;
-        $comunidad = Comunidades::getNombreComunidad($comunidadId);
+        $comunidad = Comunidades::getNombreYColoresComunidad($comunidadId);
         $solicitudesRecibidasCursillos = SolicitudesRecibidasCursillos::getCursillosSolicitud($comunidadId, $solicitudId);
         return view("solicitudesRecibidas.verCursillos", compact('solicitudesRecibidasCursillos', 'titulo', 'comunidad', 'solicitudId'));
     }

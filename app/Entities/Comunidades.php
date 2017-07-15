@@ -326,7 +326,7 @@ class Comunidades extends Model
 
     }
 
-    static public function getNombreComunidad($id = null)
+    static public function getNombreYColoresComunidad($id = null)
     {
         if (!is_numeric($id))
             return null;
