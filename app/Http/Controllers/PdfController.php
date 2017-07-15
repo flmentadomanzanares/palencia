@@ -7,7 +7,6 @@ use Palencia\Entities\Paises;
 use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidasCursillos;
-use Palencia\Http\Requests;
 
 
 class PdfController extends Controller
@@ -158,11 +157,9 @@ class PdfController extends Controller
     public function getSecretariado()
     {
         $titulo = "Actividad con un Secretariado";
-        $comunidad = new Comunidades();
-        $comunidades = Comunidades::getComunidadesAll();
-        $anyos = Cursillos::getTodosMisAnyosCursillosList(false);
-
-        return view("pdf.listarSecretariado", compact('comunidades', 'comunidad', 'titulo', 'anyos'));
+        $comunidades = Comunidades::getComunidadesList(null);
+        $anyos = Cursillos::GetAnyosCursillosList(array_keys($comunidades), false, false);
+        return view("pdf.listarSecretariado", compact('comunidades', 'titulo', 'anyos'));
     }
 
     /*******************************************************************

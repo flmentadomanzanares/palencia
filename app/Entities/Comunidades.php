@@ -326,14 +326,6 @@ class Comunidades extends Model
 
     }
 
-    public static function getComunidadesAll()
-    {
-        return ['0' => 'Secretariado...'] + Comunidades::Select('id', 'comunidad')
-            ->where('activo', true)
-            ->orderBy('comunidad', 'ASC')
-            ->Lists('comunidad', 'id');
-    }
-
     static public function getNombreComunidad($id = null)
     {
         if (!is_numeric($id))
@@ -508,7 +500,7 @@ class Comunidades extends Model
         return $query;
     }
 
-    public function scopeEsPropia($query, $esPropia = null)
+    public function scopeEsPropia($query, $esPropia)
     {
         if (!is_null($esPropia)) {
             $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
