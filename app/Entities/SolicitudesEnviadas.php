@@ -42,10 +42,10 @@ class SolicitudesEnviadas extends Model
             'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
-            ->SolicitudesAceptadas($request->get('aceptada'))
-            ->FiltroRespuestaEsManual($request->get('esManual'))
-            ->SolicitudEnviadaEsActivo($request->get('esActivo'))
-            ->AnyoEnCurso($request->get('esActual'))
+            ->SolicitudesAceptadas(is_null($request->get('aceptada')) ? true : $request->get('aceptada'))
+            ->FiltroRespuestaEsManual(is_null($request->get('esManual')) ? false : $request->get('esManual'))
+            ->SolicitudEnviadaEsActivo(is_null($request->get('esActivo')) ? true : $request->get('esActivo'))
+            ->AnyoEnCurso(is_null($request->get('esActual')) ? true : $request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_enviadas.created_at', 'DESC')
             ->paginate($paginateNumber)
@@ -209,6 +209,7 @@ class SolicitudesEnviadas extends Model
         if (filter_var($esAnyoActual, FILTER_VALIDATE_BOOLEAN)) {
             $query->where(DB::raw('DATE_FORMAT(solicitudes_enviadas.created_at,"%x")'), '=', date("Y"));
         }
+        return $query;
     }
 
     public function scopeAnyosCursillos($query, $anyo = 0)

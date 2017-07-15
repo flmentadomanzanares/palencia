@@ -27,10 +27,10 @@ class SolicitudesRecibidas extends Model
             'comunidades.colorTexto', 'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at',
             'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-            ->SolicitudRespondida($request->get('respondida'))
+            ->SolicitudRespondida(is_null($request->get('respondida')) ? true : $request->get('respondida'))
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
-            ->SolicitudRecibidaEsActivo($request->get('esActivo'))
-            ->AnyoEnCurso($request->get('esActual'))
+            ->SolicitudRecibidaEsActivo(is_null($request->get('esActivo')) ? true : $request->get('esActivo'))
+            ->AnyoEnCurso(is_null($request->get('esActual')) ? true : $request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.created_at', 'DESC')
             ->paginate($paginateNumber)
@@ -226,11 +226,12 @@ class SolicitudesRecibidas extends Model
         return $query;
     }
 
-    public function scopeAnyoEnCurso($query, $esAnyoActual = true)
+    public function scopeAnyoEnCurso($query, $esAnyoActual)
     {
         if (filter_var($esAnyoActual, FILTER_VALIDATE_BOOLEAN)) {
             $query->where(DB::raw('DATE_FORMAT(solicitudes_recibidas.created_at,"%x")'), '=', date("Y"));
         }
+        return $query;
     }
 
     public function scopeSolicitudRespondida($query, $respondida = true)
