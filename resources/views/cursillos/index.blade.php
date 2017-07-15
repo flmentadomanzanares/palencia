@@ -32,7 +32,7 @@
                                     </i>
                                 </a>
                                 @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
-                                @if($cursillo->activo)
+                                @if(!$cursillo->activo)
                                     {!! FORM::open(array('route' => array('cursillos.destroy',
                                     $cursillo->id),'method' => 'DELETE','title'=>(config('opciones.accion.mostrarModalDeBorrado')?'':'Borrar')))!!}
                                     <button type="@if(config('opciones.accion.mostrarModalDeBorrado'))button @else submit @endif"
