@@ -1,11 +1,10 @@
 <?php namespace Palencia\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Palencia\Entities\Comunidades;
 use Palencia\Entities\Cursillos;
-use Palencia\Entities\TiposCursillos;
 use Palencia\Entities\TiposParticipantes;
-use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesCursillos;
 
 class CursillosController extends Controller
@@ -225,14 +224,48 @@ class CursillosController extends Controller
         if ($cursillo == null)
             return redirect('cursillos')->with("No se ha encontrado el cursillo seleccionado.");
         try {
-            $cursillo->delete();
+            $solicitudRecibidaCursillos = null;
+            DB::transaction(function () use ($cursillo) {
+                /*Eliminamos el cursillo en las solicitudes recibidas*/
+                $solicitudRecibidaCursillos = DB::table('solicitudes_recibidas_cursillos')
+                    ->where('cursillo_id', '=', $cursillo->id);
+
+                if ($solicitudRecibidaCursillos->count() > 0) {
+                    $solicitudRecibidaSolicitudId = $solicitudRecibidaCursillos->first()->solicitud_id;
+                    $solicitudRecibidaCursillos->delete();
+
+                    $solicitudRecibidaCursillosSolicitudId = DB::table('solicitudes_recibidas_cursillos')
+                        ->where('solicitud_id', '=', $solicitudRecibidaSolicitudId);
+
+                    if ($solicitudRecibidaCursillosSolicitudId->count() == 0) {
+                        DB::table('solicitudes_recibidas')
+                            ->where('id', '=', $solicitudRecibidaSolicitudId)->delete();
+                    }
+                }
+
+                /*Eliminamos el cursillo en las solicitudes enviadas*/
+                $solicitudEnviadaCursillos = DB::table('solicitudes_enviadas_cursillos')
+                    ->where('cursillo_id', '=', $cursillo->id);
+                if ($solicitudEnviadaCursillos->count() > 0) {
+                    $solicitudEnviadaSolicitudId = $solicitudEnviadaCursillos->first()->solicitud_id;
+                    $solicitudEnviadaCursillos->delete();
+
+                    $solicitudEnviadaCursillosSolicitudId = DB::table('solicitudes_enviadas_cursillos')
+                        ->where('solicitud_id', '=', $solicitudEnviadaSolicitudId);
+                    if ($solicitudEnviadaCursillosSolicitudId->count() == 0) {
+                        DB::table('solicitudes_enviadas')
+                            ->where('id', '=', $solicitudEnviadaSolicitudId)->delete();
+                    }
+                }
+                $cursillo->delete();
+            });
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 23000:
                     return redirect()->route('cursillos.index')->with('mensaje', 'El cursillo con nº' . $cursillo->num_cursillo . ' no se puede eliminar al haber sido procesado.');
                     break;
                 default:
-                    return redirect()->route('cursillos.index')->with('mensaje', 'Eliminar cursillo error ' . $e->getCode());
+                    return redirect()->route('cursillos.index')->with('mensaje', 'Eliminar cursillo error ' . $e->getMessage());
             }
         }
         return redirect()->route('cursillos.index')
@@ -306,8 +339,9 @@ class CursillosController extends Controller
     public function totalAnyos(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidad = $request->get('comunidadId');
-            return Cursillos::getTodosMisAnyosCursillosList($comunidad);
+            $comunidades = array();
+            array_push($comunidades, $request->get('comunidadId'));
+            return Cursillos::GetAnyosCursillosList($comunidades);
         }
     }
 
@@ -316,7 +350,7 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $comunidadesIds = $request->get('comunidadesIds');
             $incluirRespuestasAnteriores = $request->get('esRespuestaAnterior');
-            return Cursillos::ObtenerAnyosCursillosList($comunidadesIds, $incluirRespuestasAnteriores);
+            return Cursillos::GetAnyosCursillosList($comunidadesIds, $incluirRespuestasAnteriores);
         }
     }
 

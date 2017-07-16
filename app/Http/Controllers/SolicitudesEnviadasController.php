@@ -167,12 +167,12 @@ class SolicitudesEnviadasController extends Controller
             return Redirect('solicitudesEnviadas')->with('mensaje', 'No se encuentra la solicitud seleccionada.');
         }
         try {
-            DB::transaction(function () use ($solicitudEnviada, $id) {
-                SolicitudesEnviadasCursillos::where('solicitud_id', '=', $id)->delete();
-                SolicitudesEnviadas::where('id', '=', $id)->delete();
+            DB::transaction(function () use ($solicitudEnviada) {
+                SolicitudesEnviadasCursillos::where('solicitud_id', '=', $solicitudEnviada->id)->delete();
+                SolicitudesEnviadas::where('id', '=', $solicitudEnviada->id)->delete();
             });
 
-            return redirect()->action("SolicitudesEnviadasController@index", ['comunidades' => $solicitudEnviada->comunidad_id])
+            return redirect()->action("SolicitudesEnviadasController@index")
                 ->with('mensaje', 'La respuesta y sus cursos asociados han sido eliminados.');
         } catch (\Exception $e) {
             switch ($e->getCode()) {
@@ -183,8 +183,6 @@ class SolicitudesEnviadasController extends Controller
                     return redirect()->route('solicitudesEnviadas.index')->with('mensaje', 'Eliminar solicitud error ' . $e->getCode());
             }
         }
-        return redirect()->route('solicitudesEnviadas.index')
-            ->with('mensaje', 'La solicitud ha sido eliminada correctamente.');
     }
 
     public function getCursillosSolicitudEnviada(Request $request)
