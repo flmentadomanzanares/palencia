@@ -4,6 +4,14 @@
   src: url($fontPath);
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+  url("../fonts/MaterialIcons-Regular.woff") format('woff');
+}
+
 //pointer for any tag
 //********************************************************
 *.pointer:hover {
@@ -100,37 +108,38 @@
 }
 
 //Modal show/hide label
-.hideShowSimpleModal {
+.ActionBlockLeft {
   display: block;
   position: fixed;
   bottom: $button_show_modal_label_bottom;
+}
+.hideShowSimpleModal {
+  display: block;
+  position: relative;
+  width: 42px;
+  height: 42px;
   left: $margin-app-small;
-  background-color: $state-success-bg;
   border-radius: $border-circle;
-  border: 1px solid $state-success-border;
-  box-shadow: $app-default-box-shadow;
+  color: $app-color-white;
+  background-color: rgba(36, 200, 3, 0.59);
+  box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset;
   z-index: $zindex-button_show_modal_label;
-  &:after {
-    font-family: $font-family-plyphicons-regular;
-    font-size: $button_show_modal_label_font_size;
-    display: block;
-    position: relative;
-    background-color: transparent;
-    color: $state-success-text;
-    width: $button_show_modal_label_width;
-    line-height: $button_show_modal_label_height;
-    vertical-align: middle;
-    text-align: center;
-    content: "\e106";
+  &:hover {
     cursor: pointer;
   }
-  &.labelHide {
-    background-color: $state-info-bg;
-    border-color: $state-info-border;
-    &:after {
-      color: $state-info-text;
-      content: "\e105";
-    }
+  & > i, &.labelHide > i {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate3d(50%, -50%, 0);
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+  & > i:after {
+    content: "\E8F4";
+  }
+  &.labelHide > i:after {
+    content: "\E8F5";
   }
 }
 
@@ -870,6 +879,67 @@ h1.text-center {
     cursor: pointer;
     color: $app-color-info;
   }
+}
+
+/*SCROLL TO TOP */
+
+.scroll_to_top, .scroll_to_buttom {
+  display: none;
+  text-align: center;
+  z-index: $zindex-button_show_modal_label;
+  border: 0 none $app-color-white;
+  width: 42px;
+  height: 42px;
+  border-radius: $border-circle;
+  color: $app-color-white;
+
+  background-color: rgba(29, 108, 239, 0.596);
+  box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset;
+
+  &:hover {
+    cursor: pointer;
+  }
+  & > i {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate3d(50%, -50%, 0);
+    font-weight: bold;
+    font-size: 2.2rem;
+  }
+}
+
+.scroll_to_top {
+  position: fixed;
+  right: $margin-app-small;
+  bottom: $button_show_modal_label_bottom;
+}
+
+.scroll_to_buttom {
+  display: none;
+  position: relative;
+  left: $margin-app-small;
+  margin-top: $margin-app-base;
+}
+
+.knt-mt-icons {
+  font-family: 'Material Icons';
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
 }
 
 //******************************************************************************//

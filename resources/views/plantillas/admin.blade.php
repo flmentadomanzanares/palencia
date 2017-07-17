@@ -109,7 +109,17 @@
                 </ul>
             </li>
         </ul>
-        <div class="hideShowSimpleModal hidden-md hidden-lg"></div>
+        <div class="ActionBlockLeft">
+            <div class="hideShowSimpleModal hidden-md hidden-lg">
+                <i class="knt-mt-icons"></i>
+            </div>
+            <div class="scroll_to_buttom">
+                <i class="knt-mt-icons">&#xE5C5;</i>
+            </div>
+        </div>
+        <div class="scroll_to_top">
+            <i class="knt-mt-icons">&#xE5C7;</i>
+        </div>
     @else
         @include ("comun.plantillaLogin")
         @include('comun.plantillaRegistrarse')
@@ -144,6 +154,7 @@
 @endif
 @yield ('titulo')
 @yield("contenido")
+
 <footer>
     <span>&copy; Palencia v2.0.0 | KOALNET - 2016</span>
 </footer>
@@ -152,6 +163,7 @@
 {!! HTML::script("js/comun/spinner.js")!!}
 {!! HTML::script('js/publico/simplemodal.js') !!}
 {!! HTML::script('js/publico/menu.js') !!}
+{!! HTML::script('js/publico/scroll_to_top.js') !!}
 @yield("js")
 </body>
 </html>
