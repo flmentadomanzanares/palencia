@@ -3,7 +3,6 @@ $(document).ready(function () {
     var inputsContainer = $("[data-role='contenedor_imputs']");
     var cursillosInputs = inputsContainer.find("[data-role='cursillos']");
     var destinatarioInputs = inputsContainer.find("[data-role='destinatarios']");
-    var fechaSeleccionada = null;
 
     var scrollAlFinal = function () {
         window.scrollTo(0, document.body.scrollHeight);
@@ -59,7 +58,7 @@ $(document).ready(function () {
         });
     };
 
-    var totalAnyos = function (comunidadesIds, esRespuestaAnterior) {
+    var totalAnyos = function (comunidadesIds, esRespuestaAnterior, year) {
         $.ajax({
             data: {
                 'comunidadesIds': comunidadesIds,
@@ -76,7 +75,7 @@ $(document).ready(function () {
                     selectorAnyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
                 selectorAnyos.append("<option value='0'>Todos los años</option>");
-                selectorAnyos.val(fechaSeleccionada === null ? 0 : fechaSeleccionada);
+                selectorAnyos.val(year === undefined ? 0 : year);
             },
             error: function () {
             }
@@ -87,7 +86,7 @@ $(document).ready(function () {
     var totalCursillos = function (year, esRespuestaAnterior, tipoComunicacion) {
 
         var comunidadesDestinatarias = $("[data-role='destinatarios'] input");
-        if (comunidadesDestinatarias.length == 0)
+        if (comunidadesDestinatarias.length === 0)
             return;
         var restoComunidades = [];
         comunidadesDestinatarias.each(function (idx, elem) {
@@ -147,12 +146,10 @@ $(document).ready(function () {
                         "</table>";
                 }
                 $('[data-role="lista_cursillos"]').empty().append(html);
-                totalAnyos(restoComunidades, esRespuestaAnterior);
+                totalAnyos(restoComunidades, esRespuestaAnterior, year);
             },
             error: function () {
-                /*totalCursillos($('#select_comunidad_propia option:selected').val(),
-                 $('#select_anyos option:selected').val(),
-                 $('#select_boolean option:selected').val());*/
+
             }
         });
     };
