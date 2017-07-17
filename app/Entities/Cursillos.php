@@ -33,9 +33,9 @@ class Cursillos extends Model
     public static function getCursillosList()
     {
         return ['0' => 'Cursillo...'] + Cursillos::Select('id', 'cursillo')
-            ->where('activo', true)
-            ->orderBy('cursillo', 'ASC')
-            ->Lists('cursillo', 'id');
+                ->where('activo', true)
+                ->orderBy('cursillo', 'ASC')
+                ->Lists('cursillo', 'id');
     }
 
     static public function getCursillos(Request $request, $paginateNumber = 25)
@@ -124,7 +124,7 @@ class Cursillos extends Model
             ->get();
     }
 
-    static public function getCursillosPDFRespuesta($comunidad = 0, $anyo = 0, $incluirRespuestasAnteriores = 0)
+    static public function getCursillosPDFRespuesta($comunidad = 0, $anyo = 0, $incluirRespuestasAnteriores = false)
     {
         return Cursillos::select('cursillos.id', 'cursillos.comunidad_id', 'cursillos.num_cursillo', 'cursillos.cursillo', 'cursillos.esRespuesta',
             'cursillos.fecha_inicio', 'cursillos.fecha_final', DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semana'),
@@ -253,16 +253,15 @@ class Cursillos extends Model
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
-    static public function GetAnyosCursillosList($comunidades = Array(), $incluirRespuestasAnteriores = false, $conPlaceHolder = true, $placeHolder = "Año...")
+    static public function GetAnyosCursillosList($comunidadesIds = Array(), $incluirRespuestasAnteriores = false, $conPlaceHolder = true, $placeHolder = "Año...")
     {
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%Y") as anyos'))
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
-            ->ComunidadesCursillos($comunidades)
+            ->ComunidadesCursillos($comunidadesIds)
             ->FiltroEsRespuestaAnterior($incluirRespuestasAnteriores)
             ->Where('cursillos.activo', true)
             ->distinct()
-            ->OrderBy('anyos', 'DESC')
-            ->Lists('anyos', 'anyos');
+            ->orderBy('anyos', 'DESC')
+            ->Lists('anyos');
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
@@ -383,19 +382,16 @@ class Cursillos extends Model
         return $query;
     }
 
-    public function scopeFiltroEsRespuestaAnterior($query, $esRespuestaAnterior = false)
+    public function scopeFiltroEsRespuestaAnterior($query, $incluirRespuestasAnteriores)
     {
-        $esRespuestaAnterior = filter_var($esRespuestaAnterior, FILTER_VALIDATE_BOOLEAN);
-        if (!$esRespuestaAnterior) {
-            $query->where('cursillos.esRespuesta', $esRespuestaAnterior);
-        }
-        return $query;
+        return $query->where('cursillos.esRespuesta', filter_var($incluirRespuestasAnteriores, FILTER_VALIDATE_BOOLEAN));
     }
+
 
     public function scopeFiltroComunidadCursillosTipo($query, $tipo = false)
     {
         $tipo = filter_var($tipo, FILTER_VALIDATE_BOOLEAN);
-            $query->where('comunidades.esPropia', $tipo);
+        $query->where('comunidades.esPropia', $tipo);
         return $query;
     }
 

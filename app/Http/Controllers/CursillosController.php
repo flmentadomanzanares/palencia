@@ -341,7 +341,7 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $comunidades = array();
             array_push($comunidades, $request->get('comunidadId'));
-            return Cursillos::GetAnyosCursillosList($comunidades);
+            return Cursillos::GetAnyosCursillosList($comunidades, false, false);
         }
     }
 
@@ -350,7 +350,7 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $comunidadesIds = $request->get('comunidadesIds');
             $incluirRespuestasAnteriores = $request->get('esRespuestaAnterior');
-            return Cursillos::GetAnyosCursillosList($comunidadesIds, $incluirRespuestasAnteriores);
+            return Cursillos::GetAnyosCursillosList($comunidadesIds, filter_var($incluirRespuestasAnteriores, FILTER_VALIDATE_BOOLEAN), false);
         }
     }
 

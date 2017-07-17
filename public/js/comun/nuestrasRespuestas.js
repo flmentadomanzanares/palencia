@@ -3,6 +3,7 @@ $(document).ready(function () {
     var inputsContainer = $("[data-role='contenedor_imputs']");
     var cursillosInputs = inputsContainer.find("[data-role='cursillos']");
     var destinatarioInputs = inputsContainer.find("[data-role='destinatarios']");
+    var fechaSeleccionada = null;
 
     var scrollAlFinal = function () {
         window.scrollTo(0, document.body.scrollHeight);
@@ -75,6 +76,7 @@ $(document).ready(function () {
                     selectorAnyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
                 selectorAnyos.append("<option value='0'>Todos los años</option>");
+                selectorAnyos.val(fechaSeleccionada === null ? 0 : fechaSeleccionada);
             },
             error: function () {
             }
@@ -170,6 +172,7 @@ $(document).ready(function () {
 
     $(document).on("change", "#select_anyos, #select_boolean", function (evt) {
         evt.preventDefault();
+        fechaSeleccionada = $(this).val();
         totalCursillos(
             $('#select_anyos option:selected').val(),
             $('#select_boolean option:selected').val(),
