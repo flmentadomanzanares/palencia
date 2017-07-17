@@ -5633,15 +5633,17 @@ button.close {
 
 .asterisco:after {
   position: absolute;
-  color: #009900;
-  font-family: "Glyphicons Halflings", Verdana, Arial, sans-serif;
-  font-size: 14px;
-  content: "\002a";
-  margin-left: -1.6em;
-  margin-top: .2em;
-  background-color: #ffffff;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: 'Material Icons';
+  content: "\E39E";
+  margin-left: -1.4rem;
+  margin-top: .2rem;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  padding: 0 2px 0 3px; }
+  width: 1.2rem;
+  line-height: 1.2rem;
+  text-align: center; }
 
 /*MENU SEPARATOR */
 ul.active > li.menu-separator {
@@ -6143,11 +6145,9 @@ h1.text-center {
   background-color: rgba(29, 108, 239, 0.596);
   -webkit-box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset;
   box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset; }
-
-.scroll_to_top:hover, .scroll_to_bottom:hover {
+  .scroll_to_top:hover, .scroll_to_bottom:hover {
     cursor: pointer; }
-
-.scroll_to_top > i, .scroll_to_bottom > i {
+  .scroll_to_top > i, .scroll_to_bottom > i {
     position: absolute;
     right: 50%;
     top: 50%;
