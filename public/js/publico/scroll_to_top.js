@@ -4,6 +4,7 @@
 $(function () {
 
     var $BloqueToTop = $(".scroll_to_top");
+    var $BloqueToBottom = $(".scroll_to_top");
     $(document).on("click", ".scroll_to_top", function (evt) {
         evt.preventDefault();
         $("body").animate({

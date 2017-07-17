@@ -6131,7 +6131,7 @@ h1.text-center {
     color: #5bc0de; }
 
 /*SCROLL TO TOP */
-.scroll_to_top, .scroll_to_buttom {
+.scroll_to_top, .scroll_to_bottom {
   display: none;
   text-align: center;
   z-index: 500;
@@ -6143,9 +6143,11 @@ h1.text-center {
   background-color: rgba(29, 108, 239, 0.596);
   -webkit-box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset;
   box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset; }
-  .scroll_to_top:hover, .scroll_to_buttom:hover {
+
+.scroll_to_top:hover, .scroll_to_bottom:hover {
     cursor: pointer; }
-  .scroll_to_top > i, .scroll_to_buttom > i {
+
+.scroll_to_top > i, .scroll_to_bottom > i {
     position: absolute;
     right: 50%;
     top: 50%;
@@ -6159,7 +6161,7 @@ h1.text-center {
   right: 5px;
   bottom: 33px; }
 
-.scroll_to_buttom {
+.scroll_to_bottom {
   display: none;
   position: relative;
   left: 5px;

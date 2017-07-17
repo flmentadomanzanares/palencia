@@ -883,7 +883,7 @@ h1.text-center {
 
 /*SCROLL TO TOP */
 
-.scroll_to_top, .scroll_to_buttom {
+.scroll_to_top, .scroll_to_bottom {
   display: none;
   text-align: center;
   z-index: $zindex-button_show_modal_label;
@@ -892,7 +892,6 @@ h1.text-center {
   height: 42px;
   border-radius: $border-circle;
   color: $app-color-white;
-
   background-color: rgba(29, 108, 239, 0.596);
   box-shadow: rgba(255, 255, 255, 0.447) 0 0 0 3px inset;
 
@@ -915,7 +914,7 @@ h1.text-center {
   bottom: $button_show_modal_label_bottom;
 }
 
-.scroll_to_buttom {
+.scroll_to_bottom {
   display: none;
   position: relative;
   left: $margin-app-small;

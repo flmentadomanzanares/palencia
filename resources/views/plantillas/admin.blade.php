@@ -113,7 +113,7 @@
             <div class="hideShowSimpleModal hidden-md hidden-lg">
                 <i class="knt-mt-icons"></i>
             </div>
-            <div class="scroll_to_buttom">
+            <div class="scroll_to_bottom">
                 <i class="knt-mt-icons">&#xE5C5;</i>
             </div>
         </div>
