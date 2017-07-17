@@ -31,7 +31,6 @@ $(function () {
             }
         }
         if (elemToBottom.length > 0) {
-            console.log(window.scrollTop() + window.height() + "-" + document.body.offsetHeight + "-" + document.body.scrollHeight);
             if (window.height() >= document.body.clientHeight
                 || window.scrollTop() + window.height() === document.body.scrollHeight) {
                 elemToBottom.fadeOut();
