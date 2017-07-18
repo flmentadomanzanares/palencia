@@ -227,9 +227,12 @@
           background-color: transparent;
           font-weight: normal;
           color: $app-color-white;
-          text-shadow: 1px 1px rgba(0, 0, 0, 1);
+          text-shadow: 0 0 8px black, 0 0 8px black;
+          opacity: .6;
+          filter: alpha(opacity=60);
           &:hover {
-            color: $app-color-hover;
+            opacity: 1;
+            filter: alpha(opacity=100);
           }
         }
         a {

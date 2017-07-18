@@ -5591,9 +5591,14 @@ button.close {
         background-color: transparent;
         font-weight: normal;
         color: #ffffff;
-        text-shadow: 1px 1px black; }
+          text-shadow: 0 0 8px black, 0 0 8px black;
+          opacity: .6;
+          filter: alpha(opacity=60);
+      }
         .table-viaoptima thead tr th button:hover, .table-viaoptima thead tr th a:hover {
-          color: #ff7a00; }
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
       .table-viaoptima thead tr th a {
         text-align: center; }
     .table-viaoptima thead tr.row-fixed {
