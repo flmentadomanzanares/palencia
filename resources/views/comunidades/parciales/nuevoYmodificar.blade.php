@@ -3,9 +3,7 @@
     {!! FORM::label('comunidad', 'Nombre Comunidad:') !!} <br/>
     {!! FORM::text('comunidad',$comunidad->comunidad,["class" => "form-control text-uppercase", "title"=>"Nombre de la Comunidad",
     "maxlength"=>"50"]) !!}
-    @if($numeroComunidadesPropias>0)
-        {!! FORM::hidden('esPropia',false) !!}
-    @else
+    @if($numeroComunidadesPropias < config('opciones.numeroComunidadesPropias')  && $comunidad->id == 0 || $comunidad->esPropia == true && $numeroComunidadesPropias > 1)
         <br/>
         {!! FORM::label ('esPropia', 'Es Propia:') !!} <br/>
         {!! FORM::select('esPropia',array('0'=>'No','1'=>'Si'), $comunidad->esPropia ,array('class'=>'form-control')) !!}

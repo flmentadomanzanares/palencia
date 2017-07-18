@@ -14,6 +14,7 @@ return ['campoUser' => [
     'confirmado' => 'Confirmado',
     'nconfirmado' => 'No Confirmado',
 ], 'paginacion' => 400,
+    'numeroComunidadesPropias' => 2,
     'roles' => [
         'administrador' => '400',
     ],
@@ -24,7 +25,7 @@ return ['campoUser' => [
     ],
     'accion' => [
         'copiaSeguridad' => true,
-        'cerrarAnyo' => false,
+        'cerrarAnyo' => true,
         'roles' => false,
         'tiposParticipantes' => false,
         'tipoComunicacionesPreferidas' => false,
@@ -46,7 +47,7 @@ return ['campoUser' => [
     ],
     'envios' => [
         'timeout' => 0,
-        'seMaxtTimeAt' => 45,
+        'seMaxtTimeAt' => 0,
         'comunidadesMax' => 0, //0=todos
     ],
     'tipo' => [

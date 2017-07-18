@@ -9,7 +9,6 @@ use Palencia\Entities\Paises;
 use Palencia\Entities\Provincias;
 use Palencia\Entities\TiposComunicacionesPreferidas;
 use Palencia\Entities\TiposSecretariados;
-use Palencia\Http\Requests;
 use Palencia\Http\Requests\ValidateRulesComunidades;
 
 class ComunidadesController extends Controller
@@ -79,7 +78,7 @@ class ComunidadesController extends Controller
         //Creamos una nueva instancia al modelo.
         $comunidad = new Comunidades();
         $comunidad->comunidad = strtoupper($request->get('comunidad'));
-        $comunidad->esPropia = $request->get('esPropia');
+        $comunidad->esPropia = $request->get('esPropia') != null ? $request->get('esPropia') : false;
         $comunidad->tipo_secretariado_id = $request->get('tipo_secretariado_id');
         $comunidad->responsable = $request->get('responsable');
         $comunidad->direccion = $request->get('direccion');
