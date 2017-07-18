@@ -3,7 +3,6 @@ $(document).ready(function () {
     var inputsContainer = $("form [data-role='contenedor_imputs']");
     var cursillosInputs = inputsContainer.find("[data-role='cursillos']");
     var destinatarioInputs = inputsContainer.find("[data-role='destinatarios']");
-    var comunidades = [];
 
     var scrollAlFinal = function () {
         window.scrollTo(0, document.body.scrollHeight);
@@ -63,9 +62,11 @@ $(document).ready(function () {
     };
 
     var totalAnyos = function (comunidadPropiaId) {
+        var comunidad = [];
+        comunidad.push(parseInt(comunidadPropiaId));
         $.ajax({
             data: {
-                'comunidadesIds': comunidadPropiaId,
+                'comunidadesIds': comunidad,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -263,11 +264,8 @@ $(document).ready(function () {
         $this[0].submit();
     });
 
-    //Obtenemos el array de comunidades
-    $("select[name='nuestrasComunidades']>option").each(function (idx, elem) {
-        comunidades.push(parseInt($(elem).val()));
-    });
+
     //Obtenemos el array de comunidades destinatiarias según su modalidad de comunicación
     poner_comunicacion($('select[name="modalidad"]').val());
-    totalAnyos(comunidades);
+    totalAnyos($('select[name="nuestrasComunidades"]').val());
 });
