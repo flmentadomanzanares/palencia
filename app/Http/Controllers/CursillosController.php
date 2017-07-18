@@ -20,9 +20,7 @@ class CursillosController extends Controller
         $titulo = "Cursillos";
         $comunidades = Comunidades::getComunidadesList(false, true, "Comunidad...", true);
         $cursillos = Cursillos::getCursillos($request, config("opciones.paginacion"));
-        $anyos = Cursillos::getAnyoCursillosList();
-        $semanas = Array();
-        return view("cursillos.index", compact('comunidades', 'cursillos', 'titulo', 'anyos', 'semanas'));
+        return view("cursillos.index", compact('comunidades', 'cursillos', 'titulo'));
     }
 
     /**
@@ -339,8 +337,7 @@ class CursillosController extends Controller
     public function totalAnyos(Request $request)
     {
         if (\Request::ajax()) {
-            $comunidades = array();
-            array_push($comunidades, $request->get('comunidadId'));
+            $comunidades = $request->get('comunidadesIds');
             return Cursillos::GetAnyosCursillosList($comunidades, false, false);
         }
     }
