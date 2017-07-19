@@ -7,34 +7,36 @@ $(document).ready(function () {
         window.scrollTo(0, document.body.scrollHeight);
     };
 
-    var quitarPonerUnCursoFormulario = function (elem) {
-        var elem = $(elem);
-        var id = elem.closest("tr").data("id");
-        if (elem.prop("checked")) {
+    var quitarPonerUnCursoFormulario = function (cursillo) {
+        var curso = $(cursillo);
+        var id = curso.closest("tr").data("id");
+        if (curso.prop("checked")) {
             cursillosInputs.append("<input type='hidden' name='cursos[]' value='" + id + "'>");
         } else {
             cursillosInputs.find("[value='" + id + "']").remove();
         }
     };
 
-    var ponerDestinatario = function (elem) {
-        if (isNaN(parseInt($(elem).val())))
+    var ponerDestinatario = function (destinatario) {
+        if (isNaN(parseInt($(destinatario).val())))
             return false;
-        destinatarioInputs.append("<input type='hidden' name='comunidadesDestinatarias[]' value='" + elem.val() + "'>");
-        elem.closest(".table-size-optima")
+        destinatarioInputs.append("<input type='hidden' name='comunidadesDestinatarias[]' value='" + destinatario.val() + "'>");
+        destinatario.closest(".table-size-optima")
             .find("[data-role='comunidades_destinatarias']")
-            .append("<div data-role='destinatario' data-val='" + elem.val() + "' class='alert alert-info'>" + elem.text() + "<span class='badge pointer pull-right'>Quitar</span></div>");
+            .append("<div data-role='destinatario' data-val='" + destinatario.val() + "' class='alert alert-info'>" + destinatario.text() + "<span class='badge pointer pull-right'>Quitar</span></div>");
         return true;
     };
 
-    var eliminarDestinatario = function (val) {
-        destinatarioInputs.find("[value='" + val + "']").remove();
+    var eliminarDestinatario = function (destinatarioId) {
+        destinatarioInputs.find("[value='" + destinatarioId + "']").remove();
     };
 
     var totalAnyos = function (comunidadPropiaId) {
+        var comunidad = [];
+        comunidad.push(parseInt(comunidadPropiaId));
         $.ajax({
             data: {
-                'comunidadId': comunidadPropiaId,
+                'comunidadesIds': comunidad,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
@@ -46,8 +48,11 @@ $(document).ready(function () {
                 $.each(data, function (key, element) {
                     anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
-                totalCursillos($('#select_comunidad_propia option:selected').val(),
-                    $('#select_anyos option:selected').val());
+                anyos.append("<option value='0'>Todos los años</option>");
+                totalCursillos(
+                    $("select[name='nuestrasComunidades']>option:selected").val(),
+                    $("select[name='anyo']").val()
+                );
             },
             error: function () {
             }
@@ -76,7 +81,7 @@ $(document).ready(function () {
                             "<tr class='row-fixed'>" +
                             "<th class='fixed-checkBoxLgContainer'></th>" +
                             "<th class='tabla-ancho-columna-texto'></th>" +
-                            "<th class='" + (element.anyo != anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
+                            "<th class='" + (parseInt(element.anyo) !== anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
                             "</tr>" +
                             "<tr style='Background: " + element.colorFondo + ";'>" +
                             "<th colspan='3' style='Color: " + element.colorTexto + ";' class='text-center'>" + element.comunidad + "</th>" +
@@ -104,8 +109,7 @@ $(document).ready(function () {
                 cursillosInputs.empty();
             },
             error: function () {
-                totalCursillos($('#select_comunidad_propia option:selected').val(),
-                    $('#select_anyos option:selected').val());
+
             }
         });
     };
@@ -115,15 +119,17 @@ $(document).ready(function () {
         return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
     }
 
-    $(document).on("change", "#select_comunidad_propia", function (evt) {
+    $(document).on("change", "select[name='nuestrasComunidades']", function (evt) {
         evt.preventDefault();
         totalAnyos($(this).val());
     });
 
     $(document).on("change", "#select_anyos", function (evt) {
         evt.preventDefault();
-        totalCursillos($('#select_comunidad_propia option:selected').val(),
-            $('#select_anyos option:selected').val());
+        totalCursillos(
+            $("select[name='nuestrasComunidades']>option:selected").val(),
+            $("select[name='anyo']").val()
+        );
     });
 
     $(document).on("click", ".marcarTodos", function (evt) {
@@ -149,7 +155,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("change", "#comunidadesDestinatarias", function (evt) {
+    $(document).on("change", "select[name='comunidadesDestinatarias']", function (evt) {
         evt.preventDefault();
         var option = $(this).find("option:selected");
         if (!ponerDestinatario(option))
@@ -171,11 +177,11 @@ $(document).ready(function () {
         evt.preventDefault();
         destinatarioInputs.empty();
         $("[data-role='comunidades_destinatarias']").empty();
-        $("#comunidadesDestinatarias option").each(function (idx, elem) {
-            var elem = $(elem);
-            if (elem.attr("value") != undefined) {
-                elem.hide();
-                ponerDestinatario(elem);
+        $("select[name='comunidadesDestinatarias'] option").each(function (idx, elem) {
+            var comunidadDestinataria = $(elem);
+            if (comunidadDestinataria.attr("value") !== undefined) {
+                comunidadDestinataria.hide();
+                ponerDestinatario(comunidadDestinataria);
             }
         });
         scrollAlFinal();
@@ -185,9 +191,9 @@ $(document).ready(function () {
         evt.preventDefault();
         destinatarioInputs.empty();
         $("[data-role='comunidades_destinatarias']").empty();
-        $("#comunidadesDestinatarias option").each(function (idx, elem) {
-            var elem = $(elem);
-            elem.show();
+        $("select[name='comunidadesDestinatarias'] option").each(function (idx, elem) {
+            var comunidadDestinataria = $(elem);
+            comunidadDestinataria.show();
         });
     });
 
@@ -212,12 +218,12 @@ $(document).ready(function () {
         var $this = $(this);
         var contenedorModalMensaje = $("[data-role='modalMensaje']");
         var datosModalMensaje = contenedorModalMensaje.find("span.simpleModal");
-        if (cursillosInputs.find("input").length == 0) {
+        if (cursillosInputs.find("input").length === 0) {
             contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos un cursillo seleccionado.</span>");
             datosModalMensaje.trigger("click");
             return false;
         }
-        if (destinatarioInputs.find("input").length == 0) {
+        if (destinatarioInputs.find("input").length === 0) {
             contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos una comunidad destinataria.</span>");
             datosModalMensaje.trigger("click");
             return false;
@@ -226,5 +232,5 @@ $(document).ready(function () {
         $("div.spinner").css("display", 'block');
         $this[0].submit();
     });
-    totalAnyos($('#select_comunidad_propia option:selected').val());
+    totalAnyos($("select[name='nuestrasComunidades']").val());
 });
