@@ -1,20 +1,28 @@
 $(document).ready(function () {
-    var totalAnyos = function (comunidadId) {
+
+    var totalAnyos = function (comunidadesIds) {
         $.ajax({
             data: {
-                'comunidadId': comunidadId,
+                'comunidadesIds': comunidadesIds,
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
             type: 'post',
             url: 'totalAnyos',
             success: function (data) {
-                var anyos = $('#select_anyos');
+                var anyos = $('select[name="anyos"]');
+                var anyoActual = parseInt(anyos.val());
+                anyoActual = isNaN(anyoActual) ? 0 : anyoActual;
                 anyos.empty();
                 $.each(data, function (key, element) {
                     anyos.append("<option value='" + element + "'>" + element + "</option>");
                 });
-                totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
+                anyos.append("<option value='0'>Todos los años</option>");
+                anyos.val(anyoActual);
+                totalSemanas(
+                    comunidadesIds,
+                    $('select[name="anyos"]>option:selected').val()
+                );
             },
             error: function () {
             }
@@ -60,46 +68,68 @@ $(document).ready(function () {
         });
     };
     //Ajax para calcular el número de semanas según el año
-    var totalSemanas = function (year, comunidad) {
+    var totalSemanas = function (comunidadesIds, year) {
         $.ajax({
             data: {
+                'comunidadesIds': comunidadesIds,
                 'anyo': year,
-                'comunidad': comunidad,
                 '_token': $('input[name="_token"]').val()
-
             },
             dataType: "json",
             type: 'post',
             url: 'semanasTotales',
             success: function (data) {
-                var semanas = $('#select_semanas');
+                var semanas = $('select[name="semanas"]');
                 semanas.empty();
-                semanas.append("<option value='0'>Semana...</option>");
+                semanas.append("<option value='0'>Semanas...</option>");
                 $.each(data, function (key, element) {
                     semanas.append("<option value='" + element.semanas + "'>" + element.semanas + "</option>");
                 });
-                if ($('#listado_cursillos').length == 0)
+
+                if ($('#listado_cursillos').length === 0)
                     return;
-                totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0);
+
+                totalCursillos(
+                    $('select[name="comunidad"]>option:selected').val(),
+                    $('select[name="anyos"]>option:selected').val(), 0);
             },
             error: function () {
             }
         });
     };
-    $(document).on("change", "#select_comunidad", function (evt) {
+    var ponerFechaParaComunidad = function (comunidadId) {
+        var comunidadesIds = [];
+        switch (comunidadId) {
+            case 0:
+                $("select[name='comunidad']>option").each(function (idx, elem) {
+                    comunidadesIds.push(parseInt($(elem).val()));
+                });
+                break;
+            default :
+                comunidadesIds.push(comunidadId);
+        }
+        totalAnyos(comunidadesIds);
+    };
+
+    $(document).on("change", "select[name='comunidad']", function (evt) {
         evt.preventDefault();
-        totalAnyos($(this).val());
+        ponerFechaParaComunidad(parseInt($(this).val()));
     });
-    $(document).on("change", "#select_anyos", function (evt) {
+
+    $(document).on("change", "select[name='anyos']", function (evt) {
         evt.preventDefault();
-        totalSemanas($('#select_anyos option:selected').val(), $('#select_comunidad option:selected').val());
+        ponerFechaParaComunidad(parseInt($("select[name = 'comunidad']").val()));
     });
+
     $(document).on("change", "#select_semanas", function (evt) {
         evt.preventDefault();
-        if ($('#listado_cursillos').length == 0)
+        if ($('#listado_cursillos').length === 0)
             return;
-        totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), $('#select_semanas option:selected').val());
+        totalCursillos(
+            $('select[name="comunidad"]>option:selected').val(),
+            $('select[name="anyos"]>option:selected').val(),
+            $('select[name="semanas"]>option:selected').val());
     });
-    totalAnyos($("#select_comunidad").val());
 
+    ponerFechaParaComunidad(parseInt($("select[name='comunidad']").val()));
 });

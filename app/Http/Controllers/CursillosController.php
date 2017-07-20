@@ -274,8 +274,8 @@ class CursillosController extends Controller
     {
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
-            $comunidad = $request->get('comunidad');
-            $semanas = Cursillos::getSemanasCursillos($anyo, $comunidad);
+            $comunidadesIds = $request->get('comunidadesIds');
+            $semanas = Cursillos::getSemanasCursillos($comunidadesIds, $anyo);
             return $semanas;
         }
     }
@@ -338,7 +338,8 @@ class CursillosController extends Controller
     {
         if (\Request::ajax()) {
             $comunidades = $request->get('comunidadesIds');
-            return Cursillos::GetAnyosCursillosList($comunidades, false, false);
+            $respuestasAneteriores = $request->get('incluirRespuestasAnteriores');
+            return Cursillos::GetAnyosCursillosList($comunidades, $respuestasAneteriores, false);
         }
     }
 
