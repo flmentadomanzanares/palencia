@@ -417,7 +417,7 @@ class Cursillos extends Model
     public function scopeSemanasCursillos($query, $semana = 0)
     {
         if (is_numeric($semana) && $semana > 0) {
-            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), 'like', $semana);
+            $query->where(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v")'), $semana);
         }
         return $query;
     }
