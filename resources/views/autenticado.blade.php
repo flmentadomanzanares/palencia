@@ -27,7 +27,7 @@
 @endsection
 @section('js')
     @if (Auth::check())
-        {!! HTML::script('js/comun/semanas.js') !!}
+        {!! HTML::script('js/comun/semanasCalendario.js') !!}
         {!! HTML::script("js/vendor/fullcalendar/moment.min.js")!!}
         {!! HTML::script("js/vendor/fullcalendar/fullcalendar.js")!!}
         {!! HTML::script("js/vendor/fullcalendar/lang/es.js")!!}

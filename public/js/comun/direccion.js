@@ -18,7 +18,7 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: 'cambiarProvincias',
+                url: '/cambiarProvincias',
                 success: function (data) {
                     var placeHolderProvincia = $('#select_provincia[data-placeholder]');
                     $('#select_provincia').empty();

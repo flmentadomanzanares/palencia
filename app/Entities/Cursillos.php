@@ -304,10 +304,12 @@ class Cursillos extends Model
     }
 
 
-    static public function getSemanasCursillos($cursillosIds = Array(), $anyo = 0)
+    static public function getSemanasCursillos($cursillosIds = Array(), $anyo = 0, $esComunidadPropia = false)
     {
         return Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%v") as semanas'))
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'cursillos.comunidad_id')
             ->ComunidadesCursillos($cursillosIds)
+            ->FiltroComunidadCursillosTipo($esComunidadPropia)
             ->FiltroAnyosCursillos($anyo)
             ->where('cursillos.activo', true)
             ->groupBy('semanas')
@@ -440,7 +442,10 @@ class Cursillos extends Model
 
     public function scopeComunidadesCursillos($query, $comunidadesIds = Array())
     {
-        return $query->whereIn('cursillos.comunidad_id', $comunidadesIds);
+        if (is_array($comunidadesIds)) {
+            $query->whereIn('cursillos.comunidad_id', $comunidadesIds);
+        }
+        return $query;
     }
 
 

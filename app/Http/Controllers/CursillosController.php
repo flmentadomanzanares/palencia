@@ -275,8 +275,9 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidadesIds = $request->get('comunidadesIds');
-            $semanas = Cursillos::getSemanasCursillos($comunidadesIds, $anyo);
-            return $semanas;
+            $esComunidadPropia = $request->get('esComunidadPropia');
+            return Cursillos::getSemanasCursillos($comunidadesIds, $anyo, $esComunidadPropia);
+
         }
     }
 
@@ -285,8 +286,7 @@ class CursillosController extends Controller
         if (\Request::ajax()) {
             $anyo = $request->get('anyo');
             $comunidad = $request->get('comunidad');
-            $fechasInicio = Cursillos::getFechasInicioCursillos($anyo, $comunidad, 1);
-            return $fechasInicio;
+            return Cursillos::getFechasInicioCursillos($anyo, $comunidad, 1);
         }
     }
 
@@ -296,8 +296,7 @@ class CursillosController extends Controller
             $anyo = $request->get('anyo');
             $comunidadPropia = $request->get('comunidadPropia');
             $comunidadNoPropia = $request->get('comunidadNoPropia');
-            $fechaInicio = Cursillos::getFechasInicioCursillos($anyo, $comunidadNoPropia, 0);
-            return $fechaInicio;
+            return Cursillos::getFechasInicioCursillos($anyo, $comunidadNoPropia, 0);
         }
     }
 

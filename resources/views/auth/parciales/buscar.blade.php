@@ -2,7 +2,7 @@
 {!!FORM::model(Request::only(['esPropia','semanas','anyos','comunidad']),
 ['route'=>'inicio','method'=>'GET','role'=>'search']) !!}
 <div class="form-group">
-    {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','true'=>'Propia','false'=>'No Propia'),
+    {!! FORM::select('esPropia', array(''=>'Tipo Comunidad...','1'=>'Propia','0'=>'No Propia'),
    null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
