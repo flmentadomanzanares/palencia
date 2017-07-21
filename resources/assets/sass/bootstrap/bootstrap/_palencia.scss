@@ -230,9 +230,12 @@
           text-shadow: 0 0 8px black, 0 0 8px black;
           opacity: .6;
           filter: alpha(opacity=60);
-          &:hover {
+          &:hover:not(.disabled) {
             opacity: 1;
             filter: alpha(opacity=100);
+          }
+          &.disabled {
+            cursor: $cursor-disabled;
           }
         }
         a {

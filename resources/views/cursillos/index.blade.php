@@ -64,6 +64,13 @@
                                         @include ("comun.plantillaBorrado")
                                     @endif
                                     {!! FORM::close() !!}
+                                @else
+                                    <button class="disabled" type="button" disabled
+                                            title="El cusillo debe de estar desactivado">
+                                        <i class='glyphicon glyphicon-trash full-Width'>
+                                            <div>Borrar</div>
+                                        </i>
+                                    </button>
                                 @endif
                                 @endif
                             </th>
@@ -132,6 +139,6 @@
 @endsection
 @section('js')
     @if (Auth::check())
-        {!! HTML::script('js/comun/semanas.js') !!}
+        {!! HTML::script('js/comun/semanasCursillos.js') !!}
     @endif
 @endsection
