@@ -22,7 +22,7 @@
 @endsection
 @section('css')
     @if (Auth::check())
-        {!! HTML::style('css/vendor/fullCalendar/fullcalendar.css') !!}
+        {!! HTML::style('css/vendor/FullCalendar/fullCalendar.css') !!}
     @endif
 @endsection
 @section('js')
