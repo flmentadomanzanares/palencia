@@ -3,7 +3,8 @@
 <head>
     <title>Palencia</title>
     <meta charset="UTF-8">
-    <meta name=description content="">
+    <meta name=description content=" oraciones">
+    <link rel="shortcut icon" href="img/iconos/favicon.ico" type="image/x-icon"/>
     <meta name=viewport content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     {!! HTML::style('css/palencia.css') !!}
     @yield("css")
