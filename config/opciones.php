@@ -5,16 +5,19 @@
  * Date: 05/05/2015
  * Time: 8:40
  */
-return ['campoUser' => [
-    'fullname' => 'Nombre',
-    'name' => 'Usuario',
-    'email' => 'Email',
-    'activo' => 'Activo',
-    'nactivo' => 'No Activo',
-    'confirmado' => 'Confirmado',
-    'nconfirmado' => 'No Confirmado',
-], 'paginacion' => 400,
+return [
+    'verErrorMailServer' => true,
+    'paginacion' => 400,
     'numeroComunidadesPropias' => 2,
+    'campoUser' => [
+        'fullname' => 'Nombre',
+        'name' => 'Usuario',
+        'email' => 'Email',
+        'activo' => 'Activo',
+        'nactivo' => 'No Activo',
+        'confirmado' => 'Confirmado',
+        'nconfirmado' => 'No Confirmado',
+    ],
     'roles' => [
         'administrador' => '400',
     ],
@@ -43,7 +46,6 @@ return ['campoUser' => [
         'noColaboradoresInactivos' => true,
         'imprimirPaisesActivos' => true,
         'secretariadosColaboradoresSinResponder' => true,
-
     ],
     'envios' => [
         'timeout' => 0,
@@ -56,8 +58,7 @@ return ['campoUser' => [
     ],
     "emailTestSender" => [
         "active" => true,
-        "email" => 'franciscomentadomanzanares@gmail.com',
+        "email" => 'fmentado@koalnet.es',
     ],
-
 ];
 ?>

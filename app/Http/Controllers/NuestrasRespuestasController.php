@@ -132,8 +132,7 @@ class NuestrasRespuestasController extends Controller
             set_time_limit(config('opciones.envios.seMaxtTimeAt'));
             $comunidad = $idx;
             $archivo = $path . $separatorPath . "NR-" . date("d_m_Y_H_i_s", strtotime('now')) . '-' . $cursosPorComunidad[0]->pais . '-' . $cursosPorComunidad[0]->comunidad . '-Cursos.pdf';
-            //Conversión a UTF
-            $nombreArchivo = mb_convert_encoding($archivo, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+
             $cursosActualizados = [];
             $cursoActual = $cursosPorComunidad[0];
             $comunidadDestinataria = $cursoActual;
@@ -218,7 +217,10 @@ class NuestrasRespuestasController extends Controller
                     } elseif (count($cursosActualizados) > 0) {
                         $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                             . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
+                    } elseif (config('opciones.verErrorMailServer')) {
+                        $logEnvios[] = [$ex->getMessage(), "", "envelope red icon-size-large"];
                     }
+
                     $envio = 0;
                 }
                 $logEnvios[] = $envio > 0 ? ["Enviada respuesta a la comunidad " . $comunidad . " al email " . $cursoActual->email_envio, "", "envelope green icon-size-large"] :
