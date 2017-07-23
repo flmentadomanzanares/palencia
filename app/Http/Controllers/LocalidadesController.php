@@ -55,7 +55,7 @@ class LocalidadesController extends Controller
     public function store(ValidateRulesLocalidades $request)
     {
         $localidad = new Localidades; //Creamos instancia al modelo
-        $localidad->provincia_id = $request->get('provincia');
+        $localidad->provincia_id = $request->get('provincias');
         $localidad->localidad = strtoupper($request->get('localidad')); //Asignamos el valor al campo.
         try {
             $localidad->save();
@@ -114,7 +114,7 @@ class LocalidadesController extends Controller
             return Redirect('localidades')->with('mensaje', 'No se encuentra la localidad seleccionada.');
         }
         $localidad->localidad = strtoupper($request->get('localidad'));
-        $localidad->provincia_id = $request->get('provincia');
+        $localidad->provincia_id = $request->get('provincias');
         if (\Auth::user()->roles->peso >= config('opciones.roles.administrador')) {
             $localidad->activo = $request->get('activo');
         }

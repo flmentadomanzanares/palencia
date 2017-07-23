@@ -2,14 +2,7 @@
  * Created by fmentado on 18/05/2015.
  */
     $(document).ready(function () {
-        //Cambio provincias.
-        var inicializar = function () {
-            //definimos las variables
-            var pais = $('#select_pais').val();
-            var provincia = $('#select_provincia').val();
-            var localidad = $('#select_localidad').val();
-            listarProvincias(pais, provincia);
-        };
+        var pais = $('select[name="pais"]');
         var listarProvincias = function (paisId, provincia) {
             $.ajax({
                 data: {
@@ -18,29 +11,24 @@
                 },
                 dataType: "json",
                 type: 'post',
-                url: '/cambiarProvincias',
+                url: '/palencia/public/cambiarProvincias',
                 success: function (data) {
-                    var placeHolderProvincia = $('#select_provincia[data-placeholder]');
-                    $('#select_provincia').empty();
+                    var provincias = $('select[name="provincias"]');
+                    var placeHolderProvincia = provincias.data("placeholder");
+                    provincias.empty();
                     //Rellenamos los selects
-                    if (placeHolderProvincia.length > 0) {
-                        $('#select_provincia').append("<option selected value='0'>" + placeHolderProvincia.data("placeholder") + "</option>");
+                    if (placeHolderProvincia !== undefined) {
+                        provincias.append("<option selected value='0'>" + placeHolderProvincia + "</option>");
                     }
                     $.each(data, function (key, element) {
-                        if (element.id == provincia)
-                            $('#select_provincia').append("<option selected value='" + element.id + "'>" + element.provincia + "</option>");
-                        else
-                            $('#select_provincia').append("<option value='" + element.id + "'>" + element.provincia + "</option>");
+                        provincias.append("<option " + (element.id === provincia ? "selected" : '') + " value='" + element.id + "'>" + element.provincia + "</option>");
                     });
                 }
             });
         };
-
-        $('#select_pais').change(function (evt) {
+        pais.change(function (evt) {
             evt.preventDefault();
-            if (($('#select_provincia').length == 0 ))
-                return;
-            listarProvincias($('#select_pais option:selected').val());
+            listarProvincias(pais.find("option:selected").val());
         });
-        inicializar();
+        listarProvincias(pais.val());
     });
