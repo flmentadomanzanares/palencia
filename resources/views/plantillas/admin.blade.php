@@ -4,7 +4,7 @@
     <title>Palencia</title>
     <meta charset="UTF-8">
     <meta name=description content=" oraciones">
-    <link rel="shortcut icon" href="img/iconos/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ url('img/iconos/favicon.ico')}}" type="image/x-icon"/>
     <meta name=viewport content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     {!! HTML::style('css/palencia.css') !!}
     @yield("css")
@@ -157,7 +157,7 @@
 @yield("contenido")
 
 <footer>
-    <span>&copy; Palencia v2.0.0 | KOALNET - 2016</span>
+    <span>&copy; Palencia v2.1.0 | KOALNET - 2016</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
