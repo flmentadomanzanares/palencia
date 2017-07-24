@@ -2,7 +2,6 @@
  * Created by franc on 07/06/2017.
  */
 $(function () {
-
     var $bloqueToTop = $(".scroll_to_top");
     var $bloqueToBottom = $(".scroll_to_bottom");
     $(document).on("click", ".scroll_to_top", function (evt) {
@@ -41,4 +40,7 @@ $(function () {
         return false;
     };
     mostrarOcultarToTop($(window), $bloqueToTop, $bloqueToBottom);
+    setTimeout(function () {
+        mostrarOcultarToTop($(window), $bloqueToTop, $bloqueToBottom)
+    }, 1000);
 });
