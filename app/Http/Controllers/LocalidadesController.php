@@ -168,16 +168,15 @@ class LocalidadesController extends Controller
      * Método de actualizar Localidades por Ajax
      * @return mixed
      */
-    public function cambiarLocalidades()
+    public function cambiarLocalidades(Request $request)
     {
         if (\Request::ajax()) {
-            $provincia_id = \Request::input('provincia_id');
-            $localidades = Localidades::where('provincia_id', $provincia_id)
+            $provincia_id = $request->get('provincia');
+            return Localidades::where('provincia_id', $provincia_id)
                 ->where('activo', true)
                 ->orderBy('localidad', 'ASC')
                 ->select('localidad', 'id')
                 ->get();
-            return $localidades;
         }
         return null;
     }

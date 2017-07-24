@@ -20,15 +20,15 @@
 
     <div class="heading-caption">Localizaci&oacute;n</div>
     {!! FORM::label ('pais_id', 'Pa&iacute;s:') !!} <br/>
-    {!! FORM::select('pais_id',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
+    {!! FORM::select('pais',$paises, $comunidad->pais_id,["class" => "form-control",'id'=>'select_pais'])
     !!} <br/>
     {!! FORM::label ('select_provincia', 'Provincia:') !!} <br/>
 
-    {!! FORM::select('select_provincia',$provincias, $comunidad->provincia_id, ["class" =>
+    {!! FORM::select('provincias',$provincias, $comunidad->provincia_id, ["class" =>
     "form-control",'id'=>'select_provincia']) !!} <br/>
 
     {!! FORM::label ('localidad_id', 'Localidad:') !!} <br/>
-    {!! FORM::select('select_localidad',$localidades, $comunidad->localidad_id, ["class" =>
+    {!! FORM::select('localidades',$localidades, $comunidad->localidad_id, ["class" =>
     "form-control",'id'=>'select_localidad']) !!} <br/>
     {!! FORM::label('cp', 'C&oacute;digo Postal:') !!} <br/>
     {!! FORM::text('cp',$comunidad->cp, ["class" => "form-control", "title"=>"C&oacute;digo Postal", "maxlength"=>"9"]) !!}
