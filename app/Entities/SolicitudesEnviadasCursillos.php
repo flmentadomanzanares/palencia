@@ -47,19 +47,19 @@ class SolicitudesEnviadasCursillos extends Model
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
 
-        return SolicitudesEnviadasCursillos::distinct()->Select('paises.pais', 'comunidades.comunidad')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
+        return SolicitudesEnviadasCursillos::Select('paises.pais', 'comunidades.comunidad')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
-            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
-            ->where('solicitudes_enviadas.aceptada', true)
-            ->where('solicitudes_enviadas_cursillos.activo', true)
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('cursillos.fecha_inicio', '>=', $fecha_inicio)
             ->where('cursillos.fecha_final', '<=', $fecha_final)
+            ->where('solicitudes_enviadas.aceptada', true)
+            ->where('solicitudes_enviadas_cursillos.activo', true)
             ->orderBy('paises.pais', 'ASC')
             ->orderBy('comunidades.comunidad', 'ASC')
+            ->distinct()
             ->get();
-
     }
 
     /*****************************************************************************************************************
