@@ -23,9 +23,8 @@
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesEnviadas.edit',array('id'=>$solicitudEnviada->id))}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <div>Editar</div>
                                     </a>
                                     @if($solicitudEnviada->activo && $solicitudEnviada->aceptada)
                                         {!! FORM::open(array('route' => 'cursillosSolicitudEnviada','method' =>
@@ -33,9 +32,8 @@
                                         {!! FORM::hidden('comunidad_id', $solicitudEnviada->comunidad_id) !!}
                                         {!! FORM::hidden('solicitud_id', $solicitudEnviada->id) !!}
                                         <button type="submit">
-                                            <i class='glyphicon glyphicon-education full-Width'>
-                                                <div>Cursillos</div>
-                                            </i>
+                                            <i class='glyphicon glyphicon-education full-Width'></i>
+                                            <div>Cursillos</div>
                                         </button>
                                     @endif
                                     {!! FORM::close() !!}
@@ -62,9 +60,8 @@
                                                         <h3><strong class='green'>{!! $solicitudEnviada->comunidad !!}</strong></h3>
                                                         <h4>Fecha : {!! Date("d/m/Y - H:i:s" , strtotime($solicitudEnviada->created_at) )!!}</h4>"
                                             @endif >
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
+                                        <i class='glyphicon glyphicon-trash full-Width'></i>
+                                        <div>Borrar</div>
                                     </button>
                                     @if(config('opciones.accion.mostrarModalDeBorrado'))
                                         @include ("comun.plantillaBorrado")

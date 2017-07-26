@@ -28,9 +28,8 @@
                                     <a title="Editar"
                                        href="{{route('tiposSecretariados.edit', $tipo_secretariado->id)}}"
                                        class="pull-left">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <div>Editar</div>
                                     </a>
                                     @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                         @if ($tipo_secretariado->activo)
@@ -55,9 +54,8 @@
                                                     data-descripcion="¿Seguro que deseas eliminar este tipo de secretariado?
                                                     <h3><strong class='green'>{{ $tipo_secretariado->tipo_secretariado}}</strong></h3>"
                                                     @endif >
-                                                <i class='glyphicon glyphicon-trash full-Width'>
-                                                    <div>Borrar</div>
-                                                </i>
+                                                <i class='glyphicon glyphicon-trash full-Width'></i>
+                                                <div>Borrar</div>
                                             </button>
                                             @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                 @include ("comun.plantillaBorrado")

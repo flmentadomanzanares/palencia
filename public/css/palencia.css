@@ -5325,6 +5325,10 @@ button.close {
 *.pointer:hover {
   cursor: pointer; }
 
+button:focus {
+    outline: none;
+}
+
 .m-0 {
   margin: 0px !important; }
 
@@ -5743,18 +5747,22 @@ body {
     font-family: Arial, sans-serif !important;
     display: inline-block;
     padding: 15px 5px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
+      background: #f0f0f0;
+      border-radius: 4px;
     text-align: center;
     font-size: 12px;
     color: #400090;
     margin: 4px;
-    border: none;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      -webkit-transition: all .32s ease-in-out;
+      -o-transition: all .32s ease-in-out;
+      transition: all .32s ease-in-out;
     outline: none; }
     .btn-action a:hover, .btn-action button:hover {
-      color: #ff7a00; }
+        color: #ff7a00;
+        -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+        box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+    }
     .btn-action a > i, .btn-action button > i {
       color: #400090;
       display: inline-block;
@@ -5803,16 +5811,21 @@ input[type="checkbox"].lg, input[type="checkbox"]:focus.lg {
     display: inline-block;
     padding: 15px 5px;
     background: rgba(104, 196, 96, 0.2);
-    border-radius: 50%;
+      border-radius: 4px;
     text-align: center;
     font-size: 12px;
     color: #400090;
     margin: 4px;
-    border: none;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); }
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      -webkit-transition: all .32s ease-in-out;
+      -o-transition: all .32s ease-in-out;
+      transition: all .32s ease-in-out;
+  }
     .panel-search a:hover {
-      color: #ff7a00; }
+        color: #ff7a00;
+        -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+        box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+    }
     .panel-search a > i {
       color: #400090;
       display: inline-block;

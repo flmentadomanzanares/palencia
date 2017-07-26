@@ -21,15 +21,13 @@
                                 <th colspan="2" class="text-right">
                                     <a title="Mostrar"
                                        href="{{route('comunidades.show',$comunidad->id)}}">
-                                        <i class="glyphicon glyphicon-eye-open">
-                                            <div>Detalles</div>
-                                        </i>
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                        <div>Detalles</div>
                                     </a>
                                     <a title="Editar"
                                        href="{{route('comunidades.edit',$comunidad->id)}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <div>Editar</div>
                                     </a>
                                     @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                     @if($comunidad->activo)
@@ -54,9 +52,8 @@
                                                 data-descripcion="¿Seguro que deseas eliminar esta comunidad?<br><h3><strong>{{$comunidad->comunidad}}</strong></h3>"
                                                 data-footer="true"
                                                 @endif >
-                                            <i class='glyphicon glyphicon-trash full-Width'>
-                                                <div>Borrar</div>
-                                            </i>
+                                            <i class='glyphicon glyphicon-trash full-Width'></i>
+                                            <div>Borrar</div>
                                         </button>
                                         @if(config('opciones.accion.mostrarModalDeBorrado'))
                                             @include ("comun.plantillaBorrado")

@@ -23,9 +23,8 @@
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
                                    href="{{route('usuarios.edit',array('id'=>$usuario->id))}}">
-                                    <i class="glyphicon glyphicon-edit">
-                                        <div>Editar</div>
-                                    </i>
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <div>Editar</div>
                                 </a>
                                 @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                     @if($usuario->activo)
@@ -50,9 +49,8 @@
                                                 data-descripcion="¿Seguro que deseas eliminar este usuario?
                                                     <h3><strong class='green'>{{ $usuario->fullname}}</strong></h3>"
                                                 @endif >
-                                            <i class='glyphicon glyphicon-trash full-Width'>
-                                                <div>Borrar</div>
-                                            </i>
+                                            <i class='glyphicon glyphicon-trash full-Width'></i>
+                                            <div>Borrar</div>
                                         </button>
                                         @if(config('opciones.accion.mostrarModalDeBorrado'))
                                             @include ("comun.plantillaBorrado")

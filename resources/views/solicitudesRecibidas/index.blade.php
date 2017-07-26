@@ -22,9 +22,8 @@
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesRecibidas.edit',array('id'=>$solicitudRecibida->id))}}">
-                                        <i class="glyphicon glyphicon-edit">
-                                            <div>Editar</div>
-                                        </i>
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <div>Editar</div>
                                     </a>
                                     @if($solicitudRecibida->activo && $solicitudRecibida->aceptada)
                                         {!! FORM::open(array('route' => 'cursillosSolicitudRecibida','method' =>
@@ -32,9 +31,8 @@
                                         {!! FORM::hidden('comunidad_id', $solicitudRecibida->comunidad_id) !!}
                                         {!! FORM::hidden('solicitud_id', $solicitudRecibida->id) !!}
                                         <button type="submit">
-                                            <i class='glyphicon glyphicon-education full-Width'>
-                                                <div>Cursillos</div>
-                                            </i>
+                                            <i class='glyphicon glyphicon-education full-Width'></i>
+                                            <div>Cursillos</div>
                                         </button>
                                     @endif
                                     {!! FORM::close() !!}

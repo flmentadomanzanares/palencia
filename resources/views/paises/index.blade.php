@@ -30,9 +30,8 @@
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('paises.edit', $pais->id)}}"
                                            class="@if($pais->activo) pull-left @else pull-right @endif">
-                                            <i class="glyphicon glyphicon-edit">
-                                                <div>Editar</div>
-                                            </i>
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            <div>Editar</div>
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                             @if($pais->activo)
@@ -57,9 +56,8 @@
                                                         data-descripcion="¿Seguro que deseas eliminar este pa&iacute;s?
                                                         <h3><strong class='green'>{{$pais->pais}}</strong></h3>"
                                                         @endif >
-                                                    <i class='glyphicon glyphicon-trash full-Width'>
-                                                        <div>Borrar</div>
-                                                    </i>
+                                                    <i class='glyphicon glyphicon-trash full-Width'></i>
+                                                    <div>Borrar</div>
                                                 </button>
                                                 @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                     @include ("comun.plantillaBorrado")

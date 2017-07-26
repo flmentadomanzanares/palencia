@@ -18,6 +18,11 @@
   cursor: pointer;
 }
 
+//Quitar el border del boton al coger el foco
+button:focus {
+  outline: none;
+}
+
 //margin all de 5 en 5 desde el cero al 20
 //***********************************************
 @for $i from 0 through 4 {

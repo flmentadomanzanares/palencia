@@ -20,9 +20,8 @@
                             <th colspan="2" class="text-right">
                                 <a title="Editar"
                                    href="{{route('localidades.edit',array('id'=>$localidad->id))}}">
-                                    <i class="glyphicon glyphicon-edit">
-                                        <div>Editar</div>
-                                    </i>
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <div>Editar</div>
                                 </a>
                                 @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                 @if($localidad->activo)
@@ -47,9 +46,8 @@
                                                 <h3><strong class='green'>{{$localidad->localidad}}</strong></h3>"
                                             data-pie="true"
                                             @endif >
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
+                                        <i class='glyphicon glyphicon-trash full-Width'></i>
+                                        <div>Borrar</div>
                                     </button>
                                     @if(config('opciones.accion.mostrarModalDeBorrado'))
                                         @include ("comun.plantillaBorrado")

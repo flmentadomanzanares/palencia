@@ -22,15 +22,13 @@
                             <th colspan="2" class="text-right">
                                 <a title="Mostrar"
                                    href="{{route('cursillos.show',$cursillo->id)}}">
-                                    <i class="glyphicon glyphicon-eye-open">
-                                        <div style>Detalles</div>
-                                    </i>
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                    <div>Detalles</div>
                                 </a>
                                 <a title="Editar"
                                    href="{{route('cursillos.edit',$cursillo->id)}}">
-                                    <i class="glyphicon glyphicon-edit">
-                                        <div>Editar</div>
-                                    </i>
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <div>Editar</div>
                                 </a>
                                 @if ((Auth::user()->roles->peso)>=config('opciones.roles.administrador')){{--Administrador --}}
                                 @if(!$cursillo->activo)
@@ -56,21 +54,21 @@
                                             <h3><strong class='green'>{{$cursillo->comunidad}}</strong></h3>
                                             <h3><strong class='green'>Nº{{$cursillo->num_cursillo}}</strong></h3>"
                                             @endif >
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
+                                        <i class='glyphicon glyphicon-trash full-Width'></i>
+                                        <div>Borrar</div>
                                     </button>
                                     @if(config('opciones.accion.mostrarModalDeBorrado'))
                                         @include ("comun.plantillaBorrado")
                                     @endif
                                     {!! FORM::close() !!}
                                 @else
-                                    <button class="disabled" type="button" disabled
-                                            title="El cusillo debe de estar desactivado">
-                                        <i class='glyphicon glyphicon-trash full-Width'>
-                                            <div>Borrar</div>
-                                        </i>
-                                    </button>
+                                    <a title="El cusillo debe de estar desactivado"
+                                       class="disabled"
+                                       href="javascript:"
+                                       disabled>
+                                        <i class='glyphicon glyphicon-trash full-Width'></i>
+                                        <div>Borrar</div>
+                                    </a>
                                 @endif
                                 @endif
                             </th>

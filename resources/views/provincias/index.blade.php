@@ -29,9 +29,8 @@
                                     <div class="btn-action">
                                         <a title="Editar" href="{{route('provincias.edit', $provincia->id)}}"
                                            class="@if($provincia->activo) pull-left @else pull-right @endif">
-                                            <i class="glyphicon glyphicon-edit">
-                                                <div>Editar</div>
-                                            </i>
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            <div>Editar</div>
                                         </a>
                                         @if (Auth::user()->roles->peso>=config('opciones.roles.administrador'))
                                             @if($provincia->activo)
@@ -56,9 +55,8 @@
                                                         data-descripcion="¿Seguro que deseas eliminar esta provincia?
                                                         <h3><strong class='green'>{{$provincia->provincia}}</strong></h3>"
                                                         @endif >
-                                                    <i class='glyphicon glyphicon-trash full-Width'>
-                                                        <div>Borrar</div>
-                                                    </i>
+                                                    <i class='glyphicon glyphicon-trash full-Width'></i>
+                                                    <div>Borrar</div>
                                                 </button>
                                                 @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                     @include ("comun.plantillaBorrado")

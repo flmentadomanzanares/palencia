@@ -56,9 +56,8 @@
                                                     data-descripcion="¿Seguro que deseas eliminar este tipo de comunicaci&oacute;n preferida?
                                                     <h3><strong class='green'>{{ $tipoComunicacionPreferida->comunicacion_preferida }}</strong></h3>"
                                                     @endif >
-                                                <i class='glyphicon glyphicon-trash full-Width'>
-                                                    <div>Borrar</div>
-                                                </i>
+                                                <i class='glyphicon glyphicon-trash full-Width'></i>
+                                                <div>Borrar</div>
                                             </button>
                                             @if(config('opciones.accion.mostrarModalDeBorrado'))
                                                 @include ("comun.plantillaBorrado")
