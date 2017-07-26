@@ -11,16 +11,16 @@ $(document).ready(function () {
             url: 'totalAnyos',
             success: function (data) {
                 var anyos = $('select[name="anyos"]');
-                var anyoActual = data.indexOf(anyos.val()) < 0 ? 0 : anyos.val();
+                var anyoSeleccionado = data[anyos.val()] === undefined ? 0 : anyos.val();
                 anyos.empty();
                 $.each(data, function (key, element) {
-                    anyos.append("<option value='" + element + "'>" + element + "</option>");
+                    anyos.prepend("<option value='" + key + "'>" + element + "</option>");
                 });
                 anyos.append("<option value='0'>Todos los años</option>");
-                anyos.val(anyoActual);
+                anyos.val(anyoSeleccionado);
                 totalSemanas(
                     comunidadesIds,
-                    $('select[name="anyos"]>option:selected').val()
+                    anyos.val()
                 );
             },
             error: function () {

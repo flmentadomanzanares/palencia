@@ -8,8 +8,8 @@ $(document).ready(function () {
         window.scrollTo(0, document.body.scrollHeight);
     };
 
-    var quitarPonerUnCursoFormulario = function (elem) {
-        var elem = $(elem);
+    var quitarPonerUnCursoFormulario = function (item) {
+        var elem = $(item);
         var fila = elem.closest("tr");
         var cursilloId = fila.data("cursillo_id");
         var comunidadId = fila.data("comunidad_id");
@@ -69,10 +69,10 @@ $(document).ready(function () {
             type: 'post',
             url: 'totalAnyosRespuestas',
             success: function (data) {
-                var selectorAnyos = $('#select_anyos');
+                var selectorAnyos = $('select[name="anyo"]');
                 selectorAnyos.empty();
                 $.each(data, function (key, element) {
-                    selectorAnyos.append("<option value='" + element + "'>" + element + "</option>");
+                    selectorAnyos.prepend("<option value='" + key + "'>" + element + "</option>");
                 });
                 selectorAnyos.append("<option value='0'>Todos los años</option>");
                 selectorAnyos.val(year === undefined ? 0 : year);
@@ -115,7 +115,7 @@ $(document).ready(function () {
                             "<tr class='row-fixed'>" +
                             "<th class='fixed-checkBoxLgContainer'></th>" +
                             "<th class='tabla-ancho-columna-texto'></th>" +
-                            "<th class='" + (element.anyo != anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
+                            "<th class='" + (element.anyo !== anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
                             "</tr>" +
                             "<tr style='Background: " + element.colorFondo + ";'>" +
                             "<th colspan='3' style='Color: " + element.colorTexto + ";' " +
@@ -159,21 +159,20 @@ $(document).ready(function () {
         return (fecha[0].length > 1 ? fecha[0] : "0" + fecha[0]) + "/" + (fecha[1].length > 1 ? fecha[1] : "0" + fecha[1]) + "/" + date.getFullYear();
     }
 
-    $(document).on("change", "#select_comunicacion", function (evt) {
+    $(document).on("change", "select[name='modalidad']", function (evt) {
         evt.preventDefault();
         poner_comunicacion($(this).val());
         $("[data-role='lista_cursillos']").empty();
         $("[data-role='comunidades_destinatarias']").empty();
-        $('#select_anyos').empty();
+        $('select[name="anyo"]').empty();
     });
 
-    $(document).on("change", "#select_anyos, #select_boolean", function (evt) {
+    $(document).on("change", "select[name='modalidad'], select[name='incluirRespuestasAnteriores']", function (evt) {
         evt.preventDefault();
-        fechaSeleccionada = $(this).val();
         totalCursillos(
-            $('#select_anyos option:selected').val(),
-            $('#select_boolean option:selected').val(),
-            $('#select_comunicacion option:selected').val()
+            $('select[name="anyo"]>option:selected').val(),
+            $('select[name="incluirRespuestasAnteriores"]>option:selected').val(),
+            $('select[name="modalidad"]>option:selected').val()
         );
     });
 
@@ -200,7 +199,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("change", "#select_resto_comunidades", function (evt) {
+    $(document).on("change", "select[name='comunidadesDestinatarias']", function (evt) {
         evt.preventDefault();
         var option = $(this).find("option:selected");
         if (!ponerDestinatario(option))
@@ -208,9 +207,9 @@ $(document).ready(function () {
         option.hide();
         scrollAlFinal();
         totalCursillos(
-            $('#select_anyos option:selected').val(),
-            $('#select_boolean option:selected').val(),
-            $('#select_comunicacion option:selected').val()
+            $('select[name="anyo"]>option:selected').val(),
+            $('select[name="incluirRespuestasAnteriores"]>option:selected').val(),
+            $('select[name="modalidad"]>option:selected').val()
         );
     });
 
@@ -218,7 +217,7 @@ $(document).ready(function () {
         evt.preventDefault();
         var $this = $(this).closest("[data-role='destinatario']");
         var val = $this.data("val");
-        $("#select_resto_comunidades").find("option[value='" + val + "']").show();
+        $("select[name='comunidadesDestinatarias']").find("option[value='" + val + "']").show();
         eliminarDestinatario(val);
         $this.remove();
         cursillosInputs.find("[data-comunidad='" + val + "']").remove();
@@ -229,8 +228,8 @@ $(document).ready(function () {
         evt.preventDefault();
         destinatarioInputs.empty();
         $("[data-role='comunidades_destinatarias']").empty();
-        $("#select_resto_comunidades option").each(function (idx, elem) {
-            var elem = $(elem);
+        $("select[name='comunidadesDestinatarias']>option").each(function (idx, item) {
+            var elem = $(item);
             if (elem.attr("value") !== undefined) {
                 elem.hide();
                 ponerDestinatario(elem);
@@ -238,9 +237,9 @@ $(document).ready(function () {
         });
         scrollAlFinal();
         totalCursillos(
-            $('#select_anyos option:selected').val(),
-            $('#select_boolean option:selected').val(),
-            $('#select_comunicacion option:selected').val()
+            $('select[name="anyo"]>option:selected').val(),
+            $('select[name="incluirRespuestasAnteriores"]>option:selected').val(),
+            $('select[name="modalidad"]>option:selected').val()
         );
     });
 
@@ -250,9 +249,9 @@ $(document).ready(function () {
         cursillosInputs.empty();
         $("[data-role='comunidades_destinatarias']").empty();
         $("[data-role='lista_cursillos']").empty();
-        $('#select_anyos').empty();
-        $("#select_resto_comunidades option").each(function (idx, elem) {
-            var elem = $(elem);
+        $('select[name="anyo"]').empty();
+        $("select[name='comunidadesDestinatarias']>option").each(function (idx, item) {
+            var elem = $(item);
             elem.show();
         });
     });
@@ -278,12 +277,12 @@ $(document).ready(function () {
         var $this = $(this);
         var contenedorModalMensaje = $("[data-role='modalMensaje']");
         var datosModalMensaje = contenedorModalMensaje.find("span.simpleModal");
-        if (cursillosInputs.find("input").length == 0) {
+        if (cursillosInputs.find("input").length === 0) {
             contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos un cursillo seleccionado.</span>");
             datosModalMensaje.trigger("click");
             return false;
         }
-        if (destinatarioInputs.find("input").length == 0) {
+        if (destinatarioInputs.find("input").length === 0) {
             contenedorModalMensaje.find(".cuerpoFormularioModal .scroll").html("<span>Debes de tener al menos una comunidad destinataria.</span>");
             datosModalMensaje.trigger("click");
             return false;
@@ -292,5 +291,5 @@ $(document).ready(function () {
         $("div.spinner").css("display", 'block');
         $this[0].submit();
     });
-    poner_comunicacion($('#select_comunicacion').val());
+    poner_comunicacion($('select[name="modalidad"]').val());
 });

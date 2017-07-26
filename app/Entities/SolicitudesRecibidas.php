@@ -141,7 +141,7 @@ class SolicitudesRecibidas extends Model
                         $cursos = [];
                         foreach ($cursillos as $curso) {
                             if ($curso->comunidad_id == $comunidad[0]) {
-                                $solicitudesRecibidasCursillos[] = new SolicitudesRecibidasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidad[0]]);
+                                $solicitudesRecibidasCursillos[] = new SolicitudesRecibidasCursillos(['cursillo_id' => $curso["id"]]);
                                 $cursos[] = ["Incluido el cursillo " . $curso->cursillo . " con número " . $curso->num_cursillo . " a la comunidad " . $comunidad[1], "", "ok-circle info icon-size-normal"];
                                 $contadorTotalCursillos += 1;
                             }

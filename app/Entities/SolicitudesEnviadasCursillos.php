@@ -46,7 +46,6 @@ class SolicitudesEnviadasCursillos extends Model
      *****************************************************************************************************************/
     static public function imprimirIntendenciaClausura($fecha_inicio = null, $fecha_final = null)
     {
-
         return SolicitudesEnviadasCursillos::Select('paises.pais', 'comunidades.comunidad')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
@@ -71,9 +70,9 @@ class SolicitudesEnviadasCursillos extends Model
     {
 
         return SolicitudesEnviadasCursillos::Select('cursillos.fecha_inicio', 'cursillos.num_cursillo', 'cursillos.cursillo')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas_cursillos.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_enviadas', 'solicitudes_enviadas.id', '=', 'solicitudes_enviadas_cursillos.solicitud_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_enviadas_cursillos.cursillo_id')
             ->where(DB::raw('DATE_FORMAT(solicitudes_enviadas_cursillos.created_at,"%x")'), '=', $anyo)
             ->where('solicitudes_enviadas.aceptada', true)
             ->where('solicitudes_enviadas_cursillos.activo', true)
@@ -81,7 +80,6 @@ class SolicitudesEnviadasCursillos extends Model
             ->orderBy('comunidades.comunidad')
             ->orderBy('cursillos.num_cursillo')
             ->get();
-
     }
 
     static public function borrarTablaSolicitudesEnviadasCursillos($anyo = 0)

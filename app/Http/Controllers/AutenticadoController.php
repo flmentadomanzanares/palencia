@@ -36,7 +36,7 @@ class AutenticadoController extends Controller
     {
         $titulo = "Calendario";
         $cursillos = Cursillos::getCalendarCursillos($request);
-        $anyos = Cursillos::getAnyoCursillosList();
+        $anyos = Cursillos::getAnyosCursillosList(null, false, false);
         //Obtenemos los parámetros de la respuesta
         $year = $request->input('anyo');
         $week = $request->input('semana') > 0 ? $request->input('semana') : 1;

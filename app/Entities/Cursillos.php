@@ -261,7 +261,7 @@ class Cursillos extends Model
             ->Where('cursillos.activo', true)
             ->distinct()
             ->orderBy('anyos', 'DESC')
-            ->Lists('anyos');
+            ->Lists('anyos', 'anyos');
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
@@ -279,16 +279,6 @@ class Cursillos extends Model
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('cursillos.id', $id)
             ->first();
-    }
-
-    static public function getAnyoCursillosList($conPlaceHolder = true, $placeHolder = "Año...")
-    {
-        $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
-            ->where('cursillos.activo', true)
-            ->groupBy('Anyos')
-            ->orderBy('Anyos')
-            ->Lists('Anyos', 'Anyos');
-        return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
     static public function getAnyosAnterioresCursillosList($conPlaceHolder = true, $placeHolder = "Año...")

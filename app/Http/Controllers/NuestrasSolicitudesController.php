@@ -274,12 +274,13 @@ class NuestrasSolicitudesController extends Controller
                 $logArchivo[] = $log[0] . "\n";
             }
         }
+        $logArchivo[] = "Finalización: " . date("d/m/Y H:i:s", strtotime('now'));
 //Guardamos a archivo
         file_put_contents($logPath, $logArchivo, true);
 //Ponemos un download para el log en la vista
         $logEnvios[] = ["Log de nuestras solicitudes.", $logPath, "", "Log"];
 //Finalizamos las respuestas
-        $logEnvios[] = ["Finalización: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
+        $logEnvios[] = [end($logArchivo), "", "time green icon-size-large"];
         $titulo = "Operaciones Realizadas";
         return view('nuestrasSolicitudes.listadoLog',
             compact('titulo', 'logEnvios'));

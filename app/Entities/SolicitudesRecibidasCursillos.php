@@ -40,9 +40,9 @@ class SolicitudesRecibidasCursillos extends Model
     {
 
         return SolicitudesRecibidasCursillos::Select('cursillos.num_cursillo', 'cursillos.cursillo', 'comunidades.comunidad', 'paises.pais')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->leftJoin('paises', 'paises.id', '=', 'comunidades.pais_id')
             ->where('solicitudes_recibidas.aceptada', true)
             ->where('cursillos.activo', true)
@@ -101,11 +101,10 @@ class SolicitudesRecibidasCursillos extends Model
      *****************************************************************************************************************/
     static public function getSolicitudesComunidad($anyo = 0, $comunidadId = 0)
     {
-
         return SolicitudesRecibidasCursillos::Select('cursillos.fecha_inicio', 'cursillos.num_cursillo', 'cursillos.cursillo')
-            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas_cursillos.comunidad_id')
-            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->leftJoin('solicitudes_recibidas', 'solicitudes_recibidas.id', '=', 'solicitudes_recibidas_cursillos.solicitud_id')
+            ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
+            ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas_cursillos.cursillo_id')
             ->where(DB::raw('DATE_FORMAT(solicitudes_recibidas_cursillos.created_at,"%x")'), '=', $anyo)
             ->where('solicitudes_recibidas.aceptada', true)
             ->where('solicitudes_recibidas_cursillos.activo', true)

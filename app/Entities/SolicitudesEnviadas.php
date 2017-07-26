@@ -143,7 +143,7 @@ class SolicitudesEnviadas extends Model
                         $solicitudesEnviadasCursillos = [];
                         $cursos = [];
                         foreach ($cursillos as $curso) {
-                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"], 'comunidad_id' => $comunidad[0]]);
+                            $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso["id"]]);
                             $cursos[] = ["Incluido el cursillo " . $curso->cursillo . " con número " . $curso->num_cursillo . " a la comunidad " . $comunidad[1], "", "ok-circle info icon-size-normal"];
                         }
                         $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);

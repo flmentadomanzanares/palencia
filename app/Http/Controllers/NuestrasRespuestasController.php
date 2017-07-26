@@ -67,7 +67,6 @@ class NuestrasRespuestasController extends Controller
 
     function enviarCursillos(Request $request)
     {
-
         $cursillosIds = $request->get("cursos");
         //Obtenemos la comunidad del remitente
         $remitente = Comunidades::getComunidadPDF($request->get('nuestrasComunidades'));
@@ -81,7 +80,6 @@ class NuestrasRespuestasController extends Controller
         $cursillos = Cursillos::obtenerComunidadesCursillosPDF($cursillosIds);
         //Obtenemos los nombres de las comnunidades con sus correspondientes cursos
         $comunidades = $cursillos->groupBy("comunidad");
-
 
         if (count($cursillos) == 0) {
             return redirect()->
@@ -175,7 +173,6 @@ class NuestrasRespuestasController extends Controller
 
                 //Obtenemos el número de cursillos a procesar
 
-
                 try {
                     if (config("opciones.emailTestSender.active")) {
                         $cursoActual->email_solicitud = config("opciones.emailTestSender.email");
@@ -218,7 +215,7 @@ class NuestrasRespuestasController extends Controller
                         $logEnvios[] = [count($cursosActualizados) . " Curso" . ($contador > 1 ? "s" : "") . " de la comunidad " . $comunidad . " excluido"
                             . ($contador > 1 ? "s" : "") . " del cambio de estado a respuesta" . ($contador > 1 ? "s" : "") . " realizada" . ($contador > 1 ? "s." : "."), "", "dashboard red icon-size-normal"];
                     } elseif (config('opciones.verErrorMailServer')) {
-                        $logEnvios[] = [$ex->getMessage(), "", "envelope red icon-size-large"];
+                        $logEnvios[] = ['error=>' . $ex->getMessage(), "", "envelope red icon-size-large"];
                     }
 
                     $envio = 0;
@@ -310,13 +307,14 @@ class NuestrasRespuestasController extends Controller
                     $logArchivo[] = $log . "\n";
                 }
             }
+            $logArchivo[] = "Finalización: " . date("d/m/Y H:i:s", strtotime('now'));
             //Guardamos a archivo
             file_put_contents($logPath, $logArchivo, true);
         }
         //Ponemos un download para el log en la vista
         $logEnvios[] = ["Log de nuestras respuestas.", $logPath, "", "Log"];
         //Finalizamos las respuestas
-        $logEnvios[] = ["Finalización: " . date("d/m/Y H:i:s", strtotime('now')), "", "time green icon-size-large"];
+        $logEnvios[] = [end($logArchivo), "", "time green icon-size-large"];
 
         $titulo = "Operaciones Realizadas";
         return view('nuestrasRespuestas.listadoLog',
@@ -364,7 +362,7 @@ class NuestrasRespuestasController extends Controller
 
                     $solicitudEnviada->save();
                     foreach ($cursos as $curso) {
-                        $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso, 'comunidad_id' => $comunidadRemitente]);
+                        $solicitudesEnviadasCursillos[] = new SolicitudesEnviadasCursillos(['cursillo_id' => $curso]);
                     }
                     $solicitudEnviada->solicitudes_enviadas_cursillos()->saveMany($solicitudesEnviadasCursillos);
                 });

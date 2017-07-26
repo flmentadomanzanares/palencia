@@ -43,15 +43,17 @@ $(document).ready(function () {
             type: 'post',
             url: 'totalAnyos',
             success: function (data) {
-                var anyos = $('#select_anyos');
-                anyos.empty();
+                var anyo = $('select[name="anyo"]');
+                var anyoSeleccionado = data[anyo.val()] === undefined ? 0 : anyo.val();
+                anyo.empty();
                 $.each(data, function (key, element) {
-                    anyos.append("<option value='" + element + "'>" + element + "</option>");
+                    anyo.prepend("<option value='" + key + "'>" + element + "</option>");
                 });
-                anyos.append("<option value='0'>Todos los años</option>");
+                anyo.append("<option value='0'>Todos los años</option>");
+                anyo.val(anyoSeleccionado);
                 totalCursillos(
-                    $("select[name='nuestrasComunidades']>option:selected").val(),
-                    $("select[name='anyo']").val()
+                    comunidadPropiaId,
+                    anyo.val()
                 );
             },
             error: function () {
@@ -124,11 +126,11 @@ $(document).ready(function () {
         totalAnyos($(this).val());
     });
 
-    $(document).on("change", "#select_anyos", function (evt) {
+    $(document).on("change", "select[name='anyo']", function (evt) {
         evt.preventDefault();
         totalCursillos(
             $("select[name='nuestrasComunidades']>option:selected").val(),
-            $("select[name='anyo']").val()
+            $(this).val()
         );
     });
 

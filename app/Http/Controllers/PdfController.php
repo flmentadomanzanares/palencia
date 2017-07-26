@@ -170,11 +170,11 @@ class PdfController extends Controller
      *  seleccionados
      *
      *******************************************************************/
-    public function imprimirSecretariado()
+    public function imprimirSecretariado(Request $request)
     {
         $titulo = "Secretariado ";
-        $idComunidad = \Request::get('comunidad');
-        $anyo = \Request::get('anyo');
+        $idComunidad = $request->get('comunidad');
+        $anyo = $request->get('anyo');
 
         if ($idComunidad == 0 || $anyo == 0) {
             return redirect('secretariado')->

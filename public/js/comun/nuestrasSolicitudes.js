@@ -74,14 +74,16 @@ $(document).ready(function () {
             url: 'totalAnyos',
             success: function (data) {
                 var anyos = $("select[name='anyo']");
+                var anyoSeleccionado = data[anyos.val()] === undefined ? 0 : anyos.val();
                 anyos.empty();
                 $.each(data, function (key, element) {
-                    anyos.append("<option value='" + element + "'>" + element + "</option>");
+                    anyos.prepend("<option value='" + element + "'>" + element + "</option>");
                 });
                 anyos.append("<option value='0'>Todos los años</option>");
+                anyos.val(anyoSeleccionado);
                 totalCursillos(
-                    $('select[name="nuestrasComunidades"]>option:selected').val(),
-                    $('select[name="anyo"]>option:selected').val()
+                    comunidadPropiaId,
+                    anyos.val()
                 );
             },
             error: function () {
