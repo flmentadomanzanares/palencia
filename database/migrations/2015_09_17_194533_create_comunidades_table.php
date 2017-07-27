@@ -32,13 +32,13 @@ class CreateComunidadesTable extends Migration
             $table->string('cp', 9)->nullable();;
 
             $table->bigInteger('pais_id')->unsigned();
-            $table->foreign('pais_id')->references('id')->on('paises')->onUpdate("cascade");
+            $table->foreign('pais_id')->references('id')->on('paises');
 
             $table->bigInteger('provincia_id')->unsigned();
-            $table->foreign('provincia_id')->references('id')->on('provincias')->onUpdate("cascade");
+            $table->foreign('provincia_id')->references('id')->on('provincias');
 
             $table->bigInteger('localidad_id')->unsigned();
-            $table->foreign('localidad_id')->references('id')->on('localidades')->onUpdate("cascade");
+            $table->foreign('localidad_id')->references('id')->on('localidades');
 
             $table->string('email_solicitud', 60)->nullable();;
 
