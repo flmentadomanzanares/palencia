@@ -17,7 +17,7 @@
                             <th class="tabla-ancho-columna-botones"></th>
                         </tr>
                         <tr>
-                            <th colspan="2">
+                            <th colspan="2" class="text-center">
                                 Pa&iacute;ses
                             </th>
                         </tr>

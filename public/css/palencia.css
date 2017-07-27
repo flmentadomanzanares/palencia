@@ -5326,8 +5326,7 @@ button.close {
   cursor: pointer; }
 
 button:focus {
-    outline: none;
-}
+  outline: none; }
 
 .m-0 {
   margin: 0px !important; }
@@ -5570,12 +5569,14 @@ button:focus {
     .table-viaoptima thead tr th {
       color: #ffffff;
       font-size: 26px;
-      padding: 5px;
+      padding: 5px 0;
       background-color: transparent; }
       .table-viaoptima thead tr th.cabecera {
         background-color: #ffffff;
         color: #400090;
         line-height: 42px; }
+        .table-viaoptima thead tr th.cabecera > div {
+          margin: 0 5px; }
       .table-viaoptima thead tr th img {
         position: absolute;
         width: 42px;
@@ -5584,6 +5585,10 @@ button:focus {
       .table-viaoptima thead tr th div.ellipsis {
         padding: 0; }
       .table-viaoptima thead tr th form {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
         float: right; }
       .table-viaoptima thead tr th button, .table-viaoptima thead tr th a {
         min-width: 60px;
@@ -5595,19 +5600,14 @@ button:focus {
         background-color: transparent;
         font-weight: normal;
         color: #ffffff;
-          text-shadow: 0 0 8px black, 0 0 8px black;
-          opacity: .6;
-          filter: alpha(opacity=60);
-      }
-
-.table-viaoptima thead tr th button:hover:not(.disabled), .table-viaoptima thead tr th a:hover:not(.disabled) {
-    opacity: 1;
-    filter: alpha(opacity=100);
-}
-
-.table-viaoptima thead tr th button.disabled, .table-viaoptima thead tr th a.disabled {
-    cursor: not-allowed;
-}
+        text-shadow: 0 0 8px black, 0 0 8px black;
+        opacity: .6;
+        filter: alpha(opacity=60); }
+        .table-viaoptima thead tr th button:hover:not(.disabled), .table-viaoptima thead tr th a:hover:not(.disabled) {
+          opacity: 1;
+          filter: alpha(opacity=100); }
+        .table-viaoptima thead tr th button.disabled, .table-viaoptima thead tr th a.disabled {
+          cursor: not-allowed; }
       .table-viaoptima thead tr th a {
         text-align: center; }
     .table-viaoptima thead tr.row-fixed {
@@ -5747,22 +5747,21 @@ body {
     font-family: Arial, sans-serif !important;
     display: inline-block;
     padding: 15px 5px;
-      background: #f0f0f0;
-      border-radius: 4px;
+    background: #f0f0f0;
+    border-radius: 4px;
     text-align: center;
     font-size: 12px;
     color: #400090;
     margin: 4px;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      -webkit-transition: all .32s ease-in-out;
-      -o-transition: all .32s ease-in-out;
-      transition: all .32s ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-transition: all .32s ease-in-out;
+    -o-transition: all .32s ease-in-out;
+    transition: all .32s ease-in-out;
     outline: none; }
     .btn-action a:hover, .btn-action button:hover {
-        color: #ff7a00;
-        -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
-        box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
-    }
+      color: #ff7a00;
+      -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+      box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16); }
     .btn-action a > i, .btn-action button > i {
       color: #400090;
       display: inline-block;
@@ -5811,21 +5810,19 @@ input[type="checkbox"].lg, input[type="checkbox"]:focus.lg {
     display: inline-block;
     padding: 15px 5px;
     background: rgba(104, 196, 96, 0.2);
-      border-radius: 4px;
+    border-radius: 4px;
     text-align: center;
     font-size: 12px;
     color: #400090;
     margin: 4px;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      -webkit-transition: all .32s ease-in-out;
-      -o-transition: all .32s ease-in-out;
-      transition: all .32s ease-in-out;
-  }
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-transition: all .32s ease-in-out;
+    -o-transition: all .32s ease-in-out;
+    transition: all .32s ease-in-out; }
     .panel-search a:hover {
-        color: #ff7a00;
-        -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
-        box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
-    }
+      color: #ff7a00;
+      -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16);
+      box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.16); }
     .panel-search a > i {
       color: #400090;
       display: inline-block;

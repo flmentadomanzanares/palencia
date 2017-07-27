@@ -59,8 +59,8 @@
                         </tr>
                         <tr>
                             <th colspan="2" class="cabecera">
-                                <div class="ellipsis text-left @if(!$localidad->activo) foreground-disabled @endif">
-                                    {!! $localidad->localidad !!}
+                                <div class="ellipsis text-center @if(!$localidad->activo) foreground-disabled @endif">
+                                    {!!$localidad->localidad!!}
                                 </div>
                             </th>
                         </tr>

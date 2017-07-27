@@ -17,8 +17,8 @@
                                 <th class="tabla-ancho-columna-botones"></th>
                             </tr>
                             <tr @if(!$provincia->activo) class="background-disabled" @endif>
-                                <th colspan="2" class="ellipsis text-left">
-                                    {{ $provincia->provincia }}
+                                <th colspan="2" class="ellipsis text-center">
+                                    {{$provincia->provincia}}
                                 </th>
                             </tr>
                             </thead>

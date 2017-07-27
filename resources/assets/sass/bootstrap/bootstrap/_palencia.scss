@@ -205,10 +205,13 @@ button:focus {
           background-color: $app-color-white;
           color: $app-color-base;
           line-height: $index-imagen-user-size;
+          > div {
+            margin: 0 $margin-app-small;
+          }
         }
         color: $app-color-white;
         font-size: (2 * $font-size-app-base-header);
-        padding: $padding-app-base;
+        padding: $padding-app-base 0;
         background-color: transparent;
         img {
           position: absolute;
@@ -220,6 +223,7 @@ button:focus {
           padding: 0;
         }
         form {
+          display: flex;
           float: right;
         }
         button, a {
