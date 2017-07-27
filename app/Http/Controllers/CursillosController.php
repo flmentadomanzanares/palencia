@@ -18,7 +18,7 @@ class CursillosController extends Controller
     public function index(Request $request)
     {
         $titulo = "Cursillos";
-        $comunidades = Comunidades::getComunidadesList(false, true, "Comunidades...", true);
+        $comunidades = Comunidades::getComunidadesList(null, true, "Comunidades...", true);
         $cursillos = Cursillos::getCursillos($request, config("opciones.paginacion"));
         return view("cursillos.index", compact('comunidades', 'titulo', 'cursillos'));
     }
