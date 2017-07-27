@@ -44,8 +44,8 @@
     <div class="heading-caption">Comunicaci&oacute;n</div>
     {!! FORM::label ('comunicacion_preferida', 'Comunicaci&oacute;n Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,
-    $comunidad->tipo_comunicacion_preferida_id, ["class" =>
-    "form-control"]) !!} <br/>
+    $comunidad->tipo_comunicacion_preferida_id, ["class" =>"form-control"]) !!}
+    <br/>
     {!! FORM::label('email_solicitud', 'Email para solicitar intendencia:') !!} <br/>
     {!! FORM::text('email_solicitud',$comunidad->email_solicitud, ["class" => "form-control", "title"=>"Email", "maxlength"=>"60"]) !!}
     <br/>

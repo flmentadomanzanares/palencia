@@ -22,7 +22,7 @@ class ValidateRulesLocalidades extends Request
     {
         return [
             "pais" => "required",
-            "provincia" => "required",
+            "provincias" => "required",
             "localidad" => "required|min:2|max:50",
         ];
     }
@@ -34,7 +34,7 @@ class ValidateRulesLocalidades extends Request
             'localidad.min' => 'Longitud m&iacute;nima de la localidad :min caracteres.',
             'localidad.max' => 'Longitud m&aacute;xima de la localidad :max caracteres.',
             "pais.required" => 'El pa&iacute;s es obligatorio.',
-            "provincia.required" => 'La provincia es obligatoria.',
+            "provincias.required" => 'La provincia es obligatoria.',
         ];
     }
 

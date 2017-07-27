@@ -10,14 +10,13 @@ class TiposComunicacionesPreferidas extends Model
     protected $fillable = []; //Campos a usar
     protected $guarded = ['id']; //Campos no se usan
 
-    public static function getTipoComunicacionesPreferidasList($placeholder = "Comunicación...", $isOrder = false)
+    public static function getTipoComunicacionesPreferidasList($placeholder = "Comunicación...", $hasPlaceholder = false, $putPlaceholerFirst = true)
     {
         $sql = TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
             ->where('activo', true)
             ->orderBy('comunicacion_preferida', 'DESC')
             ->Lists('comunicacion_preferida', 'id');
-        $whithPlaceHolder = strlen($placeholder) > 0 ? true : false;
-        return $whithPlaceHolder ? ($isOrder ? ['0' => $placeholder] + $sql : $sql + ['0' => $placeholder]) : $sql;
+        return $hasPlaceholder ? ($putPlaceholerFirst ? ['0' => $placeholder] + $sql : $sql + ['0' => $placeholder]) : $sql;
     }
 
     static public function getTiposComunicacionesPreferidas(Request $request, $paginateNumber = 25)

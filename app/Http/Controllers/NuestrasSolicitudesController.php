@@ -22,7 +22,7 @@ class NuestrasSolicitudesController extends Controller
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Array();
         $modalidad = $request->get("modalidad");
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta", true);
         $anyos = array();
         $cursillos = array();
         return view('nuestrasSolicitudes.index',

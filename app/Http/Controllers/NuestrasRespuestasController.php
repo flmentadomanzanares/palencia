@@ -22,7 +22,7 @@ class NuestrasRespuestasController extends Controller
         $titulo = "Responder";
         $nuestrasComunidades = Comunidades::getComunidadesList(true, false, '', false);
         $restoComunidades = Array();
-        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta");
+        $tipos_comunicaciones_preferidas = TiposComunicacionesPreferidas::getTipoComunicacionesPreferidasList("Email + Carta", true);
         $modalidad = $request->get("modalidad");
         $anyos = Array();
         $cursillos = Array();

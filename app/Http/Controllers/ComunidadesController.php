@@ -84,9 +84,9 @@ class ComunidadesController extends Controller
         $comunidad->direccion = $request->get('direccion');
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
-        $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('select_provincia');
-        $comunidad->localidad_id = $request->get('select_localidad');
+        $comunidad->pais_id = $request->get('pais');
+        $comunidad->provincia_id = $request->get('provincias');
+        $comunidad->localidad_id = $request->get('localidades');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');
@@ -201,9 +201,9 @@ class ComunidadesController extends Controller
         $comunidad->direccion = $request->get('direccion');
         $comunidad->direccion_postal = $request->get('direccion_postal');
         $comunidad->cp = $request->get('cp');
-        $comunidad->pais_id = $request->get('pais_id');
-        $comunidad->provincia_id = $request->get('select_provincia');
-        $comunidad->localidad_id = $request->get('select_localidad');
+        $comunidad->pais_id = $request->get('pais');
+        $comunidad->provincia_id = $request->get('provincias');
+        $comunidad->localidad_id = $request->get('localidades');
         $comunidad->email_solicitud = $request->get('email_solicitud');
         $comunidad->email_envio = $request->get('email_envio');
         $comunidad->web = $request->get('web');
