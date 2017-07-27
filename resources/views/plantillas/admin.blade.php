@@ -123,7 +123,9 @@
         </div>
     @else
         @include ("comun.plantillaLogin")
-        @include('comun.plantillaRegistrarse')
+        @if (config("opciones.incluirModalAltas"))
+            @include('comun.plantillaRegistrarse')
+        @endif
         @if(config("opciones.seguridad.recordarPassword"))
             @include ("comun.plantillaRecordarPassword")
         @endif

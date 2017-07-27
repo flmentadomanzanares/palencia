@@ -8,7 +8,8 @@
 return [
     'verErrorMailServer' => true,
     'paginacion' => 400,
-    'numeroComunidadesPropias' => 2,
+    'numeroComunidadesPropias' => 1,
+    'incluirModalAltas' => false,
     'campoUser' => [
         'fullname' => 'Nombre',
         'name' => 'Usuario',
