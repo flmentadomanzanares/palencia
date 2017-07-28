@@ -23,7 +23,7 @@
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesEnviadas.edit',array('id'=>$solicitudEnviada->id))}}">
-                                        <i class="material glyphicon-edit"></i>
+                                        <i class="glyphicon glyphicon-edit"></i>
                                         <div>Editar</div>
                                     </a>
                                     @if($solicitudEnviada->activo && $solicitudEnviada->aceptada)
