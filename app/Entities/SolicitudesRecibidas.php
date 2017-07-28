@@ -27,15 +27,14 @@ class SolicitudesRecibidas extends Model
             'comunidades.colorTexto', 'solicitudes_recibidas.aceptada', 'solicitudes_recibidas.activo', 'solicitudes_recibidas.created_at',
             'solicitudes_recibidas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
-            ->SolicitudRespondida(is_null($request->get('respondida')) ? true : $request->get('respondida'))
+            ->SolicitudRespondida($request->get('respondida'))
             ->ComunidadSolicitudesRecibidas($request->get('comunidades'))
-            ->SolicitudRecibidaEsActivo(is_null($request->get('esActivo')) ? true : $request->get('esActivo'))
+            ->SolicitudRecibidaEsActivo($request->get('esActivo'))
             ->AnyoEnCurso(is_null($request->get('esActual')) ? true : $request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_recibidas.created_at', 'DESC')
             ->paginate($paginateNumber)
             ->setPath('solicitudesRecibidas');
-
     }
 
     static public function imprimirCursillosPorPaises($anyo = 0, $semana = 0)
@@ -57,7 +56,6 @@ class SolicitudesRecibidas extends Model
 
     static public function getSolicitudesComunidad($comunidadId = 0)
     {
-
         return SolicitudesRecibidas::Select('cursillos.fecha_inicio', 'cursillos.cursillo')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_recibidas.comunidad_id')
             ->leftJoin('cursillos', 'cursillos.id', '=', 'solicitudes_recibidas.cursillo_id')
@@ -67,7 +65,6 @@ class SolicitudesRecibidas extends Model
             ->orderBy('comunidades.comunidad')
             ->orderBy('cursillos.cursillo')
             ->get();
-
     }
 
     static public function getSemanasSolicitudesRecibidas($anyo = 0)
@@ -234,13 +231,20 @@ class SolicitudesRecibidas extends Model
         return $query;
     }
 
-    public function scopeSolicitudRespondida($query, $respondida = true)
+    public function scopeSolicitudRespondida($query, $respondida)
     {
-        return $query->where('solicitudes_recibidas.aceptada', filter_var($respondida, FILTER_VALIDATE_BOOLEAN));
+        if (strlen($respondida) > 0) {
+            $query->where('solicitudes_recibidas.aceptada', filter_var($respondida, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
     }
 
-    public function scopeSolicitudRecibidaEsActivo($query, $esActivo = true)
+    public function scopeSolicitudRecibidaEsActivo($query, $esActivo)
     {
-        return $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        if (strlen($esActivo) > 0) {
+            $query->where('solicitudes_recibidas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
     }
+
 }

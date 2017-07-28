@@ -23,7 +23,7 @@
                                 <th colspan="2" class="text-right">
                                     <a title="Editar"
                                        href="{{route('solicitudesEnviadas.edit',array('id'=>$solicitudEnviada->id))}}">
-                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <i class="material glyphicon-edit"></i>
                                         <div>Editar</div>
                                     </a>
                                     @if($solicitudEnviada->activo && $solicitudEnviada->aceptada)
@@ -72,6 +72,9 @@
                             </tr>
                             <tr>
                                 <th colspan="2" class="cabecera">
+                                    @if ($solicitudEnviada->esManual )
+                                        <div class="cursillo_mamual" title="Solicitud manual"></div>
+                                    @endif
                                     <div class="ellipsis text-center @if(!$solicitudEnviada->activo) foreground-disabled @endif"
                                          @if($solicitudEnviada->activo==1) style="background-color:{{$solicitudEnviada->colorFondo}} !important;
                                                  color:{{$solicitudEnviada->colorTexto}} !important; @endif ">

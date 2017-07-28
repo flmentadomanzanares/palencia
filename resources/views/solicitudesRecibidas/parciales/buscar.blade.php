@@ -4,11 +4,11 @@
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('respondida', array(''=>'Estado...','1'=>'Respondida','0'=>'No Respondida'),
+    {!! FORM::select('respondida', array(''=>'Solicitud...','1'=>'Respondida','0'=>'No Respondida'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array('1'=>'Activas','0'=>'No Activas'),
+    {!! FORM::select('esActivo', array(''=>'Estado...','1'=>'Activas','0'=>'No Activas'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

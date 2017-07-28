@@ -115,7 +115,7 @@ $(document).ready(function () {
                             "<tr class='row-fixed'>" +
                             "<th class='fixed-checkBoxLgContainer'></th>" +
                             "<th class='tabla-ancho-columna-texto'></th>" +
-                            "<th class='" + (element.anyo !== anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
+                            "<th class='" + (parseInt(element.anyo) !== anyoActual ? 'asterisco' : '') + " text-right' title='No pertenece al año actual'></th>" +
                             "</tr>" +
                             "<tr style='Background: " + element.colorFondo + ";'>" +
                             "<th colspan='3' style='Color: " + element.colorTexto + ";' " +
@@ -133,7 +133,7 @@ $(document).ready(function () {
                         //Añado el curso al contenedor de cursos
                         cursillosInputs.append("<input type='hidden' data-comunidad='" + element.comunidadId + "'name='cursos[]' value='" + element.cursilloId + "'>");
                         //Añadimos el año para el select del año
-                        if ($.inArray(element.anyo, anyos) === -1) anyos.push(element.anyo);
+                        if ($.inArray(parseInt(element.anyo), anyos) === -1) anyos.push(parseInt(element.anyo));
                     });
                 } else {
                     html += "<table class='table-viaoptima table-striped'><thead>" +

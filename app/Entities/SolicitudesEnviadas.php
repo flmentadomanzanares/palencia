@@ -42,9 +42,9 @@ class SolicitudesEnviadas extends Model
             'solicitudes_enviadas.comunidad_id')
             ->leftJoin('comunidades', 'comunidades.id', '=', 'solicitudes_enviadas.comunidad_id')
             ->ComunidadSolicitudesEnviadas($request->get('comunidades'))
-            ->SolicitudesAceptadas(is_null($request->get('aceptada')) ? true : $request->get('aceptada'))
-            ->FiltroRespuestaEsManual(is_null($request->get('esManual')) ? false : $request->get('esManual'))
-            ->SolicitudEnviadaEsActivo(is_null($request->get('esActivo')) ? true : $request->get('esActivo'))
+            ->SolicitudesAceptadas($request->get('aceptada'))
+            ->FiltroRespuestaEsManual($request->get('esManual'))
+            ->SolicitudEnviadaEsActivo($request->get('esActivo'))
             ->AnyoEnCurso(is_null($request->get('esActual')) ? true : $request->get('esActual'))
             ->orderBy('comunidades.comunidad', 'ASC')
             ->orderBy('solicitudes_enviadas.created_at', 'DESC')
@@ -194,14 +194,20 @@ class SolicitudesEnviadas extends Model
         return $this->belongsTo('Palencia\Entities\Comunidades', 'comunidad_id');
     }
 
-    public function scopeSolicitudesAceptadas($query, $aceptada = true)
+    public function scopeSolicitudesAceptadas($query, $aceptada)
     {
-        return $query->where('solicitudes_enviadas.aceptada', filter_var($aceptada, FILTER_VALIDATE_BOOLEAN));
+        if (strlen($aceptada) > 0) {
+            $query->where('solicitudes_enviadas.aceptada', filter_var($aceptada, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
     }
 
-    public function scopeFiltroRespuestaEsManual($query, $esManual = 0)
+    public function scopeFiltroRespuestaEsManual($query, $esManual)
     {
-        return $query->where('solicitudes_enviadas.esManual', filter_var($esManual, FILTER_VALIDATE_BOOLEAN));
+        if (strlen($esManual) > 0) {
+            $query->where('solicitudes_enviadas.esManual', filter_var($esManual, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
     }
 
     public function scopeAnyoEnCurso($query, $esAnyoActual = true)
@@ -246,8 +252,11 @@ class SolicitudesEnviadas extends Model
         return $query;
     }
 
-    public function scopeSolicitudEnviadaEsActivo($query, $esActivo = true)
+    public function scopeSolicitudEnviadaEsActivo($query, $esActivo)
     {
-        return $query->where('solicitudes_enviadas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        if (strlen($esActivo) > 0) {
+            $query->where('solicitudes_enviadas.activo', filter_var($esActivo, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
     }
 }

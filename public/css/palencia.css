@@ -5572,6 +5572,7 @@ button:focus {
       padding: 5px 0;
       background-color: transparent; }
       .table-viaoptima thead tr th.cabecera {
+          position: relative;
         background-color: #ffffff;
         color: #400090;
         line-height: 42px; }
@@ -5648,16 +5649,36 @@ button:focus {
 .asterisco:after {
   position: absolute;
   color: #ffffff;
-  font-size: 1rem;
+    font-size: 1.6rem;
   font-family: 'Material Icons';
-  content: "\E39E";
-  margin-left: -1.4rem;
-  margin-top: .2rem;
+    content: "\E889";
+    margin-left: -2.2rem;
+    margin-top: .5rem;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  width: 1.2rem;
-  line-height: 1.2rem;
-  text-align: center; }
+    width: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    -webkit-box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.6);
+}
+
+.cursillo_mamual:after {
+    position: absolute;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-family: 'Material Icons';
+    content: "\E7FD";
+    right: .6rem;
+    margin-top: .3rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    -webkit-box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.6);
+}
 
 /*MENU SEPARATOR */
 ul.active > li.menu-separator {

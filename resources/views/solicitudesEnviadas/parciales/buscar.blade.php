@@ -4,13 +4,13 @@
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('aceptada', array('1'=>'Aceptada','0'=>'No Aceptada'),null,array("class"=>"form-control"))!!}
+    {!! FORM::select('aceptada', array(''=>'Solicitudes...','1'=>'Aceptadas','0'=>'No Aceptadas'),null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esManual', array('0'=>'Automática','1'=>'Manual'),null,array("class"=>"form-control"))!!}
+    {!! FORM::select('esManual', array(''=>'Procesado...','0'=>'Automático','1'=>'Manual'),null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('esActivo', array('1'=>'Activas','0'=>'No Activas'),
+    {!! FORM::select('esActivo', array(''=>'Estado...','1'=>'Activas','0'=>'No Activas'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
