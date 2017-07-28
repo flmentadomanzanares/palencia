@@ -4,7 +4,7 @@
     {!! FORM::select('comunidades', $comunidades, null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">
-    {!! FORM::select('respondida', array('1'=>'Respondida','0'=>'No Respondida'),
+    {!! FORM::select('respondida', array(''=>'Estado...','1'=>'Respondida','0'=>'No Respondida'),
     null,array("class"=>"form-control"))!!}
 </div>
 <div class="form-group">

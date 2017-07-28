@@ -30,10 +30,12 @@ $(document).ready(function () {
 
     //Ajax para calcular el número de semanas según el año
     var totalSemanas = function (comunidadesIds, year) {
+        var esPropia = $("select[name='esPropia']").val();
         $.ajax({
             data: {
                 'comunidadesIds': comunidadesIds,
                 'anyo': year,
+                'esComunidadPropia': (esPropia === undefined ? null : esPropia),
                 '_token': $('input[name="_token"]').val()
             },
             dataType: "json",
