@@ -221,7 +221,7 @@ button:focus {
           border-radius: $margin-app-small;
         }
         div.ellipsis {
-          padding: 0;
+          padding: 0 2.4rem;
         }
         form {
           display: flex;
@@ -309,15 +309,15 @@ button:focus {
 .asterisco:after {
   position: absolute;
   color: $app-color-white;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-family: 'Material Icons';
   content: "\E889";
-  margin-left: -2.2rem;
-  margin-top: .5rem;;
+  margin-left: -2rem;
+  margin-top: .6%;
   background-color: rgba(0, 0, 0, .3);
   border-radius: 50%;
-  width: 2rem;
-  line-height: 2rem;
+  width: 1.8rem;
+  line-height: 1.8rem;
   text-align: center;
   box-shadow: 0 0 4px 0 rgba(255, 255, 255, .6)
 }
@@ -326,15 +326,15 @@ button:focus {
 .cursillo_mamual:after {
   position: absolute;
   color: $app-color-white;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-family: 'Material Icons';
   content: "\E7FD";
-  right: .6rem;
-  margin-top: .3rem;;
+  right: .5rem;
+  margin-top: .45rem;;
   background-color: rgba(0, 0, 0, .3);
   border-radius: 50%;
-  width: 2rem;
-  line-height: 2rem;
+  width: 1.8rem;
+  line-height: 1.8rem;
   text-align: center;
   box-shadow: 0 0 4px 0 rgba(255, 255, 255, .6)
 }
