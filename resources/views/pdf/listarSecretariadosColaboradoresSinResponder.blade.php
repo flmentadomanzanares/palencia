@@ -11,7 +11,7 @@
                 <div class="heading-caption">Seleccione el pa&iacute;s para imprimir los secretariados ...</div>
                 {!! FORM::label('pais', 'Pa&iacute;s') !!} <br/>
                 {!! FORM::select('pais', $paises, null,array("class"=>"form-control",'id'=>'select_paises'))!!}
-                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Bajar"])
                 {!! FORM::close() !!}
             </div>
         @else

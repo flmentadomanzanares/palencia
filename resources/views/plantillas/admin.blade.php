@@ -167,6 +167,7 @@
 {!! HTML::script('js/publico/simplemodal.js') !!}
 {!! HTML::script('js/publico/menu.js') !!}
 {!! HTML::script('js/publico/scroll_to_top.js') !!}
+{!! HTML::script('js/publico/functions.js') !!}
 @yield("js")
 </body>
 </html>

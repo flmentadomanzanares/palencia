@@ -14,7 +14,7 @@
                 <br/>
                 {!! FORM::label('comunidad', 'Secretariado') !!} <br/>
                 {!! FORM::select('comunidad', $comunidades, null,array("class"=>"form-control",'id'=>'select_comunidad'))!!}
-                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Bajar"])
                 {!! FORM::close() !!}
             </div>
         @else

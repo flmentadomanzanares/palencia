@@ -15,7 +15,7 @@
                 <br/>
                 {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
                 {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillos->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
-                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
+                @include('comun.plantillaVolverModificarGuardar',['accion'=>"Bajar"])
                 {!! FORM::close() !!}
             </div>
         @else

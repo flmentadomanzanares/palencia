@@ -15,9 +15,10 @@ $(document).ready(function () {
                 var semanas = $('#select_semanas');
                 semanas.empty();
                 $.each(data, function (key, element) {
-                    semanas.append("<option value='" + element.semanas + "'>" + element.semanas + "</option>");
+                    var weekSelected = new Date().getWeek() === parseInt(element.semanas) ? "selected" : "";
+                    semanas.append("<option value='" + element.semanas + "' " + weekSelected + " >" + element.semanas + "</option>");
                 });
-                if ($('#listado_cursillos').length == 0)
+                if ($('#listado_cursillos').length === 0)
                     return;
                 totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0);
             },

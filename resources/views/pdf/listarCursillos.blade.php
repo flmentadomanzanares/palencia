@@ -16,7 +16,7 @@
                     {!! FORM::label('semana', 'Semana') !!} <br/>
                     {!! FORM::select('semana', $semanas, null,array("class"=>"form-control",'id'=>'select_semanas'))!!}
                     <br/>
-                    @include('comun.plantillaVolverModificarGuardar',['accion'=>"Descargar"])
+                    @include('comun.plantillaVolverModificarGuardar',['accion'=>"Bajar"])
                     {!! FORM::close() !!}
                 @else
                     <div class="heading-caption">No existen solicitudes recibidas</div>
