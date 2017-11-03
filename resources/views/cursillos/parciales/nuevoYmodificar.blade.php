@@ -20,16 +20,16 @@
     {!! FORM::label('fecha_final', 'Fecha Final') !!} <br/>
     {!! FORM::text('fecha_final',  date("d/m/Y",strtotime($cursillo->fecha_final)), ['id' => 'datepicker2', 'class' => 'form-control calendario', 'readonly'=>''])!!}
     <br/>
-    {!! FORM::label('descripcion', 'Descripci&oacute;n') !!} <br/>
-    {!! FORM::textarea('descripcion',$cursillo->descripcion,array('class'=>'form-control', 'title'=> 'Descripci&oacute;n')) !!}
-    <br/>
-
     <div class="heading-caption">Asistentes</div>
     {!! FORM::label ('tipoAlumnos', 'Asistentes al Curso') !!}
     {!! FORM::select('tipo_participante_id', $tipos_participantes,
     $cursillo->tipo_participante,array('class'=>'form-control')) !!}
     <br/>
-    @if (Auth::check())
+        {!! FORM::label('descripcion', 'Descripci&oacute;n') !!} <br/>
+        {!! FORM::textarea('descripcion',$cursillo->descripcion,array('class'=>'form-control', 'title'=> 'Descripci&oacute;n')) !!}
+        <br/>
+
+        @if (Auth::check())
         @if(Auth::user()->roles->peso>=config('opciones.roles.administrador'))
             <div class="heading-caption">Zona Administrador</div>
             @if($cursillo->id)

@@ -19,8 +19,9 @@ class Comunidades extends Model
 
     static public function getComunidades(Request $request, $paginateNumber = 25)
     {
-        return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
-            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.activo', 'tipos_comunicaciones_preferidas.comunicacion_preferida',
+        return Comunidades::Select('comunidades.id', 'comunidades.email_envio', 'comunidades.comunidad', 'comunidades.responsable', 'comunidades.direccion',
+            'comunidades.esColaborador', 'comunidades.esPropia', 'comunidades.colorFondo', 'comunidades.colorTexto', 'comunidades.activo',
+            'tipos_comunicaciones_preferidas.comunicacion_preferida',
             'tipos_secretariados.tipo_secretariado', 'paises.pais', 'provincias.provincia', 'localidades.localidad')
             ->EsPropia($request->esPropia)
             ->leftJoin('tipos_secretariados', 'comunidades.tipo_secretariado_id', '=', 'tipos_secretariados.id')

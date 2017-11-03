@@ -40,7 +40,6 @@
     {!! FORM::text ('direccion',$comunidad->direccion,array('class'=> 'form-control', "title"=>"Direcci&oacute;n",
     "maxlength"=>"100") )!!}
     <br/>
-
     <div class="heading-caption">Comunicaci&oacute;n</div>
     {!! FORM::label ('comunicacion_preferida', 'Comunicaci&oacute;n Preferida:') !!} <br/>
     {!! FORM::select('tipo_comunicacion_preferida_id',$comunicaciones_preferidas,

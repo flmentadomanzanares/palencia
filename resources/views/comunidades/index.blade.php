@@ -116,7 +116,7 @@
                             </tr>
                             <tr>
                                 <td>Comunicaci&oacute;n preferida:</td>
-                                <td>{{$comunidad->comunicacion_preferida}}</td>
+                                <td>{{strcasecmp($comunidad->comunicacion_preferida,"carta")==0 ? $comunidad->comunicacion_preferida : $comunidad->email_envio}}</td>
                             </tr>
                             <tr>
                                 <td>Colabora:</td>
