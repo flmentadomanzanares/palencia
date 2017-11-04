@@ -13,11 +13,20 @@ $(document).ready(function () {
             url: 'semanasSolicitudesRecibidasCursillos',
             success: function (data) {
                 var semanas = $('#select_semanas');
+                var flagWeekNotSelected = true;
+                var getWeek = new Date().getWeek();
                 semanas.empty();
                 $.each(data, function (key, element) {
-                    var weekSelected = new Date().getWeek() === parseInt(element.semanas) ? "selected" : "";
-                    semanas.append("<option value='" + element.semanas + "' " + weekSelected + " >" + element.semanas + "</option>");
+                    var weekSelected = getWeek === parseInt(element.semanas);
+                    if (weekSelected) {
+                        flagWeekNotSelected = false;
+                    }
+                    semanas.append("<option value='" + element.semanas + "' " + (weekSelected ? "selected" : "") + " >" + element.semanas + "</option>");
                 });
+                debugger;
+                if (flagWeekNotSelected) {
+                    semanas.append("<option selected> No hay cursillos</option>");
+                }
                 if ($('#listado_cursillos').length === 0)
                     return;
                 totalCursillos($('#select_comunidad option:selected').val(), $('#select_anyos option:selected').val(), 0);
