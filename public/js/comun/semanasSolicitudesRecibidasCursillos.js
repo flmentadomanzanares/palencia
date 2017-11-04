@@ -23,7 +23,6 @@ $(document).ready(function () {
                     }
                     semanas.append("<option value='" + element.semanas + "' " + (weekSelected ? "selected" : "") + " >" + element.semanas + "</option>");
                 });
-                debugger;
                 if (flagWeekNotSelected) {
                     semanas.append("<option selected> No hay cursillos</option>");
                 }
