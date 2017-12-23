@@ -29,7 +29,7 @@
                 </span>
                 @include ("comun.plantillaMensaje")
             </div>
-            <div class="heading-caption">Cursillos</div>
+            <div class="heading-caption">Enviar</div>
             <div data-role="lista_cursillos"></div>
             <hr>
             <div class="heading-caption">Comunidades Destinatarias</div>
