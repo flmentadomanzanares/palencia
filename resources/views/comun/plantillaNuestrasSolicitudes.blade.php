@@ -12,7 +12,7 @@
              data-modal_ancho="275">
             <div title="Filtros" class="text-center">
                 <i class="glyphicon glyphicon-filter text-center"></i>
-                <div>Cursos</div>
+                <div>Enviar</div>
             </div>
         </div>
         <div class="cuerpoFormularioModal">
