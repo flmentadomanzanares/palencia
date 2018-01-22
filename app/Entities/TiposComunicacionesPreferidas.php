@@ -15,7 +15,7 @@ class TiposComunicacionesPreferidas extends Model
         $sql = TiposComunicacionesPreferidas::Select('id', 'comunicacion_preferida')
             ->where('activo', true)
             ->orderBy('comunicacion_preferida', 'DESC')
-            ->Lists('comunicacion_preferida', 'id');
+            ->Lists('comunicacion_preferida', 'id')->toArray();
         return $hasPlaceholder ? ($putPlaceholerFirst ? ['0' => $placeholder] + $sql : $sql + ['0' => $placeholder]) : $sql;
     }
 

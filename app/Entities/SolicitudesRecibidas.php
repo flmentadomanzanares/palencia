@@ -17,7 +17,7 @@ class SolicitudesRecibidas extends Model
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->groupBy('Anyos')
             ->orderBy('Anyos')
-            ->Lists('Anyos', 'Anyos');
+            ->Lists('Anyos', 'Anyos')->toArray();
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
@@ -88,7 +88,7 @@ class SolicitudesRecibidas extends Model
             ->orderBy('Anyos')
             ->where('cursillos.activo', true)
             ->where('solicitudes_recibidas.activo', true)
-            ->Lists('Anyos', 'Anyos');
+            ->Lists('Anyos', 'Anyos')->toArray();
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
@@ -100,7 +100,7 @@ class SolicitudesRecibidas extends Model
                 ->where('comunidades.activo', true)
                 ->where('solicitudes_recibidas.activo', true)
                 ->orderBy('comunidades.comunidad')
-                ->Lists('comunidades.comunidad', 'comunidades.id');
+                ->Lists('comunidades.comunidad', 'comunidades.id')->toArray();
 
     }
 
@@ -111,7 +111,7 @@ class SolicitudesRecibidas extends Model
                 ->orderBy('cursillos.cursillo')
                 ->where('cursillos.activo', true)
                 ->where('solicitudes_recibidas.activo', true)
-                ->Lists('cursillos.cursillo', 'cursillos.id');
+                ->Lists('cursillos.cursillo', 'cursillos.id')->toArray();
     }
 
     static public function crearComunidadesCursillos($comunidades = array(), $cursillosIds = array())

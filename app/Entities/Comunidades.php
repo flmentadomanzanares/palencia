@@ -172,7 +172,7 @@ class Comunidades extends Model
             ->where('comunidades.activo', true)
             ->where('comunidades.esColaborador', true)
             ->orderBy('comunidades.comunidad', 'ASC')
-            ->Lists('comunidades.comunidad', 'id');
+            ->Lists('comunidades.comunidad', 'id')->toArray();
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
@@ -184,7 +184,7 @@ class Comunidades extends Model
                 ->where('comunidades.activo', true)
                 ->EsPropia($esPropia)
                 ->orderBy('comunidades.comunidad', 'ASC')
-                ->Lists('comunidades.comunidad', 'id');
+                ->Lists('comunidades.comunidad', 'id')->toArray();
         } else {
             $sql = Comunidades::Select('comunidades.id', 'comunidades.comunidad')
                 ->where('comunidades.activo', true)
@@ -196,7 +196,7 @@ class Comunidades extends Model
             ) cursillos"), "comunidades.id", "=", 'cursilloId')
                 ->Where('cursillosTotales', '>', 0)
                 ->orderBy('comunidades.comunidad', 'ASC')
-                ->Lists('comunidades.comunidad', 'comunidades.id');
+                ->Lists('comunidades.comunidad', 'comunidades.id')->toArray();
         }
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }

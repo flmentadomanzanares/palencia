@@ -1,15 +1,17 @@
-<?php namespace Illuminate\Auth\Passwords;
+<?php
+
+namespace Illuminate\Auth\Passwords;
 
 use Closure;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
+use Illuminate\Support\Arr;
 use UnexpectedValueException;
 
 class PasswordBroker implements PasswordBrokerContract
 {
-
     /**
      * The password token repository.
      *
@@ -94,27 +96,6 @@ class PasswordBroker implements PasswordBrokerContract
     }
 
     /**
-     * Get the user for the given credentials.
-     *
-     * @param  array $credentials
-     * @return \Illuminate\Contracts\Auth\CanResetPassword
-     *
-     * @throws \UnexpectedValueException
-     */
-    public function getUser(array $credentials)
-    {
-        $credentials = array_except($credentials, ['token']);
-
-        $user = $this->users->retrieveByCredentials($credentials);
-
-        if ($user && !$user instanceof CanResetPasswordContract) {
-            throw new UnexpectedValueException("User must implement CanResetPassword interface.");
-        }
-
-        return $user;
-    }
-
-    /**
      * Send the password reset link via e-mail.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
@@ -128,25 +109,14 @@ class PasswordBroker implements PasswordBrokerContract
         // password reminder e-mail. We'll pass a "token" variable into the views
         // so that it may be displayed for an user to click for password reset.
         $view = $this->emailView;
-        try {
 
-            $this->mailer->send($view, compact('token', 'user'), function ($message) use ($user, $token, $callback) {
-                $message->from($user->getEmailForPasswordReset());
-                $message->to($user->getEmailForPasswordReset());
+        return $this->mailer->send($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
+            $m->to($user->getEmailForPasswordReset());
 
-                if (!is_null($callback)) {
-                    call_user_func($callback, $message, $user, $token);
-                }
-            });
-            return Redirect('/')->with('mensaje', 'Se ha enviado el link de cambio de contrase&ntilde;a a tu correo electr&oacute;nico.');
-        } catch (\Exception $ex) {
-            switch ($ex->getCode()) {
-                case 550:
-                    break;
-                default :
-                    return Redirect('/')->with('mensaje', 'El servidor de correos no ha realizado el env&iacute;o del link del cambio de contrase&ntilde;a.');
+            if (!is_null($callback)) {
+                call_user_func($callback, $m, $user, $token);
             }
-        }
+        });
     }
 
     /**
@@ -198,7 +168,19 @@ class PasswordBroker implements PasswordBrokerContract
         if (!$this->tokens->exists($user, $credentials['token'])) {
             return PasswordBrokerContract::INVALID_TOKEN;
         }
+
         return $user;
+    }
+
+    /**
+     * Set a custom password validator.
+     *
+     * @param  \Closure $callback
+     * @return void
+     */
+    public function validator(Closure $callback)
+    {
+        $this->passwordValidator = $callback;
     }
 
     /**
@@ -239,14 +221,24 @@ class PasswordBroker implements PasswordBrokerContract
     }
 
     /**
-     * Set a custom password validator.
+     * Get the user for the given credentials.
      *
-     * @param  \Closure $callback
-     * @return void
+     * @param  array $credentials
+     * @return \Illuminate\Contracts\Auth\CanResetPassword
+     *
+     * @throws \UnexpectedValueException
      */
-    public function validator(Closure $callback)
+    public function getUser(array $credentials)
     {
-        $this->passwordValidator = $callback;
+        $credentials = Arr::except($credentials, ['token']);
+
+        $user = $this->users->retrieveByCredentials($credentials);
+
+        if ($user && !$user instanceof CanResetPasswordContract) {
+            throw new UnexpectedValueException('User must implement CanResetPassword interface.');
+        }
+
+        return $user;
     }
 
     /**
@@ -258,5 +250,4 @@ class PasswordBroker implements PasswordBrokerContract
     {
         return $this->tokens;
     }
-
 }

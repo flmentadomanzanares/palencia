@@ -24,7 +24,7 @@ class TiposSecretariados extends Model
         return ['0' => 'Secretariado...'] + TiposSecretariados::Select('id', 'tipo_secretariado')
             ->where('activo', true)
             ->orderBy('tipo_secretariado', 'ASC')
-            ->Lists('tipo_secretariado', 'id');
+                ->Lists('tipo_secretariado', 'id')->toArray();
     }
 
     /**

@@ -18,7 +18,7 @@ class SolicitudesEnviadas extends Model
         $sql = Cursillos::Select(DB::raw('DATE_FORMAT(cursillos.fecha_inicio,"%x") as Anyos'))
             ->groupBy('Anyos')
             ->orderBy('Anyos')
-            ->Lists('Anyos', 'Anyos');
+            ->Lists('Anyos', 'Anyos')->toArray();
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
@@ -31,7 +31,7 @@ class SolicitudesEnviadas extends Model
             ->orderBy('Anyos')
             ->where('cursillos.activo', true)
             ->where('solicitudes_enviadas.activo', true)
-            ->Lists('Anyos', 'Anyos');
+            ->Lists('Anyos', 'Anyos')->toArray();
         return $conPlaceHolder ? $placeHolder + $sql : $sql;
     }
 
@@ -96,7 +96,7 @@ class SolicitudesEnviadas extends Model
                 ->where('comunidades.activo', true)
                 ->where('solicitudes_enviadas.activo', true)
                 ->orderBy('comunidades.comunidad')
-                ->Lists('comunidades.comunidad', 'comunidades.id');
+                ->Lists('comunidades.comunidad', 'comunidades.id')->toArray();
 
     }
 
@@ -107,7 +107,7 @@ class SolicitudesEnviadas extends Model
                 ->orderBy('cursillos.cursillo')
                 ->where('cursillos.activo', true)
                 ->where('solicitudes_enviadas.activo', true)
-                ->Lists('cursillos.cursillo', 'cursillos.id');
+                ->Lists('cursillos.cursillo', 'cursillos.id')->toArray();
     }
 
     static public function getSemanasSolicitudesEnviadas($anyo = 0)

@@ -8,7 +8,7 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "laravel/framework": "5.0.*",
+    "laravel/framework": "5.1.*",
     "laravelcollective/html": "5.0.x-dev",
     "illuminate/html": "v5.0.0",
     "intervention/image": "2.2.0",
@@ -16,7 +16,7 @@
     "predis/predis": "~1.0",
     "fzaninotto/faker": "^1.5",
     "maddhatter/laravel-fullcalendar": "v1.2.3",
-    "barryvdh/laravel-dompdf": "0.6.*",
+    "barryvdh/laravel-dompdf": "0.8.*",
     "hechoenlaravel/composer-plugin": "dev-master"
   },
   "require-dev": {

@@ -9,6 +9,7 @@ use Palencia\Entities\SolicitudesEnviadas;
 use Palencia\Entities\SolicitudesEnviadasCursillos;
 use Palencia\Entities\SolicitudesRecibidas;
 use Palencia\Entities\TiposComunicacionesPreferidas;
+use PDF;
 
 class NuestrasRespuestasController extends Controller
 {
@@ -138,7 +139,7 @@ class NuestrasRespuestasController extends Controller
             if (strtolower($cursoActual->comunicacion_preferida) == "email" && preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $cursoActual->email_envio)) {
                 $archivoEmail = 'templatePDF' . $separatorPath . 'NR-' . $comunidad . '.pdf';
                 //Conversión a UTF
-                $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "UTF-8", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                $nombreArchivoAdjuntoEmail = mb_convert_encoding($archivoEmail, "ISO-8859-1", mb_detect_encoding($archivo, "UTF-8, ISO-8859-1, ISO-8859-15", true));
                 $nombreArchivoAdjuntoEmail = str_replace(" ", "_", $nombreArchivoAdjuntoEmail);
 
                 try {
@@ -163,6 +164,7 @@ class NuestrasRespuestasController extends Controller
                                 , 'listadoPosicionInicial', 'listadoTotal', 'listadoTotalRestoPagina', 'separacionLinea'
                             ))->render();
                     }
+
                     $pdf->loadHTML($multiplesPdfBegin . $multiplesPdfEmail . $multiplesPdfEnd);
                     $pdf->output();
                     $pdf->save($nombreArchivoAdjuntoEmail);

@@ -1,10 +1,11 @@
-<?php namespace Illuminate\Pagination;
+<?php
+
+namespace Illuminate\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as PaginatorContract;
 
 class UrlWindow
 {
-
     /**
      * The paginator implementation.
      *
@@ -30,7 +31,7 @@ class UrlWindow
      * @param  int $onEachSide
      * @return array
      */
-    public static function make(PaginatorContract $paginator, $onEachSide = 1)
+    public static function make(PaginatorContract $paginator, $onEachSide = 3)
     {
         return (new static($paginator))->get($onEachSide);
     }
@@ -65,16 +66,6 @@ class UrlWindow
     }
 
     /**
-     * Get the last page from the paginator.
-     *
-     * @return int
-     */
-    protected function lastPage()
-    {
-        return $this->paginator->lastPage();
-    }
-
-    /**
      * Create a URL slider links.
      *
      * @param  int $onEachSide
@@ -82,7 +73,7 @@ class UrlWindow
      */
     protected function getUrlSlider($onEachSide)
     {
-        $window = $onEachSide * 1;
+        $window = $onEachSide * 2;
 
         if (!$this->hasPages()) {
             return [
@@ -113,26 +104,6 @@ class UrlWindow
     }
 
     /**
-     * Determine if the underlying paginator being presented has pages to show.
-     *
-     * @return bool
-     */
-    public function hasPages()
-    {
-        return $this->paginator->lastPage() > 1;
-    }
-
-    /**
-     * Get the current page from the paginator.
-     *
-     * @return int
-     */
-    protected function currentPage()
-    {
-        return $this->paginator->currentPage();
-    }
-
-    /**
      * Get the slider of URLs when too close to beginning of window.
      *
      * @param  int $window
@@ -148,19 +119,6 @@ class UrlWindow
     }
 
     /**
-     * Get the ending URLs of a pagination slider.
-     *
-     * @return array
-     */
-    public function getFinish()
-    {
-        return $this->paginator->getUrlRange(
-            $this->lastPage(),
-            $this->lastPage()
-        );
-    }
-
-    /**
      * Get the slider of URLs when too close to ending of window.
      *
      * @param  int $window
@@ -169,7 +127,7 @@ class UrlWindow
     protected function getSliderTooCloseToEnding($window)
     {
         $last = $this->paginator->getUrlRange(
-            $this->lastPage() - 2,
+            $this->lastPage() - ($window + 2),
             $this->lastPage()
         );
 
@@ -178,16 +136,6 @@ class UrlWindow
             'slider' => null,
             'last' => $last,
         ];
-    }
-
-    /**
-     * Get the starting URLs of a pagination slider.
-     *
-     * @return array
-     */
-    public function getStart()
-    {
-        return $this->paginator->getUrlRange(1, 1);
     }
 
     /**
@@ -214,9 +162,61 @@ class UrlWindow
     public function getAdjacentUrlRange($onEachSide)
     {
         return $this->paginator->getUrlRange(
-            $this->currentPage(),
-            $this->currentPage()
+            $this->currentPage() - $onEachSide,
+            $this->currentPage() + $onEachSide
         );
     }
 
+    /**
+     * Get the starting URLs of a pagination slider.
+     *
+     * @return array
+     */
+    public function getStart()
+    {
+        return $this->paginator->getUrlRange(1, 2);
+    }
+
+    /**
+     * Get the ending URLs of a pagination slider.
+     *
+     * @return array
+     */
+    public function getFinish()
+    {
+        return $this->paginator->getUrlRange(
+            $this->lastPage() - 1,
+            $this->lastPage()
+        );
+    }
+
+    /**
+     * Determine if the underlying paginator being presented has pages to show.
+     *
+     * @return bool
+     */
+    public function hasPages()
+    {
+        return $this->paginator->lastPage() > 1;
+    }
+
+    /**
+     * Get the current page from the paginator.
+     *
+     * @return int
+     */
+    protected function currentPage()
+    {
+        return $this->paginator->currentPage();
+    }
+
+    /**
+     * Get the last page from the paginator.
+     *
+     * @return int
+     */
+    protected function lastPage()
+    {
+        return $this->paginator->lastPage();
+    }
 }

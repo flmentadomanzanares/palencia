@@ -35,7 +35,7 @@ class Cursillos extends Model
         return ['0' => 'Cursillo...'] + Cursillos::Select('id', 'cursillo')
                 ->where('activo', true)
                 ->orderBy('cursillo', 'ASC')
-                ->Lists('cursillo', 'id');
+                ->Lists('cursillo', 'id')->toArray();
     }
 
     static public function getCursillos(Request $request, $paginateNumber = 25)
@@ -238,7 +238,7 @@ class Cursillos extends Model
             ->ComunidadCursillos($comunidad)
             ->Where('cursillos.activo', true)
             ->distinct()
-            ->Lists('anyos', 'anyos');
+            ->Lists('anyos', 'anyos')->toArray();
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
@@ -250,7 +250,7 @@ class Cursillos extends Model
             ->Where('cursillos.activo', true)
             ->distinct()
             ->orderBy('anyos', 'DESC')
-            ->Lists('anyos', 'anyos');
+            ->Lists('anyos', 'anyos')->toArray();
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 
@@ -276,7 +276,7 @@ class Cursillos extends Model
             ->Where('cursillos.fecha_inicio', '<', $date)
             ->groupBy('Anyos')
             ->orderBy('Anyos')
-            ->Lists('Anyos', 'Anyos');
+            ->Lists('Anyos', 'Anyos')->toArray();
         return $conPlaceHolder ? ['0' => $placeHolder] + $sql : $sql;
     }
 

@@ -47,7 +47,7 @@ class Provincias extends Model
         return ['0' => 'Provincia...'] + Provincias::Select('id', 'provincia')
             ->where('activo', true)
             ->orderBy('provincia', 'ASC')
-            ->Lists('provincia', 'id');
+                ->Lists('provincia', 'id')->toArray();
     }
 
     public static function getProvinciaToList($id)

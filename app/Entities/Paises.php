@@ -15,7 +15,8 @@ class Paises extends Model
             ->where('activo', true)
             ->PaisId($id)
             ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
+            ->Lists('pais', 'id')->toArray();
+
         return $placeholder ? ['0' => $placeholderText] + $sql : $sql;
     }
 
@@ -55,7 +56,7 @@ class Paises extends Model
             ->where('comunidades.activo', true)
             ->where('comunidades.esColaborador', true)
             ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
+                ->Lists('pais', 'id')->toArray();
     }
 
     public static function getPaisesColaboradoresSecretariadosInactivos()
@@ -66,7 +67,7 @@ class Paises extends Model
             ->where('comunidades.activo', false)
             ->where('comunidades.esColaborador', true)
             ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
+                ->Lists('pais', 'id')->toArray();
     }
 
     public static function getPaisesNoColaboradores()
@@ -77,7 +78,7 @@ class Paises extends Model
             ->where('comunidades.activo', true)
             ->where('comunidades.esColaborador', false)
             ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
+                ->Lists('pais', 'id')->toArray();
     }
 
     public static function getPaisesNoColaboradoresSecretariadosInactivos()
@@ -88,7 +89,7 @@ class Paises extends Model
             ->where('comunidades.activo', false)
             ->where('comunidades.esColaborador', false)
             ->orderBy('pais', 'ASC')
-            ->Lists('pais', 'id');
+                ->Lists('pais', 'id')->toArray();
     }
 
     /**

@@ -1,4 +1,6 @@
-<?php namespace Illuminate\Pagination;
+<?php
+
+namespace Illuminate\Pagination;
 
 use ArrayAccess;
 use Countable;
@@ -11,7 +13,6 @@ use IteratorAggregate;
 
 class LengthAwarePaginator extends AbstractPaginator implements Arrayable, ArrayAccess, Countable, IteratorAggregate, Jsonable, LengthAwarePaginatorContract
 {
-
     /**
      * The total number of items before slicing.
      *
@@ -45,8 +46,8 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
         $this->total = $total;
         $this->perPage = $perPage;
         $this->lastPage = (int)ceil($total / $perPage);
+        $this->path = $this->path != '/' ? rtrim($this->path, '/') : $this->path;
         $this->currentPage = $this->setCurrentPage($currentPage, $this->lastPage);
-        $this->path = $this->path != '/' ? rtrim($this->path, '/') . '/' : $this->path;
         $this->items = $items instanceof Collection ? $items : Collection::make($items);
     }
 
@@ -72,6 +73,18 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     }
 
     /**
+     * Get the URL for the next page.
+     *
+     * @return string|null
+     */
+    public function nextPageUrl()
+    {
+        if ($this->lastPage() > $this->currentPage()) {
+            return $this->url($this->currentPage() + 1);
+        }
+    }
+
+    /**
      * Determine if there are more items in the data source.
      *
      * @return bool
@@ -79,6 +92,16 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     public function hasMorePages()
     {
         return $this->currentPage() < $this->lastPage();
+    }
+
+    /**
+     * Get the total number of items being paginated.
+     *
+     * @return int
+     */
+    public function total()
+    {
+        return $this->total;
     }
 
     /**
@@ -109,17 +132,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     }
 
     /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    /**
      * Get the instance as an array.
      *
      * @return array
@@ -140,25 +152,13 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
     }
 
     /**
-     * Get the total number of items being paginated.
+     * Convert the object to its JSON representation.
      *
-     * @return int
-     */
-    public function total()
-    {
-        return $this->total;
-    }
-
-    /**
-     * Get the URL for the next page.
-     *
+     * @param  int $options
      * @return string
      */
-    public function nextPageUrl()
+    public function toJson($options = 0)
     {
-        if ($this->lastPage() > $this->currentPage()) {
-            return $this->url($this->currentPage() + 1);
-        }
+        return json_encode($this->toArray(), $options);
     }
-
 }

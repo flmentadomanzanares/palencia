@@ -24,7 +24,7 @@ class Roles extends Model
     {
         return ['0' => $placeholder] + Roles::where('peso', '>', 0)
             ->orderBy('rol', 'ASC')
-            ->lists('rol', 'id');
+                ->lists('rol', 'id')->toArray();
     }
 
     public function scopeRol($query, $rol)

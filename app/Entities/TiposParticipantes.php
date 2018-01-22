@@ -25,7 +25,7 @@ class TiposParticipantes extends Model
         return ['0' => 'Asistentes...'] + TiposParticipantes::Select('id', 'tipo_participante')
             ->where('activo', true)
             ->orderBy('tipo_participante', 'ASC')
-            ->Lists('tipo_participante', 'id');
+                ->Lists('tipo_participante', 'id')->toArray();
     }
 
     /**

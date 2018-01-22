@@ -1,8 +1,9 @@
-<?php namespace Illuminate\Pagination;
+<?php
+
+namespace Illuminate\Pagination;
 
 trait UrlWindowPresenterTrait
 {
-
     /**
      * Render the actual link slider.
      *
@@ -62,5 +63,4 @@ trait UrlWindowPresenterTrait
 
         return $this->getAvailablePageWrapper($url, $page, $rel);
     }
-
 }

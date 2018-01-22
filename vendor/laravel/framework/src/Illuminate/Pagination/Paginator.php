@@ -1,4 +1,6 @@
-<?php namespace Illuminate\Pagination;
+<?php
+
+namespace Illuminate\Pagination;
 
 use ArrayAccess;
 use Countable;
@@ -11,7 +13,6 @@ use IteratorAggregate;
 
 class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Countable, IteratorAggregate, Jsonable, PaginatorContract
 {
-
     /**
      * Determine if there are more items in the data source.
      *
@@ -36,7 +37,7 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
 
         $this->perPage = $perPage;
         $this->currentPage = $this->setCurrentPage($currentPage);
-        $this->path = $this->path != '/' ? rtrim($this->path, '/') . '/' : $this->path;
+        $this->path = $this->path != '/' ? rtrim($this->path, '/') : $this->path;
         $this->items = $items instanceof Collection ? $items : Collection::make($items);
 
         $this->checkForMorePages();
@@ -68,6 +69,18 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
     }
 
     /**
+     * Get the URL for the next page.
+     *
+     * @return string|null
+     */
+    public function nextPageUrl()
+    {
+        if ($this->hasMore) {
+            return $this->url($this->currentPage() + 1);
+        }
+    }
+
+    /**
      * Determine if there are more items in the data source.
      *
      * @return bool
@@ -95,17 +108,6 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
     }
 
     /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    /**
      * Get the instance as an array.
      *
      * @return array
@@ -121,15 +123,13 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
     }
 
     /**
-     * Get the URL for the next page.
+     * Convert the object to its JSON representation.
      *
-     * @return string|null
+     * @param  int $options
+     * @return string
      */
-    public function nextPageUrl()
+    public function toJson($options = 0)
     {
-        if ($this->hasMore) {
-            return $this->url($this->currentPage() + 1);
-        }
+        return json_encode($this->toArray(), $options);
     }
-
 }

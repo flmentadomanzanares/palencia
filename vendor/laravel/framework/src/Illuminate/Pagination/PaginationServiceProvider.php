@@ -1,10 +1,11 @@
-<?php namespace Illuminate\Pagination;
+<?php
+
+namespace Illuminate\Pagination;
 
 use Illuminate\Support\ServiceProvider;
 
 class PaginationServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the service provider.
      *
@@ -16,9 +17,14 @@ class PaginationServiceProvider extends ServiceProvider
             return $this->app['request']->url();
         });
 
-        Paginator::currentPageResolver(function () {
-            return $this->app['request']->input('page');
+        Paginator::currentPageResolver(function ($pageName = 'page') {
+            $page = $this->app['request']->input($pageName);
+
+            if (filter_var($page, FILTER_VALIDATE_INT) !== false && (int)$page >= 1) {
+                return $page;
+            }
+
+            return 1;
         });
     }
-
 }

@@ -14,7 +14,7 @@ class Localidades extends Model
         return ['0' => 'Localidad...'] + Localidades::Select('id', 'localidad')
             ->where('activo', true)
             ->orderBy('localidad', 'ASC')
-            ->Lists('localidad', 'id');
+                ->Lists('localidad', 'id')->toArray();
     }
 
     public static function getLocalidadToList($id)
