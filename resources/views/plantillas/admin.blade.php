@@ -159,7 +159,7 @@
 @yield("contenido")
 
 <footer>
-    <span>&copy; Palencia v2.1.0 | KOALNET - {!! date("Y") !!}</span>
+    <span>&copy; Palencia v2.5.0 | KOALNET - {!! date("Y") !!}</span>
 </footer>
 {!! HTML::script('js/jquery-2.1.1.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
