@@ -127,7 +127,7 @@
             width: 138mm;
             /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
-            float: left;
+            margin-left: 0;
         }
 
         .listDcha {
@@ -139,7 +139,7 @@
             width: 50mm;
             /*border-bottom: 1px solid #4a4949;*/
             vertical-align: -15px;
-            margin-left: 530px;
+            margin-left: 540px;
         }
 
         .total {
