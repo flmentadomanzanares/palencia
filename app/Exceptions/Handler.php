@@ -40,10 +40,9 @@ class Handler extends ExceptionHandler
         if ($this->isHttpException($e)) {
             switch ($e->getStatusCode()) {
                 // not found
-                case 404:
-                    return redirect()->guest('inicio');
-                    break;
-
+                case '404':
+                    //Method not alolowed
+                case '405':
                 // internal error
                 case '500':
                     return redirect()->guest('inicio');

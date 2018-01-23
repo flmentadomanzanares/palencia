@@ -41,12 +41,13 @@ class CopiaSeguridadController extends Controller
             $DBUSER = env('DB_USERNAME');
             $DBPASS = env('DB_PASSWORD');
 
-            $compression = False;
+            $compression = config("copiadeseguridad.compresion");
             $zp = null;
             $tables = null;
             $handle = null;
             $directorio = "backups";
             $separatorPath = "/";
+            $fileExtension = "txt";
 
             $DBH = new PDO("mysql:host=" . $DBHOST . ";dbname=" . $DBNAME . "; charset=utf8", $DBUSER, $DBPASS);
             if (is_null($DBH) || $DBH === FALSE) {
@@ -59,7 +60,7 @@ class CopiaSeguridadController extends Controller
                 $backupfile .= '.sql.gz';
                 $zp = gzopen($backupfile, "a9");
             } else {
-                $backupfile .= '.sql';
+                $backupfile .= $fileExtension;
                 $handle = fopen($backupfile, 'w+');
             }
 //array of all database field types which just take numbers
