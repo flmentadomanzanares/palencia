@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
-use Palencia\Http\Requests;
 
 
 class CopiaSeguridadController extends Controller
@@ -34,7 +33,6 @@ class CopiaSeguridadController extends Controller
         $logEnvios = [];
         //Ruta para linux
         $backupfile = "CS-PALENCIA_" . date("Y-m-d_H_i_s") . '.sql';
-
         $dbhost = env('DB_HOST');
         $dbuser = env('DB_USERNAME');
         $dbpass = env('DB_PASSWORD');
@@ -42,7 +40,12 @@ class CopiaSeguridadController extends Controller
         //Realizamos la copia de seguridad
         $fileCopiaSeguridad = "backups/" . $backupfile;
         $copiaSeguridad = "mysqldump --compact --opt --host=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "    " . $dbnamedb . ">" . $fileCopiaSeguridad;
-        System($copiaSeguridad);
+        try {
+            System($copiaSeguridad);
+            $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $fileCopiaSeguridad, true];
+        } catch (\Exception $e) {
+            $logEnvios[] = ["No se ha podedido acceder a la consola", "", false];
+        }
         //Realizamos la copia de seguridad
         $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $fileCopiaSeguridad, true];
         $titulo = "Operaciones Realizadas";
