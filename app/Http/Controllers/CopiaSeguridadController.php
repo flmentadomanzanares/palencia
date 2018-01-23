@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Palencia\Entities\Comunidades;
-
+use PDO;
 
 class CopiaSeguridadController extends Controller
 {
@@ -32,22 +32,148 @@ class CopiaSeguridadController extends Controller
         }
         $logEnvios = [];
         //Ruta para linux
-        $backupfile = "CS-PALENCIA_" . date("Y-m-d_H_i_s") . '.sql';
-        $dbhost = env('DB_HOST');
-        $dbuser = env('DB_USERNAME');
-        $dbpass = env('DB_PASSWORD');
-        $dbnamedb = env('DB_DATABASE');
         //Realizamos la copia de seguridad
-        $fileCopiaSeguridad = "backups/" . $backupfile;
-        $copiaSeguridad = "mysqldump --compact --opt --host=" . $dbhost . " --user=" . $dbuser . " --password=" . $dbpass . "    " . $dbnamedb . ">" . $fileCopiaSeguridad;
+
         try {
-            System($copiaSeguridad);
-            $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $fileCopiaSeguridad, true];
+            //System($copiaSeguridad);
+            $DBHOST = env('DB_HOST');
+            $DBNAME = env('DB_DATABASE');
+            $DBUSER = env('DB_USERNAME');
+            $DBPASS = env('DB_PASSWORD');
+
+            $compression = False;
+            $zp = null;
+            $tables = null;
+            $handle = null;
+            $directorio = "backups";
+            $separatorPath = "/";
+
+            $DBH = new PDO("mysql:host=" . $DBHOST . ";dbname=" . $DBNAME . "; charset=utf8", $DBUSER, $DBPASS);
+            if (is_null($DBH) || $DBH === FALSE) {
+                die('ERROR');
+            }
+            $DBH->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_NATURAL);
+            $backupfile = $directorio . $separatorPath . "CS-PALENCIA_" . date("Y-m-d_H_i_s");
+//create/open files
+            if ($compression) {
+                $backupfile .= '.sql.gz';
+                $zp = gzopen($backupfile, "a9");
+            } else {
+                $backupfile .= '.sql';
+                $handle = fopen($backupfile, 'w+');
+            }
+//array of all database field types which just take numbers
+            $numtypes = array('tinyint', 'smallint', 'mediumint', 'int', 'bigint', 'float', 'double', 'decimal', 'real');
+//get all of the tables
+            if (empty($tables)) {
+                $pstm1 = $DBH->query('SHOW TABLES');
+                while ($row = $pstm1->fetch(PDO::FETCH_NUM)) {
+                    $tables[] = $row[0];
+                }
+            } else {
+                $tables = is_array($tables) ? $tables : explode(',', $tables);
+            }
+//cycle through the table(s)
+            foreach ($tables as $table) {
+                $result = $DBH->query("SELECT * FROM $table");
+                $num_fields = $result->columnCount();
+                $num_rows = $result->rowCount();
+                $return = "";
+                //uncomment below if you want 'DROP TABLE IF EXISTS' displayed
+                //$return.= 'DROP TABLE IF EXISTS `'.$table.'`;';
+                //table structure
+                $pstm2 = $DBH->query("SHOW CREATE TABLE $table");
+                $row2 = $pstm2->fetch(PDO::FETCH_NUM);
+                $ifnotexists = str_replace('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS', $row2[1]);
+                $return .= "\n\n" . $ifnotexists . ";\n\n";
+                if ($compression) {
+                    gzwrite($zp, $return);
+                } else {
+                    fwrite($handle, $return);
+                }
+                $return = "";
+                //insert values
+                if ($num_rows) {
+                    $return = 'INSERT INTO `' . "$table" . "` (";
+                    $pstm3 = $DBH->query("SHOW COLUMNS FROM $table");
+                    $count = 0;
+                    $type = array();
+                    while ($rows = $pstm3->fetch(PDO::FETCH_NUM)) {
+                        if (stripos($rows[1], '(')) {
+                            $type[$table][] = stristr($rows[1], '(', true);
+                        } else {
+                            $type[$table][] = $rows[1];
+                        }
+                        $return .= "`" . $rows[0] . "`";
+                        $count++;
+                        if ($count < ($pstm3->rowCount())) {
+                            $return .= ", ";
+                        }
+                    }
+                    $return .= ")" . ' VALUES';
+                    if ($compression) {
+                        gzwrite($zp, $return);
+                    } else {
+                        fwrite($handle, $return);
+                    }
+                    $return = "";
+                }
+                $count = 0;
+                while ($row = $result->fetch(PDO::FETCH_NUM)) {
+                    $return = "\n(";
+                    for ($j = 0; $j < $num_fields; $j++) {
+                        if (isset($row[$j])) {
+                            //if number, take away "". else leave as string
+                            if ((in_array($type[$table][$j], $numtypes)) && $row[$j] !== '') {
+                                $return .= $row[$j];
+                            } else {
+                                $return .= $DBH->quote($row[$j]);
+                            }
+                        } else {
+                            $return .= 'NULL';
+                        }
+                        if ($j < ($num_fields - 1)) {
+                            $return .= ',';
+                        }
+                    }
+                    $count++;
+                    if ($count < ($result->rowCount())) {
+                        $return .= "),";
+                    } else {
+                        $return .= ");";
+                    }
+                    if ($compression) {
+                        gzwrite($zp, $return);
+                    } else {
+                        fwrite($handle, $return);
+                    }
+                    $return = "";
+                }
+                $return = "\n\n-- ------------------------------------------------ \n\n";
+                if ($compression) {
+                    gzwrite($zp, $return);
+                } else {
+                    fwrite($handle, $return);
+                }
+                $return = "";
+            }
+            $error1 = $pstm2->errorInfo();
+            $error2 = $pstm3->errorInfo();
+            $error3 = $result->errorInfo();
+            echo $error1[2];
+            echo $error2[2];
+            echo $error3[2];
+            $fileSize = 0;
+            if ($compression) {
+                gzclose($zp);
+            } else {
+                fclose($handle);
+            }
+            $logEnvios[] = ["Creada copia de seguridad para la comunidad " . $remitente->comunidad, $backupfile, true];
         } catch (\Exception $e) {
-            $logEnvios[] = ["No se ha podedido acceder a la consola", "", false];
+            $logEnvios[] = ["No se ha podedido acceder a la consola." . $e->getMessage(), "", false];
         }
         //Realizamos la copia de seguridad
-        $logEnvios[] = ["Creada copia de seguridad para la comunidad  " . $remitente->comunidad, $fileCopiaSeguridad, true];
         $titulo = "Operaciones Realizadas";
         return view('copiaSeguridad.listadoLog',
             compact('titulo', 'logEnvios'));
