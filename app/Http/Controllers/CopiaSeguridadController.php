@@ -41,7 +41,7 @@ class CopiaSeguridadController extends Controller
             $DBUSER = env('DB_USERNAME');
             $DBPASS = env('DB_PASSWORD');
 
-            $compression = config("copiadeseguridad.compresion");
+            $compression = true;
             $zp = null;
             $tables = null;
             $handle = null;
