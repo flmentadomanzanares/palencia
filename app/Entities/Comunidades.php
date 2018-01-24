@@ -84,11 +84,11 @@ class Comunidades extends Model
             ->ModalidadComunicacion($modalidad)
             ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
-            ->take(config('opciones.envios.comunidadesMax'))
+            ->MaxComunidadesParaEnviar(config('opciones.maxComunidadesEnvioRespuestas.maxComunidades'))
             ->get();
     }
 
-    static public function obtenerComunidadesPDF($comunidad = array())
+    static public function obtenerComunidadesPDF($comunidadesIds = array())
     {
         return Comunidades::Select('comunidades.id', 'comunidades.comunidad', 'tipos_secretariados.tipo_secretariado',
             'comunidades.direccion', 'paises.pais', 'provincias.provincia', 'localidades.localidad', 'comunidades.cp',
@@ -99,10 +99,10 @@ class Comunidades extends Model
             ->leftJoin('paises', 'comunidades.pais_id', '=', 'paises.id')
             ->leftJoin('provincias', 'comunidades.provincia_id', '=', 'provincias.id')
             ->leftJoin('localidades', 'comunidades.localidad_id', '=', 'localidades.id')
-            ->ComunidadesIds($comunidad)
+            ->ComunidadesIds($comunidadesIds)
             ->where("comunidades.activo", true)
             ->orderBy("comunidades.comunidad")
-            ->take(config('opciones.envios.comunidadesMax'))
+            ->MaxComunidadesParaEnviar(config('opciones.maxComunidadesEnvioSolicitudes.maxComunidades'))
             ->get();
     }
 
@@ -479,10 +479,12 @@ class Comunidades extends Model
 
     public function scopeComunidadesIds($query, $comunidadesIds = array())
     {
+
         if (count($comunidadesIds) > 0) {
             $query->whereIn('comunidades.id', $comunidadesIds);
         }
         return $query;
+
     }
 
     public function scopeFilterComunidadId($query, $comunidadId = 0)
@@ -505,6 +507,14 @@ class Comunidades extends Model
     {
         if (!is_null($esPropia)) {
             $query->where('comunidades.esPropia', filter_var($esPropia, FILTER_VALIDATE_BOOLEAN));
+        }
+        return $query;
+    }
+
+    public function scopeMaxComunidadesParaEnviar($query, $maxValor)
+    {
+        if (is_numeric($maxValor) && $maxValor > 0) {
+            $query->take($maxValor);
         }
         return $query;
     }

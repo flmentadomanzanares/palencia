@@ -41,13 +41,13 @@ class CopiaSeguridadController extends Controller
             $DBUSER = env('DB_USERNAME');
             $DBPASS = env('DB_PASSWORD');
 
-            $compression = true;
             $zp = null;
             $tables = null;
             $handle = null;
-            $directorio = "backups";
+            $compression = config('opciones.copiaDeSeguridad.usarCompresion');
+            $directorio = config('opciones.copiaDeSeguridad.directorioBase');
             $separatorPath = "/";
-            $fileExtension = "txt";
+
 
             $DBH = new PDO("mysql:host=" . $DBHOST . ";dbname=" . $DBNAME . "; charset=utf8", $DBUSER, $DBPASS);
             if (is_null($DBH) || $DBH === FALSE) {
@@ -57,10 +57,10 @@ class CopiaSeguridadController extends Controller
             $backupfile = $directorio . $separatorPath . "CS-PALENCIA_" . date("Y-m-d_H_i_s");
 //create/open files
             if ($compression) {
-                $backupfile .= '.sql.gz';
+                $backupfile .= '.' . config('opciones.copiaDeSeguridad.comprimido') . 'gz';
                 $zp = gzopen($backupfile, "a9");
             } else {
-                $backupfile .= $fileExtension;
+                $backupfile .= '.' . config('opciones.copiaDeSeguridad.sinComprimir');
                 $handle = fopen($backupfile, 'w+');
             }
 //array of all database field types which just take numbers

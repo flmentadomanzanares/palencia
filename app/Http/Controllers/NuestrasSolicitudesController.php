@@ -75,7 +75,6 @@ class NuestrasSolicitudesController extends Controller
         $comunidadesDestinatariasIds = $request->get('comunidadesDestinatarias');
         $comunidadesDestinatarias = Comunidades::obtenerComunidadesPDF($comunidadesDestinatariasIds);
         $cursillos = Cursillos::obtenerComunidadesCursillosPDF($cursillosIds);
-
         //Verificación
         if (count($comunidadesDestinatarias) == 0 || count($cursillos) == 0) {
             return redirect()->

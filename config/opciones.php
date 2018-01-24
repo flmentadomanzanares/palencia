@@ -7,7 +7,7 @@
  */
 return [
     'verErrorMailServer' => true,
-    'paginacion' => 400,
+    'paginacion' => 250,
     'numeroComunidadesPropias' => 1,
     'incluirModalAltas' => false,
     'campoUser' => [
@@ -51,7 +51,12 @@ return [
     'envios' => [
         'timeout' => 0,
         'seMaxtTimeAt' => 0,
-        'comunidadesMax' => 0, //0=todos
+    ],
+    'maxComunidadesEnvioSolicitudes' => [
+        'maxComunidades' => 0 //Todos
+    ],
+    'maxComunidadesEnviorespuestas' => [
+        'maxComunidades' => 0 //Todos
     ],
     'tipo' => [
         'carta' => 'carta',
@@ -61,5 +66,15 @@ return [
         "active" => true,
         "email" => 'fmentado@koalnet.es',
     ],
+    "copiaDeSeguridad" => [
+        "comprimido" => [
+            "extensionArchivo" => "sql",
+        ],
+        "sinComprimir" => [
+            "extensionArchivo" => "txt",
+        ],
+        "directorioBase" => "backups",
+        "usarCompresion" => true,
+    ]
 ];
 ?>
